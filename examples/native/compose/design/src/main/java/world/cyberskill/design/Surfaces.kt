@@ -58,8 +58,22 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.unit.dp
 
+const val csColorDefaultValue = "#f4ba17"
+const val csColorHexMaxLength = 7
+const val csColorTriggerHasPopup = "dialog"
+const val csColorListboxRole = "listbox"
+const val csColorOptionRole = "option"
 val csColorDefaultSwatches = listOf("#F4BA17", "#C77B4A", "#E0632B", "#C43D1F", "#7A9B57", "#3E5A2E", "#4E8E9B", "#2E5E7E", "#BFB29B", "#45210E")
 fun csColorPlacement(placement: String?) = placement ?: "bottom-start"
+fun csColorDescriptionId(id: String, description: String?): String? =
+  if (description.isNullOrEmpty()) null else "$id-description"
+fun csColorErrorId(id: String, error: String?): String? =
+  if (error.isNullOrEmpty()) null else "$id-error"
+fun csColorDescribedBy(explicit: String?, descriptionId: String?, errorId: String?): String? {
+  val parts = listOf(explicit, descriptionId, errorId).filter { !it.isNullOrEmpty() }
+  return if (parts.isEmpty()) null else parts.joinToString(" ")
+}
+fun csColorInvalid(error: String?): Boolean = !error.isNullOrEmpty()
 fun csColorCommit(value: String): String? {
   if (value.length != 7 || value[0] != '#') return null
   if (value.drop(1).any { it !in '0'..'9' && it !in 'a'..'f' && it !in 'A'..'F' }) return null
@@ -99,8 +113,18 @@ fun csColorShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Do
   return CsColorPlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement)
 }
 
+const val csSplitterDefaultInitial = 50.0
+const val csSplitterDefaultMin = 20.0
+const val csSplitterDefaultMax = 80.0
+const val csSplitterDefaultHeight = 180
+const val csSplitterSeparatorRole = "separator"
+const val csSplitterOrientation = "vertical"
 fun csSplitterClamp(value: Double, lower: Double = 20.0, upper: Double = 80.0): Double =
   minOf(upper, maxOf(lower, value))
+fun csSplitterRightPercent(leftPercent: Double, lower: Double = 20.0, upper: Double = 80.0): Double =
+  100.0 - csSplitterClamp(leftPercent, lower, upper)
+fun csSplitterAcceptsKey(composing: Boolean, keyCode: Int): Boolean =
+  !composing && keyCode != 229
 
 fun csSplitterNudge(value: Double, right: Boolean, rtl: Boolean, lower: Double = 20.0, upper: Double = 80.0): Double {
   val delta = (if (right) 2.0 else -2.0) * (if (rtl) -1 else 1)
@@ -129,7 +153,20 @@ fun csSplitterBoundsText(value: Double, lower: Double = 20.0, upper: Double = 80
   "${csSplitterClamp(value, lower, upper).toInt()} (${lower.toInt()}-${upper.toInt()})"
 
 const val csDatePlaceholder = "Select a date"
+const val csDateTriggerHasPopup = "dialog"
+const val csDateDialogRole = "dialog"
+fun csDateIconSize(): Int = 16
+fun csDateIconStrokeWidth(): Double = 1.8
 fun csDatePlacement(placement: String?) = placement ?: "bottom-start"
+fun csDateDescriptionId(id: String, description: String?): String? =
+  if (description.isNullOrEmpty()) null else "$id-description"
+fun csDateErrorId(id: String, error: String?): String? =
+  if (error.isNullOrEmpty()) null else "$id-error"
+fun csDateDescribedBy(explicit: String?, descriptionId: String?, errorId: String?): String? {
+  val parts = listOf(explicit, descriptionId, errorId).filter { !it.isNullOrEmpty() }
+  return if (parts.isEmpty()) null else parts.joinToString(" ")
+}
+fun csDateInvalid(error: String?): Boolean = !error.isNullOrEmpty()
 fun csDatePlaceholderText(text: String?, fallback: String) = text ?: fallback
 fun csDateCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
@@ -207,7 +244,12 @@ fun csDateParse(text: String, language: String?): CsCalendarDate? {
 
 const val csChatYou = "You"
 const val csChatLumi = "Lumi"
+const val csChatDefaultRole = "lumi"
+const val csChatArticleRole = "article"
 fun csChatIsUser(role: String): Boolean = role == "user"
+fun csChatRootClass(role: String): String = "cs-chat cs-chat--$role"
+fun csChatShowsSlot(value: String?): Boolean = !value.isNullOrEmpty()
+fun csChatUserInitial(speaker: String): String = speaker.take(1).uppercase()
 fun csChatSpeaker(name: String?, role: String, you: String, lumi: String) = name ?: if (csChatIsUser(role)) you else lumi
 fun csChatDefaultAvatar(role: String, you: String): String = if (csChatIsUser(role)) you else csAiStyleLumiGlyph
 fun csChatCopy(key: String, language: String?): String {
@@ -221,7 +263,17 @@ fun csChatCopy(key: String, language: String?): String {
   return key
 }
 const val csImagePreview = "Preview image"
+const val csImageDialogRole = "dialog"
 const val csImageFallbackMark = "M21 15l-5-5-9 9"
+fun csImageFallbackIconSize(): Int = 28
+fun csImageFallbackIconStrokeWidth(): Double = 1.6
+fun csImageRootClass(state: String, canPreview: Boolean): String {
+  val classes = mutableListOf("cs-image")
+  if (state == "loading") classes.add("is-loading")
+  if (canPreview) classes.add("is-zoomable")
+  return classes.joinToString(" ")
+}
+fun csImageAcceptsPreviewKey(key: String): Boolean = key == "Enter" || key == " "
 fun csImagePreviewName(alt: String, fallback: String) = if (alt.isEmpty()) fallback else "$fallback: $alt"
 fun csImageCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
@@ -238,15 +290,24 @@ fun csImagePreviewOpen(zoom: Boolean, preview: Boolean, state: String) = zoom &&
 fun csImageDialogName(alt: String, fallback: String) = if (alt.isEmpty()) fallback else alt
 fun csImageShowsFallback(fallback: String?): Boolean = !fallback.isNullOrEmpty()
 
+const val csIconDefaultSize = "md"
+const val csIconViewBox = "0 0 24 24"
 const val csIconDefaultStrokeWidth = 1.75
-fun csIconPoints(size: String): Int = when (size) { "sm" -> 16; "lg" -> 24; else -> 20 }
+fun csIconIsDecorative(label: String): Boolean = label.isEmpty()
+fun csIconRole(label: String): String? = if (csIconIsDecorative(label)) null else "img"
+fun csIconPoints(size: String): Int = when (size) { "xs" -> 14; "sm" -> 16; "lg" -> 24; "xl" -> 32; else -> 20 }
+const val csAnchorNavRole = "navigation"
 fun csAnchorActive(visibleIds: List<String>): String? = visibleIds.firstOrNull()
-fun csAnchorResolvedActive(visibleIds: List<String>, itemIds: List<String>): String? = csAnchorActive(visibleIds) ?: itemIds.firstOrNull()
+fun csAnchorResolvedActive(visibleIds: List<String>, itemIds: List<String>, explicit: String? = null): String? =
+  if (!explicit.isNullOrEmpty()) explicit else csAnchorActive(visibleIds) ?: itemIds.firstOrNull()
 fun csAnchorShowsTitle(title: String?): Boolean = !title.isNullOrEmpty()
+fun csAnchorTitleId(baseId: String, title: String?): String? = if (csAnchorShowsTitle(title)) "$baseId-title" else null
+fun csAnchorItemHref(id: String): String = "#$id"
+fun csAnchorLinkClass(active: Boolean): String = if (active) "cs-anchor__link is-active" else "cs-anchor__link"
 fun csAnchorAriaCurrent(isActive: Boolean): String? = if (isActive) "location" else null
 
 @Composable
-fun CsColorPicker(value: String = "#F4BA17", swatches: List<String> = csColorDefaultSwatches, onChange: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, labelledBy: String? = null, portal: Boolean = true, placement: String? = null, language: String? = null) {
+fun CsColorPicker(value: String = csColorDefaultValue, swatches: List<String> = csColorDefaultSwatches, onChange: (String) -> Unit = {}, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, labelledBy: String? = null, description: String? = null, error: String? = null, required: Boolean = false, ariaDescribedBy: String? = null, portal: Boolean = true, placement: String? = null, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val fallback = csColorCopy("label", locale)
@@ -309,11 +370,13 @@ fun CsColorPicker(value: String = "#F4BA17", swatches: List<String> = csColorDef
         true
       })
     } }
+    if (!description.isNullOrEmpty()) Text(description, color = pack.colorTextMuted.toComposeColor())
+    if (!error.isNullOrEmpty()) Text(error, color = pack.colorSemanticDangerText.toComposeColor())
   }
 }
 
 @Composable
-fun CsSplitter(start: String, end: String, percent: Double, onChange: (Double) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, min: Double = 20.0, max: Double = 80.0, height: Int = 240, label: String? = null, language: String? = null) {
+fun CsSplitter(start: String, end: String, percent: Double = csSplitterDefaultInitial, onChange: (Double) -> Unit = {}, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, initial: Double = csSplitterDefaultInitial, min: Double = csSplitterDefaultMin, max: Double = csSplitterDefaultMax, height: Int = csSplitterDefaultHeight, label: String? = null, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val rtl = LocalLayoutDirection.current == LayoutDirection.Rtl
   val spoken = csSplitterName(label, csSplitterCopy("label", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
@@ -349,7 +412,7 @@ fun CsSplitter(start: String, end: String, percent: Double, onChange: (Double) -
 }
 
 @Composable
-fun CsDatePicker(text: String, requestedOpen: Boolean, disabled: Boolean, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, labelledBy: String? = null, placeholder: String? = null, portal: Boolean = true, placement: String? = null, language: String? = null, onValue: (String) -> Unit = {}) {
+fun CsDatePicker(text: String, requestedOpen: Boolean, disabled: Boolean, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, labelledBy: String? = null, description: String? = null, error: String? = null, required: Boolean = false, ariaDescribedBy: String? = null, placeholder: String? = null, portal: Boolean = true, placement: String? = null, language: String? = null, onValue: (String) -> Unit = {}) {
   val open = csDateOpen(requestedOpen, disabled)
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val fallback = csDateCopy("placeholder", locale)
@@ -402,11 +465,13 @@ fun CsDatePicker(text: String, requestedOpen: Boolean, disabled: Boolean, onOpen
       if (panelScale != nextScale) panelScale = nextScale
       if (natural == null) natural = nextSize else if (fitted != nextSize) fitted = nextSize
     }.offset(x = with(density) { (place?.x ?: 0.0).toFloat().toDp() }, y = with(density) { (place?.y ?: 0.0).toFloat().toDp() }).alpha(if (place == null) 0f else 1f))
+    if (!description.isNullOrEmpty()) Text(description, color = csModePack(dark, highContrast, compact).colorTextMuted.toComposeColor())
+    if (!error.isNullOrEmpty()) Text(error, color = csModePack(dark, highContrast, compact).colorSemanticDangerText.toComposeColor())
   }
 }
 
 @Composable
-fun CsChatMessage(role: String = "lumi", body: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, name: String? = null, avatar: String? = null, language: String? = null) {
+fun CsChatMessage(role: String = csChatDefaultRole, body: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, name: String? = null, meta: String? = null, actions: String? = null, avatar: String? = null, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val user = csChatIsUser(role)
   val you = csChatCopy("you", csComboboxResolvedLanguage(language, LocalCsLanguage.current))
@@ -414,14 +479,18 @@ fun CsChatMessage(role: String = "lumi", body: String, dark: Boolean, highContra
   val avatarText = avatar ?: csChatDefaultAvatar(role, you)
   Column(modifier, verticalArrangement = Arrangement.spacedBy(csAiStyleChatColGap())) {
     Text(avatarText, color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.clearAndSetSemantics {})
-    Text(speaker, color = pack.colorTextMuted.toComposeColor(), fontSize = csAiStyleChatNameFontSize(pack).value.sp)
+    Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+      Text(speaker, color = pack.colorTextMuted.toComposeColor(), fontSize = csAiStyleChatNameFontSize(pack).value.sp)
+      if (csChatShowsSlot(meta)) Text(meta ?: "", color = pack.colorTextMuted.toComposeColor(), fontSize = csAiStyleChatNameFontSize(pack).value.sp)
+    }
     Text(body, color = if (user) pack.colorSemanticInfoFg.toComposeColor() else pack.colorTextPrimary.toComposeColor(), fontSize = csAiStyleChatBubbleFontSize(pack).value.sp, modifier = Modifier.padding(horizontal = csAiStyleChatBubblePaddingX(), vertical = csAiStyleChatBubblePaddingY()))
+    if (csChatShowsSlot(actions)) Text(actions ?: "", color = pack.colorTextMuted.toComposeColor())
   }
 }
 
 @Composable
-fun CsAnchor(title: String = "", items: List<Pair<String, String>>, visibleIds: List<String> = emptyList(), dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
-  val active = csAnchorResolvedActive(visibleIds, items.map { it.first })
+fun CsAnchor(title: String = "", items: List<Pair<String, String>> = emptyList(), visibleIds: List<String> = emptyList(), dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, activeId: String? = null, onSelect: (String) -> Unit = {}) {
+  val active = csAnchorResolvedActive(visibleIds, items.map { it.first }, activeId)
   val pack = csModePack(dark, highContrast, compact)
   Column(modifier.widthIn(min = csControlsBatchStyleAnchorMinWidth())) {
     if (csAnchorShowsTitle(title)) Text(title, color = pack.colorTextPrimary.toComposeColor(), fontSize = csControlsBatchStyleAnchorTitleFontSize.sp)
@@ -434,7 +503,11 @@ fun CsAnchor(title: String = "", items: List<Pair<String, String>>, visibleIds: 
 
 data class CsCitation(val title: String, val source: String? = null, val href: String? = null)
 const val csCitationLabel = "Sources"
+const val csCitationRootClass = "cs-citations"
+const val csCitationItemClass = "cs-citation"
+const val csCitationTarget = "_blank"
 const val csCitationRel = "noreferrer"
+fun csCitationShowsHeading(heading: String?): Boolean = !heading.isNullOrEmpty()
 fun csCitationHeading(label: String?, omitted: Boolean, fallback: String) = if (omitted) fallback else if (label.isNullOrEmpty()) null else label
 fun csCitationCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
@@ -464,6 +537,9 @@ fun CsCitationList(items: List<String> = emptyList(), dark: Boolean, highContras
   }
 }
 
+const val csScrollAreaRootClass = "cs-scroll-area"
+const val csScrollAreaTabIndex = 0
+fun csScrollAreaMaxBlockSize(maxHeight: Int?): String? = maxHeight?.let { "${it}px" }
 @Composable
 fun CsScrollArea(maxHeight: Int? = null, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
   Column(modifier.let { if (maxHeight != null) it.heightIn(max = maxHeight.dp) else it }.padding(csDataStyleScrollAreaFocusOutlineWidth(csDataStyleScrollAreaTabStop() < 0))) { content() }
@@ -495,6 +571,11 @@ fun CsImage(dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Mo
   }
 }
 
+const val csLogoViewBox = "0 0 512 512"
+const val csLogoRootClass = "cs-logo"
+fun csLogoRole(decorative: Boolean): String? = if (decorative) null else "img"
+fun csLogoTitleMarkup(decorative: Boolean, title: String): String =
+  if (decorative) "" else "<title>${csLogoStyleEscapeTitle(title)}</title>"
 @Composable
 fun CsLogo(title: String = csLogoStyleDefaultTitle, decorative: Boolean = false, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, size: androidx.compose.ui.unit.Dp = csLogoStyleDefaultSize()) {
   val pack = csModePack(dark, highContrast, compact)
@@ -504,6 +585,16 @@ fun CsLogo(title: String = csLogoStyleDefaultTitle, decorative: Boolean = false,
 }
 
 const val csContextMenu = "Context menu"
+const val csContextZoneRole = "group"
+const val csContextMenuRole = "menu"
+const val csContextItemRole = "menuitem"
+const val csContextSeparatorRole = "separator"
+const val csContextDefaultPlacement = "bottom-start"
+fun csContextResolvedPlacement(placement: String?): String = placement ?: csContextDefaultPlacement
+fun csContextItemClass(danger: Boolean): String = if (danger) "cs-menu__item cs-menu__item--danger" else "cs-menu__item"
+fun csContextOpensFromKeyboard(key: String, shiftKey: Boolean): Boolean = key == "ContextMenu" || (key == "F10" && shiftKey)
+fun csContextAcceptsKey(composing: Boolean, keyCode: Int): Boolean = !composing && keyCode != 229
+fun csContextEscapeClose(): Boolean = false
 fun csContextIsSeparator(item: String) = item == "-"
 fun csContextFirst(items: List<String>) = items.indexOfFirst { !csContextIsSeparator(it) }.takeIf { it >= 0 }
 fun csContextPoint(clientX: Double, clientY: Double, left: Double, top: Double) = (clientX - left) to (clientY - top)
@@ -566,7 +657,7 @@ fun csContextCopy(key: String, language: String?): String {
 }
 
 @Composable
-fun CsContextMenu(items: List<String>, onSelect: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, portal: Boolean = true, placement: String? = null, language: String? = null) {
+fun CsContextMenu(items: List<String> = emptyList(), onSelect: (String) -> Unit = {}, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, dangerItems: Set<String> = emptySet(), portal: Boolean = true, placement: String? = null, tabIndex: Int = 0, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   var raw by remember { mutableStateOf<Pair<Double, Double>?>(null) }
   var active by remember { mutableStateOf(0) }
@@ -657,7 +748,11 @@ fun CsContextMenu(items: List<String>, onSelect: (String) -> Unit, dark: Boolean
   }
 }
 
+const val csNavRole = "navigation"
+const val csNavChevronGlyph = "▾"
 const val csNavGap = 8
+fun csNavTopClass(open: Boolean): String = if (open) "cs-navmenu__top is-open" else "cs-navmenu__top"
+fun csNavEscapeClose(): Boolean = false
 fun csNavHref(href: String?) = if (href.isNullOrEmpty()) "#" else href
 fun csNavShowsDescription(description: String?) = description != null && description.isNotEmpty()
 fun csNavClick(open: Int?, index: Int) = if (open == index) null else index
@@ -693,7 +788,7 @@ private fun CsNavPanelButton(index: Int, item: CsNavMenuItem, open: Int?, onOpen
 }
 
 @Composable
-fun CsNavigationMenu(items: List<CsNavMenuItem>, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, portal: Boolean = true, placement: String? = null) {
+fun CsNavigationMenu(items: List<CsNavMenuItem> = emptyList(), dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, portal: Boolean = true, placement: String? = null, ariaLabel: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   var open by remember { mutableStateOf<Int?>(null) }
   var anchors by remember { mutableStateOf(mapOf<Int, CsFloatingRect>()) }
@@ -770,27 +865,38 @@ fun CsNavigationMenu(items: List<CsNavMenuItem>, dark: Boolean, highContrast: Bo
   }
 }
 
+const val csCardSlotHeaderClass = "cs-card__header"
+const val csCardSlotTitleClass = "cs-card__title"
+const val csCardSlotSubtitleClass = "cs-card__subtitle"
+const val csCardSlotBodyClass = "cs-card__body"
+const val csCardSlotFooterClass = "cs-card__footer"
+fun csCardSlotShowsTitle(title: String?): Boolean = csDataStyleCardShowsSlot(title)
+fun csCardSlotShowsSubtitle(subtitle: String?): Boolean = csDataStyleCardShowsSlot(subtitle)
+
 @Composable
-fun CsCardHeader(title: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, subtitle: String? = null) {
+fun CsCardHeader(title: String = "", dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, subtitle: String? = null, children: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   Column(modifier.padding(start = csDataStyleCardHeaderPaddingX(), top = csDataStyleCardHeaderPaddingTop(), end = csDataStyleCardHeaderPaddingX(), bottom = csDataStyleCardHeaderPaddingBottom()), verticalArrangement = Arrangement.spacedBy(csDataStyleCardSubtitleMarginTop())) {
     if (csDataStyleCardShowsSlot(title)) Text(title, color = pack.colorTextPrimary.toComposeColor(), fontWeight = FontWeight.Bold)
     if (csDataStyleCardShowsSlot(subtitle)) Text(subtitle ?: "", color = pack.colorTextMuted.toComposeColor(), fontSize = csDataStyleCardSubtitleFontSize(pack).value.sp)
+    if (csDataStyleCardShowsSlot(children)) Text(children ?: "", color = pack.colorTextPrimary.toComposeColor())
   }
 }
 
 @Composable
-fun CsCardBody(text: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
+fun CsCardBody(text: String = "", dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
   Text(text, color = csModePack(dark, highContrast, compact).colorTextPrimary.toComposeColor(), modifier = modifier.padding(horizontal = csDataStyleCardBodyPaddingX(), vertical = csDataStyleCardBodyPaddingY()))
 }
 
 @Composable
-fun CsCardFooter(text: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
+fun CsCardFooter(text: String = "", dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
   Text(text, color = csModePack(dark, highContrast, compact).colorTextMuted.toComposeColor(), modifier = modifier.padding(start = csDataStyleCardFooterPaddingX(), top = csDataStyleCardFooterPaddingTop(), end = csDataStyleCardFooterPaddingX(), bottom = csDataStyleCardFooterPaddingBottom()))
 }
 
+const val csToastStackRegionRole = "region"
+const val csToastStackRootClass = "cs-toast-stack"
 @Composable
-fun CsToastStack(modifier: Modifier = Modifier, label: String? = null, language: String? = null, content: @Composable () -> Unit) {
+fun CsToastStack(modifier: Modifier = Modifier, label: String? = null, language: String? = null, content: @Composable () -> Unit = {}) {
   val name = label ?: csToastCopy("notifications", csComboboxResolvedLanguage(language, LocalCsLanguage.current))
   Column(modifier.padding(csFeedbackStyleToastStackInset()).semantics { contentDescription = name }, verticalArrangement = Arrangement.spacedBy(csFeedbackStyleToastStackGap())) { content() }
 }
