@@ -83,8 +83,8 @@ try {
   const pixel = await page.evaluate(() => window.__pixelci);
   assert.equal(pixel.pass, false, 'Public diagnostics cannot certify absent repository inputs');
   assert.equal(pixel.hard, true);
-  assert.equal(pixel.total, 15);
-  assert.equal(pixel.found, 15);
+  assert.equal(pixel.total, 16);
+  assert.equal(pixel.found, 16);
   assert(!['unavailable', 'error'].includes(pixel.reportState), 'Shared receipt module must load under deployment CSP');
   if (pixel.reportState === 'valid') assert.equal(pixel.sourceState, 'not_current', 'Complete public receipts still require private current-source verification');else assert(['missing', 'invalid'].includes(pixel.reportState), 'Optional absent/invalid receipts remain explicit failures');
   for (const path of ['scripts/public-site-policy.json', 'package-lock.json']) assert.equal((await fetch(`${base}/${path}`)).status, 404, path);

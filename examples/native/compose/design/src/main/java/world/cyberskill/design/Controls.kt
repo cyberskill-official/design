@@ -615,7 +615,7 @@ fun CsBadge(
     "info" -> pack.colorSemanticInfo
     else -> pack.colorSurfaceRaised
   }
-  val solidWhite = CSColorValue("srgb", listOf(1.0, 1.0, 1.0), 1.0)
+  val solidWhite = CSColorValue(CSColorSpace.SRGB, listOf(1.0, 1.0, 1.0), 1.0)
   val ink = when (tone) {
     "solid" -> solidWhite
     "ochre" -> pack.colorBrandUmber

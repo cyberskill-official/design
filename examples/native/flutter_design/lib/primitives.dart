@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import 'controls.dart';
+import 'cs_modes.dart';
 
 class CsProgressMeasurement {
   const CsProgressMeasurement(this.clamped, this.percent, this.max);

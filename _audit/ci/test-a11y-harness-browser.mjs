@@ -35,7 +35,8 @@ await withBrowserFixture(async page => {
 }, {browserName});
 const css=readFileSync(new URL('../../base/a11y.css',import.meta.url),'utf8');
 const tokens=readFileSync(new URL('../../tokens/component-tokens.css',import.meta.url),'utf8');
-const token='--cs-component-button-sm-minHeight-coarse';
+const token='--cs-component-button-sm-min-height-coarse';
+const alias='--cs-component-button-sm-minHeight-coarse: var('+token+');';
 const lowered=css.replace(/(\.cs-segmented button\s*\{[^}]*min-height:\s*)44px/,'$1'+'40px');
 const floors=[
   ['segmented 40px', '../base/a11y.css',lowered,false],
@@ -45,7 +46,7 @@ const floors=[
   ['dark token override is reviewed','../tokens/component-tokens.css',tokens+'\n[data-theme="dark"]{'+token+':32px;}',false],
   ['unknown token expression','../tokens/component-tokens.css',tokens.replace(token+': 44px',token+': calc(44px - 12px)'),false],
   ['cyclic token','../tokens/component-tokens.css',tokens.replace(token+': 44px',token+': var('+token+')'),false],
-  ['absent token uses literal fallback','../tokens/component-tokens.css',tokens.replace(token+': 44px;', ''),true],
+  ['absent token uses literal fallback','../tokens/component-tokens.css',tokens.replace(alias,'').replace(token+': 44px;', ''),true],
   ['nested defined token','../tokens/component-tokens.css',tokens.replace(token+': 44px',token+': var(--cs-floor-test, 44px)')+'\n:root{--cs-floor-test:44px;}',true],
   ['nested token below fallback','../tokens/component-tokens.css',tokens.replace(token+': 44px',token+': var(--cs-floor-test, 44px)')+'\n:root{--cs-floor-test:32px;}',false],
 ];

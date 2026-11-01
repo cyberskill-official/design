@@ -150,7 +150,7 @@ window.addEventListener('load',()=>setTimeout(async()=>{
   });
   await atest('TextField/Select 44px floor holds by default (component token >= 44)',async()=>{
     const ctok=await (await fetch('../tokens/component-tokens.css')).text();
-    const m=/--cs-component-textfield-minHeight\s*:\s*(\d+(?:\.\d+)?)px/.exec(ctok);
+    const m=/--cs-component-textfield-min(?:-height|Height)\s*:\s*(\d+(?:\.\d+)?)px/.exec(ctok);
     assert(m,'textfield min-height token not found');
     assert(parseFloat(m[1])>=44,'default textfield floor is only '+m[1]+'px');
     return 'default textfield floor '+m[1]+'px';

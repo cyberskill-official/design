@@ -10,7 +10,7 @@ struct WishRow: Identifiable {
 struct HomeView: View {
   @EnvironmentObject private var preferences: SamplePreferences
   @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-  private var pack: CSTokenModePack { CSControlMode.pack(dark: preferences.dark, highContrast: preferences.contrast.resolve(systemHigh: preferences.systemHighContrast), compact: false) }
+  private var pack: CyberSkillDesign.CSTokenModePack { CSControlMode.pack(dark: preferences.dark, highContrast: preferences.contrast.resolve(systemHigh: preferences.systemHighContrast), compact: false) }
   var onOpenSettings: () -> Void
   var onSignOut: () -> Void
 

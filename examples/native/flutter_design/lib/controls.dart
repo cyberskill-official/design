@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'cs_modes.dart';
 import 'icon_paths.dart';
@@ -296,9 +297,9 @@ CSColorValue? csButtonBackgroundColor(CsButtonVariant variant, CSTokenModePack p
     CsButtonVariant.danger => pack.colorSemanticDanger,
     CsButtonVariant.dangerGhost => hovered
         ? CSColorValue(
-            colorSpace: pack.colorSemanticDanger.colorSpace,
-            components: pack.colorSemanticDanger.components,
-            alpha: csButtonDangerGhostHoverAlpha,
+            pack.colorSemanticDanger.colorSpace,
+            pack.colorSemanticDanger.components,
+            csButtonDangerGhostHoverAlpha,
           )
         : null,
   };
@@ -411,7 +412,7 @@ class _CsButtonState extends State<CsButton> {
                   ),
                 if (csInteractionShowsButtonHoverShadow(hovered: hovered, disabled: isOff))
                   BoxShadow(
-                    color: const Color.fromARGB(255, csInteractionHoverShadowRed, csInteractionHoverShadowGreen, csInteractionHoverShadowBlue).withValues(alpha: csInteractionHoverShadowAlpha),
+                    color: const Color.fromARGB(255, csInteractionHoverShadowRed, csInteractionHoverShadowGreen, csInteractionHoverShadowBlue).withOpacity(csInteractionHoverShadowAlpha),
                     blurRadius: csInteractionHoverShadowBlur(),
                     offset: Offset(0, csInteractionHoverShadowOffsetY()),
                   ),
@@ -802,7 +803,7 @@ class CsBadge extends StatelessWidget {
       'info' => pack.colorSemanticInfo,
       _ => pack.colorSurfaceRaised,
     };
-    const solidWhite = CSColorValue(colorSpace: 'srgb', components: [1.0, 1.0, 1.0], alpha: 1.0);
+    const solidWhite = CSColorValue(CSColorSpace.srgb, [1.0, 1.0, 1.0], 1.0);
     final ink = switch (tone) {
       'solid' => solidWhite,
       'ochre' => pack.colorBrandUmber,
@@ -1607,10 +1608,10 @@ class CsCard extends StatelessWidget {
     return Container(
       padding: padding,
       decoration: BoxDecoration(
-        color: baseColor.withValues(alpha: fillAlpha),
+        color: baseColor.withOpacity(fillAlpha),
         borderRadius: BorderRadius.circular(csPoints(pack.radiusLg)),
         border: strokeWidth > 0
-            ? Border.all(color: csColor(pack.colorBorderDefault).withValues(alpha: borderAlpha), width: strokeWidth)
+            ? Border.all(color: csColor(pack.colorBorderDefault).withOpacity(borderAlpha), width: strokeWidth)
             : null,
       ),
       child: child,

@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'controls.dart';
 import 'cs_modes.dart';
@@ -492,7 +493,7 @@ class _ResultMarkPainter extends CustomPainter {
       ..strokeWidth = 2.2
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round;
-    canvas.drawCircle(size.center(Offset.zero), 32, Paint()..color = color.withValues(alpha: 0.14));
+    canvas.drawCircle(size.center(Offset.zero), 32, Paint()..color = color.withOpacity(0.14));
     canvas.drawPath(csIconPathData(mark, 28), paint);
   }
   @override
@@ -736,8 +737,6 @@ class CsSteps extends StatelessWidget {
 
 String csStatusKind(String name) => name == 'online' || name == 'busy' || name == 'error' ? name : 'offline';
 bool csStatusPulses(bool pulse, bool reducedMotion) => pulse && !reducedMotion;
-const csDescriptionColumnMin = 160.0;
-String csDescriptionSpoken(String term) => term;
 const csKbdPadX = 7.0;
 String csKbdKeyFace(String text) => text;
 const csButtonGroupOverlap = -1.0;

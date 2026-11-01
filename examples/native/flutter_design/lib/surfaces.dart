@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'controls.dart';
 import 'cs_modes.dart';
@@ -127,7 +128,7 @@ CsDatePlace? csDateShift(CsFloatingRect anchor, double naturalWidth, double natu
   return CsDatePlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement);
 }
 
-String csDateFormat(int day, int month, int year, String language) {
+String csDateFormat(int day, int month, int year, String? language) {
   final code = csSelectPrimaryLanguage(language) ?? 'vi';
   final dd = day.toString().padLeft(2, '0');
   final mm = (month + 1).toString().padLeft(2, '0');
@@ -789,7 +790,7 @@ class _CsContextMenuState extends State<CsContextMenu> {
                     if (widget.label != null) ExcludeSemantics(child: Text(widget.label!)),
                     for (final item in widget.items)
                       CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onSelect(item); setState(() { raw = null; natural = null; fitted = null; }); }, child: Text(item))),
-                  ]),
+                  ])),
                 ),
               ),
             ),
@@ -1287,7 +1288,7 @@ class CsAuroraSurface extends StatelessWidget {
           center: const Alignment(-0.76, -1.20),
           radius: csAuroraOchreRadiusY,
           colors: [
-            csColor(pack.colorBrandOchre).withValues(alpha: csAuroraOchreAlpha),
+            csColor(pack.colorBrandOchre).withOpacity(csAuroraOchreAlpha),
             Colors.transparent,
           ],
           stops: const [0.0, csAuroraOchreStop],
