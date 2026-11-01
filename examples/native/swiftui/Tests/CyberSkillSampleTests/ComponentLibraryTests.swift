@@ -3349,6 +3349,22 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertFalse(codeReset.copied)
     let commentView = CSComment(avatar: "L", author: "Lumi", meta: "2m", body: "Ready", dark: false, highContrast: false, compact: false)
     XCTAssertEqual(commentView.avatar, "L")
+    XCTAssertTrue(CSHotKeyModel.dismissBackdrop(open: true))
+    XCTAssertFalse(CSHotKeyModel.dismissBackdrop(open: false))
+    XCTAssertEqual(CSChartModel.canvasSize(type: "pie", height: 180).width, 180)
+    XCTAssertEqual(CSChartModel.canvasSize(type: "bar", height: 180).width, 320)
+    XCTAssertEqual(CSTerminalModel.initialHistory(welcome: "Ready", history: []), [CSTerminalLine(output: "Ready")])
+    XCTAssertEqual(CSTerminalModel.initialHistory(welcome: "Ready", history: [CSTerminalLine(command: "ls")]), [CSTerminalLine(command: "ls")])
+    XCTAssertEqual(CSCascaderModel.resolvedPlacement(nil), "bottom-start")
+    XCTAssertEqual(CSCascaderModel.resolvedPlacement("top-end"), "top-end")
+    XCTAssertTrue(CSDockModel.isActive("Home", activeItems: ["Home"]))
+    XCTAssertFalse(CSDockModel.isActive("Search", activeItems: ["Home"]))
+    XCTAssertEqual(CSNativeSelectModel.resolvedSize("sm"), "sm")
+    XCTAssertEqual(CSNativeSelectModel.resolvedSize("xl"), "md")
+    XCTAssertEqual(CSQRCodeModel.accessibleLabel(label: nil, value: "https://cyberskill.world"), "https://cyberskill.world")
+    XCTAssertEqual(CSQRCodeModel.accessibleLabel(label: "Invite QR", value: "https://cyberskill.world"), "Invite QR")
+    XCTAssertEqual(CSTreeSelectModel.resolvedPlacement(nil), "bottom-start")
+    XCTAssertEqual(CSTreeSelectModel.resolvedPlacement("top-start"), "top-start")
   }
 
   func testSwitchAndDialogExposeTheModeResolvedControls() {

@@ -54,10 +54,14 @@ bool? csHotKeyNextOpen({required bool open, required bool helpKey, required bool
   if (!open && otherModal) return null;
   return !open;
 }
+bool csHotKeyDismissBackdrop(bool open) => open;
 
 double csChartMargin() => 0;
 double csChartGap() => 8;
 double csChartMaxWidth() => 420;
+const csChartDefaultHeight = 160.0;
+double csChartCanvasWidth(String type, [double height = csChartDefaultHeight]) => csChartKind(type) == 'pie' ? height : 320;
+double csChartCanvasHeight([double height = csChartDefaultHeight]) => height;
 double csChartMax(List<double> values) => values.isEmpty ? 1 : (values.reduce((a, b) => a > b ? a : b) < 1 ? 1 : values.reduce((a, b) => a > b ? a : b));
 
 String csChartKind(String type) => type == 'pie' || type == 'line' || type == 'spark' ? type : 'bar';
@@ -192,9 +196,13 @@ class CsTerminalLine {
   final String? output;
 }
 
+bool csTerminalHasOutput(String? value) => value != null && value.isNotEmpty;
+List<CsTerminalLine> csTerminalInitialHistory({String? welcome, List<CsTerminalLine> history = const []}) =>
+    history.isNotEmpty ? history : (csTerminalHasOutput(welcome) ? [CsTerminalLine(output: welcome)] : const []);
+
 List<CsTerminalLine>? csTerminalRun(List<CsTerminalLine> history, String command, String? output) {
   if (command.trim().isEmpty) return null;
-  return [...history, CsTerminalLine(command: command), if (output != null && output.isNotEmpty) CsTerminalLine(output: output)];
+  return [...history, CsTerminalLine(command: command), if (csTerminalHasOutput(output)) CsTerminalLine(output: output)];
 }
 const csTerminalTitle = 'cyberskill — zsh';
 const csTerminalInput = 'Terminal input';
@@ -273,6 +281,8 @@ class CsDockScale {
 bool csCascaderOpen(bool requested, bool disabled) => requested && !disabled;
 bool csCascaderDismissOutside(bool open, bool inside) => open && !inside;
 const csCascaderGap = 6.0;
+const csCascaderPlacementDefault = 'bottom-start';
+String csCascaderPlacement(String? explicit) => explicit ?? csCascaderPlacementDefault;
 class CsCascaderPlace {
   const CsCascaderPlace(this.x, this.y, this.maxWidth, this.maxHeight, this.placement);
   final double x;
@@ -281,8 +291,8 @@ class CsCascaderPlace {
   final double maxHeight;
   final String placement;
 }
-CsCascaderPlace? csCascaderShift(CsFloatingRect anchor, double naturalWidth, double naturalHeight, double fittedWidth, double fittedHeight, CsFloatingRect viewport, double originX, double originY, double scaleX, double scaleY) {
-  final initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement: 'bottom-start', gap: csCascaderGap);
+CsCascaderPlace? csCascaderShift(CsFloatingRect anchor, double naturalWidth, double naturalHeight, double fittedWidth, double fittedHeight, CsFloatingRect viewport, double originX, double originY, double scaleX, double scaleY, {String placement = csCascaderPlacementDefault}) {
+  final initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement: csCascaderPlacement(placement), gap: csCascaderGap);
   if (initial == null) return null;
   final placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, placement: initial.placement, gap: csCascaderGap);
   if (placed == null) return null;
@@ -418,15 +428,18 @@ CsDockScale csDockScale(int index, int? hover) {
   if (distance == 1) return const CsDockScale(1.15, -2);
   return const CsDockScale(1, 0);
 }
+bool csDockIsActive(String item, [Set<String> activeItems = const {}]) => activeItems.contains(item);
 
 class CsCascader extends StatefulWidget {
-  const CsCascader({super.key, required this.path, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.nodes = const [], this.label, this.labelledBy, this.placeholder, this.disabled = false, this.language});
+  const CsCascader({super.key, required this.path, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.nodes = const [], this.label, this.labelledBy, this.placeholder, this.disabled = false, this.portal = true, this.placement, this.language});
   final String? label;
   final String? labelledBy;
   final List<String> path;
   final List<CsCascaderNode> nodes;
   final String? placeholder;
   final bool disabled;
+  final bool portal;
+  final String? placement;
   final String? language;
   final ValueChanged<List<String>> onChange;
   final bool dark;
@@ -471,6 +484,7 @@ class _CsCascaderState extends State<CsCascader> {
       list.dy,
       1,
       1,
+      placement: csCascaderPlacement(widget.placement),
     );
     setState(() { fitted = listBox.size; place = next; });
   }
@@ -565,10 +579,11 @@ class _CsCascaderState extends State<CsCascader> {
 }
 
 class CsChart extends StatelessWidget {
-  const CsChart({super.key, required this.label, required this.values, required this.dark, required this.highContrast, required this.compact, this.type = 'bar', this.pointLabels = const [], this.showValues = false, this.emptyLabel = '', this.language});
+  const CsChart({super.key, required this.label, required this.values, required this.dark, required this.highContrast, required this.compact, this.type = 'bar', this.height = csChartDefaultHeight, this.pointLabels = const [], this.showValues = false, this.emptyLabel = '', this.language});
   final String label;
   final List<double> values;
   final String type;
+  final double height;
   final List<String> pointLabels;
   final bool showValues;
   final String emptyLabel;
@@ -588,7 +603,7 @@ class CsChart extends StatelessWidget {
         margin: EdgeInsets.all(csChartMargin()),
         constraints: BoxConstraints(maxWidth: csChartMaxWidth()),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          CustomPaint(size: const Size(320, 160), painter: _ChartPainter(csChartKind(type), values, fills)),
+          CustomPaint(size: Size(csChartCanvasWidth(type, height), csChartCanvasHeight(height)), painter: _ChartPainter(csChartKind(type), values, fills, height)),
           if (rows != null) ...[
             SizedBox(height: csChartGap()),
             Wrap(
@@ -611,9 +626,10 @@ class CsChart extends StatelessWidget {
 }
 
 class CsDock extends StatefulWidget {
-  const CsDock({super.key, required this.label, required this.items, required this.onSelect});
+  const CsDock({super.key, required this.label, required this.items, required this.onSelect, this.activeItems = const {}});
   final String label;
   final List<String> items;
+  final Set<String> activeItems;
   final ValueChanged<String> onSelect;
   @override
   State<CsDock> createState() => _CsDockState();
@@ -635,7 +651,10 @@ class _CsDockState extends State<CsDock> {
               if (index > 0) SizedBox(width: csControlsBatchStyleDockGap()),
               MouseRegion(
                 onEnter: (_) => setState(() => hover = index),
-                child: CsOwnFocus(builder: (node, claim) => Transform.translate(
+                child: Semantics(
+                  button: true,
+                  selected: csDockIsActive(widget.items[index], widget.activeItems),
+                  child: CsOwnFocus(builder: (node, claim) => Transform.translate(
                     offset: Offset(0, csDockScale(index, hover).lift),
                     child: Transform.scale(
                       scale: csDockScale(index, hover).scale,
@@ -653,6 +672,7 @@ class _CsDockState extends State<CsDock> {
                       ),
                     ),
                   )),
+                ),
               ),
             ],
           ]),
@@ -1112,9 +1132,9 @@ class _CsHotKeysState extends State<CsHotKeys> {
       setState(() => open = next);
       return true;
     }
-    if (question) {
+    if (key.isNotEmpty) {
       for (final binding in widget.bindings) {
-        if (csHotKeyMatches(binding.$1, CsKeyEvent('?', ctrl: HardwareKeyboard.instance.isControlPressed, meta: HardwareKeyboard.instance.isMetaPressed, shift: HardwareKeyboard.instance.isShiftPressed, alt: HardwareKeyboard.instance.isAltPressed))) {
+        if (csHotKeyMatches(binding.$1, CsKeyEvent(key, ctrl: HardwareKeyboard.instance.isControlPressed, meta: HardwareKeyboard.instance.isMetaPressed, shift: HardwareKeyboard.instance.isShiftPressed, alt: HardwareKeyboard.instance.isAltPressed))) {
           widget.onTrigger(binding.$1);
           return true;
         }
@@ -1129,7 +1149,7 @@ class _CsHotKeysState extends State<CsHotKeys> {
     final toggle = csHotKeyCopy('toggle', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context)));
     return Column(children: [
       for (final binding in widget.bindings) CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onTrigger(binding.$1); }, child: Text('${binding.$1} ${binding.$2}'))),
-      if (open) ConstrainedBox(constraints: BoxConstraints(minWidth: csControlsBatchStyleHotkeysCardMinWidth()), child: Semantics(namesRoute: true, label: spoken, child: Column(children: [Text(spoken), SizedBox(height: csControlsBatchStyleHotkeysRowGap()), for (final binding in widget.bindings) Text('${binding.$2} ${binding.$1}'), Text(toggle), const Text('?')]))),
+      if (open) TapRegion(onTapOutside: (_) { if (csHotKeyDismissBackdrop(open)) setState(() => open = false); }, child: ConstrainedBox(constraints: BoxConstraints(minWidth: csControlsBatchStyleHotkeysCardMinWidth()), child: Semantics(namesRoute: true, label: spoken, child: Column(children: [Text(spoken), SizedBox(height: csControlsBatchStyleHotkeysRowGap()), for (final binding in widget.bindings) Text('${binding.$2} ${binding.$1}'), Text(toggle), const Text('?')])))),
     ]);
   }
 }
@@ -1159,11 +1179,13 @@ bool csHoverSyncAfterLeave(bool focused) => !focused;
 bool csHoverSyncAfterBlur(bool hovered) => !hovered;
 
 class CsHoverCard extends StatefulWidget {
-  const CsHoverCard({super.key, required this.label, required this.child, this.openDelay = 150, this.closeDelay = 200});
+  const CsHoverCard({super.key, required this.label, required this.child, this.openDelay = 150, this.closeDelay = 200, this.portal = true, this.placement});
   final String label;
   final Widget child;
   final int openDelay;
   final int closeDelay;
+  final bool portal;
+  final String? placement;
   @override
   State<CsHoverCard> createState() => _CsHoverCardState();
 }
@@ -1204,7 +1226,7 @@ class _CsHoverCardState extends State<CsHoverCard> {
       list.dy,
       1,
       1,
-      csHoverPlacement(null),
+      csHoverPlacement(widget.placement),
     );
     setState(() { fitted = listBox.size; place = next; });
   }
@@ -1475,10 +1497,13 @@ String csInputCopy(String key, String? language) {
 }
 
 class CsInputGroup extends StatelessWidget {
-  const CsInputGroup({super.key, required this.label, required this.child, this.text = '', this.onText, this.clearable = false, this.password = false, this.revealed = false, this.onReveal, this.disabled = false, this.readOnly = false, this.language});
+  const CsInputGroup({super.key, required this.label, required this.child, this.text = '', this.placeholder, this.prefixText, this.suffixText, this.onText, this.clearable = false, this.password = false, this.revealed = false, this.onReveal, this.disabled = false, this.readOnly = false, this.language});
   final String label;
   final Widget child;
   final String text;
+  final String? placeholder;
+  final String? prefixText;
+  final String? suffixText;
   final ValueChanged<String>? onText;
   final bool clearable;
   final bool password;
@@ -1490,16 +1515,19 @@ class CsInputGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locale = csSelectResolvedLanguage(language, CsLanguageScope.of(context));
-    final fieldName = csInputGroupAddonName(null, label.isNotEmpty, false, null, csInputCopy('input', locale)) ?? label;
+    final fieldName = csInputGroupAddonName(null, label.isNotEmpty, false, placeholder, csInputCopy('input', locale)) ?? label;
     final clearName = csInputCopy('clear', locale);
     final revealName = csInputRevealLabel(revealed, csInputCopy('show', locale), csInputCopy('hide', locale));
+    final addonPadding = EdgeInsets.symmetric(horizontal: csControlsWaveStyleInputGroupAddonPaddingX());
     return ConstrainedBox(
       constraints: BoxConstraints(minWidth: csControlsWaveStyleInputGroupMinWidth()),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         if (label.isNotEmpty) ExcludeSemantics(child: Text(label)),
         Row(children: [
-          Expanded(child: CsOwnFocus(builder: (node, claim) => Semantics(label: fieldName, textField: true, child: TextField(focusNode: node, controller: TextEditingController(text: text), obscureText: password && !revealed, onChanged: (next) { claim(); if (!disabled && !readOnly) onText?.call(next); })))),
-          Padding(padding: EdgeInsets.symmetric(horizontal: csControlsWaveStyleInputGroupAddonPaddingX()), child: child),
+          if (prefixText != null && prefixText!.isNotEmpty) Padding(padding: addonPadding, child: Text(prefixText!)),
+          Expanded(child: CsOwnFocus(builder: (node, claim) => Semantics(label: fieldName, textField: true, child: TextField(focusNode: node, controller: TextEditingController(text: text), obscureText: password && !revealed, decoration: InputDecoration(hintText: placeholder != null && placeholder!.isNotEmpty ? placeholder : null), onChanged: (next) { claim(); if (!disabled && !readOnly) onText?.call(next); })))),
+          Padding(padding: addonPadding, child: child),
+          if (suffixText != null && suffixText!.isNotEmpty) Padding(padding: addonPadding, child: Text(suffixText!)),
           if (csInputShowsClear(clearable, text)) CsOwnFocus(builder: (node, claim) => Semantics(label: clearName, button: true, child: TextButton(focusNode: node, onPressed: csInputCanClear(disabled, readOnly) ? () { claim(); onText?.call(''); } : null, child: ExcludeSemantics(child: Text(clearName))))),
           if (password) CsOwnFocus(builder: (node, claim) => Semantics(label: revealName, toggled: revealed, button: true, child: TextButton(focusNode: node, onPressed: csInputCanReveal(disabled) ? () { claim(); onReveal?.call(!revealed); } : null, child: ExcludeSemantics(child: Text(revealName))))),
         ]),
@@ -1637,7 +1665,7 @@ class CsLocaleProvider extends StatelessWidget {
   final String language;
   final Widget child;
   @override
-  Widget build(BuildContext context) => child;
+  Widget build(BuildContext context) => CsLanguageScope(language: language, child: child);
 }
 
 const int csMasonryDefaultColumns = 3;
@@ -1711,12 +1739,16 @@ class CsMenuItem extends StatelessWidget {
 }
 
 bool csNativeSelectAlert(String? error) => error != null && csPresenceShown(CsPresence.text, error);
+String csNativeSelectSize([String size = 'md']) => size == 'sm' || size == 'lg' ? size : 'md';
 
 class CsNativeSelect extends StatelessWidget {
-  const CsNativeSelect({super.key, required this.label, required this.options, required this.selection, required this.onSelect, this.error, this.disabled = false, this.disabledOptions = const {}, this.dark = false, this.highContrast = false, this.compact = false});
+  const CsNativeSelect({super.key, required this.label, required this.options, required this.selection, required this.onSelect, this.placeholder, this.hasChildren = false, this.size = 'md', this.error, this.disabled = false, this.disabledOptions = const {}, this.dark = false, this.highContrast = false, this.compact = false});
   final String label;
   final List<String> options;
   final String selection;
+  final String? placeholder;
+  final bool hasChildren;
+  final String size;
   final String? error;
   final bool disabled;
   final Set<String> disabledOptions;
@@ -1727,12 +1759,15 @@ class CsNativeSelect extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
+    final resolvedSize = csNativeSelectSize(size);
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       if (csPresenceShown(CsPresence.text, label)) Text(label),
       ConstrainedBox(
-        constraints: BoxConstraints(minHeight: csSelectNativeSelectMinHeight()),
+        constraints: BoxConstraints(minHeight: csSelectNativeSelectMinHeight(resolvedSize)),
         child: Stack(children: [
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            if (selection.isEmpty && csSelectShowsPlaceholder(placeholder, hasChildren))
+              Text(csSelectPlaceholderText(placeholder, csSelectPlaceholder)),
             for (final option in options) CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: !disabled && !disabledOptions.contains(option) ? () { claim(); onSelect(option); } : null, child: Text(option))),
           ]),
           Positioned(right: csSelectChevronInsetInlineEnd(), top: 0, bottom: 0, child: IgnorePointer(child: ExcludeSemantics(child: Align(alignment: Alignment.centerRight, child: CsIcon(name: 'chevron-down', label: '', dark: dark, highContrast: highContrast, compact: compact))))),
@@ -1960,29 +1995,34 @@ class CsPromptSuggestions extends StatelessWidget {
   ]);
 }
 
+const csQrDefaultSize = 128.0;
+String csQrAccessibleLabel(String? label, String value) => label != null && label.isNotEmpty ? label : value;
+
 class CsQRCode extends StatelessWidget {
-  const CsQRCode({super.key, required this.value, required this.label});
+  const CsQRCode({super.key, this.value = '', this.label = '', this.size = csQrDefaultSize});
   final String value;
   final String label;
+  final double size;
   @override
   Widget build(BuildContext context) {
     final modules = csQrMatrix(value);
     final pad = csControlsBatchStyleQrCodePadding();
     return Semantics(
-      label: label.isEmpty ? value : label,
+      label: csQrAccessibleLabel(label, value),
       child: Padding(
         padding: EdgeInsets.all(pad),
         child: modules == null
             ? const Text('—')
-            : CustomPaint(size: const Size(128, 128), painter: _QrPainter(modules)),
+            : CustomPaint(size: Size(size, size), painter: _QrPainter(modules)),
       ),
     );
   }
 }
 
 class CsTerminal extends StatefulWidget {
-  const CsTerminal({super.key, required this.history, required this.dark, required this.highContrast, required this.compact, this.title, this.prompt = '➜', this.language, this.onCommand});
+  const CsTerminal({super.key, this.history = const [], required this.dark, required this.highContrast, required this.compact, this.title, this.welcome, this.prompt = '➜', this.language, this.onCommand});
   final String? title;
+  final String? welcome;
   final List<CsTerminalLine> history;
   final String prompt;
   final String? language;
@@ -1995,7 +2035,7 @@ class CsTerminal extends StatefulWidget {
 }
 
 class _CsTerminalState extends State<CsTerminal> {
-  late List<CsTerminalLine> lines = widget.history;
+  late List<CsTerminalLine> lines = csTerminalInitialHistory(welcome: widget.welcome, history: widget.history);
   final draft = TextEditingController();
   var focused = false;
 
@@ -2136,6 +2176,8 @@ bool csTreeSelectCommits(CsTreeNode node) => node.children.isEmpty;
 bool csTreeSelectShown({required bool requested, required bool disabled}) => requested && !disabled;
 bool csTreeSelectDismissOutside(bool open, bool inside) => open && !inside;
 const csTreeSelectGap = 6.0;
+const csTreeSelectPlacementDefault = 'bottom-start';
+String csTreeSelectPlacement(String? explicit) => explicit ?? csTreeSelectPlacementDefault;
 class CsTreeSelectPlace {
   const CsTreeSelectPlace(this.x, this.y, this.maxWidth, this.maxHeight, this.placement);
   final double x;
@@ -2144,8 +2186,8 @@ class CsTreeSelectPlace {
   final double maxHeight;
   final String placement;
 }
-CsTreeSelectPlace? csTreeSelectShift(CsFloatingRect anchor, double naturalWidth, double naturalHeight, double fittedWidth, double fittedHeight, CsFloatingRect viewport, double originX, double originY, double scaleX, double scaleY) {
-  final initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement: 'bottom-start', gap: csTreeSelectGap);
+CsTreeSelectPlace? csTreeSelectShift(CsFloatingRect anchor, double naturalWidth, double naturalHeight, double fittedWidth, double fittedHeight, CsFloatingRect viewport, double originX, double originY, double scaleX, double scaleY, {String placement = csTreeSelectPlacementDefault}) {
+  final initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement: csTreeSelectPlacement(placement), gap: csTreeSelectGap);
   if (initial == null) return null;
   final placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, placement: initial.placement, gap: csTreeSelectGap);
   if (placed == null) return null;
@@ -2161,7 +2203,7 @@ String? csTreeSelectTreeName(String? label, String? labelledBy, String placehold
 }
 
 class CsTreeSelect extends StatefulWidget {
-  const CsTreeSelect({super.key, required this.nodes, required this.selected, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.label, this.labelledBy, this.open = const {}, this.placeholder, this.disabled = false, this.language});
+  const CsTreeSelect({super.key, required this.nodes, required this.selected, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.label, this.labelledBy, this.open = const {}, this.placeholder, this.disabled = false, this.portal = true, this.placement, this.language});
   final String? label;
   final String? labelledBy;
   final List<CsTreeNode> nodes;
@@ -2169,6 +2211,8 @@ class CsTreeSelect extends StatefulWidget {
   final String? selected;
   final String? placeholder;
   final bool disabled;
+  final bool portal;
+  final String? placement;
   final String? language;
   final ValueChanged<String> onSelect;
   final bool dark;
@@ -2211,6 +2255,7 @@ class _CsTreeSelectState extends State<CsTreeSelect> {
       list.dy,
       1,
       1,
+      placement: csTreeSelectPlacement(widget.placement),
     );
     setState(() { fitted = listBox.size; place = next; });
   }
@@ -2427,31 +2472,33 @@ class CsTypingIndicator extends StatelessWidget {
 }
 
 class _ChartPainter extends CustomPainter {
-  const _ChartPainter(this.kind, this.values, this.fills);
+  const _ChartPainter(this.kind, this.values, this.fills, [this.height = csChartDefaultHeight]);
   final String kind;
   final List<double> values;
   final List<Color> fills;
+  final double height;
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()..color = fills[0];
     final scaleX = size.width / 320;
-    final scaleY = size.height / 160;
+    final scaleY = size.height / height;
     if (kind == 'pie') {
       final slices = csChartPie(values);
+      final pieScale = size.height / 120;
       for (var index = 0; index < slices.length; index++) {
         final slice = slices[index];
         if (slice == null) continue;
         final fill = Paint()..color = fills[csChartSliceSlot(index)];
         if (slice.full) {
-          canvas.drawCircle(Offset(60 * scaleY, 60 * scaleY), 50 * scaleY, fill);
+          canvas.drawCircle(Offset(60 * pieScale, 60 * pieScale), 50 * pieScale, fill);
         } else {
-          canvas.drawArc(Rect.fromCircle(center: Offset(60 * scaleY, 60 * scaleY), radius: 50 * scaleY), slice.start, slice.end - slice.start, true, fill);
+          canvas.drawArc(Rect.fromCircle(center: Offset(60 * pieScale, 60 * pieScale), radius: 50 * pieScale), slice.start, slice.end - slice.start, true, fill);
         }
       }
       return;
     }
     if (kind == 'line' || kind == 'spark') {
-      final points = csChartLine(values);
+      final points = csChartLine(values, height: height);
       final stroke = Paint()
         ..color = fills[0]
         ..style = PaintingStyle.stroke
@@ -2466,7 +2513,7 @@ class _ChartPainter extends CustomPainter {
       }
       return;
     }
-    for (final bar in csChartBars(values)) {
+    for (final bar in csChartBars(values, height: height)) {
       if (bar.height <= 0) continue;
       canvas.drawRRect(
         RRect.fromRectAndRadius(
@@ -2478,7 +2525,7 @@ class _ChartPainter extends CustomPainter {
     }
   }
   @override
-  bool shouldRepaint(covariant _ChartPainter oldDelegate) => oldDelegate.kind != kind || oldDelegate.values != values || oldDelegate.fills != fills;
+  bool shouldRepaint(covariant _ChartPainter oldDelegate) => oldDelegate.kind != kind || oldDelegate.values != values || oldDelegate.fills != fills || oldDelegate.height != height;
 }
 
 class _QrPainter extends CustomPainter {

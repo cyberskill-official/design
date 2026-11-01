@@ -123,10 +123,14 @@ fun csHotKeyNextOpen(open: Boolean, helpKey: Boolean, otherModal: Boolean): Bool
   if (!open && otherModal) return null
   return !open
 }
+fun csHotKeyDismissBackdrop(open: Boolean) = open
 
+const val csChartDefaultHeight = 160.0
 fun csChartMargin() = 0.dp
 fun csChartGap() = 8.dp
 fun csChartMaxWidth() = 420.dp
+fun csChartCanvasWidth(type: String, height: Double = csChartDefaultHeight) = if (csChartKind(type) == "pie") height else 320.0
+fun csChartCanvasHeight(height: Double = csChartDefaultHeight) = height
 fun csChartMax(values: List<Double>): Double = maxOf(1.0, values.maxOrNull() ?: 1.0)
 fun csChartKind(type: String) = if (type == "pie" || type == "line" || type == "spark") type else "bar"
 fun csChartSliceSlot(index: Int): Int {
@@ -218,11 +222,14 @@ fun csChartPie(values: List<Double>): List<CsChartSlice?> {
 
 data class CsTerminalLine(val command: String? = null, val output: String? = null)
 
+fun csTerminalHasOutput(value: String?) = !value.isNullOrEmpty()
+fun csTerminalInitialHistory(welcome: String? = null, history: List<CsTerminalLine> = emptyList()) =
+  if (history.isNotEmpty()) history else if (csTerminalHasOutput(welcome)) listOf(CsTerminalLine(output = welcome)) else emptyList()
 fun csTerminalRun(history: List<CsTerminalLine>, command: String, output: String?): List<CsTerminalLine>? {
   if (command.trim().isEmpty()) return null
   val next = history.toMutableList()
   next += CsTerminalLine(command = command)
-  if (!output.isNullOrEmpty()) next += CsTerminalLine(output = output)
+  if (csTerminalHasOutput(output)) next += CsTerminalLine(output = output)
   return next
 }
 const val csTerminalTitle = "cyberskill — zsh"
@@ -276,12 +283,14 @@ data class CsCascaderPick(val path: List<String>, val commit: Boolean)
 data class CsCascaderBack(val path: List<String>, val close: Boolean)
 data class CsDockScale(val scale: Double, val lift: Double)
 
+const val csCascaderPlacementDefault = "bottom-start"
+fun csCascaderPlacement(explicit: String?) = explicit ?: csCascaderPlacementDefault
 fun csCascaderOpen(requested: Boolean, disabled: Boolean) = requested && !disabled
 fun csCascaderDismissOutside(open: Boolean, inside: Boolean) = open && !inside
 const val csCascaderGap = 6.0
 data class CsCascaderPlace(val x: Double, val y: Double, val maxWidth: Double, val maxHeight: Double, val placement: String)
-fun csCascaderShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CsFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double): CsCascaderPlace? {
-  val initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, "bottom-start", csCascaderGap) ?: return null
+fun csCascaderShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CsFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String = csCascaderPlacementDefault): CsCascaderPlace? {
+  val initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, csCascaderPlacement(placement), csCascaderGap) ?: return null
   val placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, initial.placement, csCascaderGap) ?: return null
   val sx = if (scaleX == 0.0) 1.0 else scaleX
   val sy = if (scaleY == 0.0) 1.0 else scaleY
@@ -382,6 +391,7 @@ fun csCascaderCopy(key: String, language: String?): String {
 fun csCascaderPlaceholderText(text: String?, fallback: String) = text ?: fallback
 fun csCascaderFace(labels: List<String>, placeholder: String) = if (labels.isEmpty()) placeholder else labels.joinToString(" / ")
 fun csCascaderFieldName(label: String?, labelledBy: String?) = if (!labelledBy.isNullOrEmpty()) null else label
+fun csDockIsActive(item: String, activeItems: Set<String> = emptySet()) = item in activeItems
 fun csDockScale(index: Int, hover: Int?): CsDockScale {
   val distance = if (hover == null) 3 else kotlin.math.abs(index - hover)
   return when (distance) {
@@ -390,7 +400,7 @@ fun csDockScale(index: Int, hover: Int?): CsDockScale {
     else -> CsDockScale(1.0, 0.0)
   }
 }
-@Composable fun CsCascader(path: List<String>, dark: Boolean, highContrast: Boolean, compact: Boolean, onChange: (List<String>) -> Unit, modifier: Modifier = Modifier, nodes: List<CsCascaderNode> = emptyList(), label: String? = null, labelledBy: String? = null, placeholder: String? = null, disabled: Boolean = false, language: String? = null) {
+@Composable fun CsCascader(path: List<String>, dark: Boolean, highContrast: Boolean, compact: Boolean, onChange: (List<String>) -> Unit, modifier: Modifier = Modifier, nodes: List<CsCascaderNode> = emptyList(), label: String? = null, labelledBy: String? = null, placeholder: String? = null, disabled: Boolean = false, portal: Boolean = true, placement: String? = null, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val hint = csCascaderPlaceholderText(placeholder, csCascaderCopy("placeholder", locale))
@@ -413,7 +423,7 @@ fun csDockScale(index: Int, hover: Int?): CsDockScale {
   val place = field?.let { box ->
     val first = natural
     val second = fitted
-    if (first == null || second == null) null else csCascaderShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second)
+    if (first == null || second == null) null else csCascaderShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, csCascaderPlacement(placement))
   }
   val shiftX = with(density) { (place?.x ?: 0.0).toFloat().toDp() }
   val shiftY = with(density) { (place?.y ?: 0.0).toFloat().toDp() }
@@ -485,32 +495,33 @@ fun csDockScale(index: Int, hover: Int?): CsDockScale {
     } }
   }
 }
-@Composable fun CsChart(label: String, values: List<Double>, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, type: String = "bar", pointLabels: List<String> = emptyList(), showValues: Boolean = false, emptyLabel: String = "", language: String? = null) {
+@Composable fun CsChart(label: String, values: List<Double>, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, type: String = "bar", height: Double = csChartDefaultHeight, pointLabels: List<String> = emptyList(), showValues: Boolean = false, emptyLabel: String = "", language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val kind = csChartKind(type)
   val color = pack.accent.toComposeColor()
   val announced = csChartAccessibleName(label, pointLabels.mapIndexed { index, name -> name to (values.getOrNull(index) ?: 0.0) }, csChartEmpty(emptyLabel, csChartCopy("empty", csComboboxResolvedLanguage(language, LocalCsLanguage.current))))
   val rows = csChartLegend(type, pointLabels, values, showValues)
   Column(modifier.padding(csChartMargin()).widthIn(max = csChartMaxWidth()).semantics { contentDescription = announced }, verticalArrangement = Arrangement.spacedBy(csChartGap())) {
-  Canvas(Modifier.size(320.dp, 160.dp)) {
+  Canvas(Modifier.size(csChartCanvasWidth(type, height).dp, csChartCanvasHeight(height).dp)) {
     val scaleX = size.width / 320f
-    val scaleY = size.height / 160f
+    val scaleY = size.height / height.toFloat()
     when (kind) {
       "pie" -> {
+        val pieScale = size.height / 120f
         val fills = listOf(pack.accent, pack.accentStrong, pack.accentGradB, pack.colorTextMuted, pack.colorBorderDefault).map { it.toComposeColor() }
         csChartPie(values).forEachIndexed { index, slice ->
           if (slice == null) return@forEachIndexed
           val fill = fills[csChartSliceSlot(index)]
-          if (slice.full) drawCircle(fill, 50f * scaleY, Offset(60f * scaleY, 60f * scaleY))
-          else drawArc(fill, Math.toDegrees(slice.start).toFloat(), Math.toDegrees(slice.end - slice.start).toFloat(), true, Offset(10f * scaleY, 10f * scaleY), Size(100f * scaleY, 100f * scaleY))
+          if (slice.full) drawCircle(fill, 50f * pieScale, Offset(60f * pieScale, 60f * pieScale))
+          else drawArc(fill, Math.toDegrees(slice.start).toFloat(), Math.toDegrees(slice.end - slice.start).toFloat(), true, Offset(10f * pieScale, 10f * pieScale), Size(100f * pieScale, 100f * pieScale))
         }
       }
       "line", "spark" -> {
-        val points = csChartLine(values)
+        val points = csChartLine(values, height)
         points.zipWithNext().forEach { (start, end) -> drawLine(color, Offset((start.x * scaleX).toFloat(), (start.y * scaleY).toFloat()), Offset((end.x * scaleX).toFloat(), (end.y * scaleY).toFloat()), strokeWidth = 2.4f) }
         if (kind == "line") points.forEach { point -> drawCircle(color, 3.4f, Offset((point.x * scaleX).toFloat(), (point.y * scaleY).toFloat())) }
       }
-      else -> csChartBars(values).forEach { bar -> if (bar.height > 0) drawRoundRect(color, Offset((bar.x * scaleX).toFloat(), (bar.y * scaleY).toFloat()), Size((bar.width * scaleX).toFloat(), (bar.height * scaleY).toFloat()), androidx.compose.ui.geometry.CornerRadius(3f, 3f)) }
+      else -> csChartBars(values, height).forEach { bar -> if (bar.height > 0) drawRoundRect(color, Offset((bar.x * scaleX).toFloat(), (bar.y * scaleY).toFloat()), Size((bar.width * scaleX).toFloat(), (bar.height * scaleY).toFloat()), androidx.compose.ui.geometry.CornerRadius(3f, 3f)) }
     }
   }
   if (rows != null) Row(horizontalArrangement = Arrangement.spacedBy(csChartLegendGapX()), verticalAlignment = Alignment.CenterVertically) {
@@ -524,7 +535,7 @@ fun csDockScale(index: Int, hover: Int?): CsDockScale {
   }
   }
 }
-@Composable fun CsDock(label: String, items: List<String>, onSelect: (String) -> Unit, modifier: Modifier = Modifier) {
+@Composable fun CsDock(label: String, items: List<String>, onSelect: (String) -> Unit, modifier: Modifier = Modifier, activeItems: Set<String> = emptySet()) {
   var hover by remember { mutableStateOf<Int?>(null) }
   Row(modifier.clip(RoundedCornerShape(csControlsBatchStyleDockRadius())).padding(csControlsBatchStyleDockGap()).onPointerEvent(PointerEventType.Exit) { hover = null }.semantics { contentDescription = label }, horizontalArrangement = Arrangement.spacedBy(csControlsBatchStyleDockGap())) {
     items.forEachIndexed { index, item ->
@@ -533,7 +544,7 @@ fun csDockScale(index: Int, hover: Int?): CsDockScale {
       val handle = rememberFocusHandle("dock-$index")
       LaunchedEffect(hovered) { if (hovered) hover = index }
       val mark = csDockScale(index, hover)
-      TextButton(onClick = { handle.claim(); onSelect(item) }, Modifier.defaultMinSize(minWidth = csControlsBatchStyleDockItemSize(), minHeight = csControlsBatchStyleDockItemSize()).focusRequester(handle.requester).hoverable(interaction).onFocusChanged { if (it.isFocused) { hover = index; handle.claim() } else if (hover == index) hover = null }.offset(y = mark.lift.dp).graphicsLayer { scaleX = mark.scale.toFloat(); scaleY = mark.scale.toFloat() }.minimumInteractiveComponentSize(), enabled = csControlEnabled()) { Text(item) }
+      TextButton(onClick = { handle.claim(); onSelect(item) }, Modifier.defaultMinSize(minWidth = csControlsBatchStyleDockItemSize(), minHeight = csControlsBatchStyleDockItemSize()).focusRequester(handle.requester).hoverable(interaction).onFocusChanged { if (it.isFocused) { hover = index; handle.claim() } else if (hover == index) hover = null }.semantics { if (csDockIsActive(item, activeItems)) selected = true }.offset(y = mark.lift.dp).graphicsLayer { scaleX = mark.scale.toFloat(); scaleY = mark.scale.toFloat() }.minimumInteractiveComponentSize(), enabled = csControlEnabled()) { Text(item) }
     }
   }
 }
@@ -794,12 +805,13 @@ fun csFormWizardAlert(errors: List<String>, submission: String?) = csFormWizardS
       return@onPreviewKeyEvent true
     }
     val question = event.key == Key.Slash && event.isShiftPressed
-    val next = csHotKeyNextOpen(open, csHotKeyHelp(if (question) "?" else "", event.isCtrlPressed, event.isMetaPressed, event.isAltPressed, help), false)
+    val pressedKey = if (question) "?" else event.key.keyCode.toString()
+    val next = csHotKeyNextOpen(open, csHotKeyHelp(pressedKey, event.isCtrlPressed, event.isMetaPressed, event.isAltPressed, help), false)
     if (next != null) {
       open = next
       return@onPreviewKeyEvent true
     }
-    val matched = if (question) bindings.firstOrNull { csHotKeyMatches(it.first, CsKeyEvent("?", event.isCtrlPressed, event.isMetaPressed, event.isShiftPressed, event.isAltPressed)) } else null
+    val matched = bindings.firstOrNull { csHotKeyMatches(it.first, CsKeyEvent(pressedKey, event.isCtrlPressed, event.isMetaPressed, event.isShiftPressed, event.isAltPressed)) }
     if (matched != null) {
       onTrigger(matched.first)
       return@onPreviewKeyEvent true
@@ -807,7 +819,7 @@ fun csFormWizardAlert(errors: List<String>, submission: String?) = csFormWizardS
     false
   }) {
     bindings.forEach { val title = it.first + " " + it.second; CsTriggerButton(title = title, onClick = { onTrigger(it.first) }, modifier = Modifier.minimumInteractiveComponentSize()) { Text(title) } }
-    if (open) Column(Modifier.widthIn(min = csControlsBatchStyleHotkeysCardMinWidth()).semantics { contentDescription = spoken }, verticalArrangement = Arrangement.spacedBy(csControlsBatchStyleHotkeysRowGap())) { Text(spoken); bindings.forEach { Text(it.second); Text(it.first) }; Text(toggle); Text("?") }
+    if (open) Box(Modifier.clickable { if (csHotKeyDismissBackdrop(open)) open = false }) { Column(Modifier.widthIn(min = csControlsBatchStyleHotkeysCardMinWidth()).semantics { contentDescription = spoken }, verticalArrangement = Arrangement.spacedBy(csControlsBatchStyleHotkeysRowGap())) { Text(spoken); bindings.forEach { Text(it.second); Text(it.first) }; Text(toggle); Text("?") } }
   }
 }
 fun csHoverPlacement(explicit: String?) = explicit ?: "bottom-start"
@@ -824,7 +836,7 @@ fun csHoverOpen(hovered: Boolean, focused: Boolean) = hovered || focused
 fun csHoverDelay(opening: Boolean, openDelay: Int = 150, closeDelay: Int = 200) = if (opening) openDelay else closeDelay
 fun csHoverSyncAfterLeave(focused: Boolean) = !focused
 fun csHoverSyncAfterBlur(hovered: Boolean) = !hovered
-@Composable fun CsHoverCard(label: String, modifier: Modifier = Modifier, openDelay: Int = 150, closeDelay: Int = 200, content: @Composable () -> Unit) {
+@Composable fun CsHoverCard(label: String, modifier: Modifier = Modifier, openDelay: Int = 150, closeDelay: Int = 200, portal: Boolean = true, placement: String? = null, content: @Composable () -> Unit) {
   var hovered by remember { mutableStateOf(false) }
   var focused by remember { mutableStateOf(false) }
   var open by remember { mutableStateOf(false) }
@@ -842,7 +854,7 @@ fun csHoverSyncAfterBlur(hovered: Boolean) = !hovered
   val place = field?.let { box ->
     val first = natural
     val second = fitted
-    if (first == null || second == null) null else csHoverShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, csHoverPlacement(null))
+    if (first == null || second == null) null else csHoverShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, csHoverPlacement(placement))
   }
   if (!open && natural != null) { natural = null; fitted = null }
   LaunchedEffect(request) {
@@ -1025,19 +1037,21 @@ fun csInputCopy(key: String, language: String?): String {
   }
   return key
 }
-@Composable fun CsInputGroup(label: String, modifier: Modifier = Modifier, text: String = "", onText: (String) -> Unit = {}, clearable: Boolean = false, password: Boolean = false, revealed: Boolean = false, onReveal: (Boolean) -> Unit = {}, disabled: Boolean = false, readOnly: Boolean = false, language: String? = null, content: @Composable () -> Unit) {
+@Composable fun CsInputGroup(label: String, modifier: Modifier = Modifier, placeholder: String? = null, prefixText: String? = null, suffixText: String? = null, text: String = "", onText: (String) -> Unit = {}, clearable: Boolean = false, password: Boolean = false, revealed: Boolean = false, onReveal: (Boolean) -> Unit = {}, disabled: Boolean = false, readOnly: Boolean = false, language: String? = null, content: @Composable () -> Unit) {
   val handle = rememberFocusHandle("input-group")
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
-  val fieldName = csInputGroupAddonName(null, label.isNotEmpty(), false, null, csInputCopy("input", locale)) ?: label
+  val fieldName = csInputGroupAddonName(null, label.isNotEmpty(), false, placeholder, csInputCopy("input", locale)) ?: label
   val clearName = csInputCopy("clear", locale)
   val revealName = csInputRevealLabel(revealed, csInputCopy("show", locale), csInputCopy("hide", locale))
   Column(modifier.widthIn(min = csControlsWaveStyleInputGroupMinWidth())) {
     if (label.isNotEmpty()) Text(label, modifier = Modifier.clearAndSetSemantics {})
     Row(verticalAlignment = Alignment.CenterVertically) {
-      androidx.compose.foundation.text.BasicTextField(value = text, onValueChange = { next -> if (!csControlEnabled()) return@BasicTextField; handle.claim(); if (!disabled && !readOnly) onText(next) }, enabled = csControlEnabled(!disabled && !readOnly), modifier = Modifier.weight(1f).focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.semantics { contentDescription = fieldName })
+      if (prefixText != null) Text(prefixText, modifier = Modifier.padding(horizontal = csControlsWaveStyleInputGroupAddonPaddingX()))
+      androidx.compose.foundation.text.BasicTextField(value = text, onValueChange = { next -> if (!csControlEnabled()) return@BasicTextField; handle.claim(); if (!disabled && !readOnly) onText(next) }, enabled = csControlEnabled(!disabled && !readOnly), visualTransformation = if (password && !revealed) androidx.compose.ui.text.input.PasswordVisualTransformation() else androidx.compose.ui.text.input.VisualTransformation.None, modifier = Modifier.weight(1f).focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.semantics { contentDescription = fieldName })
       Box(Modifier.padding(horizontal = csControlsWaveStyleInputGroupAddonPaddingX())) { content() }
       if (csInputShowsClear(clearable, text)) CsTriggerButton(title = clearName, onClick = { if (csInputCanClear(disabled, readOnly)) onText("") }, enabled = csInputCanClear(disabled, readOnly), modifier = Modifier.semantics { contentDescription = clearName }) { Text(clearName, modifier = Modifier.clearAndSetSemantics {}) }
       if (password) CsTriggerButton(title = revealName, onClick = { if (csInputCanReveal(disabled)) onReveal(!revealed) }, enabled = csInputCanReveal(disabled), modifier = Modifier.semantics { contentDescription = revealName; stateDescription = if (revealed) "true" else "false" }) { Text(revealName, modifier = Modifier.clearAndSetSemantics {}) }
+      if (suffixText != null) Text(suffixText, modifier = Modifier.padding(horizontal = csControlsWaveStyleInputGroupAddonPaddingX()))
     }
   }
 }
@@ -1079,7 +1093,9 @@ fun csItemMainExtraText(hasExplicitTrailing: Boolean, hasTitle: Boolean, childre
     if (csItemShowsSlot(trail)) Text(trail ?: "", color = pack.colorTextMuted.toComposeColor())
   }
 }
-@Composable fun CsLocaleProvider(language: String, modifier: Modifier = Modifier, content: @Composable () -> Unit) { Column(modifier) { content() } }
+@Composable fun CsLocaleProvider(language: String, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+  androidx.compose.runtime.CompositionLocalProvider(LocalCsLanguage provides language) { Column(modifier) { content() } }
+}
 const val csMasonryDefaultColumns = 3
 fun csMasonryDefaultGap() = 16.dp
 fun csMasonrySafeColumns(columns: Int) = maxOf(1, columns)
@@ -1096,15 +1112,19 @@ fun csMasonryItemMarginBottom(gap: androidx.compose.ui.unit.Dp = csMasonryDefaul
   val handle = rememberFocusHandle("menu-item")
   TextButton(onClick = { handle.claim(); onSelect() }, modifier.focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.minimumInteractiveComponentSize(), enabled = csControlEnabled(), contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = csNavigationStyleMenuItemPaddingX(), vertical = csNavigationStyleMenuItemPaddingY())) { Text(title) }
 }
+fun csNativeSelectSize(size: String = "md") = if (size == "sm" || size == "lg") size else "md"
 fun csNativeSelectAlert(error: String?) = error != null && csPresenceShown(CsPresence.Text, error)
-@Composable fun CsNativeSelect(label: String, options: List<String>, selection: String, onSelect: (String) -> Unit, modifier: Modifier = Modifier, error: String? = null, disabled: Boolean = false, disabledOptions: Set<String> = emptySet(), dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false) {
+@Composable fun CsNativeSelect(label: String, options: List<String>, selection: String, onSelect: (String) -> Unit, modifier: Modifier = Modifier, error: String? = null, placeholder: String? = null, hasChildren: Boolean = false, disabled: Boolean = false, disabledOptions: Set<String> = emptySet(), size: String = "md", dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false) {
   val handle = rememberFocusHandle("select")
   val pack = csModePack(dark, highContrast, compact)
   val enabled = csControlEnabled(!disabled)
+  val resolvedSize = csNativeSelectSize(size)
+  val prompt = csSelectPlaceholderText(placeholder, csSelectPlaceholder)
   Column(modifier.csOwnFocus()) {
     if (csPresenceShown(CsPresence.Text, label)) Text(label)
-    Box(Modifier.heightIn(min = csSelectNativeSelectMinHeight())) {
+    Box(Modifier.heightIn(min = csSelectNativeSelectMinHeight(resolvedSize))) {
       Column {
+        if (selection.isEmpty() && csSelectShowsPlaceholder(placeholder, hasChildren)) Text(prompt, color = pack.colorTextMuted.toComposeColor())
         options.forEach { option ->
           val rowEnabled = enabled && option !in disabledOptions
           TextButton(onClick = {
@@ -1226,16 +1246,21 @@ fun csPromptSelected(suggestion: CsPromptSuggestion) = suggestion.label
     }
   }
 }
-@Composable fun CsQRCode(value: String, label: String, modifier: Modifier = Modifier) {
+const val csQrDefaultSize = 128.0
+fun csQrAccessibleLabel(label: String?, value: String) = if (!label.isNullOrEmpty()) label else value
+@Composable fun CsQRCode(value: String = "", label: String = "", modifier: Modifier = Modifier, size: Double = csQrDefaultSize) {
   val modules = csQrMatrix(value)
   val pad = csControlsBatchStyleQrCodePadding()
-  if (modules == null) Text("—", modifier.padding(pad))
-  else Canvas(modifier.padding(pad).size(128.dp)) {
-    val cell = size.minDimension / modules.size
+  val spoken = csQrAccessibleLabel(label, value)
+  if (modules == null) Text("—", modifier.padding(pad).semantics { contentDescription = spoken })
+  else Canvas(modifier.padding(pad).size(size.dp).semantics { contentDescription = spoken }) {
+    val cell = this.size.minDimension / modules.size
     modules.forEachIndexed { y, row -> row.forEachIndexed { x, on -> if (on) drawRect(Color.Black, Offset(x * cell, y * cell), Size(cell, cell)) } }
   }
 }
 const val csTreeSelectPlaceholder = "Select…"
+const val csTreeSelectPlacementDefault = "bottom-start"
+fun csTreeSelectPlacement(explicit: String?) = explicit ?: csTreeSelectPlacementDefault
 fun csTreeSelectCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
   val vi = mapOf("placeholder" to "Chọn…")
@@ -1261,8 +1286,8 @@ fun csTreeSelectShown(requested: Boolean, disabled: Boolean) = requested && !dis
 fun csTreeSelectDismissOutside(open: Boolean, inside: Boolean) = open && !inside
 const val csTreeSelectGap = 6.0
 data class CsTreeSelectPlace(val x: Double, val y: Double, val maxWidth: Double, val maxHeight: Double, val placement: String)
-fun csTreeSelectShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CsFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double): CsTreeSelectPlace? {
-  val initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, "bottom-start", csTreeSelectGap) ?: return null
+fun csTreeSelectShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CsFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String = csTreeSelectPlacementDefault): CsTreeSelectPlace? {
+  val initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, csTreeSelectPlacement(placement), csTreeSelectGap) ?: return null
   val placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, initial.placement, csTreeSelectGap) ?: return null
   val sx = if (scaleX == 0.0) 1.0 else scaleX
   val sy = if (scaleY == 0.0) 1.0 else scaleY
@@ -1274,7 +1299,7 @@ fun csTreeSelectTreeName(label: String?, labelledBy: String?, placeholder: Strin
   !label.isNullOrEmpty() -> label
   else -> placeholder
 }
-@Composable fun CsTreeSelect(nodes: List<CsTreeNode>, selected: String?, onSelect: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, labelledBy: String? = null, open: Map<String, Boolean> = emptyMap(), placeholder: String? = null, disabled: Boolean = false, language: String? = null) {
+@Composable fun CsTreeSelect(nodes: List<CsTreeNode>, selected: String?, onSelect: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, labelledBy: String? = null, open: Map<String, Boolean> = emptyMap(), placeholder: String? = null, disabled: Boolean = false, portal: Boolean = true, placement: String? = null, language: String? = null) {
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val hint = csTreeSelectPlaceholderText(placeholder, csTreeSelectCopy("placeholder", locale))
   val found = csTreeSelectFind(nodes, selected)
@@ -1296,7 +1321,7 @@ fun csTreeSelectTreeName(label: String?, labelledBy: String?, placeholder: Strin
   val place = field?.let { box ->
     val first = natural
     val second = fitted
-    if (first == null || second == null) null else csTreeSelectShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second)
+    if (first == null || second == null) null else csTreeSelectShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, csTreeSelectPlacement(placement))
   }
   val shiftX = with(density) { (place?.x ?: 0.0).toFloat().toDp() }
   val shiftY = with(density) { (place?.y ?: 0.0).toFloat().toDp() }
@@ -1381,12 +1406,12 @@ private var SemanticsPropertyReceiver.csTreeControlsValue by csTreeControlsKey
     }
   }
 }
-@Composable fun CsTerminal(history: List<CsTerminalLine>, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, title: String? = null, prompt: String = "➜", language: String? = null, onCommand: (String) -> String? = { null }) {
+@Composable fun CsTerminal(history: List<CsTerminalLine> = emptyList(), dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, title: String? = null, welcome: String? = null, prompt: String = "➜", language: String? = null, onCommand: (String) -> String? = { null }) {
   val pack = csModePack(dark, highContrast, compact)
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val bar = csTerminalBarTitle(title, csTerminalCopy("title", locale))
   val inputName = csTerminalCopy("input", locale)
-  var lines by remember { mutableStateOf(history) }
+  var lines by remember { mutableStateOf(csTerminalInitialHistory(welcome, history)) }
   var draft by remember { mutableStateOf(TextFieldValue("")) }
   var focused by remember { mutableStateOf(false) }
   Column(modifier.widthIn(max = csTerminalMaxWidth()).border(csTerminalFocusRingWidth(focused), if (focused) pack.colorAccentOchre.toComposeColor() else Color.Transparent, RoundedCornerShape(pack.radiusLg.toDp())).padding(csTerminalFocusOutlineOffset(focused)).border(csTerminalFocusOutlineWidth(focused), if (focused) pack.colorTextPrimary.toComposeColor() else Color.Transparent, RoundedCornerShape(pack.radiusLg.toDp())).shadow(pack.shadowMd.firstOrNull()?.blur?.toDp() ?: 0.dp, RoundedCornerShape(pack.radiusLg.toDp())).clip(RoundedCornerShape(pack.radiusLg.toDp())).background(csTerminalBgColor.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp())).border(csTerminalBorderWidth(), csTerminalBorderColor.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp()))) {

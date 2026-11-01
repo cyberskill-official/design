@@ -67,6 +67,8 @@ public enum CSHotKeyModel {
   public static func otherModal(_ layers: [CSOverlayLayer], id: String) -> Bool {
     layers.contains { $0.kind == "modal" && $0.connected && $0.id != id }
   }
+
+  public static func dismissBackdrop(open: Bool) -> Bool { open }
 }
 
 public struct CSChartBar: Equatable {
@@ -89,9 +91,13 @@ public struct CSChartSlice: Equatable {
 }
 
 public enum CSChartModel {
+  public static let defaultHeight = 160.0
   public static func margin() -> Double { 0 }
   public static func gap() -> Double { 8 }
   public static func maxWidth() -> Double { 420 }
+  public static func canvasSize(type: String, height: Double = defaultHeight) -> (width: Double, height: Double) {
+    kind(type) == "pie" ? (height, height) : (320, height)
+  }
 
   public static func maxValue(_ values: [Double]) -> Double {
     max(1, values.max() ?? 1)
@@ -218,6 +224,12 @@ public enum CSTerminalModel {
   public static func hasOutput(_ value: String?) -> Bool {
     if let value, !value.isEmpty { return true }
     return false
+  }
+
+  public static func initialHistory(welcome: String? = nil, history: [CSTerminalLine] = []) -> [CSTerminalLine] {
+    if !history.isEmpty { return history }
+    if let welcome, hasOutput(welcome) { return [CSTerminalLine(output: welcome)] }
+    return []
   }
 
   public static func run(history: [CSTerminalLine], command: String, output: String?) -> [CSTerminalLine]? {
@@ -391,6 +403,11 @@ public struct CSHotKeys: View {
         }
         .padding(16)
         .frame(minWidth: CGFloat(CSControlsBatchStyleModel.hotkeysCardMinWidth()), alignment: .leading)
+        .background(GeometryReader { _ in
+          CSInlineOutside(active: shown) {
+            if CSHotKeyModel.dismissBackdrop(open: shown) { shown = false }
+          }
+        })
         .accessibilityElement(children: .contain)
         .accessibilityLabel(title)
         .accessibilityAddTraits(.isModal)
@@ -504,6 +521,7 @@ public struct CSChart: View {
   public let label: String
   public let values: [Double]
   public let type: String
+  public let height: Double
   public let pointLabels: [String]
   public let showValues: Bool
   public let emptyLabel: String
@@ -512,10 +530,11 @@ public struct CSChart: View {
   let highContrast: Bool
   let compact: Bool
   @Environment(\.csLanguage) private var ancestorLanguage
-  public init(label: String, values: [Double], type: String = "bar", pointLabels: [String] = [], showValues: Bool = false, emptyLabel: String = "", dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil) {
+  public init(label: String, values: [Double], type: String = "bar", height: Double = CSChartModel.defaultHeight, pointLabels: [String] = [], showValues: Bool = false, emptyLabel: String = "", dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil) {
     self.label = label
     self.values = values
     self.type = type
+    self.height = height
     self.pointLabels = pointLabels
     self.showValues = showValues
     self.emptyLabel = emptyLabel
@@ -528,6 +547,7 @@ public struct CSChart: View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let locale = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
     let kind = CSChartModel.kind(type)
+    let canvas = CSChartModel.canvasSize(type: type, height: height)
     let points = pointLabels.enumerated().map { index, name in
       (label: name, value: index < values.count ? values[index] : 0)
     }
@@ -559,29 +579,29 @@ public struct CSChart: View {
           }
         }
       } else if kind == "line" || kind == "spark" {
-        let points = CSChartModel.line(values)
+        let points = CSChartModel.line(values, height: height)
         var path = Path()
         for (index, point) in points.enumerated() {
-          let mark = CGPoint(x: point.x / 320 * size.width, y: point.y / 160 * size.height)
+          let mark = CGPoint(x: point.x / 320 * size.width, y: point.y / height * size.height)
           if index == 0 { path.move(to: mark) } else { path.addLine(to: mark) }
         }
         context.stroke(path, with: .color(color), lineWidth: 2.4)
         if kind == "line" {
           for point in points {
-            let mark = CGPoint(x: point.x / 320 * size.width, y: point.y / 160 * size.height)
+            let mark = CGPoint(x: point.x / 320 * size.width, y: point.y / height * size.height)
             context.fill(Path(ellipseIn: CGRect(x: mark.x - 3.4, y: mark.y - 3.4, width: 6.8, height: 6.8)), with: .color(color))
           }
         }
       } else {
         let scaleX = size.width / 320
-        let scaleY = size.height / 160
-        for bar in CSChartModel.bars(values) where bar.height > 0 {
+        let scaleY = size.height / height
+        for bar in CSChartModel.bars(values, height: height) where bar.height > 0 {
           let rect = CGRect(x: bar.x * scaleX, y: bar.y * scaleY, width: bar.width * scaleX, height: bar.height * scaleY)
           context.fill(Path(roundedRect: rect, cornerRadius: 3), with: .color(color))
         }
       }
     }
-    .frame(width: 320, height: 160)
+    .frame(width: CGFloat(canvas.width), height: CGFloat(canvas.height))
     if rows != nil {
       HStack(spacing: CGFloat(CSChartModel.legendGapX())) {
         ForEach(Array(pointLabels.enumerated()), id: \.offset) { index, name in
@@ -609,6 +629,7 @@ public struct CSChart: View {
 
 public struct CSTerminal: View {
   public let title: String?
+  public let welcome: String?
   public let prompt: String
   public let language: String?
   let dark: Bool
@@ -621,15 +642,16 @@ public struct CSTerminal: View {
   @FocusState private var focused: Bool
   @State private var focusId = UUID().uuidString
 
-  public init(title: String? = nil, prompt: String = "➜", history: [CSTerminalLine], dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onCommand: @escaping (String) -> String? = { _ in nil }) {
+  public init(title: String? = nil, welcome: String? = nil, prompt: String = "➜", history: [CSTerminalLine] = [], dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onCommand: @escaping (String) -> String? = { _ in nil }) {
     self.title = title
+    self.welcome = welcome
     self.prompt = prompt
     self.language = language
     self.dark = dark
     self.highContrast = highContrast
     self.compact = compact
     self.onCommand = onCommand
-    _lines = State(initialValue: history)
+    _lines = State(initialValue: CSTerminalModel.initialHistory(welcome: welcome, history: history))
   }
 
   private func submit() {
@@ -1157,11 +1179,13 @@ public struct CSCascaderPlace: Equatable {
 }
 
 public enum CSCascaderModel {
+  public static let placementDefault = "bottom-start"
+  public static func resolvedPlacement(_ explicit: String?) -> String { explicit ?? placementDefault }
   public static func isOpen(requested: Bool, disabled: Bool) -> Bool { requested && !disabled }
   public static func dismissOutside(open: Bool, inside: Bool) -> Bool { open && !inside }
   public static let panelGap = 6.0
-  public static func shift(anchor: CSFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CSFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double) -> CSCascaderPlace? {
-    guard let initial = CSFloatingModel.position(anchor: anchor, panelWidth: naturalWidth, panelHeight: naturalHeight, viewport: viewport, placement: "bottom-start", gap: panelGap) else { return nil }
+  public static func shift(anchor: CSFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CSFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String = placementDefault) -> CSCascaderPlace? {
+    guard let initial = CSFloatingModel.position(anchor: anchor, panelWidth: naturalWidth, panelHeight: naturalHeight, viewport: viewport, placement: resolvedPlacement(placement), gap: panelGap) else { return nil }
     guard let placed = CSFloatingModel.position(anchor: anchor, panelWidth: fittedWidth, panelHeight: fittedHeight, viewport: viewport, placement: initial.placement, gap: panelGap) else { return nil }
     let sx = scaleX == 0 ? 1 : scaleX
     let sy = scaleY == 0 ? 1 : scaleY
@@ -1302,6 +1326,8 @@ public struct CSCascader: View {
   public let nodes: [CSCascaderNode]
   public let placeholder: String?
   public let disabled: Bool
+  public let portal: Bool
+  public let placement: String?
   public let language: String?
   let dark: Bool
   let highContrast: Bool
@@ -1320,13 +1346,15 @@ public struct CSCascader: View {
   @State private var panelScale = CGSize(width: 1, height: 1)
   @State private var measurePass = 0
 
-  public init(label: String? = nil, labelledBy: String? = nil, path: [String], nodes: [CSCascaderNode] = [], placeholder: String? = nil, disabled: Bool = false, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onChange: @escaping ([String]) -> Void = { _ in }) {
+  public init(label: String? = nil, labelledBy: String? = nil, path: [String], nodes: [CSCascaderNode] = [], placeholder: String? = nil, disabled: Bool = false, portal: Bool = true, placement: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onChange: @escaping ([String]) -> Void = { _ in }) {
     self.label = label
     self.labelledBy = labelledBy
     self.path = path
     self.nodes = nodes
     self.placeholder = placeholder
     self.disabled = disabled
+    self.portal = portal
+    self.placement = placement
     self.language = language
     self.dark = dark
     self.highContrast = highContrast
@@ -1369,7 +1397,7 @@ public struct CSCascader: View {
         let viewport = CSFloatingRect(left: 8, top: 8, right: max(8, screen.width - 8), bottom: max(8, screen.height - 8), width: 0, height: 0)
         let placed = naturalSize.flatMap { natural in
           fittedSize.flatMap { fitted in
-            CSCascaderModel.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height))
+            CSCascaderModel.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height), placement: CSCascaderModel.resolvedPlacement(placement))
           }
         }
         HStack(alignment: .top, spacing: 12) {
@@ -1591,6 +1619,7 @@ private final class CSInlinePadOutsideView: UIView {
 #endif
 
 public enum CSDockModel {
+  public static func isActive(_ item: String, activeItems: Set<String> = []) -> Bool { activeItems.contains(item) }
   public static func scale(index: Int, hover: Int?) -> (scale: Double, lift: Double) {
     let distance = hover == nil ? 3 : abs(index - (hover ?? index))
     if distance == 0 { return (1.35, -6) }
@@ -1602,13 +1631,15 @@ public enum CSDockModel {
 public struct CSDock: View {
   public let label: String
   public let items: [String]
+  public let activeItems: Set<String>
   let onSelect: (String) -> Void
   @State private var hover: Int? = nil
   @State private var dockId = UUID().uuidString
   @FocusState private var focused: Int?
-  public init(label: String, items: [String], onSelect: @escaping (String) -> Void) {
+  public init(label: String, items: [String], activeItems: Set<String> = [], onSelect: @escaping (String) -> Void) {
     self.label = label
     self.items = items
+    self.activeItems = activeItems
     self.onSelect = onSelect
   }
   public var body: some View {
@@ -1624,6 +1655,7 @@ public struct CSDock: View {
           .offset(y: mark.lift)
           .focused($focused, equals: index)
           .onHover { inside in if inside { hover = index } }
+          .accessibilityAddTraits(CSDockModel.isActive(item, activeItems: activeItems) ? .isSelected : [])
       }
     }
     .padding(CGFloat(CSControlsBatchStyleModel.dockGap()))
@@ -1892,6 +1924,7 @@ public struct CSHoverPlace: Equatable {
 
 public struct CSHoverCard<Content: View>: View {
   public let label: String
+  public let portal: Bool
   public let placement: String?
   public let openDelay: Int
   public let closeDelay: Int
@@ -1906,8 +1939,9 @@ public struct CSHoverCard<Content: View>: View {
   @State private var panelOrigin: CGPoint?
   @State private var panelScale = CGSize(width: 1, height: 1)
   @State private var measurePass = 0
-  public init(label: String, openDelay: Int = 150, closeDelay: Int = 200, placement: String? = nil, @ViewBuilder content: @escaping () -> Content) {
+  public init(label: String, openDelay: Int = 150, closeDelay: Int = 200, portal: Bool = true, placement: String? = nil, @ViewBuilder content: @escaping () -> Content) {
     self.label = label
+    self.portal = portal
     self.placement = placement
     self.openDelay = openDelay
     self.closeDelay = closeDelay
@@ -2029,6 +2063,7 @@ public enum CSPresenceValue: Equatable {
 public enum CSNativeSelectModel {
   public static let placeholderDefault = "Select…"
   public static let chevronPath = "M6 9l6 6 6-6"
+  public static func resolvedSize(_ size: String = "md") -> String { size == "sm" || size == "lg" ? size : "md" }
   public static func showsPlaceholder(placeholder: String?, hasChildren: Bool) -> Bool { placeholder != nil || !hasChildren }
   public static func placeholderText(_ placeholder: String?, fallback: String) -> String { placeholder ?? fallback }
   public static func controlId(_ id: String?, generated: String) -> String { id ?? generated }
@@ -2189,6 +2224,7 @@ public enum CSInputGroupModel {
 
 public struct CSInputGroup: View {
   public let label: String?
+  public let placeholder: String?
   @Binding var text: String
   public let prefixText: String?
   public let suffixText: String?
@@ -2203,8 +2239,9 @@ public struct CSInputGroup: View {
   @FocusState private var focused: Bool
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(label: String? = nil, text: Binding<String>, prefixText: String? = nil, suffixText: String? = nil, clearable: Bool = false, password: Bool = false, revealed: Binding<Bool>, disabled: Bool = false, readOnly: Bool = false, language: String? = nil, onChange: @escaping (String) -> Void = { _ in }) {
+  public init(label: String? = nil, placeholder: String? = nil, text: Binding<String>, prefixText: String? = nil, suffixText: String? = nil, clearable: Bool = false, password: Bool = false, revealed: Binding<Bool>, disabled: Bool = false, readOnly: Bool = false, language: String? = nil, onChange: @escaping (String) -> Void = { _ in }) {
     self.label = label
+    self.placeholder = placeholder
     _text = text
     self.prefixText = prefixText
     self.suffixText = suffixText
@@ -2219,7 +2256,7 @@ public struct CSInputGroup: View {
 
   public var body: some View {
     let locale = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
-    let spoken = CSInputGroupModel.addonName(ariaLabel: nil, hasLabel: CSInputGroupModel.showsLabel(label), hasLabelledBy: false, placeholder: nil, fallback: CSInputGroupModel.copy("input", language: locale))
+    let spoken = CSInputGroupModel.addonName(ariaLabel: nil, hasLabel: CSInputGroupModel.showsLabel(label), hasLabelledBy: false, placeholder: placeholder, fallback: CSInputGroupModel.copy("input", language: locale))
     let clearName = CSInputGroupModel.copy("clear", language: locale)
     let revealName = CSInputGroupModel.revealLabel(revealed: revealed, show: CSInputGroupModel.copy("show", language: locale), hide: CSInputGroupModel.copy("hide", language: locale))
     VStack(alignment: .leading, spacing: 4) {
@@ -2260,9 +2297,9 @@ public struct CSInputGroup: View {
     })
     Group {
       if CSInputGroupModel.fieldType(password: password, revealed: revealed) == "password" {
-        SecureField("", text: binding)
+        SecureField(placeholder ?? "", text: binding)
       } else {
-        TextField("", text: binding)
+        TextField(placeholder ?? "", text: binding)
       }
     }
     .focused($focused)
@@ -2394,7 +2431,7 @@ public struct CSLocaleProvider<Content: View>: View {
   public let language: String
   let content: () -> Content
   public init(language: String, @ViewBuilder content: @escaping () -> Content) { self.language = language; self.content = content }
-  public var body: some View { content().environment(\.locale, Locale(identifier: language == "vi" ? "vi" : "en")) }
+  public var body: some View { content().environment(\.csLanguage, language).environment(\.locale, Locale(identifier: language == "vi" ? "vi" : "en")) }
 }
 
 public struct CSLumiAvatar: View {
@@ -2479,19 +2516,21 @@ public struct CSNativeSelect: View {
   public let placeholder: String?
   public let hasChildren: Bool
   public let disabled: Bool
+  public let size: String
   let dark: Bool
   let highContrast: Bool
   let compact: Bool
   @Binding var selection: String
   @State private var focusId = UUID().uuidString
   @FocusState private var focused: Bool
-  public init(label: String, options: [CSNativeSelectOption], selection: Binding<String>, error: String? = nil, placeholder: String? = nil, hasChildren: Bool = false, disabled: Bool = false, dark: Bool = false, highContrast: Bool = false, compact: Bool = false) {
+  public init(label: String, options: [CSNativeSelectOption], selection: Binding<String>, error: String? = nil, placeholder: String? = nil, hasChildren: Bool = false, disabled: Bool = false, size: String = "md", dark: Bool = false, highContrast: Bool = false, compact: Bool = false) {
     self.label = label
     self.options = options
     self.error = error
     self.placeholder = placeholder
     self.hasChildren = hasChildren
     self.disabled = disabled
+    self.size = CSNativeSelectModel.resolvedSize(size)
     self.dark = dark
     self.highContrast = highContrast
     self.compact = compact
@@ -2824,10 +2863,23 @@ public struct CSPromptSuggestions: View {
   }
 }
 
+extension CSQRCodeModel {
+  public static let defaultSize = 128.0
+  public static func accessibleLabel(label: String?, value: String) -> String {
+    if let label, !label.isEmpty { return label }
+    return value
+  }
+}
+
 public struct CSQRCode: View {
   public let value: String
   public let label: String
-  public init(value: String, label: String) { self.value = value; self.label = label }
+  public let size: Double
+  public init(value: String = "", label: String = "", size: Double = CSQRCodeModel.defaultSize) {
+    self.value = value
+    self.label = label
+    self.size = size
+  }
   public var body: some View {
     let modules = CSQRCodeModel.matrix(value)
     Group {
@@ -2840,18 +2892,20 @@ public struct CSQRCode: View {
             }
           }
         }
-        .frame(width: 128, height: 128)
+        .frame(width: CGFloat(size), height: CGFloat(size))
       } else {
-        Text("—").frame(width: 128, height: 128)
+        Text("—").frame(width: CGFloat(size), height: CGFloat(size))
       }
     }
     .padding(CGFloat(CSControlsBatchStyleModel.qrCodePadding()))
-    .accessibilityLabel(label.isEmpty ? value : label)
+    .accessibilityLabel(CSQRCodeModel.accessibleLabel(label: label, value: value))
   }
 }
 
 public enum CSTreeSelectModel {
   public static let placeholderDefault = "Select…"
+  public static let placementDefault = "bottom-start"
+  public static func resolvedPlacement(_ explicit: String?) -> String { explicit ?? placementDefault }
   public static func copy(_ key: String, language: String?) -> String {
     let want = CSComboboxModel.primaryLanguage(language) ?? "vi"
     let tables: [String: [String: String]] = [
@@ -2878,8 +2932,8 @@ public enum CSTreeSelectModel {
   public static func shown(requested: Bool, disabled: Bool) -> Bool { requested && !disabled }
   public static func dismissOutside(open: Bool, inside: Bool) -> Bool { open && !inside }
   public static let panelGap = 6.0
-  public static func shift(anchor: CSFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CSFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double) -> CSTreeSelectPlace? {
-    guard let initial = CSFloatingModel.position(anchor: anchor, panelWidth: naturalWidth, panelHeight: naturalHeight, viewport: viewport, placement: "bottom-start", gap: panelGap) else { return nil }
+  public static func shift(anchor: CSFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CSFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String = placementDefault) -> CSTreeSelectPlace? {
+    guard let initial = CSFloatingModel.position(anchor: anchor, panelWidth: naturalWidth, panelHeight: naturalHeight, viewport: viewport, placement: resolvedPlacement(placement), gap: panelGap) else { return nil }
     guard let placed = CSFloatingModel.position(anchor: anchor, panelWidth: fittedWidth, panelHeight: fittedHeight, viewport: viewport, placement: initial.placement, gap: panelGap) else { return nil }
     let sx = scaleX == 0 ? 1 : scaleX
     let sy = scaleY == 0 ? 1 : scaleY
@@ -2918,6 +2972,8 @@ public struct CSTreeSelect: View {
   public let selected: String?
   public let placeholder: String?
   public let disabled: Bool
+  public let portal: Bool
+  public let placement: String?
   public let language: String?
   let dark: Bool
   let highContrast: Bool
@@ -2933,13 +2989,15 @@ public struct CSTreeSelect: View {
   @State private var panelScale = CGSize(width: 1, height: 1)
   @State private var measurePass = 0
 
-  public init(label: String? = nil, labelledBy: String? = nil, nodes: [CSTreeNode], open: [String: Bool] = [:], selected: String?, placeholder: String? = nil, disabled: Bool = false, dark: Bool = false, highContrast: Bool = false, compact: Bool = false, language: String? = nil, onSelect: @escaping (String) -> Void) {
+  public init(label: String? = nil, labelledBy: String? = nil, nodes: [CSTreeNode], open: [String: Bool] = [:], selected: String?, placeholder: String? = nil, disabled: Bool = false, portal: Bool = true, placement: String? = nil, dark: Bool = false, highContrast: Bool = false, compact: Bool = false, language: String? = nil, onSelect: @escaping (String) -> Void) {
     self.label = label
     self.labelledBy = labelledBy
     self.nodes = nodes
     self.selected = selected
     self.placeholder = placeholder
     self.disabled = disabled
+    self.portal = portal
+    self.placement = placement
     self.language = language
     self.dark = dark
     self.highContrast = highContrast
@@ -2981,7 +3039,7 @@ public struct CSTreeSelect: View {
         let viewport = CSFloatingRect(left: 8, top: 8, right: max(8, screen.width - 8), bottom: max(8, screen.height - 8), width: 0, height: 0)
         let placed = naturalSize.flatMap { natural in
           fittedSize.flatMap { fitted in
-            CSTreeSelectModel.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height))
+            CSTreeSelectModel.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height), placement: CSTreeSelectModel.resolvedPlacement(placement))
           }
         }
         CSTree(label: tree, nodes: nodes, open: expanded, selected: selected, dark: dark, highContrast: highContrast, compact: compact, onOpen: { expanded = $0 }, onSelect: { key in
