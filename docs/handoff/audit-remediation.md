@@ -9,7 +9,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: pending (`fix(native): resolve Compose and Flutter compiler diagnostics in Catalog, Fields, Overlays, and Remainder`)
+- Checkpoint commit: `26273a88f7fbe4b16735003b6d92504ff50251c8` (`fix(native): resolve Compose and Flutter compiler diagnostics in Catalog, Fields, Overlays, and Remainder`)
 - Previous checkpoint: `62965e6615fc4c6dea923600603af20747f0e197`, with the hash note in `c6036bc1`
 - GitHub Actions push workflows re-enabled (`Design System Gates` `316944477`, `native-validation` `377620668`, `native-store` `318755963`, `OpenSSF Scorecard` `330342703`)
 
