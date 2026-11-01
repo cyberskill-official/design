@@ -301,6 +301,9 @@ bool csSortCanMoveUp(int index) => index > 0;
 bool csSortCanMoveDown(int index, int count) => index >= 0 && index < count - 1;
 double csSortListGap() => 6;
 double csSortMaxWidth() => 380;
+double csSortItemGap() => 10;
+double csSortItemPaddingY() => 10;
+double csSortItemPaddingX() => 12;
 int? csSortRowAt(double originY, double rowHeight, int count, double pointY) {
   if (count <= 0 || rowHeight <= 0) return null;
   final index = ((pointY - originY) / rowHeight).floor();
@@ -342,6 +345,7 @@ class _CsSortableState extends State<CsSortable> {
 
   @override
   Widget build(BuildContext context) {
+    final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
     final locale = csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context));
     final up = csSortLabel(widget.upLabel, csSortCopy('moveUp', locale));
     final down = csSortLabel(widget.downLabel, csSortCopy('moveDown', locale));
@@ -350,7 +354,14 @@ class _CsSortableState extends State<CsSortable> {
       child: Column(key: listKey, children: [
         for (var index = 0; index < widget.items.length; index++) ...[
           if (index > 0) SizedBox(height: csSortListGap()),
-          Builder(builder: (rowContext) => Row(children: [
+          Builder(builder: (rowContext) => Container(
+            padding: EdgeInsets.symmetric(horizontal: csSortItemPaddingX(), vertical: csSortItemPaddingY()),
+            decoration: BoxDecoration(
+              color: csColor(pack.colorSurfacePanel),
+              border: Border.all(color: csColor(pack.colorBorderDefault)),
+              borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
+            ),
+            child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
           GestureDetector(
             onVerticalDragStart: (_) {
               final box = listKey.currentContext?.findRenderObject() as RenderBox?;
@@ -368,10 +379,13 @@ class _CsSortableState extends State<CsSortable> {
             },
             child: const ExcludeSemantics(child: Text('⠿')),
           ),
-          Text(widget.items[index]),
+          SizedBox(width: csSortItemGap()),
+          Text(widget.items[index], style: TextStyle(color: csColor(pack.colorTextPrimary), fontSize: csPoints(pack.fontSizeSm))),
+          SizedBox(width: csSortItemGap()),
           Semantics(button: true, label: up, enabled: csSortCanMoveUp(index), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: csSortCanMoveUp(index) ? () { claim(); widget.onChange(csReorder(widget.items, index, index - 1)); } : null, child: const ExcludeSemantics(child: Text('↑'))))),
           Semantics(button: true, label: down, enabled: csSortCanMoveDown(index, widget.items.length), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: csSortCanMoveDown(index, widget.items.length) ? () { claim(); widget.onChange(csReorder(widget.items, index, index + 1)); } : null, child: const ExcludeSemantics(child: Text('↓'))))),
-          ])),
+          ]),
+          )),
         ],
       ]),
     );

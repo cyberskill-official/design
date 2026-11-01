@@ -128,6 +128,9 @@ public enum CSSortModel {
   public static func canMoveDown(_ index: Int, count: Int) -> Bool { index >= 0 && index < count - 1 }
   public static func listGap() -> Double { 6 }
   public static func maxWidth() -> Double { 380 }
+  public static func itemGap() -> Double { 10 }
+  public static func itemPaddingY() -> Double { 10 }
+  public static func itemPaddingX() -> Double { 12 }
   public static func rowAt(originY: Double, rowHeight: Double, count: Int, pointY: Double) -> Int? {
     guard count > 0, rowHeight > 0 else { return nil }
     let index = Int(((pointY - originY) / rowHeight).rounded(.down))
@@ -498,10 +501,10 @@ public struct CSSortable: View {
     let down = CSSortModel.label(downLabel, fallback: CSSortModel.copy("moveDown", language: locale))
     VStack(alignment: .leading, spacing: CGFloat(CSSortModel.listGap())) {
       ForEach(Array(items.enumerated()), id: \.offset) { index, item in
-        HStack {
+        HStack(alignment: .center, spacing: CGFloat(CSSortModel.itemGap())) {
           HStack {
             Text("⠿").accessibilityHidden(true).foregroundStyle(pack.mutedColor)
-            Text(item).foregroundStyle(pack.primaryTextColor)
+            Text(item).font(.system(size: pack.fontSizeSm.points)).foregroundStyle(pack.primaryTextColor)
           }
           .gesture(DragGesture(minimumDistance: 4, coordinateSpace: .global).onChanged { _ in
             if dragFrom == nil { dragFrom = index }
@@ -525,6 +528,11 @@ public struct CSSortable: View {
           .disabled(!CSSortModel.canMoveDown(index, count: items.count))
           .accessibilityLabel(down)
         }
+        .padding(.horizontal, CGFloat(CSSortModel.itemPaddingX()))
+        .padding(.vertical, CGFloat(CSSortModel.itemPaddingY()))
+        .background(pack.colorSurfacePanel.color)
+        .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
+        .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(pack.colorBorderDefault.color, lineWidth: 1))
         .background(GeometryReader { geo in
           Color.clear.preference(key: CSSortRowKey.self, value: geo.frame(in: .global))
         })

@@ -1,5 +1,6 @@
 package world.cyberskill.design
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectDragGestures
@@ -9,8 +10,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -238,6 +241,9 @@ fun csSortCanMoveUp(index: Int) = index > 0
 fun csSortCanMoveDown(index: Int, count: Int) = index >= 0 && index < count - 1
 fun csSortListGap() = 6.dp
 fun csSortMaxWidth() = 380.dp
+fun csSortItemGap() = 10.dp
+fun csSortItemPaddingY() = 10.dp
+fun csSortItemPaddingX() = 12.dp
 fun csSortRowAt(originY: Double, rowHeight: Double, count: Int, pointY: Double): Int? {
   if (count <= 0 || rowHeight <= 0.0) return null
   val index = kotlin.math.floor((pointY - originY) / rowHeight).toInt()
@@ -260,7 +266,7 @@ fun CsSortable(items: List<String>, onChange: (List<String>) -> Unit, dark: Bool
   var pointY by remember { mutableStateOf(0.0) }
   Column(modifier.widthIn(max = csSortMaxWidth()).onGloballyPositioned { originY = it.positionInRoot().y.toDouble() }, verticalArrangement = Arrangement.spacedBy(csSortListGap())) {
     items.forEachIndexed { index, item ->
-      Row(Modifier.onGloballyPositioned { if (it.size.height > 0) rowHeight = it.size.height.toDouble() }) {
+      Row(Modifier.border(1.dp, pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).background(pack.colorSurfacePanel.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).padding(horizontal = csSortItemPaddingX(), vertical = csSortItemPaddingY()).onGloballyPositioned { if (it.size.height > 0) rowHeight = it.size.height.toDouble() }, horizontalArrangement = Arrangement.spacedBy(csSortItemGap()), verticalAlignment = Alignment.CenterVertically) {
         Text("⠿", color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.clearAndSetSemantics {}.pointerInput(items, originY, rowHeight) {
           detectDragGestures(
             onDragStart = { offset ->
