@@ -178,7 +178,7 @@ public struct CSCheckbox: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    VStack(alignment: .leading, spacing: 2) {
+    VStack(alignment: .leading, spacing: CGFloat(CSFormsStyleModel.checkRadioTextGap())) {
       Toggle(isOn: Binding(get: { isOn }, set: { next in
         if disabled { return }
         CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true })
@@ -188,7 +188,7 @@ public struct CSCheckbox: View {
           Text(label).foregroundStyle(pack.primaryTextColor).accessibilityHidden(true)
         }
       }
-      .tint(pack.colorBrandOchre.color)
+      .tint(CSFormsStyleModel.checkRadioAccentColor(dark: dark, pack: pack).color)
       .focused($focused)
       .onChange(of: focused) { isFocused in
         if isFocused && !disabled { CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true }) }
@@ -197,9 +197,13 @@ public struct CSCheckbox: View {
       .accessibilityHint(CSCheckboxModel.showsText(description) ? (description ?? "") : "")
       .disabled(disabled)
       if CSCheckboxModel.showsText(description), let description {
-        Text(description).foregroundStyle(pack.mutedColor).accessibilityHidden(true)
+        Text(description)
+          .font(.system(size: CGFloat(CSFormsStyleModel.checkRadioDescriptionFontSize(pack))))
+          .foregroundStyle(pack.mutedColor)
+          .accessibilityHidden(true)
       }
     }
+    .opacity(CSFormsStyleModel.checkRadioOpacity(disabled: disabled))
     .frame(minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
   }
 }
@@ -249,19 +253,24 @@ public struct CSRadioGroup: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    VStack(alignment: .leading, spacing: 4) {
+    VStack(alignment: .leading, spacing: CGFloat(CSFormsStyleModel.radioGroupGap())) {
       if CSRadioModel.showsText(label), let label {
-        Text(label).foregroundStyle(pack.primaryTextColor).accessibilityHidden(true)
+        Text(label)
+          .font(.system(size: pack.fontSizeBase.points, weight: .bold))
+          .foregroundStyle(pack.primaryTextColor)
+          .padding(.bottom, CGFloat(CSFormsStyleModel.radioGroupLegendMarginBottom()))
+          .accessibilityHidden(true)
       }
       ForEach(options, id: \.value) { option in
-        VStack(alignment: .leading, spacing: 2) {
+        VStack(alignment: .leading, spacing: CGFloat(CSFormsStyleModel.checkRadioTextGap())) {
           Button {
             if option.disabled { return }
             CSFocusRegistry.shared.claim(id: "\(focusId)-\(option.value)", restore: { focusedValue = option.value })
             if let next = CSRadioModel.select(option.value, hasHandler: true) { selection = next }
           } label: {
-            HStack(spacing: 8) {
+            HStack(spacing: CGFloat(CSFormsStyleModel.checkRadioGap())) {
               Image(systemName: CSRadioModel.isChecked(value: selection, option: option.value) ? "largecircle.fill.circle" : "circle")
+                .foregroundStyle(CSFormsStyleModel.checkRadioAccentColor(dark: dark, pack: pack).color)
               if CSRadioModel.showsText(option.label) {
                 Text(option.label).foregroundStyle(pack.primaryTextColor).accessibilityHidden(true)
               }
@@ -276,9 +285,13 @@ public struct CSRadioGroup: View {
           .accessibilityHint(CSRadioModel.showsText(option.description) ? (option.description ?? "") : "")
           .accessibilityAddTraits(CSRadioModel.isChecked(value: selection, option: option.value) ? .isSelected : [])
           if CSRadioModel.showsText(option.description), let description = option.description {
-            Text(description).foregroundStyle(pack.mutedColor).accessibilityHidden(true)
+            Text(description)
+              .font(.system(size: CGFloat(CSFormsStyleModel.checkRadioDescriptionFontSize(pack))))
+              .foregroundStyle(pack.mutedColor)
+              .accessibilityHidden(true)
           }
         }
+        .opacity(CSFormsStyleModel.checkRadioOpacity(disabled: option.disabled))
       }
     }
     .accessibilityElement(children: .contain)
@@ -320,6 +333,9 @@ public struct CSProgressBar: View {
     let tint = tone == "umber" ? pack.colorBrandUmber.color : tone == "success" ? pack.colorSemanticSuccess.color : pack.colorBrandOchre.color
     ProgressView(value: measurement.clamped, total: measurement.max)
       .tint(tint)
+      .frame(minHeight: CGFloat(CSFeedbackStyleModel.progressHeight()))
+      .background(pack.colorSurfaceRaised.color)
+      .clipShape(RoundedRectangle(cornerRadius: pack.radiusFull.points))
       .accessibilityLabel(CSProgress.barName(label, fallback: CSProgress.copy("label", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage))))
   }
 }
@@ -348,11 +364,14 @@ public struct CSAvatar: View {
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let spoken = CSAvatarModel.spoken(src: source, name: name)
+    let key = size == .sm ? "sm" : size == .lg ? "lg" : "md"
+    let dim = CGFloat(CSDataStyleModel.avatarSize(size: key))
     Text(initials)
-      .foregroundStyle(pack.colorSemanticInfoFg.color)
-      .frame(width: size.points, height: size.points)
+      .font(.system(size: CGFloat(CSDataStyleModel.avatarFontSize(size: key, pack: pack)), weight: .bold))
+      .foregroundStyle(pack.colorBrandOchre.color)
+      .frame(width: dim, height: dim)
       .background(pack.colorBrandUmber.color)
-      .clipShape(RoundedRectangle(cornerRadius: square ? pack.radiusMd.points : size.points / 2))
+      .clipShape(RoundedRectangle(cornerRadius: CGFloat(CSDataStyleModel.avatarRadius(square: square, size: key, pack: pack))))
       .accessibilityElement(children: .ignore)
       .accessibilityLabel(spoken ?? "")
       .accessibilityHidden(spoken == nil)
@@ -382,10 +401,11 @@ public struct CSAlert: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    HStack(alignment: .top, spacing: 12) {
-      VStack(alignment: .leading, spacing: 4) {
-        Text(title).font(.system(size: 16, weight: .bold)).foregroundStyle(CSAlertTone.text(variant, pack: pack).color)
-        Text(message).foregroundStyle(pack.mutedColor)
+    let tone = CSAlertTone.text(variant, pack: pack).color
+    HStack(alignment: .top, spacing: CGFloat(CSFeedbackStyleModel.alertGap())) {
+      VStack(alignment: .leading, spacing: CGFloat(CSFeedbackStyleModel.alertTitleMarginBottom())) {
+        Text(title).font(.system(size: CGFloat(CSFeedbackStyleModel.alertBodyFontSize(pack)), weight: .bold)).foregroundStyle(tone)
+        Text(message).font(.system(size: CGFloat(CSFeedbackStyleModel.alertBodyFontSize(pack)))).foregroundStyle(pack.mutedColor)
       }
       Spacer(minLength: 0)
       if let onDismiss {
@@ -394,9 +414,16 @@ public struct CSAlert: View {
           .accessibilityLabel(dismissLabel)
       }
     }
-    .padding(16)
+    .padding(.vertical, CGFloat(CSFeedbackStyleModel.alertPaddingY()))
+    .padding(.horizontal, CGFloat(CSFeedbackStyleModel.alertPaddingX()))
     .background(pack.colorSurfacePanel.color)
-    .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(CSAlertTone.text(variant, pack: pack).color, lineWidth: 1))
+    .overlay(alignment: .leading) {
+      Rectangle()
+        .fill(tone)
+        .frame(width: CGFloat(CSFeedbackStyleModel.alertAccentBorderWidth()))
+    }
+    .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
+    .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(pack.colorBorderDefault.color, lineWidth: CGFloat(CSFeedbackStyleModel.alertBorderWidth())))
     .accessibilityElement(children: .contain)
     .accessibilityAddTraits(.isStaticText)
   }
@@ -471,12 +498,13 @@ public struct CSSlider: View {
       }
     )
     Slider(value: shown, in: limit > minimum ? minimum...limit : minimum...(minimum + 1))
+      .frame(minHeight: CGFloat(CSControlsWaveStyleModel.sliderHeight()))
       .focused($focused)
       .onChange(of: focused) { isFocused in
         if isFocused && !blocked { CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true }) }
       }
       .disabled(blocked)
-      .tint(dark ? pack.colorBrandOchre.color : pack.colorBrandUmber.color)
+      .tint(CSFormsStyleModel.checkRadioAccentColor(dark: dark, pack: pack).color)
       .accessibilityLabel(CSSliderModel.label(label, fallback: CSSliderModel.copy("label", language: spoken)))
   }
 }
@@ -542,30 +570,37 @@ public struct CSTabs: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    let layout = vertical ? AnyLayout(VStackLayout(spacing: 0)) : AnyLayout(HStackLayout(spacing: 0))
+    let layout = vertical ? AnyLayout(VStackLayout(spacing: CGFloat(CSNavigationStyleModel.tabsGap()))) : AnyLayout(HStackLayout(spacing: CGFloat(CSNavigationStyleModel.tabsGap())))
     layout {
       ForEach(tabs, id: \.value) { tab in
+        let selected = selection == tab.value
         Button {
           CSFocusRegistry.shared.claim(id: "\(focusId)-\(tab.value)", restore: { focusedValue = tab.value })
           selection = tab.value
         } label: {
-          HStack(spacing: 6) {
-            Text(tab.label)
+          HStack(spacing: CGFloat(CSNavigationStyleModel.tabGap())) {
+            Text(tab.label).font(.system(size: CGFloat(CSNavigationStyleModel.tabFontSize(pack)), weight: .semibold))
             if CSTabsModel.showsCount(tab.count), let count = tab.count {
-              Text(String(count)).foregroundStyle(pack.mutedColor)
+              Text(String(count))
+                .font(.system(size: CGFloat(CSNavigationStyleModel.tabCountFontSize(pack))))
+                .padding(.vertical, CGFloat(CSNavigationStyleModel.tabCountPaddingY()))
+                .padding(.horizontal, CGFloat(CSNavigationStyleModel.tabCountPaddingX()))
+                .foregroundStyle(pack.mutedColor)
             }
           }
-            .foregroundStyle(selection == tab.value ? pack.colorBrandOchre.color : pack.primaryTextColor)
+            .foregroundStyle(CSNavigationStyleModel.tabTextColor(selected: selected, dark: dark, pack: pack).color)
+            .padding(.vertical, CGFloat(CSNavigationStyleModel.tabPaddingY()))
+            .padding(.horizontal, CGFloat(CSNavigationStyleModel.tabPaddingX()))
             .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points)
             .overlay(alignment: .bottom) {
               Rectangle()
-                .fill(selection == tab.value ? pack.colorBrandOchre.color : Color.clear)
-                .frame(height: 2)
+                .fill((CSNavigationStyleModel.tabBorderBottomColor(selected: selected, pack: pack)?.color) ?? Color.clear)
+                .frame(height: CGFloat(CSNavigationStyleModel.tabBorderBottomWidth()))
             }
         }
         .buttonStyle(.plain)
         .focused($focusedValue, equals: tab.value)
-        .accessibilityAddTraits(selection == tab.value ? .isSelected : [])
+        .accessibilityAddTraits(selected ? .isSelected : [])
       }
     }
     .accessibilityElement(children: .contain)
@@ -1059,10 +1094,10 @@ public struct CSSkeleton: View {
           .frame(width: width, height: round ? width : height)
       }
     }
-    .opacity(CSSkeletonModel.shimmer(reducedMotion: reduceMotion) ? (phase ? 0.55 : 1) : 1)
+    .opacity(CSSkeletonModel.shimmer(reducedMotion: reduceMotion) ? (phase ? CSFeedbackStyleModel.skeletonMidStopRaisedPortion : 1) : 1)
     .onAppear {
       guard CSSkeletonModel.shimmer(reducedMotion: reduceMotion) else { return }
-      withAnimation(.easeInOut(duration: 1.4).repeatForever(autoreverses: true)) { phase = true }
+      withAnimation(.easeInOut(duration: CSFeedbackStyleModel.skeletonDurationMs() / 1000.0).repeatForever(autoreverses: true)) { phase = true }
     }
     .accessibilityHidden(true)
   }
@@ -1116,10 +1151,11 @@ public struct CSSpinner: View {
     let spins = CSSpinnerModel.spins(reducedMotion: reduceMotion)
     let ochre = CSSpinnerModel.topIsOchre(dark: dark)
     let top = ochre ? pack.colorBrandOchre.color : pack.colorBrandUmber.color
-    let track = top.opacity(ochre ? 0.26 : 0.22)
+    let strokeWidth = CGFloat(CSFeedbackStyleModel.spinnerBorderWidth())
+    let track = top.opacity(CSFeedbackStyleModel.spinnerTrackAlpha(dark: ochre))
     Circle()
-      .stroke(track, lineWidth: 2.5)
-      .overlay(Circle().trim(from: 0, to: 0.25).stroke(top, style: StrokeStyle(lineWidth: 2.5, lineCap: .butt)).rotationEffect(.degrees(-90)))
+      .stroke(track, lineWidth: strokeWidth)
+      .overlay(Circle().trim(from: 0, to: 0.25).stroke(top, style: StrokeStyle(lineWidth: strokeWidth, lineCap: .butt)).rotationEffect(.degrees(-90)))
       .rotationEffect(.degrees(spins && turn ? 360 : 0))
       .frame(width: size, height: size)
       .onAppear {
@@ -1172,17 +1208,21 @@ public struct CSTag: View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let locale = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
     let spoken = CSTagModel.label(removeLabel, fallback: CSTagModel.copy("remove", language: locale))
-    HStack(spacing: 4) {
-      Text(title).foregroundStyle(pack.primaryTextColor)
+    HStack(spacing: CGFloat(CSFeedbackStyleModel.tagGap())) {
+      Text(title)
+        .font(.system(size: CGFloat(CSFeedbackStyleModel.tagFontSize(pack)), weight: .semibold))
+        .foregroundStyle(pack.primaryTextColor)
       if let onRemove {
         CSTriggerButton("×", action: onRemove)
           .frame(minWidth: 44, minHeight: 44)
           .accessibilityLabel(spoken)
       }
     }
-    .padding(.horizontal, 8)
-    .background(pack.colorSurfacePanel.color)
-    .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
+    .padding(.horizontal, CGFloat(CSFeedbackStyleModel.tagPaddingX()))
+    .padding(.vertical, CGFloat(CSFeedbackStyleModel.tagPaddingY()))
+    .background(pack.colorSurfaceRaised.color)
+    .clipShape(RoundedRectangle(cornerRadius: pack.radiusSm.points))
+    .overlay(RoundedRectangle(cornerRadius: pack.radiusSm.points).stroke(pack.colorBorderDefault.color, lineWidth: CGFloat(CSFeedbackStyleModel.tagBorderWidth())))
   }
 }
 
@@ -1207,17 +1247,24 @@ public struct CSStat: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    VStack(alignment: .leading, spacing: 4) {
-      Text(label).foregroundStyle(pack.mutedColor)
-      Text(value).font(.system(size: 28, weight: .bold)).foregroundStyle(pack.primaryTextColor)
+    let dir = trend == .up ? "up" : trend == .down ? "down" : "flat"
+    VStack(alignment: .leading, spacing: CGFloat(CSDataStyleModel.statGap())) {
+      Text(label)
+        .textCase(.uppercase)
+        .font(.system(size: CGFloat(CSDataStyleModel.statLabelFontSize(pack)), weight: .semibold))
+        .foregroundStyle(pack.mutedColor)
+      Text(value)
+        .font(.system(size: CGFloat(CSDataStyleModel.statValueFontSize(pack)), weight: .heavy))
+        .foregroundStyle(pack.primaryTextColor)
       if CSStatTrend.showsDelta(delta), let delta {
-        let ink = trend == .up ? pack.colorSemanticSuccessText : trend == .down ? pack.colorSemanticDangerText : pack.colorTextMuted
-        HStack(spacing: 4) {
+        let ink = CSDataStyleModel.statDeltaColor(direction: dir, pack: pack)
+        HStack(spacing: CGFloat(CSDataStyleModel.statDeltaGap())) {
           CSIconPaths.path(data: trend.arrowPath())
             .stroke(ink.color, style: StrokeStyle(lineWidth: 2.4, lineCap: .round, lineJoin: .round))
             .frame(width: 14, height: 14)
             .accessibilityHidden(true)
           Text(delta)
+            .font(.system(size: CGFloat(CSDataStyleModel.statDeltaFontSize(pack)), weight: .bold))
         }
         .foregroundStyle(ink.color)
       }

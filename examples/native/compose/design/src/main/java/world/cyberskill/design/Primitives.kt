@@ -32,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.semantics.Role
@@ -41,6 +42,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.progressBarRangeInfo
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlin.math.max
@@ -146,27 +148,30 @@ fun CsCheckbox(
 ) {
   val pack = csModePack(dark, highContrast, compact)
   val handle = rememberFocusHandle("checkbox")
+  val controlEnabled = csControlEnabled(enabled)
   Row(
     modifier
       .fillMaxWidth()
       .heightIn(min = pack.componentButtonMdMinHeight.toDp())
+      .alpha(csFormsStyleCheckRadioOpacity(!controlEnabled))
       .focusRequester(handle.requester)
       .onFocusChanged { if (it.isFocused) handle.claim() }
       .semantics { contentDescription = if (csCheckboxShows(label)) label else "" }
-      .toggleable(value = checked, enabled = csControlEnabled(enabled), role = Role.Checkbox, onValueChange = {
-        if (!csControlEnabled(enabled)) return@toggleable
+      .toggleable(value = checked, enabled = controlEnabled, role = Role.Checkbox, onValueChange = {
+        if (!controlEnabled) return@toggleable
         handle.claim()
         onCheckedChange(it)
       }),
+    horizontalArrangement = Arrangement.spacedBy(csFormsStyleCheckRadioGap()),
     verticalAlignment = Alignment.CenterVertically,
   ) {
     Checkbox(
       checked = checked,
       onCheckedChange = null,
-      enabled = csControlEnabled(enabled),
-      colors = CheckboxDefaults.colors(checkedColor = pack.colorBrandOchre.toComposeColor()),
+      enabled = controlEnabled,
+      colors = CheckboxDefaults.colors(checkedColor = csFormsStyleCheckRadioAccentColor(dark, pack).toComposeColor()),
     )
-    Column {
+    Column(verticalArrangement = Arrangement.spacedBy(csFormsStyleCheckRadioTextGap())) {
       if (csCheckboxShows(label)) Text(label, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.clearAndSetSemantics { })
       if (csCheckboxShows(description)) Text(description ?: "", color = pack.colorTextMuted.toComposeColor())
     }
@@ -187,12 +192,12 @@ fun CsRadioGroup(
   modifier: Modifier = Modifier,
 ) {
   val pack = csModePack(dark, highContrast, compact)
-  androidx.compose.runtime.CompositionLocalProvider(LocalCsForm provides true) { Column(modifier.semantics { if (csCheckboxShows(label)) contentDescription = label }) {
-    if (csCheckboxShows(label)) Text(label, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.clearAndSetSemantics { })
+  androidx.compose.runtime.CompositionLocalProvider(LocalCsForm provides true) { Column(modifier.semantics { if (csCheckboxShows(label)) contentDescription = label }, verticalArrangement = Arrangement.spacedBy(csFormsStyleRadioGroupGap())) {
+    if (csCheckboxShows(label)) Text(label, color = pack.colorTextPrimary.toComposeColor(), fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = csFormsStyleRadioGroupLegendMarginBottom()).clearAndSetSemantics { })
     options.forEach { option ->
       val handle = rememberFocusHandle("radio-${option.value}")
       val rowEnabled = csControlEnabled() && !option.disabled
-      Column {
+      Column(Modifier.alpha(csFormsStyleCheckRadioOpacity(!rowEnabled)), verticalArrangement = Arrangement.spacedBy(csFormsStyleCheckRadioTextGap())) {
         Row(
           Modifier
             .fillMaxWidth()
@@ -205,9 +210,10 @@ fun CsRadioGroup(
               handle.claim()
               onSelect(option.value)
             }),
+          horizontalArrangement = Arrangement.spacedBy(csFormsStyleCheckRadioGap()),
           verticalAlignment = Alignment.CenterVertically,
         ) {
-          RadioButton(selected = selection == option.value, onClick = null, enabled = rowEnabled, colors = RadioButtonDefaults.colors(selectedColor = pack.colorBrandOchre.toComposeColor()))
+          RadioButton(selected = selection == option.value, onClick = null, enabled = rowEnabled, colors = RadioButtonDefaults.colors(selectedColor = csFormsStyleCheckRadioAccentColor(dark, pack).toComposeColor()))
           if (csCheckboxShows(option.label)) Text(option.label, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.clearAndSetSemantics { })
         }
         if (csCheckboxShows(option.description)) Text(option.description ?: "", color = pack.colorTextMuted.toComposeColor())
@@ -241,12 +247,14 @@ fun CsProgressBar(
     progress = (measurement.percent / 100.0).toFloat(),
     modifier = modifier
       .fillMaxWidth()
+      .height(csFeedbackStyleProgressHeight())
+      .clip(RoundedCornerShape(pack.radiusFull.toDp()))
       .semantics {
         contentDescription = progressName
         progressBarRangeInfo = ProgressBarRangeInfo(measurement.clamped.toFloat(), 0f..measurement.max.toFloat())
       },
     color = color.toComposeColor(),
-    trackColor = pack.colorBorderDefault.toComposeColor(),
+    trackColor = pack.colorSurfaceRaised.toComposeColor(),
   )
 }
 
@@ -262,12 +270,13 @@ fun CsAvatar(
   source: String? = null,
 ) {
   val pack = csModePack(dark, highContrast, compact)
-  val points = csAvatarPoints(size).dp
-  val shape = if (square) RoundedCornerShape(pack.radiusMd.toDp()) else CircleShape
+  val points = csDataStyleAvatarSize(size)
+  val shape = RoundedCornerShape(csDataStyleAvatarRadius(square, size, pack))
   val spoken = csAvatarSpoken(source, name)
   Text(
     csInitials(name),
-    color = pack.colorSemanticInfoFg.toComposeColor(),
+    color = pack.colorBrandOchre.toComposeColor(),
+    fontWeight = FontWeight.Bold,
     modifier = modifier
       .size(points)
       .clip(shape)
@@ -293,13 +302,16 @@ fun CsAlert(
   Row(
     modifier
       .fillMaxWidth()
-      .border(1.dp, tone, RoundedCornerShape(pack.radiusMd.toDp()))
-      .padding(16.dp),
+      .clip(RoundedCornerShape(pack.radiusMd.toDp()))
+      .background(pack.colorSurfacePanel.toComposeColor())
+      .border(csFeedbackStyleAlertBorderWidth(), pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp()))
+      .padding(horizontal = csFeedbackStyleAlertPaddingX(), vertical = csFeedbackStyleAlertPaddingY()),
+    horizontalArrangement = Arrangement.spacedBy(csFeedbackStyleAlertGap()),
     verticalAlignment = Alignment.Top,
   ) {
-    Column(Modifier.weight(1f)) {
-      Text(title, color = tone, fontSize = 16.sp)
-      Text(message, color = pack.colorTextMuted.toComposeColor())
+    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(csFeedbackStyleAlertTitleMarginBottom())) {
+      Text(title, color = tone, fontSize = 14.sp, fontWeight = FontWeight.Bold)
+      Text(message, color = pack.colorTextMuted.toComposeColor(), fontSize = 14.sp)
     }
     if (onDismiss != null) {
       CsTriggerButton(title = "×", onClick = onDismiss, modifier = Modifier.minimumInteractiveComponentSize()) {
@@ -326,13 +338,14 @@ fun CsSlider(
   val handle = rememberFocusHandle("slider")
   val enabled = csControlEnabled(!disabled)
   val spoken = csSliderCopy("label", csComboboxResolvedLanguage(language, LocalCsLanguage.current))
+  val accent = csFormsStyleCheckRadioAccentColor(dark, pack).toComposeColor()
   Slider(
     value = value,
     onValueChange = { next -> if (!enabled) return@Slider; handle.claim(); onValueChange(next) },
     enabled = enabled,
     valueRange = valueRange,
-    modifier = modifier.focusRequester(handle.requester).onFocusChanged { if (it.isFocused && enabled) handle.claim() }.semantics { contentDescription = csSliderLabel(label, spoken) },
-    colors = SliderDefaults.colors(thumbColor = pack.colorBrandOchre.toComposeColor(), activeTrackColor = pack.colorBrandOchre.toComposeColor()),
+    modifier = modifier.heightIn(min = csControlsWaveStyleSliderHeight()).focusRequester(handle.requester).onFocusChanged { if (it.isFocused && enabled) handle.claim() }.semantics { contentDescription = csSliderLabel(label, spoken) },
+    colors = SliderDefaults.colors(thumbColor = accent, activeTrackColor = accent),
   )
 }
 
@@ -390,16 +403,18 @@ fun CsTabs(
 ) {
   val pack = csModePack(dark, highContrast, compact)
   val listName = csTabsListLabel(label, csTabsCopy("list", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
-  Row(modifier.semantics { contentDescription = listName }) {
+  Row(modifier.semantics { contentDescription = listName }, horizontalArrangement = Arrangement.spacedBy(csNavigationStyleTabsGap())) {
     tabs.forEach { tab ->
       val selected = selection == tab.value
       val handle = rememberFocusHandle("tab-${tab.value}")
       Text(
         tab.label,
-        color = if (selected) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor(),
+        color = csNavigationStyleTabTextColor(selected = selected, dark = dark, pack = pack).toComposeColor(),
+        fontWeight = FontWeight.SemiBold,
         modifier = Modifier
           .weight(1f)
           .minimumInteractiveComponentSize()
+          .padding(horizontal = csNavigationStyleTabPaddingX(), vertical = csNavigationStyleTabPaddingY())
           .focusRequester(handle.requester)
           .onFocusChanged { if (it.isFocused) handle.claim() }
           .selectable(selected = selected, enabled = csControlEnabled(), role = Role.Tab, onClick = { handle.claim(); onSelect(tab.value) }),
@@ -426,6 +441,7 @@ fun CsSkeleton(
 ) {
   val pack = csModePack(dark, highContrast, compact)
   val color = pack.colorBorderDefault.toComposeColor()
+  val radius = RoundedCornerShape(pack.radiusSm.toDp())
   if (lines > 0) {
     Column(modifier.clearAndSetSemantics { }, verticalArrangement = Arrangement.spacedBy(8.dp)) {
       repeat(lines) { index ->
@@ -433,7 +449,7 @@ fun CsSkeleton(
           Modifier
             .width((width * csSkeletonLineWidth(index, lines)).dp)
             .height(height.dp)
-            .clip(RoundedCornerShape(pack.radiusMd.toDp()))
+            .clip(radius)
             .background(color),
         )
       }
@@ -442,7 +458,7 @@ fun CsSkeleton(
     Box(
       modifier
         .then(if (circle) Modifier.size(width.dp) else Modifier.width(width.dp).height(height.dp))
-        .clip(if (circle) CircleShape else RoundedCornerShape(pack.radiusMd.toDp()))
+        .clip(if (circle) CircleShape else radius)
         .background(color)
         .clearAndSetSemantics { },
     )
@@ -479,7 +495,7 @@ fun CsSpinner(
   CircularProgressIndicator(
     modifier = modifier.size(size.dp).semantics { contentDescription = name; liveRegion = LiveRegionMode.Polite },
     color = ink.toComposeColor(),
-    strokeWidth = 2.5.dp,
+    strokeWidth = csFeedbackStyleSpinnerBorderWidth(),
   )
 }
 
@@ -499,10 +515,15 @@ fun CsTag(
   val pack = csModePack(dark, highContrast, compact)
   val spoken = csTagLabel(removeLabel, csTagCopy("remove", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
   Row(
-    modifier.clip(RoundedCornerShape(pack.radiusMd.toDp())).background(pack.colorSurfacePanel.toComposeColor()).padding(horizontal = 8.dp),
+    modifier
+      .clip(RoundedCornerShape(pack.radiusSm.toDp()))
+      .background(pack.colorSurfaceRaised.toComposeColor())
+      .border(csFeedbackStyleTagBorderWidth(), pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusSm.toDp()))
+      .padding(horizontal = csFeedbackStyleTagPaddingX(), vertical = csFeedbackStyleTagPaddingY()),
+    horizontalArrangement = Arrangement.spacedBy(csFeedbackStyleTagGap()),
     verticalAlignment = Alignment.CenterVertically,
   ) {
-    Text(title, color = pack.colorTextPrimary.toComposeColor())
+    Text(title, color = pack.colorTextPrimary.toComposeColor(), fontWeight = FontWeight.SemiBold)
     if (onRemove != null) {
       CsTriggerButton(title = "×", onClick = onRemove, modifier = Modifier.minimumInteractiveComponentSize()) {
         Text("×", modifier = Modifier.semantics { contentDescription = spoken })
@@ -523,14 +544,15 @@ fun CsStat(
   trend: CsStatTrend = CsStatTrend.Flat,
 ) {
   val pack = csModePack(dark, highContrast, compact)
-  val ink = when (trend) {
-    CsStatTrend.Up -> pack.colorSemanticSuccessText
-    CsStatTrend.Down -> pack.colorSemanticDangerText
-    CsStatTrend.Flat -> pack.colorTextMuted
+  val dir = when (trend) {
+    CsStatTrend.Up -> "up"
+    CsStatTrend.Down -> "down"
+    CsStatTrend.Flat -> "flat"
   }
-  Column(modifier) {
-    Text(label, color = pack.colorTextMuted.toComposeColor())
-    Text(value, color = pack.colorTextPrimary.toComposeColor(), fontSize = 28.sp)
-    if (csStatShowsDelta(delta)) Row { Text(csStatMark(trend), color = ink.toComposeColor()); Text(delta ?: "", color = ink.toComposeColor()) }
+  val ink = csDataStyleStatDeltaColor(dir, pack)
+  Column(modifier, verticalArrangement = Arrangement.spacedBy(csDataStyleStatGap())) {
+    Text(label.uppercase(), color = pack.colorTextMuted.toComposeColor(), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+    Text(value, color = pack.colorTextPrimary.toComposeColor(), fontSize = 28.sp, fontWeight = FontWeight.ExtraBold)
+    if (csStatShowsDelta(delta)) Row(horizontalArrangement = Arrangement.spacedBy(csDataStyleStatDeltaGap())) { Text(csStatMark(trend), color = ink.toComposeColor(), fontWeight = FontWeight.Bold); Text(delta ?: "", color = ink.toComposeColor(), fontWeight = FontWeight.Bold) }
   }
 }

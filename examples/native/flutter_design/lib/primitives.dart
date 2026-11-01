@@ -145,22 +145,25 @@ class CsCheckbox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
-    return ConstrainedBox(
-      constraints: BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)),
-      child: CsOwnFocus(builder: (node, claim) => Semantics(
-        label: csCheckboxShows(label) ? label : '',
-        hint: csCheckboxShows(description) ? description : null,
-        child: CheckboxListTile(
-          focusNode: node,
-          value: value,
-          onChanged: disabled ? null : (next) { claim(); onChanged(next); },
-          title: csCheckboxShows(label) ? ExcludeSemantics(child: Text(label, style: TextStyle(color: csColor(pack.colorTextPrimary)))) : null,
-          subtitle: csCheckboxShows(description) ? ExcludeSemantics(child: Text(description!, style: TextStyle(color: csColor(pack.colorTextMuted)))) : null,
-          activeColor: csColor(pack.colorBrandOchre),
-          controlAffinity: ListTileControlAffinity.leading,
-          contentPadding: EdgeInsets.zero,
-        ),
-      )),
+    return Opacity(
+      opacity: csFormsStyleCheckRadioOpacity(disabled),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)),
+        child: CsOwnFocus(builder: (node, claim) => Semantics(
+          label: csCheckboxShows(label) ? label : '',
+          hint: csCheckboxShows(description) ? description : null,
+          child: CheckboxListTile(
+            focusNode: node,
+            value: value,
+            onChanged: disabled ? null : (next) { claim(); onChanged(next); },
+            title: csCheckboxShows(label) ? ExcludeSemantics(child: Text(label, style: TextStyle(color: csColor(pack.colorTextPrimary)))) : null,
+            subtitle: csCheckboxShows(description) ? ExcludeSemantics(child: Text(description!, style: TextStyle(fontSize: csFormsStyleCheckRadioDescriptionFontSize(pack), color: csColor(pack.colorTextMuted)))) : null,
+            activeColor: csColor(csFormsStyleCheckRadioAccentColor(dark, pack)),
+            controlAffinity: ListTileControlAffinity.leading,
+            contentPadding: EdgeInsets.zero,
+          ),
+        )),
+      ),
     );
   }
 }
@@ -203,27 +206,34 @@ class CsRadioGroup extends StatelessWidget {
       child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (csCheckboxShows(label)) ExcludeSemantics(child: Text(label, style: TextStyle(color: csColor(pack.colorTextPrimary)))),
+        if (csCheckboxShows(label))
+          Padding(
+            padding: EdgeInsets.only(bottom: csFormsStyleRadioGroupLegendMarginBottom()),
+            child: ExcludeSemantics(child: Text(label, style: TextStyle(fontWeight: FontWeight.w700, color: csColor(pack.colorTextPrimary)))),
+          ),
         for (final option in options)
-          ConstrainedBox(
-            constraints: BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)),
-            child: CsOwnFocus(builder: (node, claim) => Semantics(
-              label: csCheckboxShows(option.label) ? option.label : '',
-              hint: csCheckboxShows(option.description) ? option.description : null,
-              child: RadioListTile<String>(
-                focusNode: node,
-                value: option.value,
-                groupValue: selection,
-                onChanged: option.disabled ? null : (next) {
-                  claim();
-                  if (next != null) onSelect(next);
-                },
-                title: csCheckboxShows(option.label) ? ExcludeSemantics(child: Text(option.label, style: TextStyle(color: csColor(pack.colorTextPrimary)))) : null,
-                subtitle: csCheckboxShows(option.description) ? ExcludeSemantics(child: Text(option.description!, style: TextStyle(color: csColor(pack.colorTextMuted)))) : null,
-                activeColor: csColor(pack.colorBrandOchre),
-                contentPadding: EdgeInsets.zero,
-              ),
-            )),
+          Opacity(
+            opacity: csFormsStyleCheckRadioOpacity(option.disabled),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)),
+              child: CsOwnFocus(builder: (node, claim) => Semantics(
+                label: csCheckboxShows(option.label) ? option.label : '',
+                hint: csCheckboxShows(option.description) ? option.description : null,
+                child: RadioListTile<String>(
+                  focusNode: node,
+                  value: option.value,
+                  groupValue: selection,
+                  onChanged: option.disabled ? null : (next) {
+                    claim();
+                    if (next != null) onSelect(next);
+                  },
+                  title: csCheckboxShows(option.label) ? ExcludeSemantics(child: Text(option.label, style: TextStyle(color: csColor(pack.colorTextPrimary)))) : null,
+                  subtitle: csCheckboxShows(option.description) ? ExcludeSemantics(child: Text(option.description!, style: TextStyle(fontSize: csFormsStyleCheckRadioDescriptionFontSize(pack), color: csColor(pack.colorTextMuted)))) : null,
+                  activeColor: csColor(csFormsStyleCheckRadioAccentColor(dark, pack)),
+                  contentPadding: EdgeInsets.zero,
+                ),
+              )),
+            ),
           ),
       ],
     )));
@@ -261,10 +271,16 @@ class CsProgressBar extends StatelessWidget {
     return Semantics(
       label: csProgressBarName(label, csProgressCopy('label', csSelectResolvedLanguage(language, CsLanguageScope.of(context)))),
       value: '${measurement.clamped}',
-      child: LinearProgressIndicator(
-        value: measurement.percent / 100,
-        color: csColor(color),
-        backgroundColor: csColor(pack.colorBorderDefault),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(csPoints(pack.radiusFull)),
+        child: SizedBox(
+          height: csFeedbackStyleProgressHeight(),
+          child: LinearProgressIndicator(
+            value: measurement.percent / 100,
+            color: csColor(color),
+            backgroundColor: csColor(pack.colorSurfaceRaised),
+          ),
+        ),
       ),
     );
   }
@@ -293,7 +309,7 @@ class CsAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
-    final points = csAvatarPoints(size);
+    final points = csDataStyleAvatarSize(size);
     final spoken = csAvatarSpoken(source, name);
     return Semantics(
       label: spoken,
@@ -305,9 +321,16 @@ class CsAvatar extends StatelessWidget {
         decoration: BoxDecoration(
           color: csColor(pack.colorBrandUmber),
           shape: square ? BoxShape.rectangle : BoxShape.circle,
-          borderRadius: square ? BorderRadius.circular(csPoints(pack.radiusMd)) : null,
+          borderRadius: square ? BorderRadius.circular(csDataStyleAvatarRadius(pack, square: true, size: size)) : null,
         ),
-        child: Text(csInitials(name), style: TextStyle(color: csColor(pack.colorSemanticInfoFg))),
+        child: Text(
+          csInitials(name),
+          style: TextStyle(
+            fontSize: csDataStyleAvatarFontSize(pack, size),
+            fontWeight: FontWeight.w700,
+            color: csColor(pack.colorBrandOchre),
+          ),
+        ),
       ),
     );
   }
@@ -339,11 +362,21 @@ class CsAlert extends StatelessWidget {
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
     final tone = csColor(csAlertText(variant, pack));
+    final borderColor = csColor(pack.colorBorderDefault);
+    final borderWidth = csFeedbackStyleAlertBorderWidth();
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.symmetric(
+        horizontal: csFeedbackStyleAlertPaddingX(),
+        vertical: csFeedbackStyleAlertPaddingY(),
+      ),
       decoration: BoxDecoration(
         color: csColor(pack.colorSurfacePanel),
-        border: Border.all(color: tone),
+        border: Border(
+          left: BorderSide(color: tone, width: csFeedbackStyleAlertAccentBorderWidth()),
+          top: BorderSide(color: borderColor, width: borderWidth),
+          right: BorderSide(color: borderColor, width: borderWidth),
+          bottom: BorderSide(color: borderColor, width: borderWidth),
+        ),
         borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
       ),
       child: Row(
@@ -353,12 +386,14 @@ class CsAlert extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: tone)),
-                Text(message, style: TextStyle(color: csColor(pack.colorTextMuted))),
+                Text(title, style: TextStyle(fontSize: csFeedbackStyleAlertBodyFontSize(pack), fontWeight: FontWeight.w700, color: tone)),
+                SizedBox(height: csFeedbackStyleAlertTitleMarginBottom()),
+                Text(message, style: TextStyle(fontSize: csFeedbackStyleAlertBodyFontSize(pack), color: csColor(pack.colorTextMuted))),
               ],
             ),
           ),
-          if (onDismiss != null)
+          if (onDismiss != null) ...[
+            SizedBox(width: csFeedbackStyleAlertGap()),
             CsOwnFocus(builder: (node, claim) => IconButton(
               focusNode: node,
               onPressed: () { claim(); onDismiss!(); },
@@ -366,6 +401,7 @@ class CsAlert extends StatelessWidget {
               constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
               icon: const Text('×'),
             )),
+          ],
         ],
       ),
     );
@@ -406,14 +442,17 @@ class CsSlider extends StatelessWidget {
     final spoken = csSliderCopy('label', csSelectResolvedLanguage(language, CsLanguageScope.of(context)));
     return Semantics(
       label: csSliderLabelText(label, spoken),
-      child: CsOwnFocus(builder: (node, claim) => Slider(
-        focusNode: node,
-        value: value.clamp(lower, upper == lower ? lower + 1 : upper),
-        min: lower,
-        max: upper == lower ? lower + 1 : upper,
-        activeColor: csColor(pack.colorBrandOchre),
-        onChanged: disabled ? null : (next) { claim(); onChanged(next); },
-      )),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minHeight: csControlsWaveStyleSliderHeight()),
+        child: CsOwnFocus(builder: (node, claim) => Slider(
+          focusNode: node,
+          value: value.clamp(lower, upper == lower ? lower + 1 : upper),
+          min: lower,
+          max: upper == lower ? lower + 1 : upper,
+          activeColor: csColor(csFormsStyleCheckRadioAccentColor(dark, pack)),
+          onChanged: disabled ? null : (next) { claim(); onChanged(next); },
+        )),
+      ),
     );
   }
 }
@@ -507,7 +546,11 @@ class CsTabs extends StatelessWidget {
                   onPressed: () { claim(); onSelect(tab.value); },
                   child: Text(
                     tab.label,
-                    style: TextStyle(color: csColor(selection == tab.value ? pack.colorBrandOchre : pack.colorTextPrimary)),
+                    style: TextStyle(
+                      fontSize: csNavigationStyleTabFontSize(pack),
+                      fontWeight: FontWeight.w600,
+                      color: csColor(csNavigationStyleTabTextColor(pack, selected: selection == tab.value, dark: dark)),
+                    ),
                   ),
                 )),
               ),
@@ -629,7 +672,10 @@ class CsSpinner extends StatelessWidget {
       child: SizedBox(
         width: size,
         height: size,
-        child: CircularProgressIndicator(strokeWidth: 2.5, color: csColor(csSpinnerTopOchre(dark) ? pack.colorBrandOchre : pack.colorBrandUmber)),
+        child: CircularProgressIndicator(
+          strokeWidth: csFeedbackStyleSpinnerBorderWidth(),
+          color: csColor(csSpinnerTopOchre(dark) ? pack.colorBrandOchre : pack.colorBrandUmber),
+        ),
       ),
     );
   }
@@ -676,15 +722,26 @@ class CsTag extends StatelessWidget {
     final spoken = csTagLabel(removeLabel, csTagCopy('remove', csSelectResolvedLanguage(language, CsLanguageScope.of(context))));
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: csColor(pack.colorSurfacePanel),
-        borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
+        color: csColor(pack.colorSurfaceRaised),
+        borderRadius: BorderRadius.circular(csPoints(pack.radiusSm)),
+        border: Border.all(color: csColor(pack.colorBorderDefault), width: csFeedbackStyleTagBorderWidth()),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Text(title, style: TextStyle(color: csColor(pack.colorTextPrimary))),
+            padding: EdgeInsets.symmetric(
+              horizontal: csFeedbackStyleTagPaddingX(),
+              vertical: csFeedbackStyleTagPaddingY(),
+            ),
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: csFeedbackStyleTagFontSize(pack),
+                fontWeight: FontWeight.w600,
+                color: csColor(pack.colorTextPrimary),
+              ),
+            ),
           ),
           if (onRemove != null)
             CsOwnFocus(builder: (node, claim) => Semantics(
@@ -727,20 +784,37 @@ class CsStat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
-    final ink = switch (trend) {
-      CsStatTrend.up => pack.colorSemanticSuccessText,
-      CsStatTrend.down => pack.colorSemanticDangerText,
-      CsStatTrend.flat => pack.colorTextMuted,
+    final dir = switch (trend) {
+      CsStatTrend.up => 'up',
+      CsStatTrend.down => 'down',
+      CsStatTrend.flat => 'flat',
     };
+    final ink = csDataStyleStatDeltaColor(dir, pack);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: TextStyle(color: csColor(pack.colorTextMuted))),
-        Text(value, style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700, color: csColor(pack.colorTextPrimary))),
+        Text(
+          label.toUpperCase(),
+          style: TextStyle(
+            fontSize: csDataStyleStatLabelFontSize(pack),
+            fontWeight: FontWeight.w600,
+            color: csColor(pack.colorTextMuted),
+          ),
+        ),
+        SizedBox(height: csDataStyleStatGap()),
+        Text(
+          value,
+          style: TextStyle(
+            fontSize: csDataStyleStatValueFontSize(pack),
+            fontWeight: FontWeight.w800,
+            color: csColor(pack.colorTextPrimary),
+          ),
+        ),
         if (csStatShowsDelta(delta))
           Row(children: [
-            ExcludeSemantics(child: Text(csStatMark(trend), style: TextStyle(color: csColor(ink)))),
-            Text(delta ?? '', style: TextStyle(color: csColor(ink))),
+            ExcludeSemantics(child: Text(csStatMark(trend), style: TextStyle(fontSize: csDataStyleStatDeltaFontSize(pack), fontWeight: FontWeight.w700, color: csColor(ink)))),
+            SizedBox(width: csDataStyleStatDeltaGap()),
+            Text(delta ?? '', style: TextStyle(fontSize: csDataStyleStatDeltaFontSize(pack), fontWeight: FontWeight.w700, color: csColor(ink))),
           ]),
       ],
     );

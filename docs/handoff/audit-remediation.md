@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the ci-native-and-gate-fixes checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the primitives-views-style-wiring checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `49ab8755d311c8731470ec4a006896830357b635`, with the hash note in `ae5a3332`
-- Checkpoint commit hash: `2a666e67d800b31863f726eb4bab4f7478e8761a`
+- Previous checkpoint: `2a666e67d800b31863f726eb4bab4f7478e8761a`, with the hash note in `1d3dd31b`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -55,13 +54,13 @@ Last run after styling `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `Navigat
 
 ## Latest checkpoint
 
-Resolved all native compiler and gate issues surfaced by GitHub Actions runs `41286519187` (`native-validation`) and `41286519158` (`Design System Gates`): qualified `CyberSkillDesign.CSTokenModePack` in SwiftUI `HomeView.swift` when `CSModes.swift` is synced into `CyberSkillSample`; replaced `"srgb"` with `CSColorSpace.SRGB` in Compose `Controls.kt`; added `package:flutter/services.dart`, `cs_modes.dart`, and `overlays.dart` imports, positional `CSColorValue` constructors, Flutter 3.24.5 `.withOpacity(...)` calls, nullable `locale` parameters in `csDateParse`/`csDateFormat`, missing closing delimiters in `surfaces.dart`/`fields.dart`, and deduplicated `csDescriptionColumnMin`/`csDescriptionSpoken` in Flutter `catalog.dart`; updated `_audit/a11y-harness.html` and `_audit/ci/test-a11y-harness-browser.mjs` for kebab-case `--cs-component-textfield-min-height`, and updated `_audit/ci/test-public-site-browser.mjs` for the 16th pixel target.
+Wired the rendered primitive views (`CSCheckbox`/`CsCheckbox`, `CSRadioGroup`/`CsRadioGroup`, `CSProgressBar`/`CsProgressBar`, `CSAvatar`/`CsAvatar`, `CSAlert`/`CsAlert`, `CSSlider`/`CsSlider`, `CSTabs`/`CsTabs`, `CSSkeleton`/`CsSkeleton`, `CSSpinner`/`CsSpinner`, `CSTag`/`CsTag`, and `CSStat`/`CsStat`) in `Primitives.swift`, `Primitives.kt`, and `primitives.dart` to consume `CSFormsStyleModel`, `CSFeedbackStyleModel`, `CSDataStyleModel`, `CSNavigationStyleModel`, and `CSControlsWaveStyleModel` (light-umber/dark-ochre accents, `0.55` disabled opacity, `10px` progress bar height on raised track, ochre-on-umber avatar typography and radius, `4px` alert accent border and `14px`/`16px` padding, `22px` slider height, `10px`/`14px` tab padding and `2px` active indicator, `radiusSm` skeleton and tag surfaces, and uppercase `xs` stat labels with `800` value weight and semantic delta colors).
 
-- `cp tokens/native/CSModes.swift examples/native/swiftui/Sources/CyberSkillSample/CSModes.swift && swift test --package-path examples/native/swiftui`, `node _audit/ci/test-native-samples.mjs`, and `node _audit/ci/test-a11y-harness-browser.mjs` passed.
+- `swift test --package-path examples/native/swiftui` and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Wire the rendered primitive views (`CSCheckbox`/`CsCheckbox`, `CSRadioGroup`/`CsRadioGroup`, `CSProgressBar`/`CsProgressBar`, `CSAvatar`/`CsAvatar`, `CSAlert`/`CsAlert`, `CSSlider`/`CsSlider`, `CSTabs`/`CsTabs`, `CSSkeleton`/`CsSkeleton`, `CSSpinner`/`CsSpinner`, `CSTag`/`CsTag`, `CSStat`/`CsStat`) in `Primitives.swift`, `Primitives.kt`, and `primitives.dart` to consume `CSFormsStyleModel`, `CSDataStyleModel`, `CSFeedbackStyleModel`, and `CSNavigationStyleModel`.
+Wire the rendered catalog views (`CSTextarea`/`CsTextarea`, `CSSearchField`/`CsSearchField`, `CSNumberField`/`CsNumberField`, `CSStatusIndicator`/`CsStatusIndicator`, `CSRating`/`CsRating`, `CSSegmentedControl`/`CsSegmentedControl`, `CSBreadcrumb`/`CsBreadcrumb`, `CSPagination`/`CsPagination`, `CSResult`/`CsResult`, `CSTooltip`/`CsTooltip`, `CSToast`/`CsToast`) in `Catalog.swift`, `Catalog.kt`, and `catalog.dart` to consume `CSTextFieldModel`, `CSFormsStyleModel`, `CSControlsWaveStyleModel`, `CSNavigationStyleModel`, `CSDataStyleModel`, and `CSFeedbackStyleModel`.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
