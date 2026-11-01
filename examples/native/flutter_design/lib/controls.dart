@@ -528,7 +528,22 @@ class _CsOwnFocusState extends State<CsOwnFocus> {
   Widget build(BuildContext context) => widget.builder(node, () => CsFocusRegistry.claim(focusId, node.requestFocus));
 }
 
+const double csTextFieldPlaceholderOpacity = 0.7;
+const double csTextFieldDisabledOpacity = 0.58;
 bool csTextFieldAlert(String? error) => error != null && error.isNotEmpty;
+bool csTextFieldShowsDescription(String? description) => description != null && description.isNotEmpty;
+double csTextFieldGap() => 6;
+int csTextFieldLabelFontWeight() => 700;
+double csTextFieldDescriptionFontSize() => 14;
+double csTextFieldErrorFontSize() => 14;
+double csTextFieldBorderWidth() => 1;
+double csTextFieldRadius(CSTokenModePack pack) => csPoints(pack.radiusMd);
+double csTextFieldMinHeight(CSTokenModePack pack) => csPoints(pack.componentTextfieldMinHeight);
+double csTextFieldPaddingY(CSTokenModePack pack) => csPoints(pack.componentTextfieldPaddingY);
+double csTextFieldPaddingX(CSTokenModePack pack) => csPoints(pack.componentTextfieldPaddingX);
+double csTextFieldOpacity(bool disabled) => disabled ? csTextFieldDisabledOpacity : 1.0;
+CSColorValue csTextFieldBorderColor(bool invalid, CSTokenModePack pack) =>
+    invalid ? pack.colorSemanticDanger : pack.componentTextfieldBorderDefault;
 
 class CsTextField extends StatelessWidget {
   const CsTextField({
@@ -539,6 +554,8 @@ class CsTextField extends StatelessWidget {
     required this.highContrast,
     required this.compact,
     this.secure = false,
+    this.disabled = false,
+    this.description,
     this.error,
   });
 
@@ -548,6 +565,8 @@ class CsTextField extends StatelessWidget {
   final bool highContrast;
   final bool compact;
   final bool secure;
+  final bool disabled;
+  final String? description;
   final String? error;
 
   @override
@@ -557,30 +576,59 @@ class CsTextField extends StatelessWidget {
       highContrast: highContrast,
       compact: compact,
     );
+    final invalid = csTextFieldAlert(error);
+    final borderStroke = csColor(csTextFieldBorderColor(invalid, pack));
     final field = CsOwnFocus(builder: (node, claim) => TextField(
       focusNode: node,
       controller: controller,
+      enabled: !disabled,
       obscureText: secure,
       decoration: InputDecoration(
         labelText: label,
         contentPadding: EdgeInsets.symmetric(
-          horizontal: csPoints(pack.componentTextfieldPaddingX),
-          vertical: csPoints(pack.componentTextfieldPaddingY),
+          horizontal: csTextFieldPaddingX(pack),
+          vertical: csTextFieldPaddingY(pack),
         ),
-        constraints:
-            BoxConstraints(minHeight: csPoints(pack.componentTextfieldMinHeight)),
+        constraints: BoxConstraints(minHeight: csTextFieldMinHeight(pack)),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(csPoints(pack.radiusSm)),
-          borderSide: BorderSide(color: csColor(pack.componentTextfieldBorderDefault)),
+          borderRadius: BorderRadius.circular(csTextFieldRadius(pack)),
+          borderSide: BorderSide(color: borderStroke, width: csTextFieldBorderWidth()),
         ),
       ),
       onChanged: (_) => claim(),
     ));
-    if (!csTextFieldAlert(error)) return field;
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      field,
-      Semantics(liveRegion: true, child: Text(error!)),
-    ]);
+    return Opacity(
+      opacity: csTextFieldOpacity(disabled),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (csTextFieldShowsDescription(description)) ...[
+            Text(
+              description!,
+              style: TextStyle(
+                fontSize: csTextFieldDescriptionFontSize(),
+                color: csColor(pack.colorTextMuted),
+              ),
+            ),
+            SizedBox(height: csTextFieldGap()),
+          ],
+          field,
+          if (invalid) ...[
+            SizedBox(height: csTextFieldGap()),
+            Semantics(
+              liveRegion: true,
+              child: Text(
+                error!,
+                style: TextStyle(
+                  fontSize: csTextFieldErrorFontSize(),
+                  color: csColor(pack.colorSemanticDangerText),
+                ),
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
   }
 }
 
@@ -1017,7 +1065,50 @@ class CsSwitch extends StatelessWidget {
 
 const csDialogClose = 'Close';
 const csDialogMaxRem = 42.0;
+const csDialogAlertMaxRem = 28.0;
+const int csDialogOverlayRed = 31;
+const int csDialogOverlayGreen = 19;
+const int csDialogOverlayBlue = 11;
+const double csDialogOverlayAlpha = 0.42;
+const int csDialogPanelZIndex = 2;
 double csDialogMaxWidth([double root = 16]) => csDialogMaxRem * root;
+double csDialogAlertMaxWidth([double root = 16]) => csDialogAlertMaxRem * root;
+double csDialogTopOffsetRatio({bool narrow = false}) => narrow ? 0.04 : 0.12;
+double csDialogSafeTop(double viewportHeight, {bool narrow = false, double safeInsetTop = 0}) =>
+    math.max(viewportHeight * csDialogTopOffsetRatio(narrow: narrow), safeInsetTop);
+double csDialogMaxInlineSize(
+  double viewportWidth, {
+  bool alert = false,
+  double safeInsetLeft = 0,
+  double safeInsetRight = 0,
+}) {
+  final narrow = viewportWidth <= 640;
+  final margin = narrow ? 16.0 : 32.0;
+  final available = math.max(0.0, viewportWidth - margin - safeInsetLeft - safeInsetRight);
+  if (narrow && !alert) return available;
+  return math.min(alert ? csDialogAlertMaxWidth() : csDialogMaxWidth(), available);
+}
+double csDialogMaxBlockSize(
+  double viewportHeight, {
+  bool narrow = false,
+  double safeInsetTop = 0,
+  double safeInsetBottom = 0,
+}) {
+  final top = csDialogSafeTop(viewportHeight, narrow: narrow, safeInsetTop: safeInsetTop);
+  return math.max(
+    0.0,
+    math.min(0.8 * viewportHeight, math.min(viewportHeight - 64.0, viewportHeight - top - safeInsetBottom - 16.0)),
+  );
+}
+double csDialogPadding(CSTokenModePack pack, {bool narrow = false}) =>
+    csPoints(narrow ? pack.space4 : pack.space6);
+double csDialogHeaderGap() => 12;
+double csDialogTitleFontSize() => 20;
+double csDialogTitleLineHeight() => 1.35;
+double csDialogBodyMarginY() => 16;
+bool csDialogActionsButtonsExpand(bool narrow) => narrow;
+CSColorValue csDialogDestructiveTitleColor(bool destructive, CSTokenModePack pack) =>
+    destructive ? pack.colorSemanticDangerText : pack.colorTextPrimary;
 String csDialogCloseText(String? label, String fallback) => label ?? fallback;
 String csDialogCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
@@ -1037,6 +1128,44 @@ bool csDialogShowsClose(bool hasOpenChange, bool hasClose) => hasOpenChange || h
 bool csDialogShowsActions(String? actions) => actions != null && actions.isNotEmpty;
 String? csDialogDescribedBy(String? explicit, bool hasExplicit, bool hasBody, String bodyId) => hasExplicit ? (explicit != null && explicit.isNotEmpty ? explicit : null) : (hasBody ? bodyId : null);
 List<String> csDialogNotify(bool hasOpenChange, bool hasClose) => [if (hasOpenChange) 'open-false', if (hasClose) 'close'];
+
+const double csTableStyleCellBorderAlpha = 0.18;
+double csTableStyleStatusPaddingY(CSTokenModePack pack) => csPoints(pack.space4);
+double csTableStyleCellBorderWidth() => 1;
+double csTableStyleCellPaddingY() => 10;
+double csTableStyleCellPaddingX() => 12;
+double csTableStyleHeaderFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeXs);
+const double csTableStyleHeaderLetterSpacingEm = 0.08;
+bool csTableStyleHeaderUppercase() => true;
+int csTableStyleCaptionFontWeight() => 700;
+double csTableStyleCaptionMarginBottom() => 8;
+
+const double csDisclosureStylePanelBorderAlpha = 0.18;
+double csDisclosureStyleBadgeRadius() => 999;
+double csDisclosureStyleBadgeFontSize() => 14;
+int csDisclosureStyleBadgeFontWeight() => 700;
+double csDisclosureStyleBadgePaddingY() => 4;
+double csDisclosureStyleBadgePaddingX() => 10;
+double csDisclosureStylePanelBorderWidth() => 1;
+double csDisclosureStylePanelGap() => 6;
+double csDisclosureStylePanelTopOffset() => 6;
+double csDisclosureStylePanelMinWidth() => 288;
+double csDisclosureStylePanelPadding() => 12;
+double csDisclosureStylePanelDepth(CSTokenModePack pack) => pack.depthDropdown;
+double csDisclosureStyleSourcesFontSize() => 13;
+
+const double csReviewGateStyleWarningMixPortion = 0.05;
+double csReviewGateStyleBorderWidth() => 1;
+double csReviewGateStyleGap() => 12;
+double csReviewGateStylePadding(CSTokenModePack pack) => csPoints(pack.space4);
+int csReviewGateStyleRiskFontWeight() => 700;
+const double csReviewGateStyleRiskLetterSpacingEm = 0.04;
+double csReviewGateStyleRiskFontSize() => 13;
+bool csReviewGateStyleRiskUppercase() => true;
+double csReviewGateStyleReviewerFontSize() => 14;
+
+bool csLogoStyleAutoBlockSize() => true;
+String csLogoStyleVerticalAlign() => 'middle';
 bool csModalOwned(String active, String? opener, bool insidePanel) => active == 'body' || (opener != null && active == opener) || insidePanel;
 bool csModalShouldRestore(bool wasTop, bool ownedFocus, bool openerConnected, bool openerHidden) => wasTop && ownedFocus && openerConnected && !openerHidden;
 bool csModalPullBack(bool inside) => !inside;

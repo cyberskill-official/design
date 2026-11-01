@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the button-variants-sizes-spinner checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the textfield-dialog-table-disclosure-review-logo checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `e22af0f3ad0ea456ba65eb443e09c88481def558`, with the hash note in `0c587a50`
-- Checkpoint commit hash: `e83fd83675ae0b4e74b62b3e7cfc39dbabbc0ce3`
+- Previous checkpoint: `e83fd83675ae0b4e74b62b3e7cfc39dbabbc0ce3`, with the hash note in `f1fe04e0`
 - Temporarily disabled GitHub Actions push workflows (re-enable with `gh workflow enable` when done): `Design System Gates` (`316944477`), `native-validation` (`377620668`), `native-store` (`318755963`), `OpenSSF Scorecard` (`330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -49,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after styling the `Button` variants, sizes, loading spinner, and coarse-pointer floors: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled locally. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after styling `TextField`, `Dialog` / `AlertDialog`, `DataTable`, `AIDisclosureBadge`, `HumanReviewGate`, and `Logo`: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled locally. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-`CSButton` / `CsButton` and `CSButtonModel` / `csButton*` now style all six button variants (`primary`, `secondary`, `tertiary`, `ghost`, `danger`, `danger-ghost` with `3%` danger hover mix) and dark-theme remaps (`secondary` ochre border/ink and `tertiary`/`ghost` primary text ink in dark mode), all four sizes (`xs` `28x28` `4x10` `14px` font, `sm` `36x36` `8x14`, `md` `44x44` `12x20`, `lg` `52px` `16x28`), `44px` coarse-pointer floors on `xs`/`sm`/`md`, `8px` (`0.5rem`) content gap, `700` weight, `1.2` line-height, `1.08` hover brightness on `primary`/`danger`, `0.5px` active press offset, `0.58` disabled/loading opacity, `aria-busy` on loading, optional leading icon, and a `1em` (`fontSize`) `2px` `0.6s` (`600ms`) circular spinner with reduced-motion suppression, matching `base/components.css` lines 6–110 and `components/Button/Button.jsx`.
+`CSTextFieldModel` / `csTextField*`, `CSDialogModel` / `csDialog*`, `CSTableStyleModel` / `csTableStyle*`, `CSAIDisclosureStyleModel` / `csDisclosureStyle*`, `CSReviewGateStyleModel` / `csReviewGateStyle*`, and `CSLogoStyleModel` / `csLogoStyle*` now style the remaining `base/components.css` rules across SwiftUI, Compose, and Flutter (`TextField` `6px` gap, `700` label, `14px` muted description, `1px` default/danger border, `8px` radius, `44px` min-height, `10x12` padding, `0.7` placeholder opacity, `0.58` disabled opacity, `14px` danger-text error; `Dialog` / `AlertDialog` `rgba(31,19,11,0.42)` overlay, `42rem`/`28rem` max width, `80vh` max height, `12vh`/`4vh` top offset with safe-area clamps, `24px`/`16px` padding, `12px` header/actions gap, `20px`/`1.35` title, `16px` body margin, narrow action button expansion, and destructive danger-text title; `DataTable` `16px` status padding, `1px` `0.18` umber row borders, `10x12` cell padding, uppercase `12px` `0.08em` muted headers, `700` caption with `8px` bottom margin; `AIDisclosureBadge` info pill `4x10` `14px` `700` and `288px` `12px` dropdown panel at `calc(100% + 6px)` with `13px` muted sources; `HumanReviewGate` `1px` warning border, `5%` warning-mixed panel, `12px` gap, `16px` padding, uppercase `13px` `0.04em` `700` warning-text risk, `14px` muted reviewer; `Logo` `auto` block-size and `middle` vertical alignment, matching `base/components.css` lines 112–240).
 
 - Compose and Flutter were not compiled locally.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style `TextField`, `Dialog` / `AlertDialog`, `DataTable`, `AIDisclosureBadge`, `HumanReviewGate`, and `Logo` in Swift, Compose, and Flutter (`TextField` `6px` gap, `700` label, `14px` muted description, `1px` default/danger border, `8px` radius, `44px` min-height, `10x12` padding, `0.7` placeholder opacity, `0.58` disabled opacity, `14px` danger-text error; `Dialog` `0.42` umber overlay, `42rem`/`28rem` max width, `80vh` max height, `12vh`/`4vh` top offset, `24px`/`16px` padding, `12px` header/actions gap, `20px`/`1.35` title, `16px` body margin, safe-area inset clamps; `DataTable` `16px` status padding, `1px` `0.18` umber row borders, `10x12` cell padding, uppercase `12px` `0.08em` muted headers, `700` caption with `8px` bottom margin; `AIDisclosureBadge` info pill `4x10` `14px` `700` and `18rem` `12px` dropdown panel at `calc(100% + 6px)` with `13px` muted sources; `HumanReviewGate` `1px` warning border, `5%` warning-mixed panel, `12px` gap, `16px` padding, uppercase `13px` `0.04em` `700` warning-text risk, `14px` muted reviewer, from `base/components.css` lines 112–240).
+Style `Select`, `NativeSelect`, `Checkbox`, `Radio` / `RadioGroup`, `Switch`, and `Textarea` in Swift, Compose, and Flutter (`Select` / `NativeSelect` `38px` inline-end padding, `12px` centered muted chevron, `2px`/`5px` focus-visible ring, `NativeSelect` `sm` `36px` `6px` `font-size-sm` and `md` `44px`; `Checkbox` / `Radio` `10px` gap, `1.4` line-height, `20x20` box, light umber / dark ochre accent, `0.55` disabled opacity, `2px` text stack, `font-size-sm` muted description, `RadioGroup` `10px` gap and `700` legend with `6px` bottom margin; `Switch` `10px` gap, `44x26` `999px` track, `20x20` knob at `3px` inset with `18px` checked translate, light umber / dark ochre checked track, `2px`/`5px` focus-visible ring, `0.55` disabled opacity; `Textarea` `96px` min-height, `vertical` resize, `font-lineHeight-body`, from `base/forms.css` lines 1–38).
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

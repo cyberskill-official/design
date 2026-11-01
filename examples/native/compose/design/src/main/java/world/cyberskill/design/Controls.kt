@@ -417,7 +417,23 @@ fun CsButton(
   }
 }
 
+const val csTextFieldPlaceholderOpacity = 0.7f
+const val csTextFieldDisabledOpacity = 0.58f
 fun csTextFieldAlert(error: String?) = !error.isNullOrEmpty()
+fun csTextFieldShowsDescription(description: String?) = !description.isNullOrEmpty()
+fun csTextFieldGap() = 6.dp
+fun csTextFieldLabelFontWeight() = 700
+fun csTextFieldDescriptionFontSize() = 14.sp
+fun csTextFieldErrorFontSize() = 14.sp
+fun csTextFieldBorderWidth() = 1.dp
+fun csTextFieldRadius(pack: CSTokenModePack) = pack.radiusMd.toDp()
+fun csTextFieldMinHeight(pack: CSTokenModePack) = pack.componentTextfieldMinHeight.toDp()
+fun csTextFieldPaddingY(pack: CSTokenModePack) = pack.componentTextfieldPaddingY.toDp()
+fun csTextFieldPaddingX(pack: CSTokenModePack) = pack.componentTextfieldPaddingX.toDp()
+fun csTextFieldOpacity(disabled: Boolean) = if (disabled) csTextFieldDisabledOpacity else 1f
+fun csTextFieldBorderColor(invalid: Boolean, pack: CSTokenModePack) =
+  if (invalid) pack.colorSemanticDanger else pack.componentTextfieldBorderDefault
+
 @Composable
 fun CsTextField(
   label: String,
@@ -427,29 +443,39 @@ fun CsTextField(
   highContrast: Boolean,
   compact: Boolean,
   secure: Boolean = false,
+  disabled: Boolean = false,
+  description: String? = null,
   modifier: Modifier = Modifier,
   error: String? = null,
 ) {
   val pack = csModePack(dark, highContrast, compact)
   val handle = rememberFocusHandle("text-field")
-  Column(modifier) {
+  val invalid = csTextFieldAlert(error)
+  val borderStroke = csTextFieldBorderColor(invalid, pack).toComposeColor()
+  Column(
+    modifier.alpha(csTextFieldOpacity(disabled)),
+    verticalArrangement = Arrangement.spacedBy(csTextFieldGap()),
+  ) {
+    if (csTextFieldShowsDescription(description)) {
+      Text(description ?: "", color = pack.colorTextMuted.toComposeColor(), fontSize = csTextFieldDescriptionFontSize())
+    }
     OutlinedTextField(
       value = value,
-      onValueChange = { next -> if (!csControlEnabled()) return@OutlinedTextField; handle.claim(); onValueChange(next) },
-      enabled = csControlEnabled(),
-      label = { Text(label) },
+      onValueChange = { next -> if (!csControlEnabled(!disabled)) return@OutlinedTextField; handle.claim(); onValueChange(next) },
+      enabled = csControlEnabled(!disabled),
+      label = { Text(label, fontWeight = FontWeight.Bold) },
       singleLine = true,
       visualTransformation = if (secure) PasswordVisualTransformation() else VisualTransformation.None,
       keyboardOptions = KeyboardOptions(keyboardType = if (secure) KeyboardType.Password else KeyboardType.Text),
       modifier = Modifier
         .fillMaxWidth()
-        .heightIn(min = pack.componentTextfieldMinHeight.toDp())
-        .border(1.dp, pack.componentTextfieldBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusSm.toDp()))
-        .padding(horizontal = pack.componentTextfieldPaddingX.toDp(), vertical = pack.componentTextfieldPaddingY.toDp())
+        .heightIn(min = csTextFieldMinHeight(pack))
+        .border(csTextFieldBorderWidth(), borderStroke, RoundedCornerShape(csTextFieldRadius(pack)))
+        .padding(horizontal = csTextFieldPaddingX(pack), vertical = csTextFieldPaddingY(pack))
         .focusRequester(handle.requester)
         .onFocusChanged { if (it.isFocused) handle.claim() },
     )
-    if (csTextFieldAlert(error)) Text(error ?: "", color = pack.colorSemanticDangerText.toComposeColor(), modifier = Modifier.semantics { liveRegion = LiveRegionMode.Assertive })
+    if (invalid) Text(error ?: "", color = pack.colorSemanticDangerText.toComposeColor(), fontSize = csTextFieldErrorFontSize(), modifier = Modifier.semantics { liveRegion = LiveRegionMode.Assertive })
   }
 }
 
@@ -739,7 +765,36 @@ fun CsSwitch(
 
 const val csDialogClose = "Close"
 const val csDialogMaxRem = 42.0
+const val csDialogAlertMaxRem = 28.0
+const val csDialogOverlayRed = 31
+const val csDialogOverlayGreen = 19
+const val csDialogOverlayBlue = 11
+const val csDialogOverlayAlpha = 0.42f
+const val csDialogPanelZIndex = 2
 fun csDialogMaxWidth(root: Double = 16.0) = csDialogMaxRem * root
+fun csDialogAlertMaxWidth(root: Double = 16.0) = csDialogAlertMaxRem * root
+fun csDialogTopOffsetRatio(narrow: Boolean = false) = if (narrow) 0.04 else 0.12
+fun csDialogSafeTop(viewportHeight: Double, narrow: Boolean = false, safeInsetTop: Double = 0.0) =
+  max(viewportHeight * csDialogTopOffsetRatio(narrow), safeInsetTop)
+fun csDialogMaxInlineSize(viewportWidth: Double, alert: Boolean = false, safeInsetLeft: Double = 0.0, safeInsetRight: Double = 0.0): Double {
+  val narrow = viewportWidth <= 640.0
+  val margin = if (narrow) 16.0 else 32.0
+  val available = max(0.0, viewportWidth - margin - safeInsetLeft - safeInsetRight)
+  if (narrow && !alert) return available
+  return min(if (alert) csDialogAlertMaxWidth() else csDialogMaxWidth(), available)
+}
+fun csDialogMaxBlockSize(viewportHeight: Double, narrow: Boolean = false, safeInsetTop: Double = 0.0, safeInsetBottom: Double = 0.0): Double {
+  val top = csDialogSafeTop(viewportHeight, narrow, safeInsetTop)
+  return max(0.0, min(0.8 * viewportHeight, min(viewportHeight - 64.0, viewportHeight - top - safeInsetBottom - 16.0)))
+}
+fun csDialogPadding(pack: CSTokenModePack, narrow: Boolean = false) = (if (narrow) pack.space4 else pack.space6).toDp()
+fun csDialogHeaderGap() = 12.dp
+fun csDialogTitleFontSize() = 20.sp
+fun csDialogTitleLineHeight() = 1.35
+fun csDialogBodyMarginY() = 16.dp
+fun csDialogActionsButtonsExpand(narrow: Boolean) = narrow
+fun csDialogDestructiveTitleColor(destructive: Boolean, pack: CSTokenModePack) =
+  if (destructive) pack.colorSemanticDangerText else pack.colorTextPrimary
 fun csDialogCloseText(label: String?, fallback: String) = label ?: fallback
 fun csDialogCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
@@ -766,6 +821,44 @@ fun csDialogNotify(hasOpenChange: Boolean, hasClose: Boolean): List<String> {
   if (hasClose) events += "close"
   return events
 }
+
+const val csTableStyleCellBorderAlpha = 0.18f
+fun csTableStyleStatusPaddingY(pack: CSTokenModePack) = pack.space4.toDp()
+fun csTableStyleCellBorderWidth() = 1.dp
+fun csTableStyleCellPaddingY() = 10.dp
+fun csTableStyleCellPaddingX() = 12.dp
+fun csTableStyleHeaderFontSize(pack: CSTokenModePack) = pack.fontSizeXs.toDp()
+const val csTableStyleHeaderLetterSpacingEm = 0.08
+fun csTableStyleHeaderUppercase() = true
+fun csTableStyleCaptionFontWeight() = 700
+fun csTableStyleCaptionMarginBottom() = 8.dp
+
+const val csDisclosureStylePanelBorderAlpha = 0.18f
+fun csDisclosureStyleBadgeRadius() = 999.dp
+fun csDisclosureStyleBadgeFontSize() = 14.sp
+fun csDisclosureStyleBadgeFontWeight() = 700
+fun csDisclosureStyleBadgePaddingY() = 4.dp
+fun csDisclosureStyleBadgePaddingX() = 10.dp
+fun csDisclosureStylePanelBorderWidth() = 1.dp
+fun csDisclosureStylePanelGap() = 6.dp
+fun csDisclosureStylePanelTopOffset() = 6.dp
+fun csDisclosureStylePanelMinWidth() = 288.dp
+fun csDisclosureStylePanelPadding() = 12.dp
+fun csDisclosureStylePanelDepth(pack: CSTokenModePack) = pack.depthDropdown
+fun csDisclosureStyleSourcesFontSize() = 13.sp
+
+const val csReviewGateStyleWarningMixPortion = 0.05
+fun csReviewGateStyleBorderWidth() = 1.dp
+fun csReviewGateStyleGap() = 12.dp
+fun csReviewGateStylePadding(pack: CSTokenModePack) = pack.space4.toDp()
+fun csReviewGateStyleRiskFontWeight() = 700
+const val csReviewGateStyleRiskLetterSpacingEm = 0.04
+fun csReviewGateStyleRiskFontSize() = 13.sp
+fun csReviewGateStyleRiskUppercase() = true
+fun csReviewGateStyleReviewerFontSize() = 14.sp
+
+fun csLogoStyleAutoBlockSize() = true
+fun csLogoStyleVerticalAlign() = "middle"
 
 @Composable
 fun CsDialog(

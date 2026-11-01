@@ -390,29 +390,53 @@ public struct CSButton: View {
 }
 
 public enum CSTextFieldModel {
+  public static let placeholderOpacity = 0.7
+  public static let disabledOpacity = 0.58
+
   public static func showsError(_ error: String?) -> Bool {
     if let error { return !error.isEmpty }
     return false
   }
+  public static func showsDescription(_ description: String?) -> Bool {
+    if let description { return !description.isEmpty }
+    return false
+  }
   public static func isAlert(_ error: String?) -> Bool { showsError(error) }
+  public static func gap() -> Double { 6 }
+  public static func labelFontWeight() -> Int { 700 }
+  public static func descriptionFontSize() -> Double { 14 }
+  public static func errorFontSize() -> Double { 14 }
+  public static func borderWidth() -> Double { 1 }
+  public static func radius(_ pack: CSTokenModePack) -> Double { pack.radiusMd.points }
+  public static func minHeight(_ pack: CSTokenModePack) -> Double { pack.componentTextfieldMinHeight.points }
+  public static func paddingY(_ pack: CSTokenModePack) -> Double { pack.componentTextfieldPaddingY.points }
+  public static func paddingX(_ pack: CSTokenModePack) -> Double { pack.componentTextfieldPaddingX.points }
+  public static func opacity(disabled: Bool) -> Double { disabled ? disabledOpacity : 1.0 }
+  public static func borderColor(invalid: Bool, pack: CSTokenModePack) -> CSColorValue {
+    invalid ? pack.colorSemanticDanger : pack.componentTextfieldBorderDefault
+  }
 }
 
 public struct CSTextField: View {
   let label: String
   @Binding var text: String
+  public let description: String?
   public let error: String?
   let secure: Bool
+  let disabled: Bool
   let dark: Bool
   let highContrast: Bool
   let compact: Bool
   @State private var focusId = UUID().uuidString
   @FocusState private var focused: Bool
 
-  public init(label: String, text: Binding<String>, secure: Bool = false, dark: Bool, highContrast: Bool, compact: Bool, error: String? = nil) {
+  public init(label: String, text: Binding<String>, secure: Bool = false, disabled: Bool = false, description: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, error: String? = nil) {
     self.label = label
     _text = text
+    self.description = description
     self.error = error
     self.secure = secure
+    self.disabled = disabled
     self.dark = dark
     self.highContrast = highContrast
     self.compact = compact
@@ -420,27 +444,39 @@ public struct CSTextField: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    VStack(alignment: .leading, spacing: 8) {
+    let invalid = CSTextFieldModel.showsError(error)
+    let borderStroke = CSTextFieldModel.borderColor(invalid: invalid, pack: pack).color
+    VStack(alignment: .leading, spacing: CGFloat(CSTextFieldModel.gap())) {
       Text(label)
-        .font(.system(size: 13, weight: .semibold))
+        .font(.system(size: pack.fontSizeBase.points, weight: .bold))
         .foregroundStyle(pack.colorTextPrimary.color)
+      if CSTextFieldModel.showsDescription(description), let description {
+        Text(description)
+          .font(.system(size: CGFloat(CSTextFieldModel.descriptionFontSize())))
+          .foregroundStyle(pack.colorTextMuted.color)
+      }
       field
         .textFieldStyle(.plain)
-        .padding(.horizontal, pack.componentTextfieldPaddingX.points)
-        .padding(.vertical, pack.componentTextfieldPaddingY.points)
-        .frame(minHeight: pack.componentTextfieldMinHeight.points)
+        .padding(.horizontal, CGFloat(CSTextFieldModel.paddingX(pack)))
+        .padding(.vertical, CGFloat(CSTextFieldModel.paddingY(pack)))
+        .frame(minHeight: CGFloat(CSTextFieldModel.minHeight(pack)))
         .background(pack.colorSurfacePanel.color)
         .overlay(
-          RoundedRectangle(cornerRadius: pack.radiusSm.points)
-            .stroke(pack.componentTextfieldBorderDefault.color, lineWidth: 1)
+          RoundedRectangle(cornerRadius: CGFloat(CSTextFieldModel.radius(pack)))
+            .stroke(borderStroke, lineWidth: CGFloat(CSTextFieldModel.borderWidth()))
         )
+        .disabled(disabled)
         .onChange(of: focused) { isFocused in
           if isFocused { CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true }) }
         }
       if CSTextFieldModel.isAlert(error), let error {
-        Text(error).foregroundStyle(pack.colorSemanticDangerText.color).accessibilityAddTraits(.updatesFrequently)
+        Text(error)
+          .font(.system(size: CGFloat(CSTextFieldModel.errorFontSize())))
+          .foregroundStyle(pack.colorSemanticDangerText.color)
+          .accessibilityAddTraits(.updatesFrequently)
       }
     }
+    .opacity(CSTextFieldModel.opacity(disabled: disabled))
   }
 
   private var typed: Binding<String> {
@@ -895,7 +931,40 @@ public struct CSSwitch: View {
 public enum CSDialogModel {
   public static let closeDefault = "Close"
   public static let maxWidthRem = 42.0
+  public static let alertMaxWidthRem = 28.0
+  public static let overlayRed = 31
+  public static let overlayGreen = 19
+  public static let overlayBlue = 11
+  public static let overlayAlpha = 0.42
+  public static let panelZIndex = 2
   public static func maxWidth(root: Double = 16) -> Double { maxWidthRem * root }
+  public static func alertMaxWidth(root: Double = 16) -> Double { alertMaxWidthRem * root }
+  public static func topOffsetRatio(narrow: Bool = false) -> Double { narrow ? 0.04 : 0.12 }
+  public static func safeTop(viewportHeight: Double, narrow: Bool = false, safeInsetTop: Double = 0) -> Double {
+    max(viewportHeight * topOffsetRatio(narrow: narrow), safeInsetTop)
+  }
+  public static func maxInlineSize(viewportWidth: Double, alert: Bool = false, safeInsetLeft: Double = 0, safeInsetRight: Double = 0) -> Double {
+    let narrow = viewportWidth <= 640
+    let margin = narrow ? 16.0 : 32.0
+    let available = max(0, viewportWidth - margin - safeInsetLeft - safeInsetRight)
+    if narrow && !alert { return available }
+    return min(alert ? alertMaxWidth() : maxWidth(), available)
+  }
+  public static func maxBlockSize(viewportHeight: Double, narrow: Bool = false, safeInsetTop: Double = 0, safeInsetBottom: Double = 0) -> Double {
+    let top = safeTop(viewportHeight: viewportHeight, narrow: narrow, safeInsetTop: safeInsetTop)
+    return max(0, min(0.8 * viewportHeight, min(viewportHeight - 64.0, viewportHeight - top - safeInsetBottom - 16.0)))
+  }
+  public static func padding(_ pack: CSTokenModePack, narrow: Bool = false) -> Double {
+    (narrow ? pack.space4 : pack.space6).points
+  }
+  public static func headerGap() -> Double { 12 }
+  public static func titleFontSize() -> Double { 20 }
+  public static func titleLineHeight() -> Double { 1.35 }
+  public static func bodyMarginY() -> Double { 16 }
+  public static func actionsButtonsExpand(narrow: Bool) -> Bool { narrow }
+  public static func destructiveTitleColor(destructive: Bool, pack: CSTokenModePack) -> CSColorValue {
+    destructive ? pack.colorSemanticDangerText : pack.colorTextPrimary
+  }
   public static func closeText(_ label: String?, fallback: String) -> String { label ?? fallback }
   public static func copy(_ key: String, language: String?) -> String {
     let want = CSComboboxModel.primaryLanguage(language) ?? "vi"
@@ -928,6 +997,52 @@ public enum CSDialogModel {
     if hasClose { events.append("close") }
     return events
   }
+}
+
+public enum CSTableStyleModel {
+  public static let cellBorderAlpha = 0.18
+  public static func statusPaddingY(_ pack: CSTokenModePack) -> Double { pack.space4.points }
+  public static func cellBorderWidth() -> Double { 1 }
+  public static func cellPaddingY() -> Double { 10 }
+  public static func cellPaddingX() -> Double { 12 }
+  public static func headerFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeXs.points }
+  public static func headerLetterSpacingEm() -> Double { 0.08 }
+  public static func headerUppercase() -> Bool { true }
+  public static func captionFontWeight() -> Int { 700 }
+  public static func captionMarginBottom() -> Double { 8 }
+}
+
+public enum CSAIDisclosureStyleModel {
+  public static let panelBorderAlpha = 0.18
+  public static func badgeRadius() -> Double { 999 }
+  public static func badgeFontSize() -> Double { 14 }
+  public static func badgeFontWeight() -> Int { 700 }
+  public static func badgePaddingY() -> Double { 4 }
+  public static func badgePaddingX() -> Double { 10 }
+  public static func panelBorderWidth() -> Double { 1 }
+  public static func panelGap() -> Double { 6 }
+  public static func panelTopOffset() -> Double { 6 }
+  public static func panelMinWidth() -> Double { 288 }
+  public static func panelPadding() -> Double { 12 }
+  public static func panelDepth(_ pack: CSTokenModePack) -> Double { pack.depthDropdown }
+  public static func sourcesFontSize() -> Double { 13 }
+}
+
+public enum CSReviewGateStyleModel {
+  public static let warningMixPortion = 0.05
+  public static func borderWidth() -> Double { 1 }
+  public static func gap() -> Double { 12 }
+  public static func padding(_ pack: CSTokenModePack) -> Double { pack.space4.points }
+  public static func riskFontWeight() -> Int { 700 }
+  public static func riskLetterSpacingEm() -> Double { 0.04 }
+  public static func riskFontSize() -> Double { 13 }
+  public static func riskUppercase() -> Bool { true }
+  public static func reviewerFontSize() -> Double { 14 }
+}
+
+public enum CSLogoStyleModel {
+  public static func autoBlockSize() -> Bool { true }
+  public static func verticalAlign() -> String { "middle" }
 }
 
 public struct CSDialog: View {
