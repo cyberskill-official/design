@@ -260,9 +260,83 @@ public enum CSRadioModel {
     guard let value else { return false }
     return !value.isEmpty
   }
+  public static func labelId(_ id: String, label: String?) -> String? {
+    showsText(label) ? id + "-label" : nil
+  }
+  public static func descId(_ id: String, description: String?) -> String? {
+    showsText(description) ? id + "-desc" : nil
+  }
+  public static func labelledBy(explicit: String?, hasAriaLabel: Bool, labelId: String?) -> String? {
+    if let explicit { return explicit }
+    return hasAriaLabel ? nil : labelId
+  }
+  public static func describedBy(explicit: String?, descriptionId: String?) -> String? {
+    CSCheckboxModel.describedBy(explicit: explicit, descriptionId: descriptionId)
+  }
   public static func groupName(_ name: String?, generated: String) -> String { name ?? generated }
   public static func isChecked(value: String?, option: String) -> Bool { value == option }
   public static func select(_ option: String, hasHandler: Bool) -> String? { hasHandler ? option : nil }
+}
+
+public struct CSRadio: View {
+  public let label: String
+  public let description: String?
+  public let selected: Bool
+  public let disabled: Bool
+  let dark: Bool
+  let highContrast: Bool
+  let compact: Bool
+  let onSelect: (() -> Void)?
+  @State private var focusId = UUID().uuidString
+  @FocusState private var focused: Bool
+
+  public init(label: String, description: String? = nil, selected: Bool, disabled: Bool = false, dark: Bool, highContrast: Bool, compact: Bool, onSelect: (() -> Void)? = nil) {
+    self.label = label
+    self.description = description
+    self.selected = selected
+    self.disabled = disabled
+    self.dark = dark
+    self.highContrast = highContrast
+    self.compact = compact
+    self.onSelect = onSelect
+  }
+
+  public var body: some View {
+    let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
+    VStack(alignment: .leading, spacing: CGFloat(CSFormsStyleModel.checkRadioTextGap())) {
+      Button {
+        if disabled { return }
+        CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true })
+        onSelect?()
+      } label: {
+        HStack(spacing: CGFloat(CSFormsStyleModel.checkRadioGap())) {
+          Image(systemName: selected ? "largecircle.fill.circle" : "circle")
+            .foregroundStyle(CSFormsStyleModel.checkRadioAccentColor(dark: dark, pack: pack).color)
+          if CSRadioModel.showsText(label) {
+            Text(label).foregroundStyle(pack.primaryTextColor).accessibilityHidden(true)
+          }
+          Spacer(minLength: 0)
+        }
+        .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
+      }
+      .buttonStyle(.plain)
+      .focused($focused)
+      .onChange(of: focused) { isFocused in
+        if isFocused && !disabled { CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true }) }
+      }
+      .disabled(disabled)
+      .accessibilityLabel(CSRadioModel.showsText(label) ? label : "")
+      .accessibilityHint(CSRadioModel.showsText(description) ? (description ?? "") : "")
+      .accessibilityAddTraits(selected ? .isSelected : [])
+      if CSRadioModel.showsText(description), let description {
+        Text(description)
+          .font(.system(size: CGFloat(CSFormsStyleModel.checkRadioDescriptionFontSize(pack))))
+          .foregroundStyle(pack.mutedColor)
+          .accessibilityHidden(true)
+      }
+    }
+    .opacity(CSFormsStyleModel.checkRadioOpacity(disabled: disabled))
+  }
 }
 
 public struct CSRadioOption: Hashable {
@@ -596,6 +670,7 @@ public enum CSTabsModel {
   }
   public static func tabStop(index: Int, selected: Int) -> Int { index == selected ? 0 : -1 }
   public static func showsCount(_ count: Int?) -> Bool { count != nil }
+  public static func orientation(vertical: Bool) -> String? { vertical ? "vertical" : nil }
   public static func listLabel(_ label: String?, fallback: String) -> String { label ?? fallback }
   public static func copy(_ key: String, language: String?) -> String {
     let want = CSComboboxModel.primaryLanguage(language) ?? "vi"
@@ -615,11 +690,64 @@ public struct CSTabItem: Hashable {
   public let value: String
   public let label: String
   public let count: Int?
+  public let id: String?
+  public let controls: String?
 
-  public init(value: String, label: String, count: Int? = nil) {
+  public init(value: String, label: String, count: Int? = nil, id: String? = nil, controls: String? = nil) {
     self.value = value
     self.label = label
     self.count = count
+    self.id = id
+    self.controls = controls
+  }
+}
+
+public struct CSTab: View {
+  public let label: String
+  public let selected: Bool
+  public let count: Int?
+  let dark: Bool
+  let highContrast: Bool
+  let compact: Bool
+  let onSelect: (() -> Void)?
+
+  public init(label: String, selected: Bool = false, count: Int? = nil, dark: Bool, highContrast: Bool, compact: Bool, onSelect: (() -> Void)? = nil) {
+    self.label = label
+    self.selected = selected
+    self.count = count
+    self.dark = dark
+    self.highContrast = highContrast
+    self.compact = compact
+    self.onSelect = onSelect
+  }
+
+  public var body: some View {
+    let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
+    Button {
+      onSelect?()
+    } label: {
+      HStack(spacing: CGFloat(CSNavigationStyleModel.tabGap())) {
+        Text(label).font(.system(size: CGFloat(CSNavigationStyleModel.tabFontSize(pack)), weight: .semibold))
+        if CSTabsModel.showsCount(count), let count {
+          Text(String(count))
+            .font(.system(size: CGFloat(CSNavigationStyleModel.tabCountFontSize(pack))))
+            .padding(.vertical, CGFloat(CSNavigationStyleModel.tabCountPaddingY()))
+            .padding(.horizontal, CGFloat(CSNavigationStyleModel.tabCountPaddingX()))
+            .foregroundStyle(pack.mutedColor)
+        }
+      }
+      .foregroundStyle(CSNavigationStyleModel.tabTextColor(selected: selected, dark: dark, pack: pack).color)
+      .padding(.vertical, CGFloat(CSNavigationStyleModel.tabPaddingY()))
+      .padding(.horizontal, CGFloat(CSNavigationStyleModel.tabPaddingX()))
+      .frame(minHeight: pack.componentButtonMdMinHeight.points)
+      .overlay(alignment: .bottom) {
+        Rectangle()
+          .fill((CSNavigationStyleModel.tabBorderBottomColor(selected: selected, pack: pack)?.color) ?? Color.clear)
+          .frame(height: CGFloat(CSNavigationStyleModel.tabBorderBottomWidth()))
+      }
+    }
+    .buttonStyle(.plain)
+    .accessibilityAddTraits(selected ? .isSelected : [])
   }
 }
 
@@ -1249,6 +1377,10 @@ public struct CSSpinner: View {
 }
 
 public enum CSTagModel {
+  public static let closeIconPath = "M6 6l12 12M18 6L6 18"
+  public static func closeIconSize() -> Double { 12 }
+  public static func closeStrokeWidth() -> Double { 2.4 }
+  public static func showsRemove(hasOnRemove: Bool) -> Bool { hasOnRemove }
   public static func label(_ text: String?, fallback: String) -> String { text ?? fallback }
   public static func copy(_ key: String, language: String?) -> String {
     let want = CSComboboxModel.primaryLanguage(language) ?? "vi"
@@ -1292,7 +1424,7 @@ public struct CSTag: View {
       Text(title)
         .font(.system(size: CGFloat(CSFeedbackStyleModel.tagFontSize(pack)), weight: .semibold))
         .foregroundStyle(pack.primaryTextColor)
-      if let onRemove {
+      if CSTagModel.showsRemove(hasOnRemove: onRemove != nil), let onRemove {
         CSTriggerButton("×", action: onRemove)
           .frame(minWidth: 44, minHeight: 44)
           .accessibilityLabel(spoken)

@@ -73,6 +73,14 @@ fun csProgressCopy(key: String, language: String?): String {
   return key
 }
 fun csRadioShowsText(value: String?) = !value.isNullOrEmpty()
+fun csRadioLabelId(id: String, label: String?) = if (csRadioShowsText(label)) "$id-label" else null
+fun csRadioDescId(id: String, description: String?) = if (csRadioShowsText(description)) "$id-desc" else null
+fun csRadioLabelledBy(explicit: String?, hasAriaLabel: Boolean, labelId: String?) = when {
+  explicit != null -> explicit
+  hasAriaLabel -> null
+  else -> labelId
+}
+fun csRadioDescribedBy(explicit: String?, descriptionId: String?) = csCheckDescribedBy(explicit, descriptionId)
 fun csRadioGroupName(name: String?, generated: String) = name ?: generated
 fun csRadioChecked(value: String?, option: String) = value == option
 fun csRadioSelect(option: String, hasHandler: Boolean) = if (hasHandler) option else null
@@ -214,6 +222,44 @@ fun CsCheckbox(
 }
 
 data class CsRadioOption(val value: String, val label: String, val description: String? = null, val disabled: Boolean = false)
+
+@Composable
+fun CsRadio(
+  label: String,
+  selected: Boolean,
+  onSelect: () -> Unit,
+  dark: Boolean,
+  highContrast: Boolean,
+  compact: Boolean,
+  modifier: Modifier = Modifier,
+  description: String? = null,
+  disabled: Boolean = false,
+) {
+  val pack = csModePack(dark, highContrast, compact)
+  val handle = rememberFocusHandle("radio-$label")
+  val rowEnabled = csControlEnabled(!disabled)
+  Column(modifier.alpha(csFormsStyleCheckRadioOpacity(!rowEnabled)), verticalArrangement = Arrangement.spacedBy(csFormsStyleCheckRadioTextGap())) {
+    Row(
+      Modifier
+        .fillMaxWidth()
+        .minimumInteractiveComponentSize()
+        .focusRequester(handle.requester)
+        .onFocusChanged { if (it.isFocused && rowEnabled) handle.claim() }
+        .semantics { contentDescription = if (csRadioShowsText(label)) label else "" }
+        .selectable(selected = selected, enabled = rowEnabled, role = Role.RadioButton, onClick = {
+          if (!rowEnabled) return@selectable
+          handle.claim()
+          onSelect()
+        }),
+      horizontalArrangement = Arrangement.spacedBy(csFormsStyleCheckRadioGap()),
+      verticalAlignment = Alignment.CenterVertically,
+    ) {
+      RadioButton(selected = selected, onClick = null, enabled = rowEnabled, colors = RadioButtonDefaults.colors(selectedColor = csFormsStyleCheckRadioAccentColor(dark, pack).toComposeColor()))
+      if (csRadioShowsText(label)) Text(label, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.clearAndSetSemantics { })
+    }
+    if (csRadioShowsText(description)) Text(description ?: "", color = pack.colorTextMuted.toComposeColor())
+  }
+}
 
 @Composable
 fun CsRadioGroup(
@@ -386,25 +432,28 @@ fun CsSlider(
   compact: Boolean,
   modifier: Modifier = Modifier,
   valueRange: ClosedFloatingPointRange<Float> = 0f..100f,
+  step: Double? = 1.0,
   disabled: Boolean = false,
   language: String? = null,
 ) {
   val pack = csModePack(dark, highContrast, compact)
   val handle = rememberFocusHandle("slider")
-  val enabled = csControlEnabled(!disabled)
+  val min = valueRange.start.toDouble()
+  val limit = csSliderUpper(min, valueRange.endInclusive.toDouble())
+  val enabled = csControlEnabled(!disabled && limit > min)
   val spoken = csSliderCopy("label", csComboboxResolvedLanguage(language, LocalCsLanguage.current))
   val accent = csFormsStyleCheckRadioAccentColor(dark, pack).toComposeColor()
   Slider(
-    value = value,
-    onValueChange = { next -> if (!enabled) return@Slider; handle.claim(); onValueChange(next) },
+    value = csSliderSnap(value.toDouble(), min, limit, step).toFloat(),
+    onValueChange = { next -> if (!enabled) return@Slider; handle.claim(); onValueChange(csSliderSnap(next.toDouble(), min, limit, step).toFloat()) },
     enabled = enabled,
-    valueRange = valueRange,
+    valueRange = min.toFloat()..(if (limit > min) limit.toFloat() else (min + 1.0).toFloat()),
     modifier = modifier.heightIn(min = csControlsWaveStyleSliderHeight()).focusRequester(handle.requester).onFocusChanged { if (it.isFocused && enabled) handle.claim() }.semantics { contentDescription = csSliderLabel(label, spoken) },
     colors = SliderDefaults.colors(thumbColor = accent, activeTrackColor = accent),
   )
 }
 
-data class CsTabItem(val value: String, val label: String)
+data class CsTabItem(val value: String, val label: String, val count: Int? = null, val id: String? = null, val controls: String? = null)
 
 const val csSliderLabel = "Slider"
 fun csSliderUpper(min: Double, max: Double) = if (max < min) min else max
@@ -432,6 +481,7 @@ const val csTabsList = "Tabs"
 fun csTabsIndex(values: List<String>, value: String) = maxOf(0, values.indexOf(value))
 fun csTabsStop(index: Int, selected: Int) = if (index == selected) 0 else -1
 fun csTabsShowsCount(count: Int?) = count != null
+fun csTabsOrientation(vertical: Boolean) = if (vertical) "vertical" else null
 fun csTabsListLabel(label: String?, fallback: String) = label ?: fallback
 fun csTabsCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
@@ -445,6 +495,51 @@ fun csTabsCopy(key: String, language: String?): String {
 }
 
 @Composable
+fun CsTab(
+  label: String,
+  dark: Boolean,
+  highContrast: Boolean,
+  compact: Boolean,
+  modifier: Modifier = Modifier,
+  selected: Boolean = false,
+  count: Int? = null,
+  onSelect: () -> Unit = {},
+) {
+  val pack = csModePack(dark, highContrast, compact)
+  val handle = rememberFocusHandle("tab-$label")
+  Column(
+    modifier
+      .minimumInteractiveComponentSize()
+      .focusRequester(handle.requester)
+      .onFocusChanged { if (it.isFocused) handle.claim() }
+      .selectable(selected = selected, enabled = csControlEnabled(), role = Role.Tab, onClick = { handle.claim(); onSelect() }),
+  ) {
+    Row(
+      Modifier.padding(horizontal = csNavigationStyleTabPaddingX(), vertical = csNavigationStyleTabPaddingY()),
+      horizontalArrangement = Arrangement.spacedBy(csNavigationStyleTabGap()),
+      verticalAlignment = Alignment.CenterVertically,
+    ) {
+      Text(
+        label,
+        color = csNavigationStyleTabTextColor(selected = selected, dark = dark, pack = pack).toComposeColor(),
+        fontWeight = FontWeight.SemiBold,
+      )
+      if (csTabsShowsCount(count) && count != null) {
+        Text(
+          count.toString(),
+          color = pack.colorTextMuted.toComposeColor(),
+          fontSize = csNavigationStyleTabCountFontSize(pack).value.sp,
+          modifier = Modifier.padding(horizontal = csNavigationStyleTabCountPaddingX(), vertical = csNavigationStyleTabCountPaddingY()),
+        )
+      }
+    }
+    csNavigationStyleTabBorderBottomColor(selected, pack)?.let { border ->
+      Box(Modifier.fillMaxWidth().height(csNavigationStyleTabBorderBottomWidth()).background(border.toComposeColor()))
+    }
+  }
+}
+
+@Composable
 fun CsTabs(
   tabs: List<CsTabItem>,
   selection: String,
@@ -453,6 +548,7 @@ fun CsTabs(
   highContrast: Boolean,
   compact: Boolean,
   modifier: Modifier = Modifier,
+  vertical: Boolean = false,
   label: String? = null,
   language: String? = null,
 ) {
@@ -462,18 +558,37 @@ fun CsTabs(
     tabs.forEach { tab ->
       val selected = selection == tab.value
       val handle = rememberFocusHandle("tab-${tab.value}")
-      Text(
-        tab.label,
-        color = csNavigationStyleTabTextColor(selected = selected, dark = dark, pack = pack).toComposeColor(),
-        fontWeight = FontWeight.SemiBold,
-        modifier = Modifier
+      Column(
+        Modifier
           .weight(1f)
           .minimumInteractiveComponentSize()
-          .padding(horizontal = csNavigationStyleTabPaddingX(), vertical = csNavigationStyleTabPaddingY())
           .focusRequester(handle.requester)
           .onFocusChanged { if (it.isFocused) handle.claim() }
           .selectable(selected = selected, enabled = csControlEnabled(), role = Role.Tab, onClick = { handle.claim(); onSelect(tab.value) }),
-      )
+      ) {
+        Row(
+          Modifier.padding(horizontal = csNavigationStyleTabPaddingX(), vertical = csNavigationStyleTabPaddingY()),
+          horizontalArrangement = Arrangement.spacedBy(csNavigationStyleTabGap()),
+          verticalAlignment = Alignment.CenterVertically,
+        ) {
+          Text(
+            tab.label,
+            color = csNavigationStyleTabTextColor(selected = selected, dark = dark, pack = pack).toComposeColor(),
+            fontWeight = FontWeight.SemiBold,
+          )
+          if (csTabsShowsCount(tab.count) && tab.count != null) {
+            Text(
+              tab.count.toString(),
+              color = pack.colorTextMuted.toComposeColor(),
+              fontSize = csNavigationStyleTabCountFontSize(pack).value.sp,
+              modifier = Modifier.padding(horizontal = csNavigationStyleTabCountPaddingX(), vertical = csNavigationStyleTabCountPaddingY()),
+            )
+          }
+        }
+        csNavigationStyleTabBorderBottomColor(selected, pack)?.let { border ->
+          Box(Modifier.fillMaxWidth().height(csNavigationStyleTabBorderBottomWidth()).background(border.toComposeColor()))
+        }
+      }
     }
   }
 }
@@ -497,12 +612,14 @@ fun CsSkeleton(
   val pack = csModePack(dark, highContrast, compact)
   val color = pack.colorBorderDefault.toComposeColor()
   val radius = RoundedCornerShape(pack.radiusSm.toDp())
-  if (lines > 0) {
+  val count = csSkeletonLines(lines.toDouble())
+  val round = csSkeletonCircle(if (circle) "circle" else "block", count)
+  if (count > 0) {
     Column(modifier.clearAndSetSemantics { }, verticalArrangement = Arrangement.spacedBy(8.dp)) {
-      repeat(lines) { index ->
+      repeat(count) { index ->
         Box(
           Modifier
-            .width((width * csSkeletonLineWidth(index, lines)).dp)
+            .width((width * csSkeletonLineWidth(index, count)).dp)
             .height(height.dp)
             .clip(radius)
             .background(color),
@@ -512,8 +629,8 @@ fun CsSkeleton(
   } else {
     Box(
       modifier
-        .then(if (circle) Modifier.size(width.dp) else Modifier.width(width.dp).height(height.dp))
-        .clip(if (circle) CircleShape else radius)
+        .then(if (round) Modifier.size(width.dp) else Modifier.width(width.dp).height(height.dp))
+        .clip(if (round) CircleShape else radius)
         .background(color)
         .clearAndSetSemantics { },
     )
@@ -554,6 +671,10 @@ fun CsSpinner(
   )
 }
 
+const val csTagCloseIconPath = "M6 6l12 12M18 6L6 18"
+fun csTagCloseIconSize() = 12.dp
+fun csTagCloseStrokeWidth() = 2.4f
+fun csTagShowsRemove(hasOnRemove: Boolean) = hasOnRemove
 fun csTagLabel(text: String?, fallback: String) = text ?: fallback
 
 @Composable
@@ -578,8 +699,8 @@ fun CsTag(
     horizontalArrangement = Arrangement.spacedBy(csFeedbackStyleTagGap()),
     verticalAlignment = Alignment.CenterVertically,
   ) {
-    Text(title, color = pack.colorTextPrimary.toComposeColor(), fontWeight = FontWeight.SemiBold)
-    if (onRemove != null) {
+    Text(title, color = pack.colorTextPrimary.toComposeColor(), fontSize = csFeedbackStyleTagFontSize(pack).value.sp, fontWeight = FontWeight.SemiBold)
+    if (csTagShowsRemove(onRemove != null) && onRemove != null) {
       CsTriggerButton(title = "×", onClick = onRemove, modifier = Modifier.minimumInteractiveComponentSize()) {
         Text("×", modifier = Modifier.semantics { contentDescription = spoken })
       }
@@ -606,8 +727,16 @@ fun CsStat(
   }
   val ink = csDataStyleStatDeltaColor(dir, pack)
   Column(modifier, verticalArrangement = Arrangement.spacedBy(csDataStyleStatGap())) {
-    Text(label.uppercase(), color = pack.colorTextMuted.toComposeColor(), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
-    Text(value, color = pack.colorTextPrimary.toComposeColor(), fontSize = 28.sp, fontWeight = FontWeight.ExtraBold)
-    if (csStatShowsDelta(delta)) Row(horizontalArrangement = Arrangement.spacedBy(csDataStyleStatDeltaGap())) { Text(csStatMark(trend), color = ink.toComposeColor(), fontWeight = FontWeight.Bold); Text(delta ?: "", color = ink.toComposeColor(), fontWeight = FontWeight.Bold) }
+    Text(label.uppercase(), color = pack.colorTextMuted.toComposeColor(), fontSize = csDataStyleStatLabelFontSize(pack).value.sp, fontWeight = FontWeight.SemiBold)
+    Text(value, color = pack.colorTextPrimary.toComposeColor(), fontSize = csDataStyleStatValueFontSize(pack).value.sp, fontWeight = FontWeight.ExtraBold)
+    if (csStatShowsDelta(delta)) {
+      Row(horizontalArrangement = Arrangement.spacedBy(csDataStyleStatDeltaGap()), verticalAlignment = Alignment.CenterVertically) {
+        Canvas(Modifier.size(14.dp)) {
+          drawPath(csIconPathData(csStatArrowPath(dir), size.minDimension), ink.toComposeColor(), style = Stroke(width = 2.4f))
+        }
+        Text(csStatMark(trend), color = ink.toComposeColor(), fontSize = csDataStyleStatDeltaFontSize(pack).value.sp, fontWeight = FontWeight.Bold, modifier = Modifier.clearAndSetSemantics {})
+        Text(delta ?: "", color = ink.toComposeColor(), fontSize = csDataStyleStatDeltaFontSize(pack).value.sp, fontWeight = FontWeight.Bold)
+      }
+    }
   }
 }

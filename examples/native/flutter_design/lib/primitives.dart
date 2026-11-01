@@ -37,6 +37,13 @@ String csProgressCopy(String key, String? language) {
   return key;
 }
 bool csRadioShowsText(String? value) => value != null && value.isNotEmpty;
+String? csRadioLabelId(String id, String? label) => csRadioShowsText(label) ? '$id-label' : null;
+String? csRadioDescId(String id, String? description) => csRadioShowsText(description) ? '$id-desc' : null;
+String? csRadioLabelledBy(String? explicit, bool hasAriaLabel, String? labelId) {
+  if (explicit != null) return explicit;
+  return hasAriaLabel ? null : labelId;
+}
+String? csRadioDescribedBy(String? explicit, String? descriptionId) => csCheckDescribedBy(explicit, descriptionId);
 String csRadioGroupName(String? name, String generated) => name ?? generated;
 bool csRadioChecked(String? value, String option) => value == option;
 String? csRadioSelect(String option, bool hasHandler) => hasHandler ? option : null;
@@ -251,6 +258,54 @@ class CsRadioOption {
   final String label;
   final String? description;
   final bool disabled;
+}
+
+class CsRadio extends StatelessWidget {
+  const CsRadio({
+    super.key,
+    required this.label,
+    required this.selected,
+    required this.onSelect,
+    required this.dark,
+    required this.highContrast,
+    required this.compact,
+    this.description,
+    this.disabled = false,
+  });
+
+  final String label;
+  final String? description;
+  final bool selected;
+  final bool disabled;
+  final VoidCallback onSelect;
+  final bool dark;
+  final bool highContrast;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) {
+    final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
+    return Opacity(
+      opacity: csFormsStyleCheckRadioOpacity(disabled),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)),
+        child: CsOwnFocus(builder: (node, claim) => Semantics(
+          label: csRadioShowsText(label) ? label : '',
+          hint: csRadioShowsText(description) ? description : null,
+          child: RadioListTile<bool>(
+            focusNode: node,
+            value: true,
+            groupValue: selected,
+            onChanged: disabled ? null : (_) { claim(); onSelect(); },
+            title: csRadioShowsText(label) ? ExcludeSemantics(child: Text(label, style: TextStyle(color: csColor(pack.colorTextPrimary)))) : null,
+            subtitle: csRadioShowsText(description) ? ExcludeSemantics(child: Text(description!, style: TextStyle(fontSize: csFormsStyleCheckRadioDescriptionFontSize(pack), color: csColor(pack.colorTextMuted)))) : null,
+            activeColor: csColor(csFormsStyleCheckRadioAccentColor(dark, pack)),
+            contentPadding: EdgeInsets.zero,
+          ),
+        )),
+      ),
+    );
+  }
 }
 
 class CsRadioGroup extends StatelessWidget {
@@ -528,6 +583,7 @@ class CsSlider extends StatelessWidget {
     required this.compact,
     this.minimum = 0,
     this.maximum = 100,
+    this.step = 1,
     this.disabled = false,
     this.language,
   });
@@ -537,6 +593,7 @@ class CsSlider extends StatelessWidget {
   final ValueChanged<double> onChanged;
   final double minimum;
   final double maximum;
+  final double? step;
   final bool dark;
   final bool highContrast;
   final bool compact;
@@ -546,8 +603,8 @@ class CsSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
-    final lower = minimum < maximum ? minimum : maximum;
-    final upper = minimum > maximum ? minimum : maximum;
+    final limit = csSliderUpper(minimum, maximum);
+    final blocked = disabled || limit <= minimum;
     final spoken = csSliderCopy('label', csSelectResolvedLanguage(language, CsLanguageScope.of(context)));
     return Semantics(
       label: csSliderLabelText(label, spoken),
@@ -555,11 +612,11 @@ class CsSlider extends StatelessWidget {
         constraints: BoxConstraints(minHeight: csControlsWaveStyleSliderHeight()),
         child: CsOwnFocus(builder: (node, claim) => Slider(
           focusNode: node,
-          value: value.clamp(lower, upper == lower ? lower + 1 : upper),
-          min: lower,
-          max: upper == lower ? lower + 1 : upper,
+          value: csSliderSnap(value, minimum, limit, step),
+          min: minimum,
+          max: limit > minimum ? limit : minimum + 1,
           activeColor: csColor(csFormsStyleCheckRadioAccentColor(dark, pack)),
-          onChanged: disabled ? null : (next) { claim(); onChanged(next); },
+          onChanged: blocked ? null : (next) { claim(); onChanged(csSliderSnap(next, minimum, limit, step)); },
         )),
       ),
     );
@@ -567,9 +624,12 @@ class CsSlider extends StatelessWidget {
 }
 
 class CsTabItem {
-  const CsTabItem(this.value, this.label);
+  const CsTabItem(this.value, this.label, {this.count, this.id, this.controls});
   final String value;
   final String label;
+  final int? count;
+  final String? id;
+  final String? controls;
 }
 
 const csSliderLabel = 'Slider';
@@ -602,6 +662,7 @@ const csTabsList = 'Tabs';
 int csTabsIndex(List<String> values, String value) => max(0, values.indexOf(value));
 int csTabsStop(int index, int selected) => index == selected ? 0 : -1;
 bool csTabsShowsCount(int? count) => count != null;
+String? csTabsOrientation(bool vertical) => vertical ? 'vertical' : null;
 String csTabsListLabel(String? label, String fallback) => label ?? fallback;
 String csTabsCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
@@ -617,6 +678,76 @@ String csTabsCopy(String key, String? language) {
   return key;
 }
 
+class CsTab extends StatelessWidget {
+  const CsTab({
+    super.key,
+    required this.label,
+    required this.dark,
+    required this.highContrast,
+    required this.compact,
+    this.selected = false,
+    this.count,
+    this.onSelect,
+  });
+
+  final String label;
+  final bool selected;
+  final int? count;
+  final VoidCallback? onSelect;
+  final bool dark;
+  final bool highContrast;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) {
+    final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
+    final borderBottom = csNavigationStyleTabBorderBottomColor(pack, selected: selected);
+    return ConstrainedBox(
+      constraints: BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          border: borderBottom != null
+              ? Border(bottom: BorderSide(color: csColor(borderBottom), width: csNavigationStyleTabBorderBottomWidth()))
+              : null,
+        ),
+        child: CsOwnFocus(builder: (node, claim) => TextButton(
+          focusNode: node,
+          onPressed: onSelect == null ? null : () { claim(); onSelect!(); },
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                label,
+                style: TextStyle(
+                  fontSize: csNavigationStyleTabFontSize(pack),
+                  fontWeight: FontWeight.w600,
+                  color: csColor(csNavigationStyleTabTextColor(pack, selected: selected, dark: dark)),
+                ),
+              ),
+              if (csTabsShowsCount(count) && count != null) ...[
+                SizedBox(width: csNavigationStyleTabGap()),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: csNavigationStyleTabCountPaddingX(),
+                    vertical: csNavigationStyleTabCountPaddingY(),
+                  ),
+                  child: Text(
+                    '$count',
+                    style: TextStyle(
+                      fontSize: csNavigationStyleTabCountFontSize(pack),
+                      color: csColor(pack.colorTextMuted),
+                    ),
+                  ),
+                ),
+              ],
+            ],
+          ),
+        )),
+      ),
+    );
+  }
+}
+
 class CsTabs extends StatelessWidget {
   const CsTabs({
     super.key,
@@ -627,6 +758,7 @@ class CsTabs extends StatelessWidget {
     required this.dark,
     required this.highContrast,
     required this.compact,
+    this.vertical = false,
     this.language,
   });
 
@@ -635,6 +767,7 @@ class CsTabs extends StatelessWidget {
   final List<CsTabItem> tabs;
   final String selection;
   final ValueChanged<String> onSelect;
+  final bool vertical;
   final bool dark;
   final bool highContrast;
   final bool compact;
@@ -646,24 +779,59 @@ class CsTabs extends StatelessWidget {
       label: csTabsListLabel(label, csTabsCopy('list', csSelectResolvedLanguage(language, CsLanguageScope.of(context)))),
       child: Row(
         children: [
-          for (final tab in tabs)
+          for (var i = 0; i < tabs.length; i++) ...[
+            if (i > 0) SizedBox(width: csNavigationStyleTabsGap()),
             Expanded(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)),
-                child: CsOwnFocus(builder: (node, claim) => TextButton(
-                  focusNode: node,
-                  onPressed: () { claim(); onSelect(tab.value); },
-                  child: Text(
-                    tab.label,
-                    style: TextStyle(
-                      fontSize: csNavigationStyleTabFontSize(pack),
-                      fontWeight: FontWeight.w600,
-                      color: csColor(csNavigationStyleTabTextColor(pack, selected: selection == tab.value, dark: dark)),
+              child: Builder(builder: (context) {
+                final tab = tabs[i];
+                final selected = selection == tab.value;
+                final borderBottom = csNavigationStyleTabBorderBottomColor(pack, selected: selected);
+                return ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      border: borderBottom != null
+                          ? Border(bottom: BorderSide(color: csColor(borderBottom), width: csNavigationStyleTabBorderBottomWidth()))
+                          : null,
                     ),
+                    child: CsOwnFocus(builder: (node, claim) => TextButton(
+                      focusNode: node,
+                      onPressed: () { claim(); onSelect(tab.value); },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            tab.label,
+                            style: TextStyle(
+                              fontSize: csNavigationStyleTabFontSize(pack),
+                              fontWeight: FontWeight.w600,
+                              color: csColor(csNavigationStyleTabTextColor(pack, selected: selected, dark: dark)),
+                            ),
+                          ),
+                          if (csTabsShowsCount(tab.count) && tab.count != null) ...[
+                            SizedBox(width: csNavigationStyleTabGap()),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: csNavigationStyleTabCountPaddingX(),
+                                vertical: csNavigationStyleTabCountPaddingY(),
+                              ),
+                              child: Text(
+                                '${tab.count}',
+                                style: TextStyle(
+                                  fontSize: csNavigationStyleTabCountFontSize(pack),
+                                  color: csColor(pack.colorTextMuted),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    )),
                   ),
-                )),
-              ),
+                );
+              }),
             ),
+          ],
         ],
       ),
     );
@@ -790,6 +958,10 @@ class CsSpinner extends StatelessWidget {
   }
 }
 
+const csTagCloseIconPath = 'M6 6l12 12M18 6L6 18';
+double csTagCloseIconSize() => 12;
+double csTagCloseStrokeWidth() => 2.4;
+bool csTagShowsRemove(bool hasOnRemove) => hasOnRemove;
 String csTagLabel(String? text, String fallback) => text ?? fallback;
 String csTagCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
@@ -852,7 +1024,7 @@ class CsTag extends StatelessWidget {
               ),
             ),
           ),
-          if (onRemove != null)
+          if (csTagShowsRemove(onRemove != null) && onRemove != null)
             CsOwnFocus(builder: (node, claim) => Semantics(
               label: spoken,
               button: true,
@@ -919,12 +1091,14 @@ class CsStat extends StatelessWidget {
             color: csColor(pack.colorTextPrimary),
           ),
         ),
-        if (csStatShowsDelta(delta))
+        if (csStatShowsDelta(delta)) ...[
+          SizedBox(height: csDataStyleStatGap()),
           Row(children: [
             ExcludeSemantics(child: Text(csStatMark(trend), style: TextStyle(fontSize: csDataStyleStatDeltaFontSize(pack), fontWeight: FontWeight.w700, color: csColor(ink)))),
             SizedBox(width: csDataStyleStatDeltaGap()),
             Text(delta ?? '', style: TextStyle(fontSize: csDataStyleStatDeltaFontSize(pack), fontWeight: FontWeight.w700, color: csColor(ink))),
           ]),
+        ],
       ],
     );
   }
