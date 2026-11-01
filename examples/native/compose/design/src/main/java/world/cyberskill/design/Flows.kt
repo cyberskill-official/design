@@ -9,11 +9,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.zIndex
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -147,9 +149,11 @@ fun csTourPop(hole: CsTourHole?, viewWidth: Double, viewHeight: Double) = if (ho
 fun CsTimePicker(value: String, onChange: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, labelledBy: String? = null, step: Double = 30.0, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val timeName = csTimeName(label, labelledBy, csTimeCopy("label", csComboboxResolvedLanguage(language, LocalCsLanguage.current))) ?: ""
+  val gap = csControlsWaveStyleTimePickerGap()
+  val padX = csControlsWaveStyleTimePickerPaddingX()
   var open by remember { mutableStateOf(false) }
-  Column(modifier) {
-    CsTriggerButton(title = value, onClick = { open = !open }, modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = timeName }) { Text(value, color = pack.colorTextPrimary.toComposeColor()) }
+  Column(modifier, verticalArrangement = Arrangement.spacedBy(gap)) {
+    CsTriggerButton(title = value, onClick = { open = !open }, modifier = Modifier.padding(horizontal = padX).minimumInteractiveComponentSize().semantics { contentDescription = timeName }) { Text(value, color = pack.colorTextPrimary.toComposeColor()) }
     if (open) csTimeSlots(step).forEach { slot -> CsTriggerButton(title = slot, onClick = { onChange(slot) }, modifier = Modifier.minimumInteractiveComponentSize()) { Text(slot) } }
   }
 }
@@ -192,10 +196,11 @@ fun CsMentions(text: String, users: List<String>, onChange: (String) -> Unit, da
     val second = fitted
     if (first == null || second == null) null else csMentionShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second)
   }
-  val shiftX = with(density) { (place?.x ?: 0.0).toFloat().toDp() }
-  val shiftY = with(density) { (place?.y ?: 0.0).toFloat().toDp() }
+  val shiftX = place?.let { with(density) { it.x.toFloat().toDp() } } ?: csControlsBatchStyleMentionsPopupInlineStart()
+  val shiftY = place?.let { with(density) { it.y.toFloat().toDp() } } ?: csControlsBatchStyleMentionsPopupBlockOffset()
+  val maxW = csControlsBatchStyleMentionsMaxWidth()
   LaunchedEffect(hits.isEmpty()) { if (hits.isEmpty()) { natural = null; fitted = null } }
-  Column(modifier.onPreviewKeyEvent { event ->
+  Column(modifier.widthIn(max = maxW).onPreviewKeyEvent { event ->
     if (event.type != KeyEventType.KeyDown || event.key != Key.Escape) return@onPreviewKeyEvent false
     dismissed = true
     true
@@ -322,10 +327,13 @@ fun CsTour(steps: List<String>, index: Int, onIndex: (Int) -> Unit, onOpenChange
   val hole = csTourHole(target)
   val pop = csTourPop(hole, config.screenWidthDp.toDouble(), config.screenHeightDp.toDouble())
   val body = bodies.getOrNull(active)
+  val holeDepth = csControlsBatchStyleTourHoleDepth(pack).toFloat()
+  val popDepth = csControlsBatchStyleTourPopDepth(pack).toFloat()
+  val popWidth = csControlsBatchStyleTourPopWidth()
   Box(modifier) {
     if (csTourClosesOnBackdrop()) Box(Modifier.matchParentSize().clickable { onOpenChange(false) })
-    if (hole != null) Box(Modifier.offset(hole.x.dp, hole.y.dp).size(hole.w.dp, hole.h.dp).border(3.dp, pack.colorBrandOchre.toComposeColor(), androidx.compose.foundation.shape.RoundedCornerShape(8.dp)))
-    Column(Modifier.offset(pop.left.dp, pop.top.dp).semantics { contentDescription = steps[active] }.onPreviewKeyEvent { event ->
+    if (hole != null) Box(Modifier.zIndex(holeDepth).offset(hole.x.dp, hole.y.dp).size(hole.w.dp, hole.h.dp).border(3.dp, pack.colorBrandOchre.toComposeColor(), androidx.compose.foundation.shape.RoundedCornerShape(8.dp)))
+    Column(Modifier.zIndex(popDepth).widthIn(max = popWidth).offset(pop.left.dp, pop.top.dp).semantics { contentDescription = steps[active] }.onPreviewKeyEvent { event ->
       if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
       if (event.key == Key.Escape) { onOpenChange(false); return@onPreviewKeyEvent true }
       if (event.key != Key.Tab) return@onPreviewKeyEvent false
@@ -362,17 +370,21 @@ fun CsDataTable(rows: List<String>, state: String, dark: Boolean, highContrast: 
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val count = csRenderCount(loadingRows, 5, 1)
   val empty = csTableText(emptyLabel, csTableCopy("empty", locale))
+  val captionMargin = csTableStyleCaptionMarginBottom()
+  val statusPadY = csTableStyleStatusPaddingY(pack)
+  val cellPadX = csTableStyleCellPaddingX()
+  val cellPadY = csTableStyleCellPaddingY()
   Column(modifier) {
-    if (csTableShowsCaption(caption)) Text(caption ?: "", color = pack.colorTextPrimary.toComposeColor())
+    if (csTableShowsCaption(caption)) Text(caption ?: "", color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.padding(bottom = captionMargin))
     when (state) {
-      "loading" -> Column(Modifier.semantics { contentDescription = csTableCopy("loading", locale); stateDescription = "true" }) { repeat(count) { Text(" ", modifier = Modifier.clearAndSetSemantics {}, color = pack.colorBorderDefault.toComposeColor()) } }
+      "loading" -> Column(Modifier.padding(vertical = statusPadY).semantics { contentDescription = csTableCopy("loading", locale); stateDescription = "true" }) { repeat(count) { Text(" ", modifier = Modifier.clearAndSetSemantics {}, color = pack.colorBorderDefault.toComposeColor()) } }
       "error" -> {
         val body: @Composable () -> Unit = {
           if (errorLabel != null) Text(errorLabel, color = pack.colorSemanticDangerText.toComposeColor()) else Column { Text(csTableCopy("error", locale), color = pack.colorSemanticDangerText.toComposeColor()); Text(csTableCopy("errorHint", locale), color = pack.colorTextMuted.toComposeColor()) }
         }
-        if (csTableAlert(state)) Column(Modifier.semantics { liveRegion = LiveRegionMode.Assertive }) { body() } else body()
+        if (csTableAlert(state)) Column(Modifier.padding(vertical = statusPadY).semantics { liveRegion = LiveRegionMode.Assertive }) { body() } else Column(Modifier.padding(vertical = statusPadY)) { body() }
       }
-      else -> if (rows.isEmpty()) Text(empty, color = pack.colorTextMuted.toComposeColor()) else rows.forEach { Text(it, color = pack.colorTextPrimary.toComposeColor()) }
+      else -> if (rows.isEmpty()) Text(empty, color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.padding(vertical = statusPadY)) else rows.forEach { Text(it, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.padding(horizontal = cellPadX, vertical = cellPadY)) }
     }
   }
 }
@@ -382,6 +394,11 @@ fun CsPopconfirm(title: String, open: Boolean, onOpenChange: (Boolean) -> Unit, 
   val spoken = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val okName = csPopconfirmOkText(confirmLabel, csPopconfirmCopy("ok", spoken))
   val cancelName = csPopconfirmOkText(cancelLabel, csPopconfirmCopy("cancel", spoken))
+  val minW = csControlsWaveStylePopconfirmMinWidth()
+  val padY = csControlsWaveStylePopconfirmPaddingY()
+  val padX = csControlsWaveStylePopconfirmPaddingX()
+  val titleMargin = csControlsWaveStylePopconfirmTitleMarginBottom()
+  val actionsGap = csControlsWaveStylePopconfirmActionsGap()
   var field by remember { mutableStateOf<CsFloatingRect?>(null) }
   var natural by remember { mutableStateOf<Pair<Double, Double>?>(null) }
   var fitted by remember { mutableStateOf<Pair<Double, Double>?>(null) }
@@ -403,7 +420,7 @@ fun CsPopconfirm(title: String, open: Boolean, onOpenChange: (Boolean) -> Unit, 
       val bounds = it.boundsInWindow()
       field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
     }) { Text(title) }
-    if (open) Column(Modifier.onGloballyPositioned {
+    if (open) Column(Modifier.widthIn(min = minW).padding(horizontal = padX, vertical = padY).onGloballyPositioned {
       val bounds = it.boundsInWindow()
       val width = it.size.width.toDouble()
       val height = it.size.height.toDouble()
@@ -414,8 +431,8 @@ fun CsPopconfirm(title: String, open: Boolean, onOpenChange: (Boolean) -> Unit, 
       if (origin != nextOrigin) origin = nextOrigin
       if (panelScale != nextScale) panelScale = nextScale
       if (natural == null) natural = nextSize else if (fitted != nextSize) fitted = nextSize
-    }.offset(x = with(density) { (place?.x ?: 0.0).toFloat().toDp() }, y = with(density) { (place?.y ?: 0.0).toFloat().toDp() })) {
-      CsTriggerButton(title = cancelName, onClick = { onOpenChange(false); onCancel() }) { Text(cancelName) }
+    }.offset(x = with(density) { (place?.x ?: 0.0).toFloat().toDp() }, y = place?.let { with(density) { it.y.toFloat().toDp() } } ?: csControlsWaveStylePopconfirmOffset()), verticalArrangement = Arrangement.spacedBy(actionsGap)) {
+      CsTriggerButton(title = cancelName, onClick = { onOpenChange(false); onCancel() }, modifier = Modifier.padding(top = titleMargin)) { Text(cancelName) }
       CsTriggerButton(title = okName, onClick = { onOpenChange(false); onConfirm() }) { Text(okName) }
     }
   }
@@ -472,12 +489,16 @@ fun CsToggle(label: String = "", pressed: Boolean, onChange: (Boolean) -> Unit, 
   val spoken = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val content = csToggleHasContent(label)
   val name = csToggleName(ariaLabel, content, csToggleCopy("label", spoken))
+  val padY = csControlsWaveStyleTogglePaddingY()
+  val padX = csControlsWaveStyleTogglePaddingX()
+  val minH = csControlsWaveStyleToggleMinHeight()
+  val disabledAlpha = csControlsWaveStyleToggleDisabledOpacity
   TextButton(onClick = {
     if (!enabled) return@TextButton
     val next = csToggleFlip(pressed, disabled, false) ?: return@TextButton
     handle.claim()
     onChange(next)
-  }, enabled = enabled, modifier = modifier.focusRequester(handle.requester).onFocusChanged { if (it.isFocused && enabled) handle.claim() }.minimumInteractiveComponentSize().semantics { contentDescription = name ?: label }) {
+  }, enabled = enabled, modifier = modifier.alpha(if (enabled) 1f else disabledAlpha).heightIn(min = minH).padding(horizontal = padX, vertical = padY).focusRequester(handle.requester).onFocusChanged { if (it.isFocused && enabled) handle.claim() }.minimumInteractiveComponentSize().semantics { contentDescription = name ?: label }) {
     if (content) Text(label, color = if (pressed) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor(), modifier = Modifier.clearAndSetSemantics { })
   }
 }

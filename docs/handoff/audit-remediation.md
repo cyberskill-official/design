@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the fields-views-style-wiring checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the flows-views-style-wiring checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `ebeb6f198436ce4db3f3b5534bb69561ab3247af`, with the hash note in `5c8d1f07`
-- Checkpoint commit hash: `4e75c867a506e572ba9991c2d17506c614b00677`
+- Previous checkpoint: `4e75c867a506e572ba9991c2d17506c614b00677`, with the hash note in `6e73b3d7`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -55,13 +54,13 @@ Last run after styling `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `Navigat
 
 ## Latest checkpoint
 
-Wired the remaining rendered views in `Fields.swift`, `Fields.kt`, and `fields.dart` (`CSCalendar`/`CsCalendar`, `CSCombobox`/`CsCombobox`, `CSAlertDialog`/`CsAlertDialog`, and `CSComment`/`CsComment`) to consume `CSControlsWaveStyleModel` (`calendarMinWidth()`, `calendarHeaderButtonSize()`, `calendarCellSize()`, `calendarGridGap()`, `calendarDayFontSize()`, `comboboxMinWidth()`, `comboboxInputPaddingEnd()`, `comboboxCaretInsetEnd()`, `comboboxPopupOffset()`, `comboboxPopupMaxHeight()`), `CSDialogModel` (`alertMaxWidth()`, `padding()`, `headerGap()`, `titleFontSize()`, `bodyMarginY()`, `destructiveTitleColor()`), and `CSControlsBatchStyleModel` (`commentGap()`, `commentRepliesIndent()`, `commentRepliesBorderWidth()`).
+Wired the remaining rendered views in `Flows.swift`, `Flows.kt`, and `flows.dart` (`CSTimePicker`/`CsTimePicker`, `CSMentions`/`CsMentions`, `CSTour`/`CsTour`, `CSDataTable`/`CsDataTable`, `CSPopconfirm`/`CsPopconfirm`, and `CSToggle`/`CsToggle`) to consume `CSControlsWaveStyleModel` (`timePickerGap()`, `timePickerPaddingX()`, `popconfirmOffset()`, `popconfirmMinWidth()`, `popconfirmPaddingY()`, `popconfirmPaddingX()`, `popconfirmTitleMarginBottom()`, `popconfirmActionsGap()`, `togglePaddingY()`, `togglePaddingX()`, `toggleMinHeight()`, `toggleDisabledOpacity`), `CSControlsBatchStyleModel` (`mentionsMaxWidth()`, `mentionsPopupInlineStart()`, `mentionsPopupBlockOffset()`, `tourHoleDepth()`, `tourPopDepth()`, `tourPopWidth()`), and `CSTableStyleModel` (`captionMarginBottom()`, `statusPaddingY()`, `cellPaddingX()`, `cellPaddingY()`).
 
 - `swift test --package-path examples/native/swiftui` and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Wire the remaining rendered views in `Flows.swift`, `Flows.kt`, and `flows.dart` to consume their style models.
+Wire the remaining rendered views in `Surfaces.swift`, `Surfaces.kt`, and `surfaces.dart` to consume their style models.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

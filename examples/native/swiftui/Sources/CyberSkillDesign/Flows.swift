@@ -276,12 +276,19 @@ public struct CSTimePicker: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
+    let gap = CGFloat(CSControlsWaveStyleModel.timePickerGap())
+    let padX = CGFloat(CSControlsWaveStyleModel.timePickerPaddingX())
     Menu {
       ForEach(CSTimeModel.slots(step: step), id: \.self) { slot in
         CSTriggerButton(slot) { onChange(slot) }
       }
     } label: {
-      Text(value).foregroundStyle(pack.primaryTextColor).frame(minHeight: pack.componentButtonMdMinHeight.points)
+      HStack(spacing: gap) {
+        Text(value)
+          .foregroundStyle(pack.primaryTextColor)
+          .padding(.horizontal, padX)
+          .frame(minHeight: pack.componentButtonMdMinHeight.points)
+      }
     }
     .disabled(disabled)
     .focused($focused)
@@ -358,6 +365,9 @@ public struct CSMentions: View {
     let query = CSMentionModel.query(text: text, caret: text.count)
     let found = dismissed ? [] : CSMentionModel.hits(users: users, query: query)
     let current = CSMentionModel.active(active, count: found.count)
+    let maxW = CGFloat(CSControlsBatchStyleModel.mentionsMaxWidth())
+    let popupInlineStart = CGFloat(CSControlsBatchStyleModel.mentionsPopupInlineStart())
+    let popupBlockOffset = CGFloat(CSControlsBatchStyleModel.mentionsPopupBlockOffset())
     VStack(alignment: .leading) {
       TextField("", text: Binding(get: { text }, set: { next in
         CSFocusRegistry.shared.claim(id: focusId, restore: { mentionFocus = .field })
@@ -366,6 +376,7 @@ public struct CSMentions: View {
         onChange(next)
       }), prompt: Text(hint), axis: .vertical)
         .lineLimit(3...3)
+        .frame(maxWidth: maxW)
         .focused($mentionFocus, equals: .field)
         .accessibilityLabel(spoken)
         .onSubmit {
@@ -421,7 +432,7 @@ public struct CSMentions: View {
           let scaleY = geo.size.height > 0 ? frame.height / geo.size.height : 1
           Color.clear.preference(key: CSMentionPanelKey.self, value: CSMentionMeasure(size: geo.size, pass: measurePass, origin: frame.origin, scale: CGSize(width: scaleX == 0 ? 1 : scaleX, height: scaleY == 0 ? 1 : scaleY)))
         })
-        .offset(x: CGFloat(placed?.x ?? 0), y: CGFloat(placed?.y ?? 0))
+        .offset(x: CGFloat(placed?.x ?? Double(popupInlineStart)), y: CGFloat(placed?.y ?? Double(popupBlockOffset)))
         .opacity(placed == nil ? 0 : 1)
         .accessibilityHidden(placed == nil)
       }
@@ -634,6 +645,9 @@ public struct CSTour: View {
         let hole = CSTourModel.hole(target)
         let pop = CSTourModel.pop(hole: hole, viewWidth: screen.width, viewHeight: screen.height)
         let body = bodies.indices.contains(index) ? bodies[index] : nil
+        let holeDepth = CSControlsBatchStyleModel.tourHoleDepth(pack)
+        let popDepth = CSControlsBatchStyleModel.tourPopDepth(pack)
+        let popWidth = CGFloat(CSControlsBatchStyleModel.tourPopWidth())
         ZStack(alignment: .topLeading) {
           if CSTourModel.closesOnBackdrop() {
             Color.black.opacity(0.42)
@@ -647,6 +661,7 @@ public struct CSTour: View {
               .stroke(pack.colorBrandOchre.color, lineWidth: 3)
               .frame(width: CGFloat(hole.w), height: CGFloat(hole.h))
               .position(x: CGFloat(hole.x + hole.w / 2), y: CGFloat(hole.y + hole.h / 2))
+              .zIndex(holeDepth)
               .allowsHitTesting(false)
               .accessibilityHidden(true)
           }
@@ -671,7 +686,9 @@ public struct CSTour: View {
             }
           }
           .padding(16)
+          .frame(maxWidth: popWidth, alignment: .leading)
           .background(pack.colorSurfacePanel.color)
+          .zIndex(popDepth)
           .accessibilityElement(children: .contain)
           .accessibilityLabel(steps[index])
           .accessibilityAddTraits(.isModal)
@@ -725,9 +742,13 @@ public struct CSDataTable: View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let locale = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
     let empty = CSTableModel.text(emptyLabel, fallback: CSTableModel.copy("empty", language: locale))
+    let captionMargin = CGFloat(CSTableStyleModel.captionMarginBottom())
+    let statusPadY = CGFloat(CSTableStyleModel.statusPaddingY(pack))
+    let cellPadX = CGFloat(CSTableStyleModel.cellPaddingX())
+    let cellPadY = CGFloat(CSTableStyleModel.cellPaddingY())
     VStack(alignment: .leading, spacing: 4) {
       if CSTableModel.showsCaption(caption), let caption {
-        Text(caption).foregroundStyle(pack.primaryTextColor)
+        Text(caption).foregroundStyle(pack.primaryTextColor).padding(.bottom, captionMargin)
       }
       if state == "loading" {
         VStack(alignment: .leading, spacing: 4) {
@@ -735,6 +756,7 @@ public struct CSDataTable: View {
             RoundedRectangle(cornerRadius: 4).fill(pack.borderColor).frame(height: 12)
           }
         }
+        .padding(.vertical, statusPadY)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(CSTableModel.copy("loading", language: locale))
         .accessibilityValue("true")
@@ -749,13 +771,17 @@ public struct CSDataTable: View {
             }
           }
         }
+        .padding(.vertical, statusPadY)
         .accessibilityElement(children: .contain)
         .accessibilityAddTraits(.updatesFrequently)
       } else if rows.isEmpty {
-        Text(empty).foregroundStyle(pack.mutedColor)
+        Text(empty).foregroundStyle(pack.mutedColor).padding(.vertical, statusPadY)
       } else {
         ForEach(Array(rows.enumerated()), id: \.offset) { _, row in
-          Text(row.joined(separator: " ")).foregroundStyle(pack.primaryTextColor)
+          Text(row.joined(separator: " "))
+            .foregroundStyle(pack.primaryTextColor)
+            .padding(.horizontal, cellPadX)
+            .padding(.vertical, cellPadY)
         }
       }
     }
@@ -863,21 +889,28 @@ public struct CSPopconfirm: View {
             CSPopconfirmModel.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height), placement: place)
           }
         }
-        VStack(alignment: .leading) {
+        let minW = CGFloat(CSControlsWaveStyleModel.popconfirmMinWidth())
+        let padY = CGFloat(CSControlsWaveStyleModel.popconfirmPaddingY())
+        let padX = CGFloat(CSControlsWaveStyleModel.popconfirmPaddingX())
+        let titleMargin = CGFloat(CSControlsWaveStyleModel.popconfirmTitleMarginBottom())
+        let actionsGap = CGFloat(CSControlsWaveStyleModel.popconfirmActionsGap())
+        VStack(alignment: .leading, spacing: titleMargin) {
           Text(title).foregroundStyle(pack.primaryTextColor)
-          HStack {
+          HStack(spacing: actionsGap) {
             CSTriggerButton(CSPopconfirmModel.cancelText(cancelLabel, fallback: CSPopconfirmModel.copy("cancel", language: spoken))) { open = false; onCancel() }.frame(minHeight: 44)
             CSTriggerButton(CSPopconfirmModel.okText(confirmLabel, fallback: CSPopconfirmModel.copy("ok", language: spoken))) { open = false; onConfirm() }.frame(minHeight: 44)
           }
         }
-        .frame(maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
+        .padding(.vertical, padY)
+        .padding(.horizontal, padX)
+        .frame(minWidth: minW, maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
         .background(GeometryReader { geo in
           let frame = geo.frame(in: .global)
           let scaleX = geo.size.width > 0 ? frame.width / geo.size.width : 1
           let scaleY = geo.size.height > 0 ? frame.height / geo.size.height : 1
           Color.clear.preference(key: CSPopconfirmPanelKey.self, value: CSPopconfirmMeasure(size: geo.size, pass: measurePass, origin: frame.origin, scale: CGSize(width: scaleX == 0 ? 1 : scaleX, height: scaleY == 0 ? 1 : scaleY)))
         })
-        .offset(x: CGFloat(placed?.x ?? 0), y: CGFloat(placed?.y ?? 0))
+        .offset(x: CGFloat(placed?.x ?? 0), y: CGFloat(placed?.y ?? CSControlsWaveStyleModel.popconfirmOffset()))
         .opacity(placed == nil ? 0 : 1)
         .accessibilityHidden(placed == nil)
       }
@@ -991,16 +1024,26 @@ public struct CSToggle: View {
     let spoken = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
     let content = CSToggleModel.hasContent(text: label)
     let name = CSToggleModel.toggleName(ariaLabel: ariaLabel, hasContent: content, fallback: CSToggleModel.copy("label", language: spoken))
+    let padY = CGFloat(CSControlsWaveStyleModel.togglePaddingY())
+    let padX = CGFloat(CSControlsWaveStyleModel.togglePaddingX())
+    let minH = max(pack.componentButtonMdMinHeight.points, CGFloat(CSControlsWaveStyleModel.toggleMinHeight()))
+    let disabledAlpha = CSControlsWaveStyleModel.toggleDisabledOpacity
     Button {
       if let next = CSToggleModel.flip(on: pressed, disabled: disabled, defaultPrevented: false) {
         CSFocusRegistry.shared.claim(id: focusId, restore: { ownerFocused = true })
         onChange(next)
       }
     } label: {
-      if content { Text(label).accessibilityHidden(true) }
+      if content {
+        Text(label)
+          .padding(.vertical, padY)
+          .padding(.horizontal, padX)
+          .accessibilityHidden(true)
+      }
     }
       .disabled(disabled)
-      .frame(minHeight: pack.componentButtonMdMinHeight.points)
+      .opacity(disabled ? disabledAlpha : 1.0)
+      .frame(minHeight: minH)
       .foregroundStyle(pressed ? pack.colorBrandOchre.color : pack.primaryTextColor)
       .focused($ownerFocused)
       .accessibilityLabel(name ?? label)
