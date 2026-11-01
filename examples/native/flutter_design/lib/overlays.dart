@@ -9,6 +9,8 @@ enum CsRovingKey { right, left, up, down, home, end }
 
 const csMenuLabel = 'Menu';
 const csMenuGap = 6.0;
+bool csMenuEscapeClose() => false;
+bool csMenuTabClose() => false;
 bool csMenuIsSeparator(String item) => item == '-';
 List<String> csMenuActionable(List<String> items) => items.where((item) => !csMenuIsSeparator(item)).toList();
 String csMenuPlacement(String? explicit, String align) => explicit ?? (align == 'end' ? 'bottom-end' : 'bottom-start');
@@ -44,9 +46,13 @@ String csMenuCopy(String key, String? language) {
 }
 
 const csFabMain = 56.0;
+bool csFabEscapeClose() => false;
 bool csFabIsStatic(String? position) => position == 'static';
+String csFabRootClass(String? position) => csFabIsStatic(position) ? 'cs-fab cs-fab--static' : 'cs-fab';
+String csFabDialClass(String? position) => csFabIsStatic(position) ? 'cs-fab__dial cs-fab__dial--static' : 'cs-fab__dial';
 String csFabMainGlyph(String? icon, String label) => icon ?? label;
 int? csFabSelectAction(int index, int count) => index >= 0 && index < count ? index : null;
+bool? csFabExpanded(int actionCount, bool open) => actionCount > 0 ? open : null;
 String csFabPlacement(String? explicit) => explicit ?? 'top-end';
 const csFabGap = 10.0;
 class CsFabPlace {
@@ -70,6 +76,8 @@ bool? csFabNextOpen(int actionCount, bool open) => actionCount > 0 ? !open : nul
 const csBackTopLabel = 'Back to top';
 const csBackTopArrow = 'M12 19V5M5 12l7-7 7 7';
 const csBackTopIconSize = 18.0;
+const csBackTopStrokeWidth = 2.0;
+double csBackTopScrollTopTarget() => 0.0;
 String csBackTopLabelText(String? label, String fallback) => label ?? fallback;
 String csBackTopCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
@@ -168,6 +176,7 @@ int? csMenubarHover(int? open, int index) => open == null ? null : (open == inde
 List<String> csMenubarActionable(List<String> items) => items.where((item) => item != '-').toList();
 int csMenubarTabStop(int index, int focus) => index == focus ? 0 : -1;
 CsMenubarState csMenubarTabClose(int top) => CsMenubarState(top, null, 0);
+CsMenubarState csMenubarEscapeClose(int top) => CsMenubarState(top, null, 0);
 CsMenubarState? csMenubarBar(int top, int? open, int menuCount, int itemCount, CsRovingKey key) {
   if (menuCount <= 0) return null;
   if (key == CsRovingKey.down || key == CsRovingKey.up) {
@@ -197,6 +206,9 @@ CsMenubarState? csMenubarItem(int menu, int item, int menuCount, int itemCount, 
 
 bool csBackTopVisible(double offset, {double threshold = 320}) => offset > threshold;
 
+const csAspectDefaultRatio = '16 / 9';
+String csAspectNormalizedRatio(String ratio) => ratio.trim();
+double? csAspectHeightFromNumber(double ratio, double width) => ratio > 0 ? width / ratio : null;
 double? csAspectHeight(String ratio, double width) {
   final parts = ratio.split('/').map((part) => part.trim()).toList();
   if (parts.length == 2) {
@@ -210,10 +222,12 @@ double? csAspectHeight(String ratio, double width) {
 }
 
 class CsMenu extends StatefulWidget {
-  const CsMenu({super.key, required this.label, required this.items, required this.open, required this.onOpenChange, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.language, this.align = 'start', this.placement});
+  const CsMenu({super.key, required this.label, required this.items, required this.open, required this.onOpenChange, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.language, this.align = 'start', this.placement, this.portal = true, this.dangerItems = const <String>{}});
   final String? language;
   final String align;
   final String? placement;
+  final bool portal;
+  final Set<String> dangerItems;
   final String label;
   final List<String> items;
   final bool open;
@@ -229,6 +243,8 @@ class CsMenu extends StatefulWidget {
 
 class _CsMenuState extends State<CsMenu> {
   var focus = -1;
+  var typed = '';
+  var typedAt = 0;
   final fieldKey = GlobalKey();
   final listKey = GlobalKey();
   Size? natural;
@@ -267,6 +283,14 @@ class _CsMenuState extends State<CsMenu> {
 
   KeyEventResult _key(FocusNode node, KeyEvent event) {
     if (event is! KeyDownEvent) return KeyEventResult.ignored;
+    if (widget.open && event.logicalKey == LogicalKeyboardKey.escape) {
+      widget.onOpenChange(csMenuEscapeClose());
+      return KeyEventResult.handled;
+    }
+    if (widget.open && event.logicalKey == LogicalKeyboardKey.tab) {
+      widget.onOpenChange(csMenuTabClose());
+      return KeyEventResult.ignored;
+    }
     final enabled = csMenuActionable(widget.items);
     final CsRovingKey? key = switch (event.logicalKey) {
       LogicalKeyboardKey.arrowDown => CsRovingKey.down,
@@ -277,7 +301,21 @@ class _CsMenuState extends State<CsMenu> {
       LogicalKeyboardKey.end => CsRovingKey.end,
       _ => null,
     };
-    if (key == null) return KeyEventResult.ignored;
+    if (key == null) {
+      final ch = event.character;
+      if (widget.open && ch != null && ch.length == 1 && ch != ' ') {
+        final now = DateTime.now().millisecondsSinceEpoch;
+        final needle = csMenuNeedle(typed, ch, now - typedAt);
+        typed = needle;
+        typedAt = now;
+        final hit = csMenuTypeahead(enabled, focus, needle);
+        if (hit != null) {
+          setState(() => focus = hit);
+          return KeyEventResult.handled;
+        }
+      }
+      return KeyEventResult.ignored;
+    }
     if (!widget.open && (key == CsRovingKey.down || key == CsRovingKey.up)) {
       widget.onOpenChange(true);
       setState(() => focus = key == CsRovingKey.up ? (enabled.isEmpty ? 0 : enabled.length - 1) : 0);
@@ -335,7 +373,7 @@ class _CsMenuState extends State<CsMenu> {
                               widget.onOpenChange(false);
                               widget.onSelect(widget.items[index]);
                             },
-                            child: Text(widget.items[index], style: TextStyle(fontSize: csNavigationStyleMenuItemFontSize(pack), color: csColor(focus == actionIndex ? pack.colorBrandOchre : pack.colorTextPrimary))),
+                            child: Text(widget.items[index], style: TextStyle(fontSize: csNavigationStyleMenuItemFontSize(pack), color: csColor(focus == actionIndex ? pack.colorBrandOchre : (widget.dangerItems.contains(widget.items[index]) ? pack.colorSemanticDangerFg : pack.colorTextPrimary)))),
                           ),
                         );
                       }),
@@ -351,17 +389,19 @@ class _CsMenuState extends State<CsMenu> {
 }
 
 class CsMenubarMenu {
-  const CsMenubarMenu(this.label, this.items);
+  const CsMenubarMenu(this.label, this.items, {this.dangerItems = const <String>{}});
   final String label;
   final List<String> items;
+  final Set<String> dangerItems;
 }
 
 class CsMenubar extends StatefulWidget {
-  const CsMenubar({super.key, this.label, required this.menus, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.hasLabelledBy = false, this.language, this.placement});
+  const CsMenubar({super.key, this.label, required this.menus, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.hasLabelledBy = false, this.language, this.placement, this.portal = true});
   final String? label;
   final bool hasLabelledBy;
   final String? language;
   final String? placement;
+  final bool portal;
   final List<CsMenubarMenu> menus;
   final ValueChanged<String> onSelect;
   final bool dark;
@@ -381,6 +421,41 @@ class _CsMenubarState extends State<CsMenubar> {
   CsMenubarPlace? place;
 
   GlobalKey buttonKey(int index) => buttons.putIfAbsent(index, GlobalKey.new);
+
+  KeyEventResult _key(FocusNode node, KeyEvent event) {
+    if (event is! KeyDownEvent) return KeyEventResult.ignored;
+    if (state.open != null && event.logicalKey == LogicalKeyboardKey.escape) {
+      setState(() => state = csMenubarEscapeClose(state.top));
+      return KeyEventResult.handled;
+    }
+    if (state.open != null && event.logicalKey == LogicalKeyboardKey.tab) {
+      setState(() => state = csMenubarTabClose(state.top));
+      return KeyEventResult.handled;
+    }
+    final CsRovingKey? key = switch (event.logicalKey) {
+      LogicalKeyboardKey.arrowDown => CsRovingKey.down,
+      LogicalKeyboardKey.arrowUp => CsRovingKey.up,
+      LogicalKeyboardKey.arrowLeft => CsRovingKey.left,
+      LogicalKeyboardKey.arrowRight => CsRovingKey.right,
+      LogicalKeyboardKey.home => CsRovingKey.home,
+      LogicalKeyboardKey.end => CsRovingKey.end,
+      _ => null,
+    };
+    if (key == null) return KeyEventResult.ignored;
+    if (state.open == null) {
+      final count = state.top >= 0 && state.top < widget.menus.length ? csMenubarActionable(widget.menus[state.top].items).length : 0;
+      final next = csMenubarBar(state.top, state.open, widget.menus.length, count, key);
+      if (next == null) return KeyEventResult.ignored;
+      setState(() => state = next);
+      return KeyEventResult.handled;
+    }
+    final menu = state.open ?? state.top;
+    final count = menu >= 0 && menu < widget.menus.length ? csMenubarActionable(widget.menus[menu].items).length : 0;
+    final next = csMenubarItem(menu, state.item, widget.menus.length, count, key);
+    if (next == null) return KeyEventResult.ignored;
+    setState(() => state = next);
+    return KeyEventResult.handled;
+  }
 
   void measure(int open) {
     final fieldBox = buttonKey(open).currentContext?.findRenderObject() as RenderBox?;
@@ -418,7 +493,9 @@ class _CsMenubarState extends State<CsMenubar> {
     final open = state.open;
     if (open == null) { natural = null; fitted = null; }
     if (open != null) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted && state.open == open) measure(open); });
-    return Semantics(
+    return Focus(
+      onKeyEvent: _key,
+      child: Semantics(
       label: csMenubarLabel(widget.label, widget.hasLabelledBy, csMenubarCopy('label', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context)))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -428,7 +505,13 @@ class _CsMenubarState extends State<CsMenubar> {
             child: Row(children: [
               for (var index = 0; index < widget.menus.length; index++) ...[
                 if (index > 0) SizedBox(width: csControlsBatchStyleMenubarGap()),
-                CsOwnFocus(builder: (node, claim) => TextButton(
+                MouseRegion(
+                  onEnter: (_) {
+                    if (state.open != null && state.open != index) {
+                      setState(() => state = CsMenubarState(state.top, csMenubarHover(state.open, index), 0));
+                    }
+                  },
+                  child: CsOwnFocus(builder: (node, claim) => TextButton(
                   key: buttonKey(index),
                   focusNode: node,
                   onPressed: () {
@@ -437,6 +520,7 @@ class _CsMenubarState extends State<CsMenubar> {
                   },
                   child: Text(widget.menus[index].label, style: TextStyle(fontSize: csControlsBatchStyleMenubarTopFontSize, fontWeight: FontWeight.w600, color: csColor(state.top == index ? pack.colorBrandOchre : pack.colorTextPrimary))),
                 )),
+                ),
               ],
             ]),
           ),
@@ -472,7 +556,7 @@ class _CsMenubarState extends State<CsMenubar> {
                                 widget.onSelect(widget.menus[open].items[index]);
                                 setState(() => state = CsMenubarState(state.top, null, state.item));
                               },
-                              child: Text(widget.menus[open].items[index], style: TextStyle(fontSize: csNavigationStyleMenuItemFontSize(pack), color: csColor(state.item == actionIndex ? pack.colorBrandOchre : pack.colorTextPrimary))),
+                              child: Text(widget.menus[open].items[index], style: TextStyle(fontSize: csNavigationStyleMenuItemFontSize(pack), color: csColor(state.item == actionIndex ? pack.colorBrandOchre : (widget.menus[open].dangerItems.contains(widget.menus[open].items[index]) ? pack.colorSemanticDangerFg : pack.colorTextPrimary)))),
                             ),
                           );
                         }),
@@ -483,6 +567,7 @@ class _CsMenubarState extends State<CsMenubar> {
             ))),
         ],
       ),
+    ),
     );
   }
 }
@@ -517,12 +602,13 @@ class CsBackTop extends StatelessWidget {
 }
 
 class CsFab extends StatefulWidget {
-  const CsFab({super.key, required this.label, required this.onPress, required this.dark, required this.highContrast, required this.compact, this.icon, this.actions = const [], this.position = 'fixed', this.placement, this.onSelectAction});
+  const CsFab({super.key, required this.label, required this.onPress, required this.dark, required this.highContrast, required this.compact, this.icon, this.actions = const [], this.position = 'fixed', this.placement, this.portal = true, this.onSelectAction});
   final String label;
   final String? icon;
   final List<String> actions;
   final String position;
   final String? placement;
+  final bool portal;
   final VoidCallback onPress;
   final ValueChanged<int>? onSelectAction;
   final bool dark;
@@ -534,12 +620,13 @@ class CsFab extends StatefulWidget {
 }
 
 class CsFloatingActionButton extends StatelessWidget {
-  const CsFloatingActionButton({super.key, required this.label, required this.onPress, required this.dark, required this.highContrast, required this.compact, this.icon, this.actions = const [], this.position = 'fixed', this.placement, this.onSelectAction});
+  const CsFloatingActionButton({super.key, required this.label, required this.onPress, required this.dark, required this.highContrast, required this.compact, this.icon, this.actions = const [], this.position = 'fixed', this.placement, this.portal = true, this.onSelectAction});
   final String label;
   final String? icon;
   final List<String> actions;
   final String position;
   final String? placement;
+  final bool portal;
   final VoidCallback onPress;
   final ValueChanged<int>? onSelectAction;
   final bool dark;
@@ -548,7 +635,7 @@ class CsFloatingActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CsFab(label: label, icon: icon, actions: actions, position: position, placement: placement, onPress: onPress, onSelectAction: onSelectAction, dark: dark, highContrast: highContrast, compact: compact);
+    return CsFab(label: label, icon: icon, actions: actions, position: position, placement: placement, portal: portal, onPress: onPress, onSelectAction: onSelectAction, dark: dark, highContrast: highContrast, compact: compact);
   }
 }
 
@@ -595,7 +682,15 @@ class _CsFabState extends State<CsFab> {
     if (!open) { natural = null; fitted = null; }
     if (open && widget.actions.isNotEmpty) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted && open) measure(); });
     final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
-    return Column(
+    return Focus(
+      onKeyEvent: (node, event) {
+        if (open && event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.escape) {
+          setState(() => open = csFabEscapeClose());
+          return KeyEventResult.handled;
+        }
+        return KeyEventResult.ignored;
+      },
+      child: Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         if (open && widget.actions.isNotEmpty)
@@ -626,6 +721,7 @@ class _CsFabState extends State<CsFab> {
           height: csControlsWaveStyleFabMainSize(),
           child: CsOwnFocus(builder: (node, claim) => Semantics(
             label: widget.label,
+            value: csFabExpanded(widget.actions.length, open)?.toString(),
             button: true,
             child: TextButton(
               key: fieldKey,
@@ -643,12 +739,15 @@ class _CsFabState extends State<CsFab> {
           )),
         ),
       ],
+    ),
     );
   }
 }
 
 const csDisclosureLabel = 'AI assisted';
 const csDisclosurePlacement = 'bottom-start';
+const csDisclosurePanelRole = 'status';
+bool csDisclosureEscapeClose() => false;
 String csDisclosureLabelText(String? label, String fallback) => label ?? fallback;
 const csDisclosureDetails = 'This content was generated or transformed with AI assistance.';
 const csDisclosureSources = 'Sources';
@@ -694,11 +793,12 @@ CsDisclosurePlace? csDisclosureShift(CsFloatingRect anchor, double naturalWidth,
   return CsDisclosurePlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement);
 }
 class CsAIDisclosure extends StatefulWidget {
-  const CsAIDisclosure({super.key, this.label, this.details, required this.sources, required this.expandedLabel, required this.collapsedLabel, required this.open, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, this.language, this.placement});
+  const CsAIDisclosure({super.key, this.label, this.details, this.sources = const [], this.expandedLabel = 'true', this.collapsedLabel = 'false', required this.open, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, this.language, this.placement, this.portal = true});
   final String? label;
   final String? details;
   final String? language;
   final String? placement;
+  final bool portal;
   final List<String> sources;
   final String expandedLabel;
   final String collapsedLabel;
@@ -712,11 +812,12 @@ class CsAIDisclosure extends StatefulWidget {
 }
 
 class CsAIDisclosureBadge extends StatelessWidget {
-  const CsAIDisclosureBadge({super.key, this.label, this.details, this.sources = const [], this.expandedLabel = 'true', this.collapsedLabel = 'false', required this.open, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, this.language, this.placement});
+  const CsAIDisclosureBadge({super.key, this.label, this.details, this.sources = const [], this.expandedLabel = 'true', this.collapsedLabel = 'false', required this.open, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, this.language, this.placement, this.portal = true});
   final String? label;
   final String? details;
   final String? language;
   final String? placement;
+  final bool portal;
   final List<String> sources;
   final String expandedLabel;
   final String collapsedLabel;
@@ -728,7 +829,7 @@ class CsAIDisclosureBadge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CsAIDisclosure(label: label, details: details, sources: sources, expandedLabel: expandedLabel, collapsedLabel: collapsedLabel, open: open, onOpenChange: onOpenChange, dark: dark, highContrast: highContrast, compact: compact, language: language, placement: placement);
+    return CsAIDisclosure(label: label, details: details, sources: sources, expandedLabel: expandedLabel, collapsedLabel: collapsedLabel, open: open, onOpenChange: onOpenChange, dark: dark, highContrast: highContrast, compact: compact, language: language, placement: placement, portal: portal);
   }
 }
 
@@ -778,7 +879,15 @@ class _CsAIDisclosureState extends State<CsAIDisclosure> {
     final badge = csDisclosureLabelText(widget.label, csDisclosureCopy('label', spoken));
     final explanation = widget.details ?? csDisclosureCopy('details', spoken);
     final line = csDisclosureSourceLine(widget.sources, csDisclosureCopy('sources', spoken));
-    return Column(
+    return Focus(
+      onKeyEvent: (node, event) {
+        if (widget.open && event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.escape) {
+          widget.onOpenChange(csDisclosureEscapeClose());
+          return KeyEventResult.handled;
+        }
+        return KeyEventResult.ignored;
+      },
+      child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CsOwnFocus(builder: (node, claim) => Semantics(
@@ -824,6 +933,7 @@ class _CsAIDisclosureState extends State<CsAIDisclosure> {
           )))),
         ],
       ],
+    ),
     );
   }
 }
@@ -848,7 +958,13 @@ class CsAspectRatio extends StatelessWidget {
   }
 }
 
+const csWatermarkFontSize = 14.0;
+const csWatermarkFontWeight = 700;
 String csWatermarkEscape(String text) => text.replaceAll('&', '&amp;').replaceAll('<', '&lt;');
+String csWatermarkSvgMarkup({String text = 'CyberSkill', double opacity = 0.09, int gap = 140, int rotate = -22}) {
+  final half = gap ~/ 2;
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="$gap" height="$gap"><text x="50%" y="50%" font-family="Be Vietnam Pro, sans-serif" font-size="14" font-weight="700" fill="black" fill-opacity="$opacity" text-anchor="middle" transform="rotate($rotate $half $half)">${csWatermarkEscape(text)}</text></svg>';
+}
 
 List<Offset> csWatermarkCenters(double width, double height, double gap) {
   if (gap <= 0 || width <= 0 || height <= 0) return const [];

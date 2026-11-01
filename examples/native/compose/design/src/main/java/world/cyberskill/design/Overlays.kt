@@ -55,9 +55,13 @@ import androidx.compose.ui.unit.dp
 enum class CsRovingKey { Right, Left, Up, Down, Home, End }
 
 const val csFabMain = 56.0
+fun csFabEscapeClose() = false
 fun csFabIsStatic(position: String?) = position == "static"
+fun csFabRootClass(position: String?) = if (csFabIsStatic(position)) "cs-fab cs-fab--static" else "cs-fab"
+fun csFabDialClass(position: String?) = if (csFabIsStatic(position)) "cs-fab__dial cs-fab__dial--static" else "cs-fab__dial"
 fun csFabMainGlyph(icon: String?, label: String) = icon ?: label
 fun csFabSelectAction(index: Int, count: Int): Int? = if (index in 0 until count) index else null
+fun csFabExpanded(actionCount: Int, open: Boolean): Boolean? = if (actionCount > 0) open else null
 fun csFabNextOpen(actionCount: Int, open: Boolean) = if (actionCount > 0) !open else null
 fun csFabPlacement(explicit: String?) = explicit ?: "top-end"
 const val csFabGap = 10.0
@@ -72,6 +76,8 @@ fun csFabShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Doub
 const val csBackTopLabel = "Back to top"
 const val csBackTopArrow = "M12 19V5M5 12l7-7 7 7"
 const val csBackTopIconSize = 18.0
+const val csBackTopStrokeWidth = 2.0
+fun csBackTopScrollTopTarget() = 0.0
 fun csBackTopLabelText(label: String?, fallback: String) = label ?: fallback
 fun csBackTopCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
@@ -90,6 +96,8 @@ fun csNonnegative(value: Int, count: Int): Int {
 }
 
 const val csMenuLabel = "Menu"
+fun csMenuEscapeClose() = false
+fun csMenuTabClose() = false
 fun csMenuIsSeparator(item: String) = item == "-"
 fun csMenuActionable(items: List<String>) = items.filter { !csMenuIsSeparator(it) }
 fun csMenuPlacement(explicit: String?, align: String) = explicit ?: if (align == "end") "bottom-end" else "bottom-start"
@@ -169,6 +177,7 @@ fun csMenubarHover(open: Int?, index: Int) = if (open == null) null else if (ope
 fun csMenubarActionable(items: List<String>) = items.filter { it != "-" }
 fun csMenubarTabStop(index: Int, focus: Int) = if (index == focus) 0 else -1
 fun csMenubarTabClose(top: Int) = CsMenubarState(top, null, 0)
+fun csMenubarEscapeClose(top: Int) = CsMenubarState(top, null, 0)
 fun csMenubarBar(top: Int, open: Int?, menuCount: Int, itemCount: Int, key: CsRovingKey): CsMenubarState? {
   if (menuCount <= 0) return null
   if (key == CsRovingKey.Down || key == CsRovingKey.Up) {
@@ -197,6 +206,9 @@ fun csMenubarItem(menu: Int, item: Int, menuCount: Int, itemCount: Int, key: CsR
 
 fun csBackTopVisible(offset: Double, threshold: Double = 320.0): Boolean = offset > threshold
 
+const val csAspectDefaultRatio = "16 / 9"
+fun csAspectNormalizedRatio(ratio: String) = ratio.trim()
+fun csAspectHeightFromNumber(ratio: Double, width: Double): Double? = if (ratio > 0.0) width / ratio else null
 fun csAspectHeight(ratio: String, width: Double): Double? {
   val parts = ratio.split("/").map { it.trim() }
   if (parts.size == 2) {
@@ -233,6 +245,8 @@ fun CsMenu(
   language: String? = null,
   align: String = "start",
   placement: String? = null,
+  portal: Boolean = true,
+  dangerItems: Set<String> = emptySet(),
 ) {
   val pack = csModePack(dark, highContrast, compact)
   val menuName = csMenuCopy("menu", csComboboxResolvedLanguage(language, LocalCsLanguage.current))
@@ -256,6 +270,14 @@ fun CsMenu(
   if (!open && natural != null) { natural = null; fitted = null }
   Column(modifier.onPreviewKeyEvent { event ->
     if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
+    if (open && event.key == Key.Escape) {
+      onOpenChange(csMenuEscapeClose())
+      return@onPreviewKeyEvent true
+    }
+    if (open && event.key == Key.Tab) {
+      onOpenChange(csMenuTabClose())
+      return@onPreviewKeyEvent false
+    }
     val key = rovingKey(event.key) ?: return@onPreviewKeyEvent false
     val enabled = csMenuActionable(items)
     if (!open && (key == CsRovingKey.Down || key == CsRovingKey.Up)) {
@@ -302,7 +324,7 @@ fun CsMenu(
           } else {
             val actionIndex = csMenuActionable(items.take(index + 1)).size - 1
             CsTriggerButton(title = item, onClick = { focus = actionIndex; onOpenChange(false); onSelect(item) }, modifier = Modifier.fillMaxWidth().minimumInteractiveComponentSize().padding(horizontal = csNavigationStyleMenuItemPaddingX(), vertical = csNavigationStyleMenuItemPaddingY())) {
-              Text(item, color = if (focus == actionIndex) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor(), fontSize = csNavigationStyleMenuItemFontSize(pack).value.sp)
+              Text(item, color = if (focus == actionIndex) pack.colorBrandOchre.toComposeColor() else if (dangerItems.contains(item)) pack.colorSemanticDangerFg.toComposeColor() else pack.colorTextPrimary.toComposeColor(), fontSize = csNavigationStyleMenuItemFontSize(pack).value.sp)
             }
           }
         }
@@ -311,7 +333,7 @@ fun CsMenu(
   }
 }
 
-data class CsMenubarMenu(val label: String, val items: List<String>)
+data class CsMenubarMenu(val label: String, val items: List<String>, val dangerItems: Set<String> = emptySet())
 
 @Composable
 fun CsMenubar(
@@ -325,6 +347,7 @@ fun CsMenubar(
   hasLabelledBy: Boolean = false,
   language: String? = null,
   placement: String? = null,
+  portal: Boolean = true,
 ) {
   val pack = csModePack(dark, highContrast, compact)
   val barName = csMenubarLabel(label, hasLabelledBy, csMenubarCopy("label", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
@@ -347,6 +370,14 @@ fun CsMenubar(
   if (state.open == null && natural != null) { natural = null; fitted = null }
   Column(modifier.then(barName?.let { name -> Modifier.semantics { contentDescription = name } } ?: Modifier).onPreviewKeyEvent { event ->
     if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
+    if (state.open != null && event.key == Key.Escape) {
+      state = csMenubarEscapeClose(state.top)
+      return@onPreviewKeyEvent true
+    }
+    if (state.open != null && event.key == Key.Tab) {
+      state = csMenubarTabClose(state.top)
+      return@onPreviewKeyEvent true
+    }
     val key = rovingKey(event.key) ?: return@onPreviewKeyEvent false
     if (state.open == null) {
       val count = csMenubarActionable(menus.getOrNull(state.top)?.items.orEmpty()).size
@@ -407,7 +438,7 @@ fun CsMenubar(
           } else {
             val actionIndex = csMenubarActionable(menus[open].items.take(index + 1)).size - 1
             CsTriggerButton(title = item, onClick = { onSelect(item); state = state.copy(open = null) }, modifier = Modifier.fillMaxWidth().minimumInteractiveComponentSize().padding(horizontal = csNavigationStyleMenuItemPaddingX(), vertical = csNavigationStyleMenuItemPaddingY())) {
-              Text(item, color = if (state.item == actionIndex) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor(), fontSize = csNavigationStyleMenuItemFontSize(pack).value.sp)
+              Text(item, color = if (state.item == actionIndex) pack.colorBrandOchre.toComposeColor() else if (menus[open].dangerItems.contains(item)) pack.colorSemanticDangerFg.toComposeColor() else pack.colorTextPrimary.toComposeColor(), fontSize = csNavigationStyleMenuItemFontSize(pack).value.sp)
             }
           }
         }
@@ -429,7 +460,7 @@ fun CsBackTop(offset: Double, onPress: () -> Unit, dark: Boolean, highContrast: 
 }
 
 @Composable
-fun CsFab(label: String, actions: List<String>, onPress: () -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, icon: String? = null, position: String = "fixed", placement: String? = null, onSelectAction: ((Int) -> Unit)? = null) {
+fun CsFab(label: String, actions: List<String>, onPress: () -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, icon: String? = null, position: String = "fixed", placement: String? = null, portal: Boolean = true, onSelectAction: ((Int) -> Unit)? = null) {
   val pack = csModePack(dark, highContrast, compact)
   var open by remember { mutableStateOf(false) }
   var field by remember { mutableStateOf<CsFloatingRect?>(null) }
@@ -448,7 +479,12 @@ fun CsFab(label: String, actions: List<String>, onPress: () -> Unit, dark: Boole
     if (first == null || second == null) null else csFabShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, csFabPlacement(placement))
   }
   if (!open && natural != null) { natural = null; fitted = null }
-  Column(modifier) {
+  Column(modifier.onPreviewKeyEvent { event ->
+    if (open && event.type == KeyEventType.KeyDown && event.key == Key.Escape) {
+      open = csFabEscapeClose()
+      true
+    } else false
+  }) {
     if (open && actions.isNotEmpty()) Column(
       Modifier.onGloballyPositioned {
         val bounds = it.boundsInWindow()
@@ -474,21 +510,26 @@ fun CsFab(label: String, actions: List<String>, onPress: () -> Unit, dark: Boole
     CsTriggerButton(title = csFabMainGlyph(icon, label), onClick = { if (actions.isEmpty()) onPress() else open = !open }, modifier = Modifier.size(csControlsWaveStyleFabMainSize()).minimumInteractiveComponentSize().onGloballyPositioned {
       val bounds = it.boundsInWindow()
       field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
-    }.background(pack.colorBrandUmber.toComposeColor()).semantics { contentDescription = label }) {
+    }.background(pack.colorBrandUmber.toComposeColor()).semantics {
+      contentDescription = label
+      csFabExpanded(actions.size, open)?.let { stateDescription = if (it) "true" else "false" }
+    }) {
       Text(csFabMainGlyph(icon, label), color = pack.colorSemanticInfoFg.toComposeColor())
     }
   }
 }
 
 @Composable
-fun CsFloatingActionButton(label: String, actions: List<String> = emptyList(), onPress: () -> Unit = {}, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, icon: String? = null, position: String = "fixed", placement: String? = null, onSelectAction: ((Int) -> Unit)? = null) {
-  CsFab(label = label, actions = actions, onPress = onPress, dark = dark, highContrast = highContrast, compact = compact, modifier = modifier, icon = icon, position = position, placement = placement, onSelectAction = onSelectAction)
+fun CsFloatingActionButton(label: String, actions: List<String> = emptyList(), onPress: () -> Unit = {}, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, icon: String? = null, position: String = "fixed", placement: String? = null, portal: Boolean = true, onSelectAction: ((Int) -> Unit)? = null) {
+  CsFab(label = label, actions = actions, onPress = onPress, dark = dark, highContrast = highContrast, compact = compact, modifier = modifier, icon = icon, position = position, placement = placement, portal = portal, onSelectAction = onSelectAction)
 }
 
 const val csDisclosureLabel = "AI assisted"
 const val csDisclosureDetails = "This content was generated or transformed with AI assistance."
 const val csDisclosureSources = "Sources"
 const val csDisclosurePlacement = "bottom-start"
+const val csDisclosurePanelRole = "status"
+fun csDisclosureEscapeClose() = false
 fun csDisclosureLabelText(label: String?, fallback: String) = label ?: fallback
 fun csDisclosureCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
@@ -520,7 +561,7 @@ fun csDisclosureShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeigh
   return CsDisclosurePlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement)
 }
 @Composable
-fun CsAIDisclosure(sources: List<String>, expandedLabel: String, collapsedLabel: String, open: Boolean, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, details: String? = null, language: String? = null, placement: String? = null) {
+fun CsAIDisclosure(sources: List<String> = emptyList(), expandedLabel: String = "true", collapsedLabel: String = "false", open: Boolean, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, details: String? = null, language: String? = null, placement: String? = null, portal: Boolean = true) {
   val pack = csModePack(dark, highContrast, compact)
   val spoken = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val badge = csDisclosureLabelText(label, csDisclosureCopy("label", spoken))
@@ -542,7 +583,12 @@ fun CsAIDisclosure(sources: List<String>, expandedLabel: String, collapsedLabel:
     if (first == null || second == null) null else csDisclosureShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, csDisclosurePlacementText(placement, csDisclosurePlacement))
   }
   if (!open && natural != null) { natural = null; fitted = null }
-  Column(modifier, verticalArrangement = Arrangement.spacedBy(csDisclosureStylePanelTopOffset())) {
+  Column(modifier.onPreviewKeyEvent { event ->
+    if (open && event.type == KeyEventType.KeyDown && event.key == Key.Escape) {
+      onOpenChange(csDisclosureEscapeClose())
+      true
+    } else false
+  }, verticalArrangement = Arrangement.spacedBy(csDisclosureStylePanelTopOffset())) {
     CsTriggerButton(title = badge, onClick = { onOpenChange(!open) }, modifier = Modifier.minimumInteractiveComponentSize().background(pack.colorSurfaceRaised.toComposeColor(), RoundedCornerShape(csDisclosureStyleBadgeRadius())).padding(horizontal = csDisclosureStyleBadgePaddingX(), vertical = csDisclosureStyleBadgePaddingY()).onGloballyPositioned {
       val bounds = it.boundsInWindow()
       field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
@@ -581,8 +627,8 @@ fun CsAIDisclosure(sources: List<String>, expandedLabel: String, collapsedLabel:
 }
 
 @Composable
-fun CsAIDisclosureBadge(sources: List<String> = emptyList(), expandedLabel: String = "true", collapsedLabel: String = "false", open: Boolean, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, details: String? = null, language: String? = null, placement: String? = null) {
-  CsAIDisclosure(sources = sources, expandedLabel = expandedLabel, collapsedLabel = collapsedLabel, open = open, onOpenChange = onOpenChange, dark = dark, highContrast = highContrast, compact = compact, modifier = modifier, label = label, details = details, language = language, placement = placement)
+fun CsAIDisclosureBadge(sources: List<String> = emptyList(), expandedLabel: String = "true", collapsedLabel: String = "false", open: Boolean, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, details: String? = null, language: String? = null, placement: String? = null, portal: Boolean = true) {
+  CsAIDisclosure(sources = sources, expandedLabel = expandedLabel, collapsedLabel = collapsedLabel, open = open, onOpenChange = onOpenChange, dark = dark, highContrast = highContrast, compact = compact, modifier = modifier, label = label, details = details, language = language, placement = placement, portal = portal)
 }
 
 @Composable
@@ -592,7 +638,13 @@ fun CsAspectRatio(ratio: String = "16 / 9", width: Int, modifier: Modifier = Mod
   Column(modifier.width(width.dp).height(height.dp).clip(RoundedCornerShape(csDataStyleAspectRatioRadius(pack)))) { content() }
 }
 
+const val csWatermarkFontSize = 14.0
+const val csWatermarkFontWeight = 700
 fun csWatermarkEscape(text: String) = text.replace("&", "&amp;").replace("<", "&lt;")
+fun csWatermarkSvgMarkup(text: String = "CyberSkill", opacity: Double = 0.09, gap: Int = 140, rotate: Int = -22): String {
+  val half = gap / 2
+  return "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"$gap\" height=\"$gap\"><text x=\"50%\" y=\"50%\" font-family=\"Be Vietnam Pro, sans-serif\" font-size=\"14\" font-weight=\"700\" fill=\"black\" fill-opacity=\"$opacity\" text-anchor=\"middle\" transform=\"rotate($rotate $half $half)\">${csWatermarkEscape(text)}</text></svg>"
+}
 fun csWatermarkCenters(width: Float, height: Float, gap: Float): List<Offset> {
   if (gap <= 0f || width <= 0f || height <= 0f) return emptyList()
   val points = mutableListOf<Offset>()
@@ -618,7 +670,7 @@ fun CsWatermark(text: String = "CyberSkill", modifier: Modifier = Modifier, opac
       val centers = csWatermarkCenters(size.width, size.height, gap.toFloat())
       centers.forEach { point ->
         rotate(rotate, point) {
-          drawText(textMeasurer = measurer, text = text, topLeft = Offset(point.x, point.y), style = TextStyle(color = ink))
+          drawText(textMeasurer = measurer, text = text, topLeft = Offset(point.x, point.y), style = TextStyle(color = ink, fontSize = csWatermarkFontSize.sp, fontWeight = FontWeight.Bold))
         }
       }
     }

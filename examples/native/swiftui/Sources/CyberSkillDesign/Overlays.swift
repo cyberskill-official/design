@@ -43,6 +43,8 @@ public enum CSMenuModel {
   }
 
   public static let gap = 6.0
+  public static func escapeClose() -> Bool { false }
+  public static func tabClose() -> Bool { false }
   public static func isSeparator(_ item: String) -> Bool { item == "-" }
   public static func actionable(_ items: [String]) -> [String] { items.filter { !isSeparator($0) } }
   public static func placement(_ explicit: String?, align: String) -> String {
@@ -109,6 +111,7 @@ public enum CSMenubarModel {
   public static func actionable(_ items: [String]) -> [String] { items.filter { !isSeparator($0) } }
   public static func tabStop(index: Int, focus: Int) -> Int { index == focus ? 0 : -1 }
   public static func tabClose(top: Int) -> CSMenubarState { CSMenubarState(top: top, open: nil, item: 0) }
+  public static func escapeClose(top: Int) -> CSMenubarState { CSMenubarState(top: top, open: nil, item: 0) }
   public static func bar(top: Int, open: Int?, menuCount: Int, itemCount: Int, key: CSRovingKey) -> CSMenubarState? {
     guard menuCount > 0 else { return nil }
     if key == .down || key == .up {
@@ -170,8 +173,10 @@ public struct CSMenuPlace: Equatable {
 public struct CSMenu: View {
   public let label: String
   public let items: [String]
+  public let dangerItems: Set<String>
   public let align: String
   public let placement: String?
+  public let portal: Bool
   @Binding var open: Bool
   @State private var anchor = CGRect.zero
   @State private var naturalSize: CGSize?
@@ -191,11 +196,13 @@ public struct CSMenu: View {
   public let language: String?
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(label: String, items: [String], open: Binding<Bool>, dark: Bool, highContrast: Bool, compact: Bool, onSelect: @escaping (String) -> Void = { _ in }, language: String? = nil, align: String = "start", placement: String? = nil) {
+  public init(label: String, items: [String], open: Binding<Bool>, dark: Bool, highContrast: Bool, compact: Bool, onSelect: @escaping (String) -> Void = { _ in }, language: String? = nil, align: String = "start", placement: String? = nil, portal: Bool = true, dangerItems: Set<String> = []) {
     self.label = label
     self.items = items
+    self.dangerItems = dangerItems
     self.align = align
     self.placement = placement
+    self.portal = portal
     _open = open
     self.dark = dark
     self.highContrast = highContrast
@@ -246,7 +253,7 @@ public struct CSMenu: View {
               .padding(.horizontal, CGFloat(CSNavigationStyleModel.menuItemPaddingX()))
               .padding(.vertical, CGFloat(CSNavigationStyleModel.menuItemPaddingY()))
               .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
-              .foregroundStyle(focus == actionIndex ? pack.colorBrandOchre.color : pack.primaryTextColor)
+              .foregroundStyle(focus == actionIndex ? pack.colorBrandOchre.color : (dangerItems.contains(item) ? pack.colorSemanticDangerFg.color : pack.primaryTextColor))
               .accessibilityAddTraits(focus == actionIndex ? .isSelected : [])
             }
           }
@@ -271,6 +278,7 @@ public struct CSMenu: View {
         .accessibilityHidden(placed == nil)
       }
     }
+    .onExitCommand { if open { open = CSMenuModel.escapeClose() } }
     .accessibilityElement(children: .contain)
     .focusable()
     .focused($menuFocused)
@@ -350,9 +358,11 @@ private struct CSMenuPanelKey: PreferenceKey {
 public struct CSMenubarMenu: Hashable {
   public let label: String
   public let items: [String]
-  public init(label: String, items: [String]) {
+  public let dangerItems: Set<String>
+  public init(label: String, items: [String], dangerItems: Set<String> = []) {
     self.label = label
     self.items = items
+    self.dangerItems = dangerItems
   }
 }
 
@@ -375,9 +385,10 @@ public struct CSMenubar: View {
   public let hasLabelledBy: Bool
   public let language: String?
   public let placement: String?
+  public let portal: Bool
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(label: String? = nil, menus: [CSMenubarMenu], dark: Bool, highContrast: Bool, compact: Bool, onSelect: @escaping (String) -> Void = { _ in }, hasLabelledBy: Bool = false, language: String? = nil, placement: String? = nil) {
+  public init(label: String? = nil, menus: [CSMenubarMenu], dark: Bool, highContrast: Bool, compact: Bool, onSelect: @escaping (String) -> Void = { _ in }, hasLabelledBy: Bool = false, language: String? = nil, placement: String? = nil, portal: Bool = true) {
     self.label = label
     self.menus = menus
     self.dark = dark
@@ -387,6 +398,7 @@ public struct CSMenubar: View {
     self.hasLabelledBy = hasLabelledBy
     self.language = language
     self.placement = placement
+    self.portal = portal
   }
 
   public var body: some View {
@@ -442,7 +454,7 @@ public struct CSMenubar: View {
               .padding(.horizontal, CGFloat(CSNavigationStyleModel.menuItemPaddingX()))
               .padding(.vertical, CGFloat(CSNavigationStyleModel.menuItemPaddingY()))
               .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
-              .foregroundStyle(state.item == actionIndex ? pack.colorBrandOchre.color : pack.primaryTextColor)
+              .foregroundStyle(state.item == actionIndex ? pack.colorBrandOchre.color : (menus[open].dangerItems.contains(item) ? pack.colorSemanticDangerFg.color : pack.primaryTextColor))
             }
           }
         }
@@ -464,6 +476,7 @@ public struct CSMenubar: View {
         .accessibilityHidden(placed == nil)
       }
     }
+    .onExitCommand { if state.open != nil { state = CSMenubarModel.escapeClose(top: state.top) } }
     .accessibilityElement(children: .contain)
     .accessibilityLabel(CSMenubarModel.label(ariaLabel: label, hasLabelledBy: hasLabelledBy, fallback: CSMenubarModel.copy("label", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage))) ?? "")
     .focusable()
@@ -534,9 +547,11 @@ public enum CSBackTopModel {
   public static let labelDefault = "Back to top"
   public static let size = 44.0
   public static let icon = 18.0
+  public static let strokeWidth = 2.0
   public static let inset = 24.0
   public static let bottom = 84.0
   public static let arrow = "M12 19V5M5 12l7-7 7 7"
+  public static func scrollTopTarget() -> Double { 0.0 }
   public static func visible(offset: Double, threshold: Double = 320) -> Bool {
     offset > threshold
   }
@@ -613,8 +628,11 @@ public enum CSFabModel {
   public static let gap = 10.0
   public static let dialGap = 8.0
   public static let placementDefault = "top-end"
+  public static func escapeClose() -> Bool { false }
   public static func label(_ label: String?) -> String? { label }
   public static func isStatic(_ position: String?) -> Bool { position == "static" }
+  public static func rootClass(position: String?) -> String { isStatic(position) ? "cs-fab cs-fab--static" : "cs-fab" }
+  public static func dialClass(position: String?) -> String { isStatic(position) ? "cs-fab__dial cs-fab__dial--static" : "cs-fab__dial" }
   public static func mainGlyph(icon: String?, label: String) -> String { icon ?? label }
   public static func selectAction(index: Int, count: Int) -> Int? { index >= 0 && index < count ? index : nil }
   public static func toggles(actionCount: Int) -> Bool { actionCount > 0 }
@@ -652,6 +670,7 @@ public struct CSFab: View {
   public let actions: [String]
   public let position: String
   public let placement: String?
+  public let portal: Bool
   @State private var open = false
   @State private var anchor = CGRect.zero
   @State private var naturalSize: CGSize?
@@ -665,12 +684,13 @@ public struct CSFab: View {
   let onPress: () -> Void
   let onSelectAction: ((Int) -> Void)?
 
-  public init(label: String, icon: String? = nil, actions: [String] = [], position: String = "fixed", dark: Bool, highContrast: Bool, compact: Bool, onPress: @escaping () -> Void = {}, onSelectAction: ((Int) -> Void)? = nil, placement: String? = nil) {
+  public init(label: String, icon: String? = nil, actions: [String] = [], position: String = "fixed", dark: Bool, highContrast: Bool, compact: Bool, onPress: @escaping () -> Void = {}, onSelectAction: ((Int) -> Void)? = nil, placement: String? = nil, portal: Bool = true) {
     self.label = label
     self.icon = icon
     self.actions = actions
     self.position = position
     self.placement = placement
+    self.portal = portal
     self.dark = dark
     self.highContrast = highContrast
     self.compact = compact
@@ -763,18 +783,20 @@ public struct CSFloatingActionButton: View {
   public let actions: [String]
   public let position: String
   public let placement: String?
+  public let portal: Bool
   let dark: Bool
   let highContrast: Bool
   let compact: Bool
   let onPress: () -> Void
   let onSelectAction: ((Int) -> Void)?
 
-  public init(label: String, icon: String? = nil, actions: [String] = [], position: String = "fixed", dark: Bool, highContrast: Bool, compact: Bool, onPress: @escaping () -> Void = {}, onSelectAction: ((Int) -> Void)? = nil, placement: String? = nil) {
+  public init(label: String, icon: String? = nil, actions: [String] = [], position: String = "fixed", dark: Bool, highContrast: Bool, compact: Bool, onPress: @escaping () -> Void = {}, onSelectAction: ((Int) -> Void)? = nil, placement: String? = nil, portal: Bool = true) {
     self.label = label
     self.icon = icon
     self.actions = actions
     self.position = position
     self.placement = placement
+    self.portal = portal
     self.dark = dark
     self.highContrast = highContrast
     self.compact = compact
@@ -783,7 +805,7 @@ public struct CSFloatingActionButton: View {
   }
 
   public var body: some View {
-    CSFab(label: label, icon: icon, actions: actions, position: position, dark: dark, highContrast: highContrast, compact: compact, onPress: onPress, onSelectAction: onSelectAction, placement: placement)
+    CSFab(label: label, icon: icon, actions: actions, position: position, dark: dark, highContrast: highContrast, compact: compact, onPress: onPress, onSelectAction: onSelectAction, placement: placement, portal: portal)
   }
 }
 
@@ -809,7 +831,9 @@ public enum CSAIDisclosureModel {
   public static let detailsDefault = "This content was generated or transformed with AI assistance."
   public static let sourcesDefault = "Sources"
   public static let placementDefault = "bottom-start"
+  public static let panelRole = "status"
   public static let gap = 8
+  public static func escapeClose() -> Bool { false }
   public static func label(_ label: String?, fallback: String) -> String { label ?? fallback }
   public static func details(_ details: String?, fallback: String) -> String { details ?? fallback }
   public static func copy(_ key: String, language: String?) -> String {
@@ -876,6 +900,7 @@ public struct CSAIDisclosure: View {
   let compact: Bool
   public let language: String?
   public let placement: String?
+  public let portal: Bool
   @Environment(\.csLanguage) private var ancestorLanguage
   @State private var anchor = CGRect.zero
   @State private var naturalSize: CGSize?
@@ -884,7 +909,7 @@ public struct CSAIDisclosure: View {
   @State private var panelScale = CGSize(width: 1, height: 1)
   @State private var measurePass = 0
 
-  public init(label: String? = nil, details: String? = nil, sources: [String], expandedLabel: String, collapsedLabel: String, open: Binding<Bool>, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, placement: String? = nil) {
+  public init(label: String? = nil, details: String? = nil, sources: [String] = [], expandedLabel: String = "true", collapsedLabel: String = "false", open: Binding<Bool>, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, placement: String? = nil, portal: Bool = true) {
     self.label = label
     self.details = details
     self.sources = sources
@@ -896,6 +921,7 @@ public struct CSAIDisclosure: View {
     self.compact = compact
     self.language = language
     self.placement = placement
+    self.portal = portal
   }
 
   public var body: some View {
@@ -992,8 +1018,9 @@ public struct CSAIDisclosureBadge: View {
   let compact: Bool
   public let language: String?
   public let placement: String?
+  public let portal: Bool
 
-  public init(label: String? = nil, details: String? = nil, sources: [String] = [], expandedLabel: String = "true", collapsedLabel: String = "false", open: Binding<Bool>, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, placement: String? = nil) {
+  public init(label: String? = nil, details: String? = nil, sources: [String] = [], expandedLabel: String = "true", collapsedLabel: String = "false", open: Binding<Bool>, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, placement: String? = nil, portal: Bool = true) {
     self.label = label
     self.details = details
     self.sources = sources
@@ -1005,10 +1032,11 @@ public struct CSAIDisclosureBadge: View {
     self.compact = compact
     self.language = language
     self.placement = placement
+    self.portal = portal
   }
 
   public var body: some View {
-    CSAIDisclosure(label: label, details: details, sources: sources, expandedLabel: expandedLabel, collapsedLabel: collapsedLabel, open: $open, dark: dark, highContrast: highContrast, compact: compact, language: language, placement: placement)
+    CSAIDisclosure(label: label, details: details, sources: sources, expandedLabel: expandedLabel, collapsedLabel: collapsedLabel, open: $open, dark: dark, highContrast: highContrast, compact: compact, language: language, placement: placement, portal: portal)
   }
 }
 
@@ -1030,6 +1058,11 @@ private struct CSAIDisclosurePanelKey: PreferenceKey {
 }
 
 public enum CSAspectRatioModel {
+  public static let defaultRatio = "16 / 9"
+  public static func normalizedRatio(_ ratio: String) -> String { ratio.trimmingCharacters(in: .whitespaces) }
+  public static func height(ratio: Double, width: Double) -> Double? {
+    ratio > 0 ? width / ratio : nil
+  }
   public static func height(ratio: String, width: Double) -> Double? {
     let parts = ratio.split(separator: "/").map { $0.trimmingCharacters(in: .whitespaces) }
     if parts.count == 2, let across = Double(parts[0]), let down = Double(parts[1]), across > 0 {
@@ -1072,9 +1105,19 @@ public enum CSWatermarkModel {
   public static let defaultOpacity = 0.09
   public static let defaultGap = 140.0
   public static let defaultRotate = -22.0
+  public static let fontSize = 14.0
+  public static let fontWeight = 700
 
   public static func escape(_ text: String) -> String {
     text.replacingOccurrences(of: "&", with: "&amp;").replacingOccurrences(of: "<", with: "&lt;")
+  }
+
+  public static func svgMarkup(text: String = defaultText, opacity: Double = defaultOpacity, gap: Double = defaultGap, rotate: Double = defaultRotate) -> String {
+    let half = gap / 2
+    let halfStr = half.truncatingRemainder(dividingBy: 1) == 0 ? String(Int(half)) : String(half)
+    let gapStr = gap.truncatingRemainder(dividingBy: 1) == 0 ? String(Int(gap)) : String(gap)
+    let rotStr = rotate.truncatingRemainder(dividingBy: 1) == 0 ? String(Int(rotate)) : String(rotate)
+    return "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"\(gapStr)\" height=\"\(gapStr)\"><text x=\"50%\" y=\"50%\" font-family=\"Be Vietnam Pro, sans-serif\" font-size=\"14\" font-weight=\"700\" fill=\"black\" fill-opacity=\"\(opacity)\" text-anchor=\"middle\" transform=\"rotate(\(rotStr) \(halfStr) \(halfStr))\">\(escape(text))</text></svg>"
   }
 
   public static func centers(width: Double, height: Double, gap: Double) -> [(x: Double, y: Double)] {

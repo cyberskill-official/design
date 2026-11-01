@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the records-datagrid-taginput-confidence-collapsible-toolbar-parity checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the overlays-menu-menubar-backtop-fab-disclosure-aspect-watermark-parity checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -9,8 +9,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: `34d13cddf2c5e4beebf873a1ab0106a8c2ada43e` (`feat(native): align records data grid, tag input, confidence meter, collapsible, and toolbar with web contracts`)
-- Previous checkpoint: `617ff789632e1858c732209de7c3edf7900ae0bf`, with the hash note in `09444bd0`
+- Checkpoint commit: pending commit for `overlays-menu-menubar-backtop-fab-disclosure-aspect-watermark-parity`
+- Previous checkpoint: `34d13cddf2c5e4beebf873a1ab0106a8c2ada43e`, with the hash note in `27b4a228`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -54,13 +54,13 @@ Last run after styling `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `Navigat
 
 ## Latest checkpoint
 
-Aligned `CSDataGrid`/`CsDataGrid`, `CSTagInput`/`CsTagInput`, `CSConfidenceMeter`/`CsConfidenceMeter`, `CSCollapsible`/`CsCollapsible`, and `CSToolbar`/`CsToolbar` across `Records.swift`, `Records.kt`, and `records.dart` with `DataGrid.jsx`, `TagInput.jsx`, `ConfidenceMeter.jsx`, `Collapsible.jsx`, and `Toolbar.jsx`: added `selectAllText(_:fallback:)` (`csGridSelectAllText`) and `pinNamedParts(_:)` (`csGridPinNamedParts`) to `CSDataGridSelection` and wired `selectAllText` fallback in `CSDataGrid`/`CsDataGrid`; added `closeIconPath`, `closeIconSize() = 12`, `closeIconStrokeWidth() = 2.4`, `labelId`, `descriptionId`, `errorId`, `labelledBy`, and `describedBy` (`csTagCloseIconSize`, `csTagCloseIconStrokeWidth`, `csTagLabelId`, `csTagDescriptionId`, `csTagErrorId`, `csTagLabelledBy`, `csTagDescribedBy`) to `CSTagInputModel` and rendered each tag chip's text alongside its close button; added `labelId`, `levelId`, `labelledBy`, `meterMin() = 0`, and `meterMax(_:)` (`csConfidenceLabelId`, `csConfidenceLevelId`, `csConfidenceLabelledBy`, `csConfidenceMeterMin`, `csConfidenceMeterMax`) to `CSConfidence` and laid out the header (`shown` + `word`) in a horizontal row matching `.cs-confidence__head`; added `triggerId`, `panelId`, `chevronPath = "M6 9l6 6 6-6"`, and `chevronSize() = 18` (`csCollapsibleTriggerId`, `csCollapsiblePanelId`, `csCollapsibleChevronPath`, `csCollapsibleChevronSize`) to `CSCollapsibleModel` and defaulted `expandedLabel = "Expanded"` and `collapsedLabel = "Collapsed"` in `CSCollapsible`/`CsCollapsible`; and added `moreGlyph = "⋯"` (`csToolbarMoreGlyph`) and `menuMove(current:count:delta:)` (`csToolbarMenuMove`), added `portal = true` to `CSToolbar`/`CsToolbar`, rendered `"⋯"` visually on the overflow button with `moreName` as its accessible label, included the overflow button in `actionable` roving indices when `!extra.isEmpty`, and wired Escape dismissal when the overflow menu is open.
+Aligned `CSMenu`/`CsMenu`, `CSMenubar`/`CsMenubar`, `CSBackTop`/`CsBackTop`, `CSFab`/`CSFloatingActionButton`/`CsFab`/`CsFloatingActionButton`, `CSAIDisclosure`/`CSAIDisclosureBadge`/`CsAIDisclosure`/`CsAIDisclosureBadge`, `CSAspectRatio`/`CsAspectRatio`, and `CSWatermark`/`CsWatermark` across `Overlays.swift`, `Overlays.kt`, and `overlays.dart` with `Menu.jsx`, `Menubar.jsx`, `BackTop.jsx`, `FloatingActionButton.jsx`, `AIDisclosureBadge.jsx`, `AspectRatio.jsx`, and `Watermark.jsx`: added `escapeClose() = false` and `tabClose() = false` (`csMenuEscapeClose`, `csMenuTabClose`) to `CSMenuModel`, added `portal = true` and `dangerItems = []` to `CSMenu`/`CsMenu`, wired Escape and Tab dismissal across SwiftUI/Compose/Flutter, wired single-character typeahead (`csMenuNeedle` + `csMenuTypeahead`) in Flutter `CsMenu`, and styled danger menu items with `pack.colorSemanticDangerFg`; added `escapeClose(top:)` (`csMenubarEscapeClose`) to `CSMenubarModel`, added `dangerItems` to `CSMenubarMenu`/`CsMenubarMenu` and `portal = true` to `CSMenubar`/`CsMenubar`, wired Escape and Tab dismissal across SwiftUI/Compose/Flutter, wired keyboard roving (`csMenubarBar`, `csMenubarItem`) and hover switching (`csMenubarHover`) in Flutter `CsMenubar`, and styled danger menu items with `pack.colorSemanticDangerFg`; added `strokeWidth = 2.0` and `scrollTopTarget() = 0.0` (`csBackTopStrokeWidth`, `csBackTopScrollTopTarget`) to `CSBackTopModel`; added `escapeClose() = false`, `rootClass(position:)`, and `dialClass(position:)` (`csFabEscapeClose`, `csFabRootClass`, `csFabDialClass`, `csFabExpanded`) to `CSFabModel`, added `portal = true` to `CSFab`/`CSFloatingActionButton`/`CsFab`/`CsFloatingActionButton`, and wired Escape dismissal and `csFabExpanded` semantics in Compose and Flutter; added `panelRole = "status"` and `escapeClose() = false` (`csDisclosurePanelRole`, `csDisclosureEscapeClose`) to `CSAIDisclosureModel`, defaulted `sources = []`, `expandedLabel = "true"`, and `collapsedLabel = "false"`, added `portal = true`, and wired Escape dismissal in Compose and Flutter; added `defaultRatio = "16 / 9"`, `normalizedRatio(_:)`, and numeric `height(ratio:width:)` (`csAspectDefaultRatio`, `csAspectNormalizedRatio`, `csAspectHeightFromNumber`) to `CSAspectRatioModel`; and added `fontSize = 14.0`, `fontWeight = 700`, and `svgMarkup(text:opacity:gap:rotate:)` (`csWatermarkFontSize`, `csWatermarkFontWeight`, `csWatermarkSvgMarkup`) to `CSWatermarkModel` and styled `CsWatermark` in Compose with `14.sp` bold typography.
 
 - `swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents` and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Continue the second-pass audit of the 120 native components across `Overlays`, `Structures`, `Fields`, `Flows`, `Surfaces`, and `Remainder` against all web `components/**/*.jsx` files and `test/component-behaviors.test.mjs`, closing any remaining behavioral or prop parity gaps.
+Continue the second-pass audit of the 120 native components across `Structures`, `Fields`, `Flows`, `Surfaces`, and `Remainder` against all web `components/**/*.jsx` files and `test/component-behaviors.test.mjs`, closing any remaining behavioral or prop parity gaps.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
