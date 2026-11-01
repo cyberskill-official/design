@@ -376,7 +376,7 @@ public struct CSHotKeys: View {
           .frame(minHeight: 44, alignment: .leading)
       }
       if shown {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: CGFloat(CSControlsBatchStyleModel.hotkeysRowGap())) {
           Text(title).font(.headline)
           ForEach(Array(bindings.enumerated()), id: \.offset) { _, binding in
             HStack {
@@ -390,6 +390,7 @@ public struct CSHotKeys: View {
           }
         }
         .padding(16)
+        .frame(minWidth: CGFloat(CSControlsBatchStyleModel.hotkeysCardMinWidth()), alignment: .leading)
         .accessibilityElement(children: .contain)
         .accessibilityLabel(title)
         .accessibilityAddTraits(.isModal)
@@ -785,7 +786,7 @@ public struct CSInlineEdit: View {
           draft = value
           editing = true
         } label: {
-          HStack(spacing: 6) {
+          HStack(spacing: CGFloat(CSControlsWaveStyleModel.inlineEditGap())) {
             Text(shown).accessibilityHidden(true)
             if CSInlineEditModel.showsPen(editing) {
               Canvas { context, size in
@@ -797,6 +798,8 @@ public struct CSInlineEdit: View {
               .accessibilityHidden(true)
             }
           }
+          .padding(.vertical, CGFloat(CSControlsWaveStyleModel.inlineEditPaddingY()))
+          .padding(.horizontal, CGFloat(CSControlsWaveStyleModel.inlineEditPaddingX()))
         }
         .focused($editFocused)
         .onChange(of: editFocused) { isFocused in if isFocused { claimEdit() } }
@@ -847,10 +850,12 @@ public struct CSFormField<Content: View>: View {
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let locale = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
-    VStack(alignment: .leading, spacing: 4) {
+    VStack(alignment: .leading, spacing: CGFloat(CSControlsBatchStyleModel.formFieldGap())) {
       HStack(spacing: 4) {
         if CSFormFieldModel.showsLabel(label) {
-          Text(label).foregroundStyle(pack.primaryTextColor)
+          Text(label)
+            .font(.system(size: CGFloat(CSControlsBatchStyleModel.formFieldLabelFontSize()), weight: .bold))
+            .foregroundStyle(pack.primaryTextColor)
         }
         if required {
           Text("*").foregroundStyle(pack.primaryTextColor).accessibilityLabel(CSFormFieldModel.copy("required", language: locale))
@@ -869,7 +874,7 @@ public struct CSFormField<Content: View>: View {
 public struct CSForm<Content: View>: View {
   let content: () -> Content
   public init(@ViewBuilder content: @escaping () -> Content) { self.content = content }
-  public var body: some View { VStack(alignment: .leading, spacing: 12) { content() }.environment(\.csFormAncestor, true) }
+  public var body: some View { VStack(alignment: .leading, spacing: CGFloat(CSControlsBatchStyleModel.formFieldGap() * 2)) { content() }.environment(\.csFormAncestor, true) }
 }
 
 public struct CSFieldset<Content: View>: View {
@@ -882,7 +887,7 @@ public struct CSFieldset<Content: View>: View {
     self.content = content
   }
   public var body: some View {
-    VStack(alignment: .leading, spacing: 8) {
+    VStack(alignment: .leading, spacing: CGFloat(CSFormsStyleModel.radioGroupLegendMarginBottom())) {
       if let legend, !legend.isEmpty { Text(legend).accessibilityAddTraits(.isHeader) }
       content()
     }
@@ -945,7 +950,7 @@ public struct CSFormFieldArray: View {
     if CSFormArrayModel.isAlert(inForm) {
       Text(CSFormArrayModel.copy("arrayContext", language: locale)).accessibilityAddTraits(.updatesFrequently)
     } else {
-      VStack(alignment: .leading) {
+      VStack(alignment: .leading, spacing: CGFloat(CSControlsBatchStyleModel.formFieldGap())) {
         if CSFormArrayModel.showsLabel(label), let label { Text(label) }
         ForEach(Array(rows.enumerated()), id: \.offset) { index, row in
           HStack {
@@ -1082,7 +1087,7 @@ public struct CSFormWizard: View {
     let finish = CSFormWizardModel.button(finishLabel, fallback: CSFormWizardModel.copy("finish", language: locale))
     let last = CSFormWizardModel.isLast(index: index, count: steps.count)
     let liveErrors = ruled ?? errors
-    VStack(alignment: .leading, spacing: 8) {
+    VStack(alignment: .leading, spacing: CGFloat(CSControlsBatchStyleModel.formFieldGap())) {
       ForEach(Array(steps.enumerated()), id: \.offset) { offset, title in
         Text(CSFormWizardModel.stepTitle(title, index: offset, fallback: CSFormWizardModel.copy("step", language: locale)))
           .accessibilityAddTraits(offset == index ? .isSelected : [])
@@ -1120,6 +1125,7 @@ public struct CSFormWizard: View {
         }
       }
     }
+    .opacity(pending ? CSControlsBatchStyleModel.formPendingOpacity : 1.0)
     .accessibilityValue(pending ? "true" : "")
   }
 }
@@ -1351,6 +1357,7 @@ public struct CSCascader: View {
         }
       }
       .disabled(disabled)
+      .frame(minWidth: CGFloat(CSControlsBatchStyleModel.treeSelectMinWidth()), alignment: .leading)
       .accessibilityValue(opened ? "true" : "false")
       .frame(minHeight: 44, alignment: .leading)
       .background(GeometryReader { geo in
@@ -1389,6 +1396,7 @@ public struct CSCascader: View {
                 .accessibilityAddTraits(depth < draft.count && draft[depth] == node.key ? .isSelected : [])
               }
             }
+            .frame(minWidth: CGFloat(CSControlsBatchStyleModel.cascaderColumnMinWidth()), maxHeight: CGFloat(CSControlsBatchStyleModel.cascaderColumnMaxHeight()), alignment: .topLeading)
           }
         }
         .frame(maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
@@ -1604,20 +1612,22 @@ public struct CSDock: View {
     self.onSelect = onSelect
   }
   public var body: some View {
-    HStack {
+    HStack(spacing: CGFloat(CSControlsBatchStyleModel.dockGap())) {
       ForEach(Array(items.enumerated()), id: \.offset) { index, item in
         let mark = CSDockModel.scale(index: index, hover: hover)
         Button(item) {
           CSFocusRegistry.shared.claim(id: "\(dockId)-\(index)", restore: { focused = index })
           onSelect(item)
         }
-          .frame(minWidth: 44, minHeight: 44)
+          .frame(minWidth: CGFloat(CSControlsBatchStyleModel.dockItemSize()), minHeight: CGFloat(CSControlsBatchStyleModel.dockItemSize()))
           .scaleEffect(mark.scale)
           .offset(y: mark.lift)
           .focused($focused, equals: index)
           .onHover { inside in if inside { hover = index } }
       }
     }
+    .padding(CGFloat(CSControlsBatchStyleModel.dockGap()))
+    .clipShape(RoundedRectangle(cornerRadius: CGFloat(CSControlsBatchStyleModel.dockRadius())))
     .onHover { inside in if !inside { hover = nil } }
     .onChange(of: focused) { index in
       hover = index
@@ -1927,8 +1937,10 @@ public struct CSHoverCard<Content: View>: View {
               CSHoverCardModel.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height), placement: place)
             }
           }
-          Text(label).padding(8)
-            .frame(maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
+          Text(label)
+            .padding(.vertical, CGFloat(CSControlsWaveStyleModel.hoverCardPaddingY()))
+            .padding(.horizontal, CGFloat(CSControlsWaveStyleModel.hoverCardPaddingX()))
+            .frame(minWidth: CGFloat(CSControlsWaveStyleModel.hoverCardMinWidth()), maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
             .background(GeometryReader { geo in
               let frame = geo.frame(in: .global)
               let scaleX = geo.size.width > 0 ? frame.width / geo.size.width : 1
@@ -2120,10 +2132,14 @@ public struct CSHumanReviewGate: View {
     let riskText = CSHumanReviewModel.risk(risk, fallback: CSHumanReviewModel.copy("risk", language: locale))
     let rejectName = CSHumanReviewModel.action(rejectLabel, fallback: CSHumanReviewModel.copy("reject", language: locale))
     let approveName = CSHumanReviewModel.action(approveLabel, fallback: CSHumanReviewModel.copy("approve", language: locale))
-    VStack(alignment: .leading) {
+    VStack(alignment: .leading, spacing: CGFloat(CSReviewGateStyleModel.gap())) {
       Text(riskText)
+        .font(.system(size: CGFloat(CSReviewGateStyleModel.riskFontSize()), weight: .bold))
+        .textCase(CSReviewGateStyleModel.riskUppercase() ? .uppercase : nil)
       Text(summary)
-      if let line = CSHumanReviewModel.reviewerLine(reviewer, prefix: CSHumanReviewModel.copy("reviewer", language: locale)) { Text(line) }
+      if let line = CSHumanReviewModel.reviewerLine(reviewer, prefix: CSHumanReviewModel.copy("reviewer", language: locale)) {
+        Text(line).font(.system(size: CGFloat(CSReviewGateStyleModel.reviewerFontSize())))
+      }
       HStack {
         CSTriggerButton(rejectName, action: onReject).frame(minHeight: 44)
         CSTriggerButton(approveName, action: onApprove).frame(minHeight: 44)
@@ -2209,7 +2225,9 @@ public struct CSInputGroup: View {
     VStack(alignment: .leading, spacing: 4) {
       if CSInputGroupModel.showsLabel(label), let label { Text(label) }
       HStack {
-        if CSInputGroupModel.showsAddon(prefixText), let prefixText { Text(prefixText) }
+        if CSInputGroupModel.showsAddon(prefixText), let prefixText {
+          Text(prefixText).padding(.horizontal, CGFloat(CSControlsWaveStyleModel.inputGroupAddonPaddingX()))
+        }
         field
         if CSInputGroupModel.showsClear(clearable: clearable, value: text) {
           CSTriggerButton(clearName) {
@@ -2224,8 +2242,11 @@ public struct CSInputGroup: View {
             .disabled(!CSInputGroupModel.canReveal(disabled: disabled))
             .frame(minHeight: 44)
         }
-        if CSInputGroupModel.showsAddon(suffixText), let suffixText { Text(suffixText) }
+        if CSInputGroupModel.showsAddon(suffixText), let suffixText {
+          Text(suffixText).padding(.horizontal, CGFloat(CSControlsWaveStyleModel.inputGroupAddonPaddingX()))
+        }
       }
+      .frame(minWidth: CGFloat(CSControlsWaveStyleModel.inputGroupMinWidth()), alignment: .leading)
     }
     .accessibilityElement(children: .contain)
     .accessibilityLabel(spoken ?? "")
@@ -2390,7 +2411,11 @@ public struct CSLumiAvatar: View {
     self.compact = compact
   }
   public var body: some View {
+    let dim = CGFloat(CSAIStyleModel.lumiSize(size: size))
+    let spread = CGFloat(CSAIStyleModel.lumiRingSpread(ring: true))
     CSIcon(name: "sparkle", size: size, label: alt, dark: dark, highContrast: highContrast, compact: compact)
+      .frame(width: dim, height: dim)
+      .padding(spread)
   }
 }
 
@@ -2398,7 +2423,7 @@ public struct CSMasonry<Content: View>: View {
   public let columns: Int
   let content: () -> Content
   public init(columns: Int = 3, @ViewBuilder content: @escaping () -> Content) { self.columns = max(1, columns); self.content = content }
-  public var body: some View { content() }
+  public var body: some View { VStack(alignment: .leading, spacing: CGFloat(CSControlsBatchStyleModel.sortableGap())) { content() } }
 }
 
 public struct CSMenuItem: View {
@@ -2414,6 +2439,8 @@ public struct CSMenuItem: View {
       action()
     }
     .focused($ownerFocused)
+    .padding(.vertical, CGFloat(CSNavigationStyleModel.menuItemPaddingY()))
+    .padding(.horizontal, CGFloat(CSNavigationStyleModel.menuItemPaddingX()))
     .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
     .onChange(of: ownerFocused) { isFocused in
       if isFocused { CSFocusRegistry.shared.claim(id: focusId, restore: { ownerFocused = true }) }
@@ -2465,12 +2492,13 @@ public struct CSNativeSelect: View {
       }
         .labelsHidden()
         .disabled(disabled)
+        .frame(minHeight: CGFloat(CSSelectModel.nativeSelectMinHeight()))
         .accessibilityLabel(shownLabel ? label : "")
         .accessibilityValue(blank ? prompt : selection)
         .overlay(alignment: .trailing) {
           CSIcon(name: "chevron-down", label: "", dark: dark, highContrast: highContrast, compact: compact)
             .foregroundStyle(pack.mutedColor)
-            .padding(.trailing, 12)
+            .padding(.trailing, CGFloat(CSSelectModel.chevronInsetInlineEnd()))
             .accessibilityHidden(true)
             .allowsHitTesting(false)
         }
@@ -2686,11 +2714,12 @@ public struct CSPromptInput: View {
     let prompt = CSPromptInputModel.placeholder(placeholder, fallback: CSPromptInputModel.copy("placeholder", language: locale))
     let spoken = CSPromptInputModel.spoken(ariaLabel: ariaLabel, placeholder: prompt)
     let sendName = CSPromptInputModel.send(submitLabel, fallback: CSPromptInputModel.copy("send", language: locale))
-    VStack(alignment: .leading, spacing: 8) {
+    VStack(alignment: .leading, spacing: CGFloat(CSAIStyleModel.promptGap())) {
       TextField(prompt, text: Binding(get: { text }, set: { next in
         CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true })
         text = next
       }))
+        .frame(minHeight: CGFloat(CSAIStyleModel.promptFieldMinHeight()))
         .focused($focused)
         .onChange(of: focused) { isFocused in
           if isFocused { CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true }) }
@@ -2698,7 +2727,7 @@ public struct CSPromptInput: View {
         .disabled(!CSPromptInputModel.canType(disabled: disabled))
         .accessibilityLabel(spoken)
       if let hint = CSPromptInputModel.hintText(hint, fallback: CSPromptInputModel.copy("hint", language: locale)) {
-        HStack(spacing: 6) {
+        HStack(spacing: CGFloat(CSAIStyleModel.promptHintGap())) {
           CSIcon(name: "sparkle", label: "", dark: false, highContrast: false, compact: false)
           Text(hint)
         }
@@ -2709,6 +2738,8 @@ public struct CSPromptInput: View {
         .disabled(!CSPromptInputModel.canSend(disabled: disabled, busy: busy))
         .frame(minHeight: 44)
     }
+    .padding(.vertical, CGFloat(CSAIStyleModel.promptPaddingY()))
+    .padding(.horizontal, CGFloat(CSAIStyleModel.promptPaddingX()))
   }
 }
 
@@ -2744,19 +2775,21 @@ public struct CSPromptSuggestions: View {
     self.onSelect = onSelect
   }
   public var body: some View {
-    VStack(alignment: .leading) {
+    VStack(alignment: .leading, spacing: CGFloat(CSAIStyleModel.suggestGap())) {
       ForEach(Array(suggestions.enumerated()), id: \.offset) { index, item in
         Button {
           CSFocusRegistry.shared.claim(id: "\(focusId)-\(index)", restore: { focused = index })
           if let label = CSPromptSuggestionsModel.chosen(CSPromptSuggestionsModel.selectedLabel(item), hasHandler: true) { onSelect(label) }
         } label: {
-          HStack(spacing: 8) {
+          HStack(spacing: CGFloat(CSAIStyleModel.suggestButtonGap())) {
             let icon = CSPromptSuggestionsModel.iconName(item.icon)
             if !icon.isEmpty {
               CSIcon(name: icon, label: "", dark: dark, highContrast: highContrast, compact: compact)
             }
             Text(item.label)
           }
+          .padding(.vertical, CGFloat(CSAIStyleModel.suggestButtonPaddingY()))
+          .padding(.horizontal, CGFloat(CSAIStyleModel.suggestButtonPaddingX()))
         }
         .focused($focused, equals: index)
         .frame(minHeight: 44, alignment: .leading)
@@ -2789,6 +2822,7 @@ public struct CSQRCode: View {
         Text("—").frame(width: 128, height: 128)
       }
     }
+    .padding(CGFloat(CSControlsBatchStyleModel.qrCodePadding()))
     .accessibilityLabel(label.isEmpty ? value : label)
   }
 }
@@ -2913,6 +2947,7 @@ public struct CSTreeSelect: View {
         }
       }
       .disabled(disabled)
+      .frame(minWidth: CGFloat(CSControlsBatchStyleModel.treeSelectMinWidth()), alignment: .leading)
       .accessibilityValue(opened ? "true" : "false")
       .background(GeometryReader { geo in
         Color.clear.preference(key: CSTreeSelectAnchorKey.self, value: geo.frame(in: .global))
@@ -3033,7 +3068,7 @@ public enum CSTreeTableModel {
   }
 
   public static func indent(_ depth: Int) -> Int { depth * 18 }
-  public static func cellGap() -> Double { 2 }
+  public static func cellGap() -> Double { CSControlsBatchStyleModel.treeTableCellGap() }
 
   public static func controls(prefix: String, children: [String], open: Bool) -> String? {
     guard open, !children.isEmpty else { return nil }
@@ -3137,11 +3172,13 @@ public struct CSTypingIndicator: View {
   }
   public var body: some View {
     let spoken = CSTypingModel.label(label, fallback: CSTypingModel.copy("label", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)))
-    HStack(spacing: 4) {
+    HStack(spacing: CGFloat(CSAIStyleModel.typingGap())) {
       ForEach(0..<CSTypingModel.dotCount, id: \.self) { _ in
-        Circle().frame(width: 6, height: 6).accessibilityHidden(true)
+        Circle().frame(width: CGFloat(CSAIStyleModel.typingDotSize()), height: CGFloat(CSAIStyleModel.typingDotSize())).accessibilityHidden(true)
       }
     }
+    .padding(.vertical, CGFloat(CSAIStyleModel.typingPaddingY()))
+    .padding(.horizontal, CGFloat(CSAIStyleModel.typingPaddingX()))
     .accessibilityElement(children: .ignore)
     .accessibilityLabel(spoken)
     .accessibilityAddTraits(.updatesFrequently)

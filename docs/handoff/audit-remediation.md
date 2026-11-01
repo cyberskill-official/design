@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the surfaces-views-style-wiring checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the remainder-views-style-wiring checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -54,13 +54,13 @@ Last run after styling `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `Navigat
 
 ## Latest checkpoint
 
-Wired the remaining rendered views in `Surfaces.swift`, `Surfaces.kt`, and `surfaces.dart` (`CSColorPicker`/`CsColorPicker`, `CSSplitter`/`CsSplitter`, `CSDatePicker`/`CsDatePicker`, `CSChatMessage`/`CsChatMessage`, `CSAnchor`/`CsAnchor`, `CSCitationList`/`CsCitationList`, `CSScrollArea`/`CsScrollArea`, `CSImage`/`CsImage`, `CSLogo`/`CsLogo`, `CSContextMenu`/`CsContextMenu`, `CSNavigationMenu`/`CsNavigationMenu`, `CSCardHeader`/`CsCardHeader`, `CSCardBody`/`CsCardBody`, `CSCardFooter`/`CsCardFooter`, and `CSToastStack`/`CsToastStack`) to consume `CSControlsBatchStyleModel`, `CSControlsWaveStyleModel`, `CSAIStyleModel`, `CSDataStyleModel`, `CSLogoStyleModel`, `CSNavigationStyleModel`, and `CSFeedbackStyleModel`.
+Wired the remaining rendered views in `Remainder.swift`, `Remainder.kt`, and `remainder.dart` (`CSHotKeys`/`CsHotKeys`, `CSInlineEdit`/`CsInlineEdit`, `CSFormField`/`CsFormField`, `CSForm`/`CsForm`, `CSFieldset`/`CsFieldset`, `CSFormFieldArray`/`CsFormFieldArray`, `CSFormWizard`/`CsFormWizard`, `CSCascader`/`CsCascader`, `CSDock`/`CsDock`, `CSHoverCard`/`CsHoverCard`, `CSHumanReviewGate`/`CsHumanReviewGate`, `CSInputGroup`/`CsInputGroup`, `CSLumiAvatar`/`CsLumiAvatar`, `CSMasonry`/`CsMasonry`, `CSMenuItem`/`CsMenuItem`, `CSNativeSelect`/`CsNativeSelect`, `CSPromptInput`/`CsPromptInput`, `CSPromptSuggestions`/`CsPromptSuggestions`, `CSQRCode`/`CsQRCode`, `CSTreeSelect`/`CsTreeSelect`, `CSTreeTable`/`CsTreeTable`, and `CSTypingIndicator`/`CsTypingIndicator`) to consume `CSControlsBatchStyleModel`, `CSControlsWaveStyleModel`, `CSFormsStyleModel`, `CSReviewGateStyleModel`, `CSAIStyleModel`, `CSNavigationStyleModel`, and `CSSelectModel`.
 
 - `swift test --package-path examples/native/swiftui` and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Wire the remaining rendered views in `Remainder.swift`, `Remainder.kt`, and `remainder.dart` to consume their style models.
+Expand cross-platform native unit test assertions in `ComponentLibraryTests.swift`, `SampleRuleTest.kt`, and `sample_test.dart` for the CSS-derived style models and continue closing concrete behavioral gaps between the 120-component web set (`components/*.jsx`) and the native libraries.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

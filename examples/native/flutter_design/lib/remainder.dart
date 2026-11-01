@@ -533,24 +533,30 @@ class _CsCascaderState extends State<CsCascader> {
       ),
       if (opened) Transform.translate(offset: Offset(place?.x ?? 0, place?.y ?? 0), child: Row(key: listKey, crossAxisAlignment: CrossAxisAlignment.start, children: [
           for (var depth = 0; depth < columns.length; depth++)
-            Column(children: [
-              for (var offset = 0; offset < columns[depth].length; offset++)
-                Builder(builder: (context) {
-                  final node = columns[depth][offset];
-                  final slot = csCascaderSlot(columns, depth, offset);
-                  return Semantics(
-                    button: true,
-                    selected: depth < draft.length && draft[depth] == node.key,
-                    label: node.label,
-                    child: CsOwnFocus(builder: (focusNode, claim) => TextButton(focusNode: focusNode, onPressed: () {
-                      claim();
-                      final next = csCascaderSelect(draft, depth, node.key, node.children.isNotEmpty);
-                      setState(() { highlight = slot; draft = next.path; if (next.commit) { requested = false; highlight = -1; } });
-                      if (next.commit) widget.onChange(next.path);
-                    }, child: ExcludeSemantics(child: Text(node.children.isEmpty ? node.label : '${node.label} ›', style: TextStyle(color: slot == highlight ? csColor(csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact).colorBrandOchre) : null))))),
-                  );
-                }),
-            ]),
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                minWidth: csControlsBatchStyleCascaderColumnMinWidth(),
+                maxHeight: csControlsBatchStyleCascaderColumnMaxHeight(),
+              ),
+              child: Column(children: [
+                for (var offset = 0; offset < columns[depth].length; offset++)
+                  Builder(builder: (context) {
+                    final node = columns[depth][offset];
+                    final slot = csCascaderSlot(columns, depth, offset);
+                    return Semantics(
+                      button: true,
+                      selected: depth < draft.length && draft[depth] == node.key,
+                      label: node.label,
+                      child: CsOwnFocus(builder: (focusNode, claim) => TextButton(focusNode: focusNode, onPressed: () {
+                        claim();
+                        final next = csCascaderSelect(draft, depth, node.key, node.children.isNotEmpty);
+                        setState(() { highlight = slot; draft = next.path; if (next.commit) { requested = false; highlight = -1; } });
+                        if (next.commit) widget.onChange(next.path);
+                      }, child: ExcludeSemantics(child: Text(node.children.isEmpty ? node.label : '${node.label} ›', style: TextStyle(color: slot == highlight ? csColor(csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact).colorBrandOchre) : null))))),
+                    );
+                  }),
+              ]),
+            ),
         ])),
     ]),
     ),
@@ -618,26 +624,40 @@ class _CsDockState extends State<CsDock> {
   @override
   Widget build(BuildContext context) => Semantics(
     label: widget.label,
-    child: MouseRegion(
-      onExit: (_) => setState(() => hover = null),
-      child: Row(children: [
-        for (var index = 0; index < widget.items.length; index++)
-          MouseRegion(
-            onEnter: (_) => setState(() => hover = index),
-            child: CsOwnFocus(builder: (node, claim) => Transform.translate(
-                offset: Offset(0, csDockScale(index, hover).lift),
-                child: Transform.scale(
-                  scale: csDockScale(index, hover).scale,
-                  child: TextButton(
-                    focusNode: node,
-                    onFocusChange: (focused) => setState(() => hover = focused ? index : (hover == index ? null : hover)),
-                    onPressed: () { claim(); widget.onSelect(widget.items[index]); },
-                    child: Text(widget.items[index]),
-                  ),
-                ),
-              )),
-          ),
-      ]),
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(csControlsBatchStyleDockRadius()),
+      child: Padding(
+        padding: EdgeInsets.all(csControlsBatchStyleDockGap()),
+        child: MouseRegion(
+          onExit: (_) => setState(() => hover = null),
+          child: Row(children: [
+            for (var index = 0; index < widget.items.length; index++) ...[
+              if (index > 0) SizedBox(width: csControlsBatchStyleDockGap()),
+              MouseRegion(
+                onEnter: (_) => setState(() => hover = index),
+                child: CsOwnFocus(builder: (node, claim) => Transform.translate(
+                    offset: Offset(0, csDockScale(index, hover).lift),
+                    child: Transform.scale(
+                      scale: csDockScale(index, hover).scale,
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          minWidth: csControlsBatchStyleDockItemSize(),
+                          minHeight: csControlsBatchStyleDockItemSize(),
+                        ),
+                        child: TextButton(
+                          focusNode: node,
+                          onFocusChange: (focused) => setState(() => hover = focused ? index : (hover == index ? null : hover)),
+                          onPressed: () { claim(); widget.onSelect(widget.items[index]); },
+                          child: Text(widget.items[index]),
+                        ),
+                      ),
+                    ),
+                  )),
+              ),
+            ],
+          ]),
+        ),
+      ),
     ),
   );
 }
@@ -831,7 +851,7 @@ class CsForm extends StatelessWidget {
   const CsForm({super.key, required this.children});
   final List<Widget> children;
   @override
-  Widget build(BuildContext context) => CsFormAncestor(inForm: true, child: Column(children: children));
+  Widget build(BuildContext context) => CsFormAncestor(inForm: true, child: Padding(padding: EdgeInsets.symmetric(vertical: csControlsBatchStyleFormFieldGap()), child: Column(children: children)));
 }
 
 class CsFieldset extends StatelessWidget {
@@ -842,7 +862,7 @@ class CsFieldset extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CsFormAncestor(inForm: true, child: IgnorePointer(ignoring: disabled, child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      if (legend != null && legend!.isNotEmpty) Text(legend!),
+      if (legend != null && legend!.isNotEmpty) Padding(padding: EdgeInsets.only(bottom: csFormsStyleRadioGroupLegendMarginBottom()), child: Text(legend!)),
       ...children,
     ])));
   }
@@ -881,9 +901,10 @@ class CsFormField extends StatelessWidget {
     final mark = csFormFieldCopy('required', csSelectResolvedLanguage(language, CsLanguageScope.of(context)));
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Row(children: [
-        if (csFormFieldShowsLabel(label)) Text(label),
+        if (csFormFieldShowsLabel(label)) Text(label, style: TextStyle(fontSize: csControlsBatchStyleFormFieldLabelFontSize())),
         if (required) Semantics(label: mark, child: const ExcludeSemantics(child: Text('*'))),
       ]),
+      SizedBox(height: csControlsBatchStyleFormFieldGap()),
       child,
       if (csFormFieldAlert(error)) Semantics(liveRegion: true, child: Text(error!)) else if (csFormFieldShowsHint(hint)) Text(hint!),
     ]);
@@ -926,7 +947,7 @@ class CsFormFieldArray extends StatelessWidget {
     final add = csFormArrayAdd(addLabel, csFormArrayCopy('addRow', locale));
     if (csFormArrayAlert(CsFormAncestor.of(context))) return Semantics(liveRegion: true, child: Text(csFormArrayCopy('arrayContext', locale)));
     return Column(children: [
-      if (csFormArrayShowsLabel(label)) Text(label!),
+      if (csFormArrayShowsLabel(label)) Padding(padding: EdgeInsets.only(bottom: csControlsBatchStyleFormFieldGap()), child: Text(label!)),
       for (var i = 0; i < rows.length; i++)
         Row(children: [
           Text(rows[i]),
@@ -1015,26 +1036,32 @@ class CsFormWizard extends StatelessWidget {
     final back = csFormWizardButton(backLabel, csFormWizardCopy('back', locale));
     final next = csFormWizardButton(nextLabel, csFormWizardCopy('next', locale));
     final finish = csFormWizardButton(finishLabel, csFormWizardCopy('finish', locale));
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      for (var offset = 0; offset < steps.length; offset++)
-        Semantics(selected: offset == active, value: offset == active ? 'step' : null, child: Text(csFormWizardStep(steps[offset], offset, csFormWizardCopy('step', locale)))),
-      if (csFormWizardAlert(errors, submission)) Semantics(liveRegion: true, container: true, child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(csFormWizardCopy('summary', locale)),
-        if (submission != null && submission!.isNotEmpty) Text(submission!),
-        for (final error in errors) Text(error),
-      ])),
-      if (steps.isNotEmpty) Row(children: [
-        CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: csFormWizardCanBack(active, pending: pending) ? () { claim(); onIndex(active - 1); } : null, child: Text(back))),
-        CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: pending ? null : () {
-          claim();
-          final step = csFormWizardAdvance(active, steps.length, pending, values, required, csFormWizardCopy('requiredField', locale), custom);
-          if (step == null) return;
-          onErrors?.call(step.errors);
-          if (step.errors.isNotEmpty) return;
-          if (step.completed) { onComplete?.call(); } else { onIndex(step.index); }
-        }, child: Text(last ? finish : next))),
+    return Opacity(
+      opacity: pending ? csControlsBatchStyleFormPendingOpacity : 1.0,
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        for (var offset = 0; offset < steps.length; offset++)
+          Padding(
+            padding: EdgeInsets.only(bottom: csControlsBatchStyleFormFieldGap()),
+            child: Semantics(selected: offset == active, value: offset == active ? 'step' : null, child: Text(csFormWizardStep(steps[offset], offset, csFormWizardCopy('step', locale)))),
+          ),
+        if (csFormWizardAlert(errors, submission)) Semantics(liveRegion: true, container: true, child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(csFormWizardCopy('summary', locale)),
+          if (submission != null && submission!.isNotEmpty) Text(submission!),
+          for (final error in errors) Text(error),
+        ])),
+        if (steps.isNotEmpty) Row(children: [
+          CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: csFormWizardCanBack(active, pending: pending) ? () { claim(); onIndex(active - 1); } : null, child: Text(back))),
+          CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: pending ? null : () {
+            claim();
+            final step = csFormWizardAdvance(active, steps.length, pending, values, required, csFormWizardCopy('requiredField', locale), custom);
+            if (step == null) return;
+            onErrors?.call(step.errors);
+            if (step.errors.isNotEmpty) return;
+            if (step.completed) { onComplete?.call(); } else { onIndex(step.index); }
+          }, child: Text(last ? finish : next))),
+        ]),
       ]),
-    ]);
+    );
   }
 }
 
@@ -1102,7 +1129,7 @@ class _CsHotKeysState extends State<CsHotKeys> {
     final toggle = csHotKeyCopy('toggle', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context)));
     return Column(children: [
       for (final binding in widget.bindings) CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onTrigger(binding.$1); }, child: Text('${binding.$1} ${binding.$2}'))),
-      if (open) Semantics(namesRoute: true, label: spoken, child: Column(children: [Text(spoken), for (final binding in widget.bindings) Text('${binding.$2} ${binding.$1}'), Text(toggle), const Text('?')])),
+      if (open) ConstrainedBox(constraints: BoxConstraints(minWidth: csControlsBatchStyleHotkeysCardMinWidth()), child: Semantics(namesRoute: true, label: spoken, child: Column(children: [Text(spoken), SizedBox(height: csControlsBatchStyleHotkeysRowGap()), for (final binding in widget.bindings) Text('${binding.$2} ${binding.$1}'), Text(toggle), const Text('?')]))),
     ]);
   }
 }
@@ -1218,7 +1245,7 @@ class _CsHoverCardState extends State<CsHoverCard> {
       },
       child: Column(children: [
         KeyedSubtree(key: fieldKey, child: widget.child),
-        if (open) Opacity(opacity: place == null ? 0 : 1, child: Transform.translate(key: listKey, offset: Offset(place?.x ?? 0, place?.y ?? 0), child: Text(widget.label))),
+        if (open) Opacity(opacity: place == null ? 0 : 1, child: Transform.translate(key: listKey, offset: Offset(place?.x ?? 0, place?.y ?? 0), child: Container(constraints: BoxConstraints(minWidth: csControlsWaveStyleHoverCardMinWidth()), padding: EdgeInsets.symmetric(horizontal: csControlsWaveStyleHoverCardPaddingX(), vertical: csControlsWaveStyleHoverCardPaddingY()), child: Text(widget.label)))),
       ]),
     ),
   );
@@ -1293,9 +1320,14 @@ class CsHumanReviewGate extends StatelessWidget {
     final approveName = csReviewAction(approveLabel, csReviewCopy('approve', locale));
     final line = csReviewerLine(reviewer, csReviewCopy('reviewer', locale));
     return Semantics(label: csReviewCopy('aria', locale), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(riskText),
+      Text(riskText, style: TextStyle(fontSize: csReviewGateStyleRiskFontSize(), fontWeight: FontWeight.w700)),
+      SizedBox(height: csReviewGateStyleGap()),
       Text(summary),
-      if (line != null) Text(line),
+      if (line != null) ...[
+        SizedBox(height: csReviewGateStyleGap()),
+        Text(line, style: TextStyle(fontSize: csReviewGateStyleReviewerFontSize())),
+      ],
+      SizedBox(height: csReviewGateStyleGap()),
       CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); onReject(); }, child: Text(rejectName))),
       CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); onApprove(); }, child: Text(approveName))),
     ]));
@@ -1402,9 +1434,12 @@ class _CsInlineEditState extends State<CsInlineEdit> {
     final empty = widget.emptyLabel.isEmpty ? csInlineCopy('empty', locale) : widget.emptyLabel;
     final shown = csInlineText(widget.value, empty);
     final field = csInlineFieldName(widget.label, edit);
-    if (!editing) return TextButton(focusNode: editNode, onPressed: begin, child: Row(mainAxisSize: MainAxisSize.min, children: [
+    if (!editing) return TextButton(focusNode: editNode, onPressed: begin, style: TextButton.styleFrom(padding: EdgeInsets.symmetric(horizontal: csControlsWaveStyleInlineEditPaddingX(), vertical: csControlsWaveStyleInlineEditPaddingY())), child: Row(mainAxisSize: MainAxisSize.min, children: [
       Text(shown, semanticsLabel: csInlineEditLabel(edit, widget.label)),
-      if (csInlineShowsPen(editing)) ExcludeSemantics(child: CustomPaint(size: const Size(13, 13), painter: _InlinePenPainter(DefaultTextStyle.of(context).style.color ?? const Color(0xFF45210E)))),
+      if (csInlineShowsPen(editing)) ...[
+        SizedBox(width: csControlsWaveStyleInlineEditGap()),
+        ExcludeSemantics(child: CustomPaint(size: const Size(13, 13), painter: _InlinePenPainter(DefaultTextStyle.of(context).style.color ?? const Color(0xFF45210E)))),
+      ],
     ]));
     return Focus(
       onFocusChange: (hasFocus) {
@@ -1458,15 +1493,18 @@ class CsInputGroup extends StatelessWidget {
     final fieldName = csInputGroupAddonName(null, label.isNotEmpty, false, null, csInputCopy('input', locale)) ?? label;
     final clearName = csInputCopy('clear', locale);
     final revealName = csInputRevealLabel(revealed, csInputCopy('show', locale), csInputCopy('hide', locale));
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-    if (label.isNotEmpty) ExcludeSemantics(child: Text(label)),
-    Row(children: [
-      Expanded(child: CsOwnFocus(builder: (node, claim) => Semantics(label: fieldName, textField: true, child: TextField(focusNode: node, controller: TextEditingController(text: text), obscureText: password && !revealed, onChanged: (next) { claim(); if (!disabled && !readOnly) onText?.call(next); })))),
-      child,
-      if (csInputShowsClear(clearable, text)) CsOwnFocus(builder: (node, claim) => Semantics(label: clearName, button: true, child: TextButton(focusNode: node, onPressed: csInputCanClear(disabled, readOnly) ? () { claim(); onText?.call(''); } : null, child: ExcludeSemantics(child: Text(clearName))))),
-      if (password) CsOwnFocus(builder: (node, claim) => Semantics(label: revealName, toggled: revealed, button: true, child: TextButton(focusNode: node, onPressed: csInputCanReveal(disabled) ? () { claim(); onReveal?.call(!revealed); } : null, child: ExcludeSemantics(child: Text(revealName))))),
-    ]),
-  ]);
+    return ConstrainedBox(
+      constraints: BoxConstraints(minWidth: csControlsWaveStyleInputGroupMinWidth()),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        if (label.isNotEmpty) ExcludeSemantics(child: Text(label)),
+        Row(children: [
+          Expanded(child: CsOwnFocus(builder: (node, claim) => Semantics(label: fieldName, textField: true, child: TextField(focusNode: node, controller: TextEditingController(text: text), obscureText: password && !revealed, onChanged: (next) { claim(); if (!disabled && !readOnly) onText?.call(next); })))),
+          Padding(padding: EdgeInsets.symmetric(horizontal: csControlsWaveStyleInputGroupAddonPaddingX()), child: child),
+          if (csInputShowsClear(clearable, text)) CsOwnFocus(builder: (node, claim) => Semantics(label: clearName, button: true, child: TextButton(focusNode: node, onPressed: csInputCanClear(disabled, readOnly) ? () { claim(); onText?.call(''); } : null, child: ExcludeSemantics(child: Text(clearName))))),
+          if (password) CsOwnFocus(builder: (node, claim) => Semantics(label: revealName, toggled: revealed, button: true, child: TextButton(focusNode: node, onPressed: csInputCanReveal(disabled) ? () { claim(); onReveal?.call(!revealed); } : null, child: ExcludeSemantics(child: Text(revealName))))),
+        ]),
+      ]),
+    );
   }
 }
 
@@ -1603,13 +1641,25 @@ class CsLocaleProvider extends StatelessWidget {
 }
 
 class CsLumiAvatar extends StatelessWidget {
-  const CsLumiAvatar({super.key, required this.dark, required this.highContrast, required this.compact, this.alt = 'Lumi'});
+  const CsLumiAvatar({super.key, required this.dark, required this.highContrast, required this.compact, this.alt = 'Lumi', this.size = 'md'});
   final String alt;
+  final String size;
   final bool dark;
   final bool highContrast;
   final bool compact;
   @override
-  Widget build(BuildContext context) => CsIcon(name: 'sparkle', label: alt, dark: dark, highContrast: highContrast, compact: compact);
+  Widget build(BuildContext context) {
+    final dim = csAiStyleLumiSize(size);
+    final spread = csAiStyleLumiRingSpread(ring: true);
+    return Padding(
+      padding: EdgeInsets.all(spread),
+      child: SizedBox(
+        width: dim,
+        height: dim,
+        child: CsIcon(name: 'sparkle', size: size, label: alt, dark: dark, highContrast: highContrast, compact: compact),
+      ),
+    );
+  }
 }
 
 class CsMasonry extends StatelessWidget {
@@ -1617,7 +1667,12 @@ class CsMasonry extends StatelessWidget {
   final int columns;
   final List<Widget> children;
   @override
-  Widget build(BuildContext context) => Column(children: children);
+  Widget build(BuildContext context) => Column(children: [
+    for (var i = 0; i < children.length; i++) ...[
+      if (i > 0) SizedBox(height: csControlsBatchStyleSortableGap()),
+      children[i],
+    ],
+  ]);
 }
 
 class CsMenuItem extends StatelessWidget {
@@ -1625,7 +1680,7 @@ class CsMenuItem extends StatelessWidget {
   final String title;
   final VoidCallback onSelect;
   @override
-  Widget build(BuildContext context) => CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); onSelect(); }, child: Text(title)));
+  Widget build(BuildContext context) => CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, style: TextButton.styleFrom(padding: EdgeInsets.symmetric(horizontal: csNavigationStyleMenuItemPaddingX(), vertical: csNavigationStyleMenuItemPaddingY())), onPressed: () { claim(); onSelect(); }, child: Text(title)));
 }
 
 bool csNativeSelectAlert(String? error) => error != null && csPresenceShown(CsPresence.text, error);
@@ -1647,12 +1702,15 @@ class CsNativeSelect extends StatelessWidget {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       if (csPresenceShown(CsPresence.text, label)) Text(label),
-      Stack(children: [
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          for (final option in options) CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: !disabled && !disabledOptions.contains(option) ? () { claim(); onSelect(option); } : null, child: Text(option))),
+      ConstrainedBox(
+        constraints: BoxConstraints(minHeight: csSelectNativeSelectMinHeight()),
+        child: Stack(children: [
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            for (final option in options) CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: !disabled && !disabledOptions.contains(option) ? () { claim(); onSelect(option); } : null, child: Text(option))),
+          ]),
+          Positioned(right: csSelectChevronInsetInlineEnd(), top: 0, bottom: 0, child: IgnorePointer(child: ExcludeSemantics(child: Align(alignment: Alignment.centerRight, child: CsIcon(name: 'chevron-down', label: '', dark: dark, highContrast: highContrast, compact: compact))))),
         ]),
-        Positioned(right: 12, top: 0, bottom: 0, child: IgnorePointer(child: ExcludeSemantics(child: Align(alignment: Alignment.centerRight, child: CsIcon(name: 'chevron-down', label: '', dark: dark, highContrast: highContrast, compact: compact))))),
-      ]),
+      ),
       if (csNativeSelectAlert(error)) Semantics(liveRegion: true, child: Text(error!, style: TextStyle(color: csColor(pack.colorSemanticDangerText)))),
     ]);
   }
@@ -1826,11 +1884,21 @@ class CsPromptInput extends StatelessWidget {
     final name = csPromptSpoken(ariaLabel, prompt);
     final sendName = submitLabel ?? csPromptCopy('send', locale);
     final hintLine = csPromptHintText(hint, csPromptCopy('hint', locale));
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      CsOwnFocus(builder: (node, claim) => Semantics(label: name, textField: true, child: TextField(focusNode: node, enabled: csPromptCanType(disabled), controller: TextEditingController(text: text), decoration: InputDecoration(hintText: prompt.isEmpty ? null : prompt), onChanged: (next) { claim(); onText?.call(next); }))),
-      if (hintLine != null) Text(hintLine),
-      CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: !csPromptCanSend(disabled, busy) ? null : () { claim(); final value = csPromptSubmit(text, disabled, busy); if (value != null) onSubmit(value); }, child: Text(sendName))),
-    ]);
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: csAiStylePromptPaddingX(), vertical: csAiStylePromptPaddingY()),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        ConstrainedBox(
+          constraints: BoxConstraints(minHeight: csAiStylePromptFieldMinHeight()),
+          child: CsOwnFocus(builder: (node, claim) => Semantics(label: name, textField: true, child: TextField(focusNode: node, enabled: csPromptCanType(disabled), controller: TextEditingController(text: text), decoration: InputDecoration(hintText: prompt.isEmpty ? null : prompt), onChanged: (next) { claim(); onText?.call(next); }))),
+        ),
+        if (hintLine != null) ...[
+          SizedBox(height: csAiStylePromptGap()),
+          Padding(padding: EdgeInsets.only(left: csAiStylePromptHintGap()), child: Text(hintLine)),
+        ],
+        SizedBox(height: csAiStylePromptGap()),
+        CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: !csPromptCanSend(disabled, busy) ? null : () { claim(); final value = csPromptSubmit(text, disabled, busy); if (value != null) onSubmit(value); }, child: Text(sendName))),
+      ]),
+    );
   }
 }
 
@@ -1853,12 +1921,15 @@ class CsPromptSuggestions extends StatelessWidget {
   final bool compact;
   @override
   Widget build(BuildContext context) => Column(children: [
-    for (final item in suggestions)
+    for (var i = 0; i < suggestions.length; i++) ...[
+      if (i > 0) SizedBox(height: csAiStyleSuggestGap()),
       CsOwnFocus(builder: (node, claim) => TextButton(
         focusNode: node,
-        onPressed: () { claim(); onSelect(csPromptSelected(item)); },
-        child: Row(children: [CsIcon(name: csPromptIcon(item.icon), dark: dark, highContrast: highContrast, compact: compact), Text(item.label)]),
+        style: TextButton.styleFrom(padding: EdgeInsets.symmetric(horizontal: csAiStyleSuggestButtonPaddingX(), vertical: csAiStyleSuggestButtonPaddingY())),
+        onPressed: () { claim(); onSelect(csPromptSelected(suggestions[i])); },
+        child: Row(children: [CsIcon(name: csPromptIcon(suggestions[i].icon), dark: dark, highContrast: highContrast, compact: compact), SizedBox(width: csAiStyleSuggestButtonGap()), Text(suggestions[i].label)]),
       )),
+    ],
   ]);
 }
 
@@ -1869,11 +1940,15 @@ class CsQRCode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final modules = csQrMatrix(value);
+    final pad = csControlsBatchStyleQrCodePadding();
     return Semantics(
       label: label.isEmpty ? value : label,
-      child: modules == null
-          ? const Text('—')
-          : CustomPaint(size: const Size(128, 128), painter: _QrPainter(modules)),
+      child: Padding(
+        padding: EdgeInsets.all(pad),
+        child: modules == null
+            ? const Text('—')
+            : CustomPaint(size: const Size(128, 128), painter: _QrPainter(modules)),
+      ),
     );
   }
 }
@@ -2132,7 +2207,9 @@ class _CsTreeSelectState extends State<CsTreeSelect> {
     if (opened) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted && requested) measure(); });
     return TapRegion(
       onTapOutside: opened && csTreeSelectDismissOutside(true, false) ? (_) { setState(() => requested = false); } : null,
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minWidth: csControlsBatchStyleTreeSelectMinWidth()),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Semantics(
         button: true,
         label: name,
@@ -2153,6 +2230,7 @@ class _CsTreeSelectState extends State<CsTreeSelect> {
         }, dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact)),
       ),
     ]),
+      ),
     );
   }
 }
@@ -2189,7 +2267,7 @@ List<CsTreeTableRow> csTreeRows(List<CsTreeTableNode> nodes, List<String> expand
 }
 
 int csTreeIndent(int depth) => depth * 18;
-double csTreeCellGap() => 2;
+double csTreeCellGap() => csControlsBatchStyleTreeTableCellGap();
 
 String? csTreeControls(String prefix, List<String> children, bool open) => !open || children.isEmpty ? null : children.map((child) => csTreeRowId(prefix, child)).join(' ');
 String csTreeTableCopy(String key, String? language) {
@@ -2304,12 +2382,19 @@ class CsTypingIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final spoken = csTypingLabelText(label, csTypingCopy('label', csSelectResolvedLanguage(language, CsLanguageScope.of(context))));
+    final dotSize = csAiStyleTypingDotSize();
     return Semantics(
       label: spoken,
       liveRegion: true,
-      child: Row(children: [
-        for (var i = 0; i < csTypingDots; i++) const ExcludeSemantics(child: SizedBox(width: 6, height: 6)),
-      ]),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: csAiStyleTypingPaddingX(), vertical: csAiStyleTypingPaddingY()),
+        child: Row(children: [
+          for (var i = 0; i < csTypingDots; i++) ...[
+            if (i > 0) SizedBox(width: csAiStyleTypingGap()),
+            ExcludeSemantics(child: SizedBox(width: dotSize, height: dotSize)),
+          ],
+        ]),
+      ),
     );
   }
 }

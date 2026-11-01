@@ -465,7 +465,7 @@ fun csDockScale(index: Int, hover: Int?): CsDockScale {
       val columns = csCascaderColumns(nodes, draft)
       var seen = 0
       columns.forEachIndexed { depth, column ->
-        Column {
+        Column(Modifier.widthIn(min = csControlsBatchStyleCascaderColumnMinWidth()).heightIn(max = csControlsBatchStyleCascaderColumnMaxHeight())) {
           column.forEachIndexed { offset, node ->
             val slot = seen + offset
             val picked = depth < draft.size && draft[depth] == node.key
@@ -526,14 +526,14 @@ fun csDockScale(index: Int, hover: Int?): CsDockScale {
 }
 @Composable fun CsDock(label: String, items: List<String>, onSelect: (String) -> Unit, modifier: Modifier = Modifier) {
   var hover by remember { mutableStateOf<Int?>(null) }
-  Row(modifier.onPointerEvent(PointerEventType.Exit) { hover = null }.semantics { contentDescription = label }) {
+  Row(modifier.clip(RoundedCornerShape(csControlsBatchStyleDockRadius())).padding(csControlsBatchStyleDockGap()).onPointerEvent(PointerEventType.Exit) { hover = null }.semantics { contentDescription = label }, horizontalArrangement = Arrangement.spacedBy(csControlsBatchStyleDockGap())) {
     items.forEachIndexed { index, item ->
       val interaction = remember(index) { MutableInteractionSource() }
       val hovered by interaction.collectIsHoveredAsState()
       val handle = rememberFocusHandle("dock-$index")
       LaunchedEffect(hovered) { if (hovered) hover = index }
       val mark = csDockScale(index, hover)
-      TextButton(onClick = { handle.claim(); onSelect(item) }, Modifier.focusRequester(handle.requester).hoverable(interaction).onFocusChanged { if (it.isFocused) { hover = index; handle.claim() } else if (hover == index) hover = null }.offset(y = mark.lift.dp).graphicsLayer { scaleX = mark.scale.toFloat(); scaleY = mark.scale.toFloat() }.minimumInteractiveComponentSize(), enabled = csControlEnabled()) { Text(item) }
+      TextButton(onClick = { handle.claim(); onSelect(item) }, Modifier.defaultMinSize(minWidth = csControlsBatchStyleDockItemSize(), minHeight = csControlsBatchStyleDockItemSize()).focusRequester(handle.requester).hoverable(interaction).onFocusChanged { if (it.isFocused) { hover = index; handle.claim() } else if (hover == index) hover = null }.offset(y = mark.lift.dp).graphicsLayer { scaleX = mark.scale.toFloat(); scaleY = mark.scale.toFloat() }.minimumInteractiveComponentSize(), enabled = csControlEnabled()) { Text(item) }
     }
   }
 }
@@ -637,7 +637,7 @@ object CsDisabledScope {
 val LocalCsDisabled = androidx.compose.runtime.compositionLocalOf { false }
 fun csControlEnabled(enabled: Boolean = true): Boolean = enabled && !CsDisabledScope.disabled
 @Composable fun CsForm(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
-  androidx.compose.runtime.CompositionLocalProvider(LocalCsForm provides true) { Column(modifier) { content() } }
+  androidx.compose.runtime.CompositionLocalProvider(LocalCsForm provides true) { Column(modifier, verticalArrangement = Arrangement.spacedBy(csControlsBatchStyleFormFieldGap() * 2)) { content() } }
 }
 @Composable fun CsFieldset(legend: String? = null, disabled: Boolean = false, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
   val previous = CsDisabledScope.disabled
@@ -647,7 +647,7 @@ fun csControlEnabled(enabled: Boolean = true): Boolean = enabled && !CsDisabledS
     onDispose { CsDisabledScope.disabled = previous }
   }
   androidx.compose.runtime.CompositionLocalProvider(LocalCsForm provides true, LocalCsDisabled provides disabled) {
-    Column(modifier.onPreviewKeyEvent { _ -> disabled }) {
+    Column(modifier.onPreviewKeyEvent { _ -> disabled }, verticalArrangement = Arrangement.spacedBy(csFormsStyleRadioGroupLegendMarginBottom())) {
       if (!legend.isNullOrEmpty()) Text(legend)
       Box {
         content()
@@ -675,9 +675,9 @@ fun csFormFieldCopy(key: String, language: String?): String {
 @Composable fun CsFormField(label: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, hint: String? = null, error: String? = null, required: Boolean = false, language: String? = null, content: @Composable () -> Unit) {
   val pack = csModePack(dark, highContrast, compact)
   val mark = csFormFieldCopy("required", csComboboxResolvedLanguage(language, LocalCsLanguage.current))
-  Column(modifier) {
+  Column(modifier, verticalArrangement = Arrangement.spacedBy(csControlsBatchStyleFormFieldGap())) {
     Row {
-      if (csFormFieldShowsLabel(label)) Text(label, color = pack.colorTextPrimary.toComposeColor())
+      if (csFormFieldShowsLabel(label)) Text(label, color = pack.colorTextPrimary.toComposeColor(), fontSize = csControlsBatchStyleFormFieldLabelFontSize().value.sp)
       if (required) Text("*", color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.semantics { contentDescription = mark })
     }
     content()
@@ -704,7 +704,7 @@ fun csFormArrayAlert(inForm: Boolean) = csFormArrayContext(inForm)
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val add = csFormArrayAdd(addLabel, csFormArrayCopy("addRow", locale))
   if (csFormArrayAlert(LocalCsForm.current)) Text(csFormArrayCopy("arrayContext", locale), modifier.semantics { liveRegion = LiveRegionMode.Assertive })
-  else Column(modifier) {
+  else Column(modifier, verticalArrangement = Arrangement.spacedBy(csControlsBatchStyleFormFieldGap())) {
     if (csFormArrayShowsLabel(label)) Text(label ?: "")
     rows.forEachIndexed { index, row ->
       Row {
@@ -762,7 +762,7 @@ fun csFormWizardAlert(errors: List<String>, submission: String?) = csFormWizardS
   val finish = csFormWizardButton(finishLabel, csFormWizardCopy("finish", locale))
   var ruled by remember { mutableStateOf<List<String>?>(null) }
   val liveErrors = ruled ?: errors
-  Column(modifier.semantics { if (pending) stateDescription = "true" }) {
+  Column(modifier.alpha(if (pending) csControlsBatchStyleFormPendingOpacity else 1f).semantics { if (pending) stateDescription = "true" }, verticalArrangement = Arrangement.spacedBy(csControlsBatchStyleFormFieldGap())) {
     steps.forEachIndexed { offset, title ->
       Text(csFormWizardStep(title, offset, csFormWizardCopy("step", locale)), modifier = Modifier.semantics { if (offset == active) stateDescription = "step" })
     }
@@ -807,7 +807,7 @@ fun csFormWizardAlert(errors: List<String>, submission: String?) = csFormWizardS
     false
   }) {
     bindings.forEach { val title = it.first + " " + it.second; CsTriggerButton(title = title, onClick = { onTrigger(it.first) }, modifier = Modifier.minimumInteractiveComponentSize()) { Text(title) } }
-    if (open) Column(Modifier.semantics { contentDescription = spoken }) { Text(spoken); bindings.forEach { Text(it.second); Text(it.first) }; Text(toggle); Text("?") }
+    if (open) Column(Modifier.widthIn(min = csControlsBatchStyleHotkeysCardMinWidth()).semantics { contentDescription = spoken }, verticalArrangement = Arrangement.spacedBy(csControlsBatchStyleHotkeysRowGap())) { Text(spoken); bindings.forEach { Text(it.second); Text(it.first) }; Text(toggle); Text("?") }
   }
 }
 fun csHoverPlacement(explicit: String?) = explicit ?: "bottom-start"
@@ -866,7 +866,7 @@ fun csHoverSyncAfterBlur(hovered: Boolean) = !hovered
       val bounds = it.boundsInWindow()
       field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
     }) { content() }
-    if (open) Text(label, modifier = Modifier.onGloballyPositioned {
+    if (open) Text(label, modifier = Modifier.widthIn(min = csControlsWaveStyleHoverCardMinWidth()).padding(horizontal = csControlsWaveStyleHoverCardPaddingX(), vertical = csControlsWaveStyleHoverCardPaddingY()).onGloballyPositioned {
       val bounds = it.boundsInWindow()
       val width = it.size.width.toDouble()
       val height = it.size.height.toDouble()
@@ -930,10 +930,10 @@ fun csReviewCopy(key: String, language: String?): String {
   val rejectName = csReviewAction(rejectLabel, csReviewCopy("reject", locale))
   val approveName = csReviewAction(approveLabel, csReviewCopy("approve", locale))
   val line = csReviewerLine(reviewer, csReviewCopy("reviewer", locale))
-  Column(modifier.semantics { contentDescription = csReviewCopy("aria", locale) }) {
-    Text(riskText)
+  Column(modifier.semantics { contentDescription = csReviewCopy("aria", locale) }, verticalArrangement = Arrangement.spacedBy(csReviewGateStyleGap())) {
+    Text(riskText, fontSize = csReviewGateStyleRiskFontSize(), fontWeight = FontWeight.Bold)
     Text(summary)
-    if (line != null) Text(line)
+    if (line != null) Text(line, fontSize = csReviewGateStyleReviewerFontSize())
     CsTriggerButton(title = rejectName, onClick = onReject) { Text(rejectName) }
     CsTriggerButton(title = approveName, onClick = onApprove) { Text(approveName) }
   }
@@ -982,8 +982,8 @@ fun csInlineCopy(key: String, language: String?): String {
   if (!editing) {
     val shown = csInlineText(value, empty)
     val penColor = LocalContentColor.current
-    TextButton(onClick = { claimEdit(); closed = false; sawFocus = false; cancelling = false; draft = value; editing = true }, modifier.focusRequester(editRequester).onFocusChanged { if (it.isFocused) claimEdit() }.semantics { contentDescription = csInlineEditLabel(edit, label) }, enabled = csControlEnabled()) {
-      Row {
+    TextButton(onClick = { claimEdit(); closed = false; sawFocus = false; cancelling = false; draft = value; editing = true }, modifier.focusRequester(editRequester).onFocusChanged { if (it.isFocused) claimEdit() }.semantics { contentDescription = csInlineEditLabel(edit, label) }, enabled = csControlEnabled(), contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = csControlsWaveStyleInlineEditPaddingX(), vertical = csControlsWaveStyleInlineEditPaddingY())) {
+      Row(horizontalArrangement = Arrangement.spacedBy(csControlsWaveStyleInlineEditGap()), verticalAlignment = Alignment.CenterVertically) {
         Text(shown, modifier = Modifier.clearAndSetSemantics {})
         if (csInlineShowsPen(editing)) Canvas(Modifier.size(13.dp).clearAndSetSemantics {}) {
           drawPath(csIconPathData(csInlinePen, size.minDimension), penColor, style = Stroke(width = 1.9f, cap = StrokeCap.Round, join = StrokeJoin.Round))
@@ -1031,11 +1031,11 @@ fun csInputCopy(key: String, language: String?): String {
   val fieldName = csInputGroupAddonName(null, label.isNotEmpty(), false, null, csInputCopy("input", locale)) ?: label
   val clearName = csInputCopy("clear", locale)
   val revealName = csInputRevealLabel(revealed, csInputCopy("show", locale), csInputCopy("hide", locale))
-  Column(modifier) {
+  Column(modifier.widthIn(min = csControlsWaveStyleInputGroupMinWidth())) {
     if (label.isNotEmpty()) Text(label, modifier = Modifier.clearAndSetSemantics {})
-    Row {
+    Row(verticalAlignment = Alignment.CenterVertically) {
       androidx.compose.foundation.text.BasicTextField(value = text, onValueChange = { next -> if (!csControlEnabled()) return@BasicTextField; handle.claim(); if (!disabled && !readOnly) onText(next) }, enabled = csControlEnabled(!disabled && !readOnly), modifier = Modifier.weight(1f).focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.semantics { contentDescription = fieldName })
-      content()
+      Box(Modifier.padding(horizontal = csControlsWaveStyleInputGroupAddonPaddingX())) { content() }
       if (csInputShowsClear(clearable, text)) CsTriggerButton(title = clearName, onClick = { if (csInputCanClear(disabled, readOnly)) onText("") }, enabled = csInputCanClear(disabled, readOnly), modifier = Modifier.semantics { contentDescription = clearName }) { Text(clearName, modifier = Modifier.clearAndSetSemantics {}) }
       if (password) CsTriggerButton(title = revealName, onClick = { if (csInputCanReveal(disabled)) onReveal(!revealed) }, enabled = csInputCanReveal(disabled), modifier = Modifier.semantics { contentDescription = revealName; stateDescription = if (revealed) "true" else "false" }) { Text(revealName, modifier = Modifier.clearAndSetSemantics {}) }
     }
@@ -1080,11 +1080,11 @@ fun csItemMainExtraText(hasExplicitTrailing: Boolean, hasTitle: Boolean, childre
   }
 }
 @Composable fun CsLocaleProvider(language: String, modifier: Modifier = Modifier, content: @Composable () -> Unit) { Column(modifier) { content() } }
-@Composable fun CsLumiAvatar(alt: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) { CsIcon(name = "sparkle", label = alt, dark = dark, highContrast = highContrast, compact = compact, modifier = modifier) }
-@Composable fun CsMasonry(columns: Int, modifier: Modifier = Modifier, content: @Composable () -> Unit) { Column(modifier) { content() } }
+@Composable fun CsLumiAvatar(alt: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, size: String = "md") { CsIcon(name = "sparkle", size = size, label = alt, dark = dark, highContrast = highContrast, compact = compact, modifier = modifier.size(csAiStyleLumiSize(size)).padding(csAiStyleLumiRingSpread(true))) }
+@Composable fun CsMasonry(columns: Int, modifier: Modifier = Modifier, content: @Composable () -> Unit) { Column(modifier, verticalArrangement = Arrangement.spacedBy(csControlsBatchStyleSortableGap())) { content() } }
 @Composable fun CsMenuItem(title: String, onSelect: () -> Unit, modifier: Modifier = Modifier) {
   val handle = rememberFocusHandle("menu-item")
-  TextButton(onClick = { handle.claim(); onSelect() }, modifier.focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.minimumInteractiveComponentSize(), enabled = csControlEnabled()) { Text(title) }
+  TextButton(onClick = { handle.claim(); onSelect() }, modifier.focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.minimumInteractiveComponentSize(), enabled = csControlEnabled(), contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = csNavigationStyleMenuItemPaddingX(), vertical = csNavigationStyleMenuItemPaddingY())) { Text(title) }
 }
 fun csNativeSelectAlert(error: String?) = error != null && csPresenceShown(CsPresence.Text, error)
 @Composable fun CsNativeSelect(label: String, options: List<String>, selection: String, onSelect: (String) -> Unit, modifier: Modifier = Modifier, error: String? = null, disabled: Boolean = false, disabledOptions: Set<String> = emptySet(), dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false) {
@@ -1093,7 +1093,7 @@ fun csNativeSelectAlert(error: String?) = error != null && csPresenceShown(CsPre
   val enabled = csControlEnabled(!disabled)
   Column(modifier.csOwnFocus()) {
     if (csPresenceShown(CsPresence.Text, label)) Text(label)
-    Box {
+    Box(Modifier.heightIn(min = csSelectNativeSelectMinHeight())) {
       Column {
         options.forEach { option ->
           val rowEnabled = enabled && option !in disabledOptions
@@ -1104,7 +1104,7 @@ fun csNativeSelectAlert(error: String?) = error != null && csPresenceShown(CsPre
           }, enabled = rowEnabled) { Text(option) }
         }
       }
-      CsIcon(name = "chevron-down", label = "", dark = dark, highContrast = highContrast, compact = compact, modifier = Modifier.align(Alignment.CenterEnd).clearAndSetSemantics { })
+      CsIcon(name = "chevron-down", label = "", dark = dark, highContrast = highContrast, compact = compact, modifier = Modifier.align(Alignment.CenterEnd).padding(end = csSelectChevronInsetInlineEnd()).clearAndSetSemantics { })
     }
     if (csNativeSelectAlert(error)) Text(error ?: "", color = pack.colorSemanticDangerText.toComposeColor(), modifier = Modifier.semantics { liveRegion = LiveRegionMode.Assertive })
   }
@@ -1197,9 +1197,9 @@ fun csPromptShowsHint(hint: String?) = hint == null || hint.isNotEmpty()
   val hintLine = csPromptHintText(hint, csPromptCopy("hint", locale))
   val submitted = csPromptSubmit(text, disabled, busy)
   val handle = rememberFocusHandle("prompt")
-  Column(modifier) {
-    androidx.compose.foundation.text.BasicTextField(value = text, onValueChange = { next -> if (!csPromptCanType(disabled) || !csControlEnabled()) return@BasicTextField; handle.claim(); onText(next) }, enabled = csPromptCanType(disabled) && csControlEnabled(), modifier = Modifier.focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.semantics { contentDescription = name })
-    if (hintLine != null) Text(hintLine)
+  Column(modifier.padding(horizontal = csAiStylePromptPaddingX(), vertical = csAiStylePromptPaddingY()), verticalArrangement = Arrangement.spacedBy(csAiStylePromptGap())) {
+    androidx.compose.foundation.text.BasicTextField(value = text, onValueChange = { next -> if (!csPromptCanType(disabled) || !csControlEnabled()) return@BasicTextField; handle.claim(); onText(next) }, enabled = csPromptCanType(disabled) && csControlEnabled(), modifier = Modifier.heightIn(min = csAiStylePromptFieldMinHeight()).focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.semantics { contentDescription = name })
+    if (hintLine != null) Row(horizontalArrangement = Arrangement.spacedBy(csAiStylePromptHintGap()), verticalAlignment = Alignment.CenterVertically) { Text(hintLine) }
     CsTriggerButton(title = sendName, onClick = { submitted?.let(onSubmit) }, enabled = csPromptCanSend(disabled, busy) && csControlEnabled()) { Text(sendName) }
   }
 }
@@ -1208,18 +1208,19 @@ fun csPromptIcon(icon: String?) = icon ?: "sparkle"
 fun csPromptChosen(label: String, hasHandler: Boolean) = if (hasHandler) label else null
 fun csPromptSelected(suggestion: CsPromptSuggestion) = suggestion.label
 @Composable fun CsPromptSuggestions(suggestions: List<CsPromptSuggestion>, onSelect: (String) -> Unit, dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false, modifier: Modifier = Modifier) {
-  Column(modifier) {
+  Column(modifier, verticalArrangement = Arrangement.spacedBy(csAiStyleSuggestGap())) {
     suggestions.forEach { item ->
-      CsTriggerButton(title = item.label, onClick = { onSelect(csPromptSelected(item)) }, modifier = Modifier.minimumInteractiveComponentSize()) {
-        Row { CsIcon(name = csPromptIcon(item.icon), label = "", dark = dark, highContrast = highContrast, compact = compact); Text(item.label) }
+      CsTriggerButton(title = item.label, onClick = { onSelect(csPromptSelected(item)) }, modifier = Modifier.padding(horizontal = csAiStyleSuggestButtonPaddingX(), vertical = csAiStyleSuggestButtonPaddingY()).minimumInteractiveComponentSize()) {
+        Row(horizontalArrangement = Arrangement.spacedBy(csAiStyleSuggestButtonGap()), verticalAlignment = Alignment.CenterVertically) { CsIcon(name = csPromptIcon(item.icon), label = "", dark = dark, highContrast = highContrast, compact = compact); Text(item.label) }
       }
     }
   }
 }
 @Composable fun CsQRCode(value: String, label: String, modifier: Modifier = Modifier) {
   val modules = csQrMatrix(value)
-  if (modules == null) Text("—", modifier)
-  else Canvas(modifier.size(128.dp)) {
+  val pad = csControlsBatchStyleQrCodePadding()
+  if (modules == null) Text("—", modifier.padding(pad))
+  else Canvas(modifier.padding(pad).size(128.dp)) {
     val cell = size.minDimension / modules.size
     modules.forEachIndexed { y, row -> row.forEachIndexed { x, on -> if (on) drawRect(Color.Black, Offset(x * cell, y * cell), Size(cell, cell)) } }
   }
@@ -1290,7 +1291,7 @@ fun csTreeSelectTreeName(label: String?, labelledBy: String?, placeholder: Strin
   val shiftX = with(density) { (place?.x ?: 0.0).toFloat().toDp() }
   val shiftY = with(density) { (place?.y ?: 0.0).toFloat().toDp() }
   if (!opened && natural != null) { natural = null; fitted = null }
-  Column(modifier) {
+  Column(modifier.widthIn(min = csControlsBatchStyleTreeSelectMinWidth())) {
     CsTriggerButton(title = shown, onClick = { if (!disabled) requested = !requested }, enabled = !disabled && csControlEnabled(), modifier = Modifier.onGloballyPositioned {
       val bounds = it.boundsInWindow()
       field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
@@ -1333,7 +1334,7 @@ fun csTreeRows(nodes: List<CsTreeTableNode>, expanded: List<String>, depth: Int 
   if (open) listOf(row) + csTreeRows(node.children, expanded, depth + 1) else listOf(row)
 }
 fun csTreeIndent(depth: Int) = depth * 18
-fun csTreeCellGap() = 2.dp
+fun csTreeCellGap() = csControlsBatchStyleTreeTableCellGap()
 fun csTreeControls(prefix: String, children: List<String>, open: Boolean) = if (!open || children.isEmpty()) null else children.joinToString(" ") { csTreeRowId(prefix, it) }
 fun csTreeTableCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
@@ -1424,7 +1425,7 @@ fun csTypingCopy(key: String, language: String?): String {
 }
 @Composable fun CsTypingIndicator(modifier: Modifier = Modifier, label: String? = null, language: String? = null) {
   val spoken = csTypingLabelText(label, csTypingCopy("label", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
-  Row(modifier.semantics { contentDescription = spoken; liveRegion = LiveRegionMode.Polite }) {
-    repeat(csTypingDots) { Text("•", modifier = Modifier.clearAndSetSemantics {}) }
+  Row(modifier.padding(horizontal = csAiStyleTypingPaddingX(), vertical = csAiStyleTypingPaddingY()).semantics { contentDescription = spoken; liveRegion = LiveRegionMode.Polite }, horizontalArrangement = Arrangement.spacedBy(csAiStyleTypingGap())) {
+    repeat(csTypingDots) { Text("•", modifier = Modifier.size(csAiStyleTypingDotSize()).clearAndSetSemantics {}) }
   }
 }
