@@ -425,6 +425,10 @@ double csCollapsibleTriggerGap() => 12;
 double csCollapsibleTriggerPaddingY() => 12;
 double csCollapsibleTriggerPaddingX() => 16;
 bool csCollapsibleShowsTriggerHover(bool hovered) => hovered;
+double csCollapsibleChevronDegrees(bool isOpen) => isOpen ? 180 : 0;
+double csCollapsiblePanelPaddingX() => 16;
+double csCollapsiblePanelPaddingBottom() => 14;
+double csCollapsibleEdgeChildMargin() => 0;
 String csCollapsibleResolvedLabel(String? title, String? trigger) => title ?? trigger ?? '';
 String? csCollapsibleAriaControls(String panelId, bool isOpen) => isOpen ? panelId : null;
 
@@ -485,6 +489,10 @@ class _CsCollapsibleState extends State<CsCollapsible> {
                             ),
                           ),
                           SizedBox(width: csCollapsibleTriggerGap()),
+                          Transform.rotate(
+                            angle: csCollapsibleChevronDegrees(widget.isOpen) * math.pi / 180,
+                            child: CsIcon(name: 'chevron-down', label: '', dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact),
+                          ),
                         ],
                       ),
                     ),
@@ -493,7 +501,21 @@ class _CsCollapsibleState extends State<CsCollapsible> {
               ),
             ),
             Semantics(label: widget.isOpen ? widget.expandedLabel : widget.collapsedLabel, child: const SizedBox.shrink()),
-            if (widget.isOpen) Text(widget.content, style: TextStyle(color: csColor(pack.colorTextMuted))),
+            if (widget.isOpen)
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: csCollapsibleEdgeChildMargin()),
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(csCollapsiblePanelPaddingX(), 0, csCollapsiblePanelPaddingX(), csCollapsiblePanelPaddingBottom()),
+                  child: Text(
+                    widget.content,
+                    style: TextStyle(
+                      color: csColor(pack.colorTextMuted),
+                      fontSize: csPoints(pack.fontSizeSm),
+                      height: pack.fontLineHeightBody,
+                    ),
+                  ),
+                ),
+              ),
           ],
         ),
       ),

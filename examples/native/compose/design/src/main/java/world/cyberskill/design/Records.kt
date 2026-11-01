@@ -329,6 +329,10 @@ fun csCollapsibleTriggerGap() = 12.dp
 fun csCollapsibleTriggerPaddingY() = 12.dp
 fun csCollapsibleTriggerPaddingX() = 16.dp
 fun csCollapsibleShowsTriggerHover(hovered: Boolean) = hovered
+fun csCollapsibleChevronDegrees(isOpen: Boolean) = if (isOpen) 180f else 0f
+fun csCollapsiblePanelPaddingX() = 16.dp
+fun csCollapsiblePanelPaddingBottom() = 14.dp
+fun csCollapsibleEdgeChildMargin() = 0.dp
 fun csCollapsibleResolvedLabel(title: String?, trigger: String?) = title ?: trigger ?: ""
 fun csCollapsibleAriaControls(panelId: String, isOpen: Boolean) = if (isOpen) panelId else null
 
@@ -354,9 +358,18 @@ fun CsCollapsible(
     CsTriggerButton(title = label, onClick = { onOpenChange(!isOpen) }, modifier = Modifier.fillMaxWidth().hoverable(interaction).background(if (csCollapsibleShowsTriggerHover(hovered)) pack.colorSurfaceRaised.toComposeColor() else Color.Transparent).padding(horizontal = csCollapsibleTriggerPaddingX(), vertical = csCollapsibleTriggerPaddingY()).minimumInteractiveComponentSize()) {
       Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(csCollapsibleTriggerGap()), verticalAlignment = Alignment.CenterVertically) {
         Text(label, color = pack.colorTextPrimary.toComposeColor(), fontSize = pack.fontSizeSm.toDp().value.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f).semantics { contentDescription = if (isOpen) expandedLabel else collapsedLabel })
+        CsIcon(name = "chevron-down", label = "", dark = dark, highContrast = highContrast, compact = compact, modifier = Modifier.graphicsLayer { rotationZ = csCollapsibleChevronDegrees(isOpen) }.clearAndSetSemantics { })
       }
     }
-    if (isOpen) Text(content, color = pack.colorTextMuted.toComposeColor())
+    if (isOpen) {
+      Text(
+        content,
+        color = pack.colorTextMuted.toComposeColor(),
+        fontSize = pack.fontSizeSm.toDp().value.sp,
+        lineHeight = (pack.fontSizeSm.toDp().value * pack.fontLineHeightBody.toFloat()).sp,
+        modifier = Modifier.padding(vertical = csCollapsibleEdgeChildMargin()).padding(start = csCollapsiblePanelPaddingX(), end = csCollapsiblePanelPaddingX(), bottom = csCollapsiblePanelPaddingBottom()),
+      )
+    }
   }
 }
 

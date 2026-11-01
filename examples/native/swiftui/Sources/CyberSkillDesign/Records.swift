@@ -730,6 +730,10 @@ public enum CSCollapsibleModel {
   public static func triggerPaddingY() -> Double { 12 }
   public static func triggerPaddingX() -> Double { 16 }
   public static func showsTriggerHover(hovered: Bool) -> Bool { hovered }
+  public static func chevronDegrees(isOpen: Bool) -> Double { isOpen ? 180 : 0 }
+  public static func panelPaddingX() -> Double { 16 }
+  public static func panelPaddingBottom() -> Double { 14 }
+  public static func edgeChildMargin() -> Double { 0 }
   public static func resolvedLabel(title: String?, trigger: String?) -> String { title ?? trigger ?? "" }
   public static func ariaControls(panelId: String, isOpen: Bool) -> String? { isOpen ? panelId : nil }
 }
@@ -765,12 +769,19 @@ public struct CSCollapsible: View {
     let label = CSCollapsibleModel.resolvedLabel(title: title.isEmpty && trigger != nil ? nil : title, trigger: trigger)
     let showHover = CSCollapsibleModel.showsTriggerHover(hovered: hovered)
     VStack(alignment: .leading, spacing: 0) {
-      CSTriggerButton(label) {
-        isOpen.toggle()
-        onOpenChange(isOpen)
+      HStack(alignment: .center, spacing: CGFloat(CSCollapsibleModel.triggerGap())) {
+        CSTriggerButton(label) {
+          isOpen.toggle()
+          onOpenChange(isOpen)
+        }
+        .font(.system(size: pack.fontSizeSm.points, weight: .semibold))
+        .foregroundStyle(pack.primaryTextColor)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        CSIcon(name: "chevron-down", label: "", dark: dark, highContrast: highContrast, compact: compact)
+          .foregroundStyle(pack.mutedColor)
+          .rotationEffect(.degrees(CSCollapsibleModel.chevronDegrees(isOpen: isOpen)))
+          .accessibilityHidden(true)
       }
-      .font(.system(size: pack.fontSizeSm.points, weight: .semibold))
-      .foregroundStyle(pack.primaryTextColor)
       .padding(.vertical, CGFloat(CSCollapsibleModel.triggerPaddingY()))
       .padding(.horizontal, CGFloat(CSCollapsibleModel.triggerPaddingX()))
       .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
@@ -778,7 +789,13 @@ public struct CSCollapsible: View {
       .onHover { inside in hovered = inside }
       .accessibilityValue(Text(isOpen ? expandedLabel : collapsedLabel))
       if isOpen {
-        Text(content).foregroundStyle(pack.mutedColor)
+        Text(content)
+          .font(.system(size: pack.fontSizeSm.points))
+          .lineSpacing(CGFloat(Double(pack.fontSizeSm.points) * (pack.fontLineHeightBody - 1)))
+          .foregroundStyle(pack.mutedColor)
+          .padding(.vertical, CGFloat(CSCollapsibleModel.edgeChildMargin()))
+          .padding(.horizontal, CGFloat(CSCollapsibleModel.panelPaddingX()))
+          .padding(.bottom, CGFloat(CSCollapsibleModel.panelPaddingBottom()))
       }
     }
     .background(pack.colorSurfacePanel.color, in: RoundedRectangle(cornerRadius: pack.radiusMd.points))

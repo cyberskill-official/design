@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the collapsible-frame-trigger checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the collapsible-chevron-panel checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `8609d9e40afd8e5be1c90a776d9a6cf587ef9879`, with the hash note in `c7aa81fe`
-- Checkpoint commit hash: `7f8673afef736b3b7d2f504016959b68b399e583`
+- Previous checkpoint: `7f8673afef736b3b7d2f504016959b68b399e583`, with the hash note in `dd0d391a`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the collapsible frame and trigger styles: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the collapsible chevron and panel styles: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-`Collapsible` (`CSCollapsible` / `CsCollapsible`) now renders a 1px (`CSCollapsibleModel.borderWidth()` / `csCollapsibleBorderWidth()`) default border, medium corner radius (`var(--cs-radius-md)`), panel surface background (`var(--cs-color-surface-panel)`), clipped overflow, a 12px trigger gap (`CSCollapsibleModel.triggerGap()` / `csCollapsibleTriggerGap()`), `12px` by `16px` trigger padding (`CSCollapsibleModel.triggerPaddingY()` / `csCollapsibleTriggerPaddingY()` and `CSCollapsibleModel.triggerPaddingX()` / `csCollapsibleTriggerPaddingX()`), semibold (`600`) `var(--cs-font-size-sm)` primary-text labels with `title ?? trigger` fallback (`CSCollapsibleModel.resolvedLabel` / `csCollapsibleResolvedLabel`), raised hover surface (`CSCollapsibleModel.showsTriggerHover(hovered:)` / `csCollapsibleShowsTriggerHover(hovered)`), and `aria-controls` only when open (`CSCollapsibleModel.ariaControls` / `csCollapsibleAriaControls`), matching `.cs-collapsible`, `.cs-collapsible__trigger`, `.cs-collapsible__trigger:hover`, and `.cs-collapsible__label` in `base/collections.css`.
+`Collapsible` (`CSCollapsible` / `CsCollapsible`) now renders a muted chevron rotating `180deg` when expanded (`CSCollapsibleModel.chevronDegrees(isOpen:)` / `csCollapsibleChevronDegrees(isOpen)`) and a panel with `0 16px 14px` padding (`CSCollapsibleModel.panelPaddingX()` / `csCollapsiblePanelPaddingX()` and `CSCollapsibleModel.panelPaddingBottom()` / `csCollapsiblePanelPaddingBottom()`), zero edge-child vertical margins (`CSCollapsibleModel.edgeChildMargin()` / `csCollapsibleEdgeChildMargin()`), muted `var(--cs-font-size-sm)` text, and `var(--cs-font-lineHeight-body)` line height, matching `.cs-collapsible__chevron`, `.cs-collapsible__trigger[aria-expanded="true"] .cs-collapsible__chevron`, `.cs-collapsible__panel`, `.cs-collapsible__panel > :first-child`, and `.cs-collapsible__panel > :last-child` in `base/collections.css`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style `Collapsible` chevron rotation and panel padding, typography, and region semantics (`.cs-collapsible__chevron`, `.cs-collapsible__trigger[aria-expanded="true"] .cs-collapsible__chevron`, `.cs-collapsible__panel`, `.cs-collapsible__panel > :first-child`, `.cs-collapsible__panel > :last-child`). Re-read `base/collections.css` lines 72–76 and `components/data/Collapsible.jsx` before editing. Do not invent collapsible chevron or panel styles.
+Style `CodeBlock` always-dark custom properties, frame, header bar, copy button, and `pre`/`code` body (`.cs-code`, `.cs-code__bar`, `.cs-code__copy`, `.cs-code__copy:hover`, `.cs-code pre`, `.cs-code code`). Re-read `base/collections.css` lines 78–90 and `components/data/CodeBlock.jsx` before editing. Do not invent code-block colors or typography.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
