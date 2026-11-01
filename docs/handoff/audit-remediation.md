@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the native-compose-flutter-ci-compiler-fixes checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the native-flutter-segmented-roving-call-fix checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -9,8 +9,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: `26273a88f7fbe4b16735003b6d92504ff50251c8` (`fix(native): resolve Compose and Flutter compiler diagnostics in Catalog, Fields, Overlays, and Remainder`)
-- Previous checkpoint: `62965e6615fc4c6dea923600603af20747f0e197`, with the hash note in `c6036bc1`
+- Checkpoint commit: `<pending-commit>` (`fix(native): use csTabsMove in Flutter CsSegmentedControl keyboard roving`)
+- Previous checkpoint: `26273a88f7fbe4b16735003b6d92504ff50251c8`, with the hash note in `a41f6300`
 - GitHub Actions push workflows re-enabled (`Design System Gates` `316944477`, `native-validation` `377620668`, `native-store` `318755963`, `OpenSSF Scorecard` `330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -54,10 +54,10 @@ Last run after styling `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `Navigat
 
 ## Latest checkpoint
 
-Resolved the Jetpack Compose and Flutter compiler diagnostics reported by `native-validation` run `41322498538` across `Catalog.kt`, `Fields.kt`, `Overlays.kt`, `Remainder.kt`, `catalog.dart`, `fields.dart`, and `overlays.dart`: added `Offset`, `width`, and `fillMaxHeight` imports to `Catalog.kt` and `defaultMinSize` import to `Remainder.kt`; referenced `csControlsWaveStyleCalendarWeekdayFontSize` as a `Double`/`double` constant rather than a function call in `Fields.kt` and `fields.dart`; passed `label = ""` and `size = "sm"` to `CsIcon` in `CsBackTop` across `Overlays.kt` and `overlays.dart`; and passed positional `disabled` to `csTextFieldOpacity(disabled)` and `csSegmentedMove(index, 'ArrowRight'/'ArrowLeft', options.length)` in `catalog.dart`.
+Updated `CsSegmentedControl` keyboard roving in `examples/native/flutter_design/lib/catalog.dart` (lines 1081 and 1085) to call `csTabsMove(index, 'ArrowRight', options.length) ?? index` and `csTabsMove(index, 'ArrowLeft', options.length) ?? index` from `controls.dart` instead of the undefined `csSegmentedMove` helper reported by `flutter test` in `native-validation` run `41323068664`.
 
-- `swift test --package-path examples/native/swiftui`, `node _audit/ci/test-native-samples.mjs`, `native-validation` (`swiftui`, `macos-15` job `124895497033`), and `native-store` (`store-dry-run` run `41322499939`) passed.
-- Re-enabled all 4 GitHub Actions push workflows (`316944477`, `377620668`, `318755963`, `330342703`).
+- `swift test --package-path examples/native/swiftui` and `node _audit/ci/test-native-samples.mjs` passed locally.
+- In `native-validation` run `41323068664`, both `validate (compose, ubuntu-24.04)` (job `124897196632`) and `validate (swiftui, macos-15)` (job `124897196812`) passed; in `Design System Gates` run `41323068696`, `pixel-diff`, `whole-set-audits`, `fast-gates`, `docs-consistency-blocker`, `storybook-build`, `node-prechecks`, `token-provenance`, `npm-hello-smoke`, `regenerate-tokens-push`, and `figma-variables-push` all passed.
 
 ## Next concrete step
 
