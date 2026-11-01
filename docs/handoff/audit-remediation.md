@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the list-gap checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the list-item checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `ea1c1289da1b437feeda61be5f91400e6c20c39d`, with the hash note in `93872c5e`
-- Checkpoint commit hash: `8662697d3935c1a62048ad269d83dda83e428731`
+- Previous checkpoint: `8662697d3935c1a62048ad269d83dda83e428731`, with the hash note in `fd0ae50a`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the list gap: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the list item: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-The list container (`CSList` / `CsList`) now uses a 2px vertical item gap (`CSListModel.gap()` / `csListGap()`), matching `.cs-list { display: grid; gap: 2px; }` in `base/collections.css`.
+List items (`CSList` / `CsList`) now use centered flex alignment, a `var(--cs-space-3)` horizontal gap, `10px` (`CSListModel.itemPaddingY()` / `csListItemPaddingY()`) by `var(--cs-space-3)` padding, medium corner radius (`var(--cs-radius-md)`), primary text color, and start text alignment, matching `.cs-list__item { display: flex; align-items: center; gap: var(--cs-space-3); padding: 10px var(--cs-space-3); border-radius: var(--cs-radius-md); color: var(--cs-color-text-primary); text-align: start; }` in `base/collections.css`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style list items with centered flex alignment, a `var(--cs-space-3)` (12px) horizontal gap, `10px var(--cs-space-3)` padding, medium corner radius, primary text color, and start text alignment. The next rule in `base/collections.css` is `.cs-list__item { display: flex; align-items: center; gap: var(--cs-space-3); padding: 10px var(--cs-space-3); border-radius: var(--cs-radius-md); color: var(--cs-color-text-primary); text-align: start; }`. Re-read that rule before editing. Do not invent item padding or radii.
+Support interactive list item buttons with borderless transparent fill, 100% inline width, and a raised surface background on hover (`@media (hover: hover)`). The next rules in `base/collections.css` are `.cs-list__item--button { border: 0; background: transparent; font: inherit; inline-size: 100%; cursor: pointer; }` and `@media (hover: hover) { .cs-list__item--button:hover { background: var(--cs-color-surface-raised); } }`. Re-read those rules and `components/data/List.jsx` before editing. Do not invent hover colors.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

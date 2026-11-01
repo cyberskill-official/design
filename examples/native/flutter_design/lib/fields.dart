@@ -828,6 +828,7 @@ class _CsPopoverState extends State<CsPopover> {
 }
 
 double csListGap() => 2;
+double csListItemPaddingY() => 10;
 
 class CsList extends StatelessWidget {
   const CsList({super.key, required this.items, required this.dark, required this.highContrast, required this.compact});
@@ -842,10 +843,18 @@ class CsList extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       for (var index = 0; index < items.length; index++) ...[
         if (index > 0) SizedBox(height: csListGap()),
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(items[index].$1, style: TextStyle(color: csColor(pack.colorTextPrimary))),
-          if (items[index].$2.isNotEmpty) Text(items[index].$2, style: TextStyle(color: csColor(pack.colorTextMuted))),
-        ]),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: csPoints(pack.space3), vertical: csListItemPaddingY()),
+            child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(items[index].$1, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextPrimary))),
+                if (items[index].$2.isNotEmpty) Text(items[index].$2, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextMuted))),
+              ]),
+            ]),
+          ),
+        ),
       ],
     ]);
   }

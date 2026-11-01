@@ -1574,6 +1574,7 @@ private struct CSPopoverPanelKey: PreferenceKey {
 
 public enum CSListModel {
   public static func gap() -> Double { 2 }
+  public static func itemPaddingY() -> Double { 10 }
 }
 
 public struct CSListItem: Hashable {
@@ -1602,11 +1603,17 @@ public struct CSList: View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     VStack(alignment: .leading, spacing: CGFloat(CSListModel.gap())) {
       ForEach(items, id: \.title) { item in
-        VStack(alignment: .leading) {
-          Text(item.title).foregroundStyle(pack.primaryTextColor)
-          if !item.subtitle.isEmpty { Text(item.subtitle).foregroundStyle(pack.mutedColor) }
+        HStack(alignment: .center, spacing: pack.space3.points) {
+          VStack(alignment: .leading) {
+            Text(item.title).foregroundStyle(pack.primaryTextColor)
+            if !item.subtitle.isEmpty { Text(item.subtitle).foregroundStyle(pack.mutedColor) }
+          }
+          .multilineTextAlignment(.leading)
         }
+        .padding(.vertical, CGFloat(CSListModel.itemPaddingY()))
+        .padding(.horizontal, pack.space3.points)
         .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
+        .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
       }
     }
   }

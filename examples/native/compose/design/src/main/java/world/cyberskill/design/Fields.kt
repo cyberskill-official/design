@@ -25,8 +25,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -654,15 +656,18 @@ fun CsPopover(label: String, open: Boolean, onOpenChange: (Boolean) -> Unit, dar
 }
 
 fun csListGap() = 2.dp
+fun csListItemPaddingY() = 10.dp
 
 @Composable
 fun CsList(items: List<Pair<String, String>>, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
   val pack = csModePack(dark, highContrast, compact)
   Column(modifier, verticalArrangement = Arrangement.spacedBy(csListGap())) {
     items.forEach { item ->
-      Column {
-        Text(item.first, color = pack.colorTextPrimary.toComposeColor())
-        if (item.second.isNotEmpty()) Text(item.second, color = pack.colorTextMuted.toComposeColor())
+      Row(Modifier.fillMaxWidth().clip(RoundedCornerShape(pack.radiusMd.toDp())).padding(horizontal = pack.space3.toDp(), vertical = csListItemPaddingY()), horizontalArrangement = Arrangement.spacedBy(pack.space3.toDp()), verticalAlignment = Alignment.CenterVertically) {
+        Column {
+          Text(item.first, color = pack.colorTextPrimary.toComposeColor())
+          if (item.second.isNotEmpty()) Text(item.second, color = pack.colorTextMuted.toComposeColor())
+        }
       }
     }
   }
