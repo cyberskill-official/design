@@ -224,21 +224,30 @@ public struct CSMenu: View {
             CSMenuModel.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height), placement: place)
           }
         }
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: CGFloat(CSNavigationStyleModel.menuListGap())) {
           ForEach(Array(items.enumerated()), id: \.offset) { index, item in
             CSTriggerButton(item) {
               focus = index
               open = false
               onSelect(item)
             }
+            .font(.system(size: CGFloat(CSNavigationStyleModel.menuItemFontSize(pack))))
+            .padding(.horizontal, CGFloat(CSNavigationStyleModel.menuItemPaddingX()))
+            .padding(.vertical, CGFloat(CSNavigationStyleModel.menuItemPaddingY()))
             .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
             .foregroundStyle(focus == index ? pack.colorBrandOchre.color : pack.primaryTextColor)
             .accessibilityAddTraits(focus == index ? .isSelected : [])
           }
         }
+        .padding(CGFloat(CSNavigationStyleModel.menuListPadding()))
+        .background(pack.colorSurfacePanel.color)
+        .overlay(
+          RoundedRectangle(cornerRadius: pack.radiusMd.points)
+            .stroke(pack.colorBorderDefault.color, lineWidth: CGFloat(CSNavigationStyleModel.menuListBorderWidth()))
+        )
         .accessibilityElement(children: .contain)
         .accessibilityLabel(menuName)
-        .frame(maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
+        .frame(minWidth: CGFloat(CSNavigationStyleModel.menuListMinWidth()), maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
         .background(GeometryReader { geo in
           let frame = geo.frame(in: .global)
           let scaleX = geo.size.width > 0 ? frame.width / geo.size.width : 1
@@ -370,12 +379,13 @@ public struct CSMenubar: View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let place = CSMenubarModel.placement(placement)
     VStack(alignment: .leading, spacing: 0) {
-      HStack(spacing: 0) {
+      HStack(spacing: CGFloat(CSControlsBatchStyleModel.menubarGap())) {
         ForEach(Array(menus.enumerated()), id: \.offset) { index, menu in
           CSTriggerButton(menu.label) {
             state.open = CSMenubarModel.click(open: state.open, index: index)
             state.top = index
           }
+          .font(.system(size: CGFloat(CSControlsBatchStyleModel.menubarTopFontSize()), weight: .semibold))
           .onHover { inside in
             guard inside else { return }
             state.open = CSMenubarModel.hover(open: state.open, index: index)
@@ -388,6 +398,7 @@ public struct CSMenubar: View {
           .accessibilityAddTraits(state.open == index ? .isSelected : [])
         }
       }
+      .padding(CGFloat(CSControlsBatchStyleModel.menubarPadding()))
       if let open = state.open, menus.indices.contains(open) {
         let anchor = anchors[open] ?? .zero
         let screen = CSContextMenuModel.screenSize()
@@ -398,22 +409,36 @@ public struct CSMenubar: View {
             CSMenubarModel.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height), placement: place)
           }
         }
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: CGFloat(CSNavigationStyleModel.menuListGap())) {
           ForEach(Array(menus[open].items.enumerated()), id: \.offset) { index, item in
             if CSMenubarModel.isSeparator(item) {
-              Rectangle().fill(pack.borderColor).frame(height: 1).accessibilityHidden(true)
+              Rectangle()
+                .fill(pack.borderColor)
+                .frame(height: CGFloat(CSNavigationStyleModel.menuSeparatorHeight()))
+                .padding(.vertical, CGFloat(CSNavigationStyleModel.menuSeparatorMarginY()))
+                .padding(.horizontal, CGFloat(CSNavigationStyleModel.menuSeparatorMarginX()))
+                .accessibilityHidden(true)
             } else {
               let actionIndex = CSMenubarModel.actionable(Array(menus[open].items.prefix(index + 1))).count - 1
               CSTriggerButton(item) {
                 onSelect(item)
                 state.open = nil
               }
+              .font(.system(size: CGFloat(CSNavigationStyleModel.menuItemFontSize(pack))))
+              .padding(.horizontal, CGFloat(CSNavigationStyleModel.menuItemPaddingX()))
+              .padding(.vertical, CGFloat(CSNavigationStyleModel.menuItemPaddingY()))
               .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
               .foregroundStyle(state.item == actionIndex ? pack.colorBrandOchre.color : pack.primaryTextColor)
             }
           }
         }
-        .frame(maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
+        .padding(CGFloat(CSNavigationStyleModel.menuListPadding()))
+        .background(pack.colorSurfacePanel.color)
+        .overlay(
+          RoundedRectangle(cornerRadius: pack.radiusMd.points)
+            .stroke(pack.colorBorderDefault.color, lineWidth: CGFloat(CSNavigationStyleModel.menuListBorderWidth()))
+        )
+        .frame(minWidth: CGFloat(CSNavigationStyleModel.menuListMinWidth()), maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
         .background(GeometryReader { geo in
           let frame = geo.frame(in: .global)
           let scaleX = geo.size.width > 0 ? frame.width / geo.size.width : 1
@@ -558,7 +583,7 @@ public struct CSBackTop: View {
         if isFocused { CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true }) }
       }
       .onDisappear { CSFocusRegistry.shared.disconnect(id: focusId) }
-      .frame(width: CSBackTopModel.size, height: CSBackTopModel.size)
+      .frame(width: CGFloat(CSControlsBatchStyleModel.backTopSize()), height: CGFloat(CSControlsBatchStyleModel.backTopSize()))
       .background(pack.colorSurfacePanel.color)
       .clipShape(Circle())
       .overlay(Circle().stroke(pack.borderColor, lineWidth: 1))
@@ -645,7 +670,7 @@ public struct CSFab: View {
             CSFabModel.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.minY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height), placement: place)
           }
         }
-        VStack(spacing: CSFabModel.dialGap) { dial(pack: pack) }
+        VStack(spacing: CGFloat(CSControlsWaveStyleModel.fabDialGap())) { dial(pack: pack) }
           .frame(maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .trailing)
           .background(GeometryReader { geo in
             let frame = geo.frame(in: .global)
@@ -660,7 +685,7 @@ public struct CSFab: View {
       CSTriggerButton(label) {
         if let next = CSFabModel.nextOpen(actionCount: actions.count, open: open) { open = next } else { onPress() }
       }
-      .frame(width: CSFabModel.mainSize, height: CSFabModel.mainSize)
+      .frame(width: CGFloat(CSControlsWaveStyleModel.fabMainSize()), height: CGFloat(CSControlsWaveStyleModel.fabMainSize()))
       .background(GeometryReader { geo in
         Color.clear.preference(key: CSFabAnchorKey.self, value: geo.frame(in: .global))
       })
@@ -699,7 +724,7 @@ public struct CSFab: View {
   private func dial(pack: CSTokenModePack) -> some View {
     ForEach(Array(actions.enumerated()), id: \.offset) { _, action in
       CSTriggerButton(action) { open = false }
-        .frame(width: CSFabModel.miniSize, height: CSFabModel.miniSize)
+        .frame(width: CGFloat(CSControlsWaveStyleModel.fabMiniSize()), height: CGFloat(CSControlsWaveStyleModel.fabMiniSize()))
         .foregroundStyle(pack.primaryTextColor)
         .background(pack.colorSurfacePanel.color)
         .clipShape(Circle())
@@ -824,9 +849,14 @@ public struct CSAIDisclosure: View {
     let spoken = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
     let badge = CSAIDisclosureModel.label(label, fallback: CSAIDisclosureModel.copy("label", language: spoken))
     let explanation = CSAIDisclosureModel.details(details, fallback: CSAIDisclosureModel.copy("details", language: spoken))
-    VStack(alignment: .leading, spacing: 8) {
+    VStack(alignment: .leading, spacing: CGFloat(CSAIDisclosureStyleModel.panelTopOffset())) {
       CSTriggerButton(badge) { open = CSAIDisclosureModel.toggle(open: open) }
+        .font(.system(size: CGFloat(CSAIDisclosureStyleModel.badgeFontSize()), weight: .bold))
+        .padding(.horizontal, CGFloat(CSAIDisclosureStyleModel.badgePaddingX()))
+        .padding(.vertical, CGFloat(CSAIDisclosureStyleModel.badgePaddingY()))
         .frame(minHeight: pack.componentButtonMdMinHeight.points)
+        .background(pack.colorSurfaceRaised.color)
+        .clipShape(RoundedRectangle(cornerRadius: CGFloat(CSAIDisclosureStyleModel.badgeRadius())))
         .accessibilityValue(Text(open ? expandedLabel : collapsedLabel))
         .background(GeometryReader { geo in
           Color.clear.preference(key: CSAIDisclosureAnchorKey.self, value: geo.frame(in: .global))
@@ -841,13 +871,21 @@ public struct CSAIDisclosure: View {
             CSAIDisclosureModel.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height), placement: place)
           }
         }
-        VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: CGFloat(CSAIDisclosureStyleModel.panelGap())) {
           Text(explanation).foregroundStyle(pack.primaryTextColor)
           if let line = CSAIDisclosureModel.sourceLine(sources: sources.map { Optional($0) }, prefix: CSAIDisclosureModel.copy("sources", language: spoken)) {
-            Text(line).foregroundStyle(pack.mutedColor)
+            Text(line)
+              .font(.system(size: CGFloat(CSAIDisclosureStyleModel.sourcesFontSize())))
+              .foregroundStyle(pack.mutedColor)
           }
         }
-        .frame(maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
+        .padding(CGFloat(CSAIDisclosureStyleModel.panelPadding()))
+        .frame(minWidth: CGFloat(CSAIDisclosureStyleModel.panelMinWidth()), maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
+        .background(pack.colorSurfacePanel.color)
+        .overlay(
+          RoundedRectangle(cornerRadius: pack.radiusMd.points)
+            .stroke(pack.colorBorderDefault.color.opacity(CSAIDisclosureStyleModel.panelBorderAlpha), lineWidth: CGFloat(CSAIDisclosureStyleModel.panelBorderWidth()))
+        )
         .background(GeometryReader { geo in
           let frame = geo.frame(in: .global)
           let scaleX = geo.size.width > 0 ? frame.width / geo.size.width : 1
@@ -921,17 +959,25 @@ public enum CSAspectRatioModel {
 public struct CSAspectRatio<Content: View>: View {
   public let ratio: String
   public let width: CGFloat
+  let dark: Bool
+  let highContrast: Bool
+  let compact: Bool
   let content: () -> Content
 
-  public init(ratio: String = "16 / 9", width: CGFloat, @ViewBuilder content: @escaping () -> Content) {
+  public init(ratio: String = "16 / 9", width: CGFloat, dark: Bool = false, highContrast: Bool = false, compact: Bool = false, @ViewBuilder content: @escaping () -> Content) {
     self.ratio = ratio
     self.width = width
+    self.dark = dark
+    self.highContrast = highContrast
+    self.compact = compact
     self.content = content
   }
 
   public var body: some View {
+    let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     content()
       .frame(width: width, height: CGFloat(CSAspectRatioModel.height(ratio: ratio, width: Double(width)) ?? Double(width)))
+      .clipShape(RoundedRectangle(cornerRadius: CGFloat(CSDataStyleModel.aspectRatioRadius(pack))))
   }
 }
 

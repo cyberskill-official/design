@@ -1166,24 +1166,27 @@ public struct CSDivider: View {
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let spoken = CSDividerModel.text(label)
+    let ruleThickness = CGFloat(CSDividerModel.thickness())
     if CSDividerModel.showsLabel(label) {
-      HStack(spacing: 12) {
-        Rectangle().fill(pack.colorBorderDefault.color).frame(height: 1)
-        Text(spoken).font(.footnote).foregroundStyle(pack.mutedColor)
-        Rectangle().fill(pack.colorBorderDefault.color).frame(height: 1)
+      HStack(spacing: CGFloat(CSDividerModel.labelGap())) {
+        Rectangle().fill(pack.colorBorderDefault.color).frame(height: ruleThickness)
+        Text(spoken).font(.system(size: CGFloat(CSDividerModel.labelFontSize(pack)))).foregroundStyle(pack.mutedColor)
+        Rectangle().fill(pack.colorBorderDefault.color).frame(height: ruleThickness)
       }
+      .padding(.vertical, CGFloat(CSDividerModel.margin(pack)))
       .accessibilityElement(children: .ignore)
       .accessibilityLabel(spoken)
     } else if vertical {
       Rectangle()
         .fill(pack.colorBorderDefault.color)
-        .frame(width: 1, height: 16)
+        .frame(width: ruleThickness, height: CGFloat(CSDividerModel.margin(pack)))
         .accessibilityLabel(CSDividerModel.orientation(vertical: true))
     } else {
       Rectangle()
         .fill(pack.colorBorderDefault.color)
         .frame(maxWidth: .infinity)
-        .frame(height: 1)
+        .frame(height: ruleThickness)
+        .padding(.vertical, CGFloat(CSDividerModel.margin(pack)))
         .accessibilityLabel(CSDividerModel.orientation(vertical: false))
     }
   }
@@ -1298,10 +1301,17 @@ public struct CSSelect<Selection: Hashable, Content: View>: View {
     let spoken = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
     let prompt = CSSelectModel.copy("placeholder", language: spoken)
     let shown = CSSelectModel.shownText(value: value, placeholder: placeholder, fallback: prompt, hasContent: true)
-    VStack(alignment: .leading, spacing: 4) {
-      if CSPresenceValue.text(label).shown { Text(label).foregroundStyle(pack.primaryTextColor) }
+    let invalid = CSSelectModel.isAlert(errorText)
+    VStack(alignment: .leading, spacing: CGFloat(CSTextFieldModel.gap())) {
+      if CSPresenceValue.text(label).shown {
+        Text(label)
+          .font(.system(size: pack.fontSizeBase.points, weight: .bold))
+          .foregroundStyle(pack.primaryTextColor)
+      }
       if let descriptionText, CSPresenceValue.text(descriptionText).shown {
-        Text(descriptionText).foregroundStyle(pack.mutedColor)
+        Text(descriptionText)
+          .font(.system(size: CGFloat(CSTextFieldModel.descriptionFontSize())))
+          .foregroundStyle(pack.mutedColor)
       }
       Menu {
         Picker(label, selection: Binding(get: { selection }, set: { next in
@@ -1312,14 +1322,30 @@ public struct CSSelect<Selection: Hashable, Content: View>: View {
       } label: {
         HStack {
           Text(shown)
+            .font(.system(size: CGFloat(CSSelectModel.nativeSelectFontSize(pack: pack))))
             .foregroundStyle(pack.colorTextPrimary.color)
             .frame(maxWidth: .infinity, alignment: .leading)
           CSIcon(name: "chevron-down", label: "", dark: dark, highContrast: highContrast, compact: compact)
+            .padding(.trailing, CGFloat(CSSelectModel.chevronInsetInlineEnd()))
             .accessibilityHidden(true)
             .allowsHitTesting(false)
         }
+        .padding(.leading, CGFloat(CSTextFieldModel.paddingX(pack)))
+        .padding(.trailing, CGFloat(CSSelectModel.controlPaddingInlineEnd()))
+        .padding(.vertical, CGFloat(CSSelectModel.nativeSelectPaddingY(pack: pack)))
+        .frame(minHeight: CGFloat(CSSelectModel.nativeSelectMinHeight()))
+        .background(pack.colorSurfacePanel.color)
+        .overlay(
+          RoundedRectangle(cornerRadius: CGFloat(CSTextFieldModel.radius(pack)))
+            .stroke(CSTextFieldModel.borderColor(invalid: invalid, pack: pack).color, lineWidth: CGFloat(CSTextFieldModel.borderWidth()))
+        )
+        .overlay(
+          RoundedRectangle(cornerRadius: CGFloat(CSTextFieldModel.radius(pack)))
+            .stroke(pack.colorBrandOchre.color, lineWidth: CGFloat(CSSelectModel.focusOutlineWidth(focused: focused)))
+        )
       }
       .disabled(disabled)
+      .opacity(CSTextFieldModel.opacity(disabled: disabled))
       .accessibilityLabel(CSPresenceValue.text(label).shown ? label : "")
       .accessibilityValue(shown)
       .focused($focused)
@@ -1329,8 +1355,11 @@ public struct CSSelect<Selection: Hashable, Content: View>: View {
       .simultaneousGesture(TapGesture().onEnded {
         if !disabled { CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true }) }
       })
-      if let errorText, CSSelectModel.isAlert(errorText) {
-        Text(errorText).foregroundStyle(pack.colorSemanticDangerText.color).accessibilityAddTraits(.updatesFrequently)
+      if let errorText, invalid {
+        Text(errorText)
+          .font(.system(size: CGFloat(CSTextFieldModel.errorFontSize())))
+          .foregroundStyle(pack.colorSemanticDangerText.color)
+          .accessibilityAddTraits(.updatesFrequently)
       }
     }
   }
@@ -1703,15 +1732,15 @@ public struct CSDialog: View {
     if open {
       ZStack {
         if canClose {
-          Color.black.opacity(0.42)
+          Color(.sRGB, red: Double(CSDialogModel.overlayRed) / 255.0, green: Double(CSDialogModel.overlayGreen) / 255.0, blue: Double(CSDialogModel.overlayBlue) / 255.0, opacity: CSDialogModel.overlayAlpha)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .contentShape(Rectangle())
             .onTapGesture(perform: close)
             .accessibilityHidden(true)
         }
-        VStack(alignment: .leading, spacing: 12) {
-          HStack {
-            Text(title).font(.system(size: 20, weight: .bold)).foregroundStyle(pack.colorTextPrimary.color)
+        VStack(alignment: .leading, spacing: CGFloat(CSDialogModel.headerGap())) {
+          HStack(spacing: CGFloat(CSDialogModel.headerGap())) {
+            Text(title).font(.system(size: CGFloat(CSDialogModel.titleFontSize()), weight: .bold)).foregroundStyle(pack.colorTextPrimary.color)
             Spacer()
             if canClose {
               Button(action: {
@@ -1719,21 +1748,23 @@ public struct CSDialog: View {
                 close()
               }) {
                 CSIcon(name: "close", label: "", dark: dark, highContrast: highContrast, compact: compact)
-                  .frame(minWidth: 44, minHeight: 44)
+                  .frame(minWidth: CGFloat(CSA11yModel.touchTargetMinSize(coarse: true)), minHeight: CGFloat(CSA11yModel.touchTargetMinSize(coarse: true)))
               }
               .accessibilityLabel(CSDialogModel.closeText(closeLabel, fallback: CSDialogModel.copy("close", language: spoken)))
               .focused($trap, equals: 0)
             }
           }
           if !message.isEmpty {
-            Text(message).foregroundStyle(pack.colorTextMuted.color)
+            Text(message)
+              .padding(.vertical, CGFloat(CSDialogModel.bodyMarginY()))
+              .foregroundStyle(pack.colorTextMuted.color)
           }
           if CSDialogModel.showsActions(confirmTitle) {
             CSButton(title: confirmTitle, dark: dark, highContrast: highContrast, compact: compact, action: onConfirm)
               .focused($trap, equals: canClose ? 1 : 0)
           }
         }
-        .padding(24)
+        .padding(CGFloat(CSDialogModel.padding(pack)))
         .frame(maxWidth: CSDialogModel.maxWidth())
         .background(pack.colorSurfacePanel.color)
         .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))

@@ -1374,25 +1374,33 @@ class CsDivider extends StatelessWidget {
       compact: compact,
     );
     final ink = csColor(pack.colorBorderDefault);
+    final ruleThickness = csDividerThickness();
+    final ruleMargin = csDividerMargin(pack);
     if (csDividerShowsLabel(label, zero: zero)) {
       return Semantics(
         label: csDividerText(label, zero: zero),
-        child: Row(children: [
-          Expanded(child: SizedBox(height: 1, child: ColoredBox(color: ink))),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Text(csDividerText(label, zero: zero), style: TextStyle(color: csColor(pack.colorTextMuted))),
-          ),
-          Expanded(child: SizedBox(height: 1, child: ColoredBox(color: ink))),
-        ]),
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: ruleMargin),
+          child: Row(children: [
+            Expanded(child: SizedBox(height: ruleThickness, child: ColoredBox(color: ink))),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: csDividerLabelGap()),
+              child: Text(csDividerText(label, zero: zero), style: TextStyle(fontSize: csDividerLabelFontSize(pack), color: csColor(pack.colorTextMuted))),
+            ),
+            Expanded(child: SizedBox(height: ruleThickness, child: ColoredBox(color: ink))),
+          ]),
+        ),
       );
     }
     return Semantics(
       label: csDividerOrientation(vertical),
-      child: SizedBox(
-        width: vertical ? 1 : double.infinity,
-        height: vertical ? 16 : 1,
-        child: ColoredBox(color: ink),
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: vertical ? 0 : ruleMargin),
+        child: SizedBox(
+          width: vertical ? ruleThickness : double.infinity,
+          height: vertical ? ruleMargin : ruleThickness,
+          child: ColoredBox(color: ink),
+        ),
       ),
     );
   }
@@ -1545,29 +1553,60 @@ class CsSelect<T> extends StatelessWidget {
       compact: compact,
     );
     final prompt = csSelectCopy('placeholder', csSelectResolvedLanguage(language, CsLanguageScope.of(context)));
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      if (description != null && description!.isNotEmpty) Text(description!, style: TextStyle(color: csColor(pack.colorTextMuted))),
-      CsOwnFocus(builder: (node, claim) => DropdownButtonFormField<T>(
-        focusNode: node,
-        value: value,
-        isExpanded: true,
-        isDense: false,
-        itemHeight: null,
-        decoration: InputDecoration(
-          labelText: label,
-          labelStyle: TextStyle(color: csColor(pack.colorTextPrimary)),
-          hintText: csSelectShownText('', placeholder, prompt, items.isNotEmpty),
+    final invalid = csSelectAlert(error);
+    return Opacity(
+      opacity: csTextFieldOpacity(disabled),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        if (description != null && description!.isNotEmpty) ...[
+          Text(description!, style: TextStyle(fontSize: csTextFieldDescriptionFontSize(), color: csColor(pack.colorTextMuted))),
+          SizedBox(height: csTextFieldGap()),
+        ],
+        ConstrainedBox(
+          constraints: BoxConstraints(minHeight: csSelectNativeSelectMinHeight()),
+          child: CsOwnFocus(builder: (node, claim) => DropdownButtonFormField<T>(
+            focusNode: node,
+            value: value,
+            isExpanded: true,
+            isDense: false,
+            itemHeight: null,
+            style: TextStyle(fontSize: csSelectNativeSelectFontSize(pack), color: csColor(pack.colorTextPrimary)),
+            decoration: InputDecoration(
+              labelText: label,
+              labelStyle: TextStyle(color: csColor(pack.colorTextPrimary), fontWeight: FontWeight.w700),
+              hintText: csSelectShownText('', placeholder, prompt, items.isNotEmpty),
+              contentPadding: EdgeInsets.only(
+                left: csTextFieldPaddingX(pack),
+                right: csSelectControlPaddingInlineEnd(),
+                top: csSelectNativeSelectPaddingY(pack),
+                bottom: csSelectNativeSelectPaddingY(pack),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(csTextFieldRadius(pack)),
+                borderSide: BorderSide(color: csColor(csTextFieldBorderColor(invalid, pack)), width: csTextFieldBorderWidth()),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(csTextFieldRadius(pack)),
+                borderSide: BorderSide(color: csColor(pack.colorBrandOchre), width: csSelectFocusOutlineWidth(true)),
+              ),
+            ),
+            icon: Padding(
+              padding: EdgeInsets.only(right: csSelectChevronInsetInlineEnd()),
+              child: ExcludeSemantics(child: IgnorePointer(child: CsIcon(name: 'chevron-down', label: '', dark: dark, highContrast: highContrast, compact: compact))),
+            ),
+            items: items,
+            onTap: disabled ? null : claim,
+            onChanged: disabled ? null : (next) {
+              claim();
+              onChanged(next);
+            },
+          )),
         ),
-        icon: ExcludeSemantics(child: IgnorePointer(child: CsIcon(name: 'chevron-down', label: '', dark: dark, highContrast: highContrast, compact: compact))),
-        items: items,
-        onTap: disabled ? null : claim,
-        onChanged: disabled ? null : (next) {
-          claim();
-          onChanged(next);
-        },
-      )),
-      if (csSelectAlert(error)) Semantics(liveRegion: true, child: Text(error!, style: TextStyle(color: csColor(pack.colorSemanticDangerText)))),
-    ]);
+        if (invalid) ...[
+          SizedBox(height: csTextFieldGap()),
+          Semantics(liveRegion: true, child: Text(error!, style: TextStyle(fontSize: csTextFieldErrorFontSize(), color: csColor(pack.colorSemanticDangerText)))),
+        ],
+      ]),
+    );
   }
 }
 
@@ -1911,7 +1950,7 @@ class _CsDialogState extends State<CsDialog> {
         color: csColor(pack.colorSurfacePanel),
         borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
         child: Padding(
-          padding: const EdgeInsets.all(24),
+          padding: EdgeInsets.all(csDialogPadding(pack)),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1919,18 +1958,22 @@ class _CsDialogState extends State<CsDialog> {
               Row(children: [
                 Expanded(child: Text(widget.title,
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: csDialogTitleFontSize(),
                         fontWeight: FontWeight.w700,
                         color: csColor(pack.colorTextPrimary)))),
+                SizedBox(width: csDialogHeaderGap()),
                 if (csDialogShowsClose(widget.onOpenChange != null, widget.onClose != null)) IconButton(
                   tooltip: csDialogCloseText(widget.closeLabel, csDialogCopy('close', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context)))),
                   onPressed: () { widget.onOpenChange?.call(false); widget.onClose?.call(); },
                   icon: ExcludeSemantics(child: CsIcon(name: 'close', label: '', dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact)),
                 ),
               ]),
-              const SizedBox(height: 8),
-              if (widget.message.isNotEmpty) Text(widget.message, style: TextStyle(color: csColor(pack.colorTextMuted))),
-              const SizedBox(height: 12),
+              SizedBox(height: csDialogHeaderGap()),
+              if (widget.message.isNotEmpty) Padding(
+                padding: EdgeInsets.symmetric(vertical: csDialogBodyMarginY()),
+                child: Text(widget.message, style: TextStyle(color: csColor(pack.colorTextMuted))),
+              ),
+              SizedBox(height: csDialogHeaderGap()),
               if (csDialogShowsActions(widget.confirmTitle)) Focus(
                 focusNode: confirmNode,
                 child: CsButton(

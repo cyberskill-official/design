@@ -2,18 +2,26 @@ package world.cyberskill.design
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.minimumInteractiveComponentSize
@@ -247,21 +255,31 @@ fun CsMenu(
       Text(label, color = pack.colorTextPrimary.toComposeColor())
     }
     if (open) {
-      Column(Modifier.onGloballyPositioned {
-        val bounds = it.boundsInWindow()
-        val width = it.size.width.toDouble()
-        val height = it.size.height.toDouble()
-        if (width <= 0.0 || height <= 0.0) return@onGloballyPositioned
-        val nextOrigin = bounds.left.toDouble() to bounds.top.toDouble()
-        val nextScale = (bounds.width / width) to (bounds.height / height)
-        val nextSize = width to height
-        if (origin != nextOrigin) origin = nextOrigin
-        if (panelScale != nextScale) panelScale = nextScale
-        if (natural == null) natural = nextSize else if (fitted != nextSize) fitted = nextSize
-      }.offset(x = with(density) { (place?.x ?: 0.0).toFloat().toDp() }, y = with(density) { (place?.y ?: 0.0).toFloat().toDp() }).widthIn(max = with(density) { (place?.maxWidth ?: viewWidth).toFloat().toDp() }).semantics { contentDescription = menuName }) {
+      val menuShape = RoundedCornerShape(pack.radiusMd.toDp())
+      Column(
+        Modifier.onGloballyPositioned {
+          val bounds = it.boundsInWindow()
+          val width = it.size.width.toDouble()
+          val height = it.size.height.toDouble()
+          if (width <= 0.0 || height <= 0.0) return@onGloballyPositioned
+          val nextOrigin = bounds.left.toDouble() to bounds.top.toDouble()
+          val nextScale = (bounds.width / width) to (bounds.height / height)
+          val nextSize = width to height
+          if (origin != nextOrigin) origin = nextOrigin
+          if (panelScale != nextScale) panelScale = nextScale
+          if (natural == null) natural = nextSize else if (fitted != nextSize) fitted = nextSize
+        }
+          .offset(x = with(density) { (place?.x ?: 0.0).toFloat().toDp() }, y = with(density) { (place?.y ?: 0.0).toFloat().toDp() })
+          .widthIn(min = csNavigationStyleMenuListMinWidth(), max = with(density) { (place?.maxWidth ?: viewWidth).toFloat().toDp() })
+          .background(pack.colorSurfacePanel.toComposeColor(), menuShape)
+          .border(csNavigationStyleMenuListBorderWidth(), pack.colorBorderDefault.toComposeColor(), menuShape)
+          .padding(csNavigationStyleMenuListPadding())
+          .semantics { contentDescription = menuName },
+        verticalArrangement = Arrangement.spacedBy(csNavigationStyleMenuListGap()),
+      ) {
         items.forEachIndexed { index, item ->
-          CsTriggerButton(title = item, onClick = { focus = index; onOpenChange(false); onSelect(item) }, modifier = Modifier.fillMaxWidth().minimumInteractiveComponentSize()) {
-            Text(item, color = if (focus == index) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor())
+          CsTriggerButton(title = item, onClick = { focus = index; onOpenChange(false); onSelect(item) }, modifier = Modifier.fillMaxWidth().minimumInteractiveComponentSize().padding(horizontal = csNavigationStyleMenuItemPaddingX(), vertical = csNavigationStyleMenuItemPaddingY())) {
+            Text(item, color = if (focus == index) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor(), fontSize = csNavigationStyleMenuItemFontSize(pack).value.sp)
           }
         }
       }
@@ -323,7 +341,10 @@ fun CsMenubar(
     state = CsMenubarState(menu, menu, moved)
     true
   }) {
-    androidx.compose.foundation.layout.Row {
+    androidx.compose.foundation.layout.Row(
+      modifier = Modifier.padding(csControlsBatchStyleMenubarPadding()),
+      horizontalArrangement = Arrangement.spacedBy(csControlsBatchStyleMenubarGap()),
+    ) {
       menus.forEachIndexed { index, menu ->
         CsTriggerButton(title = menu.label, onClick = {
           state = CsMenubarState(index, if (state.open == index) null else index, 0)
@@ -333,27 +354,41 @@ fun CsMenubar(
             field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
           }
         }) {
-          Text(menu.label, color = if (state.top == index) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor())
+          Text(menu.label, color = if (state.top == index) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor(), fontSize = csControlsBatchStyleMenubarTopFontSize.sp, fontWeight = FontWeight.SemiBold)
         }
       }
     }
     val open = state.open
     if (open != null && menus.indices.contains(open)) {
-      Column(Modifier.onGloballyPositioned {
-        val bounds = it.boundsInWindow()
-        val width = it.size.width.toDouble()
-        val height = it.size.height.toDouble()
-        if (width <= 0.0 || height <= 0.0) return@onGloballyPositioned
-        val nextOrigin = bounds.left.toDouble() to bounds.top.toDouble()
-        val nextScale = (bounds.width / width) to (bounds.height / height)
-        val nextSize = width to height
-        if (origin != nextOrigin) origin = nextOrigin
-        if (panelScale != nextScale) panelScale = nextScale
-        if (natural == null) natural = nextSize else if (fitted != nextSize) fitted = nextSize
-      }.offset(x = with(density) { (place?.x ?: 0.0).toFloat().toDp() }, y = with(density) { (place?.y ?: 0.0).toFloat().toDp() }).alpha(if (place == null) 0f else 1f)) {
+      val menuShape = RoundedCornerShape(pack.radiusMd.toDp())
+      Column(
+        Modifier.onGloballyPositioned {
+          val bounds = it.boundsInWindow()
+          val width = it.size.width.toDouble()
+          val height = it.size.height.toDouble()
+          if (width <= 0.0 || height <= 0.0) return@onGloballyPositioned
+          val nextOrigin = bounds.left.toDouble() to bounds.top.toDouble()
+          val nextScale = (bounds.width / width) to (bounds.height / height)
+          val nextSize = width to height
+          if (origin != nextOrigin) origin = nextOrigin
+          if (panelScale != nextScale) panelScale = nextScale
+          if (natural == null) natural = nextSize else if (fitted != nextSize) fitted = nextSize
+        }
+          .offset(x = with(density) { (place?.x ?: 0.0).toFloat().toDp() }, y = with(density) { (place?.y ?: 0.0).toFloat().toDp() })
+          .widthIn(min = csNavigationStyleMenuListMinWidth())
+          .background(pack.colorSurfacePanel.toComposeColor(), menuShape)
+          .border(csNavigationStyleMenuListBorderWidth(), pack.colorBorderDefault.toComposeColor(), menuShape)
+          .padding(csNavigationStyleMenuListPadding())
+          .alpha(if (place == null) 0f else 1f),
+        verticalArrangement = Arrangement.spacedBy(csNavigationStyleMenuListGap()),
+      ) {
         menus[open].items.forEachIndexed { index, item ->
-          CsTriggerButton(title = item, onClick = { onSelect(item); state = state.copy(open = null) }, modifier = Modifier.fillMaxWidth().minimumInteractiveComponentSize()) {
-            Text(item, color = if (state.item == index) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor())
+          if (item == "-") {
+            Box(Modifier.fillMaxWidth().padding(horizontal = csNavigationStyleMenuSeparatorMarginX(), vertical = csNavigationStyleMenuSeparatorMarginY()).height(csNavigationStyleMenuSeparatorHeight()).background(pack.colorBorderDefault.toComposeColor()))
+          } else {
+            CsTriggerButton(title = item, onClick = { onSelect(item); state = state.copy(open = null) }, modifier = Modifier.fillMaxWidth().minimumInteractiveComponentSize().padding(horizontal = csNavigationStyleMenuItemPaddingX(), vertical = csNavigationStyleMenuItemPaddingY())) {
+              Text(item, color = if (state.item == index) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor(), fontSize = csNavigationStyleMenuItemFontSize(pack).value.sp)
+            }
           }
         }
       }
@@ -366,7 +401,7 @@ fun CsBackTop(offset: Double, onPress: () -> Unit, dark: Boolean, highContrast: 
   val pack = csModePack(dark, highContrast, compact)
   val name = csBackTopLabelText(label, csBackTopCopy("label", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
   if (csBackTopVisible(offset, threshold)) {
-    CsTriggerButton(title = name, onClick = onPress, modifier = modifier.minimumInteractiveComponentSize().background(pack.colorBrandUmber.toComposeColor()).semantics { contentDescription = name }) {
+    CsTriggerButton(title = name, onClick = onPress, modifier = modifier.size(csControlsBatchStyleBackTopSize()).minimumInteractiveComponentSize().background(pack.colorBrandUmber.toComposeColor()).semantics { contentDescription = name }) {
       Text(name, color = pack.colorSemanticInfoFg.toComposeColor(), modifier = Modifier.clearAndSetSemantics { })
     }
   }
@@ -393,21 +428,24 @@ fun CsFab(label: String, actions: List<String>, onPress: () -> Unit, dark: Boole
   }
   if (!open && natural != null) { natural = null; fitted = null }
   Column(modifier) {
-    if (open && actions.isNotEmpty()) Column(Modifier.onGloballyPositioned {
-      val bounds = it.boundsInWindow()
-      val width = it.size.width.toDouble()
-      val height = it.size.height.toDouble()
-      if (width <= 0.0 || height <= 0.0) return@onGloballyPositioned
-      val nextOrigin = bounds.left.toDouble() to bounds.top.toDouble()
-      val nextScale = (bounds.width / width) to (bounds.height / height)
-      val nextSize = width to height
-      if (origin != nextOrigin) origin = nextOrigin
-      if (panelScale != nextScale) panelScale = nextScale
-      if (natural == null) natural = nextSize else if (fitted != nextSize) fitted = nextSize
-    }.offset(x = with(density) { (place?.x ?: 0.0).toFloat().toDp() }, y = with(density) { (place?.y ?: 0.0).toFloat().toDp() }).alpha(if (place == null) 0f else 1f)) {
-      actions.forEach { action -> CsTriggerButton(title = action, onClick = { open = false }, modifier = Modifier.minimumInteractiveComponentSize()) { Text(action) } }
+    if (open && actions.isNotEmpty()) Column(
+      Modifier.onGloballyPositioned {
+        val bounds = it.boundsInWindow()
+        val width = it.size.width.toDouble()
+        val height = it.size.height.toDouble()
+        if (width <= 0.0 || height <= 0.0) return@onGloballyPositioned
+        val nextOrigin = bounds.left.toDouble() to bounds.top.toDouble()
+        val nextScale = (bounds.width / width) to (bounds.height / height)
+        val nextSize = width to height
+        if (origin != nextOrigin) origin = nextOrigin
+        if (panelScale != nextScale) panelScale = nextScale
+        if (natural == null) natural = nextSize else if (fitted != nextSize) fitted = nextSize
+      }.offset(x = with(density) { (place?.x ?: 0.0).toFloat().toDp() }, y = with(density) { (place?.y ?: 0.0).toFloat().toDp() }).alpha(if (place == null) 0f else 1f),
+      verticalArrangement = Arrangement.spacedBy(csControlsWaveStyleFabDialGap()),
+    ) {
+      actions.forEach { action -> CsTriggerButton(title = action, onClick = { open = false }, modifier = Modifier.size(csControlsWaveStyleFabMiniSize()).minimumInteractiveComponentSize()) { Text(action) } }
     }
-    CsTriggerButton(title = label, onClick = { if (actions.isEmpty()) onPress() else open = !open }, modifier = Modifier.minimumInteractiveComponentSize().onGloballyPositioned {
+    CsTriggerButton(title = label, onClick = { if (actions.isEmpty()) onPress() else open = !open }, modifier = Modifier.size(csControlsWaveStyleFabMainSize()).minimumInteractiveComponentSize().onGloballyPositioned {
       val bounds = it.boundsInWindow()
       field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
     }.background(pack.colorBrandUmber.toComposeColor())) {
@@ -473,37 +511,49 @@ fun CsAIDisclosure(sources: List<String>, expandedLabel: String, collapsedLabel:
     if (first == null || second == null) null else csDisclosureShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, csDisclosurePlacementText(null, csDisclosurePlacement))
   }
   if (!open && natural != null) { natural = null; fitted = null }
-  Column(modifier) {
-    CsTriggerButton(title = badge, onClick = { onOpenChange(!open) }, modifier = Modifier.minimumInteractiveComponentSize().onGloballyPositioned {
+  Column(modifier, verticalArrangement = Arrangement.spacedBy(csDisclosureStylePanelTopOffset())) {
+    CsTriggerButton(title = badge, onClick = { onOpenChange(!open) }, modifier = Modifier.minimumInteractiveComponentSize().background(pack.colorSurfaceRaised.toComposeColor(), RoundedCornerShape(csDisclosureStyleBadgeRadius())).padding(horizontal = csDisclosureStyleBadgePaddingX(), vertical = csDisclosureStyleBadgePaddingY()).onGloballyPositioned {
       val bounds = it.boundsInWindow()
       field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
     }.semantics { contentDescription = badge; stateDescription = if (open) expandedLabel else collapsedLabel }) {
-      Text(badge, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.clearAndSetSemantics {})
+      Text(badge, color = pack.colorTextPrimary.toComposeColor(), fontSize = csDisclosureStyleBadgeFontSize(), fontWeight = FontWeight.Bold, modifier = Modifier.clearAndSetSemantics {})
     }
     if (open) {
-      Column(Modifier.onGloballyPositioned {
-        val bounds = it.boundsInWindow()
-        val width = it.size.width.toDouble()
-        val height = it.size.height.toDouble()
-        if (width <= 0.0 || height <= 0.0) return@onGloballyPositioned
-        val nextOrigin = bounds.left.toDouble() to bounds.top.toDouble()
-        val nextScale = (bounds.width / width) to (bounds.height / height)
-        val nextSize = width to height
-        if (origin != nextOrigin) origin = nextOrigin
-        if (panelScale != nextScale) panelScale = nextScale
-        if (natural == null) natural = nextSize else if (fitted != nextSize) fitted = nextSize
-      }.offset(x = with(density) { (place?.x ?: 0.0).toFloat().toDp() }, y = with(density) { (place?.y ?: 0.0).toFloat().toDp() }).alpha(if (place == null) 0f else 1f).semantics { liveRegion = LiveRegionMode.Polite }) {
+      val panelShape = RoundedCornerShape(pack.radiusMd.toDp())
+      Column(
+        Modifier.onGloballyPositioned {
+          val bounds = it.boundsInWindow()
+          val width = it.size.width.toDouble()
+          val height = it.size.height.toDouble()
+          if (width <= 0.0 || height <= 0.0) return@onGloballyPositioned
+          val nextOrigin = bounds.left.toDouble() to bounds.top.toDouble()
+          val nextScale = (bounds.width / width) to (bounds.height / height)
+          val nextSize = width to height
+          if (origin != nextOrigin) origin = nextOrigin
+          if (panelScale != nextScale) panelScale = nextScale
+          if (natural == null) natural = nextSize else if (fitted != nextSize) fitted = nextSize
+        }
+          .offset(x = with(density) { (place?.x ?: 0.0).toFloat().toDp() }, y = with(density) { (place?.y ?: 0.0).toFloat().toDp() })
+          .widthIn(min = csDisclosureStylePanelMinWidth())
+          .background(pack.colorSurfacePanel.toComposeColor(), panelShape)
+          .border(csDisclosureStylePanelBorderWidth(), pack.colorBorderDefault.toComposeColor().copy(alpha = csDisclosureStylePanelBorderAlpha), panelShape)
+          .padding(csDisclosureStylePanelPadding())
+          .alpha(if (place == null) 0f else 1f)
+          .semantics { liveRegion = LiveRegionMode.Polite },
+        verticalArrangement = Arrangement.spacedBy(csDisclosureStylePanelGap()),
+      ) {
         Text(explanation, color = pack.colorTextPrimary.toComposeColor())
-        if (line != null) Text(line, color = pack.colorTextMuted.toComposeColor())
+        if (line != null) Text(line, color = pack.colorTextMuted.toComposeColor(), fontSize = csDisclosureStyleSourcesFontSize())
       }
     }
   }
 }
 
 @Composable
-fun CsAspectRatio(ratio: String, width: Int, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+fun CsAspectRatio(ratio: String, width: Int, modifier: Modifier = Modifier, dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false, content: @Composable () -> Unit) {
+  val pack = csModePack(dark, highContrast, compact)
   val height = csAspectHeight(ratio, width.toDouble()) ?: width.toDouble()
-  Column(modifier.width(width.dp).height(height.dp)) { content() }
+  Column(modifier.width(width.dp).height(height.dp).clip(RoundedCornerShape(csDataStyleAspectRatioRadius(pack)))) { content() }
 }
 
 fun csWatermarkEscape(text: String) = text.replace("&", "&amp;").replace("<", "&lt;")

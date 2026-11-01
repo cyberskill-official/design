@@ -283,19 +283,36 @@ class _CsMenuState extends State<CsMenu> {
             container: true,
             explicitChildNodes: true,
             label: csMenuCopy('menu', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context))),
-            child: Column(key: listKey, crossAxisAlignment: CrossAxisAlignment.start, children: [
-            for (var index = 0; index < widget.items.length; index++)
-              CsOwnFocus(builder: (node, claim) => TextButton(
-                focusNode: node,
-                onPressed: () {
-                  claim();
-                  setState(() => focus = index);
-                  widget.onOpenChange(false);
-                  widget.onSelect(widget.items[index]);
-                },
-                child: Text(widget.items[index], style: TextStyle(color: csColor(focus == index ? pack.colorBrandOchre : pack.colorTextPrimary))),
-              )),
-            ]),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minWidth: csNavigationStyleMenuListMinWidth()),
+              child: Container(
+                key: listKey,
+                padding: EdgeInsets.all(csNavigationStyleMenuListPadding()),
+                decoration: BoxDecoration(
+                  color: csColor(pack.colorSurfacePanel),
+                  borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
+                  border: Border.all(color: csColor(pack.colorBorderDefault), width: csNavigationStyleMenuListBorderWidth()),
+                ),
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  for (var index = 0; index < widget.items.length; index++) ...[
+                    if (index > 0) SizedBox(height: csNavigationStyleMenuListGap()),
+                    CsOwnFocus(builder: (node, claim) => Padding(
+                      padding: EdgeInsets.symmetric(horizontal: csNavigationStyleMenuItemPaddingX(), vertical: csNavigationStyleMenuItemPaddingY()),
+                      child: TextButton(
+                        focusNode: node,
+                        onPressed: () {
+                          claim();
+                          setState(() => focus = index);
+                          widget.onOpenChange(false);
+                          widget.onSelect(widget.items[index]);
+                        },
+                        child: Text(widget.items[index], style: TextStyle(fontSize: csNavigationStyleMenuItemFontSize(pack), color: csColor(focus == index ? pack.colorBrandOchre : pack.colorTextPrimary))),
+                      ),
+                    )),
+                  ],
+                ]),
+              ),
+            ),
           ))),
         ],
       ),
@@ -375,33 +392,60 @@ class _CsMenubarState extends State<CsMenubar> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(children: [
-            for (var index = 0; index < widget.menus.length; index++)
-              CsOwnFocus(builder: (node, claim) => TextButton(
-                key: buttonKey(index),
-                focusNode: node,
-                onPressed: () {
-                  claim();
-                  setState(() => state = CsMenubarState(index, state.open == index ? null : index, 0));
-                },
-                child: Text(widget.menus[index].label, style: TextStyle(color: csColor(state.top == index ? pack.colorBrandOchre : pack.colorTextPrimary))),
-              )),
-          ]),
-          if (open != null)
-            Opacity(opacity: place == null ? 0 : 1, child: Transform.translate(key: listKey, offset: Offset(place?.x ?? 0, place?.y ?? 0), child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                for (var index = 0; index < widget.menus[open].items.length; index++)
-                  CsOwnFocus(builder: (node, claim) => TextButton(
-                    focusNode: node,
-                    onPressed: () {
-                      claim();
-                      widget.onSelect(widget.menus[open].items[index]);
-                      setState(() => state = CsMenubarState(state.top, null, state.item));
-                    },
-                    child: Text(widget.menus[open].items[index]),
-                  )),
+          Padding(
+            padding: EdgeInsets.all(csControlsBatchStyleMenubarPadding()),
+            child: Row(children: [
+              for (var index = 0; index < widget.menus.length; index++) ...[
+                if (index > 0) SizedBox(width: csControlsBatchStyleMenubarGap()),
+                CsOwnFocus(builder: (node, claim) => TextButton(
+                  key: buttonKey(index),
+                  focusNode: node,
+                  onPressed: () {
+                    claim();
+                    setState(() => state = CsMenubarState(index, state.open == index ? null : index, 0));
+                  },
+                  child: Text(widget.menus[index].label, style: TextStyle(fontSize: csControlsBatchStyleMenubarTopFontSize, fontWeight: FontWeight.w600, color: csColor(state.top == index ? pack.colorBrandOchre : pack.colorTextPrimary))),
+                )),
               ],
+            ]),
+          ),
+          if (open != null)
+            Opacity(opacity: place == null ? 0 : 1, child: Transform.translate(key: listKey, offset: Offset(place?.x ?? 0, place?.y ?? 0), child: ConstrainedBox(
+              constraints: BoxConstraints(minWidth: csNavigationStyleMenuListMinWidth()),
+              child: Container(
+                padding: EdgeInsets.all(csNavigationStyleMenuListPadding()),
+                decoration: BoxDecoration(
+                  color: csColor(pack.colorSurfacePanel),
+                  borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
+                  border: Border.all(color: csColor(pack.colorBorderDefault), width: csNavigationStyleMenuListBorderWidth()),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    for (var index = 0; index < widget.menus[open].items.length; index++) ...[
+                      if (index > 0) SizedBox(height: csNavigationStyleMenuListGap()),
+                      if (widget.menus[open].items[index] == '-')
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: csNavigationStyleMenuSeparatorMarginX(), vertical: csNavigationStyleMenuSeparatorMarginY()),
+                          child: SizedBox(height: csNavigationStyleMenuSeparatorHeight(), width: double.infinity, child: ColoredBox(color: csColor(pack.colorBorderDefault))),
+                        )
+                      else
+                        CsOwnFocus(builder: (node, claim) => Padding(
+                          padding: EdgeInsets.symmetric(horizontal: csNavigationStyleMenuItemPaddingX(), vertical: csNavigationStyleMenuItemPaddingY()),
+                          child: TextButton(
+                            focusNode: node,
+                            onPressed: () {
+                              claim();
+                              widget.onSelect(widget.menus[open].items[index]);
+                              setState(() => state = CsMenubarState(state.top, null, state.item));
+                            },
+                            child: Text(widget.menus[open].items[index], style: TextStyle(fontSize: csNavigationStyleMenuItemFontSize(pack))),
+                          ),
+                        )),
+                    ],
+                  ],
+                ),
+              ),
             ))),
         ],
       ),
@@ -425,7 +469,11 @@ class CsBackTop extends StatelessWidget {
     if (!csBackTopVisible(offset, threshold: threshold)) return const SizedBox.shrink();
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
     final name = csBackTopLabelText(label, csBackTopCopy('label', csSelectResolvedLanguage(language, CsLanguageScope.of(context))));
-    return CsOwnFocus(builder: (node, claim) => Semantics(label: name, button: true, child: TextButton(focusNode: node, onPressed: () { claim(); onPress(); }, child: ExcludeSemantics(child: Text(name, style: TextStyle(color: csColor(pack.colorSemanticInfoFg)))))));
+    return SizedBox(
+      width: csControlsBatchStyleBackTopSize(),
+      height: csControlsBatchStyleBackTopSize(),
+      child: CsOwnFocus(builder: (node, claim) => Semantics(label: name, button: true, child: TextButton(focusNode: node, onPressed: () { claim(); onPress(); }, child: ExcludeSemantics(child: Text(name, style: TextStyle(color: csColor(pack.colorSemanticInfoFg))))))),
+    );
   }
 }
 
@@ -492,22 +540,33 @@ class _CsFabState extends State<CsFab> {
           Opacity(opacity: place == null ? 0 : 1, child: Transform.translate(key: listKey, offset: Offset(place?.x ?? 0, place?.y ?? 0), child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              for (final action in widget.actions) CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); setState(() => open = false); }, child: Text(action))),
+              for (var i = 0; i < widget.actions.length; i++) ...[
+                if (i > 0) SizedBox(height: csControlsWaveStyleFabDialGap()),
+                SizedBox(
+                  width: csControlsWaveStyleFabMiniSize(),
+                  height: csControlsWaveStyleFabMiniSize(),
+                  child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); setState(() => open = false); }, child: Text(widget.actions[i]))),
+                ),
+              ],
             ],
           ))),
-        CsOwnFocus(builder: (node, claim) => TextButton(
-          key: fieldKey,
-          focusNode: node,
-          onPressed: () {
-            claim();
-            if (widget.actions.isEmpty) {
-              widget.onPress();
-            } else {
-              setState(() => open = !open);
-            }
-          },
-          child: Text(widget.label, style: TextStyle(color: csColor(pack.colorSemanticInfoFg))),
-        )),
+        SizedBox(
+          width: csControlsWaveStyleFabMainSize(),
+          height: csControlsWaveStyleFabMainSize(),
+          child: CsOwnFocus(builder: (node, claim) => TextButton(
+            key: fieldKey,
+            focusNode: node,
+            onPressed: () {
+              claim();
+              if (widget.actions.isEmpty) {
+                widget.onPress();
+              } else {
+                setState(() => open = !open);
+              }
+            },
+            child: Text(widget.label, style: TextStyle(color: csColor(pack.colorSemanticInfoFg))),
+          )),
+        ),
       ],
     );
   }
@@ -625,29 +684,70 @@ class _CsAIDisclosureState extends State<CsAIDisclosure> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CsOwnFocus(builder: (node, claim) => Semantics(label: badge, value: widget.open ? widget.expandedLabel : widget.collapsedLabel, button: true, child: TextButton(key: fieldKey, focusNode: node, onPressed: () { claim(); widget.onOpenChange(!widget.open); }, child: ExcludeSemantics(child: Text(badge, style: TextStyle(color: csColor(pack.colorTextPrimary))))))),
-        if (widget.open) Opacity(opacity: place == null ? 0 : 1, child: Transform.translate(key: listKey, offset: Offset(place?.x ?? 0, place?.y ?? 0), child: Semantics(liveRegion: true, container: true, child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(explanation, style: TextStyle(color: csColor(pack.colorTextPrimary))),
-            if (line != null) Text(line, style: TextStyle(color: csColor(pack.colorTextMuted))),
-          ],
-        )))),
+        CsOwnFocus(builder: (node, claim) => Semantics(
+          label: badge,
+          value: widget.open ? widget.expandedLabel : widget.collapsedLabel,
+          button: true,
+          child: TextButton(
+            key: fieldKey,
+            focusNode: node,
+            onPressed: () { claim(); widget.onOpenChange(!widget.open); },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: csDisclosureStyleBadgePaddingX(), vertical: csDisclosureStyleBadgePaddingY()),
+              decoration: BoxDecoration(
+                color: csColor(pack.colorSurfaceRaised),
+                borderRadius: BorderRadius.circular(csDisclosureStyleBadgeRadius()),
+              ),
+              child: ExcludeSemantics(child: Text(badge, style: TextStyle(fontSize: csDisclosureStyleBadgeFontSize(), fontWeight: FontWeight.w700, color: csColor(pack.colorTextPrimary)))),
+            ),
+          ),
+        )),
+        if (widget.open) ...[
+          SizedBox(height: csDisclosureStylePanelTopOffset()),
+          Opacity(opacity: place == null ? 0 : 1, child: Transform.translate(key: listKey, offset: Offset(place?.x ?? 0, place?.y ?? 0), child: Semantics(liveRegion: true, container: true, child: ConstrainedBox(
+            constraints: BoxConstraints(minWidth: csDisclosureStylePanelMinWidth()),
+            child: Container(
+              padding: EdgeInsets.all(csDisclosureStylePanelPadding()),
+              decoration: BoxDecoration(
+                color: csColor(pack.colorSurfacePanel),
+                borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
+                border: Border.all(color: csColor(pack.colorBorderDefault).withOpacity(csDisclosureStylePanelBorderAlpha), width: csDisclosureStylePanelBorderWidth()),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(explanation, style: TextStyle(color: csColor(pack.colorTextPrimary))),
+                  if (line != null) ...[
+                    SizedBox(height: csDisclosureStylePanelGap()),
+                    Text(line, style: TextStyle(fontSize: csDisclosureStyleSourcesFontSize(), color: csColor(pack.colorTextMuted))),
+                  ],
+                ],
+              ),
+            ),
+          )))),
+        ],
       ],
     );
   }
 }
 
 class CsAspectRatio extends StatelessWidget {
-  const CsAspectRatio({super.key, required this.ratio, required this.width, required this.child});
+  const CsAspectRatio({super.key, required this.ratio, required this.width, required this.child, this.dark = false, this.highContrast = false, this.compact = false});
   final String ratio;
   final double width;
   final Widget child;
+  final bool dark;
+  final bool highContrast;
+  final bool compact;
 
   @override
   Widget build(BuildContext context) {
+    final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
     final height = csAspectHeight(ratio, width) ?? width;
-    return SizedBox(width: width, height: height, child: child);
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(csDataStyleAspectRatioRadius(pack)),
+      child: SizedBox(width: width, height: height, child: child),
+    );
   }
 }
 

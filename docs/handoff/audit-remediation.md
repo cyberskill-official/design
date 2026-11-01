@@ -55,13 +55,13 @@ Last run after styling `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `Navigat
 
 ## Latest checkpoint
 
-Wired the rendered record views (`CSDataGrid`/`CsDataGrid`, `CSTagInput`/`CsTagInput`, `CSConfidenceMeter`/`CsConfidenceMeter`, and `CSToolbar`/`CsToolbar`) in `Records.swift`, `Records.kt`, and `records.dart` to consume `CSTableStyleModel`, `CSControlsWaveStyleModel`, `CSAIStyleModel`, and `CSControlsBatchStyleModel`.
+Wired the rendered views in `Components.swift`/`Controls.kt`/`controls.dart` (`CSDivider`/`CsDivider`, `CSSelect`/`CsSelect`, and `CSDialog`/`CsDialog`) and `Overlays.swift`/`Overlays.kt`/`overlays.dart` (`CSMenu`/`CsMenu`, `CSMenubar`/`CsMenubar`, `CSBackTop`/`CsBackTop`, `CSFab`/`CsFab`, `CSAIDisclosure`/`CsAIDisclosure`, and `CSAspectRatio`/`CsAspectRatio`) to consume `CSDividerModel`, `CSTextFieldModel`, `CSSelectModel`, `CSDialogModel`, `CSNavigationStyleModel`, `CSControlsBatchStyleModel`, `CSControlsWaveStyleModel`, `CSAIDisclosureStyleModel`, and `CSDataStyleModel`.
 
 - `swift test --package-path examples/native/swiftui` and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Wire the remaining rendered views in `Components.swift`, `Controls.kt`, and `controls.dart` (`CSDivider`/`CsDivider`, `CSSelect`/`CsSelect`, `CSDialog`/`CsDialog`, `CSAlertDialog`/`CsAlertDialog`, `CSTable`/`CsTable`, `CSAIDisclosure`/`CsAiDisclosure`, `CSHumanReviewGate`/`CsHumanReviewGate`, and `CSLogo`/`CsLogo`) to consume `CSDividerModel`, `CSSelectModel`, `CSDialogModel`, `CSTableStyleModel`, `CSAIDisclosureStyleModel`, `CSReviewGateStyleModel`, and `CSLogoStyleModel`.
+Wire the remaining rendered views in `Structures.swift`, `Structures.kt`, and `structures.dart` (`CSTransfer`/`CsTransfer`, `CSInputOTP`/`CsInputOtp`, `CSCarousel`/`CsCarousel`, `CSTree`/`CsTree`, and `CSFileUpload`/`CsFileUpload`) to consume `CSControlsBatchStyleModel` and `CSControlsWaveStyleModel`.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

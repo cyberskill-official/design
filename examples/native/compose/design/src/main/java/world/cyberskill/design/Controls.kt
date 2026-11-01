@@ -1098,16 +1098,18 @@ fun CsDivider(
 ) {
   val pack = csModePack(dark, highContrast, compact)
   val ink = pack.colorBorderDefault.toComposeColor()
+  val ruleThickness = csDividerThickness()
+  val ruleMargin = csDividerMargin(pack)
   if (csDividerShowsLabel(labelKind, label)) {
-    Row(modifier.fillMaxWidth().semantics { contentDescription = csDividerText(labelKind, label) }, verticalAlignment = Alignment.CenterVertically) {
-      androidx.compose.foundation.layout.Box(Modifier.weight(1f).heightIn(min = 1.dp, max = 1.dp).background(ink))
-      Text(csDividerText(labelKind, label), color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.padding(horizontal = 12.dp))
-      androidx.compose.foundation.layout.Box(Modifier.weight(1f).heightIn(min = 1.dp, max = 1.dp).background(ink))
+    Row(modifier.fillMaxWidth().padding(vertical = ruleMargin).semantics { contentDescription = csDividerText(labelKind, label) }, verticalAlignment = Alignment.CenterVertically) {
+      androidx.compose.foundation.layout.Box(Modifier.weight(1f).heightIn(min = ruleThickness, max = ruleThickness).background(ink))
+      Text(csDividerText(labelKind, label), color = pack.colorTextMuted.toComposeColor(), fontSize = csDividerLabelFontSize(pack).value.sp, modifier = Modifier.padding(horizontal = csDividerLabelGap()))
+      androidx.compose.foundation.layout.Box(Modifier.weight(1f).heightIn(min = ruleThickness, max = ruleThickness).background(ink))
     }
   } else if (vertical) {
-    androidx.compose.foundation.layout.Box(modifier.width(1.dp).heightIn(min = 16.dp).background(ink).semantics { contentDescription = csDividerOrientation(true) })
+    androidx.compose.foundation.layout.Box(modifier.width(ruleThickness).heightIn(min = ruleMargin).background(ink).semantics { contentDescription = csDividerOrientation(true) })
   } else {
-    androidx.compose.foundation.layout.Box(modifier.fillMaxWidth().heightIn(min = 1.dp, max = 1.dp).background(ink).semantics { contentDescription = csDividerOrientation(false) })
+    androidx.compose.foundation.layout.Box(modifier.fillMaxWidth().padding(vertical = ruleMargin).heightIn(min = ruleThickness, max = ruleThickness).background(ink).semantics { contentDescription = csDividerOrientation(false) })
   }
 }
 
@@ -1203,16 +1205,33 @@ fun <T> CsSelect(
   val prompt = csSelectCopy("placeholder", spoken)
   val shown = csSelectShownText(labelFor(selected), placeholder, prompt, options.isNotEmpty())
   val enabled = csControlEnabled(!disabled)
+  val invalid = csSelectAlert(fieldError)
   var open by remember { mutableStateOf(false) }
-  Column(modifier.onPreviewKeyEvent { event ->
-    if (event.type == KeyEventType.KeyDown && event.key == Key.Escape && open) { open = false; true } else false
-  }) {
-    if (csPresenceShown(CsPresence.Text, label)) Text(label, color = pack.colorTextPrimary.toComposeColor())
-    if (description != null && csPresenceShown(CsPresence.Text, description)) Text(description, color = pack.colorTextMuted.toComposeColor())
-    TextButton(onClick = { if (enabled) open = !open }, enabled = enabled, modifier = Modifier.fillMaxWidth()) {
+  var focused by remember { mutableStateOf(false) }
+  val shape = RoundedCornerShape(csTextFieldRadius(pack))
+  Column(
+    modifier.alpha(csTextFieldOpacity(disabled)).onPreviewKeyEvent { event ->
+      if (event.type == KeyEventType.KeyDown && event.key == Key.Escape && open) { open = false; true } else false
+    },
+    verticalArrangement = Arrangement.spacedBy(csTextFieldGap()),
+  ) {
+    if (csPresenceShown(CsPresence.Text, label)) Text(label, color = pack.colorTextPrimary.toComposeColor(), fontWeight = FontWeight.Bold)
+    if (description != null && csPresenceShown(CsPresence.Text, description)) Text(description, color = pack.colorTextMuted.toComposeColor(), fontSize = csTextFieldDescriptionFontSize())
+    TextButton(
+      onClick = { if (enabled) open = !open },
+      enabled = enabled,
+      modifier = Modifier
+        .fillMaxWidth()
+        .heightIn(min = csSelectNativeSelectMinHeight())
+        .background(pack.colorSurfacePanel.toComposeColor(), shape)
+        .border(csTextFieldBorderWidth(), csTextFieldBorderColor(invalid, pack).toComposeColor(), shape)
+        .then(if (focused) Modifier.border(csSelectFocusOutlineWidth(true), pack.colorBrandOchre.toComposeColor(), shape) else Modifier)
+        .padding(start = csTextFieldPaddingX(pack), end = csSelectControlPaddingInlineEnd(), top = csSelectNativeSelectPaddingY(pack = pack), bottom = csSelectNativeSelectPaddingY(pack = pack))
+        .onFocusChanged { focused = it.isFocused },
+    ) {
       Row(verticalAlignment = Alignment.CenterVertically) {
-        Text(shown, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.weight(1f).semantics { contentDescription = label })
-        CsIcon(name = "chevron-down", label = "", dark = dark, highContrast = highContrast, compact = compact, modifier = Modifier.clearAndSetSemantics { })
+        Text(shown, color = pack.colorTextPrimary.toComposeColor(), fontSize = csSelectNativeSelectFontSize(pack = pack).value.sp, modifier = Modifier.weight(1f).semantics { contentDescription = label })
+        CsIcon(name = "chevron-down", label = "", dark = dark, highContrast = highContrast, compact = compact, modifier = Modifier.padding(end = csSelectChevronInsetInlineEnd()).clearAndSetSemantics { })
       }
     }
     if (open && enabled) {
@@ -1227,7 +1246,7 @@ fun <T> CsSelect(
         }
       }
     }
-    if (csSelectAlert(fieldError)) Text(fieldError ?: "", color = pack.colorSemanticDangerText.toComposeColor(), modifier = Modifier.semantics { liveRegion = LiveRegionMode.Assertive })
+    if (invalid) Text(fieldError ?: "", color = pack.colorSemanticDangerText.toComposeColor(), fontSize = csTextFieldErrorFontSize(), modifier = Modifier.semantics { liveRegion = LiveRegionMode.Assertive })
   }
 }
 
@@ -1448,16 +1467,16 @@ fun CsDialog(
       val next = csFocusNext(trap, stops, event.isShiftPressed, trap >= 0) ?: return@onPreviewKeyEvent false
       trap = next
       true
-    }.background(pack.colorSurfacePanel.toComposeColor()).padding(24.dp),
-    verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(12.dp),
+    }.background(pack.colorSurfacePanel.toComposeColor()).padding(csDialogPadding(pack)),
+    verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(csDialogHeaderGap()),
   ) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-      Text(title, color = pack.colorTextPrimary.toComposeColor(), fontSize = 20.sp, modifier = Modifier.weight(1f))
+    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(csDialogHeaderGap())) {
+      Text(title, color = pack.colorTextPrimary.toComposeColor(), fontSize = csDialogTitleFontSize(), fontWeight = FontWeight.Bold, modifier = Modifier.weight(1f))
       if (canClose) TextButton(onClick = { onOpenChange?.invoke(false); onClose?.invoke() }, modifier = Modifier.semantics { contentDescription = closeName }) {
         CsIcon(name = "close", label = "", dark = dark, highContrast = highContrast, compact = compact, modifier = Modifier.clearAndSetSemantics { })
       }
     }
-    if (message.isNotEmpty()) Text(message, color = pack.colorTextMuted.toComposeColor())
+    if (message.isNotEmpty()) Text(message, color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.padding(vertical = csDialogBodyMarginY()))
     if (stops > 0) CsButton(title = confirmTitle, onClick = onConfirm, dark = dark, highContrast = highContrast, compact = compact, modifier = Modifier.focusRequester(confirmFocus))
   }
 }
