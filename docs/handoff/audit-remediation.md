@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the controls-wave2-batch4-style checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the controls-batch5-7-style checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `98fdb70a82650200840d88aa268c75c2e2c21e0c`, with the hash note in `c095efaf`
-- Checkpoint commit hash: `9eab1945f4de8b806ea031bc193e059a2abb0e62`
+- Previous checkpoint: `9eab1945f4de8b806ea031bc193e059a2abb0e62`, with the hash note in `5baea89c`
+- Checkpoint commit hash: pending first commit of this checkpoint
 - Temporarily disabled GitHub Actions push workflows (re-enable with `gh workflow enable` when done): `Design System Gates` (`316944477`), `native-validation` (`377620668`), `native-store` (`318755963`), `OpenSSF Scorecard` (`330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -49,20 +49,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after styling `SearchField`, `NumberField`, `Slider`, `FileUpload`, `SegmentedControl`, `StatusIndicator`, `Kbd`, `Toggle`, `Rating`, `InputOTP`, `ButtonGroup`, `Combobox`, `InputGroup`, `TagInput`, `Calendar`, `DatePicker`, `TimePicker`, `HoverCard`, `Popconfirm`, `ContextMenu`, `FAB`, `Result`, and `InlineEdit`: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled locally. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after styling `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `NavigationMenu`, `Carousel`, `Comment`, `Form` / `FormField`, `Tree`, `BackTop`, `TreeSelect`, `Cascader`, `Transfer`, `Mentions`, `ColorPicker`, `Tour`, `QRCode`, `Masonry`, `Splitter`, `HotKeys`, `Dock`, `DataGrid`, `TreeTable`, `Sortable`, `Chart`, `Editor`, and `Terminal`: the full Swift test suite (8 tests) passed in about 0.014s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled locally. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-`CSControlsWaveStyleModel` / `csControlsWaveStyle*` now style the `base/controls.css` lines 1–160 rules across SwiftUI, Compose, and Flutter (`SearchField` `space-2` gap, `14px` padding, `44px` min-height, `2px` clear button; `NumberField` `40px` buttons with `0.45` disabled opacity, `56x42` mono input; `Slider` `22px` height and `4px` focus offset; `FileUpload` `6px` gap, `2px` dashed border, `28x24` padding, `8%` ochre hover wash; `SegmentedControl` `4px` gap, `3px` padding, `7x15` `6px` button; `StatusIndicator` `7px` gap, `9px` dot, `1800ms` `55%` `7px` pulse; `Kbd` `2px` bottom border, `6px` radius, `3x7` padding; `Toggle` `8px` gap, `8x14` `40px`, `22%` dark pressed accent, `0.5` disabled opacity; `Rating` `4px` gap, `2px` padding, `4px` focus radius; `InputOTP` `8px` gap, `44x52` `22px` mono cell, `0.5` disabled opacity; `ButtonGroup` `-1px` overlap; `Combobox` `260px` min-width, `34px` end padding, `10px` caret, `6px` `240px` popup; `InputGroup` `260px` min-width, `10px` addon padding; `TagInput` `6px` gap, `280px` min-width, `120px` field min-width, `1.0` disabled field opacity; `Calendar` `272px` min-width, `30px` header button, `34px` `2px` grid, `10.5px` weekday, `13px` day; `DatePicker` `220px` min-width; `TimePicker` `8px` gap, `10px` padding; `HoverCard` `8px` `240px` `14x16`; `Popconfirm` `8px` `240px` `12x14`, `13.5px/1.45` `10px` title, `8px` actions; `FAB` `24px` inset, overlay depth, `10px` gap, `56px` main with `1.05` hover brightness, `8px` dial, `42px` mini; `Result` `10px` `44x24`, `64px` `14/12/14%` icon, `800` `22px/1.3` title, `46ch` `1.55` body, `10px`/`6px` actions; `InlineEdit` `7px` `4x8`, matching `base/controls.css` lines 1–160).
+`CSControlsBatchStyleModel` / `csControlsBatchStyle*` now style the `base/controls.css` lines 161–367 rules across SwiftUI, Compose, and Flutter (`Link` `0.15em` underline offset; `Anchor` `180px` min-width, `2px` border, `10.5px` title, `5x12` item; `Image` `120x80` `1200ms` `0.55..0.9` loading shimmer, `0.82` backdrop zoom, `88vw` x `86vh`, `18px` `40px` `0.12` close button; `Toolbar` `4px` gap/padding, `32px` button min-height, `20px` separator; `Menubar` `2px` gap, `3px` padding, `13.5px` top, `5px` menu offset; `NavigationMenu` `468px` 2-col panel at `8px` offset; `Carousel` `10px` gap, `duration-base` track, `36px` `10px` nav, `24px` target with `9px` dot mark; `Comment` `10px` gap, `14px` `2px` replies indent; `Form` `space-4` gap, `0.72` pending opacity, `8%` danger summary wash, `6px` `13px` field; `Tree` `2px` row gap, `18%` dark selected accent, `20x28` twist; `BackTop` `24px` `84px` `44px`; `TreeSelect` `240px` min-width; `Cascader` `150x240` column; `Transfer` `10px` `200px`; `Mentions` `420px` `10px`/`-6px`; `ColorPicker` `20px` swatch, `5x26` grid, `110px` hex input; `Tour` `0.45` scrim, `modal+1`/`modal+2` depths, `280px` pop; `QRCode` `10px` padding; `Splitter` `14px` pane, `8px` bar; `HotKeys` `300px` `20px`; `Dock` `8px` `82%` `18px` `10px` blur, `44px` `12px` item, `4px` `-6px` active dot; `DataGrid` `36px` selection column; `TreeTable` `2px` cell gap; `Sortable` `6px` `380px`, `0.5` dragging, `0.4` disabled; `Chart` `420px` `16px`; `Editor` `460px` `1.6` area; `Terminal` `#3a2a1c`/`#2a1a0d`/`#5b4331`/`#1a1108`/`#f5ead9`/`#c9b7a3` dark chrome, `480px` max-width, `10px` dot, `130px` `1.7` body, completing all 15 `base/*.css` files in `styles.css` section 3).
 
 - Compose and Flutter were not compiled locally.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `NavigationMenu`, `Carousel`, `Comment`, `Form` / `FormField`, `Tree`, `BackTop`, `TreeSelect`, `Cascader`, `Transfer`, `Mentions`, `ColorPicker`, `Tour`, `QRCode`, `Masonry`, `Splitter`, `HotKeys`, `Dock`, `DataGrid`, `TreeTable`, `Sortable`, `Chart`, `Editor`, and `Terminal` in Swift, Compose, and Flutter (from `base/controls.css` lines 161–367).
+Run the Linux/CI native compiler and device verification (`native-validation` workflow) for Kotlin/Compose (`:design:compileDebugKotlin`, `:app:assembleDebug`) and Flutter (`flutter analyze`, `flutter test`, `flutter build apk --debug`), and continue closing remaining non-fabricated audit items (`F2` manual AT matrix requires real assistive-technology runs, `F3` awaits authorized npm publish, `F4` awaits operator rights review, `F5` awaits `ubuntu-24.04` pixel verification).
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

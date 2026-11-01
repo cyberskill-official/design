@@ -1047,6 +1047,107 @@ public enum CSControlsWaveStyleModel {
   public static func inlineEditPaddingX() -> Double { 8 }
 }
 
+public enum CSControlsBatchStyleModel {
+  public static let linkUnderlineOffsetEm = 0.15
+  public static let imageLoadingMinAlpha = 0.55
+  public static let imageLoadingMaxAlpha = 0.9
+  public static let imageZoomBackdropAlpha = 0.82
+  public static let imageZoomCloseBgAlpha = 0.12
+  public static let formPendingOpacity = 0.72
+  public static let formSummaryDangerPortion = 0.08
+  public static let treeSelectedDarkAccentPortion = 0.18
+  public static let tourScrimAlpha = 0.45
+  public static let dockPanelPortion = 0.82
+  public static let sortableDraggingOpacity = 0.5
+  public static let sortableButtonDisabledOpacity = 0.4
+  public static let terminalBorderHex = "#3a2a1c"
+  public static let terminalBarHex = "#2a1a0d"
+  public static let terminalDotHex = "#5b4331"
+  public static let terminalBgHex = "#1a1108"
+  public static let terminalFgHex = "#f5ead9"
+  public static let terminalMutedHex = "#c9b7a3"
+  public static func anchorMinWidth() -> Double { 180 }
+  public static func anchorBorderWidth() -> Double { 2 }
+  public static func anchorTitleFontSize() -> Double { 10.5 }
+  public static func anchorItemPaddingY() -> Double { 5 }
+  public static func anchorItemPaddingX() -> Double { 12 }
+  public static func imageLoadingMinWidth() -> Double { 120 }
+  public static func imageLoadingMinHeight() -> Double { 80 }
+  public static func imageShimmerDurationMs() -> Double { 1200 }
+  public static func imageZoomMaxVwRatio() -> Double { 0.88 }
+  public static func imageZoomMaxVhRatio() -> Double { 0.86 }
+  public static func imageZoomCloseInset() -> Double { 18 }
+  public static func imageZoomCloseSize() -> Double { 40 }
+  public static func toolbarGap() -> Double { 4 }
+  public static func toolbarPadding() -> Double { 4 }
+  public static func toolbarButtonMinHeight() -> Double { 32 }
+  public static func toolbarSeparatorHeight() -> Double { 20 }
+  public static func menubarGap() -> Double { 2 }
+  public static func menubarPadding() -> Double { 3 }
+  public static func menubarTopFontSize() -> Double { 13.5 }
+  public static func menubarMenuOffset() -> Double { 5 }
+  public static func navMenuPanelWidth() -> Double { 468 }
+  public static func navMenuPanelColumns() -> Int { 2 }
+  public static func navMenuPanelOffset() -> Double { 8 }
+  public static func carouselGap() -> Double { 10 }
+  public static func carouselTrackDurationMs(_ pack: CSTokenModePack) -> Double { pack.durationBase.value }
+  public static func carouselNavSize() -> Double { 36 }
+  public static func carouselNavInset() -> Double { 10 }
+  public static func carouselDotTargetSize() -> Double { 24 }
+  public static func carouselDotMarkSize() -> Double { 9 }
+  public static func commentGap() -> Double { 10 }
+  public static func commentRepliesIndent() -> Double { 14 }
+  public static func commentRepliesBorderWidth() -> Double { 2 }
+  public static func formGap(_ pack: CSTokenModePack) -> Double { pack.space4.points }
+  public static func formFieldGap() -> Double { 6 }
+  public static func formFieldLabelFontSize() -> Double { 13 }
+  public static func treeRowGap() -> Double { 2 }
+  public static func treeTwistWidth() -> Double { 20 }
+  public static func treeTwistHeight() -> Double { 28 }
+  public static func backTopInsetEnd() -> Double { 24 }
+  public static func backTopInsetBottom() -> Double { 84 }
+  public static func backTopSize() -> Double { 44 }
+  public static func treeSelectMinWidth() -> Double { 240 }
+  public static func cascaderColumnMinWidth() -> Double { 150 }
+  public static func cascaderColumnMaxHeight() -> Double { 240 }
+  public static func transferGap() -> Double { 10 }
+  public static func transferListMaxHeight() -> Double { 200 }
+  public static func mentionsMaxWidth() -> Double { 420 }
+  public static func mentionsPopupInlineStart() -> Double { 10 }
+  public static func mentionsPopupBlockOffset() -> Double { -6 }
+  public static func colorPickerSwatchSize() -> Double { 20 }
+  public static func colorPickerGridColumns() -> Int { 5 }
+  public static func colorPickerCellSize() -> Double { 26 }
+  public static func colorPickerHexInputWidth() -> Double { 110 }
+  public static func tourHoleDepth(_ pack: CSTokenModePack) -> Double { pack.depthModal + 1 }
+  public static func tourPopDepth(_ pack: CSTokenModePack) -> Double { pack.depthModal + 2 }
+  public static func tourPopWidth() -> Double { 280 }
+  public static func qrCodePadding() -> Double { 10 }
+  public static func splitterPanePadding() -> Double { 14 }
+  public static func splitterBarWidth() -> Double { 8 }
+  public static func hotkeysCardMinWidth() -> Double { 300 }
+  public static func hotkeysRowGap() -> Double { 20 }
+  public static func dockGap() -> Double { 8 }
+  public static func dockRadius() -> Double { 18 }
+  public static func dockBlur() -> Double { 10 }
+  public static func dockItemSize() -> Double { 44 }
+  public static func dockItemRadius() -> Double { 12 }
+  public static func dockActiveDotSize() -> Double { 4 }
+  public static func dockActiveDotOffset() -> Double { -6 }
+  public static func dataGridSelectionColumnWidth() -> Double { 36 }
+  public static func treeTableCellGap() -> Double { 2 }
+  public static func sortableGap() -> Double { 6 }
+  public static func sortableMaxWidth() -> Double { 380 }
+  public static func chartMaxWidth() -> Double { 420 }
+  public static func chartLegendColumnGap() -> Double { 16 }
+  public static func editorMaxWidth() -> Double { 460 }
+  public static func editorAreaLineHeight() -> Double { 1.6 }
+  public static func terminalMaxWidth() -> Double { 480 }
+  public static func terminalDotSize() -> Double { 10 }
+  public static func terminalBodyMinHeight() -> Double { 130 }
+  public static func terminalBodyLineHeight() -> Double { 1.7 }
+}
+
 public struct CSDivider: View {
   public let label: CSPresenceValue
   public let vertical: Bool
