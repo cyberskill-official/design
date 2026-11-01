@@ -4,6 +4,9 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.hoverable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -162,6 +165,12 @@ fun csStepShowsBody(body: String?) = body != null
 
 fun csAccordionBorderWidth() = 1.dp
 fun csAccordionShowsDivider(index: Int) = index > 0
+fun csAccordionTriggerPaddingY() = 15.dp
+fun csAccordionTriggerPaddingX() = 18.dp
+fun csAccordionShowsTriggerHover(hovered: Boolean) = hovered
+fun csAccordionChevronDegrees(opened: Boolean) = if (opened) 180f else 0f
+fun csAccordionPanelPaddingX() = 18.dp
+fun csAccordionPanelPaddingBottom() = 16.dp
 fun csAccordionTriggerId(prefix: String, index: Int) = "$prefix-trigger-$index"
 fun csAccordionPanelId(prefix: String, index: Int) = "$prefix-panel-$index"
 fun csAccordionAriaControls(prefix: String, index: Int, opened: Boolean) = if (opened) csAccordionPanelId(prefix, index) else null
@@ -861,18 +870,30 @@ fun CsAccordion(
   Column(modifier.clip(RoundedCornerShape(pack.radiusLg.toDp())).background(pack.colorSurfacePanel.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp())).border(csAccordionBorderWidth(), pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp()))) {
     items.forEachIndexed { index, item ->
       val opened = csAccordionPanel(open, index, allowMultiple)
+      val interaction = remember { MutableInteractionSource() }
+      val hovered by interaction.collectIsHoveredAsState()
       if (csAccordionShowsDivider(index)) {
         Box(Modifier.fillMaxWidth().height(csAccordionBorderWidth()).background(pack.colorBorderDefault.toComposeColor()))
       }
       CsTriggerButton(
         title = item.title,
         onClick = { open = csAccordionToggle(open, index, allowMultiple) },
-        modifier = Modifier.fillMaxWidth().minimumInteractiveComponentSize().semantics { stateDescription = if (opened) "expanded" else "collapsed" },
+        modifier = Modifier.fillMaxWidth().hoverable(interaction).background(if (csAccordionShowsTriggerHover(hovered)) pack.colorSurfaceRaised.toComposeColor() else Color.Transparent).padding(horizontal = csAccordionTriggerPaddingX(), vertical = csAccordionTriggerPaddingY()).minimumInteractiveComponentSize().semantics { stateDescription = if (opened) "expanded" else "collapsed" },
       ) {
-        Text(item.title, color = pack.colorTextPrimary.toComposeColor())
-        CsIcon(name = "chevron-down", label = "", dark = dark, highContrast = highContrast, compact = compact, modifier = Modifier.graphicsLayer { rotationZ = if (opened) 180f else 0f }.clearAndSetSemantics { })
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(pack.space3.toDp()), verticalAlignment = Alignment.CenterVertically) {
+          Text(item.title, color = pack.colorTextPrimary.toComposeColor(), fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f))
+          CsIcon(name = "chevron-down", label = "", dark = dark, highContrast = highContrast, compact = compact, modifier = Modifier.graphicsLayer { rotationZ = csAccordionChevronDegrees(opened) }.clearAndSetSemantics { })
+        }
       }
-      if (opened) Text(item.content, color = pack.colorTextMuted.toComposeColor())
+      if (opened) {
+        Text(
+          item.content,
+          color = pack.colorTextMuted.toComposeColor(),
+          fontSize = pack.fontSizeSm.toDp().value.sp,
+          lineHeight = (pack.fontSizeSm.toDp().value * pack.fontLineHeightBody.toFloat()).sp,
+          modifier = Modifier.padding(start = csAccordionPanelPaddingX(), end = csAccordionPanelPaddingX(), bottom = csAccordionPanelPaddingBottom()),
+        )
+      }
     }
   }
 }

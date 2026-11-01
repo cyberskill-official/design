@@ -120,6 +120,12 @@ bool csStepShowsBody(String? body) => body != null;
 
 double csAccordionBorderWidth() => 1;
 bool csAccordionShowsDivider(int index) => index > 0;
+double csAccordionTriggerPaddingY() => 15;
+double csAccordionTriggerPaddingX() => 18;
+bool csAccordionShowsTriggerHover(bool hovered) => hovered;
+double csAccordionChevronDegrees(bool opened) => opened ? 180 : 0;
+double csAccordionPanelPaddingX() => 18;
+double csAccordionPanelPaddingBottom() => 16;
 String csAccordionTriggerId(String prefix, int index) => '$prefix-trigger-$index';
 String csAccordionPanelId(String prefix, int index) => '$prefix-panel-$index';
 String? csAccordionAriaControls(String prefix, int index, bool opened) => opened ? csAccordionPanelId(prefix, index) : null;
@@ -1128,6 +1134,7 @@ class CsAccordion extends StatefulWidget {
 
 class _CsAccordionState extends State<CsAccordion> {
   late List<int> open = csAccordionInitial(widget.defaultOpen);
+  int? hoverIndex;
 
   @override
   void didUpdateWidget(covariant CsAccordion oldWidget) {
@@ -1154,18 +1161,54 @@ class _CsAccordionState extends State<CsAccordion> {
             for (var index = 0; index < widget.items.length; index++) ...[
               if (csAccordionShowsDivider(index))
                 Container(height: csAccordionBorderWidth(), color: csColor(pack.colorBorderDefault)),
-              ConstrainedBox(
-                constraints: BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)),
-                child: CsOwnFocus(builder: (node, claim) => TextButton(
-                  focusNode: node,
-                  onPressed: () {
-                    claim();
-                    setState(() => open = csAccordionToggle(open, index, widget.allowMultiple));
-                  },
-                  child: Align(alignment: Alignment.centerLeft, child: Text(widget.items[index].title, style: TextStyle(color: csColor(pack.colorTextPrimary)))),
-                )),
+              MouseRegion(
+                onEnter: (_) => setState(() => hoverIndex = index),
+                onExit: (_) => setState(() => hoverIndex = hoverIndex == index ? null : hoverIndex),
+                child: ColoredBox(
+                  color: csAccordionShowsTriggerHover(hoverIndex == index) ? csColor(pack.colorSurfaceRaised) : Colors.transparent,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)),
+                    child: CsOwnFocus(builder: (node, claim) => TextButton(
+                      focusNode: node,
+                      onPressed: () {
+                        claim();
+                        setState(() => open = csAccordionToggle(open, index, widget.allowMultiple));
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: csAccordionTriggerPaddingX(), vertical: csAccordionTriggerPaddingY()),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                widget.items[index].title,
+                                textAlign: TextAlign.start,
+                                style: TextStyle(color: csColor(pack.colorTextPrimary), fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                            SizedBox(width: csPoints(pack.space3)),
+                            Transform.rotate(
+                              angle: csAccordionChevronDegrees(csAccordionPanel(open, index, widget.allowMultiple)) * 3.141592653589793 / 180,
+                              child: CsIcon(name: 'chevron-down', label: '', dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )),
+                  ),
+                ),
               ),
-              if (csAccordionPanel(open, index, widget.allowMultiple)) Text(widget.items[index].content, style: TextStyle(color: csColor(pack.colorTextMuted))),
+              if (csAccordionPanel(open, index, widget.allowMultiple))
+                Padding(
+                  padding: EdgeInsets.fromLTRB(csAccordionPanelPaddingX(), 0, csAccordionPanelPaddingX(), csAccordionPanelPaddingBottom()),
+                  child: Text(
+                    widget.items[index].content,
+                    style: TextStyle(
+                      color: csColor(pack.colorTextMuted),
+                      fontSize: csPoints(pack.fontSizeSm),
+                      height: pack.fontLineHeightBody,
+                    ),
+                  ),
+                ),
             ],
           ],
         ),

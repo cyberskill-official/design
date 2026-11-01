@@ -136,6 +136,12 @@ public enum CSStepState: Equatable {
 public enum CSAccordionModel {
   public static func borderWidth() -> Double { 1 }
   public static func showsDivider(index: Int) -> Bool { index > 0 }
+  public static func triggerPaddingY() -> Double { 15 }
+  public static func triggerPaddingX() -> Double { 18 }
+  public static func showsTriggerHover(hovered: Bool) -> Bool { hovered }
+  public static func chevronDegrees(opened: Bool) -> Double { opened ? 180 : 0 }
+  public static func panelPaddingX() -> Double { 18 }
+  public static func panelPaddingBottom() -> Double { 16 }
   public static func triggerId(prefix: String, index: Int) -> String { "\(prefix)-trigger-\(index)" }
   public static func panelId(prefix: String, index: Int) -> String { "\(prefix)-panel-\(index)" }
   public static func ariaControls(prefix: String, index: Int, opened: Bool) -> String? {
@@ -1520,6 +1526,7 @@ public struct CSAccordion: View {
   public let items: [CSAccordionItem]
   public let allowMultiple: Bool
   @State private var open: [Int]
+  @State private var hoverIndex: Int?
   @State private var headerFocusId = UUID().uuidString
   @FocusState private var headerIndex: Int?
   let dark: Bool
@@ -1540,6 +1547,7 @@ public struct CSAccordion: View {
     VStack(alignment: .leading, spacing: 0) {
       ForEach(Array(items.enumerated()), id: \.offset) { index, item in
         let opened = CSAccordionModel.panelOpen(open: open, index: index, allowMultiple: allowMultiple)
+        let hovered = CSAccordionModel.showsTriggerHover(hovered: hoverIndex == index)
         if CSAccordionModel.showsDivider(index: index) {
           Rectangle()
             .fill(pack.colorBorderDefault.color)
@@ -1549,20 +1557,34 @@ public struct CSAccordion: View {
           CSFocusRegistry.shared.claim(id: "\(headerFocusId)-\(index)", restore: { headerIndex = index })
           open = CSAccordionModel.toggle(open: open, index: index, allowMultiple: allowMultiple)
         }) {
-          HStack {
+          HStack(alignment: .center, spacing: pack.space3.points) {
             Text(item.title)
-            Spacer()
+              .font(.system(size: pack.fontSizeMd.points, weight: .semibold))
+              .foregroundStyle(pack.primaryTextColor)
+              .multilineTextAlignment(.leading)
+            Spacer(minLength: 0)
             CSIcon(name: "chevron-down", label: "", dark: dark, highContrast: highContrast, compact: compact)
-              .rotationEffect(.degrees(opened ? 180 : 0))
+              .foregroundStyle(pack.mutedColor)
+              .rotationEffect(.degrees(CSAccordionModel.chevronDegrees(opened: opened)))
               .accessibilityHidden(true)
           }
+          .padding(.vertical, CGFloat(CSAccordionModel.triggerPaddingY()))
+          .padding(.horizontal, CGFloat(CSAccordionModel.triggerPaddingX()))
+          .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
+          .background(hovered ? pack.colorSurfaceRaised.color : Color.clear)
         }
+        .buttonStyle(.plain)
         .focused($headerIndex, equals: index)
-        .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
+        .onHover { inside in hoverIndex = inside ? index : (hoverIndex == index ? nil : hoverIndex) }
         .foregroundStyle(pack.primaryTextColor)
         .accessibilityValue(Text(opened ? "expanded" : "collapsed"))
         if opened {
-          Text(item.content).foregroundStyle(pack.mutedColor).padding(.bottom, 8)
+          Text(item.content)
+            .font(.system(size: pack.fontSizeSm.points))
+            .lineSpacing(CGFloat(Double(pack.fontSizeSm.points) * (pack.fontLineHeightBody - 1)))
+            .foregroundStyle(pack.mutedColor)
+            .padding(.horizontal, CGFloat(CSAccordionModel.panelPaddingX()))
+            .padding(.bottom, CGFloat(CSAccordionModel.panelPaddingBottom()))
         }
       }
     }
