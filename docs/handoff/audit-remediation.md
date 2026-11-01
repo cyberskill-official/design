@@ -9,7 +9,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: pending (`feat(native): wire surface views to batch, wave, AI, data, logo, navigation, and feedback style models`)
+- Checkpoint commit: `9fa69b7585b56c159db32e8dc89f6df8819b3254` (`feat(native): wire surface views to batch, wave, AI, data, logo, navigation, and feedback style models`)
 - Previous checkpoint: `0c1ff5fb68fd5145449c07add4eda2dd1aa3fdd3`, with the hash note in `9f563756`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
