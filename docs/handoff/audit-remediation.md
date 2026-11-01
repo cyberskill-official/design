@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the sortable-ops checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the chart-frame checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `0841b1b6f300583a989f5d5e67c5e40b1604111c`, with the hash note in `d53605eb`
-- Checkpoint commit hash: `95d3ef3262aae9886095aa9a17362cfd7b5a26fa`
+- Previous checkpoint: `95d3ef3262aae9886095aa9a17362cfd7b5a26fa`, with the hash note in `db6e3fb5`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the sortable ops: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the chart frame: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-A sortable row now colors the grip with the muted text color, expands the label to fill the remaining inline width, groups the move buttons with a 4px gap (`CSSortModel.opsGap()` / `csSortOpsGap()`), and dims disabled move buttons to 0.4 opacity (`CSSortModel.buttonOpacity(enabled:)` / `csSortButtonOpacity`), matching `.cs-sortable__grip`, `.cs-sortable__label`, `.cs-sortable__ops`, and `.cs-sortable__ops .cs-button:disabled` in `base/controls.css`.
+A chart now uses a 0px outer margin (`CSChartModel.margin()` / `csChartMargin()`), an 8px vertical gap (`CSChartModel.gap()` / `csChartGap()`), and a 420px maximum width (`CSChartModel.maxWidth()` / `csChartMaxWidth()`), matching `.cs-chart { margin: 0; display: grid; gap: 8px; max-inline-size: 420px; }` in `base/controls.css`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Lay out a chart with 0 margin, an 8px vertical gap, and a 420px maximum width. The next rule in `base/controls.css` is `.cs-chart { margin: 0; display: grid; gap: 8px; max-inline-size: 420px; }`. Re-read that rule before editing. Do not invent a gap or max width.
+Style the chart legend with a 6px block gap and 16px inline gap, extra-small font size, muted label text, and bold primary-text values when `showValues` is true. The next rules in `base/controls.css` are `.cs-chart__legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: var(--cs-font-size-xs); color: var(--cs-color-text-muted); }` and `.cs-chart__legend b { color: var(--cs-color-text-primary); }`. Re-read those rules before editing. Do not invent gaps, font sizes, or colors.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

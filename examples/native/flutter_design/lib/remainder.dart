@@ -52,6 +52,9 @@ bool? csHotKeyNextOpen({required bool open, required bool helpKey, required bool
   return !open;
 }
 
+double csChartMargin() => 0;
+double csChartGap() => 8;
+double csChartMaxWidth() => 420;
 double csChartMax(List<double> values) => values.isEmpty ? 1 : (values.reduce((a, b) => a > b ? a : b) < 1 ? 1 : values.reduce((a, b) => a > b ? a : b));
 
 String csChartKind(String type) => type == 'pie' || type == 'line' || type == 'spark' ? type : 'bar';
@@ -536,10 +539,17 @@ class CsChart extends StatelessWidget {
     final rows = csChartLegend(type, pointLabels, values, showValues);
     return Semantics(
       label: csChartAccessibleName(label, points, csChartEmpty(emptyLabel, csChartCopy('empty', csSelectResolvedLanguage(language, CsLanguageScope.of(context))))),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        CustomPaint(size: const Size(320, 160), painter: _ChartPainter(csChartKind(type), values, fills)),
-        if (rows != null) Row(children: [for (final row in rows) Text(row)]),
-      ]),
+      child: Container(
+        margin: EdgeInsets.all(csChartMargin()),
+        constraints: BoxConstraints(maxWidth: csChartMaxWidth()),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          CustomPaint(size: const Size(320, 160), painter: _ChartPainter(csChartKind(type), values, fills)),
+          if (rows != null) ...[
+            SizedBox(height: csChartGap()),
+            Row(children: [for (final row in rows) Text(row)]),
+          ],
+        ]),
+      ),
     );
   }
 }

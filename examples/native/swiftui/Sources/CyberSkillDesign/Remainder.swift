@@ -89,6 +89,10 @@ public struct CSChartSlice: Equatable {
 }
 
 public enum CSChartModel {
+  public static func margin() -> Double { 0 }
+  public static func gap() -> Double { 8 }
+  public static func maxWidth() -> Double { 420 }
+
   public static func maxValue(_ values: [Double]) -> Double {
     max(1, values.max() ?? 1)
   }
@@ -488,7 +492,7 @@ public struct CSChart: View {
     }
     let announced = CSChartModel.accessibleName(label: label, points: points, empty: CSChartModel.emptyWord(emptyLabel, fallback: CSChartModel.copy("empty", language: locale)))
     let rows = CSChartModel.legend(type: type, labels: pointLabels, values: values, showValues: showValues)
-    VStack(alignment: .leading, spacing: 8) {
+    VStack(alignment: .leading, spacing: CGFloat(CSChartModel.gap())) {
     Canvas { context, size in
       let color = pack.accent.color
       if kind == "pie" {
@@ -543,6 +547,8 @@ public struct CSChart: View {
       }
     }
     }
+    .padding(CGFloat(CSChartModel.margin()))
+    .frame(maxWidth: CGFloat(CSChartModel.maxWidth()), alignment: .leading)
     .accessibilityElement(children: .ignore)
     .accessibilityLabel(announced)
   }

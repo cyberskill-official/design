@@ -102,6 +102,9 @@ fun csHotKeyNextOpen(open: Boolean, helpKey: Boolean, otherModal: Boolean): Bool
   return !open
 }
 
+fun csChartMargin() = 0.dp
+fun csChartGap() = 8.dp
+fun csChartMaxWidth() = 420.dp
 fun csChartMax(values: List<Double>): Double = maxOf(1.0, values.maxOrNull() ?: 1.0)
 fun csChartKind(type: String) = if (type == "pie" || type == "line" || type == "spark") type else "bar"
 fun csChartSliceSlot(index: Int): Int {
@@ -431,7 +434,7 @@ fun csDockScale(index: Int, hover: Int?): CsDockScale {
   val color = pack.accent.toComposeColor()
   val announced = csChartAccessibleName(label, pointLabels.mapIndexed { index, name -> name to (values.getOrNull(index) ?: 0.0) }, csChartEmpty(emptyLabel, csChartCopy("empty", csComboboxResolvedLanguage(language, LocalCsLanguage.current))))
   val rows = csChartLegend(type, pointLabels, values, showValues)
-  Column(modifier.semantics { contentDescription = announced }) {
+  Column(modifier.padding(csChartMargin()).widthIn(max = csChartMaxWidth()).semantics { contentDescription = announced }, verticalArrangement = Arrangement.spacedBy(csChartGap())) {
   Canvas(Modifier.size(320.dp, 160.dp)) {
     val scaleX = size.width / 320f
     val scaleY = size.height / 160f
