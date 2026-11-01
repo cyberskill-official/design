@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'controls.dart';
+import 'remainder.dart';
 import 'surfaces.dart';
 
 class CsCalendarDate {
@@ -1117,7 +1118,7 @@ class CsSidebar extends StatelessWidget {
             ],
             for (var index = 0; index < items.length; index++) ...[
               if (index > 0) SizedBox(height: csSidebarGap()),
-              CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); onSelect(items[index]); }, child: Text(items[index], style: TextStyle(color: csColor(items[index] == active ? pack.colorBrandOchre : pack.colorTextPrimary))))),
+              CsNavItem(title: items[index], active: items[index] == active, onSelect: () => onSelect(items[index]), dark: dark, highContrast: highContrast, compact: compact),
             ],
           ],
         ),

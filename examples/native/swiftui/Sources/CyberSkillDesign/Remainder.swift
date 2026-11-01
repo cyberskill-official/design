@@ -2488,22 +2488,111 @@ public struct CSNativeSelect: View {
   }
 }
 
+public enum CSNavItemModel {
+  public static func gap() -> Double { 11 }
+  public static func paddingY() -> Double { 9 }
+  public static func paddingX() -> Double { 12 }
+  public static func fontWeight() -> Int { 600 }
+  public static let activeOchrePortion = 0.22
+  public static func showsIcon(_ icon: String?) -> Bool {
+    guard let icon else { return false }
+    return !icon.isEmpty
+  }
+  public static func showsTrail(_ trail: String?) -> Bool { trail != nil }
+  public static func tag(href: String?) -> String {
+    guard let href, !href.isEmpty else { return "button" }
+    return "a"
+  }
+  public static func ariaCurrent(active: Bool) -> String? { active ? "page" : nil }
+  public static func showsHoverFill(active: Bool, hovered: Bool) -> Bool { !active && hovered }
+  public static func activeUsesOchreInk(dark: Bool) -> Bool { dark }
+  public static func activeBgLab(ochre: CSColorValue, panel: CSColorValue) -> [Double] {
+    let lead = oklab(ochre), base = oklab(panel)
+    return zip(lead, base).map { activeOchrePortion * $0 + (1 - activeOchrePortion) * $1 }
+  }
+  public static func activeBgColor(pack: CSTokenModePack) -> CSColorValue {
+    CSColorValue(colorSpace: .oklab, components: activeBgLab(ochre: pack.colorBrandOchre, panel: pack.colorSurfacePanel), alpha: 1)
+  }
+  public static func textColor(active: Bool, dark: Bool, pack: CSTokenModePack) -> CSColorValue {
+    active ? (activeUsesOchreInk(dark: dark) ? pack.colorBrandOchre : pack.colorBrandUmber) : pack.colorTextPrimary
+  }
+  public static func iconColor(active: Bool, dark: Bool, pack: CSTokenModePack) -> CSColorValue {
+    active ? (activeUsesOchreInk(dark: dark) ? pack.colorBrandOchre : pack.colorBrandUmber) : pack.colorTextMuted
+  }
+  private static func oklab(_ color: CSColorValue) -> [Double] {
+    color.colorSpace == .oklab ? Array(color.components.prefix(3)) : srgbToOklab(color.components)
+  }
+  private static func srgbToOklab(_ rgb: [Double]) -> [Double] {
+    func linear(_ channel: Double) -> Double { channel <= 0.04045 ? channel / 12.92 : pow((channel + 0.055) / 1.055, 2.4) }
+    let r = linear(rgb[0]), g = linear(rgb[1]), b = linear(rgb[2])
+    let l = cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b)
+    let m = cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b)
+    let s = cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b)
+    return [0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s, 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s, 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s]
+  }
+}
+
 public struct CSNavItem: View {
   public let title: String
   public let active: Bool
+  public let icon: String?
+  public let trail: String?
+  public let href: String?
+  let dark: Bool
+  let highContrast: Bool
+  let compact: Bool
   let action: () -> Void
-  public init(title: String, active: Bool, action: @escaping () -> Void) { self.title = title; self.active = active; self.action = action }
+  public init(title: String, active: Bool, icon: String? = nil, trail: String? = nil, href: String? = nil, dark: Bool = false, highContrast: Bool = false, compact: Bool = false, action: @escaping () -> Void) {
+    self.title = title
+    self.active = active
+    self.icon = icon
+    self.trail = trail
+    self.href = href
+    self.dark = dark
+    self.highContrast = highContrast
+    self.compact = compact
+    self.action = action
+  }
   @State private var focusId = UUID().uuidString
+  @State private var hovered = false
   @FocusState private var ownerFocused: Bool
   public var body: some View {
+    let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let restore = { ownerFocused = true }
-    Button(title) {
+    let textInk = CSNavItemModel.textColor(active: active, dark: dark, pack: pack).color
+    let iconInk = CSNavItemModel.iconColor(active: active, dark: dark, pack: pack).color
+    let fill: Color = active ? CSNavItemModel.activeBgColor(pack: pack).color : (CSNavItemModel.showsHoverFill(active: active, hovered: hovered) ? pack.colorSurfaceRaised.color : Color.clear)
+    Button(action: {
       CSFocusRegistry.shared.claim(id: focusId, restore: restore)
       action()
+    }) {
+      HStack(alignment: .center, spacing: CGFloat(CSNavItemModel.gap())) {
+        if CSNavItemModel.showsIcon(icon), let icon {
+          CSIcon(name: icon, label: "", dark: dark, highContrast: highContrast, compact: compact)
+            .foregroundStyle(iconInk)
+        }
+        Text(title)
+          .font(.system(size: pack.fontSizeSm.points, weight: .semibold))
+          .foregroundStyle(textInk)
+          .multilineTextAlignment(.leading)
+        if CSNavItemModel.showsTrail(trail), let trail {
+          Spacer(minLength: 0)
+          Text(trail)
+            .font(.system(size: pack.fontSizeSm.points, weight: .semibold))
+            .foregroundStyle(textInk)
+        }
+      }
+      .padding(.vertical, CGFloat(CSNavItemModel.paddingY()))
+      .padding(.horizontal, CGFloat(CSNavItemModel.paddingX()))
+      .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
+      .background(fill, in: RoundedRectangle(cornerRadius: pack.radiusMd.points))
+      .contentShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
     }
+    .buttonStyle(.plain)
     .focused($ownerFocused)
-    .frame(minHeight: 44)
+    .onHover { hovered = $0 }
     .accessibilityAddTraits(active ? .isSelected : [])
+    .accessibilityValue(Text(CSNavItemModel.ariaCurrent(active: active) ?? ""))
     .onChange(of: ownerFocused) { isFocused in
       if isFocused { CSFocusRegistry.shared.claim(id: focusId, restore: { ownerFocused = true }) }
     }

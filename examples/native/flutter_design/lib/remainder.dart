@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
 import 'controls.dart';
+import 'cs_modes.dart';
 import 'surfaces.dart';
 import 'icon_paths.dart';
 import 'qr_encode.dart';
@@ -1655,13 +1657,111 @@ class CsNativeSelect extends StatelessWidget {
   }
 }
 
-class CsNavItem extends StatelessWidget {
-  const CsNavItem({super.key, required this.title, required this.active, required this.onSelect});
+double csNavItemGap() => 11;
+double csNavItemPaddingY() => 9;
+double csNavItemPaddingX() => 12;
+int csNavItemFontWeight() => 600;
+const csNavItemActiveOchrePortion = 0.22;
+bool csNavItemShowsIcon(String? icon) => icon != null && icon.isNotEmpty;
+bool csNavItemShowsTrail(String? trail) => trail != null;
+String csNavItemTag(String? href) => href != null && href.isNotEmpty ? 'a' : 'button';
+String? csNavItemAriaCurrent(bool active) => active ? 'page' : null;
+bool csNavItemShowsHoverFill(bool active, bool hovered) => !active && hovered;
+bool csNavItemActiveUsesOchreInk(bool dark) => dark;
+CSColorValue csNavItemActiveBgColor(CSTokenModePack pack) {
+  final lead = _csNavItemOklab(pack.colorBrandOchre);
+  final base = _csNavItemOklab(pack.colorSurfacePanel);
+  return CSColorValue(CSColorSpace.oklab, [for (var i = 0; i < 3; i++) csNavItemActiveOchrePortion * lead[i] + (1 - csNavItemActiveOchrePortion) * base[i]], 1);
+}
+CSColorValue csNavItemTextColor(bool active, bool dark, CSTokenModePack pack) => active ? (csNavItemActiveUsesOchreInk(dark) ? pack.colorBrandOchre : pack.colorBrandUmber) : pack.colorTextPrimary;
+CSColorValue csNavItemIconColor(bool active, bool dark, CSTokenModePack pack) => active ? (csNavItemActiveUsesOchreInk(dark) ? pack.colorBrandOchre : pack.colorBrandUmber) : pack.colorTextMuted;
+List<double> _csNavItemOklab(CSColorValue color) => color.colorSpace == CSColorSpace.oklab ? color.components.take(3).toList() : _csNavItemSrgbToOklab(color.components);
+double _csNavItemLinear(double channel) => channel <= 0.04045 ? channel / 12.92 : math.pow((channel + 0.055) / 1.055, 2.4).toDouble();
+List<double> _csNavItemSrgbToOklab(List<double> rgb) {
+  final r = _csNavItemLinear(rgb[0]);
+  final g = _csNavItemLinear(rgb[1]);
+  final b = _csNavItemLinear(rgb[2]);
+  final l = math.pow(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b, 1 / 3).toDouble();
+  final m = math.pow(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b, 1 / 3).toDouble();
+  final s = math.pow(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b, 1 / 3).toDouble();
+  return [0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s, 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s, 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s];
+}
+
+class CsNavItem extends StatefulWidget {
+  const CsNavItem({super.key, required this.title, required this.active, required this.onSelect, this.icon, this.trail, this.href, this.dark = false, this.highContrast = false, this.compact = false});
   final String title;
   final bool active;
   final VoidCallback onSelect;
+  final String? icon;
+  final String? trail;
+  final String? href;
+  final bool dark;
+  final bool highContrast;
+  final bool compact;
+
   @override
-  Widget build(BuildContext context) => CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); onSelect(); }, child: Text(title)));
+  State<CsNavItem> createState() => _CsNavItemState();
+}
+
+class _CsNavItemState extends State<CsNavItem> {
+  var hovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
+    final textInk = csColor(csNavItemTextColor(widget.active, widget.dark, pack));
+    final fill = widget.active ? csColor(csNavItemActiveBgColor(pack)) : (csNavItemShowsHoverFill(widget.active, hovered) ? csColor(pack.colorSurfaceRaised) : Colors.transparent);
+    return Semantics(
+      selected: widget.active,
+      value: csNavItemAriaCurrent(widget.active),
+      child: MouseRegion(
+        onEnter: (_) => setState(() => hovered = true),
+        onExit: (_) => setState(() => hovered = false),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: fill,
+            borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
+          ),
+          child: CsOwnFocus(builder: (node, claim) => TextButton(
+            focusNode: node,
+            onPressed: () { claim(); widget.onSelect(); },
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: csNavItemPaddingX(), vertical: csNavItemPaddingY()),
+              child: Row(
+                children: [
+                  if (csNavItemShowsIcon(widget.icon)) ...[
+                    CsIcon(name: widget.icon!, label: '', dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact),
+                    SizedBox(width: csNavItemGap()),
+                  ],
+                  Expanded(
+                    child: Text(
+                      widget.title,
+                      style: TextStyle(
+                        color: textInk,
+                        fontSize: csPoints(pack.fontSizeSm),
+                        fontFamily: pack.fontFamilyUi.first,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  if (csNavItemShowsTrail(widget.trail))
+                    Text(
+                      widget.trail!,
+                      style: TextStyle(
+                        color: textInk,
+                        fontSize: csPoints(pack.fontSizeSm),
+                        fontFamily: pack.fontFamilyUi.first,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          )),
+        ),
+      ),
+    );
+  }
 }
 
 class CsOverlayProvider extends StatelessWidget {

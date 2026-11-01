@@ -813,9 +813,7 @@ fun CsSidebar(label: String, items: List<String>, active: String, onSelect: (Str
         )
       }
       items.forEach { item ->
-        CsTriggerButton(title = item, onClick = { onSelect(item) }, modifier = Modifier.minimumInteractiveComponentSize()) {
-          Text(item, color = if (item == active) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor())
-        }
+        CsNavItem(title = item, active = item == active, onSelect = { onSelect(item) }, dark = dark, highContrast = highContrast, compact = compact)
       }
     }
     Box(Modifier.width(csSidebarBorderWidth()).background(pack.colorBorderDefault.toComposeColor()))

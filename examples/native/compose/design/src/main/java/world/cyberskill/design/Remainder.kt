@@ -79,6 +79,7 @@ import androidx.compose.ui.semantics.SemanticsPropertyReceiver
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
+import kotlin.math.pow
 
 data class CsKeyEvent(val key: String, val ctrl: Boolean = false, val meta: Boolean = false, val shift: Boolean = false, val alt: Boolean = false)
 
@@ -1088,9 +1089,55 @@ fun csNativeSelectAlert(error: String?) = error != null && csPresenceShown(CsPre
     if (csNativeSelectAlert(error)) Text(error ?: "", color = pack.colorSemanticDangerText.toComposeColor(), modifier = Modifier.semantics { liveRegion = LiveRegionMode.Assertive })
   }
 }
-@Composable fun CsNavItem(title: String, active: Boolean, onSelect: () -> Unit, modifier: Modifier = Modifier) {
+fun csNavItemGap() = 11.dp
+fun csNavItemPaddingY() = 9.dp
+fun csNavItemPaddingX() = 12.dp
+fun csNavItemFontWeight() = 600
+const val csNavItemActiveOchrePortion = 0.22
+fun csNavItemShowsIcon(icon: String?) = !icon.isNullOrEmpty()
+fun csNavItemShowsTrail(trail: String?) = trail != null
+fun csNavItemTag(href: String?) = if (!href.isNullOrEmpty()) "a" else "button"
+fun csNavItemAriaCurrent(active: Boolean) = if (active) "page" else null
+fun csNavItemShowsHoverFill(active: Boolean, hovered: Boolean) = !active && hovered
+fun csNavItemActiveUsesOchreInk(dark: Boolean) = dark
+fun csNavItemActiveBgColor(pack: CSTokenModePack): CSColorValue {
+  val lead = csNavItemOklab(pack.colorBrandOchre)
+  val base = csNavItemOklab(pack.colorSurfacePanel)
+  return CSColorValue(CSColorSpace.OKLAB, lead.zip(base) { o, p -> csNavItemActiveOchrePortion * o + (1.0 - csNavItemActiveOchrePortion) * p }, 1.0)
+}
+fun csNavItemTextColor(active: Boolean, dark: Boolean, pack: CSTokenModePack) = if (active) (if (csNavItemActiveUsesOchreInk(dark)) pack.colorBrandOchre else pack.colorBrandUmber) else pack.colorTextPrimary
+fun csNavItemIconColor(active: Boolean, dark: Boolean, pack: CSTokenModePack) = if (active) (if (csNavItemActiveUsesOchreInk(dark)) pack.colorBrandOchre else pack.colorBrandUmber) else pack.colorTextMuted
+private fun csNavItemOklab(color: CSColorValue) = if (color.colorSpace == CSColorSpace.OKLAB) color.components.take(3) else csNavItemSrgbToOklab(color.components)
+private fun csNavItemSrgbToOklab(rgb: List<Double>): List<Double> {
+  fun linear(channel: Double) = if (channel <= 0.04045) channel / 12.92 else ((channel + 0.055) / 1.055).pow(2.4)
+  val r = linear(rgb[0]); val g = linear(rgb[1]); val b = linear(rgb[2])
+  val l = (0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b).pow(1.0 / 3)
+  val m = (0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b).pow(1.0 / 3)
+  val s = (0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b).pow(1.0 / 3)
+  return listOf(0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s, 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s, 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s)
+}
+@Composable fun CsNavItem(title: String, active: Boolean, onSelect: () -> Unit, modifier: Modifier = Modifier, icon: String? = null, trail: String? = null, href: String? = null, dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false) {
+  val pack = csModePack(dark, highContrast, compact)
   val handle = rememberFocusHandle("nav-item")
-  TextButton(onClick = { handle.claim(); onSelect() }, modifier.focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.minimumInteractiveComponentSize(), enabled = csControlEnabled()) { Text(title) }
+  val interaction = remember { MutableInteractionSource() }
+  val hovered by interaction.collectIsHoveredAsState()
+  val textInk = csNavItemTextColor(active, dark, pack).toComposeColor()
+  val fill = if (active) csNavItemActiveBgColor(pack).toComposeColor() else if (csNavItemShowsHoverFill(active, hovered)) pack.colorSurfaceRaised.toComposeColor() else Color.Transparent
+  TextButton(
+    onClick = { handle.claim(); onSelect() },
+    modifier.fillMaxWidth().hoverable(interaction).background(fill, RoundedCornerShape(pack.radiusMd.toDp())).padding(horizontal = csNavItemPaddingX(), vertical = csNavItemPaddingY()).focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.minimumInteractiveComponentSize().semantics { csNavItemAriaCurrent(active)?.let { stateDescription = it } },
+    enabled = csControlEnabled(),
+  ) {
+    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(csNavItemGap()), verticalAlignment = Alignment.CenterVertically) {
+      if (csNavItemShowsIcon(icon)) {
+        CsIcon(name = icon ?: "", label = "", dark = dark, highContrast = highContrast, compact = compact)
+      }
+      Text(title, color = textInk, fontSize = pack.fontSizeSm.toDp().value.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f))
+      if (csNavItemShowsTrail(trail)) {
+        Text(trail ?: "", color = textInk, fontSize = pack.fontSizeSm.toDp().value.sp, fontWeight = FontWeight.SemiBold)
+      }
+    }
+  }
 }
 @Composable fun CsOverlayProvider(modifier: Modifier = Modifier, content: @Composable () -> Unit) { Column(modifier) { content() } }
 const val csPromptPlaceholder = "Type your wish…"

@@ -1884,10 +1884,9 @@ public struct CSSidebar: View {
           .accessibilityLabel(label)
       }
       ForEach(items, id: \.self) { item in
-        CSTriggerButton(item) { onSelect(item) }
-          .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
-          .foregroundStyle(item == active ? pack.colorBrandOchre.color : pack.primaryTextColor)
-          .accessibilityAddTraits(item == active ? .isSelected : [])
+        CSNavItem(title: item, active: item == active, dark: dark, highContrast: highContrast, compact: compact) {
+          onSelect(item)
+        }
       }
     }
     .padding(.vertical, CGFloat(CSSidebarModel.paddingY()))
