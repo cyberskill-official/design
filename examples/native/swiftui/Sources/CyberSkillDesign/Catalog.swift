@@ -507,6 +507,36 @@ public struct CSKbd: View {
 
 public enum CSEmptyStateModel {
   public static let tray = "M3 8l2-4h14l2 4M3 8v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V8M3 8h6l1 3h4l1-3h6"
+  public static func paddingY() -> Double { 48 }
+  public static func paddingX() -> Double { 24 }
+  public static func gap() -> Double { 8 }
+  public static func iconBoxSize() -> Double { 56 }
+  public static func iconSize() -> Double { 26 }
+  public static func iconStrokeWidth() -> Double { 1.8 }
+  public static func iconMarginBottom() -> Double { 6 }
+  public static let iconOchrePortion = 0.24
+  public static func iconBgLab(ochre: CSColorValue, panel: CSColorValue) -> [Double] {
+    let lead = oklab(ochre), base = oklab(panel)
+    return zip(lead, base).map { iconOchrePortion * $0 + (1 - iconOchrePortion) * $1 }
+  }
+  public static func iconBgColor(pack: CSTokenModePack) -> CSColorValue {
+    CSColorValue(colorSpace: .oklab, components: iconBgLab(ochre: pack.colorBrandOchre, panel: pack.colorSurfacePanel), alpha: 1)
+  }
+  public static func iconUsesOchreForeground(dark: Bool) -> Bool { dark }
+  public static func iconFgColor(dark: Bool, pack: CSTokenModePack) -> CSColorValue {
+    iconUsesOchreForeground(dark: dark) ? pack.colorBrandOchre : pack.colorBrandUmber
+  }
+  private static func oklab(_ color: CSColorValue) -> [Double] {
+    color.colorSpace == .oklab ? Array(color.components.prefix(3)) : srgbToOklab(color.components)
+  }
+  private static func srgbToOklab(_ rgb: [Double]) -> [Double] {
+    func linear(_ channel: Double) -> Double { channel <= 0.04045 ? channel / 12.92 : pow((channel + 0.055) / 1.055, 2.4) }
+    let r = linear(rgb[0]), g = linear(rgb[1]), b = linear(rgb[2])
+    let l = cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b)
+    let m = cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b)
+    let s = cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b)
+    return [0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s, 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s, 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s]
+  }
   public static func title(_ title: String?, fallback: String) -> String { title ?? fallback }
   public static func copy(_ key: String, language: String?) -> String {
     let want = CSComboboxModel.primaryLanguage(language) ?? "vi"
@@ -555,24 +585,34 @@ public struct CSEmptyState: View {
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let heading = CSEmptyStateModel.title(title, fallback: fallbackTitle ?? CSEmptyStateModel.copy("title", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)))
-    VStack(spacing: 8) {
-      if CSEmptyStateModel.usesDefaultIcon(icon) {
-        Canvas { context, size in
-          let source = CSIconPaths.path(data: CSEmptyStateModel.tray)
-          let scale = min(size.width, size.height) / 24
-          context.stroke(source.applying(CGAffineTransform(scaleX: scale, y: scale)), with: .color(pack.mutedColor), lineWidth: 1.8)
+    let iconInk = CSEmptyStateModel.iconFgColor(dark: dark, pack: pack).color
+    VStack(alignment: .center, spacing: CGFloat(CSEmptyStateModel.gap())) {
+      ZStack {
+        Circle()
+          .fill(CSEmptyStateModel.iconBgColor(pack: pack).color)
+        if CSEmptyStateModel.usesDefaultIcon(icon) {
+          Canvas { context, size in
+            let source = CSIconPaths.path(data: CSEmptyStateModel.tray)
+            let scale = min(size.width, size.height) / 24
+            context.stroke(source.applying(CGAffineTransform(scaleX: scale, y: scale)), with: .color(iconInk), lineWidth: CGFloat(CSEmptyStateModel.iconStrokeWidth()))
+          }
+          .frame(width: CGFloat(CSEmptyStateModel.iconSize()), height: CGFloat(CSEmptyStateModel.iconSize()))
+          .accessibilityHidden(true)
+        } else if let icon, !icon.isEmpty {
+          CSIcon(name: icon, label: "", dark: dark, highContrast: highContrast, compact: compact)
+            .foregroundStyle(iconInk)
         }
-        .frame(width: 26, height: 26)
-        .accessibilityHidden(true)
-      } else if let icon {
-        CSIcon(name: icon, label: "", dark: dark, highContrast: highContrast, compact: compact)
       }
+      .frame(width: CGFloat(CSEmptyStateModel.iconBoxSize()), height: CGFloat(CSEmptyStateModel.iconBoxSize()))
+      .padding(.bottom, CGFloat(CSEmptyStateModel.iconMarginBottom()))
       Text(heading).font(.headline).foregroundStyle(pack.primaryTextColor)
       if CSEmptyStateModel.shows(message), let message { Text(message).foregroundStyle(pack.mutedColor) }
       if CSEmptyStateModel.shows(action), let action { Text(action).foregroundStyle(pack.colorBrandOchre.color) }
     }
+    .multilineTextAlignment(.center)
     .frame(maxWidth: .infinity)
-    .padding(16)
+    .padding(.vertical, CGFloat(CSEmptyStateModel.paddingY()))
+    .padding(.horizontal, CGFloat(CSEmptyStateModel.paddingX()))
   }
 }
 

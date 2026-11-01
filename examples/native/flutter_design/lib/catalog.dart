@@ -1,6 +1,9 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 import 'controls.dart';
+import 'cs_modes.dart';
 import 'surfaces.dart';
 import 'icon_paths.dart';
 import 'primitives.dart';
@@ -361,6 +364,32 @@ String csEmptyCopy(String key, String? language) {
 }
 bool csEmptyShows(String? value) => value != null && value.isNotEmpty;
 bool csEmptyUsesDefaultIcon(String? icon) => icon == null;
+double csEmptyPaddingY() => 48;
+double csEmptyPaddingX() => 24;
+double csEmptyGap() => 8;
+double csEmptyIconBoxSize() => 56;
+double csEmptyIconSize() => 26;
+double csEmptyIconStrokeWidth() => 1.8;
+double csEmptyIconMarginBottom() => 6;
+const csEmptyIconOchrePortion = 0.24;
+CSColorValue csEmptyIconBgColor(CSTokenModePack pack) {
+  final lead = _csEmptyOklab(pack.colorBrandOchre);
+  final base = _csEmptyOklab(pack.colorSurfacePanel);
+  return CSColorValue(CSColorSpace.oklab, [for (var i = 0; i < 3; i++) csEmptyIconOchrePortion * lead[i] + (1 - csEmptyIconOchrePortion) * base[i]], 1);
+}
+bool csEmptyIconUsesOchreForeground(bool dark) => dark;
+CSColorValue csEmptyIconFgColor(bool dark, CSTokenModePack pack) => csEmptyIconUsesOchreForeground(dark) ? pack.colorBrandOchre : pack.colorBrandUmber;
+List<double> _csEmptyOklab(CSColorValue color) => color.colorSpace == CSColorSpace.oklab ? color.components.take(3).toList() : _csEmptySrgbToOklab(color.components);
+double _csEmptyLinear(double channel) => channel <= 0.04045 ? channel / 12.92 : math.pow((channel + 0.055) / 1.055, 2.4).toDouble();
+List<double> _csEmptySrgbToOklab(List<double> rgb) {
+  final r = _csEmptyLinear(rgb[0]);
+  final g = _csEmptyLinear(rgb[1]);
+  final b = _csEmptyLinear(rgb[2]);
+  final l = math.pow(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b, 1 / 3).toDouble();
+  final m = math.pow(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b, 1 / 3).toDouble();
+  final s = math.pow(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b, 1 / 3).toDouble();
+  return [0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s, 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s, 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s];
+}
 const csEmptyTray = 'M3 8l2-4h14l2 4M3 8v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V8M3 8h6l1 3h4l1-3h6';
 
 class CsEmptyState extends StatelessWidget {
@@ -378,15 +407,37 @@ class CsEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
-    return Column(children: [
-      if (csEmptyUsesDefaultIcon(icon))
-        CustomPaint(size: const Size(26, 26), painter: _EmptyTrayPainter(csColor(pack.colorTextMuted)))
-      else if (icon != null)
-        CsIcon(name: icon!, dark: dark, highContrast: highContrast, compact: compact),
-      Text(csEmptyTitle(title, fallbackTitle ?? csEmptyCopy('title', csSelectResolvedLanguage(language, CsLanguageScope.of(context)))), style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: csColor(pack.colorTextPrimary))),
-      if (csEmptyShows(message)) Text(message!, style: TextStyle(color: csColor(pack.colorTextMuted))),
-      if (csEmptyShows(action)) Text(action!, style: TextStyle(color: csColor(pack.colorBrandOchre))),
-    ]);
+    final iconInk = csColor(csEmptyIconFgColor(dark, pack));
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: csEmptyPaddingX(), vertical: csEmptyPaddingY()),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            width: csEmptyIconBoxSize(),
+            height: csEmptyIconBoxSize(),
+            margin: EdgeInsets.only(bottom: csEmptyIconMarginBottom() + csEmptyGap()),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: csColor(csEmptyIconBgColor(pack)),
+              shape: BoxShape.circle,
+            ),
+            child: csEmptyUsesDefaultIcon(icon)
+                ? CustomPaint(size: Size(csEmptyIconSize(), csEmptyIconSize()), painter: _EmptyTrayPainter(iconInk))
+                : (icon != null && icon!.isNotEmpty ? CsIcon(name: icon!, dark: dark, highContrast: highContrast, compact: compact) : null),
+          ),
+          Text(csEmptyTitle(title, fallbackTitle ?? csEmptyCopy('title', csSelectResolvedLanguage(language, CsLanguageScope.of(context)))), textAlign: TextAlign.center, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: csColor(pack.colorTextPrimary))),
+          if (csEmptyShows(message)) ...[
+            SizedBox(height: csEmptyGap()),
+            Text(message!, textAlign: TextAlign.center, style: TextStyle(color: csColor(pack.colorTextMuted))),
+          ],
+          if (csEmptyShows(action)) ...[
+            SizedBox(height: csEmptyGap()),
+            Text(action!, textAlign: TextAlign.center, style: TextStyle(color: csColor(pack.colorBrandOchre))),
+          ],
+        ],
+      ),
+    );
   }
 }
 

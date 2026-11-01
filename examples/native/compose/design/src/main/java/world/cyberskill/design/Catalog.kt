@@ -58,10 +58,12 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.pow
 
 sealed class CsPageToken {
   data class Page(val number: Int) : CsPageToken()
@@ -368,16 +370,43 @@ fun csEmptyCopy(key: String, language: String?): String {
 }
 fun csEmptyShows(value: String?) = value != null && value.isNotEmpty()
 fun csEmptyUsesDefaultIcon(icon: String?) = icon == null
+fun csEmptyPaddingY() = 48.dp
+fun csEmptyPaddingX() = 24.dp
+fun csEmptyGap() = 8.dp
+fun csEmptyIconBoxSize() = 56.dp
+fun csEmptyIconSize() = 26.dp
+fun csEmptyIconStrokeWidth() = 1.8f
+fun csEmptyIconMarginBottom() = 6.dp
+const val csEmptyIconOchrePortion = 0.24
+fun csEmptyIconBgColor(pack: CSTokenModePack): CSColorValue {
+  val lead = csEmptyOklab(pack.colorBrandOchre)
+  val base = csEmptyOklab(pack.colorSurfacePanel)
+  return CSColorValue(CSColorSpace.OKLAB, lead.zip(base) { o, p -> csEmptyIconOchrePortion * o + (1.0 - csEmptyIconOchrePortion) * p }, 1.0)
+}
+fun csEmptyIconUsesOchreForeground(dark: Boolean) = dark
+fun csEmptyIconFgColor(dark: Boolean, pack: CSTokenModePack) = if (csEmptyIconUsesOchreForeground(dark)) pack.colorBrandOchre else pack.colorBrandUmber
+private fun csEmptyOklab(color: CSColorValue) = if (color.colorSpace == CSColorSpace.OKLAB) color.components.take(3) else csEmptySrgbToOklab(color.components)
+private fun csEmptySrgbToOklab(rgb: List<Double>): List<Double> {
+  fun linear(channel: Double) = if (channel <= 0.04045) channel / 12.92 else ((channel + 0.055) / 1.055).pow(2.4)
+  val r = linear(rgb[0]); val g = linear(rgb[1]); val b = linear(rgb[2])
+  val l = (0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b).pow(1.0 / 3)
+  val m = (0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b).pow(1.0 / 3)
+  val s = (0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b).pow(1.0 / 3)
+  return listOf(0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s, 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s, 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s)
+}
 const val csEmptyTray = "M3 8l2-4h14l2 4M3 8v10a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V8M3 8h6l1 3h4l1-3h6"
 @Composable
 fun CsEmptyState(dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, title: String? = null, message: String? = null, action: String? = null, icon: String? = null, fallbackTitle: String? = null, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
-  Column(modifier.fillMaxWidth().padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-    if (csEmptyUsesDefaultIcon(icon)) Canvas(Modifier.size(26.dp)) { drawPath(csIconPathData(csEmptyTray, size.minDimension), pack.colorTextMuted.toComposeColor(), style = Stroke(width = 1.8f)) }
-    else if (icon != null) CsIcon(name = icon, label = "", dark = dark, highContrast = highContrast, compact = compact)
-    Text(csEmptyTitle(title, fallbackTitle ?: csEmptyCopy("title", csComboboxResolvedLanguage(language, LocalCsLanguage.current))), color = pack.colorTextPrimary.toComposeColor(), fontSize = 16.sp)
-    if (csEmptyShows(message)) Text(message ?: "", color = pack.colorTextMuted.toComposeColor())
-    if (csEmptyShows(action)) Text(action ?: "", color = pack.colorBrandOchre.toComposeColor())
+  val iconInk = csEmptyIconFgColor(dark, pack).toComposeColor()
+  Column(modifier.fillMaxWidth().padding(horizontal = csEmptyPaddingX(), vertical = csEmptyPaddingY()), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(csEmptyGap())) {
+    Box(Modifier.padding(bottom = csEmptyIconMarginBottom()).size(csEmptyIconBoxSize()).background(csEmptyIconBgColor(pack).toComposeColor(), CircleShape), contentAlignment = Alignment.Center) {
+      if (csEmptyUsesDefaultIcon(icon)) Canvas(Modifier.size(csEmptyIconSize())) { drawPath(csIconPathData(csEmptyTray, size.minDimension), iconInk, style = Stroke(width = csEmptyIconStrokeWidth())) }
+      else if (!icon.isNullOrEmpty()) CsIcon(name = icon, label = "", dark = dark, highContrast = highContrast, compact = compact)
+    }
+    Text(csEmptyTitle(title, fallbackTitle ?: csEmptyCopy("title", csComboboxResolvedLanguage(language, LocalCsLanguage.current))), color = pack.colorTextPrimary.toComposeColor(), fontSize = 16.sp, textAlign = TextAlign.Center)
+    if (csEmptyShows(message)) Text(message ?: "", color = pack.colorTextMuted.toComposeColor(), textAlign = TextAlign.Center)
+    if (csEmptyShows(action)) Text(action ?: "", color = pack.colorBrandOchre.toComposeColor(), textAlign = TextAlign.Center)
   }
 }
 
