@@ -79,9 +79,22 @@ public enum CSCommandFilter {
   public static func itemPaddingY() -> Double { 10 }
   public static func itemPaddingX() -> Double { 12 }
   public static func itemShowsRaisedFill(hovered: Bool, selected: Bool) -> Bool { hovered || selected }
+  public static func escapeClose() -> Bool { false }
+  public static func resetQueryOnClose() -> String { "" }
+  public static func showsItemMeta(_ value: String?) -> Bool { !(value ?? "").isEmpty }
 }
 
 public enum CSTransferModel {
+  public static let toTargetGlyph = "›"
+  public static let toSourceGlyph = "‹"
+
+  public static func titles(_ titles: [String]?, sourceFallback: String, targetFallback: String) -> (source: String, target: String) {
+    guard let titles else { return (sourceFallback, targetFallback) }
+    let source = titles.indices.contains(0) ? titles[0] : sourceFallback
+    let target = titles.indices.contains(1) ? titles[1] : targetFallback
+    return (source, target)
+  }
+
   public static func toggle(checked: [String], key: String) -> [String] {
     checked.contains(key) ? checked.filter { $0 != key } : checked + [key]
   }
@@ -119,8 +132,8 @@ public enum CSOneTimeCode {
   public static func copy(_ key: String, language: String?) -> String {
     let want = CSComboboxModel.primaryLanguage(language) ?? "vi"
     let tables: [String: [String: String]] = [
-      "vi": ["label": "Mã dùng một lần"],
-      "en": ["label": labelDefault],
+      "vi": ["label": "Mã dùng một lần", "required": "bắt buộc"],
+      "en": ["label": labelDefault, "required": "required"],
     ]
     var seen = Set<String>()
     for locale in [want, "en", "vi"] where seen.insert(locale).inserted {
@@ -187,6 +200,14 @@ public enum CSOneTimeCode {
     let length = CSRenderCount.whole(requested, fallback: 6)
     return length > 0 && value.count == length
   }
+
+  public static func digitSpanId(_ baseId: String, index: Int) -> String { "\(baseId)-digit-\(index + 1)" }
+  public static func digitInputId(_ baseId: String, index: Int) -> String { "\(baseId)-\(index + 1)" }
+  public static func digitSpanText(index: Int, length: Int) -> String { "\(index + 1)/\(length)" }
+  public static func invalid(error: String?) -> Bool { !(error ?? "").isEmpty }
+  public static func requiredDescription(required: Bool, language: String?) -> String? {
+    required ? copy("required", language: language) : nil
+  }
 }
 
 public enum CSCarouselModel {
@@ -195,6 +216,9 @@ public enum CSCarouselModel {
   public static let previousDefault = "Previous slide"
   public static let nextDefault = "Next slide"
   public static let slideDefault = "Slide"
+  public static let prevGlyph = "‹"
+  public static let nextGlyph = "›"
+  public static func trackOffsetPercent(active: Int) -> Double { Double(-active * 100) }
   public static func groupLabel(_ label: String?) -> String? { label }
   public static func copy(_ key: String, language: String?) -> String {
     let want = CSComboboxModel.primaryLanguage(language) ?? "vi"
@@ -322,12 +346,68 @@ public enum CSTreeModel {
   public static func twistGlyph(hasChildren: Bool, isOpen: Bool) -> String {
     hasChildren ? (isOpen ? "▾" : "▸") : ""
   }
+
+  public static func seedOpen(nodes: [CSTreeNode], defaultOpen: Bool) -> [String: Bool] {
+    var out: [String: Bool] = [:]
+    func walk(_ list: [CSTreeNode]) {
+      for node in list where !node.children.isEmpty {
+        out[node.key] = defaultOpen
+        walk(node.children)
+      }
+    }
+    walk(nodes)
+    return out
+  }
+
+  public static func findNode(nodes: [CSTreeNode], key: String) -> CSTreeNode? {
+    for node in nodes {
+      if node.key == key { return node }
+      if !node.children.isEmpty, let hit = findNode(nodes: node.children, key: key) { return hit }
+    }
+    return nil
+  }
+
+  public static func initialFocusKey(nodes: [CSTreeNode], selected: String?) -> String? {
+    if let selected, findNode(nodes: nodes, key: selected) != nil { return selected }
+    return nodes.first?.key
+  }
+
+  public static func depth(nodes: [CSTreeNode], key: String, current: Int = 0) -> Int {
+    for node in nodes {
+      if node.key == key { return current }
+      if !node.children.isEmpty {
+        let d = depth(nodes: node.children, key: key, current: current + 1)
+        if d >= 0 { return d }
+      }
+    }
+    return current == 0 ? 0 : -1
+  }
+
+  public static func needle(previousText: String, char: String, elapsedMs: Int) -> String {
+    let lower = char.lowercased()
+    let combined = elapsedMs < 500 ? previousText + lower : lower
+    return combined.allSatisfy({ String($0) == lower }) ? lower : combined
+  }
+
+  public static func typeahead(nodes: [CSTreeNode], open: [String: Bool], currentKey: String?, needle: String) -> String? {
+    let q = needle.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+    guard !q.isEmpty else { return nil }
+    let shown = visible(nodes: nodes, open: open)
+    guard !shown.isEmpty else { return nil }
+    let idx = currentKey.flatMap { key in shown.firstIndex(where: { $0.key == key }) } ?? -1
+    let ordered = idx >= 0 ? Array(shown[(idx + 1)...]) + Array(shown[...idx]) : shown
+    return ordered.first(where: { $0.label.trimmingCharacters(in: .whitespacesAndNewlines).lowercased().hasPrefix(q) })?.key
+  }
 }
 
 public enum CSFilePick {
   public static let titleDefault = "Drop files here or browse"
   public static let hintDefault = "PNG, JPG, or PDF up to 10MB"
   public static let icon = "M12 16V4M7 9l5-5 5 5M5 16v3a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3"
+  public static func hintId(_ baseId: String) -> String { "\(baseId)-hint" }
+  public static func dropzoneClass(dragging: Bool) -> String { dragging ? "cs-dropzone is-dragging" : "cs-dropzone" }
+  public static func iconSize() -> Double { 28 }
+  public static func iconStrokeWidth() -> Double { 1.8 }
   public static func resolvedIcon(_ icon: String?) -> String {
     guard let icon, !icon.isEmpty else { return self.icon }
     return icon
@@ -361,6 +441,8 @@ public struct CSCommandPalette: View {
   public let open: Bool
   public let placeholder: String?
   public let groups: [(title: String, items: [String])]
+  public let itemIcons: [String: String]
+  public let itemShortcuts: [String: String]
   public let query: String
   public let language: String?
   let dark: Bool
@@ -375,10 +457,12 @@ public struct CSCommandPalette: View {
   @State private var hoveredItem: String? = nil
   @FocusState private var trap: Int?
 
-  public init(open: Bool = true, placeholder: String? = nil, groups: [(title: String, items: [String])], query: String, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onQuery: @escaping (String) -> Void, onSelect: @escaping (String) -> Void, onOpenChange: ((Bool) -> Void)? = nil, onClose: @escaping () -> Void) {
+  public init(open: Bool = true, placeholder: String? = nil, groups: [(title: String, items: [String])], itemIcons: [String: String] = [:], itemShortcuts: [String: String] = [:], query: String, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onQuery: @escaping (String) -> Void, onSelect: @escaping (String) -> Void, onOpenChange: ((Bool) -> Void)? = nil, onClose: @escaping () -> Void) {
     self.open = open
     self.placeholder = placeholder
     self.groups = groups
+    self.itemIcons = itemIcons
+    self.itemShortcuts = itemShortcuts
     self.query = query
     self.language = language
     self.dark = dark
@@ -506,14 +590,23 @@ public struct CSCommandPalette: View {
               let stopIndex = before + itemIndex + 1
               let itemKey = "\(groupIndex)-\(itemIndex)"
               let raised = CSCommandFilter.itemShowsRaisedFill(hovered: hoveredItem == itemKey, selected: trap == stopIndex)
-              CSTriggerButton(item) {
-                onSelect(item)
-                onQuery("")
-                onOpenChange?(false)
-                onClose()
-              }
+              HStack(spacing: CGFloat(CSCommandFilter.itemGap())) {
+                if let icon = itemIcons[item], CSCommandFilter.showsItemMeta(icon) {
+                  Text(icon).foregroundStyle(pack.mutedColor).accessibilityHidden(true)
+                }
+                CSTriggerButton(item) {
+                  onSelect(item)
+                  onQuery(CSCommandFilter.resetQueryOnClose())
+                  onOpenChange?(CSCommandFilter.escapeClose())
+                  onClose()
+                }
                 .font(.system(size: pack.fontSizeSm.points))
                 .foregroundStyle(pack.primaryTextColor)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                if let shortcut = itemShortcuts[item], CSCommandFilter.showsItemMeta(shortcut) {
+                  CSKbd(shortcut, dark: dark, highContrast: highContrast, compact: compact)
+                }
+              }
                 .padding(.vertical, CGFloat(CSCommandFilter.itemPaddingY()))
                 .padding(.horizontal, CGFloat(CSCommandFilter.itemPaddingX()))
                 .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
@@ -538,6 +631,7 @@ public struct CSTransfer: View {
   public let items: [(key: String, label: String)]
   public let value: [String]
   public let checked: [String]
+  public let titles: [String]?
   public let sourceTitle: String?
   public let targetTitle: String?
   public let toTargetLabel: String?
@@ -549,10 +643,11 @@ public struct CSTransfer: View {
   let onChange: ([String], [String]) -> Void
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(items: [(key: String, label: String)], value: [String], checked: [String], sourceTitle: String? = nil, targetTitle: String? = nil, toTargetLabel: String? = nil, toSourceLabel: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onChange: @escaping ([String], [String]) -> Void) {
+  public init(items: [(key: String, label: String)], value: [String], checked: [String], titles: [String]? = nil, sourceTitle: String? = nil, targetTitle: String? = nil, toTargetLabel: String? = nil, toSourceLabel: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onChange: @escaping ([String], [String]) -> Void) {
     self.items = items
     self.value = value
     self.checked = checked
+    self.titles = titles
     self.sourceTitle = sourceTitle
     self.targetTitle = targetTitle
     self.toTargetLabel = toTargetLabel
@@ -569,8 +664,9 @@ public struct CSTransfer: View {
     let locale = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
     let keys = items.map(\.key)
     let pruned = CSTransferModel.prune(checked: checked, items: keys)
-    let source = CSTransferModel.title(sourceTitle, fallback: CSTransferModel.copy("source", language: locale))
-    let target = CSTransferModel.title(targetTitle, fallback: CSTransferModel.copy("target", language: locale))
+    let pair = CSTransferModel.titles(titles, sourceFallback: CSTransferModel.title(sourceTitle, fallback: CSTransferModel.copy("source", language: locale)), targetFallback: CSTransferModel.title(targetTitle, fallback: CSTransferModel.copy("target", language: locale)))
+    let source = pair.source
+    let target = pair.target
     let toward = CSTransferModel.title(toTargetLabel, fallback: CSTransferModel.copy("toTarget", language: locale))
     let back = CSTransferModel.title(toSourceLabel, fallback: CSTransferModel.copy("toSource", language: locale))
     HStack(alignment: .top, spacing: CGFloat(CSControlsBatchStyleModel.transferGap())) {
@@ -580,14 +676,14 @@ public struct CSTransfer: View {
           let next = CSTransferModel.move(value: value, checked: pruned, items: keys, toTarget: true)
           onChange(next.value, next.checked)
         } label: {
-          Text("›").frame(minWidth: 44, minHeight: 44).accessibilityHidden(true)
+          Text(CSTransferModel.toTargetGlyph).frame(minWidth: 44, minHeight: 44).accessibilityHidden(true)
         }
         .accessibilityLabel(toward)
         Button {
           let next = CSTransferModel.move(value: value, checked: pruned, items: keys, toTarget: false)
           onChange(next.value, next.checked)
         } label: {
-          Text("‹").frame(minWidth: 44, minHeight: 44).accessibilityHidden(true)
+          Text(CSTransferModel.toSourceGlyph).frame(minWidth: 44, minHeight: 44).accessibilityHidden(true)
         }
         .accessibilityLabel(back)
       }
@@ -645,7 +741,10 @@ public struct CSInputOTP: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    let name = CSOneTimeCode.label(label, fallback: CSOneTimeCode.copy("label", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)))
+    let locale = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
+    let name = CSOneTimeCode.label(label, fallback: CSOneTimeCode.copy("label", language: locale))
+    let isInvalid = CSOneTimeCode.invalid(error: error)
+    let cellStroke = isInvalid ? pack.colorSemanticDanger.color : pack.borderColor
     VStack(alignment: .leading, spacing: 4) {
       HStack(spacing: CGFloat(CSControlsWaveStyleModel.otpGap())) {
         ForEach(0..<max(length, 0), id: \.self) { index in
@@ -655,7 +754,7 @@ public struct CSInputOTP: View {
             .accessibilityLabel(CSOneTimeCode.digitName(label: name, index: index, length: max(length, 0)))
             .frame(width: CGFloat(CSControlsWaveStyleModel.otpCellWidth()), height: CGFloat(CSControlsWaveStyleModel.otpCellHeight()))
             .foregroundStyle(pack.primaryTextColor)
-            .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(pack.borderColor, lineWidth: 1))
+            .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(cellStroke, lineWidth: 1))
         }
       }
       .opacity(disabled ? CSControlsWaveStyleModel.otpDisabledOpacity : 1.0)
@@ -682,6 +781,9 @@ public struct CSInputOTP: View {
       }
       if let error, !error.isEmpty {
         Text(error).font(.system(size: pack.fontSizeSm.points)).foregroundStyle(pack.colorSemanticDangerText.color)
+      }
+      if let reqText = CSOneTimeCode.requiredDescription(required: required, language: locale) {
+        Text(reqText).font(.system(size: pack.fontSizeSm.points)).foregroundStyle(pack.mutedColor)
       }
     }
   }
@@ -752,19 +854,23 @@ public struct CSTree: View {
   public let nodes: [CSTreeNode]
   public let open: [String: Bool]
   public let selected: String?
+  public let defaultOpen: Bool
   let dark: Bool
   let highContrast: Bool
   let compact: Bool
   let onOpen: ([String: Bool]) -> Void
   let onSelect: (String) -> Void
   @State private var keysArmed = false
+  @State private var searchText = ""
+  @State private var searchAt: Date = .distantPast
   @FocusState private var treeFocused: Bool
 
-  public init(label: String, nodes: [CSTreeNode], open: [String: Bool], selected: String?, dark: Bool, highContrast: Bool, compact: Bool, onOpen: @escaping ([String: Bool]) -> Void, onSelect: @escaping (String) -> Void) {
+  public init(label: String, nodes: [CSTreeNode], open: [String: Bool], selected: String?, defaultOpen: Bool = false, dark: Bool, highContrast: Bool, compact: Bool, onOpen: @escaping ([String: Bool]) -> Void, onSelect: @escaping (String) -> Void) {
     self.label = label
     self.nodes = nodes
-    self.open = open
+    self.open = open.isEmpty && defaultOpen ? CSTreeModel.seedOpen(nodes: nodes, defaultOpen: defaultOpen) : open
     self.selected = selected
+    self.defaultOpen = defaultOpen
     self.dark = dark
     self.highContrast = highContrast
     self.compact = compact
@@ -778,6 +884,7 @@ public struct CSTree: View {
     VStack(alignment: .leading, spacing: CGFloat(CSControlsBatchStyleModel.treeRowGap())) {
       ForEach(shown, id: \.key) { node in
         let glyph = CSTreeModel.twistGlyph(hasChildren: !node.children.isEmpty, isOpen: open[node.key] == true)
+        let indent = CGFloat(CSTreeModel.rowIndent(depth: CSTreeModel.depth(nodes: nodes, key: node.key)))
         CSTriggerButton(glyph.isEmpty ? node.label : "\(glyph) \(node.label)") {
           onSelect(node.key)
           if !node.children.isEmpty {
@@ -786,6 +893,7 @@ public struct CSTree: View {
             onOpen(next)
           }
         }
+        .padding(.leading, indent)
         .frame(minWidth: CGFloat(CSControlsBatchStyleModel.treeTwistWidth()), maxWidth: .infinity, minHeight: max(pack.componentButtonMdMinHeight.points, CGFloat(CSControlsBatchStyleModel.treeTwistHeight())), alignment: .leading)
         .foregroundStyle(selected == node.key ? pack.colorBrandOchre.color : pack.primaryTextColor)
         .accessibilityAddTraits(selected == node.key ? .isSelected : [])
@@ -804,7 +912,7 @@ public struct CSTree: View {
 
   private func moveTree(_ key: CSRovingKey) -> Bool {
     let shown = CSTreeModel.visible(nodes: nodes, open: open)
-    guard let current = selected ?? shown.first?.key,
+    guard let current = selected ?? CSTreeModel.initialFocusKey(nodes: nodes, selected: selected) ?? shown.first?.key,
           let move = CSTreeModel.move(nodes: nodes, open: open, key: current, arrow: key) else { return false }
     switch move {
     case .focus(let key):
@@ -813,8 +921,10 @@ public struct CSTree: View {
       var next = open
       next[key] = !(open[key] == true)
       onOpen(next)
-    case .openSiblings:
-      break
+    case .openSiblings(let keys):
+      var next = open
+      for k in keys { next[k] = true }
+      onOpen(next)
     }
     return true
   }
@@ -826,6 +936,7 @@ public struct CSFileUpload: View {
   public let accept: String?
   public let icon: String?
   public let multiple: Bool
+  public let dragging: Bool
   let dark: Bool
   let highContrast: Bool
   let compact: Bool
@@ -833,12 +944,13 @@ public struct CSFileUpload: View {
   public let language: String?
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(title: String? = nil, hint: String? = nil, accept: String? = nil, icon: String? = nil, multiple: Bool = false, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onFiles: @escaping ([String]) -> Void) {
+  public init(title: String? = nil, hint: String? = nil, accept: String? = nil, icon: String? = nil, multiple: Bool = false, dragging: Bool = false, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onFiles: @escaping ([String]) -> Void) {
     self.title = title
     self.hint = hint
     self.accept = accept
     self.icon = icon
     self.multiple = multiple
+    self.dragging = dragging
     self.dark = dark
     self.highContrast = highContrast
     self.compact = compact
@@ -855,9 +967,9 @@ public struct CSFileUpload: View {
       Canvas { context, size in
         let source = CSIconPaths.path(data: CSFilePick.resolvedIcon(icon))
         let scale = min(size.width, size.height) / 24
-        context.stroke(source.applying(CGAffineTransform(scaleX: scale, y: scale)), with: .color(pack.mutedColor), lineWidth: 1.8)
+        context.stroke(source.applying(CGAffineTransform(scaleX: scale, y: scale)), with: .color(pack.mutedColor), lineWidth: CGFloat(CSFilePick.iconStrokeWidth()))
       }
-      .frame(width: 28, height: 28)
+      .frame(width: CGFloat(CSFilePick.iconSize()), height: CGFloat(CSFilePick.iconSize()))
       .accessibilityHidden(true)
       Text(shownTitle).foregroundStyle(pack.primaryTextColor)
       Text(shownHint).foregroundStyle(pack.mutedColor)
@@ -865,7 +977,7 @@ public struct CSFileUpload: View {
     .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
     .padding(.horizontal, CGFloat(CSControlsWaveStyleModel.dropzonePaddingX()))
     .padding(.vertical, CGFloat(CSControlsWaveStyleModel.dropzonePaddingY()))
-    .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(pack.borderColor, lineWidth: CGFloat(CSControlsWaveStyleModel.dropzoneBorderWidth())))
+    .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(dragging ? pack.colorBrandOchre.color : pack.borderColor, lineWidth: CGFloat(CSControlsWaveStyleModel.dropzoneBorderWidth())))
     .accessibilityElement(children: .combine)
     .accessibilityLabel(shownTitle)
     .accessibilityHint(shownHint)
@@ -936,6 +1048,8 @@ public enum CSDrawerModel {
   public static func bodyFocusable(scrollHeight: Double, clientHeight: Double, scrollWidth: Double, clientWidth: Double) -> Bool {
     scrollHeight > clientHeight + 1 || scrollWidth > clientWidth + 1
   }
+  public static func escapeClose() -> Bool { false }
+  public static func titleId(_ baseId: String) -> String { "\(baseId)-title" }
 }
 
 public struct CSDrawer: View {
@@ -1073,6 +1187,10 @@ public struct CSDrawer: View {
           if index == 0 { CSFocusRegistry.shared.claim(id: closeFocusId, restore: { trap = 0 }) }
         }
         .onDisappear { CSOverlayRegistry.shared.remove(id: layerId) }
+        .onExitCommand {
+          let stack = CSOverlayRegistry.shared.resolved(id: layerId, fallback: layers)
+          if CSOverlayStack.ownsFocus(id: layerId, layers: stack) { close() }
+        }
         .csTabTrap { shift in
           let stack = CSOverlayRegistry.shared.resolved(id: layerId, fallback: layers)
           guard CSOverlayStack.ownsFocus(id: layerId, layers: stack) else { return false }
@@ -1086,8 +1204,9 @@ public struct CSDrawer: View {
 
   private func close() {
     let stack = CSOverlayRegistry.shared.resolved(id: layerId, fallback: layers)
-    open = false
-    onOpenChange?(false)
+    let next = CSDrawerModel.escapeClose()
+    open = next
+    onOpenChange?(next)
     onClose?()
     CSFocusReturn.perform(savedId: restoreId, onRestore: onRestore, layerId: layerId, layers: stack)
     CSOverlayRegistry.shared.remove(id: layerId)

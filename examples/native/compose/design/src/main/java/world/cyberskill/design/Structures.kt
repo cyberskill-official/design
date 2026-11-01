@@ -120,10 +120,23 @@ fun csCommandItemGap() = 11.dp
 fun csCommandItemPaddingY() = 10.dp
 fun csCommandItemPaddingX() = 12.dp
 fun csCommandItemShowsRaisedFill(hovered: Boolean, selected: Boolean) = hovered || selected
+fun csCommandEscapeClose() = false
+fun csCommandResetQueryOnClose() = ""
+fun csCommandShowsItemMeta(value: String?) = !value.isNullOrEmpty()
 fun csCommandStatus(count: Int, language: String?): String {
   if (count == 0) return csCommandCopy("empty", language)
   val template = csCommandCopy(if (count == 1) "oneResult" else "results", language)
   return template.replace("{count}", csCommandFormat(count, language))
+}
+
+const val csTransferToTargetGlyph = "›"
+const val csTransferToSourceGlyph = "‹"
+
+fun csTransferTitles(titles: List<String>?, sourceFallback: String, targetFallback: String): Pair<String, String> {
+  if (titles == null) return sourceFallback to targetFallback
+  val source = if (titles.isNotEmpty()) titles[0] else sourceFallback
+  val target = if (titles.size > 1) titles[1] else targetFallback
+  return source to target
 }
 
 fun csTransferToggle(checked: List<String>, key: String): List<String> =
@@ -153,8 +166,8 @@ fun csTransferTitle(text: String?, fallback: String) = text ?: fallback
 const val csOneTimeLabel = "One-time code"
 fun csOneTimeCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
-  val vi = mapOf("label" to "Mã dùng một lần")
-  val en = mapOf("label" to csOneTimeLabel)
+  val vi = mapOf("label" to "Mã dùng một lần", "required" to "bắt buộc")
+  val en = mapOf("label" to csOneTimeLabel, "required" to "required")
   for (locale in linkedSetOf(want, "en", "vi")) {
     val table = if (locale == "vi") vi else if (locale == "en") en else emptyMap()
     table[key]?.let { return it }
@@ -192,12 +205,21 @@ fun csOneTimeComplete(value: String, requested: Double = 6.0): Boolean {
 }
 fun csOneTimeFinished(value: String, requested: Double = 6.0): String? =
   if (csOneTimeComplete(value, requested)) value else null
+fun csOneTimeDigitSpanId(baseId: String, index: Int) = "$baseId-digit-${index + 1}"
+fun csOneTimeDigitInputId(baseId: String, index: Int) = "$baseId-${index + 1}"
+fun csOneTimeDigitSpanText(index: Int, length: Int) = "${index + 1}/$length"
+fun csOneTimeInvalid(error: String?) = !error.isNullOrEmpty()
+fun csOneTimeRequiredDescription(required: Boolean, language: String?): String? =
+  if (required) csOneTimeCopy("required", language) else null
 
 fun csCarouselClamp(index: Int, count: Int): Int = if (count <= 0) 0 else minOf(count - 1, maxOf(0, index))
 
 const val csCarouselSlide = "Slide"
 const val csCarouselPrevious = "Previous slide"
 const val csCarouselNext = "Next slide"
+const val csCarouselPrevGlyph = "‹"
+const val csCarouselNextGlyph = "›"
+fun csCarouselTrackOffsetPercent(active: Int) = (-active * 100).toDouble()
 fun csCarouselCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
   val vi = mapOf("prev" to "Ảnh trước", "next" to "Ảnh sau", "slide" to "Ảnh")
@@ -278,10 +300,64 @@ fun csTreeOpenSiblings(nodes: List<CsTreeNode>, key: String): List<String> {
 
 fun csTreeRowIndent(depth: Int): Double = maxOf(0, depth) * 18.0 + 6.0
 fun csTreeTwistGlyph(hasChildren: Boolean, isOpen: Boolean): String = if (hasChildren) (if (isOpen) "▾" else "▸") else ""
+fun csTreeSeedOpen(nodes: List<CsTreeNode>, defaultOpen: Boolean): Map<String, Boolean> {
+  val out = mutableMapOf<String, Boolean>()
+  fun walk(list: List<CsTreeNode>) {
+    for (node in list) {
+      if (node.children.isNotEmpty()) {
+        out[node.key] = defaultOpen
+        walk(node.children)
+      }
+    }
+  }
+  walk(nodes)
+  return out
+}
+fun csTreeFindNode(nodes: List<CsTreeNode>, key: String): CsTreeNode? {
+  for (node in nodes) {
+    if (node.key == key) return node
+    if (node.children.isNotEmpty()) {
+      csTreeFindNode(node.children, key)?.let { return it }
+    }
+  }
+  return null
+}
+fun csTreeInitialFocusKey(nodes: List<CsTreeNode>, selected: String?): String? {
+  if (selected != null && csTreeFindNode(nodes, selected) != null) return selected
+  return nodes.firstOrNull()?.key
+}
+fun csTreeDepth(nodes: List<CsTreeNode>, key: String, current: Int = 0): Int {
+  for (node in nodes) {
+    if (node.key == key) return current
+    if (node.children.isNotEmpty()) {
+      val d = csTreeDepth(node.children, key, current + 1)
+      if (d >= 0) return d
+    }
+  }
+  return if (current == 0) 0 else -1
+}
+fun csTreeNeedle(previousText: String, char: String, elapsedMs: Int): String {
+  val lower = char.lowercase()
+  val combined = if (elapsedMs < 500) previousText + lower else lower
+  return if (combined.all { it.toString() == lower }) lower else combined
+}
+fun csTreeTypeahead(nodes: List<CsTreeNode>, open: Map<String, Boolean>, currentKey: String?, needle: String): String? {
+  val q = needle.trim().lowercase()
+  if (q.isEmpty()) return null
+  val shown = csTreeVisible(nodes, open)
+  if (shown.isEmpty()) return null
+  val idx = currentKey?.let { key -> shown.indexOfFirst { it.key == key } } ?: -1
+  val ordered = if (idx >= 0) shown.subList(idx + 1, shown.size) + shown.subList(0, idx + 1) else shown
+  return ordered.firstOrNull { it.label.trim().lowercase().startsWith(q) }?.key
+}
 
 const val csFileTitle = "Drop files here or browse"
 const val csFileHint = "PNG, JPG, or PDF up to 10MB"
 const val csFileIcon = "M12 16V4M7 9l5-5 5 5M5 16v3a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3"
+fun csFileHintId(baseId: String) = "$baseId-hint"
+fun csFileDropzoneClass(dragging: Boolean) = if (dragging) "cs-dropzone is-dragging" else "cs-dropzone"
+fun csFileIconSize() = 28.dp
+fun csFileIconStrokeWidth() = 1.8f
 fun csFileResolvedIcon(icon: String?): String = if (icon.isNullOrEmpty()) csFileIcon else icon
 fun csFileTitle(title: String?, fallback: String) = title ?: fallback
 fun csFileHint(hint: String?, fallback: String) = hint ?: fallback
@@ -319,6 +395,8 @@ fun CsCommandPalette(
   open: Boolean = true,
   onOpenChange: ((Boolean) -> Unit)? = null,
   placeholder: String? = null,
+  itemIcons: Map<String, String> = emptyMap(),
+  itemShortcuts: Map<String, String> = emptyMap(),
   language: String? = null,
 ) {
   if (!open) return
@@ -460,11 +538,20 @@ fun CsCommandPalette(
                   verticalAlignment = Alignment.CenterVertically,
                   horizontalArrangement = Arrangement.spacedBy(csCommandItemGap()),
                 ) {
+                  val icon = itemIcons[item]
+                  if (csCommandShowsItemMeta(icon)) {
+                    Text(icon ?: "", color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.clearAndSetSemantics {})
+                  }
                   Text(
                     item,
                     color = pack.colorTextPrimary.toComposeColor(),
                     fontSize = pack.fontSizeSm.toDp().value.sp,
+                    modifier = Modifier.weight(1f),
                   )
+                  val shortcut = itemShortcuts[item]
+                  if (csCommandShowsItemMeta(shortcut)) {
+                    CsKbd(keys = shortcut ?: "", dark = dark, highContrast = highContrast, compact = compact)
+                  }
                 }
               }
             }
@@ -485,6 +572,7 @@ fun CsTransfer(
   highContrast: Boolean,
   compact: Boolean,
   modifier: Modifier = Modifier,
+  titles: List<String>? = null,
   sourceTitle: String? = null,
   targetTitle: String? = null,
   toTargetLabel: String? = null,
@@ -492,8 +580,9 @@ fun CsTransfer(
   language: String? = null,
 ) {
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
-  val source = csTransferTitle(sourceTitle, csTransferCopy("source", locale))
-  val target = csTransferTitle(targetTitle, csTransferCopy("target", locale))
+  val pair = csTransferTitles(titles, csTransferTitle(sourceTitle, csTransferCopy("source", locale)), csTransferTitle(targetTitle, csTransferCopy("target", locale)))
+  val source = pair.first
+  val target = pair.second
   val toward = csTransferTitle(toTargetLabel, csTransferCopy("toTarget", locale))
   val back = csTransferTitle(toSourceLabel, csTransferCopy("toSource", locale))
   val keys = items.map { it.first }
@@ -506,8 +595,8 @@ fun CsTransfer(
       }
     }
     Column(verticalArrangement = Arrangement.spacedBy(csControlsBatchStyleTransferGap())) {
-      CsTriggerButton(title = "›", onClick = { val next = csTransferMove(value, pruned, keys, true); onChange(next.first, next.second) }, modifier = Modifier.semantics { contentDescription = toward }) { Text("›", modifier = Modifier.clearAndSetSemantics {}) }
-      CsTriggerButton(title = "‹", onClick = { val next = csTransferMove(value, pruned, keys, false); onChange(next.first, next.second) }, modifier = Modifier.semantics { contentDescription = back }) { Text("‹", modifier = Modifier.clearAndSetSemantics {}) }
+      CsTriggerButton(title = csTransferToTargetGlyph, onClick = { val next = csTransferMove(value, pruned, keys, true); onChange(next.first, next.second) }, modifier = Modifier.semantics { contentDescription = toward }) { Text(csTransferToTargetGlyph, modifier = Modifier.clearAndSetSemantics {}) }
+      CsTriggerButton(title = csTransferToSourceGlyph, onClick = { val next = csTransferMove(value, pruned, keys, false); onChange(next.first, next.second) }, modifier = Modifier.semantics { contentDescription = back }) { Text(csTransferToSourceGlyph, modifier = Modifier.clearAndSetSemantics {}) }
     }
     Column(Modifier.heightIn(max = csControlsBatchStyleTransferListMaxHeight())) {
       Text(target)
@@ -536,9 +625,11 @@ fun CsInputOTP(
   language: String? = null,
 ) {
   val pack = csModePack(dark, highContrast, compact)
+  val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val digits = csOneTimeDigits(value, length)
   val cellCount = csRenderCount(length, 6)
-  val name = csOneTimeLabelText(label, csOneTimeCopy("label", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
+  val name = csOneTimeLabelText(label, csOneTimeCopy("label", locale))
+  val isInvalid = csOneTimeInvalid(error)
   val handle = rememberFocusHandle("otp")
   Column(modifier.alpha(if (disabled) csControlsWaveStyleOtpDisabledOpacity else 1f), verticalArrangement = Arrangement.spacedBy(csControlsWaveStyleOtpGap())) {
     Row(horizontalArrangement = Arrangement.spacedBy(csControlsWaveStyleOtpGap())) {
@@ -548,7 +639,7 @@ fun CsInputOTP(
           Modifier
             .width(csControlsWaveStyleOtpCellWidth())
             .height(csControlsWaveStyleOtpCellHeight())
-            .border(1.dp, pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())),
+            .border(1.dp, (if (isInvalid) pack.colorSemanticDanger else pack.colorBorderDefault).toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())),
           contentAlignment = Alignment.Center,
         ) {
           Text(
@@ -576,6 +667,9 @@ fun CsInputOTP(
     )
     if (!description.isNullOrEmpty()) Text(description, color = pack.colorTextMuted.toComposeColor())
     if (!error.isNullOrEmpty()) Text(error, color = pack.colorSemanticDangerText.toComposeColor())
+    csOneTimeRequiredDescription(required, locale)?.let { reqText ->
+      Text(reqText, color = pack.colorTextMuted.toComposeColor())
+    }
   }
 }
 
@@ -605,22 +699,24 @@ fun CsCarousel(slides: List<String>, index: Int, onChange: (Int) -> Unit, dark: 
 }
 
 @Composable
-fun CsTree(label: String, nodes: List<CsTreeNode>, open: Map<String, Boolean>, selected: String?, onSelect: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, onOpen: ((Map<String, Boolean>) -> Unit)? = null) {
+fun CsTree(label: String, nodes: List<CsTreeNode>, open: Map<String, Boolean>, selected: String?, onSelect: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, defaultOpen: Boolean = false, onOpen: ((Map<String, Boolean>) -> Unit)? = null) {
   val pack = csModePack(dark, highContrast, compact)
+  val effectiveOpen = if (open.isEmpty() && defaultOpen) csTreeSeedOpen(nodes, defaultOpen) else open
   Column(modifier, verticalArrangement = Arrangement.spacedBy(csControlsBatchStyleTreeRowGap())) {
     Text(label, color = pack.colorTextMuted.toComposeColor())
-    csTreeVisible(nodes, open).forEach { node ->
-      val glyph = csTreeTwistGlyph(node.children.isNotEmpty(), open[node.key] == true)
+    csTreeVisible(nodes, effectiveOpen).forEach { node ->
+      val glyph = csTreeTwistGlyph(node.children.isNotEmpty(), effectiveOpen[node.key] == true)
       val rowText = if (glyph.isEmpty()) node.label else "$glyph ${node.label}"
+      val indent = csTreeRowIndent(csTreeDepth(nodes, node.key)).dp
       CsTriggerButton(
         title = rowText,
         onClick = {
           onSelect(node.key)
           if (node.children.isNotEmpty()) {
-            onOpen?.invoke(open + (node.key to !(open[node.key] == true)))
+            onOpen?.invoke(effectiveOpen + (node.key to !(effectiveOpen[node.key] == true)))
           }
         },
-        modifier = Modifier.fillMaxWidth().widthIn(min = csControlsBatchStyleTreeTwistWidth()).heightIn(min = csControlsBatchStyleTreeTwistHeight()).minimumInteractiveComponentSize(),
+        modifier = Modifier.fillMaxWidth().padding(start = indent).widthIn(min = csControlsBatchStyleTreeTwistWidth()).heightIn(min = csControlsBatchStyleTreeTwistHeight()).minimumInteractiveComponentSize(),
       ) {
         Text(rowText, color = if (selected == node.key) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor())
       }
@@ -629,27 +725,28 @@ fun CsTree(label: String, nodes: List<CsTreeNode>, open: Map<String, Boolean>, s
 }
 
 @Composable
-fun CsFileUpload(onFiles: (List<String>) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, title: String? = null, hint: String? = null, accept: String? = null, icon: String? = null, multiple: Boolean = false, language: String? = null) {
+fun CsFileUpload(onFiles: (List<String>) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, title: String? = null, hint: String? = null, accept: String? = null, icon: String? = null, multiple: Boolean = false, dragging: Boolean = false, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val spoken = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val shownTitle = csFileTitle(title, csFileCopy("title", spoken))
   val shownHint = csFileHint(hint, csFileCopy("hint", spoken))
   val iconData = csFileResolvedIcon(icon)
+  val borderColor = if (dragging) pack.colorBrandOchre else pack.colorBorderDefault
   Column(
     modifier
       .fillMaxWidth()
-      .border(csControlsWaveStyleDropzoneBorderWidth(), pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp()))
+      .border(csControlsWaveStyleDropzoneBorderWidth(), borderColor.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp()))
       .padding(horizontal = csControlsWaveStyleDropzonePaddingX(), vertical = csControlsWaveStyleDropzonePaddingY())
       .semantics { contentDescription = shownTitle },
     verticalArrangement = Arrangement.spacedBy(csControlsWaveStyleDropzoneGap()),
   ) {
-    androidx.compose.foundation.Canvas(Modifier.size(28.dp).clearAndSetSemantics {}) {
+    androidx.compose.foundation.Canvas(Modifier.size(csFileIconSize()).clearAndSetSemantics {}) {
       val px = size.minDimension
       drawPath(
         csIconPathData(iconData, px),
         pack.colorTextMuted.toComposeColor(),
         style = androidx.compose.ui.graphics.drawscope.Stroke(
-          width = 1.8f * px / 24f,
+          width = csFileIconStrokeWidth() * px / 24f,
           cap = androidx.compose.ui.graphics.StrokeCap.Round,
           join = androidx.compose.ui.graphics.StrokeJoin.Round,
         ),
@@ -706,6 +803,8 @@ fun csDrawerNotify(hasOpenChange: Boolean, hasClose: Boolean): List<String> {
   return events
 }
 fun csDrawerBodyFocusable(scrollHeight: Double, clientHeight: Double, scrollWidth: Double, clientWidth: Double) = scrollHeight > clientHeight + 1 || scrollWidth > clientWidth + 1
+fun csDrawerEscapeClose() = false
+fun csDrawerTitleId(baseId: String) = "$baseId-title"
 
 @Composable
 fun CsDrawer(title: String, message: String, closeLabel: String? = null, open: Boolean, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, side: String = "right", actions: String? = null, onClose: (() -> Unit)? = null, onRestore: (() -> Unit)? = null, language: String? = null) {
@@ -755,9 +854,16 @@ fun CsDrawer(title: String, message: String, closeLabel: String? = null, open: B
           Box(Modifier.fillMaxHeight().width(csDrawerBorderWidth()).background(pack.colorBorderDefault.toComposeColor()))
         }
         Column(Modifier.weight(1f, fill = false).fillMaxHeight().onPreviewKeyEvent { event ->
-          if (event.type != KeyEventType.KeyDown || event.key != Key.Tab) return@onPreviewKeyEvent false
+          if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
           val live = CsOverlayRegistry.resolved(layerId, listOf(CsOverlayLayer(layerId, "modal", true)))
           if (!csOverlayOwns(layerId, live)) return@onPreviewKeyEvent false
+          if (event.key == Key.Escape) {
+            onOpenChange(csDrawerEscapeClose())
+            onClose?.invoke()
+            csReturnFocus(restoreId, onRestore, layerId, live)
+            return@onPreviewKeyEvent true
+          }
+          if (event.key != Key.Tab) return@onPreviewKeyEvent false
           val next = csFocusNext(trap, 1, event.isShiftPressed, true) ?: return@onPreviewKeyEvent false
           trap = next
           true

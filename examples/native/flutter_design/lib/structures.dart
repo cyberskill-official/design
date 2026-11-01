@@ -79,10 +79,23 @@ double csCommandItemGap() => 11;
 double csCommandItemPaddingY() => 10;
 double csCommandItemPaddingX() => 12;
 bool csCommandItemShowsRaisedFill({required bool hovered, required bool selected}) => hovered || selected;
+bool csCommandEscapeClose() => false;
+String csCommandResetQueryOnClose() => '';
+bool csCommandShowsItemMeta(String? value) => value != null && value.isNotEmpty;
 String csCommandStatus(int count, String? language) {
   if (count == 0) return csCommandCopy('empty', language);
   final template = csCommandCopy(count == 1 ? 'oneResult' : 'results', language);
   return template.replaceAll('{count}', csCommandFormat(count, language));
+}
+
+const csTransferToTargetGlyph = '›';
+const csTransferToSourceGlyph = '‹';
+
+(String, String) csTransferTitles(List<String>? titles, String sourceFallback, String targetFallback) {
+  if (titles == null) return (sourceFallback, targetFallback);
+  final source = titles.isNotEmpty ? titles[0] : sourceFallback;
+  final target = titles.length > 1 ? titles[1] : targetFallback;
+  return (source, target);
 }
 
 List<String> csTransferToggle(List<String> checked, String key) =>
@@ -115,8 +128,8 @@ String csTransferTitle(String? text, String fallback) => text ?? fallback;
 const csOneTimeLabel = 'One-time code';
 String csOneTimeCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
-  const vi = {'label': 'Mã dùng một lần'};
-  const en = {'label': csOneTimeLabel};
+  const vi = {'label': 'Mã dùng một lần', 'required': 'bắt buộc'};
+  const en = {'label': csOneTimeLabel, 'required': 'required'};
   final seen = <String>{};
   for (final locale in [want, 'en', 'vi']) {
     if (!seen.add(locale)) continue;
@@ -163,12 +176,20 @@ bool csOneTimeComplete(String value, {double requested = 6}) {
   return length > 0 && value.length == length;
 }
 String? csOneTimeFinished(String value, {double requested = 6}) => csOneTimeComplete(value, requested: requested) ? value : null;
+String csOneTimeDigitSpanId(String baseId, int index) => '$baseId-digit-${index + 1}';
+String csOneTimeDigitInputId(String baseId, int index) => '$baseId-${index + 1}';
+String csOneTimeDigitSpanText(int index, int length) => '${index + 1}/$length';
+bool csOneTimeInvalid(String? error) => error != null && error.isNotEmpty;
+String? csOneTimeRequiredDescription(bool required, String? language) => required ? csOneTimeCopy('required', language) : null;
 
 int csCarouselClamp(int index, int count) => count <= 0 ? 0 : (index < 0 ? 0 : (index > count - 1 ? count - 1 : index));
 
 const csCarouselSlide = 'Slide';
 const csCarouselPrevious = 'Previous slide';
 const csCarouselNext = 'Next slide';
+const csCarouselPrevGlyph = '‹';
+const csCarouselNextGlyph = '›';
+double csCarouselTrackOffsetPercent(int active) => (-active * 100).toDouble();
 String csCarouselCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
   const vi = {'prev': 'Ảnh trước', 'next': 'Ảnh sau', 'slide': 'Ảnh'};
@@ -256,10 +277,68 @@ List<String> csTreeOpenSiblings(List<CsTreeNode> nodes, String key) {
 
 double csTreeRowIndent(int depth) => (depth < 0 ? 0 : depth) * 18.0 + 6.0;
 String csTreeTwistGlyph({required bool hasChildren, required bool isOpen}) => hasChildren ? (isOpen ? '▾' : '▸') : '';
+Map<String, bool> csTreeSeedOpen(List<CsTreeNode> nodes, bool defaultOpen) {
+  final out = <String, bool>{};
+  void walk(List<CsTreeNode> list) {
+    for (final node in list) {
+      if (node.children.isNotEmpty) {
+        out[node.key] = defaultOpen;
+        walk(node.children);
+      }
+    }
+  }
+  walk(nodes);
+  return out;
+}
+CsTreeNode? csTreeFindNode(List<CsTreeNode> nodes, String key) {
+  for (final node in nodes) {
+    if (node.key == key) return node;
+    if (node.children.isNotEmpty) {
+      final hit = csTreeFindNode(node.children, key);
+      if (hit != null) return hit;
+    }
+  }
+  return null;
+}
+String? csTreeInitialFocusKey(List<CsTreeNode> nodes, String? selected) {
+  if (selected != null && csTreeFindNode(nodes, selected) != null) return selected;
+  return nodes.isEmpty ? null : nodes.first.key;
+}
+int csTreeDepth(List<CsTreeNode> nodes, String key, [int current = 0]) {
+  for (final node in nodes) {
+    if (node.key == key) return current;
+    if (node.children.isNotEmpty) {
+      final d = csTreeDepth(node.children, key, current + 1);
+      if (d >= 0) return d;
+    }
+  }
+  return current == 0 ? 0 : -1;
+}
+String csTreeNeedle(String previousText, String char, int elapsedMs) {
+  final lower = char.toLowerCase();
+  final combined = elapsedMs < 500 ? '$previousText$lower' : lower;
+  return combined.split('').every((ch) => ch == lower) ? lower : combined;
+}
+String? csTreeTypeahead(List<CsTreeNode> nodes, Map<String, bool> open, String? currentKey, String needle) {
+  final q = needle.trim().toLowerCase();
+  if (q.isEmpty) return null;
+  final shown = csTreeVisible(nodes, open);
+  if (shown.isEmpty) return null;
+  final idx = currentKey == null ? -1 : shown.indexWhere((node) => node.key == currentKey);
+  final ordered = idx >= 0 ? [...shown.sublist(idx + 1), ...shown.sublist(0, idx + 1)] : shown;
+  for (final node in ordered) {
+    if (node.label.trim().toLowerCase().startsWith(q)) return node.key;
+  }
+  return null;
+}
 
 const csFileTitleDefault = 'Drop files here or browse';
 const csFileHintDefault = 'PNG, JPG, or PDF up to 10MB';
 const csFileIcon = 'M12 16V4M7 9l5-5 5 5M5 16v3a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3';
+String csFileHintId(String baseId) => '$baseId-hint';
+String csFileDropzoneClass(bool dragging) => dragging ? 'cs-dropzone is-dragging' : 'cs-dropzone';
+double csFileIconSize() => 28.0;
+double csFileIconStrokeWidth() => 1.8;
 String csFileResolvedIcon(String? icon) => (icon == null || icon.isEmpty) ? csFileIcon : icon;
 String csFileTitle(String? title, String fallback) => title ?? fallback;
 String csFileHint(String? hint, String fallback) => hint ?? fallback;
@@ -287,10 +366,12 @@ List<String> csFileNames(List<String> files, {bool multiple = false}) {
 }
 
 class CsCommandPalette extends StatefulWidget {
-  const CsCommandPalette({super.key, required this.groups, required this.query, required this.onQuery, required this.onSelect, required this.onClose, required this.dark, required this.highContrast, required this.compact, this.open = true, this.onOpenChange, this.placeholder, this.language});
+  const CsCommandPalette({super.key, required this.groups, required this.query, required this.onQuery, required this.onSelect, required this.onClose, required this.dark, required this.highContrast, required this.compact, this.open = true, this.onOpenChange, this.placeholder, this.itemIcons = const {}, this.itemShortcuts = const {}, this.language});
   final bool open;
   final ValueChanged<bool>? onOpenChange;
   final String? placeholder;
+  final Map<String, String> itemIcons;
+  final Map<String, String> itemShortcuts;
   final String? language;
   final List<CsCommandGroup> groups;
   final String query;
@@ -494,13 +575,28 @@ class _CsCommandPaletteState extends State<CsCommandPalette> {
                                                   },
                                                   child: Row(
                                                     children: [
-                                                      Text(
-                                                        item,
-                                                        style: TextStyle(
-                                                          color: csColor(pack.colorTextPrimary),
-                                                          fontSize: csPoints(pack.fontSizeSm),
+                                                      if (csCommandShowsItemMeta(widget.itemIcons[item])) ...[
+                                                        ExcludeSemantics(
+                                                          child: Text(
+                                                            widget.itemIcons[item]!,
+                                                            style: TextStyle(color: csColor(pack.colorTextMuted), fontSize: csPoints(pack.fontSizeSm)),
+                                                          ),
+                                                        ),
+                                                        SizedBox(width: csCommandItemGap()),
+                                                      ],
+                                                      Expanded(
+                                                        child: Text(
+                                                          item,
+                                                          style: TextStyle(
+                                                            color: csColor(pack.colorTextPrimary),
+                                                            fontSize: csPoints(pack.fontSizeSm),
+                                                          ),
                                                         ),
                                                       ),
+                                                      if (csCommandShowsItemMeta(widget.itemShortcuts[item])) ...[
+                                                        SizedBox(width: csCommandItemGap()),
+                                                        CsKbd(widget.itemShortcuts[item]!, dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact),
+                                                      ],
                                                     ],
                                                   ),
                                                 ),
@@ -528,10 +624,11 @@ class _CsCommandPaletteState extends State<CsCommandPalette> {
 }
 
 class CsTransfer extends StatelessWidget {
-  const CsTransfer({super.key, required this.items, required this.value, required this.checked, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.sourceTitle, this.targetTitle, this.toTargetLabel, this.toSourceLabel, this.language});
+  const CsTransfer({super.key, required this.items, required this.value, required this.checked, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.titles, this.sourceTitle, this.targetTitle, this.toTargetLabel, this.toSourceLabel, this.language});
   final List<(String, String)> items;
   final List<String> value;
   final List<String> checked;
+  final List<String>? titles;
   final String? sourceTitle;
   final String? targetTitle;
   final String? toTargetLabel;
@@ -545,8 +642,9 @@ class CsTransfer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locale = csSelectResolvedLanguage(language, CsLanguageScope.of(context));
-    final source = csTransferTitle(sourceTitle, csTransferCopy('source', locale));
-    final target = csTransferTitle(targetTitle, csTransferCopy('target', locale));
+    final pair = csTransferTitles(titles, csTransferTitle(sourceTitle, csTransferCopy('source', locale)), csTransferTitle(targetTitle, csTransferCopy('target', locale)));
+    final source = pair.$1;
+    final target = pair.$2;
     final toward = csTransferTitle(toTargetLabel, csTransferCopy('toTarget', locale));
     final back = csTransferTitle(toSourceLabel, csTransferCopy('toSource', locale));
     final keys = items.map((item) => item.$1).toList();
@@ -574,8 +672,8 @@ class CsTransfer extends StatelessWidget {
         ConstrainedBox(constraints: BoxConstraints(maxHeight: maxListHeight), child: Column(children: column(source, false))),
         SizedBox(width: listGap),
         Column(children: [
-          Semantics(button: true, label: toward, child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); final next = csTransferMove(value, pruned, keys, true); onChange(next.$1, next.$2); }, child: const ExcludeSemantics(child: Text('›'))))),
-          Semantics(button: true, label: back, child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); final next = csTransferMove(value, pruned, keys, false); onChange(next.$1, next.$2); }, child: const ExcludeSemantics(child: Text('‹'))))),
+          Semantics(button: true, label: toward, child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); final next = csTransferMove(value, pruned, keys, true); onChange(next.$1, next.$2); }, child: const ExcludeSemantics(child: Text(csTransferToTargetGlyph))))),
+          Semantics(button: true, label: back, child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); final next = csTransferMove(value, pruned, keys, false); onChange(next.$1, next.$2); }, child: const ExcludeSemantics(child: Text(csTransferToSourceGlyph))))),
         ]),
         SizedBox(width: listGap),
         ConstrainedBox(constraints: BoxConstraints(maxHeight: maxListHeight), child: Column(children: column(target, true))),
@@ -603,9 +701,12 @@ class CsInputOTP extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
+    final locale = csSelectResolvedLanguage(language, CsLanguageScope.of(context));
     final digits = csOneTimeDigits(value, requested: length);
     final cellCount = csRenderCount(length, 6);
-    final name = csOneTimeLabelText(label, csOneTimeCopy('label', csSelectResolvedLanguage(language, CsLanguageScope.of(context))));
+    final name = csOneTimeLabelText(label, csOneTimeCopy('label', locale));
+    final isInvalid = csOneTimeInvalid(error);
+    final reqText = csOneTimeRequiredDescription(required, locale);
     final cellGap = csControlsWaveStyleOtpGap();
     final cellWidth = csControlsWaveStyleOtpCellWidth();
     final cellHeight = csControlsWaveStyleOtpCellHeight();
@@ -631,7 +732,7 @@ class CsInputOTP extends StatelessWidget {
                         height: cellHeight,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          border: Border.all(color: csColor(pack.colorBorderDefault), width: 1),
+                          border: Border.all(color: csColor(isInvalid ? pack.colorSemanticDanger : pack.colorBorderDefault), width: 1),
                           borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
                         ),
                         child: Text(
@@ -675,6 +776,8 @@ class CsInputOTP extends StatelessWidget {
             Text(description!, style: TextStyle(color: csColor(pack.colorTextMuted), fontSize: csPoints(pack.fontSizeSm))),
           if (error != null && error!.isNotEmpty)
             Text(error!, style: TextStyle(color: csColor(pack.colorSemanticDangerText), fontSize: csPoints(pack.fontSizeSm))),
+          if (reqText != null && reqText.isNotEmpty)
+            Text(reqText, style: TextStyle(color: csColor(pack.colorTextMuted), fontSize: csPoints(pack.fontSizeSm))),
         ],
       ),
     );
@@ -766,11 +869,12 @@ class CsCarousel extends StatelessWidget {
 }
 
 class CsTree extends StatelessWidget {
-  const CsTree({super.key, required this.label, required this.nodes, required this.open, required this.selected, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.onOpen});
+  const CsTree({super.key, required this.label, required this.nodes, required this.open, required this.selected, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.defaultOpen = false, this.onOpen});
   final String label;
   final List<CsTreeNode> nodes;
   final Map<String, bool> open;
   final String? selected;
+  final bool defaultOpen;
   final ValueChanged<String> onSelect;
   final ValueChanged<Map<String, bool>>? onOpen;
   final bool dark;
@@ -780,6 +884,7 @@ class CsTree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
+    final effectiveOpen = (open.isEmpty && defaultOpen) ? csTreeSeedOpen(nodes, defaultOpen) : open;
     final rowGap = csControlsBatchStyleTreeRowGap();
     final twistWidth = csControlsBatchStyleTreeTwistWidth();
     final twistHeight = csControlsBatchStyleTreeTwistHeight();
@@ -787,25 +892,29 @@ class CsTree extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label, style: TextStyle(color: csColor(pack.colorTextMuted))),
-        for (final node in csTreeVisible(nodes, open)) ...[
+        for (final node in csTreeVisible(nodes, effectiveOpen)) ...[
           SizedBox(height: rowGap),
           Builder(
             builder: (context) {
-              final glyph = csTreeTwistGlyph(hasChildren: node.children.isNotEmpty, isOpen: open[node.key] == true);
+              final glyph = csTreeTwistGlyph(hasChildren: node.children.isNotEmpty, isOpen: effectiveOpen[node.key] == true);
               final rowText = glyph.isEmpty ? node.label : '$glyph ${node.label}';
-              return ConstrainedBox(
-                constraints: BoxConstraints(minWidth: twistWidth, minHeight: twistHeight),
-                child: CsOwnFocus(
-                  builder: (focusNode, claim) => TextButton(
-                    focusNode: focusNode,
-                    onPressed: () {
-                      claim();
-                      onSelect(node.key);
-                      if (node.children.isNotEmpty) {
-                        onOpen?.call({...open, node.key: !(open[node.key] == true)});
-                      }
-                    },
-                    child: Text(rowText, style: TextStyle(color: csColor(selected == node.key ? pack.colorBrandOchre : pack.colorTextPrimary))),
+              final indent = csTreeRowIndent(csTreeDepth(nodes, node.key));
+              return Padding(
+                padding: EdgeInsets.only(left: indent),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minWidth: twistWidth, minHeight: twistHeight),
+                  child: CsOwnFocus(
+                    builder: (focusNode, claim) => TextButton(
+                      focusNode: focusNode,
+                      onPressed: () {
+                        claim();
+                        onSelect(node.key);
+                        if (node.children.isNotEmpty) {
+                          onOpen?.call({...effectiveOpen, node.key: !(effectiveOpen[node.key] == true)});
+                        }
+                      },
+                      child: Text(rowText, style: TextStyle(color: csColor(selected == node.key ? pack.colorBrandOchre : pack.colorTextPrimary))),
+                    ),
                   ),
                 ),
               );
@@ -826,7 +935,7 @@ class _CsFileIconPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.8 * size.shortestSide / 24
+      ..strokeWidth = csFileIconStrokeWidth() * size.shortestSide / 24
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
       ..color = color;
@@ -839,7 +948,7 @@ class _CsFileIconPainter extends CustomPainter {
 }
 
 class CsFileUpload extends StatelessWidget {
-  const CsFileUpload({super.key, this.title, this.hint, this.accept, this.icon, required this.onFiles, required this.dark, required this.highContrast, required this.compact, this.multiple = false, this.language});
+  const CsFileUpload({super.key, this.title, this.hint, this.accept, this.icon, required this.onFiles, required this.dark, required this.highContrast, required this.compact, this.multiple = false, this.dragging = false, this.language});
   final String? title;
   final String? hint;
   final String? accept;
@@ -847,6 +956,7 @@ class CsFileUpload extends StatelessWidget {
   final String? language;
   final ValueChanged<List<String>> onFiles;
   final bool multiple;
+  final bool dragging;
   final bool dark;
   final bool highContrast;
   final bool compact;
@@ -862,18 +972,19 @@ class CsFileUpload extends StatelessWidget {
     final padX = csControlsWaveStyleDropzonePaddingX();
     final padY = csControlsWaveStyleDropzonePaddingY();
     final iconData = csFileResolvedIcon(icon);
+    final iconSize = csFileIconSize();
     return Semantics(
       label: shownTitle,
       hint: shownHint,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: padX, vertical: padY),
-        decoration: BoxDecoration(border: Border.all(color: csColor(pack.colorBorderDefault), width: borderWidth)),
+        decoration: BoxDecoration(border: Border.all(color: csColor(dragging ? pack.colorBrandOchre : pack.colorBorderDefault), width: borderWidth)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ExcludeSemantics(
               child: CustomPaint(
-                size: const Size(28, 28),
+                size: Size(iconSize, iconSize),
                 painter: _CsFileIconPainter(iconData, csColor(pack.colorTextMuted)),
               ),
             ),
@@ -932,6 +1043,8 @@ String csDrawerCopy(String key, String? language) {
 bool csDrawerShowsActions(String? actions) => actions != null && actions.isNotEmpty;
 List<String> csDrawerNotify(bool hasOpenChange, bool hasClose) => [if (hasOpenChange) 'open-false', if (hasClose) 'close'];
 bool csDrawerBodyFocusable(double scrollHeight, double clientHeight, double scrollWidth, double clientWidth) => scrollHeight > clientHeight + 1 || scrollWidth > clientWidth + 1;
+bool csDrawerEscapeClose() => false;
+String csDrawerTitleId(String baseId) => '$baseId-title';
 
 class CsDrawer extends StatefulWidget {
   const CsDrawer({super.key, required this.title, required this.message, this.actions, this.closeLabel, required this.open, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, this.side = 'right', this.onClose, this.onRestore, this.language});
@@ -985,9 +1098,16 @@ class _CsDrawerState extends State<CsDrawer> {
   void claimClose() => CsFocusRegistry.claim(closeId, closeNode.requestFocus);
 
   KeyEventResult _tab(FocusNode node, KeyEvent event) {
-    if (event is! KeyDownEvent || event.logicalKey != LogicalKeyboardKey.tab) return KeyEventResult.ignored;
+    if (event is! KeyDownEvent) return KeyEventResult.ignored;
     final live = CsOverlayRegistry.resolved(layerId, [CsOverlayLayer(layerId, 'modal', true)]);
     if (!csOverlayOwns(layerId, live)) return KeyEventResult.ignored;
+    if (event.logicalKey == LogicalKeyboardKey.escape) {
+      widget.onOpenChange(csDrawerEscapeClose());
+      widget.onClose?.call();
+      csReturnFocus(restoreId, widget.onRestore, layerId, live);
+      return KeyEventResult.handled;
+    }
+    if (event.logicalKey != LogicalKeyboardKey.tab) return KeyEventResult.ignored;
     final next = csFocusNext(trap, 1, HardwareKeyboard.instance.isShiftPressed, true);
     if (next == null) return KeyEventResult.ignored;
     setState(() => trap = next);
