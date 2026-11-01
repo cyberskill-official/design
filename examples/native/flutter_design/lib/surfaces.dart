@@ -7,6 +7,8 @@ import 'controls.dart';
 import 'cs_modes.dart';
 import 'fields.dart';
 
+const csColorDefaultSwatches = <String>['#F4BA17', '#C77B4A', '#E0632B', '#C43D1F', '#7A9B57', '#3E5A2E', '#4E8E9B', '#2E5E7E', '#BFB29B', '#45210E'];
+String csColorPlacement(String? placement) => placement ?? 'bottom-start';
 String? csColorCommit(String value) {
   if (value.length != 7 || !value.startsWith('#')) return null;
   final hex = value.substring(1);
@@ -49,8 +51,8 @@ class CsColorPlace {
   final double maxHeight;
   final String placement;
 }
-CsColorPlace? csColorShift(CsFloatingRect anchor, double naturalWidth, double naturalHeight, double fittedWidth, double fittedHeight, CsFloatingRect viewport, double originX, double originY, double scaleX, double scaleY) {
-  final initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement: 'bottom-start', gap: csColorGap);
+CsColorPlace? csColorShift(CsFloatingRect anchor, double naturalWidth, double naturalHeight, double fittedWidth, double fittedHeight, CsFloatingRect viewport, double originX, double originY, double scaleX, double scaleY, {String placement = 'bottom-start'}) {
+  final initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement: placement, gap: csColorGap);
   if (initial == null) return null;
   final placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, placement: initial.placement, gap: csColorGap);
   if (placed == null) return null;
@@ -88,8 +90,11 @@ String csSplitterCopy(String key, String? language) {
   return key;
 }
 String csSplitterName(String? label, String fallback) => label ?? fallback;
+String csSplitterBoundsText(double value, {double lower = 20, double upper = 80}) =>
+    '${csSplitterClamp(value, lower: lower, upper: upper).round()} (${lower.round()}-${upper.round()})';
 
 const csDatePlaceholder = 'Select a date';
+String csDatePlacement(String? placement) => placement ?? 'bottom-start';
 String csDatePlaceholderText(String? text, String fallback) => text ?? fallback;
 String csDateCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
@@ -110,6 +115,12 @@ String csDateDialogLabel(String? label, String? placeholder, String fallback) {
   final hint = placeholder?.trim() ?? '';
   return hint.isEmpty ? fallback : hint;
 }
+String? csDateDialogName(String? label, String? labelledBy, String dialog) {
+  final name = label?.trim() ?? '';
+  if (name.isNotEmpty) return dialog;
+  if (labelledBy != null && labelledBy.isNotEmpty) return null;
+  return dialog;
+}
 bool csDateOpen({required bool requested, required bool disabled}) => requested && !disabled;
 const csDateGap = 6.0;
 class CsDatePlace {
@@ -120,8 +131,8 @@ class CsDatePlace {
   final double maxHeight;
   final String placement;
 }
-CsDatePlace? csDateShift(CsFloatingRect anchor, double naturalWidth, double naturalHeight, double fittedWidth, double fittedHeight, CsFloatingRect viewport, double originX, double originY, double scaleX, double scaleY) {
-  final initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement: 'bottom-start', gap: csDateGap);
+CsDatePlace? csDateShift(CsFloatingRect anchor, double naturalWidth, double naturalHeight, double fittedWidth, double fittedHeight, CsFloatingRect viewport, double originX, double originY, double scaleX, double scaleY, {String placement = 'bottom-start'}) {
+  final initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement: placement, gap: csDateGap);
   if (initial == null) return null;
   final placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, placement: initial.placement, gap: csDateGap);
   if (placed == null) return null;
@@ -144,6 +155,7 @@ const csChatYou = 'You';
 const csChatLumi = 'Lumi';
 bool csChatIsUser(String role) => role == 'user';
 String csChatSpeaker(String? name, String role, String you, String lumi) => name ?? (csChatIsUser(role) ? you : lumi);
+String csChatDefaultAvatar(String role, String you) => csChatIsUser(role) ? you : csAiStyleLumiGlyph;
 String csChatCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
   const vi = {'you': 'Bạn'};
@@ -158,6 +170,7 @@ String csChatCopy(String key, String? language) {
   return key;
 }
 const csImagePreview = 'Preview image';
+const csImageFallbackMark = 'M21 15l-5-5-9 9';
 String csImagePreviewName(String alt, String fallback) => alt.isEmpty ? fallback : '$fallback: $alt';
 String csImageCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
@@ -173,12 +186,21 @@ String csImageCopy(String key, String? language) {
   return key;
 }
 bool csImageCanPreview(bool preview, String state) => preview && state == 'ok';
+bool csImagePreviewOpen(bool zoom, bool preview, String state) => zoom && csImageCanPreview(preview, state);
 String csImageDialogName(String alt, String fallback) => alt.isEmpty ? fallback : alt;
+bool csImageShowsFallback(String? fallback) => fallback != null && fallback.isNotEmpty;
+const csIconDefaultStrokeWidth = 1.75;
+String? csAnchorActive(List<String> visibleIds) => visibleIds.isEmpty ? null : visibleIds.first;
+String? csAnchorResolvedActive(List<String> visibleIds, List<String> itemIds) => csAnchorActive(visibleIds) ?? (itemIds.isEmpty ? null : itemIds.first);
+bool csAnchorShowsTitle(String? title) => title != null && title.isNotEmpty;
+String? csAnchorAriaCurrent(bool isActive) => isActive ? 'location' : null;
 
 class CsColorPicker extends StatefulWidget {
-  const CsColorPicker({super.key, required this.value, required this.swatches, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.label, this.labelledBy, this.language});
+  const CsColorPicker({super.key, this.value = '#F4BA17', this.swatches = csColorDefaultSwatches, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.label, this.labelledBy, this.portal = true, this.placement, this.language});
   final String? label;
   final String? labelledBy;
+  final bool portal;
+  final String? placement;
   final String? language;
   final String value;
   final List<String> swatches;
@@ -223,6 +245,7 @@ class _CsColorPickerState extends State<CsColorPicker> {
       list.dy,
       1,
       1,
+      placement: csColorPlacement(widget.placement),
     );
     setState(() { fitted = listBox.size; place = next; });
   }
@@ -293,10 +316,13 @@ class _CsColorPickerState extends State<CsColorPicker> {
 }
 
 class CsSplitter extends StatefulWidget {
-  const CsSplitter({super.key, required this.start, required this.end, required this.percent, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.label, this.language});
+  const CsSplitter({super.key, required this.start, required this.end, required this.percent, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.min = 20, this.max = 80, this.height = 240, this.label, this.language});
   final String start;
   final String end;
   final double percent;
+  final double min;
+  final double max;
+  final double height;
   final String? label;
   final String? language;
   final ValueChanged<double> onChange;
@@ -317,53 +343,60 @@ class _CsSplitterState extends State<CsSplitter> {
   Widget build(BuildContext context) {
     final rtl = Directionality.of(context) == TextDirection.rtl;
     final spoken = csSplitterName(widget.label, csSplitterCopy('label', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context))));
+    final clampedPercent = csSplitterClamp(widget.percent, lower: widget.min, upper: widget.max);
     return Focus(
       onKeyEvent: (node, event) {
         if (event is! KeyDownEvent) return KeyEventResult.ignored;
         if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
-          widget.onChange(csSplitterNudge(widget.percent, right: true, rtl: rtl));
+          widget.onChange(csSplitterNudge(clampedPercent, right: true, rtl: rtl, lower: widget.min, upper: widget.max));
           return KeyEventResult.handled;
         }
         if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
-          widget.onChange(csSplitterNudge(widget.percent, right: false, rtl: rtl));
+          widget.onChange(csSplitterNudge(clampedPercent, right: false, rtl: rtl, lower: widget.min, upper: widget.max));
           return KeyEventResult.handled;
         }
         return KeyEventResult.ignored;
       },
       child: LayoutBuilder(builder: (context, constraints) {
         final nextWrap = constraints.maxWidth.isFinite ? constraints.maxWidth : wrapWidth;
-        return Row(children: [
-          Padding(padding: EdgeInsets.all(csControlsBatchStyleSplitterPanePadding()), child: Text(widget.start)),
-          Semantics(
-            button: true,
-            label: spoken,
-            value: widget.percent.round().toString(),
-            child: GestureDetector(
-              onHorizontalDragStart: (details) { dragStart = widget.percent; grabX = details.globalPosition.dx; },
-              onHorizontalDragUpdate: (details) {
-                final start = dragStart;
-                final grab = grabX;
-                if (start == null || grab == null) return;
-                final box = handleKey.currentContext?.findRenderObject() as RenderBox?;
-                final next = csSplitterDrag(start, grab, details.globalPosition.dx, nextWrap, box?.size.width ?? 0, rtl);
-                if (next != null) widget.onChange(next);
-              },
-              onHorizontalDragEnd: (_) { dragStart = null; grabX = null; },
-              onHorizontalDragCancel: () { dragStart = null; grabX = null; },
-              child: ConstrainedBox(constraints: BoxConstraints(minWidth: csControlsBatchStyleSplitterBarWidth()), child: CsOwnFocus(builder: (node, claim) => TextButton(key: handleKey, focusNode: node, onPressed: () { claim(); widget.onChange(csSplitterNudge(widget.percent, right: true, rtl: rtl)); }, child: ExcludeSemantics(child: Text(spoken))))),
+        return ConstrainedBox(
+          constraints: BoxConstraints(minHeight: widget.height),
+          child: Row(children: [
+            Padding(padding: EdgeInsets.all(csControlsBatchStyleSplitterPanePadding()), child: Text(widget.start)),
+            Semantics(
+              button: true,
+              label: spoken,
+              value: clampedPercent.round().toString(),
+              child: GestureDetector(
+                onHorizontalDragStart: (details) { dragStart = clampedPercent; grabX = details.globalPosition.dx; },
+                onHorizontalDragUpdate: (details) {
+                  final start = dragStart;
+                  final grab = grabX;
+                  if (start == null || grab == null) return;
+                  final box = handleKey.currentContext?.findRenderObject() as RenderBox?;
+                  final next = csSplitterDrag(start, grab, details.globalPosition.dx, nextWrap, box?.size.width ?? 0, rtl, lower: widget.min, upper: widget.max);
+                  if (next != null) widget.onChange(next);
+                },
+                onHorizontalDragEnd: (_) { dragStart = null; grabX = null; },
+                onHorizontalDragCancel: () { dragStart = null; grabX = null; },
+                child: ConstrainedBox(constraints: BoxConstraints(minWidth: csControlsBatchStyleSplitterBarWidth()), child: CsOwnFocus(builder: (node, claim) => TextButton(key: handleKey, focusNode: node, onPressed: () { claim(); widget.onChange(csSplitterNudge(clampedPercent, right: true, rtl: rtl, lower: widget.min, upper: widget.max)); }, child: ExcludeSemantics(child: Text(spoken))))),
+              ),
             ),
-          ),
-          Padding(padding: EdgeInsets.all(csControlsBatchStyleSplitterPanePadding()), child: Text(widget.end)),
-        ]);
+            Padding(padding: EdgeInsets.all(csControlsBatchStyleSplitterPanePadding()), child: Text(widget.end)),
+          ]),
+        );
       }),
     );
   }
 }
 
 class CsDatePicker extends StatefulWidget {
-  const CsDatePicker({super.key, this.label, required this.text, required this.requestedOpen, required this.disabled, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, this.placeholder, this.language, this.onValue});
+  const CsDatePicker({super.key, this.label, this.labelledBy, required this.text, required this.requestedOpen, required this.disabled, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, this.placeholder, this.portal = true, this.placement, this.language, this.onValue});
   final String? label;
+  final String? labelledBy;
   final String? placeholder;
+  final bool portal;
+  final String? placement;
   final String? language;
   final String text;
   final bool requestedOpen;
@@ -409,6 +442,7 @@ class _CsDatePickerState extends State<CsDatePicker> {
       list.dy,
       1,
       1,
+      placement: csDatePlacement(widget.placement),
     );
     setState(() { fitted = listBox.size; place = next; });
   }
@@ -417,9 +451,14 @@ class _CsDatePickerState extends State<CsDatePicker> {
   Widget build(BuildContext context) {
     final open = csDateOpen(requested: widget.requestedOpen, disabled: widget.disabled);
     final locale = csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context));
-    final hint = csDatePlaceholderText(widget.placeholder, csDateCopy('placeholder', locale));
+    final fallback = csDateCopy('placeholder', locale);
+    final hint = csDatePlaceholderText(widget.placeholder, fallback);
     final face = widget.text.isEmpty ? hint : widget.text;
-    final name = (widget.label == null || widget.label!.isEmpty) ? face : widget.label!;
+    final name = (widget.labelledBy != null && widget.labelledBy!.isNotEmpty && (widget.label == null || widget.label!.isEmpty))
+        ? null
+        : ((widget.label == null || widget.label!.isEmpty) ? face : widget.label!);
+    final dialogLabel = csDateDialogLabel(widget.label, widget.placeholder, fallback);
+    final dialogName = csDateDialogName(widget.label, widget.labelledBy, dialogLabel);
     final parsed = csDateParse(widget.text, locale);
     final now = DateTime.now();
     final seedYear = parsed?.year ?? now.year;
@@ -435,8 +474,8 @@ class _CsDatePickerState extends State<CsDatePicker> {
           return KeyEventResult.handled;
         },
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          CsOwnFocus(builder: (node, claim) => Semantics(label: name, button: true, child: ConstrainedBox(constraints: BoxConstraints(minWidth: csControlsWaveStyleDatePickerFieldMinWidth()), child: TextButton(key: fieldKey, focusNode: node, onPressed: widget.disabled ? null : () { claim(); widget.onOpenChange(!open); }, child: ExcludeSemantics(child: Text(face)))))),
-          if (open) Opacity(opacity: place == null ? 0 : 1, child: Transform.translate(key: listKey, offset: Offset(place?.x ?? 0, place?.y ?? 0), child: CsCalendar(
+          CsOwnFocus(builder: (node, claim) => Semantics(label: name, button: true, child: ConstrainedBox(constraints: BoxConstraints(minWidth: csControlsWaveStyleDatePickerFieldMinWidth()), child: TextButton(key: fieldKey, focusNode: node, onPressed: widget.disabled ? null : () { claim(); widget.onOpenChange(!open); }, child: ExcludeSemantics(child: Text('📅 $face')))))),
+          if (open) Opacity(opacity: place == null ? 0 : 1, child: Semantics(namesRoute: true, label: dialogName, child: Transform.translate(key: listKey, offset: Offset(place?.x ?? 0, place?.y ?? 0), child: CsCalendar(
             monthLabel: csCalendarHeading(seedMonth, seedYear, locale),
             year: seedYear,
             month: seedMonth,
@@ -450,7 +489,7 @@ class _CsDatePickerState extends State<CsDatePicker> {
             highContrast: widget.highContrast,
             compact: widget.compact,
             language: locale,
-          ))),
+          )))),
         ]),
       ),
     );
@@ -458,9 +497,10 @@ class _CsDatePickerState extends State<CsDatePicker> {
 }
 
 class CsChatMessage extends StatelessWidget {
-  const CsChatMessage({super.key, required this.role, this.name, required this.bodyText, required this.dark, required this.highContrast, required this.compact, this.language});
+  const CsChatMessage({super.key, this.role = 'lumi', this.name, this.avatar, required this.bodyText, required this.dark, required this.highContrast, required this.compact, this.language});
   final String role;
   final String? name;
+  final String? avatar;
   final String? language;
   final String bodyText;
   final bool dark;
@@ -473,7 +513,9 @@ class CsChatMessage extends StatelessWidget {
     final user = csChatIsUser(role);
     final you = csChatCopy('you', csSelectResolvedLanguage(language, CsLanguageScope.of(context)));
     final speaker = csChatSpeaker(name, role, you, csChatLumi);
+    final avatarText = avatar ?? csChatDefaultAvatar(role, you);
     return Column(crossAxisAlignment: user ? CrossAxisAlignment.end : CrossAxisAlignment.start, children: [
+      ExcludeSemantics(child: Text(avatarText, style: TextStyle(color: csColor(pack.colorTextMuted)))),
       Text(speaker, style: TextStyle(color: csColor(pack.colorTextMuted), fontSize: csAiStyleChatNameFontSize(pack))),
       SizedBox(height: csAiStyleChatColGap()),
       Padding(
@@ -485,7 +527,7 @@ class CsChatMessage extends StatelessWidget {
 }
 
 class CsAnchor extends StatelessWidget {
-  const CsAnchor({super.key, required this.title, required this.items, required this.visibleIds, required this.dark, required this.highContrast, required this.compact});
+  const CsAnchor({super.key, this.title = '', required this.items, this.visibleIds = const [], required this.dark, required this.highContrast, required this.compact});
   final String title;
   final List<(String, String)> items;
   final List<String> visibleIds;
@@ -495,19 +537,29 @@ class CsAnchor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final active = visibleIds.isEmpty ? null : visibleIds.first;
+    final active = csAnchorResolvedActive(visibleIds, [for (final item in items) item.$1]);
     return ConstrainedBox(
       constraints: BoxConstraints(minWidth: csControlsBatchStyleAnchorMinWidth()),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(title, style: const TextStyle(fontSize: csControlsBatchStyleAnchorTitleFontSize)),
+        if (csAnchorShowsTitle(title)) Text(title, style: const TextStyle(fontSize: csControlsBatchStyleAnchorTitleFontSize)),
         for (final item in items)
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: csControlsBatchStyleAnchorItemPaddingX(), vertical: csControlsBatchStyleAnchorItemPaddingY()),
-            child: Text(item.$2, style: TextStyle(fontWeight: item.$1 == active ? FontWeight.w700 : FontWeight.w400)),
+          Semantics(
+            value: csAnchorAriaCurrent(item.$1 == active),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: csControlsBatchStyleAnchorItemPaddingX(), vertical: csControlsBatchStyleAnchorItemPaddingY()),
+              child: Text(item.$2, style: TextStyle(fontWeight: item.$1 == active ? FontWeight.w700 : FontWeight.w400)),
+            ),
           ),
       ]),
     );
   }
+}
+
+class CsCitation {
+  const CsCitation(this.title, {this.source, this.href});
+  final String title;
+  final String? source;
+  final String? href;
 }
 
 const csCitationLabel = 'Sources';
@@ -530,10 +582,11 @@ String? csCitationSource(String? source) => source == null || source.isEmpty ? n
 String? csCitationHref(String? href) => href == null || href.isEmpty ? null : href;
 String csCitationLine(int index, String title, String? source) => '${index + 1} $title${csCitationSource(source) ?? ''}';
 class CsCitationList extends StatelessWidget {
-  const CsCitationList({super.key, this.label, required this.items, required this.dark, required this.highContrast, required this.compact, this.language});
+  const CsCitationList({super.key, this.label, this.items = const [], this.citations = const [], required this.dark, required this.highContrast, required this.compact, this.language});
   final String? label;
   final String? language;
   final List<String> items;
+  final List<CsCitation> citations;
   final bool dark;
   final bool highContrast;
   final bool compact;
@@ -542,42 +595,49 @@ class CsCitationList extends StatelessWidget {
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
     final heading = csCitationHeading(label, label == null, csCitationCopy('sources', csSelectResolvedLanguage(language, CsLanguageScope.of(context))));
+    final rows = citations.isNotEmpty ? citations : [for (final item in items) CsCitation(item)];
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       if (heading != null) Text(heading, style: TextStyle(fontSize: csAiStyleCitationsLabelFontSize(pack))),
-      for (var index = 0; index < items.length; index++)
+      for (var index = 0; index < rows.length; index++)
         Padding(
           padding: EdgeInsets.only(top: index > 0 ? csAiStyleCitationsGap() : 0),
-          child: Text('${index + 1} ${items[index]}', style: TextStyle(fontSize: csAiStyleCitationFontSize(pack))),
+          child: Semantics(
+            link: csCitationHref(rows[index].href) != null,
+            hint: csCitationHref(rows[index].href),
+            child: Text(csCitationLine(index, rows[index].title, rows[index].source), style: TextStyle(fontSize: csAiStyleCitationFontSize(pack))),
+          ),
         ),
     ]);
   }
 }
 
 class CsScrollArea extends StatelessWidget {
-  const CsScrollArea({super.key, required this.maxHeight, required this.child});
-  final double maxHeight;
+  const CsScrollArea({super.key, this.maxHeight, required this.child});
+  final double? maxHeight;
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
+    final scrollable = Padding(
+      padding: EdgeInsets.all(csDataStyleScrollAreaFocusOutlineWidth(false)),
+      child: SingleChildScrollView(child: child),
+    );
     return Focus(
       canRequestFocus: csDataStyleScrollAreaTabStop() == 0,
-      child: ConstrainedBox(
-        constraints: BoxConstraints(maxHeight: maxHeight),
-        child: Padding(
-          padding: EdgeInsets.all(csDataStyleScrollAreaFocusOutlineWidth(false)),
-          child: SingleChildScrollView(child: child),
-        ),
-      ),
+      child: maxHeight == null
+          ? scrollable
+          : ConstrainedBox(constraints: BoxConstraints(maxHeight: maxHeight!), child: scrollable),
     );
   }
 }
 
-class CsImage extends StatelessWidget {
-  const CsImage({super.key, this.alt = '', required this.dark, required this.highContrast, required this.compact, this.ratio = '16 / 9', this.preview = false, this.state = 'loading', this.language});
+class CsImage extends StatefulWidget {
+  const CsImage({super.key, this.src, this.alt = '', required this.dark, required this.highContrast, required this.compact, this.ratio = '16 / 9', this.preview = false, this.state = 'loading', this.fallback, this.language});
+  final String? src;
   final String alt;
   final bool preview;
   final String state;
+  final String? fallback;
   final String? language;
   final String ratio;
   final bool dark;
@@ -585,15 +645,59 @@ class CsImage extends StatelessWidget {
   final bool compact;
 
   @override
+  State<CsImage> createState() => _CsImageState();
+}
+
+class _CsImageState extends State<CsImage> {
+  var zoom = false;
+
+  @override
+  void didUpdateWidget(CsImage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.src != widget.src || oldWidget.preview != widget.preview) {
+      zoom = false;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final previewWord = csImageCopy('preview', csSelectResolvedLanguage(language, CsLanguageScope.of(context)));
-    final name = csImageCanPreview(preview, state) ? csImagePreviewName(alt, previewWord) : alt;
-    return Semantics(
-      label: name,
-      child: SizedBox(
-        width: math.max(160, csControlsBatchStyleImageLoadingMinWidth()),
-        height: math.max(90, csControlsBatchStyleImageLoadingMinHeight()),
-      ),
+    final locale = csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context));
+    final previewWord = csImageCopy('preview', locale);
+    final closeWord = csImageCopy('close', locale);
+    final canPreview = csImageCanPreview(widget.preview, widget.state);
+    final isZoomOpen = csImagePreviewOpen(zoom, widget.preview, widget.state);
+    final name = canPreview ? csImagePreviewName(widget.alt, previewWord) : widget.alt;
+    return Focus(
+      onKeyEvent: (node, event) {
+        if (event is! KeyDownEvent || event.logicalKey != LogicalKeyboardKey.escape || !isZoomOpen) return KeyEventResult.ignored;
+        setState(() => zoom = false);
+        return KeyEventResult.handled;
+      },
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        GestureDetector(
+          onTap: canPreview ? () => setState(() => zoom = true) : null,
+          child: Semantics(
+            button: canPreview,
+            label: name,
+            child: SizedBox(
+              width: math.max(160, csControlsBatchStyleImageLoadingMinWidth()),
+              height: math.max(90, csControlsBatchStyleImageLoadingMinHeight()),
+              child: widget.state == 'error'
+                  ? Text(csImageShowsFallback(widget.fallback) ? widget.fallback! : csImageFallbackMark)
+                  : null,
+            ),
+          ),
+        ),
+        if (isZoomOpen)
+          Semantics(
+            namesRoute: true,
+            label: csImageDialogName(widget.alt, previewWord),
+            child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+              TextButton(onPressed: () => setState(() => zoom = false), child: Text(closeWord)),
+              Text(widget.alt),
+            ]),
+          ),
+      ]),
     );
   }
 }
@@ -617,8 +721,9 @@ class CsLogo extends StatelessWidget {
 }
 
 const csContextMenu = 'Context menu';
+bool csContextIsSeparator(String item) => item == '-';
 int? csContextFirst(List<String> items) {
-  final index = items.indexWhere((item) => item != '-');
+  final index = items.indexWhere((item) => !csContextIsSeparator(item));
   return index < 0 ? null : index;
 }
 (double, double) csContextPoint(double clientX, double clientY, double left, double top) => (clientX - left, clientY - top);
@@ -712,8 +817,10 @@ String csContextCopy(String key, String? language) {
 }
 
 class CsContextMenu extends StatefulWidget {
-  const CsContextMenu({super.key, this.label, required this.items, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.language});
+  const CsContextMenu({super.key, this.label, required this.items, required this.onSelect, required this.dark, required this.highContrast, required this.compact, this.portal = true, this.placement, this.language});
   final String? label;
+  final bool portal;
+  final String? placement;
   final String? language;
   final List<String> items;
   final ValueChanged<String> onSelect;
@@ -727,6 +834,7 @@ class CsContextMenu extends StatefulWidget {
 
 class _CsContextMenuState extends State<CsContextMenu> {
   (double, double)? raw;
+  int active = 0;
   Size? natural;
   Size? fitted;
   static const zoneHeight = 44.0;
@@ -771,8 +879,10 @@ class _CsContextMenuState extends State<CsContextMenu> {
   }
 
   void _open(Offset local) {
+    if (csContextFirst(widget.items) == null) return;
     final next = csContextPoint(local.dx, local.dy, 0, 0);
     setState(() {
+      active = 0;
       raw = next;
       natural = null;
       fitted = null;
@@ -783,11 +893,34 @@ class _CsContextMenuState extends State<CsContextMenu> {
 
   KeyEventResult _key(FocusNode node, KeyEvent event) {
     if (event is! KeyDownEvent) return KeyEventResult.ignored;
+    final actionableCount = widget.items.where((item) => !csContextIsSeparator(item)).length;
+    if (raw != null) {
+      if (event.logicalKey == LogicalKeyboardKey.escape) {
+        setState(() { raw = null; natural = null; fitted = null; });
+        return KeyEventResult.handled;
+      }
+      final keyName = event.logicalKey == LogicalKeyboardKey.arrowDown
+          ? 'down'
+          : event.logicalKey == LogicalKeyboardKey.arrowUp
+              ? 'up'
+              : event.logicalKey == LogicalKeyboardKey.home
+                  ? 'home'
+                  : event.logicalKey == LogicalKeyboardKey.end
+                      ? 'end'
+                      : null;
+      if (keyName != null) {
+        final next = csContextMove(active, actionableCount, keyName);
+        if (next != null) setState(() => active = next);
+        return KeyEventResult.handled;
+      }
+      return KeyEventResult.ignored;
+    }
     final shiftF10 = event.logicalKey == LogicalKeyboardKey.f10 && HardwareKeyboard.instance.isShiftPressed;
     final menuKey = event.logicalKey == LogicalKeyboardKey.contextMenu;
-    if (!shiftF10 && !menuKey) return KeyEventResult.ignored;
+    if (!shiftF10 && !menuKey || csContextFirst(widget.items) == null) return KeyEventResult.ignored;
     final next = csContextKeyboardPoint(zoneHeight);
     setState(() {
+      active = 0;
       raw = next;
       natural = null;
       fitted = null;
@@ -800,7 +933,8 @@ class _CsContextMenuState extends State<CsContextMenu> {
   @override
   Widget build(BuildContext context) {
     final point = raw;
-    final initial = point == null || natural == null ? null : _placeResult(point, natural!, 'bottom-start');
+    final placeName = widget.placement ?? 'bottom-start';
+    final initial = point == null || natural == null ? null : _placeResult(point, natural!, placeName);
     final shown = point == null || fitted == null || initial == null ? null : _placeResult(point, fitted!, initial.placement);
     return Focus(
       onKeyEvent: _key,
@@ -809,7 +943,7 @@ class _CsContextMenuState extends State<CsContextMenu> {
       onLongPressStart: (details) => _open(details.localPosition),
       child: Stack(children: [
         const SizedBox(width: double.infinity, height: zoneHeight),
-        if (point != null)
+        if (point != null && csContextFirst(widget.items) != null)
           Positioned(
             left: shown?.left ?? point.$1,
             top: shown?.top ?? point.$2,
@@ -824,7 +958,10 @@ class _CsContextMenuState extends State<CsContextMenu> {
                   child: Semantics(container: true, explicitChildNodes: true, label: csContextLabel(widget.label, csContextCopy('menu', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context)))), child: Padding(padding: EdgeInsets.all(csNavigationStyleMenuListPadding()), child: Column(key: panelKey, crossAxisAlignment: CrossAxisAlignment.start, children: [
                     if (widget.label != null) ExcludeSemantics(child: Text(widget.label!)),
                     for (final item in widget.items)
-                      CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onSelect(item); setState(() { raw = null; natural = null; fitted = null; }); }, child: Text(item))),
+                      if (csContextIsSeparator(item))
+                        ExcludeSemantics(child: SizedBox(height: csNavigationStyleMenuSeparatorHeight()))
+                      else
+                        CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onSelect(item); setState(() { raw = null; natural = null; fitted = null; }); }, child: Text(item))),
                   ]))),
                 ),
               ),
@@ -876,11 +1013,12 @@ class CsNavMenuItem {
 }
 
 class CsNavigationMenu extends StatefulWidget {
-  const CsNavigationMenu({super.key, required this.items, required this.dark, required this.highContrast, required this.compact, this.placement});
+  const CsNavigationMenu({super.key, required this.items, required this.dark, required this.highContrast, required this.compact, this.portal = true, this.placement});
   final List<CsNavMenuItem> items;
   final bool dark;
   final bool highContrast;
   final bool compact;
+  final bool portal;
   final String? placement;
 
   @override

@@ -8,6 +8,8 @@ import UIKit
 public enum CSColorModel {
   public static let labelDefault = "Color"
   public static let hexDefault = "Hex value"
+  public static let defaultSwatches = ["#F4BA17", "#C77B4A", "#E0632B", "#C43D1F", "#7A9B57", "#3E5A2E", "#4E8E9B", "#2E5E7E", "#BFB29B", "#45210E"]
+  public static func resolvedPlacement(_ placement: String?) -> String { placement ?? "bottom-start" }
   public static func commit(_ value: String) -> String? {
     guard value.count == 7, value.first == "#" else { return nil }
     let hex = value.dropFirst()
@@ -49,8 +51,8 @@ public enum CSColorModel {
   }
   public static func dismissOutside(open: Bool, inside: Bool) -> Bool { open && !inside }
   public static let panelGap = 6.0
-  public static func shift(anchor: CSFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CSFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double) -> CSColorPlace? {
-    guard let initial = CSFloatingModel.position(anchor: anchor, panelWidth: naturalWidth, panelHeight: naturalHeight, viewport: viewport, placement: "bottom-start", gap: panelGap) else { return nil }
+  public static func shift(anchor: CSFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CSFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String = "bottom-start") -> CSColorPlace? {
+    guard let initial = CSFloatingModel.position(anchor: anchor, panelWidth: naturalWidth, panelHeight: naturalHeight, viewport: viewport, placement: placement, gap: panelGap) else { return nil }
     guard let placed = CSFloatingModel.position(anchor: anchor, panelWidth: fittedWidth, panelHeight: fittedHeight, viewport: viewport, placement: initial.placement, gap: panelGap) else { return nil }
     let sx = scaleX == 0 ? 1 : scaleX
     let sy = scaleY == 0 ? 1 : scaleY
@@ -109,12 +111,16 @@ public enum CSSplitterModel {
   }
 
   public static func name(_ label: String?, fallback: String) -> String { label ?? fallback }
+  public static func boundsText(value: Double, min lower: Double = 20, max upper: Double = 80) -> String {
+    "\(Int(clamp(value, min: lower, max: upper).rounded())) (\(Int(lower.rounded()))-\(Int(upper.rounded())))"
+  }
 }
 
 public enum CSDateField {
   public static let placeholderDefault = "Select a date"
   public static let placementDefault = "bottom-start"
   public static let gap = 6.0
+  public static func resolvedPlacement(_ placement: String?) -> String { placement ?? placementDefault }
   public static func placeholder(_ text: String?, fallback: String) -> String { text ?? fallback }
   public static func copy(_ key: String, language: String?) -> String {
     let want = CSComboboxModel.primaryLanguage(language) ?? "vi"
@@ -144,8 +150,8 @@ public enum CSDateField {
   public static func open(requested: Bool, disabled: Bool) -> Bool {
     requested && !disabled
   }
-  public static func shift(anchor: CSFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CSFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double) -> CSDatePlace? {
-    guard let initial = CSFloatingModel.position(anchor: anchor, panelWidth: naturalWidth, panelHeight: naturalHeight, viewport: viewport, placement: placementDefault, gap: gap) else { return nil }
+  public static func shift(anchor: CSFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CSFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String = placementDefault) -> CSDatePlace? {
+    guard let initial = CSFloatingModel.position(anchor: anchor, panelWidth: naturalWidth, panelHeight: naturalHeight, viewport: viewport, placement: placement, gap: gap) else { return nil }
     guard let placed = CSFloatingModel.position(anchor: anchor, panelWidth: fittedWidth, panelHeight: fittedHeight, viewport: viewport, placement: initial.placement, gap: gap) else { return nil }
     let sx = scaleX == 0 ? 1 : scaleX
     let sy = scaleY == 0 ? 1 : scaleY
@@ -197,6 +203,9 @@ public enum CSChatRole {
     if let name { return name }
     return isUser(role) ? you : lumi
   }
+  public static func defaultAvatar(role: String, you: String) -> String {
+    isUser(role) ? you : CSAIStyleModel.lumiGlyph
+  }
   public static func copy(_ key: String, language: String?) -> String {
     let want = CSComboboxModel.primaryLanguage(language) ?? "vi"
     let tables: [String: [String: String]] = [
@@ -212,6 +221,7 @@ public enum CSChatRole {
 }
 
 public enum CSIconModel {
+  public static let defaultStrokeWidth = 1.75
   public static func points(_ size: String) -> CGFloat {
     switch size {
     case "sm": return 16
@@ -231,6 +241,16 @@ public enum CSAnchorModel {
   public static func active(_ orderedVisibleIds: [String]) -> String? {
     orderedVisibleIds.first
   }
+  public static func resolvedActive(visibleIds: [String], itemIds: [String]) -> String? {
+    active(visibleIds) ?? itemIds.first
+  }
+  public static func showsTitle(_ title: String?) -> Bool {
+    guard let title else { return false }
+    return !title.isEmpty
+  }
+  public static func ariaCurrent(isActive: Bool) -> String? {
+    isActive ? "location" : nil
+  }
 }
 
 private struct CSOptionalDialogLabel: ViewModifier {
@@ -249,6 +269,8 @@ public struct CSColorPicker: View {
   public let labelledBy: String?
   public let value: String
   public let swatches: [String]
+  public let portal: Bool
+  public let placement: String?
   public let language: String?
   let dark: Bool
   let highContrast: Bool
@@ -265,11 +287,13 @@ public struct CSColorPicker: View {
   @State private var panelScale = CGSize(width: 1, height: 1)
   @State private var measurePass = 0
 
-  public init(label: String? = nil, labelledBy: String? = nil, value: String = "#F4BA17", swatches: [String] = ["#F4BA17", "#45210E"], dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onChange: @escaping (String) -> Void) {
+  public init(label: String? = nil, labelledBy: String? = nil, value: String = "#F4BA17", swatches: [String] = CSColorModel.defaultSwatches, portal: Bool = true, placement: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onChange: @escaping (String) -> Void) {
     self.label = label
     self.labelledBy = labelledBy
     self.value = value
     self.swatches = swatches
+    self.portal = portal
+    self.placement = placement
     self.language = language
     self.dark = dark
     self.highContrast = highContrast
@@ -288,6 +312,7 @@ public struct CSColorPicker: View {
     let fallback = CSColorModel.copy("label", language: locale)
     let name = CSColorModel.fieldName(label: label, labelledBy: labelledBy, value: value, fallback: fallback)
     let dialog = CSColorModel.dialogName(label: label, labelledBy: labelledBy, fallback: fallback)
+    let placeName = CSColorModel.resolvedPlacement(placement)
     VStack(alignment: .leading) {
       Group {
         if let name {
@@ -307,7 +332,7 @@ public struct CSColorPicker: View {
         let viewport = CSFloatingRect(left: 8, top: 8, right: max(8, screen.width - 8), bottom: max(8, screen.height - 8), width: 0, height: 0)
         let placed = naturalSize.flatMap { natural in
           fittedSize.flatMap { fitted in
-            CSColorModel.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height))
+            CSColorModel.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height), placement: placeName)
           }
         }
         VStack(alignment: .leading) {
@@ -409,6 +434,9 @@ public struct CSSplitter: View {
   public let start: String
   public let end: String
   public let percent: Double
+  public let min: Double
+  public let max: Double
+  public let height: Double
   public let label: String?
   public let language: String?
   let dark: Bool
@@ -424,10 +452,13 @@ public struct CSSplitter: View {
   @State private var wrapWidth = 0.0
   @State private var handleWidth = 0.0
 
-  public init(start: String, end: String, percent: Double, label: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onChange: @escaping (Double) -> Void) {
+  public init(start: String, end: String, percent: Double, min lower: Double = 20, max upper: Double = 80, height: Double = 240, label: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onChange: @escaping (Double) -> Void) {
     self.start = start
     self.end = end
-    self.percent = CSSplitterModel.clamp(percent)
+    self.min = lower
+    self.max = upper
+    self.height = height
+    self.percent = CSSplitterModel.clamp(percent, min: lower, max: upper)
     self.label = label
     self.language = language
     self.dark = dark
@@ -439,10 +470,10 @@ public struct CSSplitter: View {
   private func move(_ key: CSRovingKey, rtl: Bool) -> Bool {
     switch key {
     case .right:
-      onChange(CSSplitterModel.nudge(percent, right: true, rtl: rtl))
+      onChange(CSSplitterModel.nudge(percent, right: true, rtl: rtl, min: min, max: max))
       return true
     case .left:
-      onChange(CSSplitterModel.nudge(percent, right: false, rtl: rtl))
+      onChange(CSSplitterModel.nudge(percent, right: false, rtl: rtl, min: min, max: max))
       return true
     case .up, .down, .home, .end, .pageUp, .pageDown:
       return false
@@ -457,9 +488,9 @@ public struct CSSplitter: View {
       Text(start).padding(CGFloat(CSControlsBatchStyleModel.splitterPanePadding())).frame(maxWidth: .infinity).foregroundStyle(pack.primaryTextColor)
       Button {
         CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true })
-        onChange(CSSplitterModel.nudge(percent, right: true, rtl: rtl))
+        onChange(CSSplitterModel.nudge(percent, right: true, rtl: rtl, min: min, max: max))
       } label: {
-        Text(spoken).frame(minWidth: max(44, CGFloat(CSControlsBatchStyleModel.splitterBarWidth())), minHeight: 44)
+        Text(spoken).frame(minWidth: Swift.max(44, CGFloat(CSControlsBatchStyleModel.splitterBarWidth())), minHeight: 44)
       }
       .focused($focused)
       .accessibilityValue(Text(String(Int(percent.rounded()))))
@@ -476,7 +507,7 @@ public struct CSSplitter: View {
       .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .global).onChanged { value in
         if dragStart == nil { dragStart = percent }
         guard let start = dragStart else { return }
-        if let next = CSSplitterModel.drag(start: start, grabX: value.startLocation.x, currentX: value.location.x, wrapWidth: wrapWidth, handleWidth: handleWidth, rtl: rtl) {
+        if let next = CSSplitterModel.drag(start: start, grabX: value.startLocation.x, currentX: value.location.x, wrapWidth: wrapWidth, handleWidth: handleWidth, rtl: rtl, min: min, max: max) {
           onChange(next)
         }
       }.onEnded { _ in
@@ -484,6 +515,7 @@ public struct CSSplitter: View {
       })
       Text(end).padding(CGFloat(CSControlsBatchStyleModel.splitterPanePadding())).frame(maxWidth: .infinity).foregroundStyle(pack.primaryTextColor)
     }
+    .frame(minHeight: CGFloat(height))
     .background(GeometryReader { geo in
       Color.clear.preference(key: CSSplitterWrapKey.self, value: geo.size.width)
     })
@@ -524,8 +556,11 @@ public struct CSDatePlace: Equatable {
 
 public struct CSDatePicker: View {
   public let label: String
+  public let labelledBy: String?
   public let text: String
   public let placeholder: String?
+  public let portal: Bool
+  public let placement: String?
   public let open: Bool
   public let disabled: Bool
   let dark: Bool
@@ -542,10 +577,13 @@ public struct CSDatePicker: View {
   @State private var panelScale = CGSize(width: 1, height: 1)
   @State private var measurePass = 0
 
-  public init(label: String, text: String, placeholder: String? = nil, requestedOpen: Bool, disabled: Bool, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onOpenChange: @escaping (Bool) -> Void, onValue: @escaping (String) -> Void = { _ in }) {
+  public init(label: String = "", labelledBy: String? = nil, text: String, placeholder: String? = nil, portal: Bool = true, placement: String? = nil, requestedOpen: Bool, disabled: Bool, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onOpenChange: @escaping (Bool) -> Void, onValue: @escaping (String) -> Void = { _ in }) {
     self.label = label
+    self.labelledBy = labelledBy
     self.text = text
     self.placeholder = placeholder
+    self.portal = portal
+    self.placement = placement
     open = CSDateField.open(requested: requestedOpen, disabled: disabled)
     self.disabled = disabled
     self.dark = dark
@@ -559,10 +597,17 @@ public struct CSDatePicker: View {
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let locale = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
-    let hint = CSDateField.placeholder(placeholder, fallback: CSDateField.copy("placeholder", language: locale))
+    let fallback = CSDateField.copy("placeholder", language: locale)
+    let hint = CSDateField.placeholder(placeholder, fallback: fallback)
     let face = CSDateField.face(hasValue: !text.isEmpty, formatted: text, placeholder: hint)
+    let dialogLabel = CSDateField.dialogLabel(label: label, placeholder: placeholder, fallback: fallback)
+    let dialogName = CSDateField.dialogName(label: label, labelledBy: labelledBy, dialog: dialogLabel)
+    let placeName = CSDateField.resolvedPlacement(placement)
     VStack(alignment: .leading) {
-      CSTriggerButton(face) { onOpenChange(!open) }
+      HStack(spacing: 6) {
+        CSIcon(name: "calendar", size: "sm", label: "", dark: dark, highContrast: highContrast, compact: compact)
+        CSTriggerButton(face) { onOpenChange(!open) }
+      }
         .frame(minWidth: CGFloat(CSControlsWaveStyleModel.datePickerFieldMinWidth()), minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
         .disabled(disabled)
         .accessibilityLabel(label.isEmpty ? face : label)
@@ -575,7 +620,7 @@ public struct CSDatePicker: View {
         let viewport = CSFloatingRect(left: 8, top: 8, right: max(8, screen.width - 8), bottom: max(8, screen.height - 8), width: 0, height: 0)
         let placed = naturalSize.flatMap { natural in
           fittedSize.flatMap { fitted in
-            CSDateField.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height))
+            CSDateField.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height), placement: placeName)
           }
         }
         Group {
@@ -587,6 +632,7 @@ public struct CSDatePicker: View {
             onOpenChange(false)
           })
         }
+          .modifier(CSOptionalDialogLabel(name: dialogName))
           .frame(maxWidth: placed.map { CGFloat($0.maxWidth) }, maxHeight: placed.map { CGFloat($0.maxHeight) }, alignment: .leading)
           .background(GeometryReader { geo in
             let frame = geo.frame(in: .global)
@@ -700,14 +746,16 @@ public struct CSIcon: View {
   public let name: String
   public let size: String
   public let label: String
+  public let strokeWidth: Double
   let dark: Bool
   let highContrast: Bool
   let compact: Bool
 
-  public init(name: String, size: String = "md", label: String = "", dark: Bool, highContrast: Bool, compact: Bool) {
+  public init(name: String, size: String = "md", label: String = "", strokeWidth: Double = CSIconModel.defaultStrokeWidth, dark: Bool, highContrast: Bool, compact: Bool) {
     self.name = name
     self.size = size
     self.label = label
+    self.strokeWidth = strokeWidth
     self.dark = dark
     self.highContrast = highContrast
     self.compact = compact
@@ -717,7 +765,7 @@ public struct CSIcon: View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let points = CSIconModel.points(size)
     CSIconShape(name: name)
-      .stroke(pack.primaryTextColor, style: StrokeStyle(lineWidth: 1.75 * points / 24, lineCap: .round, lineJoin: .round))
+      .stroke(pack.primaryTextColor, style: StrokeStyle(lineWidth: CGFloat(strokeWidth) * points / 24, lineCap: .round, lineJoin: .round))
       .frame(width: points, height: points)
       .accessibilityLabel(label)
       .accessibilityHidden(label.isEmpty)
@@ -732,10 +780,10 @@ public struct CSAnchor: View {
   let highContrast: Bool
   let compact: Bool
 
-  public init(title: String, items: [(id: String, label: String)], visibleIds: [String], dark: Bool, highContrast: Bool, compact: Bool) {
+  public init(title: String = "", items: [(id: String, label: String)], visibleIds: [String] = [], dark: Bool, highContrast: Bool, compact: Bool) {
     self.title = title
     self.items = items
-    active = CSAnchorModel.active(visibleIds)
+    active = CSAnchorModel.resolvedActive(visibleIds: visibleIds, itemIds: items.map(\.id))
     self.dark = dark
     self.highContrast = highContrast
     self.compact = compact
@@ -744,15 +792,18 @@ public struct CSAnchor: View {
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     VStack(alignment: .leading) {
-      Text(title)
-        .font(.system(size: CGFloat(CSControlsBatchStyleModel.anchorTitleFontSize()), weight: .bold))
-        .foregroundStyle(pack.primaryTextColor)
+      if CSAnchorModel.showsTitle(title) {
+        Text(title)
+          .font(.system(size: CGFloat(CSControlsBatchStyleModel.anchorTitleFontSize()), weight: .bold))
+          .foregroundStyle(pack.primaryTextColor)
+      }
       ForEach(Array(items.enumerated()), id: \.offset) { _, item in
         Text(item.label)
           .foregroundStyle(item.id == active ? pack.colorBrandOchre.color : pack.mutedColor)
           .padding(.horizontal, CGFloat(CSControlsBatchStyleModel.anchorItemPaddingX()))
           .padding(.vertical, CGFloat(CSControlsBatchStyleModel.anchorItemPaddingY()))
           .frame(minHeight: 44, alignment: .leading)
+          .accessibilityValue(CSAnchorModel.ariaCurrent(isActive: item.id == active) ?? "")
       }
     }
     .frame(minWidth: CGFloat(CSControlsBatchStyleModel.anchorMinWidth()), alignment: .leading)
@@ -849,10 +900,10 @@ public struct CSCitationList: View {
 }
 
 public struct CSScrollArea<Content: View>: View {
-  public let maxHeight: CGFloat
+  public let maxHeight: CGFloat?
   let content: () -> Content
 
-  public init(maxHeight: CGFloat, @ViewBuilder content: @escaping () -> Content) {
+  public init(maxHeight: CGFloat? = nil, @ViewBuilder content: @escaping () -> Content) {
     self.maxHeight = maxHeight
     self.content = content
   }
@@ -898,21 +949,26 @@ public enum CSImageModel {
 }
 
 public struct CSImage: View {
+  public let src: String?
   public let alt: String
   public let ratio: String
   public let preview: Bool
   public let state: String
+  public let fallback: String?
   let dark: Bool
   let highContrast: Bool
   let compact: Bool
   public let language: String?
   @Environment(\.csLanguage) private var ancestorLanguage
+  @State private var zoom = false
 
-  public init(alt: String = "", ratio: String = "16 / 9", preview: Bool = false, state: String = "loading", dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil) {
+  public init(src: String? = nil, alt: String = "", ratio: String = "16 / 9", preview: Bool = false, state: String = "loading", fallback: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil) {
+    self.src = src
     self.alt = alt
     self.ratio = ratio
     self.preview = preview
     self.state = state
+    self.fallback = fallback
     self.dark = dark
     self.highContrast = highContrast
     self.compact = compact
@@ -924,11 +980,40 @@ public struct CSImage: View {
     let minW = CGFloat(CSControlsBatchStyleModel.imageLoadingMinWidth())
     let minH = CGFloat(CSControlsBatchStyleModel.imageLoadingMinHeight())
     let height = CSAspectRatioModel.height(ratio: ratio, width: Double(max(160, minW))) ?? Double(max(90, minH))
-    let previewWord = CSImageModel.copy("preview", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage))
-    RoundedRectangle(cornerRadius: pack.radiusMd.points)
-      .fill(pack.borderColor)
-      .frame(width: max(160, minW), height: max(minH, height))
-      .accessibilityLabel(CSImageModel.canPreview(preview: preview, state: state) ? CSImageModel.previewName(alt: alt, fallback: previewWord) : alt)
+    let locale = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
+    let previewWord = CSImageModel.copy("preview", language: locale)
+    let closeWord = CSImageModel.copy("close", language: locale)
+    let canPreview = CSImageModel.canPreview(preview: preview, state: state)
+    let isZoomOpen = CSImageModel.previewOpen(zoom: zoom, preview: preview, state: state)
+    VStack(alignment: .leading) {
+      ZStack {
+        RoundedRectangle(cornerRadius: pack.radiusMd.points)
+          .fill(pack.borderColor)
+          .frame(width: max(160, minW), height: max(minH, height))
+        if state == "error" {
+          Text(CSImageModel.showsFallback(fallback) ? (fallback ?? "") : CSImageModel.fallbackMark)
+            .foregroundStyle(pack.mutedColor)
+        }
+      }
+      .contentShape(Rectangle())
+      .onTapGesture {
+        if canPreview { zoom = true }
+      }
+      .accessibilityLabel(canPreview ? CSImageModel.previewName(alt: alt, fallback: previewWord) : alt)
+      if isZoomOpen {
+        VStack(alignment: .trailing, spacing: 8) {
+          CSTriggerButton(closeWord) { zoom = false }
+            .accessibilityLabel(closeWord)
+          Text(alt)
+            .foregroundStyle(pack.primaryTextColor)
+        }
+        .accessibilityElement(children: .contain)
+        .accessibilityLabel(CSImageModel.dialogName(alt: alt, fallback: previewWord))
+        .onExitCommand { zoom = false }
+      }
+    }
+    .onChange(of: src) { _ in zoom = false }
+    .onChange(of: preview) { _ in zoom = false }
   }
 }
 
@@ -1383,6 +1468,7 @@ public struct CSNavMenuPlace: Equatable {
 
 public struct CSNavigationMenu: View {
   public let items: [CSNavMenuItem]
+  public let portal: Bool
   public let placement: String?
   @State private var open: Int?
   @State private var anchors: [Int: CGRect] = [:]
@@ -1397,8 +1483,9 @@ public struct CSNavigationMenu: View {
   let highContrast: Bool
   let compact: Bool
 
-  public init(items: [CSNavMenuItem], placement: String? = nil, dark: Bool, highContrast: Bool, compact: Bool) {
+  public init(items: [CSNavMenuItem], portal: Bool = true, placement: String? = nil, dark: Bool, highContrast: Bool, compact: Bool) {
     self.items = items
+    self.portal = portal
     self.placement = placement
     self.dark = dark
     self.highContrast = highContrast
@@ -1477,8 +1564,12 @@ public struct CSNavigationMenu: View {
         .offset(x: CGFloat(placed?.x ?? 0), y: CGFloat(placed?.y ?? 0))
         .opacity(placed == nil ? 0 : 1)
         .accessibilityHidden(placed == nil)
+        .onExitCommand { open = nil }
       }
     }
+    .background(GeometryReader { _ in
+      CSInlineOutside(active: open != nil) { open = nil }
+    })
     .onPreferenceChange(CSNavAnchorKey.self) { frames in
       anchors.merge(frames) { _, new in new }
     }

@@ -19,6 +19,8 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.clickable
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.unit.sp
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -56,6 +58,8 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.unit.dp
 
+val csColorDefaultSwatches = listOf("#F4BA17", "#C77B4A", "#E0632B", "#C43D1F", "#7A9B57", "#3E5A2E", "#4E8E9B", "#2E5E7E", "#BFB29B", "#45210E")
+fun csColorPlacement(placement: String?) = placement ?: "bottom-start"
 fun csColorCommit(value: String): String? {
   if (value.length != 7 || value[0] != '#') return null
   if (value.drop(1).any { it !in '0'..'9' && it !in 'a'..'f' && it !in 'A'..'F' }) return null
@@ -87,8 +91,8 @@ fun csColorSubmits(composing: Boolean, keyCode: Int) = !composing && keyCode != 
 fun csColorDismissOutside(open: Boolean, inside: Boolean) = open && !inside
 const val csColorGap = 6.0
 data class CsColorPlace(val x: Double, val y: Double, val maxWidth: Double, val maxHeight: Double, val placement: String)
-fun csColorShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CsFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double): CsColorPlace? {
-  val initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, "bottom-start", csColorGap) ?: return null
+fun csColorShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CsFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String = "bottom-start"): CsColorPlace? {
+  val initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement, csColorGap) ?: return null
   val placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, initial.placement, csColorGap) ?: return null
   val sx = if (scaleX == 0.0) 1.0 else scaleX
   val sy = if (scaleY == 0.0) 1.0 else scaleY
@@ -121,8 +125,11 @@ fun csSplitterCopy(key: String, language: String?): String {
   return key
 }
 fun csSplitterName(label: String?, fallback: String) = label ?: fallback
+fun csSplitterBoundsText(value: Double, lower: Double = 20.0, upper: Double = 80.0): String =
+  "${csSplitterClamp(value, lower, upper).toInt()} (${lower.toInt()}-${upper.toInt()})"
 
 const val csDatePlaceholder = "Select a date"
+fun csDatePlacement(placement: String?) = placement ?: "bottom-start"
 fun csDatePlaceholderText(text: String?, fallback: String) = text ?: fallback
 fun csDateCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
@@ -140,11 +147,17 @@ fun csDateDialogLabel(label: String?, placeholder: String?, fallback: String): S
   val hint = placeholder?.trim().orEmpty()
   return if (hint.isEmpty()) fallback else hint
 }
+fun csDateDialogName(label: String?, labelledBy: String?, dialog: String): String? {
+  val name = label?.trim().orEmpty()
+  if (name.isNotEmpty()) return dialog
+  if (!labelledBy.isNullOrEmpty()) return null
+  return dialog
+}
 fun csDateOpen(requested: Boolean, disabled: Boolean): Boolean = requested && !disabled
 const val csDateGap = 6.0
 data class CsDatePlace(val x: Double, val y: Double, val maxWidth: Double, val maxHeight: Double, val placement: String)
-fun csDateShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CsFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double): CsDatePlace? {
-  val initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, "bottom-start", csDateGap) ?: return null
+fun csDateShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CsFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String = "bottom-start"): CsDatePlace? {
+  val initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement, csDateGap) ?: return null
   val placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, initial.placement, csDateGap) ?: return null
   val sx = if (scaleX == 0.0) 1.0 else scaleX
   val sy = if (scaleY == 0.0) 1.0 else scaleY
@@ -196,6 +209,7 @@ const val csChatYou = "You"
 const val csChatLumi = "Lumi"
 fun csChatIsUser(role: String): Boolean = role == "user"
 fun csChatSpeaker(name: String?, role: String, you: String, lumi: String) = name ?: if (csChatIsUser(role)) you else lumi
+fun csChatDefaultAvatar(role: String, you: String): String = if (csChatIsUser(role)) you else csAiStyleLumiGlyph
 fun csChatCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
   val vi = mapOf("you" to "Bạn")
@@ -207,6 +221,7 @@ fun csChatCopy(key: String, language: String?): String {
   return key
 }
 const val csImagePreview = "Preview image"
+const val csImageFallbackMark = "M21 15l-5-5-9 9"
 fun csImagePreviewName(alt: String, fallback: String) = if (alt.isEmpty()) fallback else "$fallback: $alt"
 fun csImageCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
@@ -219,19 +234,28 @@ fun csImageCopy(key: String, language: String?): String {
   return key
 }
 fun csImageCanPreview(preview: Boolean, state: String) = preview && state == "ok"
+fun csImagePreviewOpen(zoom: Boolean, preview: Boolean, state: String) = zoom && csImageCanPreview(preview, state)
 fun csImageDialogName(alt: String, fallback: String) = if (alt.isEmpty()) fallback else alt
+fun csImageShowsFallback(fallback: String?): Boolean = !fallback.isNullOrEmpty()
 
+const val csIconDefaultStrokeWidth = 1.75
 fun csIconPoints(size: String): Int = when (size) { "sm" -> 16; "lg" -> 24; else -> 20 }
+fun csAnchorActive(visibleIds: List<String>): String? = visibleIds.firstOrNull()
+fun csAnchorResolvedActive(visibleIds: List<String>, itemIds: List<String>): String? = csAnchorActive(visibleIds) ?: itemIds.firstOrNull()
+fun csAnchorShowsTitle(title: String?): Boolean = !title.isNullOrEmpty()
+fun csAnchorAriaCurrent(isActive: Boolean): String? = if (isActive) "location" else null
 
 @Composable
-fun CsColorPicker(value: String, swatches: List<String>, onChange: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, labelledBy: String? = null, language: String? = null) {
+fun CsColorPicker(value: String = "#F4BA17", swatches: List<String> = csColorDefaultSwatches, onChange: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, labelledBy: String? = null, portal: Boolean = true, placement: String? = null, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val fallback = csColorCopy("label", locale)
   val name = csColorFieldName(label, labelledBy, value, fallback)
   val dialog = csColorDialogName(label, labelledBy, fallback)
+  val placeName = csColorPlacement(placement)
   var open by remember { mutableStateOf(false) }
   var hex by remember(value) { mutableStateOf(value) }
+  var sawHexFocus by remember { mutableStateOf(false) }
   var field by remember { mutableStateOf<CsFloatingRect?>(null) }
   var natural by remember { mutableStateOf<Pair<Double, Double>?>(null) }
   var fitted by remember { mutableStateOf<Pair<Double, Double>?>(null) }
@@ -245,7 +269,7 @@ fun CsColorPicker(value: String, swatches: List<String>, onChange: (String) -> U
   val place = field?.let { box ->
     val first = natural
     val second = fitted
-    if (first == null || second == null) null else csColorShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second)
+    if (first == null || second == null) null else csColorShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, placeName)
   }
   val shiftX = with(density) { (place?.x ?: 0.0).toFloat().toDp() }
   val shiftY = with(density) { (place?.y ?: 0.0).toFloat().toDp() }
@@ -274,7 +298,10 @@ fun CsColorPicker(value: String, swatches: List<String>, onChange: (String) -> U
       swatches.forEach { swatch ->
         CsTriggerButton(title = swatch, onClick = { csColorCommit(swatch)?.let { onChange(it); open = false } }, modifier = Modifier.sizeIn(minWidth = csControlsBatchStyleColorPickerCellSize(), minHeight = csControlsBatchStyleColorPickerCellSize()).minimumInteractiveComponentSize().semantics { contentDescription = swatch; stateDescription = csColorSelected(swatch, value).toString() }) { Text(swatch, modifier = Modifier.clearAndSetSemantics {}) }
       }
-      BasicTextField(value = hex, onValueChange = { hex = it }, modifier = Modifier.widthIn(min = csControlsBatchStyleColorPickerHexInputWidth()).semantics { contentDescription = csColorCopy("hex", locale) }.onPreviewKeyEvent { event ->
+      BasicTextField(value = hex, onValueChange = { hex = it }, modifier = Modifier.widthIn(min = csControlsBatchStyleColorPickerHexInputWidth()).onFocusChanged { state ->
+        if (state.isFocused) sawHexFocus = true
+        else if (sawHexFocus) csColorCommit(hex)?.let(onChange)
+      }.semantics { contentDescription = csColorCopy("hex", locale) }.onPreviewKeyEvent { event ->
         if (event.type != KeyEventType.KeyDown || event.key != Key.Enter) return@onPreviewKeyEvent false
         if (!csColorSubmits(false, 0)) return@onPreviewKeyEvent false
         csColorCommit(hex)?.let(onChange)
@@ -286,46 +313,52 @@ fun CsColorPicker(value: String, swatches: List<String>, onChange: (String) -> U
 }
 
 @Composable
-fun CsSplitter(start: String, end: String, percent: Double, onChange: (Double) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, language: String? = null) {
+fun CsSplitter(start: String, end: String, percent: Double, onChange: (Double) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, min: Double = 20.0, max: Double = 80.0, height: Int = 240, label: String? = null, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val rtl = LocalLayoutDirection.current == LayoutDirection.Rtl
   val spoken = csSplitterName(label, csSplitterCopy("label", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
-  val currentPercent by rememberUpdatedState(percent)
+  val clampedPercent = csSplitterClamp(percent, min, max)
+  val currentPercent by rememberUpdatedState(clampedPercent)
   var dragStart by remember { mutableStateOf<Double?>(null) }
   var travel by remember { mutableStateOf(0.0) }
   var wrapWidth by remember { mutableStateOf(0.0) }
   var handleWidth by remember { mutableStateOf(0.0) }
-  Row(modifier.onGloballyPositioned { wrapWidth = it.size.width.toDouble() }.onPreviewKeyEvent { event ->
+  Row(modifier.heightIn(min = height.dp).onGloballyPositioned { wrapWidth = it.size.width.toDouble() }.onPreviewKeyEvent { event ->
     if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
     when (event.key) {
-      Key.DirectionRight -> { onChange(csSplitterNudge(percent, true, rtl)); true }
-      Key.DirectionLeft -> { onChange(csSplitterNudge(percent, false, rtl)); true }
+      Key.DirectionRight -> { onChange(csSplitterNudge(clampedPercent, true, rtl, min, max)); true }
+      Key.DirectionLeft -> { onChange(csSplitterNudge(clampedPercent, false, rtl, min, max)); true }
       else -> false
     }
   }) {
     Text(start, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.padding(csControlsBatchStyleSplitterPanePadding()))
-    CsTriggerButton(title = spoken, onClick = { onChange(csSplitterNudge(percent, true, rtl)) }, modifier = Modifier.widthIn(min = csControlsBatchStyleSplitterBarWidth()).onGloballyPositioned { handleWidth = it.size.width.toDouble() }.pointerInput(rtl, wrapWidth, handleWidth) {
+    CsTriggerButton(title = spoken, onClick = { onChange(csSplitterNudge(clampedPercent, true, rtl, min, max)) }, modifier = Modifier.widthIn(min = csControlsBatchStyleSplitterBarWidth()).onGloballyPositioned { handleWidth = it.size.width.toDouble() }.pointerInput(rtl, wrapWidth, handleWidth, min, max) {
       detectDragGestures(
         onDragStart = { dragStart = currentPercent; travel = 0.0 },
         onDrag = { _, amount ->
           val start = dragStart ?: return@detectDragGestures
           travel += amount.x.toDouble()
-          csSplitterDrag(start, 0.0, travel, wrapWidth, handleWidth, rtl)?.let(onChange)
+          csSplitterDrag(start, 0.0, travel, wrapWidth, handleWidth, rtl, min, max)?.let(onChange)
         },
         onDragEnd = { dragStart = null },
         onDragCancel = { dragStart = null },
       )
-    }.semantics { contentDescription = spoken; stateDescription = percent.toInt().toString() }) { Text(spoken, modifier = Modifier.clearAndSetSemantics {}) }
+    }.semantics { contentDescription = spoken; stateDescription = clampedPercent.toInt().toString() }) { Text(spoken, modifier = Modifier.clearAndSetSemantics {}) }
     Text(end, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.padding(csControlsBatchStyleSplitterPanePadding()))
   }
 }
 
 @Composable
-fun CsDatePicker(text: String, requestedOpen: Boolean, disabled: Boolean, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, placeholder: String? = null, language: String? = null, onValue: (String) -> Unit = {}) {
+fun CsDatePicker(text: String, requestedOpen: Boolean, disabled: Boolean, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, labelledBy: String? = null, placeholder: String? = null, portal: Boolean = true, placement: String? = null, language: String? = null, onValue: (String) -> Unit = {}) {
   val open = csDateOpen(requestedOpen, disabled)
-  val hint = csDatePlaceholderText(placeholder, csDateCopy("placeholder", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
+  val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
+  val fallback = csDateCopy("placeholder", locale)
+  val hint = csDatePlaceholderText(placeholder, fallback)
   val face = if (text.isEmpty()) hint else text
-  val name = if (label.isNullOrEmpty()) face else label
+  val name = if (!labelledBy.isNullOrEmpty() && label.isNullOrEmpty()) null else if (label.isNullOrEmpty()) face else label
+  val dialogLabel = csDateDialogLabel(label, placeholder, fallback)
+  val dialogName = csDateDialogName(label, labelledBy, dialogLabel)
+  val placeName = csDatePlacement(placement)
   var field by remember { mutableStateOf<CsFloatingRect?>(null) }
   var natural by remember { mutableStateOf<Pair<Double, Double>?>(null) }
   var fitted by remember { mutableStateOf<Pair<Double, Double>?>(null) }
@@ -339,10 +372,9 @@ fun CsDatePicker(text: String, requestedOpen: Boolean, disabled: Boolean, onOpen
   val place = field?.let { box ->
     val first = natural
     val second = fitted
-    if (first == null || second == null) null else csDateShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second)
+    if (first == null || second == null) null else csDateShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, placeName)
   }
   if (!open && natural != null) { natural = null; fitted = null }
-  val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val parsed = csDateParse(text, locale)
   val today = java.time.LocalDate.now()
   val seed = parsed ?: CsCalendarDate(today.year, today.monthValue - 1, today.dayOfMonth)
@@ -354,11 +386,11 @@ fun CsDatePicker(text: String, requestedOpen: Boolean, disabled: Boolean, onOpen
     CsTriggerButton(title = face, onClick = { if (!disabled) onOpenChange(!open) }, enabled = !disabled && csControlEnabled(), modifier = Modifier.widthIn(min = csControlsWaveStyleDatePickerFieldMinWidth()).onGloballyPositioned {
       val bounds = it.boundsInWindow()
       field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
-    }.semantics { contentDescription = name }) { Text(face, modifier = Modifier.clearAndSetSemantics {}) }
+    }.semantics { if (name != null) contentDescription = name }) { Text("📅 $face", modifier = Modifier.clearAndSetSemantics {}) }
     if (open) CsCalendar(monthLabel = csCalendarHeading(seed.month, seed.year, locale), year = seed.year, month = seed.month, selected = parsed?.day, onSelect = {}, dark = dark, highContrast = highContrast, compact = compact, language = locale, onChoose = { date ->
       onValue(csDateFormat(date.day, date.month, date.year, locale))
       onOpenChange(false)
-    }, modifier = Modifier.onGloballyPositioned {
+    }, modifier = Modifier.semantics { if (dialogName != null) contentDescription = dialogName }.onGloballyPositioned {
       val bounds = it.boundsInWindow()
       val width = it.size.width.toDouble()
       val height = it.size.height.toDouble()
@@ -374,27 +406,33 @@ fun CsDatePicker(text: String, requestedOpen: Boolean, disabled: Boolean, onOpen
 }
 
 @Composable
-fun CsChatMessage(role: String, body: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, name: String? = null, language: String? = null) {
+fun CsChatMessage(role: String = "lumi", body: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, name: String? = null, avatar: String? = null, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val user = csChatIsUser(role)
   val you = csChatCopy("you", csComboboxResolvedLanguage(language, LocalCsLanguage.current))
   val speaker = csChatSpeaker(name, role, you, csChatLumi)
+  val avatarText = avatar ?: csChatDefaultAvatar(role, you)
   Column(modifier, verticalArrangement = Arrangement.spacedBy(csAiStyleChatColGap())) {
+    Text(avatarText, color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.clearAndSetSemantics {})
     Text(speaker, color = pack.colorTextMuted.toComposeColor(), fontSize = csAiStyleChatNameFontSize(pack).value.sp)
     Text(body, color = if (user) pack.colorSemanticInfoFg.toComposeColor() else pack.colorTextPrimary.toComposeColor(), fontSize = csAiStyleChatBubbleFontSize(pack).value.sp, modifier = Modifier.padding(horizontal = csAiStyleChatBubblePaddingX(), vertical = csAiStyleChatBubblePaddingY()))
   }
 }
 
 @Composable
-fun CsAnchor(title: String, items: List<Pair<String, String>>, visibleIds: List<String>, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
-  val active = visibleIds.firstOrNull()
+fun CsAnchor(title: String = "", items: List<Pair<String, String>>, visibleIds: List<String> = emptyList(), dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
+  val active = csAnchorResolvedActive(visibleIds, items.map { it.first })
   val pack = csModePack(dark, highContrast, compact)
   Column(modifier.widthIn(min = csControlsBatchStyleAnchorMinWidth())) {
-    Text(title, color = pack.colorTextPrimary.toComposeColor(), fontSize = csControlsBatchStyleAnchorTitleFontSize.sp)
-    items.forEach { item -> Text(item.second, color = if (item.first == active) pack.colorBrandOchre.toComposeColor() else pack.colorTextMuted.toComposeColor(), modifier = Modifier.padding(horizontal = csControlsBatchStyleAnchorItemPaddingX(), vertical = csControlsBatchStyleAnchorItemPaddingY())) }
+    if (csAnchorShowsTitle(title)) Text(title, color = pack.colorTextPrimary.toComposeColor(), fontSize = csControlsBatchStyleAnchorTitleFontSize.sp)
+    items.forEach { item ->
+      val current = csAnchorAriaCurrent(item.first == active)
+      Text(item.second, color = if (item.first == active) pack.colorBrandOchre.toComposeColor() else pack.colorTextMuted.toComposeColor(), modifier = Modifier.padding(horizontal = csControlsBatchStyleAnchorItemPaddingX(), vertical = csControlsBatchStyleAnchorItemPaddingY()).let { if (current != null) it.semantics { stateDescription = current } else it })
+    }
   }
 }
 
+data class CsCitation(val title: String, val source: String? = null, val href: String? = null)
 const val csCitationLabel = "Sources"
 const val csCitationRel = "noreferrer"
 fun csCitationHeading(label: String?, omitted: Boolean, fallback: String) = if (omitted) fallback else if (label.isNullOrEmpty()) null else label
@@ -412,26 +450,49 @@ fun csCitationSource(source: String?) = if (source.isNullOrEmpty()) null else " 
 fun csCitationHref(href: String?) = if (href.isNullOrEmpty()) null else href
 fun csCitationLine(index: Int, title: String, source: String?) = "${index + 1} $title${csCitationSource(source) ?: ""}"
 @Composable
-fun CsCitationList(items: List<String>, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, language: String? = null) {
+fun CsCitationList(items: List<String> = emptyList(), dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, citations: List<CsCitation> = emptyList(), language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val heading = csCitationHeading(label, label == null, csCitationCopy("sources", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
+  val rows = if (citations.isNotEmpty()) citations else items.map { CsCitation(it) }
   Column(modifier, verticalArrangement = Arrangement.spacedBy(csAiStyleCitationsGap())) {
     if (heading != null) Text(heading, color = pack.colorTextPrimary.toComposeColor(), fontSize = csAiStyleCitationsLabelFontSize(pack).value.sp)
-    items.forEachIndexed { index, item -> Text("${index + 1} $item", color = pack.colorTextPrimary.toComposeColor(), fontSize = csAiStyleCitationFontSize(pack).value.sp) }
+    rows.forEachIndexed { index, item ->
+      val line = csCitationLine(index, item.title, item.source)
+      val href = csCitationHref(item.href)
+      Text(line, color = pack.colorTextPrimary.toComposeColor(), fontSize = csAiStyleCitationFontSize(pack).value.sp, modifier = if (href != null) Modifier.semantics { contentDescription = href } else Modifier)
+    }
   }
 }
 
 @Composable
-fun CsScrollArea(maxHeight: Int, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
-  Column(modifier.heightIn(max = maxHeight.dp).padding(csDataStyleScrollAreaFocusOutlineWidth(csDataStyleScrollAreaTabStop() < 0))) { content() }
+fun CsScrollArea(maxHeight: Int? = null, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+  Column(modifier.let { if (maxHeight != null) it.heightIn(max = maxHeight.dp) else it }.padding(csDataStyleScrollAreaFocusOutlineWidth(csDataStyleScrollAreaTabStop() < 0))) { content() }
 }
 
 @Composable
-fun CsImage(dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, alt: String = "", ratio: String = "16 / 9", preview: Boolean = false, state: String = "loading", language: String? = null) {
+fun CsImage(dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, src: String? = null, alt: String = "", ratio: String = "16 / 9", preview: Boolean = false, state: String = "loading", fallback: String? = null, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
-  val previewWord = csImageCopy("preview", csComboboxResolvedLanguage(language, LocalCsLanguage.current))
-  val name = if (csImageCanPreview(preview, state)) csImagePreviewName(alt, previewWord) else alt
-  Text(alt, color = pack.colorTextMuted.toComposeColor(), modifier = modifier.sizeIn(minWidth = csControlsBatchStyleImageLoadingMinWidth(), minHeight = csControlsBatchStyleImageLoadingMinHeight()).clearAndSetSemantics { contentDescription = name })
+  val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
+  val previewWord = csImageCopy("preview", locale)
+  val closeWord = csImageCopy("close", locale)
+  val canPreview = csImageCanPreview(preview, state)
+  var zoom by remember(src, preview) { mutableStateOf(false) }
+  val isZoomOpen = csImagePreviewOpen(zoom, preview, state)
+  val name = if (canPreview) csImagePreviewName(alt, previewWord) else alt
+  Column(modifier.onPreviewKeyEvent { event ->
+    if (event.type != KeyEventType.KeyDown || event.key != Key.Escape || !isZoomOpen) return@onPreviewKeyEvent false
+    zoom = false
+    true
+  }) {
+    val display = if (state == "error") (if (csImageShowsFallback(fallback)) fallback!! else csImageFallbackMark) else alt
+    Text(display, color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.sizeIn(minWidth = csControlsBatchStyleImageLoadingMinWidth(), minHeight = csControlsBatchStyleImageLoadingMinHeight()).let { if (canPreview) it.clickable { zoom = true } else it }.clearAndSetSemantics { contentDescription = name })
+    if (isZoomOpen) {
+      Column(Modifier.semantics { contentDescription = csImageDialogName(alt, previewWord) }) {
+        CsTriggerButton(title = closeWord, onClick = { zoom = false }) { Text(closeWord) }
+        Text(alt, color = pack.colorTextPrimary.toComposeColor())
+      }
+    }
+  }
 }
 
 @Composable
@@ -443,7 +504,8 @@ fun CsLogo(title: String = csLogoStyleDefaultTitle, decorative: Boolean = false,
 }
 
 const val csContextMenu = "Context menu"
-fun csContextFirst(items: List<String>) = items.indexOfFirst { it != "-" }.takeIf { it >= 0 }
+fun csContextIsSeparator(item: String) = item == "-"
+fun csContextFirst(items: List<String>) = items.indexOfFirst { !csContextIsSeparator(it) }.takeIf { it >= 0 }
 fun csContextPoint(clientX: Double, clientY: Double, left: Double, top: Double) = (clientX - left) to (clientY - top)
 fun csContextKeyboardPoint(height: Double) = 0.0 to height
 data class CsFloatingRect(val left: Double, val top: Double, val right: Double, val bottom: Double, val width: Double, val height: Double)
@@ -504,8 +566,10 @@ fun csContextCopy(key: String, language: String?): String {
 }
 
 @Composable
-fun CsContextMenu(items: List<String>, onSelect: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, language: String? = null) {
+fun CsContextMenu(items: List<String>, onSelect: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, portal: Boolean = true, placement: String? = null, language: String? = null) {
+  val pack = csModePack(dark, highContrast, compact)
   var raw by remember { mutableStateOf<Pair<Double, Double>?>(null) }
+  var active by remember { mutableStateOf(0) }
   var natural by remember { mutableStateOf<Pair<Double, Double>?>(null) }
   var fitted by remember { mutableStateOf<Pair<Double, Double>?>(null) }
   var zoneHeight by remember { mutableStateOf(44.0) }
@@ -516,6 +580,7 @@ fun CsContextMenu(items: List<String>, onSelect: (String) -> Unit, dark: Boolean
   val viewWidth = with(density) { config.screenWidthDp.dp.toPx() }.toDouble()
   val viewHeight = with(density) { config.screenHeightDp.dp.toPx() }.toDouble()
   val spoken = csContextLabel(label, csContextCopy("menu", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
+  val actionable = items.filter { !csContextIsSeparator(it) }
   fun place(point: Pair<Double, Double>, size: Pair<Double, Double>, placement: String): CsFloatingResult {
     val inset = 8.0
     val viewport = CsFloatingRect(inset, inset, maxOf(inset, viewWidth - inset), maxOf(inset, viewHeight - inset), 0.0, 0.0)
@@ -534,29 +599,42 @@ fun CsContextMenu(items: List<String>, onSelect: (String) -> Unit, dark: Boolean
     zoneHeight = it.size.height.toDouble()
   }.onPreviewKeyEvent { event ->
     if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
+    if (raw != null) {
+      when (event.key) {
+        Key.Escape -> { raw = null; natural = null; fitted = null; return@onPreviewKeyEvent true }
+        Key.DirectionDown -> { csContextMove(active, actionable.size, "down")?.let { active = it }; return@onPreviewKeyEvent true }
+        Key.DirectionUp -> { csContextMove(active, actionable.size, "up")?.let { active = it }; return@onPreviewKeyEvent true }
+        Key.MoveHome -> { csContextMove(active, actionable.size, "home")?.let { active = it }; return@onPreviewKeyEvent true }
+        Key.MoveEnd -> { csContextMove(active, actionable.size, "end")?.let { active = it }; return@onPreviewKeyEvent true }
+        else -> return@onPreviewKeyEvent false
+      }
+    }
     val shiftF10 = event.key == Key.F10 && event.isShiftPressed
     val menuKey = event.key == Key.Menu
     if (!shiftF10 && !menuKey) return@onPreviewKeyEvent false
+    if (csContextFirst(items) == null) return@onPreviewKeyEvent false
+    active = 0
     raw = csContextKeyboardPoint(zoneHeight)
     natural = null
     fitted = null
     true
-  }.pointerInput(Unit) {
+  }.pointerInput(items) {
     awaitEachGesture {
       val event = awaitPointerEvent()
       val down = event.changes.firstOrNull { it.pressed } ?: return@awaitEachGesture
-      if (!event.buttons.isSecondaryPressed) return@awaitEachGesture
+      if (!event.buttons.isSecondaryPressed || csContextFirst(items) == null) return@awaitEachGesture
+      active = 0
       raw = csContextPoint(down.position.x.toDouble(), down.position.y.toDouble(), 0.0, 0.0)
       natural = null
       fitted = null
     }
   }) {
     val pending = raw
-    val initial = pending?.let { rawPoint -> natural?.let { size -> place(rawPoint, size, "bottom-start") } }
+    val initial = pending?.let { rawPoint -> natural?.let { size -> place(rawPoint, size, placement ?: "bottom-start") } }
     val shrinks = initial != null && natural != null && (natural!!.first - initial.maxWidth > 0.5 || natural!!.second - initial.maxHeight > 0.5)
     val finalSize = fitted ?: if (initial != null && !shrinks) natural else null
-    val point = pending?.let { rawPoint -> finalSize?.let { size -> place(rawPoint, size, initial?.placement ?: "bottom-start") } }
-    if (pending != null) {
+    val point = pending?.let { rawPoint -> finalSize?.let { size -> place(rawPoint, size, initial?.placement ?: (placement ?: "bottom-start")) } }
+    if (pending != null && csContextFirst(items) != null) {
       val shown = point != null
       Column(Modifier.offset(with(density) { (point?.left ?: 0.0).toFloat().toDp() }, with(density) { (point?.top ?: 0.0).toFloat().toDp() }).alpha(if (shown) 1f else 0f).then(if (shown) Modifier else Modifier.clearAndSetSemantics { }).then(initial?.let { Modifier.widthIn(max = with(density) { it.maxWidth.toFloat().toDp() }).heightIn(max = with(density) { it.maxHeight.toFloat().toDp() }) } ?: Modifier).onGloballyPositioned {
         val width = it.size.width.toDouble()
@@ -568,7 +646,11 @@ fun CsContextMenu(items: List<String>, onSelect: (String) -> Unit, dark: Boolean
       }.padding(csNavigationStyleMenuListPadding()).semantics { contentDescription = spoken }) {
         if (label != null) Text(label, modifier = Modifier.clearAndSetSemantics { })
         items.forEach { item ->
-          CsTriggerButton(title = item, onClick = { onSelect(item); raw = null; natural = null; fitted = null }) { Text(item) }
+          if (csContextIsSeparator(item)) {
+            Box(Modifier.heightIn(min = csNavigationStyleMenuSeparatorHeight()).background(pack.colorBorderDefault.toComposeColor()).clearAndSetSemantics { })
+          } else {
+            CsTriggerButton(title = item, onClick = { onSelect(item); raw = null; natural = null; fitted = null }) { Text(item) }
+          }
         }
       }
     }
@@ -611,7 +693,7 @@ private fun CsNavPanelButton(index: Int, item: CsNavMenuItem, open: Int?, onOpen
 }
 
 @Composable
-fun CsNavigationMenu(items: List<CsNavMenuItem>, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, placement: String? = null) {
+fun CsNavigationMenu(items: List<CsNavMenuItem>, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, portal: Boolean = true, placement: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   var open by remember { mutableStateOf<Int?>(null) }
   var anchors by remember { mutableStateOf(mapOf<Int, CsFloatingRect>()) }
