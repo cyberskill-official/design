@@ -11,6 +11,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
 - Previous checkpoint: `c94d2bb634ca9c73b747b99410925a02088cfc4b`, with the hash note in `c610886a`
+- Checkpoint commit hash: `2f72057f5c84027ac346cf5815e92946e17daa2d`
 - Temporarily disabled GitHub Actions push workflows (re-enable with `gh workflow enable` when done): `Design System Gates` (`316944477`), `native-validation` (`377620668`), `native-store` (`318755963`), `OpenSSF Scorecard` (`330342703`)
 
 The Cursor canvas is outside this git repo:
