@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the interaction-hover-focus-motion checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the a11y-coarse-motion-contrast-forced checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `ba55b5b7afbec0c2f9943baa0adb6098f05e8274`, with the hash note in `ad943247`
-- Checkpoint commit hash: `71201ec410c0c7b8d17b08db8733f2e948ed68f0`
+- Previous checkpoint: `71201ec410c0c7b8d17b08db8733f2e948ed68f0`, with the hash note in `0b1c8e7f`
+- Checkpoint commit hash: pending first push of this checkpoint
 - Temporarily disabled GitHub Actions push workflows (re-enable with `gh workflow enable` when done): `Design System Gates` (`316944477`), `native-validation` (`377620668`), `native-store` (`318755963`), `OpenSSF Scorecard` (`330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -49,20 +49,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the interaction layer hover lift, focus halo, and entrance motion utilities: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the accessibility layer coarse touch targets, reduced motion, and contrast overrides: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-The interaction layer (`CSInteractionModel` / `csInteraction*`, `CSButton` / `CsButton`, `CSCommandPalette` / `CsCommandPalette`) now styles warm hover depth on primary and danger buttons (`translateY(-1px)` + `0 8px 20px rgba(69, 33, 14, 0.24)` hover shadow when not disabled or active, `translateY(0)` + `--cs-shadow-xs` active, `transform: none` under `prefers-reduced-motion: reduce`), `5px` `--cs-color-accent-ochre` focus halo (plus `inset 0 0 0 4px var(--cs-color-accent-ochre)` on `.cs-cmdk__search:focus-within`), and entrance motion utilities (`.cs-fade-in`, `.cs-rise-in` `10px` with `80ms`/`160ms`/`240ms` stagger delays, `.cs-dialog` and `.cs-dialog__overlay` `duration-base` fade-in, disabled under `prefers-reduced-motion: reduce`), matching `base/interaction.css` lines 1–58.
+The accessibility layer (`CSA11yModel` / `csA11y*`) now models `.cs-sr-only` `1x1` screen-reader-only clipping, `pointer: coarse` `44px` minimum hit targets (`46px` for `.cs-igroup__btn` and `.cs-splitter`, `24px` `.cs-check__input`/`.cs-radio__input` inside `44px` label rows, `repeat(5, 44px)` `.cs-colorpicker__grid`, `repeat(7, 44px)` `.cs-calendar__grid`, `64px` `.cs-carousel__view` inline padding and `44px` `.cs-carousel__dot` with `4.5px` radial indicator, `none` scrollbar on `.cs-tabs`), global `0.01ms` `prefers-reduced-motion: reduce` animation/transition clamp with `scroll-behavior: auto`, `prefers-contrast: more` light/dark border and text-muted overrides (`#9a8060`/`#45210e` light, `#7a6450`/`#f5ead9` dark, `2px solid var(--cs-color-border)` on buttons/inputs/cards/dialogs/alerts), and `forced-colors: active` `ButtonText`/`Highlight`/`GrayText` borders, matching `base/a11y.css` lines 1–176.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style the accessibility layer (`CSA11yModel` / `csA11y*`) in `base/a11y.css` lines 1–176: `.cs-sr-only` `1x1` clipped box, coarse-pointer `44px` minimum hit targets (`46px` for `.cs-igroup__btn` and `.cs-splitter`, `24px` check/radio inputs inside `44px` labels, `repeat(5, 44px)` colorpicker grid, `repeat(7, 44px)` calendar grid, `64px` carousel view padding and `44px` dot buttons with `4.5px` radial dot, `none` scrollbar on `.cs-tabs`), global `0.01ms` reduced-motion clamp, `prefers-contrast: more` border/muted overrides (`#9a8060`/`#45210e` light, `#7a6450`/`#f5ead9` dark), and `forced-colors: active` state borders. Re-read `base/a11y.css` lines 1–176 before editing.
+Style the responsive layout and breakpoint rules (`CSResponsiveModel` / `csResponsive*`) in `base/responsive.css` lines 1–188: container-query helpers (`.cs-cq`, `<=768px` `1fr` columns, `<=640px` stacked column with `100%` buttons), `.cs-desk` and `.cs-sheet` breakpoint padding/radii (`<=768px`, `<=640px`, `<=360px`), `.cs-sidebar` horizontal wrap strip at `<=768px` (hiding `.cs-sidebar__label`), `.cs-canvas-desk` `<=1280px` horizontal scroll with `960px` floor, inline fixed-column grid collapse (`<=768px` 3–6 cols to 2 cols; `<=640px` 2–6 cols to `1fr`), `<=768px` `44px` touch floor, `<=640px` `min(92vw, 320px)` `.cs-drawer` width, and `<=360px` reflow for `.cs-tabs`, `.cs-pagination`, `.cs-otp`, and `.cs-dl`. Re-read `base/responsive.css` lines 1–188 before editing.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

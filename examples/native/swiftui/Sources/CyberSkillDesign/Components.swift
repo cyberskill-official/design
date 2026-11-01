@@ -51,6 +51,58 @@ public enum CSInteractionModel {
   }
 }
 
+public enum CSA11yModel {
+  public static func srOnlySize() -> Double { 1 }
+  public static func srOnlyMargin() -> Double { -1 }
+  public static func srOnlyPadding() -> Double { 0 }
+  public static func srOnlyBorderWidth() -> Double { 0 }
+  public static func touchTargetMinSize(coarse: Bool = true) -> Double { coarse ? 44 : 0 }
+  public static func checkRadioInputBoxSize(coarse: Bool = true) -> Double { coarse ? 24 : 18 }
+  public static func tabsScrollbarHidden(coarse: Bool = true) -> Bool { coarse }
+  public static func inputGroupButtonMinWidth(coarse: Bool = true) -> Double { coarse ? 46 : 0 }
+  public static let colorPickerColumns = 5
+  public static func colorPickerColumnWidth(coarse: Bool = true) -> Double { coarse ? 44 : 28 }
+  public static let calendarColumns = 7
+  public static func calendarColumnWidth(coarse: Bool = true) -> Double { coarse ? 44 : 34 }
+  public static func calendarMinGridWidth(coarse: Bool = true) -> Double {
+    Double(calendarColumns) * calendarColumnWidth(coarse: coarse)
+  }
+  public static func carouselViewMinHeight(coarse: Bool = true) -> Double { coarse ? 64 : 0 }
+  public static func carouselViewPaddingInline(coarse: Bool = true) -> Double { coarse ? 64 : 0 }
+  public static func carouselDotButtonSize(coarse: Bool = true) -> Double { coarse ? 44 : 8 }
+  public static func carouselDotRadius() -> Double { 4.5 }
+  public static func carouselDotOuterStop() -> Double { 5 }
+  public static func splitterMinBlockSize(coarse: Bool = true) -> Double { coarse ? 46 : 0 }
+  public static func splitterBarMinSize(coarse: Bool = true) -> Double { coarse ? 44 : 0 }
+  public static func sliderBlockSize(coarse: Bool = true) -> Double { coarse ? 44 : 22 }
+  public static func reducedMotionDurationMs() -> Double { 0.01 }
+  public static func reducedMotionIterationCount() -> Int { 1 }
+  public static func effectiveDurationMs(_ durationMs: Double, reducedMotion: Bool) -> Double {
+    reducedMotion ? reducedMotionDurationMs() : durationMs
+  }
+  public static let highContrastLightBorderHex = "#9a8060"
+  public static let highContrastLightMutedHex = "#45210e"
+  public static let highContrastDarkBorderHex = "#7a6450"
+  public static let highContrastDarkMutedHex = "#f5ead9"
+  public static func appliesHighContrastOverride(prefersContrastMore: Bool, contrastAttr: String? = nil) -> Bool {
+    prefersContrastMore && contrastAttr != "standard"
+  }
+  public static func highContrastBorderHex(dark: Bool) -> String {
+    dark ? highContrastDarkBorderHex : highContrastLightBorderHex
+  }
+  public static func highContrastMutedHex(dark: Bool) -> String {
+    dark ? highContrastDarkMutedHex : highContrastLightMutedHex
+  }
+  public static func forcedColorsSwitchBorderWidth() -> Double { 1 }
+  public static func forcedColorsCarouselDotBorderWidth(current: Bool) -> Double { current ? 3 : 1 }
+  public static func forcedColorsSelectedTabBorderBottomWidth(selected: Bool) -> Double { selected ? 3 : 0 }
+  public static func forcedColorsSegmentedBorderWidth() -> Double { 2 }
+  public static func forcedColorsToggleOutlineWidth(pressed: Bool, focusVisible: Bool = false) -> Double {
+    (pressed && !focusVisible) ? 2 : 0
+  }
+  public static func forcedColorsToggleOutlineOffset() -> Double { -4 }
+}
+
 public enum CSControlMode {
   public static func pack(dark: Bool, highContrast: Bool, compact: Bool) -> CSTokenModePack {
     let scheme: CSColorScheme = dark ? .dark : .light
@@ -661,6 +713,7 @@ public struct CSSwitch: View {
     }
     .foregroundStyle(pack.colorTextPrimary.color)
     .tint(pack.colorBrandOchre.color)
+    .frame(minWidth: CGFloat(CSA11yModel.touchTargetMinSize(coarse: true)), minHeight: CGFloat(CSA11yModel.touchTargetMinSize(coarse: true)))
     .focused($focused)
     .onChange(of: focused) { isFocused in
       if isFocused && !disabled { CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true }) }

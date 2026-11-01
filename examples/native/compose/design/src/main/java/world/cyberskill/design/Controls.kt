@@ -197,6 +197,47 @@ fun csInteractionEntranceDurationMs(pack: CSTokenModePack, reducedMotion: Boolea
 fun csInteractionDialogDurationMs(pack: CSTokenModePack, reducedMotion: Boolean = false): Double =
   if (reducedMotion) 0.0 else pack.durationBase.value
 
+fun csA11ySrOnlySize() = 1.dp
+fun csA11ySrOnlyMargin() = (-1).dp
+fun csA11ySrOnlyPadding() = 0.dp
+fun csA11ySrOnlyBorderWidth() = 0.dp
+fun csA11yTouchTargetMinSize(coarse: Boolean = true) = if (coarse) 44.dp else 0.dp
+fun csA11yCheckRadioInputBoxSize(coarse: Boolean = true) = if (coarse) 24.dp else 18.dp
+fun csA11yTabsScrollbarHidden(coarse: Boolean = true) = coarse
+fun csA11yInputGroupButtonMinWidth(coarse: Boolean = true) = if (coarse) 46.dp else 0.dp
+const val csA11yColorPickerColumns = 5
+fun csA11yColorPickerColumnWidth(coarse: Boolean = true) = if (coarse) 44.dp else 28.dp
+const val csA11yCalendarColumns = 7
+fun csA11yCalendarColumnWidth(coarse: Boolean = true) = if (coarse) 44.dp else 34.dp
+fun csA11yCalendarMinGridWidth(coarse: Boolean = true) = if (coarse) 308.dp else 238.dp
+fun csA11yCarouselViewMinHeight(coarse: Boolean = true) = if (coarse) 64.dp else 0.dp
+fun csA11yCarouselViewPaddingInline(coarse: Boolean = true) = if (coarse) 64.dp else 0.dp
+fun csA11yCarouselDotButtonSize(coarse: Boolean = true) = if (coarse) 44.dp else 8.dp
+fun csA11yCarouselDotRadius() = 4.5.dp
+fun csA11yCarouselDotOuterStop() = 5.dp
+fun csA11ySplitterMinBlockSize(coarse: Boolean = true) = if (coarse) 46.dp else 0.dp
+fun csA11ySplitterBarMinSize(coarse: Boolean = true) = if (coarse) 44.dp else 0.dp
+fun csA11ySliderBlockSize(coarse: Boolean = true) = if (coarse) 44.dp else 22.dp
+fun csA11yReducedMotionDurationMs(): Double = 0.01
+fun csA11yReducedMotionIterationCount(): Int = 1
+fun csA11yEffectiveDurationMs(durationMs: Double, reducedMotion: Boolean): Double =
+  if (reducedMotion) csA11yReducedMotionDurationMs() else durationMs
+const val csA11yHighContrastLightBorderHex = "#9a8060"
+const val csA11yHighContrastLightMutedHex = "#45210e"
+const val csA11yHighContrastDarkBorderHex = "#7a6450"
+const val csA11yHighContrastDarkMutedHex = "#f5ead9"
+fun csA11yAppliesHighContrastOverride(prefersContrastMore: Boolean, contrastAttr: String? = null) =
+  prefersContrastMore && contrastAttr != "standard"
+fun csA11yHighContrastBorderHex(dark: Boolean) = if (dark) csA11yHighContrastDarkBorderHex else csA11yHighContrastLightBorderHex
+fun csA11yHighContrastMutedHex(dark: Boolean) = if (dark) csA11yHighContrastDarkMutedHex else csA11yHighContrastLightMutedHex
+fun csA11yForcedColorsSwitchBorderWidth() = 1.dp
+fun csA11yForcedColorsCarouselDotBorderWidth(current: Boolean) = if (current) 3.dp else 1.dp
+fun csA11yForcedColorsSelectedTabBorderBottomWidth(selected: Boolean) = if (selected) 3.dp else 0.dp
+fun csA11yForcedColorsSegmentedBorderWidth() = 2.dp
+fun csA11yForcedColorsToggleOutlineWidth(pressed: Boolean, focusVisible: Boolean = false) =
+  if (pressed && !focusVisible) 2.dp else 0.dp
+fun csA11yForcedColorsToggleOutlineOffset() = (-4).dp
+
 @Composable
 fun CsButton(
   title: String,
@@ -543,6 +584,7 @@ fun CsSwitch(
   Row(
     modifier = modifier
       .fillMaxWidth()
+      .heightIn(min = csA11yTouchTargetMinSize(true))
       .minimumInteractiveComponentSize()
       .focusRequester(handle.requester)
       .onFocusChanged { if (it.isFocused && enabled) handle.claim() }

@@ -149,6 +149,49 @@ double csInteractionEntranceDurationMs(CSTokenModePack pack, {bool reducedMotion
 double csInteractionDialogDurationMs(CSTokenModePack pack, {bool reducedMotion = false}) =>
     reducedMotion ? 0 : pack.durationBase.value;
 
+double csA11ySrOnlySize() => 1;
+double csA11ySrOnlyMargin() => -1;
+double csA11ySrOnlyPadding() => 0;
+double csA11ySrOnlyBorderWidth() => 0;
+double csA11yTouchTargetMinSize({bool coarse = true}) => coarse ? 44 : 0;
+double csA11yCheckRadioInputBoxSize({bool coarse = true}) => coarse ? 24 : 18;
+bool csA11yTabsScrollbarHidden({bool coarse = true}) => coarse;
+double csA11yInputGroupButtonMinWidth({bool coarse = true}) => coarse ? 46 : 0;
+const int csA11yColorPickerColumns = 5;
+double csA11yColorPickerColumnWidth({bool coarse = true}) => coarse ? 44 : 28;
+const int csA11yCalendarColumns = 7;
+double csA11yCalendarColumnWidth({bool coarse = true}) => coarse ? 44 : 34;
+double csA11yCalendarMinGridWidth({bool coarse = true}) => csA11yCalendarColumns * csA11yCalendarColumnWidth(coarse: coarse);
+double csA11yCarouselViewMinHeight({bool coarse = true}) => coarse ? 64 : 0;
+double csA11yCarouselViewPaddingInline({bool coarse = true}) => coarse ? 64 : 0;
+double csA11yCarouselDotButtonSize({bool coarse = true}) => coarse ? 44 : 8;
+double csA11yCarouselDotRadius() => 4.5;
+double csA11yCarouselDotOuterStop() => 5;
+double csA11ySplitterMinBlockSize({bool coarse = true}) => coarse ? 46 : 0;
+double csA11ySplitterBarMinSize({bool coarse = true}) => coarse ? 44 : 0;
+double csA11ySliderBlockSize({bool coarse = true}) => coarse ? 44 : 22;
+double csA11yReducedMotionDurationMs() => 0.01;
+int csA11yReducedMotionIterationCount() => 1;
+double csA11yEffectiveDurationMs(double durationMs, {required bool reducedMotion}) =>
+    reducedMotion ? csA11yReducedMotionDurationMs() : durationMs;
+const String csA11yHighContrastLightBorderHex = '#9a8060';
+const String csA11yHighContrastLightMutedHex = '#45210e';
+const String csA11yHighContrastDarkBorderHex = '#7a6450';
+const String csA11yHighContrastDarkMutedHex = '#f5ead9';
+bool csA11yAppliesHighContrastOverride({required bool prefersContrastMore, String? contrastAttr}) =>
+    prefersContrastMore && contrastAttr != 'standard';
+String csA11yHighContrastBorderHex({required bool dark}) =>
+    dark ? csA11yHighContrastDarkBorderHex : csA11yHighContrastLightBorderHex;
+String csA11yHighContrastMutedHex({required bool dark}) =>
+    dark ? csA11yHighContrastDarkMutedHex : csA11yHighContrastLightMutedHex;
+double csA11yForcedColorsSwitchBorderWidth() => 1;
+double csA11yForcedColorsCarouselDotBorderWidth(bool current) => current ? 3 : 1;
+double csA11yForcedColorsSelectedTabBorderBottomWidth(bool selected) => selected ? 3 : 0;
+double csA11yForcedColorsSegmentedBorderWidth() => 2;
+double csA11yForcedColorsToggleOutlineWidth(bool pressed, {bool focusVisible = false}) =>
+    (pressed && !focusVisible) ? 2 : 0;
+double csA11yForcedColorsToggleOutlineOffset() => -4;
+
 class CsButton extends StatefulWidget {
   const CsButton({
     super.key,
@@ -757,14 +800,20 @@ class CsSwitch extends StatelessWidget {
       focusNode: node,
       child: Semantics(
         label: name ?? title,
-        child: SwitchListTile(
-          title: csSwitchShowsLabel(title) ? ExcludeSemantics(child: Text(title, style: TextStyle(color: csColor(pack.colorTextPrimary)))) : null,
-          value: value,
-          activeColor: csColor(pack.colorBrandOchre),
-          onChanged: disabled ? null : (next) {
-            claim();
-            onChanged(next);
-          },
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minWidth: csA11yTouchTargetMinSize(coarse: true),
+            minHeight: csA11yTouchTargetMinSize(coarse: true),
+          ),
+          child: SwitchListTile(
+            title: csSwitchShowsLabel(title) ? ExcludeSemantics(child: Text(title, style: TextStyle(color: csColor(pack.colorTextPrimary)))) : null,
+            value: value,
+            activeColor: csColor(pack.colorBrandOchre),
+            onChanged: disabled ? null : (next) {
+              claim();
+              onChanged(next);
+            },
+          ),
         ),
       ),
     ));
