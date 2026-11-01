@@ -769,6 +769,8 @@ public enum CSTimelineModel {
   public static func railOffset() -> Double { 12 }
   public static func railWidth() -> Double { 2 }
   public static func todoBorderWidth() -> Double { 1 }
+  public static func titleMarginY() -> Double { 2 }
+  public static func bodyMarginTop() -> Double { 4 }
   public static func showsRail(index: Int, count: Int) -> Bool { index >= 0 && index < count - 1 }
   public static func marker(_ state: String) -> String {
     if state == "todo" { return "" }
@@ -824,10 +826,22 @@ public struct CSTimeline: View {
             .overlay { if state == "todo" { Circle().stroke(pack.colorBorderDefault.color, lineWidth: CGFloat(CSTimelineModel.todoBorderWidth())) } }
             .clipShape(Circle())
             .accessibilityHidden(true)
-          VStack(alignment: .leading, spacing: 2) {
-            Text(item.title).foregroundStyle(pack.primaryTextColor)
-            if CSTimelineModel.showsDetail(item.meta), let meta = item.meta { Text(meta).foregroundStyle(pack.mutedColor) }
-            if CSTimelineModel.showsDetail(item.body), let body = item.body { Text(body).foregroundStyle(pack.primaryTextColor) }
+          VStack(alignment: .leading, spacing: 0) {
+            Text(item.title)
+              .font(.system(size: pack.fontSizeMd.points, weight: .bold))
+              .foregroundStyle(pack.primaryTextColor)
+              .padding(.vertical, CGFloat(CSTimelineModel.titleMarginY()))
+            if CSTimelineModel.showsDetail(item.meta), let meta = item.meta {
+              Text(meta)
+                .font(.system(size: pack.fontSizeXs.points, design: .monospaced))
+                .foregroundStyle(pack.mutedColor)
+            }
+            if CSTimelineModel.showsDetail(item.body), let body = item.body {
+              Text(body)
+                .font(.system(size: pack.fontSizeSm.points))
+                .foregroundStyle(pack.mutedColor)
+                .padding(.top, CGFloat(CSTimelineModel.bodyMarginTop()))
+            }
           }
         }
         .padding(.bottom, pack.space5.points)

@@ -545,6 +545,8 @@ fun csTimelineItemGap() = 14.dp
 fun csTimelineRailOffset() = 12.dp
 fun csTimelineRailWidth() = 2.dp
 fun csTimelineTodoBorderWidth() = 1.dp
+fun csTimelineTitleMarginY() = 2.dp
+fun csTimelineBodyMarginTop() = 4.dp
 fun csTimelineShowsRail(index: Int, count: Int) = index >= 0 && index < count - 1
 fun csTimelineMarker(state: String) = if (state == "todo") "" else if (state == "now") "→" else "✓"
 fun csTimelineShowsDetail(text: String?) = text != null && text.isNotEmpty()
@@ -566,9 +568,9 @@ fun CsTimeline(items: List<CsTimelineItem>, dark: Boolean, highContrast: Boolean
             Text(csTimelineMarker(item.state), color = ink.toComposeColor(), fontSize = pack.fontSizeXs.toDp().value.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
           }
           Column {
-            Text(item.title, color = pack.colorTextPrimary.toComposeColor())
-            if (csTimelineShowsDetail(item.meta)) Text(item.meta ?: "", color = pack.colorTextMuted.toComposeColor())
-            if (csTimelineShowsDetail(item.body)) Text(item.body ?: "", color = pack.colorTextMuted.toComposeColor())
+            Text(item.title, color = pack.colorTextPrimary.toComposeColor(), fontWeight = FontWeight.Bold, modifier = Modifier.padding(vertical = csTimelineTitleMarginY()))
+            if (csTimelineShowsDetail(item.meta)) Text(item.meta ?: "", color = pack.colorTextMuted.toComposeColor(), fontSize = pack.fontSizeXs.toDp().value.sp, fontFamily = FontFamily.Monospace)
+            if (csTimelineShowsDetail(item.body)) Text(item.body ?: "", color = pack.colorTextMuted.toComposeColor(), fontSize = pack.fontSizeSm.toDp().value.sp, modifier = Modifier.padding(top = csTimelineBodyMarginTop()))
           }
         }
       }

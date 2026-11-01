@@ -651,6 +651,8 @@ double csTimelineItemGap() => 14;
 double csTimelineRailOffset() => 12;
 double csTimelineRailWidth() => 2;
 double csTimelineTodoBorderWidth() => 1;
+double csTimelineTitleMarginY() => 2;
+double csTimelineBodyMarginTop() => 4;
 bool csTimelineShowsRail(int index, int count) => index >= 0 && index < count - 1;
 String csTimelineMarker(String state) => state == 'todo' ? '' : state == 'now' ? '→' : '✓';
 bool csTimelineShowsDetail(String? text) => text != null && text.isNotEmpty;
@@ -704,9 +706,17 @@ class CsTimeline extends StatelessWidget {
                   SizedBox(width: csTimelineItemGap()),
                   Expanded(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      Text(items[index].title, style: TextStyle(color: csColor(pack.colorTextPrimary))),
-                      if (csTimelineShowsDetail(items[index].meta)) Text(items[index].meta!, style: TextStyle(color: csColor(pack.colorTextMuted))),
-                      if (csTimelineShowsDetail(items[index].body)) Text(items[index].body!, style: TextStyle(color: csColor(pack.colorTextMuted))),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: csTimelineTitleMarginY()),
+                        child: Text(items[index].title, style: TextStyle(color: csColor(pack.colorTextPrimary), fontWeight: FontWeight.w700)),
+                      ),
+                      if (csTimelineShowsDetail(items[index].meta))
+                        Text(items[index].meta!, style: TextStyle(color: csColor(pack.colorTextMuted), fontSize: csPoints(pack.fontSizeXs), fontFamily: 'monospace')),
+                      if (csTimelineShowsDetail(items[index].body))
+                        Padding(
+                          padding: EdgeInsets.only(top: csTimelineBodyMarginTop()),
+                          child: Text(items[index].body!, style: TextStyle(color: csColor(pack.colorTextMuted), fontSize: csPoints(pack.fontSizeSm))),
+                        ),
                     ]),
                   ),
                 ]),

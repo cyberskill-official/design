@@ -351,6 +351,8 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertEqual(CSTimelineModel.railOffset(), 12)
     XCTAssertEqual(CSTimelineModel.railWidth(), 2)
     XCTAssertEqual(CSTimelineModel.todoBorderWidth(), 1)
+    XCTAssertEqual(CSTimelineModel.titleMarginY(), 2)
+    XCTAssertEqual(CSTimelineModel.bodyMarginTop(), 4)
     XCTAssertTrue(CSTimelineModel.showsRail(index: 0, count: 2))
     XCTAssertFalse(CSTimelineModel.showsRail(index: 1, count: 2))
     XCTAssertEqual(CSTimelineModel.marker("todo"), "")
