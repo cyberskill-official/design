@@ -1078,11 +1078,11 @@ class CsSegmentedControl extends StatelessWidget {
               final forward = vertical ? LogicalKeyboardKey.arrowDown : LogicalKeyboardKey.arrowRight;
               final backward = vertical ? LogicalKeyboardKey.arrowUp : LogicalKeyboardKey.arrowLeft;
               if (event.logicalKey == forward) {
-                onSelect(options[csTabsMove(index, 'ArrowRight', options.length) ?? index].value);
+                onSelect(options[csTabsMove(index, options.length, 'ArrowRight') ?? index].value);
                 return KeyEventResult.handled;
               }
               if (event.logicalKey == backward) {
-                onSelect(options[csTabsMove(index, 'ArrowLeft', options.length) ?? index].value);
+                onSelect(options[csTabsMove(index, options.length, 'ArrowLeft') ?? index].value);
                 return KeyEventResult.handled;
               }
               if (event.logicalKey == LogicalKeyboardKey.home) {

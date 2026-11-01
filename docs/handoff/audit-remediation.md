@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the native-flutter-segmented-roving-call-fix checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the native-flutter-tabs-move-argument-order-fix checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -9,8 +9,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: `d82daccd3ae91c9780c95002c2391aed03243d49` (`fix(native): use csTabsMove in Flutter CsSegmentedControl keyboard roving`)
-- Previous checkpoint: `26273a88f7fbe4b16735003b6d92504ff50251c8`, with the hash note in `a41f6300`
+- Checkpoint commit: `<pending-commit>` (`fix(native): match csTabsMove(current, count, key) argument order in Flutter CsSegmentedControl`)
+- Previous checkpoint: `d82daccd3ae91c9780c95002c2391aed03243d49`, with the hash note in `f0b45801`
 - GitHub Actions push workflows re-enabled (`Design System Gates` `316944477`, `native-validation` `377620668`, `native-store` `318755963`, `OpenSSF Scorecard` `330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -54,7 +54,7 @@ Last run after styling `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `Navigat
 
 ## Latest checkpoint
 
-Updated `CsSegmentedControl` keyboard roving in `examples/native/flutter_design/lib/catalog.dart` (lines 1081 and 1085) to call `csTabsMove(index, 'ArrowRight', options.length) ?? index` and `csTabsMove(index, 'ArrowLeft', options.length) ?? index` from `controls.dart` instead of the undefined `csSegmentedMove` helper reported by `flutter test` in `native-validation` run `41323068664`.
+Aligned `CsSegmentedControl` keyboard roving in `examples/native/flutter_design/lib/catalog.dart` (lines 1081 and 1085) with the `int? csTabsMove(int current, int count, String key, {bool vertical = false})` signature in `primitives.dart` (`csTabsMove(index, options.length, 'ArrowRight') ?? index` and `csTabsMove(index, options.length, 'ArrowLeft') ?? index`).
 
 - `swift test --package-path examples/native/swiftui` and `node _audit/ci/test-native-samples.mjs` passed locally.
 - In `native-validation` run `41323068664`, both `validate (compose, ubuntu-24.04)` (job `124897196632`) and `validate (swiftui, macos-15)` (job `124897196812`) passed; in `Design System Gates` run `41323068696`, `pixel-diff`, `whole-set-audits`, `fast-gates`, `docs-consistency-blocker`, `storybook-build`, `node-prechecks`, `token-provenance`, `npm-hello-smoke`, `regenerate-tokens-push`, and `figma-variables-push` all passed.
