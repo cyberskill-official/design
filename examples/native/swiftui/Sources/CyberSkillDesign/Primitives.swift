@@ -95,6 +95,53 @@ public enum CSAlertTone {
   }
 }
 
+public enum CSAlertModel {
+  public static let dismissDefault = "Close"
+  public static func copy(_ key: String, language: String?) -> String {
+    let want = CSComboboxModel.primaryLanguage(language) ?? "vi"
+    let tables: [String: [String: String]] = [
+      "vi": ["dismiss": "Đóng"],
+      "en": ["dismiss": dismissDefault],
+    ]
+    var seen = Set<String>()
+    for locale in [want, "en", "vi"] where seen.insert(locale).inserted {
+      if let value = tables[locale]?[key] { return value }
+    }
+    return key
+  }
+  public static func variantName(_ variant: CSAlertVariant) -> String {
+    switch variant {
+    case .info: return "info"
+    case .success: return "success"
+    case .warning: return "warning"
+    case .danger: return "danger"
+    }
+  }
+  public static func mark(_ variant: String?) -> String {
+    switch variant {
+    case "success": return "M4 12.5l5 5 11-11"
+    case "warning": return "M12 3l9 16H3z M12 10v4 M12 17h.01"
+    case "danger": return "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M9 9l6 6 M15 9l-6 6"
+    default: return "M12 8h.01M11 12h1v4h1 M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z"
+    }
+  }
+  public static func shows(_ value: String?) -> Bool {
+    guard let value else { return false }
+    return !value.isEmpty
+  }
+  public static func dismissName(_ explicit: String?, fallback: String) -> String { explicit ?? fallback }
+  public static func showsDismiss(hasOpenChange: Bool, hasClose: Bool, hasDismiss: Bool) -> Bool {
+    hasOpenChange || hasClose || hasDismiss
+  }
+  public static func notify(hasOpenChange: Bool, hasClose: Bool, hasDismiss: Bool) -> [String] {
+    var events: [String] = []
+    if hasOpenChange { events.append("open-false") }
+    if hasClose { events.append("close") }
+    if hasDismiss { events.append("dismiss") }
+    return events
+  }
+}
+
 public enum CSStatTrend {
   case up
   case down
@@ -382,36 +429,69 @@ public struct CSAlert: View {
   public let variant: CSAlertVariant
   public let title: String
   public let message: String
-  public let dismissLabel: String
+  public let icon: String?
+  public let dismissLabel: String?
+  public let language: String?
   let dark: Bool
   let highContrast: Bool
   let compact: Bool
+  let onOpenChange: ((Bool) -> Void)?
+  let onClose: (() -> Void)?
   let onDismiss: (() -> Void)?
+  @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(variant: CSAlertVariant = .info, title: String, message: String, dismissLabel: String = "", dark: Bool, highContrast: Bool, compact: Bool, onDismiss: (() -> Void)? = nil) {
+  public init(variant: CSAlertVariant = .info, title: String, message: String, icon: String? = nil, dismissLabel: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, onOpenChange: ((Bool) -> Void)? = nil, onClose: (() -> Void)? = nil, onDismiss: (() -> Void)? = nil, language: String? = nil) {
     self.variant = variant
     self.title = title
     self.message = message
+    self.icon = icon
     self.dismissLabel = dismissLabel
     self.dark = dark
     self.highContrast = highContrast
     self.compact = compact
+    self.onOpenChange = onOpenChange
+    self.onClose = onClose
     self.onDismiss = onDismiss
+    self.language = language
   }
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let tone = CSAlertTone.text(variant, pack: pack).color
+    let closeName = CSAlertModel.dismissName(dismissLabel, fallback: CSAlertModel.copy("dismiss", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)))
     HStack(alignment: .top, spacing: CGFloat(CSFeedbackStyleModel.alertGap())) {
+      Group {
+        if let icon {
+          Text(icon)
+        } else {
+          Canvas { context, size in
+            let source = CSIconPaths.path(data: CSAlertModel.mark(CSAlertModel.variantName(variant)))
+            let scale = min(size.width, size.height) / 24
+            context.stroke(source.applying(CGAffineTransform(scaleX: scale, y: scale)), with: .color(tone), lineWidth: 1.9)
+          }
+          .frame(width: 20, height: 20)
+        }
+      }
+      .foregroundStyle(tone)
+      .padding(.top, CGFloat(CSFeedbackStyleModel.alertIconPaddingTop()))
+      .accessibilityHidden(true)
       VStack(alignment: .leading, spacing: CGFloat(CSFeedbackStyleModel.alertTitleMarginBottom())) {
-        Text(title).font(.system(size: CGFloat(CSFeedbackStyleModel.alertBodyFontSize(pack)), weight: .bold)).foregroundStyle(tone)
-        Text(message).font(.system(size: CGFloat(CSFeedbackStyleModel.alertBodyFontSize(pack)))).foregroundStyle(pack.mutedColor)
+        if CSAlertModel.shows(title) {
+          Text(title).font(.system(size: CGFloat(CSFeedbackStyleModel.alertBodyFontSize(pack)), weight: .bold)).foregroundStyle(tone)
+        }
+        if CSAlertModel.shows(message) {
+          Text(message).font(.system(size: CGFloat(CSFeedbackStyleModel.alertBodyFontSize(pack)))).foregroundStyle(pack.mutedColor)
+        }
       }
       Spacer(minLength: 0)
-      if let onDismiss {
-        CSTriggerButton("×", action: onDismiss)
+      if CSAlertModel.showsDismiss(hasOpenChange: onOpenChange != nil, hasClose: onClose != nil, hasDismiss: onDismiss != nil) {
+        CSTriggerButton("×", action: {
+          onOpenChange?(false)
+          onClose?()
+          onDismiss?()
+        })
           .frame(minWidth: 44, minHeight: 44)
-          .accessibilityLabel(dismissLabel)
+          .accessibilityLabel(closeName)
       }
     }
     .padding(.vertical, CGFloat(CSFeedbackStyleModel.alertPaddingY()))

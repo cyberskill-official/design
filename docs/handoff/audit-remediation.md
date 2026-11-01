@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the remainder-views-style-wiring checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the alert-banner-parity checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -54,13 +54,13 @@ Last run after styling `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `Navigat
 
 ## Latest checkpoint
 
-Wired the remaining rendered views in `Remainder.swift`, `Remainder.kt`, and `remainder.dart` (`CSHotKeys`/`CsHotKeys`, `CSInlineEdit`/`CsInlineEdit`, `CSFormField`/`CsFormField`, `CSForm`/`CsForm`, `CSFieldset`/`CsFieldset`, `CSFormFieldArray`/`CsFormFieldArray`, `CSFormWizard`/`CsFormWizard`, `CSCascader`/`CsCascader`, `CSDock`/`CsDock`, `CSHoverCard`/`CsHoverCard`, `CSHumanReviewGate`/`CsHumanReviewGate`, `CSInputGroup`/`CsInputGroup`, `CSLumiAvatar`/`CsLumiAvatar`, `CSMasonry`/`CsMasonry`, `CSMenuItem`/`CsMenuItem`, `CSNativeSelect`/`CsNativeSelect`, `CSPromptInput`/`CsPromptInput`, `CSPromptSuggestions`/`CsPromptSuggestions`, `CSQRCode`/`CsQRCode`, `CSTreeSelect`/`CsTreeSelect`, `CSTreeTable`/`CsTreeTable`, and `CSTypingIndicator`/`CsTypingIndicator`) to consume `CSControlsBatchStyleModel`, `CSControlsWaveStyleModel`, `CSFormsStyleModel`, `CSReviewGateStyleModel`, `CSAIStyleModel`, `CSNavigationStyleModel`, and `CSSelectModel`.
+Aligned `CSAlert`/`CsAlert` in `Primitives.swift`, `Primitives.kt`, and `primitives.dart` with `components/feedback/Alert.jsx` (`CSAlertModel` / `csAlertBanner*`): draws the 20x20 default variant SVG icon path (`info`, `success`, `warning`, `danger`) with 1.9 stroke width when `icon` is nil or keeps an explicit `icon` string, shows `title` and `message` only when non-empty (preserving `"0"`), localizes `dismiss` (`"Đóng"` / `"Close"`) via `strings.Alert` unless overridden by `dismissLabel`, shows the dismiss button when any of `onOpenChange`/`onClose`/`onDismiss` is provided, and invokes `onOpenChange(false)`, `onClose()`, and `onDismiss()` in web order.
 
 - `swift test --package-path examples/native/swiftui` and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Expand cross-platform native unit test assertions in `ComponentLibraryTests.swift`, `SampleRuleTest.kt`, and `sample_test.dart` for the CSS-derived style models and continue closing concrete behavioral gaps between the 120-component web set (`components/*.jsx`) and the native libraries.
+Align `CSLumiAvatar`/`CsLumiAvatar`, `CSLogo`/`CsLogo`, `CSAspectRatio`/`CsAspectRatio`, `CSMasonry`/`CsMasonry`, and `CSScrollArea`/`CsScrollArea` with their web component contracts (`LumiAvatar.jsx`, `Logo.jsx`, `AspectRatio.jsx`, `Masonry.jsx`, `ScrollArea.jsx`).
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

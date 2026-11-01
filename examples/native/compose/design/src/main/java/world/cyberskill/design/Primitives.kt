@@ -1,5 +1,6 @@
 package world.cyberskill.design
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -34,6 +35,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.semantics.ProgressBarRangeInfo
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -112,6 +114,39 @@ fun csAlertText(variant: CsAlertVariant, pack: CSTokenModePack): CSColorValue = 
   CsAlertVariant.Success -> pack.colorSemanticSuccessText
   CsAlertVariant.Warning -> pack.colorSemanticWarningText
   CsAlertVariant.Danger -> pack.colorSemanticDangerText
+}
+const val csAlertBannerDismiss = "Close"
+fun csAlertBannerCopy(key: String, language: String?): String {
+  val want = csComboboxPrimaryLanguage(language) ?: "vi"
+  val vi = mapOf("dismiss" to "Đóng")
+  val en = mapOf("dismiss" to csAlertBannerDismiss)
+  for (locale in linkedSetOf(want, "en", "vi")) {
+    val table = if (locale == "vi") vi else if (locale == "en") en else emptyMap()
+    table[key]?.let { return it }
+  }
+  return key
+}
+fun csAlertBannerVariantName(variant: CsAlertVariant) = when (variant) {
+  CsAlertVariant.Info -> "info"
+  CsAlertVariant.Success -> "success"
+  CsAlertVariant.Warning -> "warning"
+  CsAlertVariant.Danger -> "danger"
+}
+fun csAlertBannerMark(variant: String?) = when (variant) {
+  "success" -> "M4 12.5l5 5 11-11"
+  "warning" -> "M12 3l9 16H3z M12 10v4 M12 17h.01"
+  "danger" -> "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M9 9l6 6 M15 9l-6 6"
+  else -> "M12 8h.01M11 12h1v4h1 M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z"
+}
+fun csAlertBannerShows(value: String?) = value != null && value.isNotEmpty()
+fun csAlertBannerDismissName(explicit: String?, fallback: String) = explicit ?: fallback
+fun csAlertBannerShowsDismiss(hasOpenChange: Boolean, hasClose: Boolean, hasDismiss: Boolean) = hasOpenChange || hasClose || hasDismiss
+fun csAlertBannerNotify(hasOpenChange: Boolean, hasClose: Boolean, hasDismiss: Boolean): List<String> {
+  val events = mutableListOf<String>()
+  if (hasOpenChange) events += "open-false"
+  if (hasClose) events += "close"
+  if (hasDismiss) events += "dismiss"
+  return events
 }
 
 enum class CsStatTrend { Up, Down, Flat }
@@ -294,11 +329,16 @@ fun CsAlert(
   compact: Boolean,
   modifier: Modifier = Modifier,
   variant: CsAlertVariant = CsAlertVariant.Info,
-  dismissLabel: String = "",
+  icon: String? = null,
+  dismissLabel: String? = null,
+  language: String? = null,
+  onOpenChange: ((Boolean) -> Unit)? = null,
+  onClose: (() -> Unit)? = null,
   onDismiss: (() -> Unit)? = null,
 ) {
   val pack = csModePack(dark, highContrast, compact)
   val tone = csAlertText(variant, pack).toComposeColor()
+  val closeName = csAlertBannerDismissName(dismissLabel, csAlertBannerCopy("dismiss", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
   Row(
     modifier
       .fillMaxWidth()
@@ -309,13 +349,28 @@ fun CsAlert(
     horizontalArrangement = Arrangement.spacedBy(csFeedbackStyleAlertGap()),
     verticalAlignment = Alignment.Top,
   ) {
-    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(csFeedbackStyleAlertTitleMarginBottom())) {
-      Text(title, color = tone, fontSize = 14.sp, fontWeight = FontWeight.Bold)
-      Text(message, color = pack.colorTextMuted.toComposeColor(), fontSize = 14.sp)
+    if (icon != null) {
+      Text(icon, color = tone, modifier = Modifier.padding(top = csFeedbackStyleAlertIconPaddingTop()).clearAndSetSemantics {})
+    } else {
+      Canvas(Modifier.padding(top = csFeedbackStyleAlertIconPaddingTop()).size(20.dp)) {
+        drawPath(csIconPathData(csAlertBannerMark(csAlertBannerVariantName(variant)), size.minDimension), tone, style = Stroke(width = 1.9f))
+      }
     }
-    if (onDismiss != null) {
-      CsTriggerButton(title = "×", onClick = onDismiss, modifier = Modifier.minimumInteractiveComponentSize()) {
-        Text("×", modifier = Modifier.semantics { contentDescription = dismissLabel })
+    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(csFeedbackStyleAlertTitleMarginBottom())) {
+      if (csAlertBannerShows(title)) {
+        Text(title, color = tone, fontSize = csFeedbackStyleAlertBodyFontSize(pack).value.sp, fontWeight = FontWeight.Bold)
+      }
+      if (csAlertBannerShows(message)) {
+        Text(message, color = pack.colorTextMuted.toComposeColor(), fontSize = csFeedbackStyleAlertBodyFontSize(pack).value.sp)
+      }
+    }
+    if (csAlertBannerShowsDismiss(onOpenChange != null, onClose != null, onDismiss != null)) {
+      CsTriggerButton(title = closeName, onClick = {
+        onOpenChange?.invoke(false)
+        onClose?.invoke()
+        onDismiss?.invoke()
+      }, modifier = Modifier.minimumInteractiveComponentSize()) {
+        Text("×", modifier = Modifier.semantics { contentDescription = closeName })
       }
     }
   }

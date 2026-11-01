@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'controls.dart';
 import 'cs_modes.dart';
+import 'icon_paths.dart';
 
 class CsProgressMeasurement {
   const CsProgressMeasurement(this.clamped, this.percent, this.max);
@@ -90,6 +91,82 @@ CSColorValue csAlertText(CsAlertVariant variant, CSTokenModePack pack) {
     case CsAlertVariant.danger:
       return pack.colorSemanticDangerText;
   }
+}
+
+const csAlertBannerDismiss = 'Close';
+String csAlertBannerCopy(String key, String? language) {
+  final want = csSelectPrimaryLanguage(language) ?? 'vi';
+  const vi = {'dismiss': 'Đóng'};
+  const en = {'dismiss': csAlertBannerDismiss};
+  final seen = <String>{};
+  for (final locale in [want, 'en', 'vi']) {
+    if (!seen.add(locale)) continue;
+    final table = locale == 'vi' ? vi : locale == 'en' ? en : const <String, String>{};
+    final value = table[key];
+    if (value != null) return value;
+  }
+  return key;
+}
+
+String csAlertBannerVariantName(CsAlertVariant variant) {
+  switch (variant) {
+    case CsAlertVariant.info:
+      return 'info';
+    case CsAlertVariant.success:
+      return 'success';
+    case CsAlertVariant.warning:
+      return 'warning';
+    case CsAlertVariant.danger:
+      return 'danger';
+  }
+}
+
+String csAlertBannerMark(String? variant) {
+  switch (variant) {
+    case 'success':
+      return 'M4 12.5l5 5 11-11';
+    case 'warning':
+      return 'M12 3l9 16H3z M12 10v4 M12 17h.01';
+    case 'danger':
+      return 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z M9 9l6 6 M15 9l-6 6';
+    default:
+      return 'M12 8h.01M11 12h1v4h1 M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z';
+  }
+}
+
+bool csAlertBannerShows(String? value) => value != null && value.isNotEmpty;
+String csAlertBannerDismissName(String? explicit, String fallback) => explicit ?? fallback;
+bool csAlertBannerShowsDismiss(bool hasOpenChange, bool hasClose, bool hasDismiss) =>
+    hasOpenChange || hasClose || hasDismiss;
+List<String> csAlertBannerNotify(bool hasOpenChange, bool hasClose, bool hasDismiss) {
+  final events = <String>[];
+  if (hasOpenChange) events.add('open-false');
+  if (hasClose) events.add('close');
+  if (hasDismiss) events.add('dismiss');
+  return events;
+}
+
+class _AlertMarkPainter extends CustomPainter {
+  const _AlertMarkPainter(this.color, this.data);
+  final Color color;
+  final String data;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.drawPath(
+      csIconPathData(data, size.shortestSide),
+      Paint()
+        ..color = color
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.9
+        ..strokeCap = StrokeCap.round
+        ..strokeJoin = StrokeJoin.round,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _AlertMarkPainter oldDelegate) =>
+      oldDelegate.color != color || oldDelegate.data != data;
 }
 
 enum CsStatTrend { up, down, flat }
@@ -345,14 +422,22 @@ class CsAlert extends StatelessWidget {
     required this.highContrast,
     required this.compact,
     this.variant = CsAlertVariant.info,
-    this.dismissLabel = '',
+    this.icon,
+    this.dismissLabel,
+    this.language,
+    this.onOpenChange,
+    this.onClose,
     this.onDismiss,
   });
 
   final CsAlertVariant variant;
   final String title;
   final String message;
-  final String dismissLabel;
+  final String? icon;
+  final String? dismissLabel;
+  final String? language;
+  final void Function(bool open)? onOpenChange;
+  final VoidCallback? onClose;
   final VoidCallback? onDismiss;
   final bool dark;
   final bool highContrast;
@@ -364,6 +449,10 @@ class CsAlert extends StatelessWidget {
     final tone = csColor(csAlertText(variant, pack));
     final borderColor = csColor(pack.colorBorderDefault);
     final borderWidth = csFeedbackStyleAlertBorderWidth();
+    final closeName = csAlertBannerDismissName(
+      dismissLabel,
+      csAlertBannerCopy('dismiss', csSelectResolvedLanguage(language, CsLanguageScope.of(context))),
+    );
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: csFeedbackStyleAlertPaddingX(),
@@ -382,22 +471,42 @@ class CsAlert extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          ExcludeSemantics(
+            child: Padding(
+              padding: EdgeInsets.only(top: csFeedbackStyleAlertIconPaddingTop()),
+              child: icon != null
+                  ? Text(icon!, style: TextStyle(color: tone))
+                  : CustomPaint(
+                      size: const Size(20, 20),
+                      painter: _AlertMarkPainter(tone, csAlertBannerMark(csAlertBannerVariantName(variant))),
+                    ),
+            ),
+          ),
+          SizedBox(width: csFeedbackStyleAlertGap()),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: TextStyle(fontSize: csFeedbackStyleAlertBodyFontSize(pack), fontWeight: FontWeight.w700, color: tone)),
-                SizedBox(height: csFeedbackStyleAlertTitleMarginBottom()),
-                Text(message, style: TextStyle(fontSize: csFeedbackStyleAlertBodyFontSize(pack), color: csColor(pack.colorTextMuted))),
+                if (csAlertBannerShows(title))
+                  Text(title, style: TextStyle(fontSize: csFeedbackStyleAlertBodyFontSize(pack), fontWeight: FontWeight.w700, color: tone)),
+                if (csAlertBannerShows(title) && csAlertBannerShows(message))
+                  SizedBox(height: csFeedbackStyleAlertTitleMarginBottom()),
+                if (csAlertBannerShows(message))
+                  Text(message, style: TextStyle(fontSize: csFeedbackStyleAlertBodyFontSize(pack), color: csColor(pack.colorTextMuted))),
               ],
             ),
           ),
-          if (onDismiss != null) ...[
+          if (csAlertBannerShowsDismiss(onOpenChange != null, onClose != null, onDismiss != null)) ...[
             SizedBox(width: csFeedbackStyleAlertGap()),
             CsOwnFocus(builder: (node, claim) => IconButton(
               focusNode: node,
-              onPressed: () { claim(); onDismiss!(); },
-              tooltip: dismissLabel,
+              onPressed: () {
+                claim();
+                onOpenChange?.call(false);
+                onClose?.call();
+                onDismiss?.call();
+              },
+              tooltip: closeName,
               constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
               icon: const Text('×'),
             )),
