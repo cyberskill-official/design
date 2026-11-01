@@ -134,6 +134,8 @@ public enum CSSortModel {
   public static func itemOpacity(dragging: Bool) -> Double { dragging ? 0.5 : 1 }
   public static func itemBorderWidth(over: Bool) -> Double { over ? 2 : 1 }
   public static func itemBorderColor(over: Bool, accent: CSColorValue, border: CSColorValue) -> CSColorValue { over ? accent : border }
+  public static func opsGap() -> Double { 4 }
+  public static func buttonOpacity(enabled: Bool) -> Double { enabled ? 1 : 0.4 }
   public static func rowAt(originY: Double, rowHeight: Double, count: Int, pointY: Double) -> Int? {
     guard count > 0, rowHeight > 0 else { return nil }
     let index = Int(((pointY - originY) / rowHeight).rounded(.down))
@@ -509,7 +511,7 @@ public struct CSSortable: View {
         HStack(alignment: .center, spacing: CGFloat(CSSortModel.itemGap())) {
           HStack {
             Text("⠿").accessibilityHidden(true).foregroundStyle(pack.mutedColor)
-            Text(item).font(.system(size: pack.fontSizeSm.points)).foregroundStyle(pack.primaryTextColor)
+            Text(item).font(.system(size: pack.fontSizeSm.points)).foregroundStyle(pack.primaryTextColor).frame(maxWidth: .infinity, alignment: .leading)
           }
           .gesture(DragGesture(minimumDistance: 4, coordinateSpace: .global).onChanged { value in
             if dragFrom == nil { dragFrom = index }
@@ -520,20 +522,24 @@ public struct CSSortable: View {
             dragFrom = nil
             dragOver = nil
           })
-          Button {
-            if CSSortModel.canMoveUp(index) { onChange(CSSortModel.reorder(items, from: index, to: index - 1)) }
-          } label: {
-            Text("↑").frame(minWidth: 44, minHeight: 44).accessibilityHidden(true)
+          HStack(spacing: CGFloat(CSSortModel.opsGap())) {
+            Button {
+              if CSSortModel.canMoveUp(index) { onChange(CSSortModel.reorder(items, from: index, to: index - 1)) }
+            } label: {
+              Text("↑").frame(minWidth: 44, minHeight: 44).accessibilityHidden(true)
+            }
+            .disabled(!CSSortModel.canMoveUp(index))
+            .opacity(CSSortModel.buttonOpacity(enabled: CSSortModel.canMoveUp(index)))
+            .accessibilityLabel(up)
+            Button {
+              if CSSortModel.canMoveDown(index, count: items.count) { onChange(CSSortModel.reorder(items, from: index, to: index + 1)) }
+            } label: {
+              Text("↓").frame(minWidth: 44, minHeight: 44).accessibilityHidden(true)
+            }
+            .disabled(!CSSortModel.canMoveDown(index, count: items.count))
+            .opacity(CSSortModel.buttonOpacity(enabled: CSSortModel.canMoveDown(index, count: items.count)))
+            .accessibilityLabel(down)
           }
-          .disabled(!CSSortModel.canMoveUp(index))
-          .accessibilityLabel(up)
-          Button {
-            if CSSortModel.canMoveDown(index, count: items.count) { onChange(CSSortModel.reorder(items, from: index, to: index + 1)) }
-          } label: {
-            Text("↓").frame(minWidth: 44, minHeight: 44).accessibilityHidden(true)
-          }
-          .disabled(!CSSortModel.canMoveDown(index, count: items.count))
-          .accessibilityLabel(down)
         }
         .padding(.horizontal, CGFloat(CSSortModel.itemPaddingX()))
         .padding(.vertical, CGFloat(CSSortModel.itemPaddingY()))

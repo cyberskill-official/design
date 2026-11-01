@@ -248,6 +248,8 @@ fun csSortItemPaddingX() = 12.dp
 fun csSortItemOpacity(dragging: Boolean) = if (dragging) 0.5f else 1f
 fun csSortItemBorderWidth(over: Boolean) = if (over) 2.dp else 1.dp
 fun csSortItemBorderColor(over: Boolean, accent: CSColorValue, border: CSColorValue) = if (over) accent else border
+fun csSortOpsGap() = 4.dp
+fun csSortButtonOpacity(enabled: Boolean) = if (enabled) 1f else 0.4f
 fun csSortRowAt(originY: Double, rowHeight: Double, count: Int, pointY: Double): Int? {
   if (count <= 0 || rowHeight <= 0.0) return null
   val index = kotlin.math.floor((pointY - originY) / rowHeight).toInt()
@@ -290,9 +292,11 @@ fun CsSortable(items: List<String>, onChange: (List<String>) -> Unit, dark: Bool
             },
           )
         })
-        Text(item, color = pack.colorTextPrimary.toComposeColor())
-        CsTriggerButton(title = "↑", onClick = { if (csSortCanMoveUp(index)) onChange(csReorder(items, index, index - 1)) }, enabled = csSortCanMoveUp(index), modifier = Modifier.semantics { contentDescription = up }) { Text("↑", modifier = Modifier.clearAndSetSemantics {}) }
-        CsTriggerButton(title = "↓", onClick = { if (csSortCanMoveDown(index, items.size)) onChange(csReorder(items, index, index + 1)) }, enabled = csSortCanMoveDown(index, items.size), modifier = Modifier.semantics { contentDescription = down }) { Text("↓", modifier = Modifier.clearAndSetSemantics {}) }
+        Text(item, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.weight(1f))
+        Row(horizontalArrangement = Arrangement.spacedBy(csSortOpsGap()), verticalAlignment = Alignment.CenterVertically) {
+          CsTriggerButton(title = "↑", onClick = { if (csSortCanMoveUp(index)) onChange(csReorder(items, index, index - 1)) }, enabled = csSortCanMoveUp(index), modifier = Modifier.alpha(csSortButtonOpacity(csSortCanMoveUp(index))).semantics { contentDescription = up }) { Text("↑", modifier = Modifier.clearAndSetSemantics {}) }
+          CsTriggerButton(title = "↓", onClick = { if (csSortCanMoveDown(index, items.size)) onChange(csReorder(items, index, index + 1)) }, enabled = csSortCanMoveDown(index, items.size), modifier = Modifier.alpha(csSortButtonOpacity(csSortCanMoveDown(index, items.size))).semantics { contentDescription = down }) { Text("↓", modifier = Modifier.clearAndSetSemantics {}) }
+        }
       }
     }
   }

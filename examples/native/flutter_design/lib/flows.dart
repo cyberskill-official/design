@@ -307,6 +307,8 @@ double csSortItemPaddingX() => 12;
 double csSortItemOpacity(bool dragging) => dragging ? 0.5 : 1;
 double csSortItemBorderWidth(bool over) => over ? 2 : 1;
 CSColorValue csSortItemBorderColor(bool over, CSColorValue accent, CSColorValue border) => over ? accent : border;
+double csSortOpsGap() => 4;
+double csSortButtonOpacity(bool enabled) => enabled ? 1 : 0.4;
 int? csSortRowAt(double originY, double rowHeight, int count, double pointY) {
   if (count <= 0 || rowHeight <= 0) return null;
   final index = ((pointY - originY) / rowHeight).floor();
@@ -386,13 +388,16 @@ class _CsSortableState extends State<CsSortable> {
               if (next != null) widget.onChange(next);
               setState(() => dragFrom = null);
             },
-            child: const ExcludeSemantics(child: Text('⠿')),
+            child: ExcludeSemantics(child: Text('⠿', style: TextStyle(color: csColor(pack.colorTextMuted)))),
           ),
           SizedBox(width: csSortItemGap()),
-          Text(widget.items[index], style: TextStyle(color: csColor(pack.colorTextPrimary), fontSize: csPoints(pack.fontSizeSm))),
+          Expanded(child: Text(widget.items[index], style: TextStyle(color: csColor(pack.colorTextPrimary), fontSize: csPoints(pack.fontSizeSm)))),
           SizedBox(width: csSortItemGap()),
-          Semantics(button: true, label: up, enabled: csSortCanMoveUp(index), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: csSortCanMoveUp(index) ? () { claim(); widget.onChange(csReorder(widget.items, index, index - 1)); } : null, child: const ExcludeSemantics(child: Text('↑'))))),
-          Semantics(button: true, label: down, enabled: csSortCanMoveDown(index, widget.items.length), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: csSortCanMoveDown(index, widget.items.length) ? () { claim(); widget.onChange(csReorder(widget.items, index, index + 1)); } : null, child: const ExcludeSemantics(child: Text('↓'))))),
+          Row(mainAxisSize: MainAxisSize.min, children: [
+            Opacity(opacity: csSortButtonOpacity(csSortCanMoveUp(index)), child: Semantics(button: true, label: up, enabled: csSortCanMoveUp(index), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: csSortCanMoveUp(index) ? () { claim(); widget.onChange(csReorder(widget.items, index, index - 1)); } : null, child: const ExcludeSemantics(child: Text('↑')))))),
+            SizedBox(width: csSortOpsGap()),
+            Opacity(opacity: csSortButtonOpacity(csSortCanMoveDown(index, widget.items.length)), child: Semantics(button: true, label: down, enabled: csSortCanMoveDown(index, widget.items.length), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: csSortCanMoveDown(index, widget.items.length) ? () { claim(); widget.onChange(csReorder(widget.items, index, index + 1)); } : null, child: const ExcludeSemantics(child: Text('↓')))))),
+          ]),
           ]),
           ))),
         ],
