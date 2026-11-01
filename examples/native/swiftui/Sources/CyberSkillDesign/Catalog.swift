@@ -232,9 +232,14 @@ public struct CSTextarea: View {
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let described = CSTextareaModel.describedBy([descriptionText, error])
-    VStack(alignment: .leading, spacing: 4) {
+    let invalid = CSTextareaModel.isAlert(error)
+    let borderStroke = CSTextFieldModel.borderColor(invalid: invalid, pack: pack).color
+    VStack(alignment: .leading, spacing: CGFloat(CSTextFieldModel.gap())) {
       if let label, CSTextareaModel.shows(label) {
-        Text(label).foregroundStyle(pack.primaryTextColor)
+        Text(label).font(.system(size: pack.fontSizeBase.points, weight: .bold)).foregroundStyle(pack.primaryTextColor)
+      }
+      if let descriptionText, CSTextareaModel.shows(descriptionText) {
+        Text(descriptionText).font(.system(size: CGFloat(CSTextFieldModel.descriptionFontSize()))).foregroundStyle(pack.mutedColor)
       }
       TextField("", text: Binding(get: { text }, set: { next in
         CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true })
@@ -246,17 +251,20 @@ public struct CSTextarea: View {
         }
         .lineLimit(rows...rows)
         .foregroundStyle(pack.primaryTextColor)
-        .padding(8)
-        .frame(minHeight: CSTextareaModel.minHeight, alignment: .topLeading)
+        .padding(.vertical, CGFloat(CSTextFieldModel.paddingY(pack)))
+        .padding(.horizontal, CGFloat(CSTextFieldModel.paddingX(pack)))
+        .frame(minHeight: CGFloat(CSFormsStyleModel.textareaMinHeight()), alignment: .topLeading)
         .background(pack.colorSurfacePanel.color)
-        .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
+        .clipShape(RoundedRectangle(cornerRadius: CGFloat(CSTextFieldModel.radius(pack))))
+        .overlay(RoundedRectangle(cornerRadius: CGFloat(CSTextFieldModel.radius(pack))).stroke(borderStroke, lineWidth: CGFloat(CSTextFieldModel.borderWidth())))
         .accessibilityLabel(CSTextareaModel.shows(label) ? (label ?? "") : "")
         .accessibilityHint(described ?? "")
         .disabled(disabled)
-      if let error, CSTextareaModel.isAlert(error) {
-        Text(error).foregroundStyle(pack.colorSemanticDangerText.color).accessibilityAddTraits(.updatesFrequently)
+      if let error, invalid {
+        Text(error).font(.system(size: CGFloat(CSTextFieldModel.errorFontSize()))).foregroundStyle(pack.colorSemanticDangerText.color).accessibilityAddTraits(.updatesFrequently)
       }
     }
+    .opacity(CSTextFieldModel.opacity(disabled: disabled))
   }
 }
 
@@ -341,7 +349,7 @@ public struct CSSearchField: View {
         text = next
       }
     )
-    HStack {
+    HStack(spacing: CGFloat(CSControlsWaveStyleModel.searchGap(pack))) {
       Canvas { context, size in
         let scale = min(size.width, size.height) / 24
         let radius = CSSearchModel.iconRadius * scale
@@ -368,6 +376,7 @@ public struct CSSearchField: View {
           onClear()
         }) {
           CSIcon(name: "close", label: "", dark: dark, highContrast: highContrast, compact: compact)
+            .padding(CGFloat(CSControlsWaveStyleModel.searchClearPadding()))
             .frame(minWidth: 44, minHeight: 44)
         }
         .focused($clearFocused)
@@ -378,6 +387,11 @@ public struct CSSearchField: View {
         }
       }
     }
+    .padding(.horizontal, CGFloat(CSControlsWaveStyleModel.searchPaddingX()))
+    .frame(minHeight: CGFloat(CSControlsWaveStyleModel.searchMinHeight()))
+    .background(pack.colorSurfacePanel.color)
+    .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
+    .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(pack.colorBorderDefault.color, lineWidth: 1))
     .accessibilityElement(children: .contain)
   }
 }
@@ -457,26 +471,34 @@ public struct CSNumberField: View {
     let shown = String(value)
     let down = CSNumberFieldModel.canDecrease(disabled: disabled, value: shown, min: minimum)
     let up = CSNumberFieldModel.canIncrease(disabled: disabled, value: shown, max: maximum)
-    HStack {
+    HStack(spacing: 0) {
       CSTriggerButton("−") {
         guard down else { return }
         onChange(CSNumberValue.clamp(value - step, min: minimum, max: maximum))
       }
       .disabled(!down)
-      .frame(minWidth: 44, minHeight: 44)
+      .opacity(down ? 1 : CSControlsWaveStyleModel.stepperButtonDisabledOpacity)
+      .frame(minWidth: max(44, CGFloat(CSControlsWaveStyleModel.stepperButtonWidth())), minHeight: max(44, CGFloat(CSControlsWaveStyleModel.stepperInputMinHeight())))
       .accessibilityLabel(CSNumberFieldModel.copy("decrease", language: locale))
       if let label, CSNumberFieldModel.showsLabel(label) {
         Text(label).foregroundStyle(pack.primaryTextColor)
       }
-      Text(shown).foregroundStyle(pack.primaryTextColor)
+      Text(shown)
+        .font(.system(size: pack.fontSizeSm.points, weight: .semibold, design: .monospaced))
+        .foregroundStyle(pack.primaryTextColor)
+        .frame(minWidth: CGFloat(CSControlsWaveStyleModel.stepperInputWidth()), minHeight: CGFloat(CSControlsWaveStyleModel.stepperInputMinHeight()))
       CSTriggerButton("+") {
         guard up else { return }
         onChange(CSNumberValue.clamp(value + step, min: minimum, max: maximum))
       }
       .disabled(!up)
-      .frame(minWidth: 44, minHeight: 44)
+      .opacity(up ? 1 : CSControlsWaveStyleModel.stepperButtonDisabledOpacity)
+      .frame(minWidth: max(44, CGFloat(CSControlsWaveStyleModel.stepperButtonWidth())), minHeight: max(44, CGFloat(CSControlsWaveStyleModel.stepperInputMinHeight())))
       .accessibilityLabel(CSNumberFieldModel.copy("increase", language: locale))
     }
+    .background(pack.colorSurfacePanel.color)
+    .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
+    .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(pack.colorBorderDefault.color, lineWidth: 1))
     .accessibilityElement(children: .contain)
     .accessibilityLabel(CSNumberFieldModel.showsLabel(label) ? (label ?? "") : CSNumberFieldModel.copy("value", language: locale))
     .accessibilityValue(Text(shown))
@@ -510,14 +532,15 @@ public struct CSKbd: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
+    let radius = CGFloat(CSControlsWaveStyleModel.kbdRadius())
     Text(CSKbdModel.keyFace(keys))
       .font(.system(size: CSKbdModel.size, design: .monospaced))
       .foregroundStyle(pack.primaryTextColor)
-      .padding(.horizontal, CSKbdModel.padX)
-      .padding(.vertical, CSKbdModel.padY)
+      .padding(.horizontal, CGFloat(CSControlsWaveStyleModel.kbdPaddingX()))
+      .padding(.vertical, CGFloat(CSControlsWaveStyleModel.kbdPaddingY()))
       .background(pack.colorSurfacePanel.color)
-      .overlay(RoundedRectangle(cornerRadius: CSKbdModel.radius).stroke(pack.borderColor, lineWidth: CSKbdModel.border))
-      .overlay(alignment: .bottom) { Rectangle().fill(pack.borderColor).frame(height: CSKbdModel.borderBottom - CSKbdModel.border) }
+      .overlay(RoundedRectangle(cornerRadius: radius).stroke(pack.borderColor, lineWidth: CSKbdModel.border))
+      .overlay(alignment: .bottom) { Rectangle().fill(pack.borderColor).frame(height: CGFloat(CSControlsWaveStyleModel.kbdBorderBottomWidth()) - CSKbdModel.border) }
       .shadow(color: (dark ? Color.black : pack.colorBrandUmber.color).opacity(dark ? 0.40 : 0.06), radius: CSKbdModel.shadowBlur, y: CSKbdModel.shadowY)
   }
 }
@@ -712,14 +735,22 @@ public struct CSBreadcrumb: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    HStack(spacing: 4) {
+    HStack(spacing: CGFloat(CSNavigationStyleModel.breadcrumbGap())) {
       ForEach(Array(items.enumerated()), id: \.offset) { index, item in
         if CSBreadcrumbModel.isCurrent(index: index, count: items.count) {
-          Text(item.label).foregroundStyle(pack.primaryTextColor).accessibilityValue(Text("page"))
+          Text(item.label)
+            .font(.system(size: CGFloat(CSNavigationStyleModel.breadcrumbFontSize(pack)), weight: .semibold))
+            .foregroundStyle(CSNavigationStyleModel.breadcrumbCurrentColor(pack).color)
+            .accessibilityValue(Text("page"))
         } else if let url = URL(string: CSBreadcrumbModel.href(item.href)) {
-          Link(item.label, destination: url).foregroundStyle(pack.colorBrandOchre.color)
+          Link(item.label, destination: url)
+            .font(.system(size: CGFloat(CSNavigationStyleModel.breadcrumbFontSize(pack))))
+            .foregroundStyle(CSNavigationStyleModel.breadcrumbLinkColor(pack: pack).color)
           if CSBreadcrumbModel.showsSeparator(index: index, count: items.count) {
-            Text("/").foregroundStyle(pack.mutedColor).accessibilityHidden(true)
+            Text("/")
+              .font(.system(size: CGFloat(CSNavigationStyleModel.breadcrumbFontSize(pack))))
+              .foregroundStyle(CSNavigationStyleModel.breadcrumbSeparatorColor(pack).color)
+              .accessibilityHidden(true)
           }
         }
       }
@@ -763,30 +794,43 @@ public struct CSPagination: View {
     let navName = label ?? CSPaginationModel.copy("label", language: spoken)
     let previousName = previousLabel ?? CSPaginationModel.copy("prev", language: spoken)
     let nextName = nextLabel ?? CSPaginationModel.copy("next", language: spoken)
-    HStack(spacing: 4) {
+    let btnSize = max(44, CGFloat(CSNavigationStyleModel.paginationButtonSize()))
+    HStack(spacing: CGFloat(CSNavigationStyleModel.paginationGap())) {
       CSTriggerButton(previousName) {
         if let next = CSPaginationModel.destination(page: page, target: page - 1, count: pageCount, hasHandler: true) { onChange(next) }
       }
         .disabled(page <= 1)
-        .frame(minWidth: 44, minHeight: 44)
+        .opacity(CSNavigationStyleModel.paginationButtonOpacity(disabled: page <= 1))
+        .padding(.horizontal, CGFloat(CSNavigationStyleModel.paginationButtonPaddingX()))
+        .frame(minWidth: btnSize, minHeight: btnSize)
       ForEach(Array(tokens.enumerated()), id: \.offset) { _, token in
         switch token {
         case .ellipsis:
-          Text("…").foregroundStyle(pack.mutedColor).accessibilityHidden(true)
+          Text("…")
+            .padding(.horizontal, CGFloat(CSNavigationStyleModel.paginationEllipsisPaddingX()))
+            .foregroundStyle(pack.mutedColor)
+            .accessibilityHidden(true)
         case .page(let number):
+          let current = CSPaginationModel.isCurrent(number: number, page: page)
           CSTriggerButton(String(number)) {
             if let next = CSPaginationModel.destination(page: page, target: number, count: pageCount, hasHandler: true) { onChange(next) }
           }
-            .foregroundStyle(number == page ? pack.colorBrandOchre.color : pack.primaryTextColor)
-            .frame(minWidth: 44, minHeight: 44)
-            .accessibilityValue(Text(CSPaginationModel.isCurrent(number: number, page: page) ? "page" : ""))
+            .font(.system(size: CGFloat(CSNavigationStyleModel.paginationButtonFontSize(pack)), weight: .semibold))
+            .foregroundStyle(CSNavigationStyleModel.paginationButtonForeground(current: current, dark: dark, pack: pack).color)
+            .padding(.horizontal, CGFloat(CSNavigationStyleModel.paginationButtonPaddingX()))
+            .frame(minWidth: btnSize, minHeight: btnSize)
+            .background(CSNavigationStyleModel.paginationButtonBackground(current: current, dark: dark, pack: pack).color)
+            .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
+            .accessibilityValue(Text(current ? "page" : ""))
         }
       }
       CSTriggerButton(nextName) {
         if let next = CSPaginationModel.destination(page: page, target: page + 1, count: pageCount, hasHandler: true) { onChange(next) }
       }
         .disabled(page >= pageCount)
-        .frame(minWidth: 44, minHeight: 44)
+        .opacity(CSNavigationStyleModel.paginationButtonOpacity(disabled: page >= pageCount))
+        .padding(.horizontal, CGFloat(CSNavigationStyleModel.paginationButtonPaddingX()))
+        .frame(minWidth: btnSize, minHeight: btnSize)
     }
     .accessibilityElement(children: .contain)
     .accessibilityLabel(navName)
@@ -920,15 +964,17 @@ public struct CSStatusIndicator: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    let color: Color = switch status {
-    case .online: pack.colorSemanticSuccess.color
-    case .busy: pack.colorBrandOchre.color
-    case .offline: pack.mutedColor
-    case .error: pack.colorSemanticDanger.color
+    let tone = switch status {
+    case .online: "online"
+    case .busy: "busy"
+    case .offline: "offline"
+    case .error: "error"
     }
-    HStack(spacing: CSStatusModel.gap) {
-      Circle().fill(color).frame(width: CSStatusModel.dotSize, height: CSStatusModel.dotSize).accessibilityHidden(true)
-      Text(title).foregroundStyle(pack.primaryTextColor)
+    let color = CSControlsWaveStyleModel.statusDotColor(tone: tone, pack: pack).color
+    let dot = CGFloat(CSControlsWaveStyleModel.statusDotSize())
+    HStack(spacing: CGFloat(CSControlsWaveStyleModel.statusGap())) {
+      Circle().fill(color).frame(width: dot, height: dot).accessibilityHidden(true)
+      Text(title).font(.system(size: pack.fontSizeSm.points)).foregroundStyle(pack.primaryTextColor)
     }
   }
 }
@@ -961,13 +1007,14 @@ public struct CSRating: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    HStack(spacing: 0) {
+    HStack(spacing: CGFloat(CSControlsWaveStyleModel.ratingGap())) {
       ForEach(max > 0 ? Array(1...max) : [Int](), id: \.self) { star in
         CSTriggerButton(star <= value ? "★" : "☆") {
           if !readOnly { onChange(CSRatingValue.commit(current: value, tapped: star)) }
         }
         .disabled(readOnly)
-        .foregroundStyle(pack.colorBrandOchre.color)
+        .foregroundStyle((star <= value ? pack.colorBrandOchre : pack.colorBorderDefault).color)
+        .padding(CGFloat(CSControlsWaveStyleModel.ratingButtonPadding()))
         .frame(minWidth: 44, minHeight: 44)
         .accessibilityLabel(CSRatingValue.starLabel(index: star, max: max))
         .accessibilityAddTraits(star == value ? .isSelected : [])
@@ -1025,17 +1072,24 @@ public struct CSSegmentedControl: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    HStack(spacing: 0) {
+    HStack(spacing: CGFloat(CSControlsWaveStyleModel.segmentedGap())) {
       ForEach(options, id: \.value) { option in
+        let selected = selection == option.value
         CSTriggerButton(option.label) { selection = option.value }
+          .font(.system(size: pack.fontSizeSm.points, weight: .semibold))
+          .padding(.vertical, CGFloat(CSControlsWaveStyleModel.segmentedButtonPaddingY()))
+          .padding(.horizontal, CGFloat(CSControlsWaveStyleModel.segmentedButtonPaddingX()))
           .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points)
-          .foregroundStyle(selection == option.value ? pack.colorSurfacePage.color : pack.primaryTextColor)
-          .background(selection == option.value ? pack.colorBrandUmber.color : Color.clear)
-          .accessibilityAddTraits(selection == option.value ? .isSelected : [])
+          .foregroundStyle(selected ? pack.primaryTextColor : pack.mutedColor)
+          .background(selected ? pack.colorSurfacePanel.color : Color.clear)
+          .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
+          .accessibilityAddTraits(selected ? .isSelected : [])
       }
     }
-    .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
-    .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(pack.borderColor, lineWidth: 1))
+    .padding(CGFloat(CSControlsWaveStyleModel.segmentedPadding()))
+    .background(pack.colorSurfaceRaised.color)
+    .clipShape(RoundedRectangle(cornerRadius: pack.radiusLg.points))
+    .overlay(RoundedRectangle(cornerRadius: pack.radiusLg.points).stroke(pack.borderColor, lineWidth: 1))
     .accessibilityElement(children: .contain)
     .accessibilityLabel(label)
     .focusable()
@@ -1124,7 +1178,7 @@ public struct CSButtonGroup<Content: View>: View {
   }
 
   public var body: some View {
-    let group = HStack(spacing: CSButtonGroupModel.overlap) { content() }
+    let group = HStack(spacing: CGFloat(CSControlsWaveStyleModel.buttonGroupOverlapOffset())) { content() }
       .accessibilityElement(children: .contain)
     if let label = CSButtonGroupModel.groupLabel(label) {
       group.accessibilityLabel(label)
@@ -1154,10 +1208,10 @@ public struct CSAvatarGroup: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    HStack(spacing: -CSAvatarGroupModel.overlap) {
+    HStack(spacing: CGFloat(CSDataStyleModel.avatarGroupOverlapOffset())) {
       ForEach(Array(names.enumerated()), id: \.offset) { _, name in
         CSAvatar(name: name, size: .sm, dark: dark, highContrast: highContrast, compact: compact)
-          .overlay(Circle().stroke(pack.colorSurfacePanel.color, lineWidth: CSAvatarGroupModel.ring))
+          .overlay(Circle().stroke(pack.colorSurfacePanel.color, lineWidth: CGFloat(CSDataStyleModel.avatarGroupRingWidth())))
       }
     }
     .accessibilityElement(children: .contain)
@@ -1241,7 +1295,8 @@ public struct CSResult: View {
     default: pack.colorSemanticInfoText.color
     }
     let wash: Color = kind == "info" ? pack.accentTint.color : ink.opacity(kind == "error" ? 0.12 : 0.14)
-    VStack(spacing: 10) {
+    let iconDim = CGFloat(CSControlsWaveStyleModel.resultIconSize())
+    VStack(spacing: CGFloat(CSControlsWaveStyleModel.resultGap())) {
       ZStack {
         Circle().fill(wash)
         if kind == "info" {
@@ -1254,16 +1309,22 @@ public struct CSResult: View {
           context.stroke(source.applying(CGAffineTransform(scaleX: scale, y: scale).translatedBy(x: shift / scale, y: shift / scale)), with: .color(ink), lineWidth: 2.2)
         }
       }
-      .frame(width: 64, height: 64)
+      .frame(width: iconDim, height: iconDim)
       .accessibilityHidden(true)
-      Text(CSResultModel.title(title, status: status, language: locale)).font(.system(size: 22, weight: .heavy)).foregroundStyle(pack.primaryTextColor)
+      Text(CSResultModel.title(title, status: status, language: locale))
+        .font(.system(size: CGFloat(CSControlsWaveStyleModel.resultTitleFontSize()), weight: .heavy))
+        .foregroundStyle(pack.primaryTextColor)
       if let message, CSResultModel.shows(message) {
         Text(message).foregroundStyle(pack.mutedColor).multilineTextAlignment(.center)
       }
       if let action, CSResultModel.shows(action) {
-        Text(action).foregroundStyle(pack.primaryTextColor)
+        Text(action)
+          .foregroundStyle(pack.primaryTextColor)
+          .padding(.top, CGFloat(CSControlsWaveStyleModel.resultActionsMarginTop()))
       }
     }
+    .padding(.vertical, CGFloat(CSControlsWaveStyleModel.resultPaddingY()))
+    .padding(.horizontal, CGFloat(CSControlsWaveStyleModel.resultPaddingX()))
     .accessibilityElement(children: .combine)
     .accessibilityAddTraits(.updatesFrequently)
   }
@@ -1422,7 +1483,8 @@ public struct CSTooltip<Content: View>: View {
           let viewport = CSFloatingRect(left: 8, top: 8, right: max(8, screen.width - 8), bottom: max(8, screen.height - 8), width: 0, height: 0)
           let initial = naturalSize.flatMap { size in CSFloatingModel.position(anchor: anchor, panelWidth: size.width, panelHeight: size.height, viewport: viewport, placement: "top", gap: CSTooltipModel.gap) }
           let placed = fittedSize.flatMap { size in initial.flatMap { first in CSFloatingModel.position(anchor: anchor, panelWidth: size.width, panelHeight: size.height, viewport: viewport, placement: first.placement, gap: CSTooltipModel.gap) } }
-          let limit = min(240.0, initial?.maxWidth ?? placed?.maxWidth ?? 240)
+          let maxTipWidth = CSDataStyleModel.tooltipMaxWidth()
+          let limit = min(maxTipWidth, initial?.maxWidth ?? placed?.maxWidth ?? maxTipWidth)
           let scaleX = Double(panelScale.width == 0 ? 1 : panelScale.width)
           let scaleY = Double(panelScale.height == 0 ? 1 : panelScale.height)
           let originX = Double(panelOrigin?.x ?? trigger.minX)
@@ -1430,9 +1492,10 @@ public struct CSTooltip<Content: View>: View {
           let shiftX = CGFloat(placed.map { ($0.left - originX) / scaleX } ?? 0)
           let shiftY = CGFloat(placed.map { ($0.top - originY) / scaleY } ?? 0)
           Text(spoken)
+            .font(.system(size: CGFloat(CSDataStyleModel.tooltipFontSize(pack)), weight: .semibold))
             .lineLimit(1)
-            .padding(.horizontal, 10)
-            .padding(.vertical, 6)
+            .padding(.horizontal, CGFloat(CSDataStyleModel.tooltipPaddingX()))
+            .padding(.vertical, CGFloat(CSDataStyleModel.tooltipPaddingY()))
             .frame(maxWidth: CGFloat(limit), maxHeight: initial.map { CGFloat($0.maxHeight) })
             .background(GeometryReader { geo in
               let frame = geo.frame(in: .global)
@@ -1444,6 +1507,7 @@ public struct CSTooltip<Content: View>: View {
             .opacity(placed == nil ? 0 : 1)
             .foregroundStyle(Color.white)
             .background(pack.colorBrandUmber.color)
+            .clipShape(RoundedRectangle(cornerRadius: pack.radiusSm.points))
             .accessibilityHidden(true)
         }
       }
@@ -1585,7 +1649,7 @@ public struct CSToast: View {
     case "info": pack.colorSemanticInfoText.color
     default: pack.colorTextAccent.color
     }
-    HStack(alignment: .top, spacing: 12) {
+    HStack(alignment: .top, spacing: CGFloat(CSFeedbackStyleModel.toastGap())) {
       Canvas { context, size in
         let source = CSIconPaths.path(data: CSToastModel.mark(variant))
         let scale = min(size.width, size.height) / 24
@@ -1593,12 +1657,16 @@ public struct CSToast: View {
       }
       .frame(width: 18, height: 18)
       .accessibilityHidden(true)
-      VStack(alignment: .leading, spacing: 2) {
+      VStack(alignment: .leading, spacing: CGFloat(CSFeedbackStyleModel.toastBodyMarginTop())) {
         if let title, CSToastModel.shows(title) {
-          Text(title).font(.system(size: 14, weight: .bold)).foregroundStyle(pack.primaryTextColor)
+          Text(title)
+            .font(.system(size: CGFloat(CSFeedbackStyleModel.toastTitleFontSize(pack)), weight: .bold))
+            .foregroundStyle(pack.primaryTextColor)
         }
         if let message, CSToastModel.shows(message) {
-          Text(message).foregroundStyle(pack.mutedColor)
+          Text(message)
+            .font(.system(size: CGFloat(CSFeedbackStyleModel.toastBodyFontSize(pack))))
+            .foregroundStyle(pack.mutedColor)
         }
       }
       Spacer(minLength: 0)
@@ -1619,13 +1687,14 @@ public struct CSToast: View {
         .accessibilityLabel(closeName)
       }
     }
-    .padding(.horizontal, 14)
-    .padding(.vertical, 12)
+    .padding(.horizontal, CGFloat(CSFeedbackStyleModel.toastPaddingX()))
+    .padding(.vertical, CGFloat(CSFeedbackStyleModel.toastPaddingY()))
     .background(pack.colorSurfacePanel.color)
     .overlay(alignment: .leading) {
-      if edge != "none" { Rectangle().fill(ink).frame(width: 4) }
+      if edge != "none" { Rectangle().fill(ink).frame(width: CGFloat(CSFeedbackStyleModel.toastAccentBorderWidth())) }
     }
     .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
+    .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(pack.colorBorderDefault.color, lineWidth: CGFloat(CSFeedbackStyleModel.toastBorderWidth())))
     .accessibilityElement(children: .contain)
     .accessibilityAddTraits(.updatesFrequently)
   }

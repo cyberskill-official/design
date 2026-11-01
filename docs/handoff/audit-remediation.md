@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the primitives-views-style-wiring checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the catalog-views-style-wiring checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `2a666e67d800b31863f726eb4bab4f7478e8761a`, with the hash note in `1d3dd31b`
-- Checkpoint commit hash: `c25dae0251d81bfb3878007bd2d3cf6097af66b7`
+- Previous checkpoint: `c25dae0251d81bfb3878007bd2d3cf6097af66b7`, with the hash note in `2ffacc82`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -55,13 +54,13 @@ Last run after styling `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `Navigat
 
 ## Latest checkpoint
 
-Wired the rendered primitive views (`CSCheckbox`/`CsCheckbox`, `CSRadioGroup`/`CsRadioGroup`, `CSProgressBar`/`CsProgressBar`, `CSAvatar`/`CsAvatar`, `CSAlert`/`CsAlert`, `CSSlider`/`CsSlider`, `CSTabs`/`CsTabs`, `CSSkeleton`/`CsSkeleton`, `CSSpinner`/`CsSpinner`, `CSTag`/`CsTag`, and `CSStat`/`CsStat`) in `Primitives.swift`, `Primitives.kt`, and `primitives.dart` to consume `CSFormsStyleModel`, `CSFeedbackStyleModel`, `CSDataStyleModel`, `CSNavigationStyleModel`, and `CSControlsWaveStyleModel` (light-umber/dark-ochre accents, `0.55` disabled opacity, `10px` progress bar height on raised track, ochre-on-umber avatar typography and radius, `4px` alert accent border and `14px`/`16px` padding, `22px` slider height, `10px`/`14px` tab padding and `2px` active indicator, `radiusSm` skeleton and tag surfaces, and uppercase `xs` stat labels with `800` value weight and semantic delta colors).
+Wired the rendered catalog views (`CSTextarea`/`CsTextarea`, `CSSearchField`/`CsSearchField`, `CSNumberField`/`CsNumberField`, `CSKbd`/`CsKbd`, `CSBreadcrumb`/`CsBreadcrumb`, `CSPagination`/`CsPagination`, `CSStatusIndicator`/`CsStatusIndicator`, `CSRating`/`CsRating`, `CSSegmentedControl`/`CsSegmentedControl`, `CSButtonGroup`/`CsButtonGroup`, `CSAvatarGroup`/`CsAvatarGroup`, `CSResult`/`CsResult`, `CSTooltip`/`CsTooltip`, and `CSToast`/`CsToast`) in `Catalog.swift`, `Catalog.kt`, and `catalog.dart` to consume `CSTextFieldModel`, `CSFormsStyleModel`, `CSControlsWaveStyleModel`, `CSNavigationStyleModel`, `CSDataStyleModel`, and `CSFeedbackStyleModel`.
 
 - `swift test --package-path examples/native/swiftui` and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Wire the rendered catalog views (`CSTextarea`/`CsTextarea`, `CSSearchField`/`CsSearchField`, `CSNumberField`/`CsNumberField`, `CSStatusIndicator`/`CsStatusIndicator`, `CSRating`/`CsRating`, `CSSegmentedControl`/`CsSegmentedControl`, `CSBreadcrumb`/`CsBreadcrumb`, `CSPagination`/`CsPagination`, `CSResult`/`CsResult`, `CSTooltip`/`CsTooltip`, `CSToast`/`CsToast`) in `Catalog.swift`, `Catalog.kt`, and `catalog.dart` to consume `CSTextFieldModel`, `CSFormsStyleModel`, `CSControlsWaveStyleModel`, `CSNavigationStyleModel`, `CSDataStyleModel`, and `CSFeedbackStyleModel`.
+Wire the rendered record views (`CSDataGrid`/`CsDataGrid`, `CSTagInput`/`CsTagInput`, `CSConfidenceMeter`/`CsConfidenceMeter`, and `CSToolbar`/`CsToolbar`) in `Records.swift`, `Records.kt`, and `timeline.dart` to consume `CSTableStyleModel`, `CSControlsWaveStyleModel`, `CSAIStyleModel`, and `CSControlsBatchStyleModel`.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

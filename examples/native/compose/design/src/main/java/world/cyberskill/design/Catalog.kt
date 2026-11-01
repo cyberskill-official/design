@@ -228,22 +228,25 @@ fun CsTextarea(
 ) {
   val pack = csModePack(dark, highContrast, compact)
   val handle = rememberFocusHandle("textarea")
-  Column {
+  val invalid = csTextareaAlert(error)
+  val borderStroke = csTextFieldBorderColor(invalid, pack).toComposeColor()
+  Column(verticalArrangement = Arrangement.spacedBy(csTextFieldGap())) {
   BasicTextField(
     value = value,
     onValueChange = { next -> if (!csControlEnabled()) return@BasicTextField; handle.claim(); onValueChange(next) },
     enabled = csControlEnabled(),
     modifier = modifier
       .fillMaxWidth()
-      .heightIn(min = csTextareaMinHeight.dp)
-      .background(pack.colorSurfacePanel.toComposeColor())
-      .padding(8.dp)
+      .heightIn(min = csFormsStyleTextareaMinHeight())
+      .background(pack.colorSurfacePanel.toComposeColor(), RoundedCornerShape(csTextFieldRadius(pack)))
+      .border(csTextFieldBorderWidth(), borderStroke, RoundedCornerShape(csTextFieldRadius(pack)))
+      .padding(horizontal = csTextFieldPaddingX(pack), vertical = csTextFieldPaddingY(pack))
       .focusRequester(handle.requester)
       .onFocusChanged { if (it.isFocused) handle.claim() }
       .semantics { if (csTextareaShows(label)) contentDescription = label },
     textStyle = androidx.compose.ui.text.TextStyle(color = pack.colorTextPrimary.toComposeColor()),
   )
-  if (csTextareaAlert(error)) Text(error ?: "", color = pack.colorSemanticDangerText.toComposeColor(), modifier = Modifier.semantics { liveRegion = LiveRegionMode.Assertive })
+  if (invalid) Text(error ?: "", color = pack.colorSemanticDangerText.toComposeColor(), fontSize = csTextFieldErrorFontSize().value.sp, modifier = Modifier.semantics { liveRegion = LiveRegionMode.Assertive })
   }
 }
 
@@ -294,7 +297,7 @@ fun CsSearchField(
   val name = csSearchSpoken(ariaLabel ?: label, hasLabelledBy, hint) ?: ""
   val clearName = csSearchClearText(clearLabel, csSearchCopy("clear", locale))
   val handle = rememberFocusHandle("search")
-  Row(modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+  Row(modifier.fillMaxWidth().heightIn(min = csControlsWaveStyleSearchMinHeight()).background(pack.colorSurfacePanel.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).border(1.dp, pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).padding(horizontal = csControlsWaveStyleSearchPaddingX()), horizontalArrangement = Arrangement.spacedBy(csControlsWaveStyleSearchGap(pack)), verticalAlignment = Alignment.CenterVertically) {
     BasicTextField(
       value = value,
       onValueChange = { next -> if (!csControlEnabled(!disabled && !readOnly)) return@BasicTextField; handle.claim(); csSearchCommit(value, next, disabled, readOnly)?.let(onValueChange) },
@@ -306,7 +309,7 @@ fun CsSearchField(
     if (csSearchShowsClear(value)) {
       CsTriggerButton(title = clearName, onClick = {
         if (csSearchCommit(value, "", disabled, readOnly) != null) onValueChange("")
-      }, enabled = csSearchCanEdit(disabled, readOnly), modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = clearName }) {
+      }, enabled = csSearchCanEdit(disabled, readOnly), modifier = Modifier.minimumInteractiveComponentSize().padding(csControlsWaveStyleSearchClearPadding()).semantics { contentDescription = clearName }) {
         Text(clearName, modifier = Modifier.clearAndSetSemantics {})
       }
     }
@@ -355,22 +358,23 @@ fun CsNumberField(
   val downName = csNumberCopy("decrease", locale)
   val upName = csNumberCopy("increase", locale)
   val valueName = if (csNumberShowsLabel(label)) label ?: "" else csNumberCopy("value", locale)
-  Row(modifier.semantics { contentDescription = valueName }, verticalAlignment = Alignment.CenterVertically) {
-    CsTriggerButton(title = "−", onClick = { if (down) onValueChange(csClampNumber(value - step, minimum, maximum)) }, enabled = down, modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = downName }) { Text("−", modifier = Modifier.clearAndSetSemantics {}) }
+  Row(modifier.heightIn(min = csControlsWaveStyleStepperInputMinHeight()).background(pack.colorSurfacePanel.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).border(1.dp, pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).semantics { contentDescription = valueName }, verticalAlignment = Alignment.CenterVertically) {
+    CsTriggerButton(title = "−", onClick = { if (down) onValueChange(csClampNumber(value - step, minimum, maximum)) }, enabled = down, modifier = Modifier.widthIn(min = csControlsWaveStyleStepperButtonWidth()).minimumInteractiveComponentSize().alpha(if (down) 1f else csControlsWaveStyleStepperButtonDisabledOpacity).semantics { contentDescription = downName }) { Text("−", modifier = Modifier.clearAndSetSemantics {}) }
     if (csNumberShowsLabel(label)) Text(label ?: "", color = pack.colorTextPrimary.toComposeColor())
-    Text(shown, color = pack.colorTextPrimary.toComposeColor())
-    CsTriggerButton(title = "+", onClick = { if (up) onValueChange(csClampNumber(value + step, minimum, maximum)) }, enabled = up, modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = upName }) { Text("+", modifier = Modifier.clearAndSetSemantics {}) }
+    Text(shown, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.widthIn(min = csControlsWaveStyleStepperInputWidth()), textAlign = TextAlign.Center)
+    CsTriggerButton(title = "+", onClick = { if (up) onValueChange(csClampNumber(value + step, minimum, maximum)) }, enabled = up, modifier = Modifier.widthIn(min = csControlsWaveStyleStepperButtonWidth()).minimumInteractiveComponentSize().alpha(if (up) 1f else csControlsWaveStyleStepperButtonDisabledOpacity).semantics { contentDescription = upName }) { Text("+", modifier = Modifier.clearAndSetSemantics {}) }
   }
 }
 
 @Composable
 fun CsKbd(keys: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
   val pack = csModePack(dark, highContrast, compact)
+  val radius = csControlsWaveStyleKbdRadius()
   Text(
     keys,
     color = pack.colorTextPrimary.toComposeColor(),
     fontFamily = FontFamily.Monospace,
-    modifier = modifier.border(1.dp, pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(4.dp)).padding(horizontal = 6.dp, vertical = 2.dp),
+    modifier = modifier.background(pack.colorSurfacePanel.toComposeColor(), RoundedCornerShape(radius)).border(csControlsWaveStyleKbdBorderBottomWidth(), pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(radius)).padding(horizontal = csControlsWaveStyleKbdPaddingX(), vertical = csControlsWaveStyleKbdPaddingY()),
   )
 }
 
@@ -470,11 +474,12 @@ data class CsBreadcrumbItem(val label: String, val href: String = "")
 fun CsBreadcrumb(items: List<CsBreadcrumbItem>, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val navName = csBreadcrumbNavLabel(label, label != null, csBreadcrumbCopy("label", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
-  Row(modifier.semantics { contentDescription = navName }) {
+  val fontSize = csNavigationStyleBreadcrumbFontSize(pack).value.sp
+  Row(modifier.semantics { contentDescription = navName }, horizontalArrangement = Arrangement.spacedBy(csNavigationStyleBreadcrumbGap()), verticalAlignment = Alignment.CenterVertically) {
     items.forEachIndexed { index, item ->
       val last = index == items.lastIndex
-      Text(item.label, color = if (last) pack.colorTextPrimary.toComposeColor() else pack.colorBrandOchre.toComposeColor())
-      if (!last) Text("/", color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.padding(horizontal = 4.dp).clearAndSetSemantics { })
+      Text(item.label, color = (if (last) csNavigationStyleBreadcrumbCurrentColor(pack) else csNavigationStyleBreadcrumbLinkColor(pack = pack)).toComposeColor(), fontSize = fontSize, fontWeight = if (last) FontWeight.SemiBold else FontWeight.Normal)
+      if (!last) Text("/", color = csNavigationStyleBreadcrumbSeparatorColor(pack).toComposeColor(), fontSize = fontSize, modifier = Modifier.clearAndSetSemantics { })
     }
   }
 }
@@ -498,17 +503,21 @@ fun CsPagination(
   val navName = label ?: csPaginationCopy("label", spoken)
   val previousName = previousLabel ?: csPaginationCopy("prev", spoken)
   val nextName = nextLabel ?: csPaginationCopy("next", spoken)
-  Row(modifier.semantics { contentDescription = navName }, verticalAlignment = Alignment.CenterVertically) {
-    CsTriggerButton(title = previousName, onClick = { if (page > 1) onChange(page - 1) }, enabled = page > 1, modifier = Modifier.minimumInteractiveComponentSize()) { Text(previousName) }
+  val btnSize = csNavigationStylePaginationButtonSize()
+  Row(modifier.semantics { contentDescription = navName }, horizontalArrangement = Arrangement.spacedBy(csNavigationStylePaginationGap()), verticalAlignment = Alignment.CenterVertically) {
+    CsTriggerButton(title = previousName, onClick = { if (page > 1) onChange(page - 1) }, enabled = page > 1, modifier = Modifier.widthIn(min = btnSize).heightIn(min = btnSize).minimumInteractiveComponentSize().alpha(csNavigationStylePaginationButtonOpacity(page <= 1)).padding(horizontal = csNavigationStylePaginationButtonPaddingX())) { Text(previousName) }
     csPaginationTokens(page, pageCount).forEach { token ->
       when (token) {
-        is CsPageToken.Ellipsis -> Text("…", color = pack.colorTextMuted.toComposeColor())
-        is CsPageToken.Page -> CsTriggerButton(title = token.number.toString(), onClick = { if (token.number != page) onChange(token.number) }, modifier = Modifier.minimumInteractiveComponentSize()) {
-          Text(token.number.toString(), color = if (token.number == page) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor())
+        is CsPageToken.Ellipsis -> Text("…", color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.padding(horizontal = csNavigationStylePaginationEllipsisPaddingX()))
+        is CsPageToken.Page -> {
+          val current = csPaginationCurrent(token.number, page)
+          CsTriggerButton(title = token.number.toString(), onClick = { if (token.number != page) onChange(token.number) }, modifier = Modifier.widthIn(min = btnSize).heightIn(min = btnSize).minimumInteractiveComponentSize().background(csNavigationStylePaginationButtonBackground(current, dark, pack).toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).padding(horizontal = csNavigationStylePaginationButtonPaddingX())) {
+            Text(token.number.toString(), color = csNavigationStylePaginationButtonForeground(current, dark, pack).toComposeColor(), fontSize = csNavigationStylePaginationButtonFontSize(pack).value.sp, fontWeight = FontWeight.SemiBold)
+          }
         }
       }
     }
-    CsTriggerButton(title = nextName, onClick = { if (page < pageCount) onChange(page + 1) }, enabled = page < pageCount, modifier = Modifier.minimumInteractiveComponentSize()) { Text(nextName) }
+    CsTriggerButton(title = nextName, onClick = { if (page < pageCount) onChange(page + 1) }, enabled = page < pageCount, modifier = Modifier.widthIn(min = btnSize).heightIn(min = btnSize).minimumInteractiveComponentSize().alpha(csNavigationStylePaginationButtonOpacity(page >= pageCount)).padding(horizontal = csNavigationStylePaginationButtonPaddingX())) { Text(nextName) }
   }
 }
 
@@ -601,15 +610,16 @@ enum class CsStatusKind { Online, Busy, Offline, Error }
 @Composable
 fun CsStatusIndicator(title: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, status: CsStatusKind = CsStatusKind.Offline) {
   val pack = csModePack(dark, highContrast, compact)
-  val color = when (status) {
-    CsStatusKind.Online -> pack.colorSemanticSuccess
-    CsStatusKind.Busy -> pack.colorBrandOchre
-    CsStatusKind.Offline -> pack.colorTextMuted
-    CsStatusKind.Error -> pack.colorSemanticDanger
+  val tone = when (status) {
+    CsStatusKind.Online -> "online"
+    CsStatusKind.Busy -> "busy"
+    CsStatusKind.Offline -> "offline"
+    CsStatusKind.Error -> "error"
   }
-  Row(modifier, verticalAlignment = Alignment.CenterVertically) {
-    androidx.compose.foundation.layout.Box(Modifier.size(8.dp).clip(CircleShape).background(color.toComposeColor()))
-    Text(title, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.padding(start = 8.dp))
+  val color = csControlsWaveStyleStatusDotColor(tone, pack)
+  Row(modifier, horizontalArrangement = Arrangement.spacedBy(csControlsWaveStyleStatusGap()), verticalAlignment = Alignment.CenterVertically) {
+    androidx.compose.foundation.layout.Box(Modifier.size(csControlsWaveStyleStatusDotSize()).clip(CircleShape).background(color.toComposeColor()))
+    Text(title, color = pack.colorTextPrimary.toComposeColor(), fontSize = pack.fontSizeSm.toDp().value.sp)
   }
 }
 
@@ -629,10 +639,10 @@ fun CsRating(
   val pack = csModePack(dark, highContrast, compact)
   val max = csRenderCount(requestedMax, 5)
   val groupName = csRatingGroupName(label, value, max, null, false, csRatingCopy("label", csComboboxResolvedLanguage(language, LocalCsLanguage.current))) ?: ""
-  Row(modifier.semantics { contentDescription = groupName }) {
+  Row(modifier.semantics { contentDescription = groupName }, horizontalArrangement = Arrangement.spacedBy(csControlsWaveStyleRatingGap())) {
     for (star in 1..max) {
-      CsTriggerButton(title = if (star <= value) "★" else "☆", onClick = { if (!readOnly) onChange(csRatingCommit(value, star)) }, enabled = !readOnly, modifier = Modifier.minimumInteractiveComponentSize()) {
-        Text(if (star <= value) "★" else "☆", color = pack.colorBrandOchre.toComposeColor())
+      CsTriggerButton(title = if (star <= value) "★" else "☆", onClick = { if (!readOnly) onChange(csRatingCommit(value, star)) }, enabled = !readOnly, modifier = Modifier.minimumInteractiveComponentSize().padding(csControlsWaveStyleRatingButtonPadding())) {
+        Text(if (star <= value) "★" else "☆", color = (if (star <= value) pack.colorBrandOchre else pack.colorBorderDefault).toComposeColor())
       }
     }
   }
@@ -650,18 +660,23 @@ fun CsSegmentedControl(
   modifier: Modifier = Modifier,
 ) {
   val pack = csModePack(dark, highContrast, compact)
-  Row(modifier.clip(RoundedCornerShape(pack.radiusMd.toDp())).border(1.dp, pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).semantics { contentDescription = label }) {
+  Row(modifier.clip(RoundedCornerShape(pack.radiusLg.toDp())).background(pack.colorSurfaceRaised.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp())).border(1.dp, pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp())).padding(csControlsWaveStyleSegmentedPadding()).semantics { contentDescription = label }, horizontalArrangement = Arrangement.spacedBy(csControlsWaveStyleSegmentedGap())) {
     options.forEach { option ->
       val selected = selection == option.value
       val handle = rememberFocusHandle("segment-${option.value}")
       Text(
         option.label,
-        color = if (selected) pack.colorSurfacePage.toComposeColor() else pack.colorTextPrimary.toComposeColor(),
+        color = if (selected) pack.colorTextPrimary.toComposeColor() else pack.colorTextMuted.toComposeColor(),
+        fontSize = pack.fontSizeSm.toDp().value.sp,
+        fontWeight = FontWeight.SemiBold,
+        textAlign = TextAlign.Center,
         modifier = Modifier
           .weight(1f)
           .minimumInteractiveComponentSize()
           .focusRequester(handle.requester)
-          .background(if (selected) pack.colorBrandUmber.toComposeColor() else androidx.compose.ui.graphics.Color.Transparent)
+          .clip(RoundedCornerShape(pack.radiusMd.toDp()))
+          .background(if (selected) pack.colorSurfacePanel.toComposeColor() else androidx.compose.ui.graphics.Color.Transparent, RoundedCornerShape(pack.radiusMd.toDp()))
+          .padding(horizontal = csControlsWaveStyleSegmentedButtonPaddingX(), vertical = csControlsWaveStyleSegmentedButtonPaddingY())
           .onFocusChanged { if (it.isFocused) handle.claim() }
           .clickable(enabled = csControlEnabled(), role = Role.RadioButton) { handle.claim(); onSelect(option.value) },
       )
@@ -699,7 +714,7 @@ fun CsDescriptionList(items: List<CsDescriptionItem>, dark: Boolean, highContras
 
 @Composable
 fun CsButtonGroup(label: String, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
-  Row(modifier.semantics { contentDescription = label }, horizontalArrangement = Arrangement.spacedBy(8.dp)) { content() }
+  Row(modifier.semantics { contentDescription = label }, horizontalArrangement = Arrangement.spacedBy(csControlsWaveStyleButtonGroupOverlapOffset())) { content() }
 }
 
 const val csAvatarOverlap = 10
@@ -708,9 +723,9 @@ const val csAvatarRing = 2
 @Composable
 fun CsAvatarGroup(names: List<String>, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
   val pack = csModePack(dark, highContrast, compact)
-  Row(modifier, horizontalArrangement = Arrangement.spacedBy((-csAvatarOverlap).dp)) {
+  Row(modifier, horizontalArrangement = Arrangement.spacedBy(csDataStyleAvatarGroupOverlapOffset())) {
     names.forEach { name ->
-      CsAvatar(name = name, dark = dark, highContrast = highContrast, compact = compact, size = "sm", modifier = Modifier.border(csAvatarRing.dp, pack.colorSurfacePanel.toComposeColor(), CircleShape))
+      CsAvatar(name = name, dark = dark, highContrast = highContrast, compact = compact, size = "sm", modifier = Modifier.border(csDataStyleAvatarGroupRingWidth(), pack.colorSurfacePanel.toComposeColor(), CircleShape))
     }
   }
 }
@@ -753,13 +768,13 @@ fun CsResult(message: String, dark: Boolean, highContrast: Boolean, compact: Boo
     else -> pack.colorSemanticInfoText
   }
   val heading = csResultTitle(title, name, csComboboxResolvedLanguage(language, LocalCsLanguage.current))
-  Column(modifier.semantics { liveRegion = LiveRegionMode.Polite }, horizontalAlignment = Alignment.CenterHorizontally) {
-    Canvas(Modifier.size(64.dp)) {
-      drawCircle(color = tone.toComposeColor().copy(alpha = if (name == "error") 0.12f else 0.14f))
+  Column(modifier.padding(horizontal = csControlsWaveStyleResultPaddingX(), vertical = csControlsWaveStyleResultPaddingY()).semantics { liveRegion = LiveRegionMode.Polite }, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(csControlsWaveStyleResultGap())) {
+    Canvas(Modifier.size(csControlsWaveStyleResultIconSize())) {
+      drawCircle(color = tone.toComposeColor().copy(alpha = if (name == "error") csControlsWaveStyleResultErrorMixPortion.toFloat() else csControlsWaveStyleResultSuccessMixPortion.toFloat()))
       drawPath(csIconPathData(csResultMark(name), 28.dp.toPx()), tone.toComposeColor(), style = Stroke(width = 2.2f))
     }
-    Text(heading, color = pack.colorTextPrimary.toComposeColor(), fontSize = 22.sp)
-    if (csResultShows(message)) Text(message, color = pack.colorTextMuted.toComposeColor())
+    Text(heading, color = pack.colorTextPrimary.toComposeColor(), fontSize = csControlsWaveStyleResultTitleFontSize().value.sp, fontWeight = FontWeight.ExtraBold)
+    if (csResultShows(message)) Text(message, color = pack.colorTextMuted.toComposeColor(), textAlign = TextAlign.Center)
   }
 }
 
@@ -850,7 +865,8 @@ fun CsTooltip(
     csTooltipGap.toDouble(),
     "ltr",
   ) } }
-  val maxWidth = minOf(240.0, initial?.maxWidth ?: placed?.maxWidth ?: 240.0)
+  val tipMax = csDataStyleTooltipMaxWidth().value.toDouble()
+  val maxWidth = minOf(tipMax, initial?.maxWidth ?: placed?.maxWidth ?: tipMax)
   val desired = placed?.let { point -> layout?.let { origin -> ((point.left - origin.first) / panelScale.first) to ((point.top - origin.second) / panelScale.second) } }
   SideEffect {
     if (desired != null && (kotlin.math.abs(desired.first - applied.first) > 0.5 || kotlin.math.abs(desired.second - applied.second) > 0.5)) applied = desired
@@ -862,7 +878,7 @@ fun CsTooltip(
       true
     } else false
   }) {
-    if (state.open) Text(spoken, color = Color.White, modifier = Modifier.offset(with(density) { applied.first.toFloat().toDp() }, with(density) { applied.second.toFloat().toDp() }).padding(bottom = csTooltipGap.dp).background(pack.colorBrandUmber.toComposeColor()).padding(horizontal = 10.dp, vertical = 6.dp).widthIn(max = with(density) { maxWidth.toFloat().toDp() }).heightIn(max = with(density) { (initial?.maxHeight ?: viewHeight).toFloat().toDp() }).alpha(if (placed != null) 1f else 0f).onGloballyPositioned {
+    if (state.open) Text(spoken, color = Color.White, fontSize = csDataStyleTooltipFontSize(pack).value.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.offset(with(density) { applied.first.toFloat().toDp() }, with(density) { applied.second.toFloat().toDp() }).padding(bottom = csTooltipGap.dp).background(pack.colorBrandUmber.toComposeColor(), RoundedCornerShape(pack.radiusSm.toDp())).padding(horizontal = csDataStyleTooltipPaddingX(), vertical = csDataStyleTooltipPaddingY()).widthIn(max = with(density) { maxWidth.toFloat().toDp() }).heightIn(max = with(density) { (initial?.maxHeight ?: viewHeight).toFloat().toDp() }).alpha(if (placed != null) 1f else 0f).onGloballyPositioned {
       val width = it.size.width.toDouble()
       val height = it.size.height.toDouble()
       val bounds = it.boundsInRoot()
@@ -949,11 +965,11 @@ fun CsToast(
     "info" -> pack.colorSemanticInfoText
     else -> pack.colorTextAccent
   }
-  Row(modifier.fillMaxWidth().background(pack.colorSurfacePanel.toComposeColor()).padding(12.dp), verticalAlignment = Alignment.Top) {
+  Row(modifier.fillMaxWidth().background(pack.colorSurfacePanel.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).border(csFeedbackStyleToastBorderWidth(), pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).padding(horizontal = csFeedbackStyleToastPaddingX(), vertical = csFeedbackStyleToastPaddingY()), horizontalArrangement = Arrangement.spacedBy(csFeedbackStyleToastGap()), verticalAlignment = Alignment.Top) {
     Canvas(Modifier.size(18.dp)) { drawPath(csIconPathData(csToastMark(variant), size.minDimension), ink.toComposeColor(), style = Stroke(width = 2f)) }
-    Column(Modifier.weight(1f)) {
-      if (csToastShows(title)) Text(title, color = pack.colorTextPrimary.toComposeColor())
-      if (csToastShows(message)) Text(message, color = pack.colorTextMuted.toComposeColor())
+    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(csFeedbackStyleToastBodyMarginTop())) {
+      if (csToastShows(title)) Text(title, color = pack.colorTextPrimary.toComposeColor(), fontSize = csFeedbackStyleToastTitleFontSize(pack).value.sp, fontWeight = FontWeight.Bold)
+      if (csToastShows(message)) Text(message, color = pack.colorTextMuted.toComposeColor(), fontSize = csFeedbackStyleToastBodyFontSize(pack).value.sp)
     }
     if (csToastShowsClose(onOpenChange != null, onClose != null)) {
       CsTriggerButton(title = closeName, onClick = {
