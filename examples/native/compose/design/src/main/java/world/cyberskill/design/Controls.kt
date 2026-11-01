@@ -506,6 +506,19 @@ const val csBadgeTracking = 0.04
 fun csBadgeToneClass(name: String) = if (name == "neutral") null else name
 fun csBadgeSpoken(label: String) = label
 const val csSwitchLabel = "Setting"
+const val csSwitchDisabledOpacity = 0.55f
+fun csSwitchGap() = 10.dp
+fun csSwitchTrackWidth() = 44.dp
+fun csSwitchTrackHeight() = 26.dp
+fun csSwitchTrackRadius() = 999.dp
+fun csSwitchKnobSize() = 20.dp
+fun csSwitchKnobInset() = 3.dp
+fun csSwitchKnobCheckedTranslateX() = 18.dp
+fun csSwitchOpacity(disabled: Boolean) = if (disabled) csSwitchDisabledOpacity else 1f
+fun csSwitchTrackColor(checked: Boolean, dark: Boolean, pack: CSTokenModePack) =
+  if (checked) (if (dark) pack.colorBrandOchre else pack.colorBrandUmber) else pack.colorBorderDefault
+fun csSwitchFocusOutlineWidth(focused: Boolean) = if (focused) 2.dp else 0.dp
+fun csSwitchFocusHaloSpread(focused: Boolean) = if (focused) 5.dp else 0.dp
 fun csSwitchShowsLabel(label: String?) = !label.isNullOrEmpty()
 fun csSwitchName(label: String?, ariaLabel: String?, labelledBy: String?, fallback: String) = when {
   ariaLabel != null -> ariaLabel
@@ -616,6 +629,33 @@ fun CsListRow(
     )
   }
 }
+
+fun csSelectControlPaddingInlineEnd() = 38.dp
+fun csSelectChevronInsetInlineEnd() = 12.dp
+fun csSelectFocusOutlineWidth(focused: Boolean) = if (focused) 2.dp else 0.dp
+fun csSelectFocusOutlineOffset(focused: Boolean) = if (focused) 2.dp else 0.dp
+fun csSelectFocusHaloSpread(focused: Boolean) = if (focused) 5.dp else 0.dp
+fun csSelectNativeSelectMinHeight(size: String = "md") = if (size == "sm") 36.dp else 44.dp
+fun csSelectNativeSelectPaddingY(size: String = "md", pack: CSTokenModePack) =
+  if (size == "sm") 6.dp else pack.componentTextfieldPaddingY.toDp()
+fun csSelectNativeSelectFontSize(size: String = "md", pack: CSTokenModePack) =
+  (if (size == "sm") pack.fontSizeSm else pack.fontSizeBase).toDp()
+
+const val csFormsStyleCheckRadioDisabledOpacity = 0.55f
+fun csFormsStyleCheckRadioGap() = 10.dp
+const val csFormsStyleCheckRadioLineHeight = 1.4
+fun csFormsStyleCheckRadioBoxSize() = 20.dp
+fun csFormsStyleCheckRadioOpacity(disabled: Boolean) = if (disabled) csFormsStyleCheckRadioDisabledOpacity else 1f
+fun csFormsStyleCheckRadioAccentColor(dark: Boolean, pack: CSTokenModePack) =
+  if (dark) pack.colorBrandOchre else pack.colorBrandUmber
+fun csFormsStyleCheckRadioTextGap() = 2.dp
+fun csFormsStyleCheckRadioDescriptionFontSize(pack: CSTokenModePack) = pack.fontSizeSm.toDp()
+fun csFormsStyleRadioGroupGap() = 10.dp
+fun csFormsStyleRadioGroupLegendFontWeight() = 700
+fun csFormsStyleRadioGroupLegendMarginBottom() = 6.dp
+fun csFormsStyleTextareaMinHeight() = 96.dp
+fun csFormsStyleTextareaResize() = "vertical"
+fun csFormsStyleTextareaLineHeight(pack: CSTokenModePack) = pack.fontLineHeightBody
 
 fun csSelectCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
@@ -744,6 +784,7 @@ fun CsSwitch(
       .fillMaxWidth()
       .heightIn(min = csA11yTouchTargetMinSize(true))
       .minimumInteractiveComponentSize()
+      .alpha(csSwitchOpacity(disabled))
       .focusRequester(handle.requester)
       .onFocusChanged { if (it.isFocused && enabled) handle.claim() }
       .semantics { contentDescription = name ?: title }
@@ -758,7 +799,7 @@ fun CsSwitch(
     Switch(
       checked = checked,
       onCheckedChange = null,
-      colors = SwitchDefaults.colors(checkedTrackColor = pack.colorBrandOchre.toComposeColor()),
+      colors = SwitchDefaults.colors(checkedTrackColor = csSwitchTrackColor(true, dark, pack).toComposeColor()),
     )
   }
 }

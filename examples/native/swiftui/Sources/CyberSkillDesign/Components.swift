@@ -679,6 +679,18 @@ public struct CSListRow: View {
 
 public enum CSSelectModel {
   public static let placeholderDefault = "Select…"
+  public static func controlPaddingInlineEnd() -> Double { 38 }
+  public static func chevronInsetInlineEnd() -> Double { 12 }
+  public static func focusOutlineWidth(focused: Bool) -> Double { focused ? 2 : 0 }
+  public static func focusOutlineOffset(focused: Bool) -> Double { focused ? 2 : 0 }
+  public static func focusHaloSpread(focused: Bool) -> Double { focused ? 5 : 0 }
+  public static func nativeSelectMinHeight(size: String = "md") -> Double { size == "sm" ? 36 : 44 }
+  public static func nativeSelectPaddingY(size: String = "md", pack: CSTokenModePack) -> Double {
+    size == "sm" ? 6 : pack.componentTextfieldPaddingY.points
+  }
+  public static func nativeSelectFontSize(size: String = "md", pack: CSTokenModePack) -> Double {
+    (size == "sm" ? pack.fontSizeSm : pack.fontSizeBase).points
+  }
   public static func placeholderText(_ text: String?, fallback: String) -> String { text ?? fallback }
   public static func showsPrompt(placeholder: String?, hasContent: Bool) -> Bool { placeholder != nil || !hasContent }
   public static func shownText(value: String, placeholder: String?, fallback: String, hasContent: Bool) -> String {
@@ -853,6 +865,20 @@ extension CSTokenModePack {
 
 public enum CSSwitchModel {
   public static let labelDefault = "Setting"
+  public static let disabledOpacity = 0.55
+  public static func gap() -> Double { 10 }
+  public static func trackWidth() -> Double { 44 }
+  public static func trackHeight() -> Double { 26 }
+  public static func trackRadius() -> Double { 999 }
+  public static func knobSize() -> Double { 20 }
+  public static func knobInset() -> Double { 3 }
+  public static func knobCheckedTranslateX() -> Double { 18 }
+  public static func opacity(disabled: Bool) -> Double { disabled ? disabledOpacity : 1.0 }
+  public static func trackColor(checked: Bool, dark: Bool, pack: CSTokenModePack) -> CSColorValue {
+    checked ? (dark ? pack.colorBrandOchre : pack.colorBrandUmber) : pack.colorBorderDefault
+  }
+  public static func focusOutlineWidth(focused: Bool) -> Double { focused ? 2 : 0 }
+  public static func focusHaloSpread(focused: Bool) -> Double { focused ? 5 : 0 }
   public static func showsLabel(_ label: String?) -> Bool {
     guard let label else { return false }
     return !label.isEmpty
@@ -877,6 +903,25 @@ public enum CSSwitchModel {
     }
     return key
   }
+}
+
+public enum CSFormsStyleModel {
+  public static let checkRadioDisabledOpacity = 0.55
+  public static func checkRadioGap() -> Double { 10 }
+  public static func checkRadioLineHeight() -> Double { 1.4 }
+  public static func checkRadioBoxSize() -> Double { 20 }
+  public static func checkRadioOpacity(disabled: Bool) -> Double { disabled ? checkRadioDisabledOpacity : 1.0 }
+  public static func checkRadioAccentColor(dark: Bool, pack: CSTokenModePack) -> CSColorValue {
+    dark ? pack.colorBrandOchre : pack.colorBrandUmber
+  }
+  public static func checkRadioTextGap() -> Double { 2 }
+  public static func checkRadioDescriptionFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeSm.points }
+  public static func radioGroupGap() -> Double { 10 }
+  public static func radioGroupLegendFontWeight() -> Int { 700 }
+  public static func radioGroupLegendMarginBottom() -> Double { 6 }
+  public static func textareaMinHeight() -> Double { 96 }
+  public static func textareaResize() -> String { "vertical" }
+  public static func textareaLineHeight(_ pack: CSTokenModePack) -> Double { pack.fontLineHeightBody }
 }
 
 public struct CSSwitch: View {
@@ -917,7 +962,8 @@ public struct CSSwitch: View {
       if CSSwitchModel.showsLabel(title) { Text(title) }
     }
     .foregroundStyle(pack.colorTextPrimary.color)
-    .tint(pack.colorBrandOchre.color)
+    .tint(CSSwitchModel.trackColor(checked: true, dark: dark, pack: pack).color)
+    .opacity(CSSwitchModel.opacity(disabled: disabled))
     .frame(minWidth: CGFloat(CSA11yModel.touchTargetMinSize(coarse: true)), minHeight: CGFloat(CSA11yModel.touchTargetMinSize(coarse: true)))
     .focused($focused)
     .onChange(of: focused) { isFocused in

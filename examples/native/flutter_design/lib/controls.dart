@@ -675,6 +675,19 @@ const csBadgeTracking = 0.04;
 String? csBadgeToneClass(String name) => name == 'neutral' ? null : name;
 String csBadgeSpoken(String label) => label;
 const csSwitchLabel = 'Setting';
+const double csSwitchDisabledOpacity = 0.55;
+double csSwitchGap() => 10;
+double csSwitchTrackWidth() => 44;
+double csSwitchTrackHeight() => 26;
+double csSwitchTrackRadius() => 999;
+double csSwitchKnobSize() => 20;
+double csSwitchKnobInset() => 3;
+double csSwitchKnobCheckedTranslateX() => 18;
+double csSwitchOpacity(bool disabled) => disabled ? csSwitchDisabledOpacity : 1.0;
+CSColorValue csSwitchTrackColor(bool checked, bool dark, CSTokenModePack pack) =>
+    checked ? (dark ? pack.colorBrandOchre : pack.colorBrandUmber) : pack.colorBorderDefault;
+double csSwitchFocusOutlineWidth(bool focused) => focused ? 2 : 0;
+double csSwitchFocusHaloSpread(bool focused) => focused ? 5 : 0;
 bool csSwitchShowsLabel(String? label) => label != null && label.isNotEmpty;
 String? csSwitchName(String? label, String? ariaLabel, String? labelledBy, String fallback) {
   if (ariaLabel != null) return ariaLabel;
@@ -856,6 +869,34 @@ class CsListRow extends StatelessWidget {
     );
   }
 }
+
+double csSelectControlPaddingInlineEnd() => 38;
+double csSelectChevronInsetInlineEnd() => 12;
+double csSelectFocusOutlineWidth(bool focused) => focused ? 2 : 0;
+double csSelectFocusOutlineOffset(bool focused) => focused ? 2 : 0;
+double csSelectFocusHaloSpread(bool focused) => focused ? 5 : 0;
+double csSelectNativeSelectMinHeight([String size = 'md']) => size == 'sm' ? 36 : 44;
+double csSelectNativeSelectPaddingY(CSTokenModePack pack, {String size = 'md'}) =>
+    size == 'sm' ? 6 : csPoints(pack.componentTextfieldPaddingY);
+double csSelectNativeSelectFontSize(CSTokenModePack pack, {String size = 'md'}) =>
+    csPoints(size == 'sm' ? pack.fontSizeSm : pack.fontSizeBase);
+
+const double csFormsStyleCheckRadioDisabledOpacity = 0.55;
+double csFormsStyleCheckRadioGap() => 10;
+const double csFormsStyleCheckRadioLineHeight = 1.4;
+double csFormsStyleCheckRadioBoxSize() => 20;
+double csFormsStyleCheckRadioOpacity(bool disabled) =>
+    disabled ? csFormsStyleCheckRadioDisabledOpacity : 1.0;
+CSColorValue csFormsStyleCheckRadioAccentColor(bool dark, CSTokenModePack pack) =>
+    dark ? pack.colorBrandOchre : pack.colorBrandUmber;
+double csFormsStyleCheckRadioTextGap() => 2;
+double csFormsStyleCheckRadioDescriptionFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeSm);
+double csFormsStyleRadioGroupGap() => 10;
+int csFormsStyleRadioGroupLegendFontWeight() => 700;
+double csFormsStyleRadioGroupLegendMarginBottom() => 6;
+double csFormsStyleTextareaMinHeight() => 96;
+String csFormsStyleTextareaResize() => 'vertical';
+double csFormsStyleTextareaLineHeight(CSTokenModePack pack) => pack.fontLineHeightBody;
 
 String? csSelectPrimaryLanguage(String? tag) {
   if (tag == null) return null;
@@ -1048,14 +1089,17 @@ class CsSwitch extends StatelessWidget {
             minWidth: csA11yTouchTargetMinSize(coarse: true),
             minHeight: csA11yTouchTargetMinSize(coarse: true),
           ),
-          child: SwitchListTile(
-            title: csSwitchShowsLabel(title) ? ExcludeSemantics(child: Text(title, style: TextStyle(color: csColor(pack.colorTextPrimary)))) : null,
-            value: value,
-            activeColor: csColor(pack.colorBrandOchre),
-            onChanged: disabled ? null : (next) {
-              claim();
-              onChanged(next);
-            },
+          child: Opacity(
+            opacity: csSwitchOpacity(disabled),
+            child: SwitchListTile(
+              title: csSwitchShowsLabel(title) ? ExcludeSemantics(child: Text(title, style: TextStyle(color: csColor(pack.colorTextPrimary)))) : null,
+              value: value,
+              activeColor: csColor(csSwitchTrackColor(true, dark, pack)),
+              onChanged: disabled ? null : (next) {
+                claim();
+                onChanged(next);
+              },
+            ),
           ),
         ),
       ),
