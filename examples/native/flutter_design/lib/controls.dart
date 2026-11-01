@@ -192,6 +192,136 @@ double csA11yForcedColorsToggleOutlineWidth(bool pressed, {bool focusVisible = f
     (pressed && !focusVisible) ? 2 : 0;
 double csA11yForcedColorsToggleOutlineOffset() => -4;
 
+enum CsButtonVariant {
+  primary('primary'),
+  secondary('secondary'),
+  tertiary('tertiary'),
+  ghost('ghost'),
+  danger('danger'),
+  dangerGhost('danger-ghost');
+
+  const CsButtonVariant(this.key);
+  final String key;
+}
+
+enum CsButtonSize {
+  xs('xs'),
+  sm('sm'),
+  md('md'),
+  lg('lg');
+
+  const CsButtonSize(this.key);
+  final String key;
+}
+
+const double csButtonDangerGhostHoverAlpha = 0.03;
+const double csButtonDisabledOpacity = 0.58;
+
+CsButtonVariant csButtonResolveVariant(String? raw) {
+  for (final item in CsButtonVariant.values) {
+    if (item.key == raw) return item;
+  }
+  return CsButtonVariant.primary;
+}
+
+CsButtonSize csButtonResolveSize(String? raw) {
+  for (final item in CsButtonSize.values) {
+    if (item.key == raw) return item;
+  }
+  return CsButtonSize.md;
+}
+
+bool csButtonIsDisabled(bool disabled, bool loading) => disabled || loading;
+String? csButtonAriaBusy(bool loading) => loading ? 'true' : null;
+bool csButtonShowsIcon(String? icon) => icon != null && icon.isNotEmpty;
+double csButtonOpacity(bool disabled, bool loading) =>
+    csButtonIsDisabled(disabled, loading) ? csButtonDisabledOpacity : 1.0;
+int csButtonFontWeight() => 700;
+double csButtonLineHeight() => 1.2;
+double csButtonGap(CSTokenModePack pack) => csPoints(pack.componentButtonGap);
+double csButtonRadius(CSTokenModePack pack) => csPoints(pack.componentButtonRadius);
+double csButtonBorderWidth() => 1;
+double csButtonHoverBrightness(CsButtonVariant variant) =>
+    (variant == CsButtonVariant.primary || variant == CsButtonVariant.danger) ? 1.08 : 1.0;
+double csButtonActiveTranslateY() => 0.5;
+double csButtonSpinnerBorderWidth() => 2;
+double csButtonSpinnerDurationMs() => 600;
+bool csButtonSpinnerSpins(bool reducedMotion) => !reducedMotion;
+
+double csButtonMinHeight(CsButtonSize size, CSTokenModePack pack, {bool coarse = false}) {
+  return switch (size) {
+    CsButtonSize.xs => csPoints(coarse ? pack.componentButtonXsMinHeightCoarse : pack.componentButtonXsMinHeight),
+    CsButtonSize.sm => csPoints(coarse ? pack.componentButtonSmMinHeightCoarse : pack.componentButtonSmMinHeight),
+    CsButtonSize.md => csPoints(coarse ? pack.componentButtonMdMinHeightCoarse : pack.componentButtonMdMinHeight),
+    CsButtonSize.lg => csPoints(pack.componentButtonLgMinHeight),
+  };
+}
+
+double csButtonMinWidth(CsButtonSize size, CSTokenModePack pack) {
+  return switch (size) {
+    CsButtonSize.xs => csPoints(pack.componentButtonXsMinWidth),
+    CsButtonSize.sm => csPoints(pack.componentButtonSmMinHeight),
+    CsButtonSize.md => csPoints(pack.componentButtonMdMinHeight),
+    CsButtonSize.lg => 0,
+  };
+}
+
+double csButtonPaddingY(CsButtonSize size, CSTokenModePack pack) {
+  return switch (size) {
+    CsButtonSize.xs => csPoints(pack.componentButtonXsPaddingY),
+    CsButtonSize.sm => csPoints(pack.componentButtonSmPaddingY),
+    CsButtonSize.md => csPoints(pack.componentButtonMdPaddingY),
+    CsButtonSize.lg => csPoints(pack.componentButtonLgPaddingY),
+  };
+}
+
+double csButtonPaddingX(CsButtonSize size, CSTokenModePack pack) {
+  return switch (size) {
+    CsButtonSize.xs => csPoints(pack.componentButtonXsPaddingX),
+    CsButtonSize.sm => csPoints(pack.componentButtonSmPaddingX),
+    CsButtonSize.md => csPoints(pack.componentButtonMdPaddingX),
+    CsButtonSize.lg => csPoints(pack.componentButtonLgPaddingX),
+  };
+}
+
+double csButtonFontSize(CsButtonSize size, CSTokenModePack pack) =>
+    csPoints(size == CsButtonSize.xs ? pack.fontSizeSm : pack.fontSizeBase);
+
+CSColorValue? csButtonBackgroundColor(CsButtonVariant variant, CSTokenModePack pack, {bool hovered = false}) {
+  return switch (variant) {
+    CsButtonVariant.primary => pack.componentButtonPrimaryBg,
+    CsButtonVariant.secondary => hovered ? pack.colorSurfaceRaised : pack.colorSurfacePanel,
+    CsButtonVariant.tertiary => pack.colorSurfaceRaised,
+    CsButtonVariant.ghost => hovered ? pack.colorSurfaceRaised : null,
+    CsButtonVariant.danger => pack.colorSemanticDanger,
+    CsButtonVariant.dangerGhost => hovered
+        ? CSColorValue(
+            colorSpace: pack.colorSemanticDanger.colorSpace,
+            components: pack.colorSemanticDanger.components,
+            alpha: csButtonDangerGhostHoverAlpha,
+          )
+        : null,
+  };
+}
+
+CSColorValue csButtonForegroundColor(CsButtonVariant variant, CSTokenModePack pack, {bool dark = false}) {
+  return switch (variant) {
+    CsButtonVariant.primary => pack.componentButtonPrimaryFg,
+    CsButtonVariant.secondary => dark ? pack.colorBrandOchre : pack.colorBrandUmber,
+    CsButtonVariant.tertiary || CsButtonVariant.ghost => dark ? pack.colorTextPrimary : pack.colorBrandUmber,
+    CsButtonVariant.danger => pack.colorSemanticDangerFg,
+    CsButtonVariant.dangerGhost => pack.colorSemanticDangerText,
+  };
+}
+
+CSColorValue? csButtonBorderColor(CsButtonVariant variant, CSTokenModePack pack, {bool dark = false, bool hovered = false}) {
+  return switch (variant) {
+    CsButtonVariant.secondary => dark ? pack.colorBrandOchre : pack.colorBrandUmber,
+    CsButtonVariant.tertiary => hovered ? pack.colorBorderDefault : null,
+    CsButtonVariant.primary || CsButtonVariant.ghost || CsButtonVariant.danger || CsButtonVariant.dangerGhost => null,
+  };
+}
+
 class CsButton extends StatefulWidget {
   const CsButton({
     super.key,
@@ -201,6 +331,12 @@ class CsButton extends StatefulWidget {
     required this.highContrast,
     required this.compact,
     this.role = CsButtonRole.primary,
+    this.variant,
+    this.size = CsButtonSize.md,
+    this.loading = false,
+    this.disabled = false,
+    this.fullWidth = true,
+    this.icon,
     this.paddingX,
     this.paddingY,
   });
@@ -211,6 +347,12 @@ class CsButton extends StatefulWidget {
   final bool highContrast;
   final bool compact;
   final CsButtonRole role;
+  final CsButtonVariant? variant;
+  final CsButtonSize size;
+  final bool loading;
+  final bool disabled;
+  final bool fullWidth;
+  final String? icon;
   final double? paddingX;
   final double? paddingY;
 
@@ -241,60 +383,113 @@ class _CsButtonState extends State<CsButton> {
       compact: widget.compact,
     );
     final reducedMotion = MediaQuery.maybeOf(context)?.disableAnimations ?? false;
-    final fill = csColor(widget.role == CsButtonRole.primary
-        ? pack.componentButtonPrimaryBg
-        : pack.colorSemanticDanger);
-    final ink = csColor(widget.role == CsButtonRole.primary
-        ? pack.componentButtonPrimaryFg
-        : pack.colorTextInverse);
-    final liftY = csInteractionButtonTranslateY(hovered: hovered, reducedMotion: reducedMotion);
+    final activeVariant = widget.variant ??
+        (widget.role == CsButtonRole.primary ? CsButtonVariant.primary : CsButtonVariant.danger);
+    final isOff = csButtonIsDisabled(widget.disabled, widget.loading);
+    final fillSpec = csButtonBackgroundColor(activeVariant, pack, hovered: hovered);
+    final fill = fillSpec != null ? csColor(fillSpec) : Colors.transparent;
+    final ink = csColor(csButtonForegroundColor(activeVariant, pack, dark: widget.dark));
+    final strokeSpec = csButtonBorderColor(activeVariant, pack, dark: widget.dark, hovered: hovered);
+    final liftY = csInteractionButtonTranslateY(hovered: hovered, disabled: isOff, reducedMotion: reducedMotion);
     final haloWidth = csInteractionFocusHaloWidth(focused);
-    return MouseRegion(
-      onEnter: (_) => setState(() => hovered = true),
-      onExit: (_) => setState(() => hovered = false),
-      child: Transform.translate(
-        offset: Offset(0, liftY),
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(csPoints(pack.componentButtonRadius)),
-            boxShadow: [
-              if (haloWidth > 0)
-                BoxShadow(
-                  color: csColor(pack.colorAccentOchre),
-                  spreadRadius: haloWidth,
+    final fontPts = csButtonFontSize(widget.size, pack);
+    return Opacity(
+      opacity: csButtonOpacity(widget.disabled, widget.loading),
+      child: MouseRegion(
+        onEnter: (_) => setState(() => hovered = true),
+        onExit: (_) => setState(() => hovered = false),
+        child: Transform.translate(
+          offset: Offset(0, liftY),
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(csButtonRadius(pack)),
+              boxShadow: [
+                if (haloWidth > 0)
+                  BoxShadow(
+                    color: csColor(pack.colorAccentOchre),
+                    spreadRadius: haloWidth,
+                  ),
+                if (csInteractionShowsButtonHoverShadow(hovered: hovered, disabled: isOff))
+                  BoxShadow(
+                    color: const Color.fromARGB(255, csInteractionHoverShadowRed, csInteractionHoverShadowGreen, csInteractionHoverShadowBlue).withValues(alpha: csInteractionHoverShadowAlpha),
+                    blurRadius: csInteractionHoverShadowBlur(),
+                    offset: Offset(0, csInteractionHoverShadowOffsetY()),
+                  ),
+              ],
+            ),
+            child: FilledButton(
+              focusNode: node,
+              style: FilledButton.styleFrom(
+                padding: EdgeInsets.symmetric(
+                  horizontal: widget.paddingX ?? csButtonPaddingX(widget.size, pack),
+                  vertical: widget.paddingY ?? csButtonPaddingY(widget.size, pack),
                 ),
-              if (csInteractionShowsButtonHoverShadow(hovered: hovered))
-                BoxShadow(
-                  color: const Color.fromARGB(255, csInteractionHoverShadowRed, csInteractionHoverShadowGreen, csInteractionHoverShadowBlue).withValues(alpha: csInteractionHoverShadowAlpha),
-                  blurRadius: csInteractionHoverShadowBlur(),
-                  offset: Offset(0, csInteractionHoverShadowOffsetY()),
+                minimumSize: Size(
+                  csButtonMinWidth(widget.size, pack),
+                  csButtonMinHeight(widget.size, pack),
                 ),
-            ],
-          ),
-          child: FilledButton(
-            focusNode: node,
-            style: FilledButton.styleFrom(
-              padding: EdgeInsets.symmetric(
-                horizontal: widget.paddingX ?? csPoints(pack.componentButtonMdPaddingX),
-                vertical: widget.paddingY ?? csPoints(pack.componentButtonMdPaddingY),
+                backgroundColor: fill,
+                foregroundColor: ink,
+                side: strokeSpec != null
+                    ? BorderSide(color: csColor(strokeSpec), width: csButtonBorderWidth())
+                    : BorderSide.none,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(csButtonRadius(pack)),
+                ),
               ),
-              minimumSize: Size.fromHeight(csPoints(pack.componentButtonMdMinHeight)),
-              backgroundColor: fill,
-              foregroundColor: ink,
-              shape: RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.circular(csPoints(pack.componentButtonRadius)),
+              onPressed: isOff
+                  ? null
+                  : () {
+                      _claim();
+                      widget.onPressed();
+                    },
+              onFocusChange: (nextFocused) {
+                setState(() => focused = nextFocused);
+                if (nextFocused) _claim();
+              },
+              child: Row(
+                mainAxisSize: widget.fullWidth ? MainAxisSize.max : MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (csButtonShowsIcon(widget.icon)) ...[
+                    ExcludeSemantics(
+                      child: CsIcon(
+                        name: widget.icon ?? '',
+                        label: '',
+                        dark: widget.dark,
+                        highContrast: widget.highContrast,
+                        compact: widget.compact,
+                      ),
+                    ),
+                    SizedBox(width: csButtonGap(pack)),
+                  ],
+                  Text(
+                    widget.title,
+                    style: TextStyle(
+                      fontSize: fontPts,
+                      fontWeight: FontWeight.w700,
+                      color: ink,
+                    ),
+                  ),
+                  if (widget.loading) ...[
+                    SizedBox(width: csButtonGap(pack)),
+                    ExcludeSemantics(
+                      child: Container(
+                        width: fontPts,
+                        height: fontPts,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: ink,
+                            width: csButtonSpinnerBorderWidth(),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
               ),
             ),
-            onPressed: () {
-              _claim();
-              widget.onPressed();
-            },
-            onFocusChange: (nextFocused) {
-              setState(() => focused = nextFocused);
-              if (nextFocused) _claim();
-            },
-            child: Text(widget.title),
           ),
         ),
       ),

@@ -149,9 +149,148 @@ extension CSColorValue {
   }
 }
 
+public enum CSButtonVariant: String, CaseIterable {
+  case primary = "primary"
+  case secondary = "secondary"
+  case tertiary = "tertiary"
+  case ghost = "ghost"
+  case danger = "danger"
+  case dangerGhost = "danger-ghost"
+}
+
+public enum CSButtonSize: String, CaseIterable {
+  case xs = "xs"
+  case sm = "sm"
+  case md = "md"
+  case lg = "lg"
+}
+
+public enum CSButtonModel {
+  public static let dangerGhostHoverAlpha = 0.03
+  public static let disabledOpacity = 0.58
+
+  public static func resolveVariant(_ raw: String?) -> CSButtonVariant {
+    guard let raw, let found = CSButtonVariant(rawValue: raw) else { return .primary }
+    return found
+  }
+
+  public static func resolveSize(_ raw: String?) -> CSButtonSize {
+    guard let raw, let found = CSButtonSize(rawValue: raw) else { return .md }
+    return found
+  }
+
+  public static func isDisabled(disabled: Bool, loading: Bool) -> Bool {
+    disabled || loading
+  }
+
+  public static func ariaBusy(loading: Bool) -> String? {
+    loading ? "true" : nil
+  }
+
+  public static func showsIcon(_ icon: String?) -> Bool {
+    guard let icon else { return false }
+    return !icon.isEmpty
+  }
+
+  public static func opacity(disabled: Bool, loading: Bool) -> Double {
+    isDisabled(disabled: disabled, loading: loading) ? disabledOpacity : 1.0
+  }
+
+  public static func fontWeight() -> Int { 700 }
+  public static func lineHeight() -> Double { 1.2 }
+  public static func gap(_ pack: CSTokenModePack) -> Double { pack.componentButtonGap.points }
+  public static func radius(_ pack: CSTokenModePack) -> Double { pack.componentButtonRadius.points }
+  public static func borderWidth() -> Double { 1 }
+  public static func hoverBrightness(_ variant: CSButtonVariant) -> Double {
+    (variant == .primary || variant == .danger) ? 1.08 : 1.0
+  }
+  public static func activeTranslateY() -> Double { 0.5 }
+  public static func spinnerBorderWidth() -> Double { 2 }
+  public static func spinnerDurationMs() -> Double { 600 }
+  public static func spinnerSpins(reducedMotion: Bool) -> Bool { !reducedMotion }
+
+  public static func minHeight(_ size: CSButtonSize, pack: CSTokenModePack, coarse: Bool = false) -> Double {
+    switch size {
+    case .xs: return (coarse ? pack.componentButtonXsMinHeightCoarse : pack.componentButtonXsMinHeight).points
+    case .sm: return (coarse ? pack.componentButtonSmMinHeightCoarse : pack.componentButtonSmMinHeight).points
+    case .md: return (coarse ? pack.componentButtonMdMinHeightCoarse : pack.componentButtonMdMinHeight).points
+    case .lg: return pack.componentButtonLgMinHeight.points
+    }
+  }
+
+  public static func minWidth(_ size: CSButtonSize, pack: CSTokenModePack) -> Double {
+    switch size {
+    case .xs: return pack.componentButtonXsMinWidth.points
+    case .sm: return pack.componentButtonSmMinHeight.points
+    case .md: return pack.componentButtonMdMinHeight.points
+    case .lg: return 0
+    }
+  }
+
+  public static func paddingY(_ size: CSButtonSize, pack: CSTokenModePack) -> Double {
+    switch size {
+    case .xs: return pack.componentButtonXsPaddingY.points
+    case .sm: return pack.componentButtonSmPaddingY.points
+    case .md: return pack.componentButtonMdPaddingY.points
+    case .lg: return pack.componentButtonLgPaddingY.points
+    }
+  }
+
+  public static func paddingX(_ size: CSButtonSize, pack: CSTokenModePack) -> Double {
+    switch size {
+    case .xs: return pack.componentButtonXsPaddingX.points
+    case .sm: return pack.componentButtonSmPaddingX.points
+    case .md: return pack.componentButtonMdPaddingX.points
+    case .lg: return pack.componentButtonLgPaddingX.points
+    }
+  }
+
+  public static func fontSize(_ size: CSButtonSize, pack: CSTokenModePack) -> Double {
+    size == .xs ? pack.fontSizeSm.points : pack.fontSizeBase.points
+  }
+
+  public static func backgroundColor(_ variant: CSButtonVariant, pack: CSTokenModePack, hovered: Bool = false) -> CSColorValue? {
+    switch variant {
+    case .primary: return pack.componentButtonPrimaryBg
+    case .secondary: return hovered ? pack.colorSurfaceRaised : pack.colorSurfacePanel
+    case .tertiary: return pack.colorSurfaceRaised
+    case .ghost: return hovered ? pack.colorSurfaceRaised : nil
+    case .danger: return pack.colorSemanticDanger
+    case .dangerGhost:
+      return hovered
+        ? CSColorValue(colorSpace: pack.colorSemanticDanger.colorSpace, components: pack.colorSemanticDanger.components, alpha: dangerGhostHoverAlpha)
+        : nil
+    }
+  }
+
+  public static func foregroundColor(_ variant: CSButtonVariant, pack: CSTokenModePack, dark: Bool = false) -> CSColorValue {
+    switch variant {
+    case .primary: return pack.componentButtonPrimaryFg
+    case .secondary: return dark ? pack.colorBrandOchre : pack.colorBrandUmber
+    case .tertiary, .ghost: return dark ? pack.colorTextPrimary : pack.colorBrandUmber
+    case .danger: return pack.colorSemanticDangerFg
+    case .dangerGhost: return pack.colorSemanticDangerText
+    }
+  }
+
+  public static func borderColor(_ variant: CSButtonVariant, pack: CSTokenModePack, dark: Bool = false, hovered: Bool = false) -> CSColorValue? {
+    switch variant {
+    case .secondary: return dark ? pack.colorBrandOchre : pack.colorBrandUmber
+    case .tertiary: return hovered ? pack.colorBorderDefault : nil
+    case .primary, .ghost, .danger, .dangerGhost: return nil
+    }
+  }
+}
+
 public struct CSButton: View {
   let title: String
   let role: CSButtonRole
+  let variant: CSButtonVariant?
+  let size: CSButtonSize
+  let loading: Bool
+  let disabled: Bool
+  let fullWidth: Bool
+  let icon: String?
   let dark: Bool
   let highContrast: Bool
   let compact: Bool
@@ -159,9 +298,15 @@ public struct CSButton: View {
   var paddingY: CGFloat?
   let action: () -> Void
 
-  public init(title: String, role: CSButtonRole = .primary, dark: Bool, highContrast: Bool, compact: Bool, paddingX: CGFloat? = nil, paddingY: CGFloat? = nil, action: @escaping () -> Void) {
+  public init(title: String, role: CSButtonRole = .primary, variant: CSButtonVariant? = nil, size: CSButtonSize = .md, loading: Bool = false, disabled: Bool = false, fullWidth: Bool = true, icon: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, paddingX: CGFloat? = nil, paddingY: CGFloat? = nil, action: @escaping () -> Void) {
     self.title = title
     self.role = role
+    self.variant = variant
+    self.size = size
+    self.loading = loading
+    self.disabled = disabled
+    self.fullWidth = fullWidth
+    self.icon = icon
     self.dark = dark
     self.highContrast = highContrast
     self.compact = compact
@@ -177,39 +322,63 @@ public struct CSButton: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    let fill = (role == .primary ? pack.componentButtonPrimaryBg : pack.colorSemanticDanger).color
-    let ink = (role == .primary ? pack.componentButtonPrimaryFg : pack.colorTextInverse).color
+    let activeVariant = variant ?? (role == .primary ? .primary : .danger)
+    let isOff = CSButtonModel.isDisabled(disabled: disabled, loading: loading)
+    let fill = CSButtonModel.backgroundColor(activeVariant, pack: pack, hovered: hovered)?.color ?? .clear
+    let ink = CSButtonModel.foregroundColor(activeVariant, pack: pack, dark: dark).color
+    let stroke = CSButtonModel.borderColor(activeVariant, pack: pack, dark: dark, hovered: hovered)?.color ?? .clear
     let restore = { ownerFocused = true }
-    let liftY = CGFloat(CSInteractionModel.hoverTranslateY(hovered: hovered, reducedMotion: reduceMotion))
-    let showHoverShadow = CSInteractionModel.showsHoverShadow(hovered: hovered)
+    let liftY = CGFloat(CSInteractionModel.hoverTranslateY(hovered: hovered, disabled: isOff, reducedMotion: reduceMotion))
+    let showHoverShadow = CSInteractionModel.showsHoverShadow(hovered: hovered, disabled: isOff)
     let hoverShadowColor = Color(.sRGB, red: Double(CSInteractionModel.hoverShadowRed) / 255.0, green: Double(CSInteractionModel.hoverShadowGreen) / 255.0, blue: Double(CSInteractionModel.hoverShadowBlue) / 255.0, opacity: CSInteractionModel.hoverShadowAlpha)
     let haloWidth = CGFloat(CSInteractionModel.focusHaloWidth(focused: ownerFocused))
+    let fontPts = CGFloat(CSButtonModel.fontSize(size, pack: pack))
     Button(action: {
+      if isOff { return }
       CSFocusRegistry.shared.claim(id: focusId, restore: restore)
       action()
     }) {
-      Text(title)
-        .fixedSize(horizontal: false, vertical: true)
-        .frame(maxWidth: .infinity)
-        .padding(.horizontal, paddingX ?? pack.componentButtonMdPaddingX.points)
-        .padding(.vertical, paddingY ?? pack.componentButtonMdPaddingY.points)
-        .frame(minHeight: pack.componentButtonMdMinHeight.points)
-        .foregroundStyle(ink)
-        .background(fill)
-        .clipShape(RoundedRectangle(cornerRadius: pack.componentButtonRadius.points))
-        .overlay(
-          RoundedRectangle(cornerRadius: pack.componentButtonRadius.points)
-            .stroke(pack.colorAccentOchre.color, lineWidth: haloWidth)
-        )
-        .shadow(
-          color: showHoverShadow ? hoverShadowColor : .clear,
-          radius: showHoverShadow ? CGFloat(CSInteractionModel.hoverShadowBlur()) : 0,
-          x: 0,
-          y: showHoverShadow ? CGFloat(CSInteractionModel.hoverShadowOffsetY()) : 0
-        )
-        .offset(y: liftY)
+      HStack(spacing: CGFloat(CSButtonModel.gap(pack))) {
+        if CSButtonModel.showsIcon(icon) {
+          CSIcon(name: icon ?? "", label: "", dark: dark, highContrast: highContrast, compact: compact)
+            .accessibilityHidden(true)
+        }
+        Text(title)
+          .font(.system(size: fontPts, weight: .bold))
+          .fixedSize(horizontal: false, vertical: true)
+        if loading {
+          Circle()
+            .strokeBorder(ink, lineWidth: CGFloat(CSButtonModel.spinnerBorderWidth()))
+            .frame(width: fontPts, height: fontPts)
+            .accessibilityHidden(true)
+        }
+      }
+      .frame(maxWidth: fullWidth ? .infinity : nil)
+      .padding(.horizontal, paddingX ?? CGFloat(CSButtonModel.paddingX(size, pack: pack)))
+      .padding(.vertical, paddingY ?? CGFloat(CSButtonModel.paddingY(size, pack: pack)))
+      .frame(minWidth: CGFloat(CSButtonModel.minWidth(size, pack: pack)), minHeight: CGFloat(CSButtonModel.minHeight(size, pack: pack)))
+      .foregroundStyle(ink)
+      .background(fill)
+      .clipShape(RoundedRectangle(cornerRadius: CGFloat(CSButtonModel.radius(pack))))
+      .overlay(
+        RoundedRectangle(cornerRadius: CGFloat(CSButtonModel.radius(pack)))
+          .stroke(stroke, lineWidth: CGFloat(CSButtonModel.borderWidth()))
+      )
+      .overlay(
+        RoundedRectangle(cornerRadius: CGFloat(CSButtonModel.radius(pack)))
+          .stroke(pack.colorAccentOchre.color, lineWidth: haloWidth)
+      )
+      .shadow(
+        color: showHoverShadow ? hoverShadowColor : .clear,
+        radius: showHoverShadow ? CGFloat(CSInteractionModel.hoverShadowBlur()) : 0,
+        x: 0,
+        y: showHoverShadow ? CGFloat(CSInteractionModel.hoverShadowOffsetY()) : 0
+      )
+      .offset(y: liftY)
+      .opacity(CSButtonModel.opacity(disabled: disabled, loading: loading))
     }
     .buttonStyle(.plain)
+    .disabled(isOff)
     .onHover { hovered = $0 }
     .focused($ownerFocused)
     .accessibilityLabel(title)

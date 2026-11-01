@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the reset-and-typography checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the button-variants-sizes-spinner checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `2f72057f5c84027ac346cf5815e92946e17daa2d`, with the hash note in `80e58ad7`
-- Checkpoint commit hash: `e22af0f3ad0ea456ba65eb443e09c88481def558`
+- Previous checkpoint: `e22af0f3ad0ea456ba65eb443e09c88481def558`, with the hash note in `0c587a50`
 - Temporarily disabled GitHub Actions push workflows (re-enable with `gh workflow enable` when done): `Design System Gates` (`316944477`), `native-validation` (`377620668`), `native-store` (`318755963`), `OpenSSF Scorecard` (`330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -49,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after styling the base reset, skip link, and typographic role utilities: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled locally. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after styling the `Button` variants, sizes, loading spinner, and coarse-pointer floors: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled locally. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-The base reset, skip link, and typographic role utilities (`CSResetModel` / `CSSkipLink` / `CSTypographyRole` / `CSTypographyModel` and `csReset*` / `CsSkipLink` / `CsTypographyRole` / `csTypography*`) now model `scroll-padding-block` (`space-4` `16px`), page background + primary ink + `font-family-ui` + `font-size-base` (`16px`) + `1.5` body line-height, `1.35` heading line-height with `balance` wrap, `pretty` paragraph wrap, `:focus-visible` `2px` primary outline at `2px` offset + `5px` ochre halo + `2px` ochre drop-shadow fallback, `.cs-skip` offscreen `-999px`/`1x1` and focused `fixed` `12x12` `toast+1` (`201`) `10x14` panel with `2px` brand-ochre border + `5px` ochre halo, and `.cs-display` (`60px`/`1.15`/`800`/`-0.01em`), `.cs-h1` (`36px`/`1.35`/`800`/`-0.01em`), `.cs-h2` (`30px`/`1.35`/`700`/`-0.01em`), `.cs-h3` (`24px`/`1.35`/`700`), `.cs-h4` (`20px`/`1.35`/`600`), `.cs-body-lg` (`18px`/`1.5`/`400`), `.cs-body` (`16px`/`1.5`/`400`), `.cs-secondary` (`14px`/`1.5` muted), `.cs-caption` (`12px`/`1.5` muted), `.cs-eyebrow` (`12px`/`1.5`/`700` uppercase `0.08em` accent), `.cs-mono` (`JetBrains Mono`), and `.cs-display-face` (`Space Grotesk` clamping `800` to `700`), matching `base/reset.css` lines 1–62 and `base/typography.css` lines 1–20.
+`CSButton` / `CsButton` and `CSButtonModel` / `csButton*` now style all six button variants (`primary`, `secondary`, `tertiary`, `ghost`, `danger`, `danger-ghost` with `3%` danger hover mix) and dark-theme remaps (`secondary` ochre border/ink and `tertiary`/`ghost` primary text ink in dark mode), all four sizes (`xs` `28x28` `4x10` `14px` font, `sm` `36x36` `8x14`, `md` `44x44` `12x20`, `lg` `52px` `16x28`), `44px` coarse-pointer floors on `xs`/`sm`/`md`, `8px` (`0.5rem`) content gap, `700` weight, `1.2` line-height, `1.08` hover brightness on `primary`/`danger`, `0.5px` active press offset, `0.58` disabled/loading opacity, `aria-busy` on loading, optional leading icon, and a `1em` (`fontSize`) `2px` `0.6s` (`600ms`) circular spinner with reduced-motion suppression, matching `base/components.css` lines 6–110 and `components/Button/Button.jsx`.
 
 - Compose and Flutter were not compiled locally.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style the `Button` variants, sizes, loading spinner, and coarse-pointer floors in Swift, Compose, and Flutter (`primary`/`secondary`/`tertiary`/`ghost`/`danger`/`danger-ghost` colors and dark-theme remaps, `xs` `28x28` `4x10` `sm` font, `sm` `36x36` `8x14`, `md` `44x44` `12x20`, `lg` `52px` `16x28`, `100%` full width, `0.58` disabled/loading opacity, `1em` `2px` `0.6s` spinner with reduced-motion suppression, and `44px` coarse-pointer floors from `base/components.css` lines 6–110).
+Style `TextField`, `Dialog` / `AlertDialog`, `DataTable`, `AIDisclosureBadge`, `HumanReviewGate`, and `Logo` in Swift, Compose, and Flutter (`TextField` `6px` gap, `700` label, `14px` muted description, `1px` default/danger border, `8px` radius, `44px` min-height, `10x12` padding, `0.7` placeholder opacity, `0.58` disabled opacity, `14px` danger-text error; `Dialog` `0.42` umber overlay, `42rem`/`28rem` max width, `80vh` max height, `12vh`/`4vh` top offset, `24px`/`16px` padding, `12px` header/actions gap, `20px`/`1.35` title, `16px` body margin, safe-area inset clamps; `DataTable` `16px` status padding, `1px` `0.18` umber row borders, `10x12` cell padding, uppercase `12px` `0.08em` muted headers, `700` caption with `8px` bottom margin; `AIDisclosureBadge` info pill `4x10` `14px` `700` and `18rem` `12px` dropdown panel at `calc(100% + 6px)` with `13px` muted sources; `HumanReviewGate` `1px` warning border, `5%` warning-mixed panel, `12px` gap, `16px` padding, uppercase `13px` `0.04em` `700` warning-text risk, `14px` muted reviewer, from `base/components.css` lines 112–240).
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

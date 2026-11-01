@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.selection.selectable
@@ -31,6 +32,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.sp
 import androidx.compose.runtime.Composable
@@ -240,6 +242,104 @@ fun csA11yForcedColorsToggleOutlineWidth(pressed: Boolean, focusVisible: Boolean
   if (pressed && !focusVisible) 2.dp else 0.dp
 fun csA11yForcedColorsToggleOutlineOffset() = (-4).dp
 
+enum class CsButtonVariant(val key: String) {
+  Primary("primary"),
+  Secondary("secondary"),
+  Tertiary("tertiary"),
+  Ghost("ghost"),
+  Danger("danger"),
+  DangerGhost("danger-ghost"),
+}
+
+enum class CsButtonSize(val key: String) {
+  Xs("xs"),
+  Sm("sm"),
+  Md("md"),
+  Lg("lg"),
+}
+
+const val csButtonDangerGhostHoverAlpha = 0.03
+const val csButtonDisabledOpacity = 0.58
+
+fun csButtonResolveVariant(raw: String?): CsButtonVariant =
+  CsButtonVariant.entries.firstOrNull { it.key == raw } ?: CsButtonVariant.Primary
+
+fun csButtonResolveSize(raw: String?): CsButtonSize =
+  CsButtonSize.entries.firstOrNull { it.key == raw } ?: CsButtonSize.Md
+
+fun csButtonIsDisabled(disabled: Boolean, loading: Boolean): Boolean = disabled || loading
+fun csButtonAriaBusy(loading: Boolean): String? = if (loading) "true" else null
+fun csButtonShowsIcon(icon: String?): Boolean = !icon.isNullOrEmpty()
+fun csButtonOpacity(disabled: Boolean, loading: Boolean): Float =
+  if (csButtonIsDisabled(disabled, loading)) csButtonDisabledOpacity.toFloat() else 1f
+fun csButtonFontWeight(): Int = 700
+fun csButtonLineHeight(): Double = 1.2
+fun csButtonGap(pack: CSTokenModePack): Dp = pack.componentButtonGap.toDp()
+fun csButtonRadius(pack: CSTokenModePack): Dp = pack.componentButtonRadius.toDp()
+fun csButtonBorderWidth(): Dp = 1.dp
+fun csButtonHoverBrightness(variant: CsButtonVariant): Double =
+  if (variant == CsButtonVariant.Primary || variant == CsButtonVariant.Danger) 1.08 else 1.0
+fun csButtonActiveTranslateY(): Dp = 0.5.dp
+fun csButtonSpinnerBorderWidth(): Dp = 2.dp
+fun csButtonSpinnerDurationMs(): Double = 600.0
+fun csButtonSpinnerSpins(reducedMotion: Boolean): Boolean = !reducedMotion
+
+fun csButtonMinHeight(size: CsButtonSize, pack: CSTokenModePack, coarse: Boolean = false): Dp = when (size) {
+  CsButtonSize.Xs -> (if (coarse) pack.componentButtonXsMinHeightCoarse else pack.componentButtonXsMinHeight).toDp()
+  CsButtonSize.Sm -> (if (coarse) pack.componentButtonSmMinHeightCoarse else pack.componentButtonSmMinHeight).toDp()
+  CsButtonSize.Md -> (if (coarse) pack.componentButtonMdMinHeightCoarse else pack.componentButtonMdMinHeight).toDp()
+  CsButtonSize.Lg -> pack.componentButtonLgMinHeight.toDp()
+}
+
+fun csButtonMinWidth(size: CsButtonSize, pack: CSTokenModePack): Dp = when (size) {
+  CsButtonSize.Xs -> pack.componentButtonXsMinWidth.toDp()
+  CsButtonSize.Sm -> pack.componentButtonSmMinHeight.toDp()
+  CsButtonSize.Md -> pack.componentButtonMdMinHeight.toDp()
+  CsButtonSize.Lg -> 0.dp
+}
+
+fun csButtonPaddingY(size: CsButtonSize, pack: CSTokenModePack): Dp = when (size) {
+  CsButtonSize.Xs -> pack.componentButtonXsPaddingY.toDp()
+  CsButtonSize.Sm -> pack.componentButtonSmPaddingY.toDp()
+  CsButtonSize.Md -> pack.componentButtonMdPaddingY.toDp()
+  CsButtonSize.Lg -> pack.componentButtonLgPaddingY.toDp()
+}
+
+fun csButtonPaddingX(size: CsButtonSize, pack: CSTokenModePack): Dp = when (size) {
+  CsButtonSize.Xs -> pack.componentButtonXsPaddingX.toDp()
+  CsButtonSize.Sm -> pack.componentButtonSmPaddingX.toDp()
+  CsButtonSize.Md -> pack.componentButtonMdPaddingX.toDp()
+  CsButtonSize.Lg -> pack.componentButtonLgPaddingX.toDp()
+}
+
+fun csButtonFontSize(size: CsButtonSize, pack: CSTokenModePack): Dp =
+  (if (size == CsButtonSize.Xs) pack.fontSizeSm else pack.fontSizeBase).toDp()
+
+fun csButtonBackgroundColor(variant: CsButtonVariant, pack: CSTokenModePack, hovered: Boolean = false): CSColorValue? = when (variant) {
+  CsButtonVariant.Primary -> pack.componentButtonPrimaryBg
+  CsButtonVariant.Secondary -> if (hovered) pack.colorSurfaceRaised else pack.colorSurfacePanel
+  CsButtonVariant.Tertiary -> pack.colorSurfaceRaised
+  CsButtonVariant.Ghost -> if (hovered) pack.colorSurfaceRaised else null
+  CsButtonVariant.Danger -> pack.colorSemanticDanger
+  CsButtonVariant.DangerGhost ->
+    if (hovered) CSColorValue(pack.colorSemanticDanger.colorSpace, pack.colorSemanticDanger.components, csButtonDangerGhostHoverAlpha)
+    else null
+}
+
+fun csButtonForegroundColor(variant: CsButtonVariant, pack: CSTokenModePack, dark: Boolean = false): CSColorValue = when (variant) {
+  CsButtonVariant.Primary -> pack.componentButtonPrimaryFg
+  CsButtonVariant.Secondary -> if (dark) pack.colorBrandOchre else pack.colorBrandUmber
+  CsButtonVariant.Tertiary, CsButtonVariant.Ghost -> if (dark) pack.colorTextPrimary else pack.colorBrandUmber
+  CsButtonVariant.Danger -> pack.colorSemanticDangerFg
+  CsButtonVariant.DangerGhost -> pack.colorSemanticDangerText
+}
+
+fun csButtonBorderColor(variant: CsButtonVariant, pack: CSTokenModePack, dark: Boolean = false, hovered: Boolean = false): CSColorValue? = when (variant) {
+  CsButtonVariant.Secondary -> if (dark) pack.colorBrandOchre else pack.colorBrandUmber
+  CsButtonVariant.Tertiary -> if (hovered) pack.colorBorderDefault else null
+  CsButtonVariant.Primary, CsButtonVariant.Ghost, CsButtonVariant.Danger, CsButtonVariant.DangerGhost -> null
+}
+
 @Composable
 fun CsButton(
   title: String,
@@ -248,28 +348,42 @@ fun CsButton(
   highContrast: Boolean,
   compact: Boolean,
   role: CsButtonRole = CsButtonRole.Primary,
+  variant: CsButtonVariant? = null,
+  size: CsButtonSize = CsButtonSize.Md,
+  loading: Boolean = false,
+  disabled: Boolean = false,
+  fullWidth: Boolean = true,
+  icon: String? = null,
   paddingX: Dp? = null,
   paddingY: Dp? = null,
   modifier: Modifier = Modifier,
 ) {
   val pack = csModePack(dark, highContrast, compact)
-  val fill = (if (role == CsButtonRole.Primary) pack.componentButtonPrimaryBg else pack.colorSemanticDanger).toComposeColor()
-  val ink = (if (role == CsButtonRole.Primary) pack.componentButtonPrimaryFg else pack.colorTextInverse).toComposeColor()
+  val activeVariant = variant ?: if (role == CsButtonRole.Primary) CsButtonVariant.Primary else CsButtonVariant.Danger
+  val isOff = csButtonIsDisabled(disabled, loading)
+  val fill = csButtonBackgroundColor(activeVariant, pack, false)?.toComposeColor() ?: Color.Transparent
+  val ink = csButtonForegroundColor(activeVariant, pack, dark).toComposeColor()
+  val stroke = csButtonBorderColor(activeVariant, pack, dark, false)?.toComposeColor()
   val focusId = remember { csOverlayFreshId("button") }
   val requester = remember { FocusRequester() }
   var focused by remember { mutableStateOf(false) }
-  val shape = RoundedCornerShape(pack.componentButtonRadius.toDp())
+  val shape = RoundedCornerShape(csButtonRadius(pack))
   val haloWidth = csInteractionFocusHaloWidth(focused)
+  val fontDp = csButtonFontSize(size, pack)
   DisposableEffect(focusId) { onDispose { CsFocusRegistry.disconnect(focusId) } }
   Button(
     onClick = {
+      if (isOff) return@Button
       CsFocusRegistry.claim(focusId) { requester.requestFocus() }
       onClick()
     },
-    enabled = csControlEnabled(),
+    enabled = csControlEnabled(!isOff),
     modifier = modifier
-      .fillMaxWidth()
-      .heightIn(min = pack.componentButtonMdMinHeight.toDp())
+      .then(if (fullWidth) Modifier.fillMaxWidth() else Modifier)
+      .widthIn(min = csButtonMinWidth(size, pack))
+      .heightIn(min = csButtonMinHeight(size, pack))
+      .alpha(csButtonOpacity(disabled, loading))
+      .then(if (stroke != null) Modifier.border(csButtonBorderWidth(), stroke, shape) else Modifier)
       .then(if (haloWidth > 0.dp) Modifier.border(haloWidth, pack.colorAccentOchre.toComposeColor(), shape) else Modifier)
       .focusRequester(requester)
       .onFocusChanged {
@@ -277,13 +391,29 @@ fun CsButton(
         if (it.isFocused) CsFocusRegistry.claim(focusId) { requester.requestFocus() }
       },
     contentPadding = androidx.compose.foundation.layout.PaddingValues(
-      horizontal = paddingX ?: pack.componentButtonMdPaddingX.toDp(),
-      vertical = paddingY ?: pack.componentButtonMdPaddingY.toDp(),
+      horizontal = paddingX ?: csButtonPaddingX(size, pack),
+      vertical = paddingY ?: csButtonPaddingY(size, pack),
     ),
     colors = ButtonDefaults.buttonColors(containerColor = fill, contentColor = ink),
     shape = shape,
   ) {
-    Text(title)
+    Row(
+      horizontalArrangement = Arrangement.spacedBy(csButtonGap(pack)),
+      verticalAlignment = Alignment.CenterVertically,
+    ) {
+      if (csButtonShowsIcon(icon)) {
+        CsIcon(name = icon ?: "", label = "", dark = dark, highContrast = highContrast, compact = compact, modifier = Modifier.clearAndSetSemantics {})
+      }
+      Text(title, fontSize = fontDp.value.sp, fontWeight = FontWeight.Bold)
+      if (loading) {
+        Box(
+          Modifier
+            .size(fontDp)
+            .border(csButtonSpinnerBorderWidth(), ink, CircleShape)
+            .clearAndSetSemantics {}
+        )
+      }
+    }
   }
 }
 
