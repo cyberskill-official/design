@@ -268,6 +268,11 @@ public enum CSTerminalModel {
   public static func dotSize() -> Double { 10 }
   public static func dotRadius() -> Double { 999 }
   public static func titleMarginStart() -> Double { 8 }
+  public static func bodyPaddingY() -> Double { 12 }
+  public static func bodyPaddingX() -> Double { 14 }
+  public static func bodyFontSize() -> Double { 13 }
+  public static func bodyLineHeight() -> Double { 1.7 }
+  public static func bodyMinHeight() -> Double { 130 }
 
   public static func submits(composing: Bool, keyCode: Int) -> Bool {
     !composing && keyCode != 229
@@ -661,7 +666,7 @@ public struct CSTerminal: View {
       .background(CSTerminalModel.barColor.color)
       VStack(alignment: .leading) {
         ForEach(Array(lines.enumerated()), id: \.offset) { _, line in
-          if let command = line.command { Text(prompt + " " + command).foregroundStyle(pack.colorBrandOchre.color) }
+          if let command = line.command { Text(prompt + " " + command).foregroundStyle(CSTerminalModel.fgColor.color) }
           if let output = line.output { Text(output).foregroundStyle(CSTerminalModel.mutedColor.color) }
         }
         HStack {
@@ -675,7 +680,13 @@ public struct CSTerminal: View {
             }
         }
       }
-      .padding(12)
+      .font(.system(size: CGFloat(CSTerminalModel.bodyFontSize()), weight: .medium, design: .monospaced))
+      .lineSpacing(CGFloat(CSTerminalModel.bodyFontSize() * (CSTerminalModel.bodyLineHeight() - 1)))
+      .foregroundStyle(CSTerminalModel.fgColor.color)
+      .padding(.vertical, CGFloat(CSTerminalModel.bodyPaddingY()))
+      .padding(.horizontal, CGFloat(CSTerminalModel.bodyPaddingX()))
+      .frame(maxWidth: .infinity, minHeight: CGFloat(CSTerminalModel.bodyMinHeight()), alignment: .topLeading)
+      .background(CSTerminalModel.bgColor.color)
     }
     .frame(maxWidth: CGFloat(CSTerminalModel.maxWidth()), alignment: .leading)
     .background(CSTerminalModel.bgColor.color, in: RoundedRectangle(cornerRadius: pack.radiusLg.points))

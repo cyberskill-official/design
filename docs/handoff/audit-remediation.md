@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the terminal-bar checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the terminal-body checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `4b2167115f8e2029f7f13518a68258b566274078`, with the hash note in `d3ad9a9e`
-- Checkpoint commit hash: `718666623cffae329577f6d6f7ee0354dec95a05`
+- Previous checkpoint: `718666623cffae329577f6d6f7ee0354dec95a05`, with the hash note in `1b363b63`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the terminal bar: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the terminal body: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-The terminal header bar now renders a 6px item gap (`CSTerminalModel.barGap()` / `csTerminalBarGap()`), `#2a1a0d` bar background, `#c9b7a3` muted text, 600 11px monospaced font (`CSTerminalModel.barFontSize()` / `csTerminalBarFontSize()`), 8px by 12px padding (`CSTerminalModel.barPaddingY()`, `barPaddingX()` / `csTerminalBarPaddingY()`, `csTerminalBarPaddingX()`), three 10px `#5b4331` pill dots (`CSTerminalModel.dotCount`, `dotSize()`, `dotRadius()`), and an 8px leading margin on the title span (`CSTerminalModel.titleMarginStart()` / `csTerminalTitleMarginStart()`), matching `.cs-terminal__bar`, `.cs-terminal__bar i`, and `.cs-terminal__bar span` in `base/controls.css`.
+The terminal body now uses `#1a1108` background, `#f5ead9` foreground, 500 13px/1.7 monospaced font (`CSTerminalModel.bodyFontSize()`, `bodyLineHeight()` / `csTerminalBodyFontSize()`, `csTerminalBodyLineHeight()`), 12px by 14px padding (`CSTerminalModel.bodyPaddingY()`, `bodyPaddingX()` / `csTerminalBodyPaddingY()`, `csTerminalBodyPaddingX()`), and a 130px minimum height (`CSTerminalModel.bodyMinHeight()` / `csTerminalBodyMinHeight()`), matching `.cs-terminal__body { background: var(--cs-term-bg); color: var(--cs-term-fg); font: 500 13px/1.7 var(--cs-font-family-mono); padding: 12px 14px; min-block-size: 130px; }` in `base/controls.css`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style the terminal body with `#1a1108` background, `#f5ead9` foreground, 500 13px/1.7 monospaced font, 12px by 14px padding, and a 130px minimum height. The next rule in `base/controls.css` is `.cs-terminal__body { background: var(--cs-term-bg); color: var(--cs-term-fg); font: 500 13px/1.7 var(--cs-font-family-mono); padding: 12px 14px; min-block-size: 130px; }`. Re-read that rule before editing. Do not invent padding, font sizes, or minimum heights.
+Style terminal command and prompt lines with an 8px gap, centered vertical alignment, brand-ochre prompt glyph, foreground command text, and a flex-expanding borderless transparent input. The next rules in `base/controls.css` are `.cs-terminal__line { display: flex; gap: 8px; align-items: center; }`, `.cs-terminal__line .p { color: var(--cs-color-brand-ochre); }`, and `.cs-terminal__line input { flex: 1; border: 0; background: transparent; color: inherit; font: inherit; outline: none; }`. Re-read those rules before editing. Do not invent line gaps or prompt colors.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
