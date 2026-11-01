@@ -1,8 +1,12 @@
 package world.cyberskill.design
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.hoverable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.width
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.zIndex
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -320,6 +324,14 @@ fun CsConfidenceMeter(
   }
 }
 
+fun csCollapsibleBorderWidth() = 1.dp
+fun csCollapsibleTriggerGap() = 12.dp
+fun csCollapsibleTriggerPaddingY() = 12.dp
+fun csCollapsibleTriggerPaddingX() = 16.dp
+fun csCollapsibleShowsTriggerHover(hovered: Boolean) = hovered
+fun csCollapsibleResolvedLabel(title: String?, trigger: String?) = title ?: trigger ?: ""
+fun csCollapsibleAriaControls(panelId: String, isOpen: Boolean) = if (isOpen) panelId else null
+
 @Composable
 fun CsCollapsible(
   title: String,
@@ -332,11 +344,17 @@ fun CsCollapsible(
   highContrast: Boolean,
   compact: Boolean,
   modifier: Modifier = Modifier,
+  trigger: String? = null,
 ) {
   val pack = csModePack(dark, highContrast, compact)
-  Column(modifier) {
-    CsTriggerButton(title = title, onClick = { onOpenChange(!isOpen) }, modifier = Modifier.fillMaxWidth().minimumInteractiveComponentSize()) {
-      Text(title, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.semantics { contentDescription = if (isOpen) expandedLabel else collapsedLabel })
+  val interaction = remember { MutableInteractionSource() }
+  val hovered by interaction.collectIsHoveredAsState()
+  val label = csCollapsibleResolvedLabel(if (title.isEmpty() && trigger != null) null else title, trigger)
+  Column(modifier.clip(RoundedCornerShape(pack.radiusMd.toDp())).background(pack.colorSurfacePanel.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).border(csCollapsibleBorderWidth(), pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp()))) {
+    CsTriggerButton(title = label, onClick = { onOpenChange(!isOpen) }, modifier = Modifier.fillMaxWidth().hoverable(interaction).background(if (csCollapsibleShowsTriggerHover(hovered)) pack.colorSurfaceRaised.toComposeColor() else Color.Transparent).padding(horizontal = csCollapsibleTriggerPaddingX(), vertical = csCollapsibleTriggerPaddingY()).minimumInteractiveComponentSize()) {
+      Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(csCollapsibleTriggerGap()), verticalAlignment = Alignment.CenterVertically) {
+        Text(label, color = pack.colorTextPrimary.toComposeColor(), fontSize = pack.fontSizeSm.toDp().value.sp, fontWeight = FontWeight.SemiBold, modifier = Modifier.weight(1f).semantics { contentDescription = if (isOpen) expandedLabel else collapsedLabel })
+      }
     }
     if (isOpen) Text(content, color = pack.colorTextMuted.toComposeColor())
   }

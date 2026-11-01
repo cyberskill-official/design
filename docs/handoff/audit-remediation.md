@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the accordion-trigger-panel checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the collapsible-frame-trigger checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `3d1a1daab098750b3ac186c011c9f01d6d73dac3`, with the hash note in `e379d2c4`
-- Checkpoint commit hash: `8609d9e40afd8e5be1c90a776d9a6cf587ef9879`
+- Previous checkpoint: `8609d9e40afd8e5be1c90a776d9a6cf587ef9879`, with the hash note in `c7aa81fe`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the accordion trigger, chevron, and panel styles: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the collapsible frame and trigger styles: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-`Accordion` (`CSAccordion` / `CsAccordion`) now styles triggers with `var(--cs-space-3)` gap, `15px` by `18px` padding (`CSAccordionModel.triggerPaddingY()` / `csAccordionTriggerPaddingY()` and `CSAccordionModel.triggerPaddingX()` / `csAccordionTriggerPaddingX()`), semibold (`600`) primary-text labels, raised hover surface (`CSAccordionModel.showsTriggerHover(hovered:)` / `csAccordionShowsTriggerHover(hovered)`), muted chevrons rotating `180deg` when expanded (`CSAccordionModel.chevronDegrees(opened:)` / `csAccordionChevronDegrees(opened)`), and panels with `0 18px 16px` padding (`CSAccordionModel.panelPaddingX()` / `csAccordionPanelPaddingX()` and `CSAccordionModel.panelPaddingBottom()` / `csAccordionPanelPaddingBottom()`), muted `var(--cs-font-size-sm)` text, and `var(--cs-font-lineHeight-body)` line height, matching `.cs-accordion__trigger`, `.cs-accordion__trigger:hover`, `.cs-accordion__chevron`, `.cs-accordion__trigger[aria-expanded="true"] .cs-accordion__chevron`, and `.cs-accordion__panel` in `base/collections.css`.
+`Collapsible` (`CSCollapsible` / `CsCollapsible`) now renders a 1px (`CSCollapsibleModel.borderWidth()` / `csCollapsibleBorderWidth()`) default border, medium corner radius (`var(--cs-radius-md)`), panel surface background (`var(--cs-color-surface-panel)`), clipped overflow, a 12px trigger gap (`CSCollapsibleModel.triggerGap()` / `csCollapsibleTriggerGap()`), `12px` by `16px` trigger padding (`CSCollapsibleModel.triggerPaddingY()` / `csCollapsibleTriggerPaddingY()` and `CSCollapsibleModel.triggerPaddingX()` / `csCollapsibleTriggerPaddingX()`), semibold (`600`) `var(--cs-font-size-sm)` primary-text labels with `title ?? trigger` fallback (`CSCollapsibleModel.resolvedLabel` / `csCollapsibleResolvedLabel`), raised hover surface (`CSCollapsibleModel.showsTriggerHover(hovered:)` / `csCollapsibleShowsTriggerHover(hovered)`), and `aria-controls` only when open (`CSCollapsibleModel.ariaControls` / `csCollapsibleAriaControls`), matching `.cs-collapsible`, `.cs-collapsible__trigger`, `.cs-collapsible__trigger:hover`, and `.cs-collapsible__label` in `base/collections.css`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style `Collapsible` frame, trigger, hover surface, chevron, and panel (`.cs-collapsible`, `.cs-collapsible__trigger`, `.cs-collapsible__trigger:hover`, `.cs-collapsible__label`, `.cs-collapsible__chevron`, `.cs-collapsible__trigger[aria-expanded="true"] .cs-collapsible__chevron`, `.cs-collapsible__panel`, `.cs-collapsible__panel > :first-child`, `.cs-collapsible__panel > :last-child`). Re-read `base/collections.css` lines 67–76 and `components/data/Collapsible.jsx` before editing. Do not invent collapsible dimensions or typography.
+Style `Collapsible` chevron rotation and panel padding, typography, and region semantics (`.cs-collapsible__chevron`, `.cs-collapsible__trigger[aria-expanded="true"] .cs-collapsible__chevron`, `.cs-collapsible__panel`, `.cs-collapsible__panel > :first-child`, `.cs-collapsible__panel > :last-child`). Re-read `base/collections.css` lines 72–76 and `components/data/Collapsible.jsx` before editing. Do not invent collapsible chevron or panel styles.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

@@ -420,9 +420,18 @@ class CsConfidenceMeter extends StatelessWidget {
   }
 }
 
-class CsCollapsible extends StatelessWidget {
-  const CsCollapsible({super.key, required this.title, required this.content, required this.expandedLabel, required this.collapsedLabel, required this.isOpen, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact});
+double csCollapsibleBorderWidth() => 1;
+double csCollapsibleTriggerGap() => 12;
+double csCollapsibleTriggerPaddingY() => 12;
+double csCollapsibleTriggerPaddingX() => 16;
+bool csCollapsibleShowsTriggerHover(bool hovered) => hovered;
+String csCollapsibleResolvedLabel(String? title, String? trigger) => title ?? trigger ?? '';
+String? csCollapsibleAriaControls(String panelId, bool isOpen) => isOpen ? panelId : null;
+
+class CsCollapsible extends StatefulWidget {
+  const CsCollapsible({super.key, required this.title, this.trigger, required this.content, required this.expandedLabel, required this.collapsedLabel, required this.isOpen, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact});
   final String title;
+  final String? trigger;
   final String content;
   final String expandedLabel;
   final String collapsedLabel;
@@ -433,22 +442,61 @@ class CsCollapsible extends StatelessWidget {
   final bool compact;
 
   @override
+  State<CsCollapsible> createState() => _CsCollapsibleState();
+}
+
+class _CsCollapsibleState extends State<CsCollapsible> {
+  var hovered = false;
+
+  @override
   Widget build(BuildContext context) {
-    final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ConstrainedBox(
-          constraints: BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)),
-          child: CsOwnFocus(builder: (node, claim) => TextButton(
-            focusNode: node,
-            onPressed: () { claim(); onOpenChange(!isOpen); },
-            child: Align(alignment: Alignment.centerLeft, child: Text(title, style: TextStyle(color: csColor(pack.colorTextPrimary)))),
-          )),
+    final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
+    final label = csCollapsibleResolvedLabel(widget.title.isEmpty && widget.trigger != null ? null : widget.title, widget.trigger);
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: csColor(pack.colorSurfacePanel),
+          borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
+          border: Border.all(color: csColor(pack.colorBorderDefault), width: csCollapsibleBorderWidth()),
         ),
-        Semantics(label: isOpen ? expandedLabel : collapsedLabel, child: const SizedBox.shrink()),
-        if (isOpen) Text(content, style: TextStyle(color: csColor(pack.colorTextMuted))),
-      ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            MouseRegion(
+              onEnter: (_) => setState(() => hovered = true),
+              onExit: (_) => setState(() => hovered = false),
+              child: ColoredBox(
+                color: csCollapsibleShowsTriggerHover(hovered) ? csColor(pack.colorSurfaceRaised) : Colors.transparent,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)),
+                  child: CsOwnFocus(builder: (node, claim) => TextButton(
+                    focusNode: node,
+                    onPressed: () { claim(); widget.onOpenChange(!widget.isOpen); },
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: csCollapsibleTriggerPaddingX(), vertical: csCollapsibleTriggerPaddingY()),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              label,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(color: csColor(pack.colorTextPrimary), fontSize: csPoints(pack.fontSizeSm), fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                          SizedBox(width: csCollapsibleTriggerGap()),
+                        ],
+                      ),
+                    ),
+                  )),
+                ),
+              ),
+            ),
+            Semantics(label: widget.isOpen ? widget.expandedLabel : widget.collapsedLabel, child: const SizedBox.shrink()),
+            if (widget.isOpen) Text(widget.content, style: TextStyle(color: csColor(pack.colorTextMuted))),
+          ],
+        ),
+      ),
     );
   }
 }

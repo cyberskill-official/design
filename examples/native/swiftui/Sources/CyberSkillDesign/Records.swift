@@ -724,19 +724,32 @@ public struct CSConfidenceMeter: View {
   }
 }
 
+public enum CSCollapsibleModel {
+  public static func borderWidth() -> Double { 1 }
+  public static func triggerGap() -> Double { 12 }
+  public static func triggerPaddingY() -> Double { 12 }
+  public static func triggerPaddingX() -> Double { 16 }
+  public static func showsTriggerHover(hovered: Bool) -> Bool { hovered }
+  public static func resolvedLabel(title: String?, trigger: String?) -> String { title ?? trigger ?? "" }
+  public static func ariaControls(panelId: String, isOpen: Bool) -> String? { isOpen ? panelId : nil }
+}
+
 public struct CSCollapsible: View {
   public let title: String
+  public let trigger: String?
   public let content: String
   public let expandedLabel: String
   public let collapsedLabel: String
   @Binding var isOpen: Bool
+  @State private var hovered = false
   let dark: Bool
   let highContrast: Bool
   let compact: Bool
   let onOpenChange: (Bool) -> Void
 
-  public init(title: String, content: String, expandedLabel: String, collapsedLabel: String, isOpen: Binding<Bool>, dark: Bool, highContrast: Bool, compact: Bool, onOpenChange: @escaping (Bool) -> Void = { _ in }) {
+  public init(title: String, trigger: String? = nil, content: String, expandedLabel: String, collapsedLabel: String, isOpen: Binding<Bool>, dark: Bool, highContrast: Bool, compact: Bool, onOpenChange: @escaping (Bool) -> Void = { _ in }) {
     self.title = title
+    self.trigger = trigger
     self.content = content
     self.expandedLabel = expandedLabel
     self.collapsedLabel = collapsedLabel
@@ -749,17 +762,28 @@ public struct CSCollapsible: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    VStack(alignment: .leading, spacing: 8) {
-      CSTriggerButton(title) {
+    let label = CSCollapsibleModel.resolvedLabel(title: title.isEmpty && trigger != nil ? nil : title, trigger: trigger)
+    let showHover = CSCollapsibleModel.showsTriggerHover(hovered: hovered)
+    VStack(alignment: .leading, spacing: 0) {
+      CSTriggerButton(label) {
         isOpen.toggle()
         onOpenChange(isOpen)
       }
+      .font(.system(size: pack.fontSizeSm.points, weight: .semibold))
+      .foregroundStyle(pack.primaryTextColor)
+      .padding(.vertical, CGFloat(CSCollapsibleModel.triggerPaddingY()))
+      .padding(.horizontal, CGFloat(CSCollapsibleModel.triggerPaddingX()))
       .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
+      .background(showHover ? pack.colorSurfaceRaised.color : Color.clear)
+      .onHover { inside in hovered = inside }
       .accessibilityValue(Text(isOpen ? expandedLabel : collapsedLabel))
       if isOpen {
         Text(content).foregroundStyle(pack.mutedColor)
       }
     }
+    .background(pack.colorSurfacePanel.color, in: RoundedRectangle(cornerRadius: pack.radiusMd.points))
+    .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
+    .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(pack.colorBorderDefault.color, lineWidth: CGFloat(CSCollapsibleModel.borderWidth())))
   }
 }
 
