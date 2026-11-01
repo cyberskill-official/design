@@ -11,7 +11,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
 - Previous checkpoint: `8662697d3935c1a62048ad269d83dda83e428731`, with the hash note in `fd0ae50a`
-- Checkpoint commit hash: `PENDING`
+- Checkpoint commit hash: `3e02865f139100b3a321695f0415576a4ef2077d`
 
 The Cursor canvas is outside this git repo:
 
