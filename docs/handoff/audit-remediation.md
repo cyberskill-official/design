@@ -11,7 +11,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: `62965e6615fc4c6dea923600603af20747f0e197` (`test(audit): align DTCG roundtrip, token declaration, base token export, theme mirror, element token gate, and health chrome assertions with F1/F5/F9 remediation`)
 - Previous checkpoint: `8e521de02b962bfd6bcb69705004ba0ec0d6838b`, with the hash note in `74ed9bce`
-- GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
+- GitHub Actions push workflows re-enabled (`Design System Gates` `316944477`, `native-validation` `377620668`, `native-store` `318755963`, `OpenSSF Scorecard` `330342703`)
 
 The Cursor canvas is outside this git repo:
 
@@ -56,7 +56,8 @@ Last run after styling `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `Navigat
 
 Aligned the 6 token, theme, and health-chrome contract tests and fixtures (`_audit/ci/test-dtcg-roundtrip.mjs`, `_audit/ci/test-token-declarations.mjs`, `_audit/ci/test-base-token-exports.mjs`, `_audit/ci/test-health-chrome-browser.mjs`, `_audit/ci/fixtures/a01-theme-mirrors/component-tokens.css`, and `_audit/ci/test-element-token-gates-browser.mjs`) with the F1/F5/F9 remediation changes from `00c349ca77bcffa98f1c1845731cf91cc5385df7`: updated `_audit/ci/test-dtcg-roundtrip.mjs`, `_audit/ci/test-token-declarations.mjs`, `_audit/ci/test-base-token-exports.mjs`, and `_audit/ci/fixtures/a01-theme-mirrors/component-tokens.css` for F9 (where kebab names own the concrete values and camelCase names read `var(--kebab)` with shared typed DTCG values); updated `_audit/ci/test-element-token-gates-browser.mjs` for F1 (where `choose()` in `tokens/elements.css` has no space between `var(--_cs-light, ...)` and `var(--_cs-dark, ...)`); and updated `_audit/ci/test-health-chrome-browser.mjs` for the 44th gate (`Component state paint`, 42 hard gates + 2 advisory gates) added in `_audit/run.html`.
 
-- `npm run test:dtcg-profile`, `npm run test:token-declarations`, `npm run test:base-token-exports`, `npm run test:theme-palette-projection`, `npm run test:element-token-gates`, `npm run test:health-chrome`, and `npm run build:check` passed.
+- `npm run test:dtcg-profile`, `npm run test:token-declarations`, `npm run test:base-token-exports`, `npm run test:theme-palette-projection`, `npm run test:element-token-gates`, `npm run test:health-chrome`, `npm run build:check`, and 41/41 non-pixel hard gates + 2/2 advisory gates on `_audit/run.html` passed locally (`Pixel CI` passed on `ubuntu-24.04` in `Design System Gates` run `41286519158` job `124788817760`).
+- Re-enabled all 4 GitHub Actions push workflows (`316944477`, `377620668`, `318755963`, `330342703`).
 
 ## Next concrete step
 
