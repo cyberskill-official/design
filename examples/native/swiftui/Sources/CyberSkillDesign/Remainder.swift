@@ -2252,11 +2252,41 @@ public struct CSInputGroup: View {
   }
 }
 
+public enum CSItemModel {
+  public static func gap() -> Double { 14 }
+  public static func paddingX() -> Double { 14 }
+  public static func borderWidth() -> Double { 1 }
+}
+
 public struct CSItem: View {
   public let title: String
   public let subtitle: String
-  public init(title: String, subtitle: String = "") { self.title = title; self.subtitle = subtitle }
-  public var body: some View { VStack(alignment: .leading) { Text(title); if !subtitle.isEmpty { Text(subtitle) } }.frame(minHeight: 44, alignment: .leading) }
+  let dark: Bool
+  let highContrast: Bool
+  let compact: Bool
+  public init(title: String, subtitle: String = "", dark: Bool = false, highContrast: Bool = false, compact: Bool = false) {
+    self.title = title
+    self.subtitle = subtitle
+    self.dark = dark
+    self.highContrast = highContrast
+    self.compact = compact
+  }
+  public var body: some View {
+    let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
+    HStack(alignment: .center, spacing: CGFloat(CSItemModel.gap())) {
+      VStack(alignment: .leading) {
+        Text(title).foregroundStyle(pack.primaryTextColor)
+        if !subtitle.isEmpty { Text(subtitle).foregroundStyle(pack.mutedColor) }
+      }
+      .multilineTextAlignment(.leading)
+    }
+    .padding(.vertical, pack.space3.points)
+    .padding(.horizontal, CGFloat(CSItemModel.paddingX()))
+    .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
+    .background(pack.colorSurfacePanel.color, in: RoundedRectangle(cornerRadius: pack.radiusMd.points))
+    .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
+    .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(Color.clear, lineWidth: CGFloat(CSItemModel.borderWidth())))
+  }
 }
 
 public struct CSLocaleProvider<Content: View>: View {

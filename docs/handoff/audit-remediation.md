@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the list-item-slots checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the item-chrome checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `ca5b5cf965d8c2751dece89723fd8b15c2d33bea`, with the hash note in `6aaa7c19`
-- Checkpoint commit hash: `3bcd6f980c9de537abe622ad3fbddd00cf359412`
+- Previous checkpoint: `3bcd6f980c9de537abe622ad3fbddd00cf359412`, with the hash note in `d720ec90`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the list item slots: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the item chrome: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-List items (`CSList` / `CsList`) now style the accent lead slot (`var(--cs-color-text-accent)`, shown whenever `lead != nil`), the flex-expanding main column (`flex: 1`) with a 1px vertical gap (`CSListModel.mainGap()` / `csListMainGap()`), semibold `sm` title (`var(--cs-font-size-sm)`), muted `xs` subtitle (`var(--cs-font-size-xs)`), and muted `sm` trailing slot (`var(--cs-font-size-sm)`), matching `.cs-list__lead`, `.cs-list__main`, `.cs-list__title`, `.cs-list__sub`, and `.cs-list__trail` in `base/collections.css`.
+The `Item` row (`CSItem` / `CsItem`) now renders centered flex alignment, a 14px gap (`CSItemModel.gap()` / `csItemGap()`), `var(--cs-space-3)` by `14px` (`CSItemModel.paddingX()` / `csItemPaddingX()`) padding, medium corner radius (`var(--cs-radius-md)`), primary text color, a 1px (`CSItemModel.borderWidth()` / `csItemBorderWidth()`) transparent border, and the panel surface background (`var(--cs-color-surface-panel)`), matching `.cs-item { display: flex; align-items: center; gap: 14px; padding: var(--cs-space-3) 14px; border-radius: var(--cs-radius-md); color: var(--cs-color-text-primary); text-align: start; text-decoration: none; border: 1px solid transparent; background: var(--cs-color-surface-panel); }` in `base/collections.css`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style the `Item` row chrome (`.cs-item`) with centered flex alignment, a 14px gap, `var(--cs-space-3)` by `14px` padding, medium corner radius, primary text color, a 1px transparent border, and the panel surface background. The next rule in `base/collections.css` is `.cs-item { display: flex; align-items: center; gap: 14px; padding: var(--cs-space-3) 14px; border-radius: var(--cs-radius-md); color: var(--cs-color-text-primary); text-align: start; text-decoration: none; border: 1px solid transparent; background: var(--cs-color-surface-panel); }`. Re-read that rule and `components/data/Item.jsx` before editing. Do not invent item padding or gaps.
+Style interactive `Item` rows (`.cs-item--interactive`), hover surface and border (`:hover`), and focus ring (`:focus-visible`). The next rules in `base/collections.css` are `.cs-item--interactive { cursor: pointer; font: inherit; inline-size: 100%; }`, `button.cs-item--interactive { border: 1px solid transparent; background: var(--cs-color-surface-panel); }`, `@media (hover: hover) { .cs-item--interactive:hover { background: var(--cs-color-surface-raised); border-color: var(--cs-color-border-default); } }`, and `.cs-item--interactive:focus-visible { outline: 2px solid var(--cs-color-text-primary); outline-offset: 2px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }`. Re-read those rules and `components/data/Item.jsx` before editing. Do not invent hover or focus rings.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

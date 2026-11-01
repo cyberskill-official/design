@@ -1019,7 +1019,18 @@ fun csInputCopy(key: String, language: String?): String {
     }
   }
 }
-@Composable fun CsItem(title: String, subtitle: String = "", modifier: Modifier = Modifier) { Column(modifier) { Text(title); if (subtitle.isNotEmpty()) Text(subtitle) } }
+fun csItemGap() = 14.dp
+fun csItemPaddingX() = 14.dp
+fun csItemBorderWidth() = 1.dp
+@Composable fun CsItem(title: String, subtitle: String = "", modifier: Modifier = Modifier, dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false) {
+  val pack = csModePack(dark, highContrast, compact)
+  Row(modifier.fillMaxWidth().clip(RoundedCornerShape(pack.radiusMd.toDp())).background(pack.colorSurfacePanel.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).border(csItemBorderWidth(), Color.Transparent, RoundedCornerShape(pack.radiusMd.toDp())).padding(horizontal = csItemPaddingX(), vertical = pack.space3.toDp()), horizontalArrangement = Arrangement.spacedBy(csItemGap()), verticalAlignment = Alignment.CenterVertically) {
+    Column {
+      Text(title, color = pack.colorTextPrimary.toComposeColor())
+      if (subtitle.isNotEmpty()) Text(subtitle, color = pack.colorTextMuted.toComposeColor())
+    }
+  }
+}
 @Composable fun CsLocaleProvider(language: String, modifier: Modifier = Modifier, content: @Composable () -> Unit) { Column(modifier) { content() } }
 @Composable fun CsLumiAvatar(alt: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) { CsIcon(name = "sparkle", label = alt, dark = dark, highContrast = highContrast, compact = compact, modifier = modifier) }
 @Composable fun CsMasonry(columns: Int, modifier: Modifier = Modifier, content: @Composable () -> Unit) { Column(modifier) { content() } }

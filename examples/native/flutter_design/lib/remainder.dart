@@ -1467,12 +1467,37 @@ class CsInputGroup extends StatelessWidget {
   }
 }
 
+double csItemGap() => 14;
+double csItemPaddingX() => 14;
+double csItemBorderWidth() => 1;
+
 class CsItem extends StatelessWidget {
-  const CsItem({super.key, required this.title, this.subtitle = ''});
+  const CsItem({super.key, required this.title, this.subtitle = '', this.dark = false, this.highContrast = false, this.compact = false});
   final String title;
   final String subtitle;
+  final bool dark;
+  final bool highContrast;
+  final bool compact;
   @override
-  Widget build(BuildContext context) => Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(title), if (subtitle.isNotEmpty) Text(subtitle)]);
+  Widget build(BuildContext context) {
+    final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: csColor(pack.colorSurfacePanel),
+        borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
+        border: Border.all(color: Colors.transparent, width: csItemBorderWidth()),
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: csItemPaddingX(), vertical: csPoints(pack.space3)),
+        child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(title, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextPrimary))),
+            if (subtitle.isNotEmpty) Text(subtitle, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextMuted))),
+          ]),
+        ]),
+      ),
+    );
+  }
 }
 
 class CsLocaleProvider extends StatelessWidget {
