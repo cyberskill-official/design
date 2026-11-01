@@ -46,6 +46,21 @@ String csCommandFormat(int count, String? language) {
 }
 bool csCommandClosesOnBackdrop() => true;
 int csCommandStops(int resultCount) => 1 + (resultCount < 0 ? 0 : resultCount);
+const csCommandScrimRed = 31;
+const csCommandScrimGreen = 19;
+const csCommandScrimBlue = 11;
+const csCommandScrimAlpha = 0.42;
+const csCommandTopOffsetRatio = 0.12;
+const csCommandViewportWidthRatio = 0.92;
+double csCommandMaxWidth() => 560;
+double csCommandBorderWidth() => 1;
+double csCommandSearchGap() => 10;
+double csCommandSearchPaddingY() => 14;
+double csCommandSearchPaddingX() => 18;
+double csCommandSearchIconSize() => 18;
+double csCommandSearchOutlineWidth() => 2;
+double csCommandSearchOutlineOffset() => -2;
+bool csCommandShowsSearchOutline(bool focused) => focused;
 String csCommandStatus(int count, String? language) {
   if (count == 0) return csCommandCopy('empty', language);
   final template = csCommandCopy(count == 1 ? 'oneResult' : 'results', language);
@@ -208,6 +223,7 @@ class CsCommandPalette extends StatefulWidget {
 
 class _CsCommandPaletteState extends State<CsCommandPalette> {
   var trap = 0;
+  var searchFocused = false;
 
   @override
   Widget build(BuildContext context) {
@@ -217,6 +233,7 @@ class _CsCommandPaletteState extends State<CsCommandPalette> {
     final filtered = csCommandFilter(widget.groups, widget.query);
     final resultCount = filtered.fold<int>(0, (count, group) => count + group.items.length);
     final stops = csCommandStops(resultCount);
+    final scrimColor = Color.fromARGB(255, csCommandScrimRed, csCommandScrimGreen, csCommandScrimBlue).withOpacity(csCommandScrimAlpha);
     return Semantics(
       namesRoute: true,
       label: csCommandCopy('aria', locale),
@@ -234,25 +251,94 @@ class _CsCommandPaletteState extends State<CsCommandPalette> {
           setState(() => trap = next);
           return KeyEventResult.handled;
         },
-        child: Stack(children: [
-          if (csCommandClosesOnBackdrop()) Positioned.fill(child: GestureDetector(onTap: () { widget.onQuery(''); widget.onClose(); }, child: const ColoredBox(color: Color(0x6B000000)))),
-          Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Stack(
+          alignment: Alignment.topCenter,
           children: [
-            Row(children: [
-              Expanded(child: CsOwnFocus(builder: (node, claim) => TextField(focusNode: node, controller: TextEditingController(text: widget.query), onChanged: (next) { claim(); widget.onQuery(next); }, decoration: InputDecoration(hintText: hint.isEmpty ? null : hint)))),
-              Text(csCommandCopy('esc', locale)),
-            ]),
-            Semantics(liveRegion: true, child: Text(csCommandStatus(resultCount, locale), style: TextStyle(color: csColor(pack.colorTextMuted)))),
-            for (final group in filtered)
-              if (group.items.isNotEmpty) ...[
-                if (group.title.isNotEmpty) Text(group.title, style: TextStyle(color: csColor(pack.colorTextMuted))),
-                for (final item in group.items)
-                  CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onSelect(item); widget.onQuery(''); widget.onClose(); }, child: Text(item))),
-              ],
+            if (csCommandClosesOnBackdrop())
+              Positioned.fill(
+                child: GestureDetector(
+                  onTap: () {
+                    widget.onQuery('');
+                    widget.onClose();
+                  },
+                  child: ColoredBox(color: scrimColor),
+                ),
+              ),
+            ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: csCommandMaxWidth()),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: csColor(pack.colorSurfacePanel),
+                  border: Border.all(color: csColor(pack.colorBorderDefault), width: csCommandBorderWidth()),
+                  borderRadius: BorderRadius.circular(csPoints(pack.radiusLg)),
+                  boxShadow: const [BoxShadow(color: Color(0x3D000000), blurRadius: 24, offset: Offset(0, 12))],
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(csPoints(pack.radiusLg)),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      DecoratedBox(
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(color: csColor(pack.colorBorderDefault), width: csCommandBorderWidth()),
+                            top: csCommandShowsSearchOutline(searchFocused) ? BorderSide(color: csColor(pack.colorTextPrimary), width: csCommandSearchOutlineWidth()) : BorderSide.none,
+                            left: csCommandShowsSearchOutline(searchFocused) ? BorderSide(color: csColor(pack.colorTextPrimary), width: csCommandSearchOutlineWidth()) : BorderSide.none,
+                            right: csCommandShowsSearchOutline(searchFocused) ? BorderSide(color: csColor(pack.colorTextPrimary), width: csCommandSearchOutlineWidth()) : BorderSide.none,
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: csCommandSearchPaddingX(), vertical: csCommandSearchPaddingY()),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: csCommandSearchIconSize(),
+                                height: csCommandSearchIconSize(),
+                                child: CsIcon(name: 'search', label: '', dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact),
+                              ),
+                              SizedBox(width: csCommandSearchGap()),
+                              Expanded(
+                                child: CsOwnFocus(
+                                  builder: (node, claim) => Focus(
+                                    onFocusChange: (focused) => setState(() => searchFocused = focused),
+                                    child: TextField(
+                                      focusNode: node,
+                                      controller: TextEditingController(text: widget.query),
+                                      style: TextStyle(color: csColor(pack.colorTextPrimary), fontSize: csPoints(pack.fontSizeMd)),
+                                      onChanged: (next) {
+                                        claim();
+                                        widget.onQuery(next);
+                                      },
+                                      decoration: InputDecoration(
+                                        hintText: hint.isEmpty ? null : hint,
+                                        border: InputBorder.none,
+                                        isDense: true,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: csCommandSearchGap()),
+                              CsKbd(csCommandCopy('esc', locale), dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Semantics(liveRegion: true, child: Text(csCommandStatus(resultCount, locale), style: TextStyle(color: csColor(pack.colorTextMuted)))),
+                      for (final group in filtered)
+                        if (group.items.isNotEmpty) ...[
+                          if (group.title.isNotEmpty) Text(group.title, style: TextStyle(color: csColor(pack.colorTextMuted))),
+                          for (final item in group.items)
+                            CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onSelect(item); widget.onQuery(''); widget.onClose(); }, child: Text(item))),
+                        ],
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
-          ),
-        ]),
+        ),
       ),
     );
   }

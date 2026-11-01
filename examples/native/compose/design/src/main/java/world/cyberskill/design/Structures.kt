@@ -60,6 +60,21 @@ fun csCommandFormat(count: Int, language: String?): String {
 }
 fun csCommandClosesOnBackdrop() = true
 fun csCommandStops(resultCount: Int) = 1 + maxOf(0, resultCount)
+const val csCommandScrimRed = 31
+const val csCommandScrimGreen = 19
+const val csCommandScrimBlue = 11
+const val csCommandScrimAlpha = 0.42f
+const val csCommandTopOffsetRatio = 0.12f
+const val csCommandViewportWidthRatio = 0.92f
+fun csCommandMaxWidth() = 560.dp
+fun csCommandBorderWidth() = 1.dp
+fun csCommandSearchGap() = 10.dp
+fun csCommandSearchPaddingY() = 14.dp
+fun csCommandSearchPaddingX() = 18.dp
+fun csCommandSearchIconSize() = 18.dp
+fun csCommandSearchOutlineWidth() = 2.dp
+fun csCommandSearchOutlineOffset() = (-2).dp
+fun csCommandShowsSearchOutline(focused: Boolean) = focused
 fun csCommandStatus(count: Int, language: String?): String {
   if (count == 0) return csCommandCopy("empty", language)
   val template = csCommandCopy(if (count == 1) "oneResult" else "results", language)
@@ -204,33 +219,88 @@ fun CsCommandPalette(
   val handle = rememberFocusHandle("command-query")
   val stops = csCommandStops(resultCount)
   var trap by remember { mutableIntStateOf(0) }
-  Box(modifier) {
-    if (csCommandClosesOnBackdrop()) Box(Modifier.matchParentSize().clickable { onQuery(""); onClose() })
-  Column(Modifier.semantics { contentDescription = csCommandCopy("aria", locale) }.onPreviewKeyEvent { event ->
-    if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
-    if (event.key == Key.Escape) { onQuery(""); onClose(); return@onPreviewKeyEvent true }
-    if (event.key != Key.Tab) return@onPreviewKeyEvent false
-    val next = csFocusNext(trap, stops, event.isShiftPressed, trap >= 0) ?: return@onPreviewKeyEvent false
-    trap = if (csModalPullBack(next >= 0)) 0 else next
-    true
-  }) {
-    Row {
-      Box(Modifier.weight(1f)) {
-        if (query.isEmpty() && hint.isNotEmpty()) Text(hint, color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.clearAndSetSemantics {})
-        androidx.compose.foundation.text.BasicTextField(value = query, onValueChange = { next -> if (!csControlEnabled()) return@BasicTextField; handle.claim(); onQuery(next) }, enabled = csControlEnabled(), modifier = Modifier.fillMaxWidth().focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.semantics { contentDescription = hint })
-      }
-      Text(csCommandCopy("esc", locale), color = pack.colorTextMuted.toComposeColor())
+  var searchFocused by remember { mutableStateOf(false) }
+  val scrimColor = Color(csCommandScrimRed / 255f, csCommandScrimGreen / 255f, csCommandScrimBlue / 255f, csCommandScrimAlpha)
+  val shape = RoundedCornerShape(pack.radiusLg.toDp())
+  Box(modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
+    if (csCommandClosesOnBackdrop()) {
+      Box(
+        Modifier
+          .matchParentSize()
+          .zIndex(pack.depthModal.toFloat())
+          .background(scrimColor)
+          .clickable { onQuery(""); onClose() }
+          .clearAndSetSemantics {}
+      )
     }
-    Text(csCommandStatus(resultCount, locale), color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite })
-    filtered.forEach { group ->
-      if (group.items.isNotEmpty()) {
-        if (group.title.isNotEmpty()) Text(group.title, color = pack.colorTextMuted.toComposeColor())
-        group.items.forEach { item ->
-          CsTriggerButton(title = item, onClick = { onSelect(item); onQuery(""); onClose() }, modifier = Modifier.fillMaxWidth().minimumInteractiveComponentSize()) { Text(item) }
+    Column(
+      Modifier
+        .zIndex(pack.depthModal.toFloat() + 1f)
+        .widthIn(max = csCommandMaxWidth())
+        .fillMaxWidth(csCommandViewportWidthRatio)
+        .background(pack.colorSurfacePanel.toComposeColor(), shape)
+        .border(csCommandBorderWidth(), pack.colorBorderDefault.toComposeColor(), shape)
+        .semantics { contentDescription = csCommandCopy("aria", locale) }
+        .onPreviewKeyEvent { event ->
+          if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
+          if (event.key == Key.Escape) { onQuery(""); onClose(); return@onPreviewKeyEvent true }
+          if (event.key != Key.Tab) return@onPreviewKeyEvent false
+          val next = csFocusNext(trap, stops, event.isShiftPressed, trap >= 0) ?: return@onPreviewKeyEvent false
+          trap = if (csModalPullBack(next >= 0)) 0 else next
+          true
+        }
+    ) {
+      Row(
+        Modifier
+          .fillMaxWidth()
+          .then(if (csCommandShowsSearchOutline(searchFocused)) Modifier.border(csCommandSearchOutlineWidth(), pack.colorTextPrimary.toComposeColor()) else Modifier)
+          .padding(horizontal = csCommandSearchPaddingX(), vertical = csCommandSearchPaddingY()),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(csCommandSearchGap()),
+      ) {
+        Box(Modifier.size(csCommandSearchIconSize())) {
+          CsIcon(name = "search", label = "", dark = dark, highContrast = highContrast, compact = compact, modifier = Modifier.clearAndSetSemantics {})
+        }
+        Box(Modifier.weight(1f)) {
+          if (query.isEmpty() && hint.isNotEmpty()) {
+            Text(
+              hint,
+              color = pack.colorTextMuted.toComposeColor(),
+              fontSize = pack.fontSizeMd.toDp().value.sp,
+              modifier = Modifier.clearAndSetSemantics {},
+            )
+          }
+          androidx.compose.foundation.text.BasicTextField(
+            value = query,
+            onValueChange = { next -> if (!csControlEnabled()) return@BasicTextField; handle.claim(); onQuery(next) },
+            enabled = csControlEnabled(),
+            textStyle = androidx.compose.ui.text.TextStyle(
+              color = pack.colorTextPrimary.toComposeColor(),
+              fontSize = pack.fontSizeMd.toDp().value.sp,
+            ),
+            modifier = Modifier
+              .fillMaxWidth()
+              .focusRequester(handle.requester)
+              .onFocusChanged {
+                searchFocused = it.isFocused
+                if (it.isFocused) handle.claim()
+              }
+              .semantics { contentDescription = hint },
+          )
+        }
+        CsKbd(keys = csCommandCopy("esc", locale), dark = dark, highContrast = highContrast, compact = compact)
+      }
+      Box(Modifier.fillMaxWidth().height(csCommandBorderWidth()).background(pack.colorBorderDefault.toComposeColor()))
+      Text(csCommandStatus(resultCount, locale), color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite })
+      filtered.forEach { group ->
+        if (group.items.isNotEmpty()) {
+          if (group.title.isNotEmpty()) Text(group.title, color = pack.colorTextMuted.toComposeColor())
+          group.items.forEach { item ->
+            CsTriggerButton(title = item, onClick = { onSelect(item); onQuery(""); onClose() }, modifier = Modifier.fillMaxWidth().minimumInteractiveComponentSize()) { Text(item) }
+          }
         }
       }
     }
-  }
   }
 }
 

@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the drawer-header-body-footer checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the cmdk-scrim-frame-search checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `06694064388858c321effdd70e047b8a60a39581`, with the hash note in `5900bfbe`
-- Checkpoint commit hash: `8fbb506b62fc5dc2533593c0720a5be3d20a8671`
+- Previous checkpoint: `8fbb506b62fc5dc2533593c0720a5be3d20a8671`, with the hash note in `198b955b`
 - Temporarily disabled GitHub Actions push workflows (re-enable with `gh workflow enable` when done): `Design System Gates` (`316944477`), `native-validation` (`377620668`), `native-store` (`318755963`), `OpenSSF Scorecard` (`330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -49,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the drawer header, body, and footer styles: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the command palette scrim, dialog frame, and search bar styles: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-`Drawer` (`CSDrawer` / `CsDrawer`) now styles the header with a `12px` gap (`CSDrawerModel.headerGap()` / `csDrawerHeaderGap()`), `16px 20px` padding (`CSDrawerModel.headerPaddingY()`, `headerPaddingX()` / `csDrawerHeaderPaddingY()`, `csDrawerHeaderPaddingX()`), `1px` bottom border, `--cs-color-surface-panel` background, bold (`700`) `--cs-text-h4` title (`CSDrawerModel.titleFontWeight()` / `csDrawerTitleFontWeight()`), and a `4px` padded muted close button with `20px` icon and `--cs-color-semantic-danger-text` hover (`CSDrawerModel.closePadding()`, `closeIconSize()`, `closeHovered(hovered:)` / `csDrawerClosePadding()`, `csDrawerCloseIconSize()`, `csDrawerCloseHovered(hovered)`), plus a scrollable `20px` padded `flex: 1` body (`CSDrawerModel.bodyPadding()` / `csDrawerBodyPadding()`) and `14px 20px` padded end-aligned footer with `1px` top border and `10px` gap (`CSDrawerModel.footerPaddingY()`, `footerPaddingX()`, `footerGap()` / `csDrawerFooterPaddingY()`, `csDrawerFooterPaddingX()`, `csDrawerFooterGap()`), matching `.cs-drawer__header`, `.cs-drawer__title`, `.cs-drawer__close`, `.cs-drawer__close:hover`, `.cs-drawer__body`, and `.cs-drawer__footer` in `base/shell.css` and `components/overlays/Drawer.jsx`.
+`CommandPalette` (`CSCommandPalette` / `CsCommandPalette`) now uses an `rgba(31, 19, 11, 0.42)` scrim (`CSCommandFilter.scrimRed`, `scrimGreen`, `scrimBlue`, `scrimAlpha` / `csCommandScrimRed`, `csCommandScrimGreen`, `csCommandScrimBlue`, `csCommandScrimAlpha`) at modal depth with `12vh` top offset (`CSCommandFilter.topOffsetRatio` / `csCommandTopOffsetRatio`), `min(560px, 92vw)` dialog width (`CSCommandFilter.maxWidth()`, `viewportWidthRatio` / `csCommandMaxWidth()`, `csCommandViewportWidthRatio`), `--cs-color-surface-panel` background, `1px` default border (`CSCommandFilter.borderWidth()` / `csCommandBorderWidth()`), `--cs-radius-lg`, `--cs-shadow-xl`, clipped overflow, and a `14px 18px` search row (`CSCommandFilter.searchPaddingY()`, `searchPaddingX()`, `searchGap()` / `csCommandSearchPaddingY()`, `csCommandSearchPaddingX()`, `csCommandSearchGap()`) with `1px` bottom border, `18px` muted search icon (`CSCommandFilter.searchIconSize()` / `csCommandSearchIconSize()`), `--cs-font-size-md` primary input, `Esc` kbd badge, and `2px solid var(--cs-color-text-primary)` (`-2px` offset) focus-within outline (`CSCommandFilter.searchOutlineWidth()`, `searchOutlineOffset()`, `showsSearchOutline(focused:)` / `csCommandSearchOutlineWidth()`, `csCommandSearchOutlineOffset()`, `csCommandShowsSearchOutline(focused)`), matching `.cs-cmdk-scrim`, `.cs-cmdk`, `.cs-cmdk__search`, `.cs-cmdk__search svg`, `.cs-cmdk__search input`, and `.cs-cmdk__search:focus-within` in `base/shell.css` and `components/navigation/CommandPalette.jsx`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style `CommandPalette` (`CSCommandPalette` / `CsCommandPalette`) scrim, dialog frame, and search bar in `base/shell.css` lines 43–53 and `components/navigation/CommandPalette.jsx` lines 45–58: `rgba(31, 19, 11, 0.42)` scrim at modal depth (`--cs-depth-modal`) with `12vh` top padding, `min(560px, 92vw)` dialog width, `--cs-color-surface-panel` background, `1px` default border, `--cs-radius-lg`, `--cs-shadow-xl`, clipped overflow, and a `14px 18px` search row with `10px` gap, `1px` bottom border, `18px` muted search icon, `--cs-font-size-md` primary input, `Esc` kbd badge, and `2px solid var(--cs-color-text-primary)` (`-2px` offset) focus-within ring. Re-read `base/shell.css` lines 43–59 and `components/navigation/CommandPalette.jsx` before editing.
+Style `CommandPalette` (`CSCommandPalette` / `CsCommandPalette`) list, status, group label, and items in `base/shell.css` lines 54–59 and `components/navigation/CommandPalette.jsx` lines 59–77: `340px` max-height scrollable list with `8px` padding and `2px` gap, `8px 10px` `--cs-font-size-sm` `--cs-color-text-primary` status row, `8px 10px 2px` uppercase `--cs-font-size-xs` `--cs-letter-spacing-caps` muted group label, and `10px 12px` `--cs-radius-md` `--cs-font-size-sm` items with `11px` gap, `--cs-color-surface-raised` hover/selected fill, and `margin-inline-start: auto` shortcut kbd. Re-read `base/shell.css` lines 54–59 and `components/navigation/CommandPalette.jsx` before editing.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

@@ -40,6 +40,21 @@ public enum CSCommandFilter {
   }
   public static func closesOnBackdrop() -> Bool { true }
   public static func stops(resultCount: Int) -> Int { 1 + max(0, resultCount) }
+  public static let scrimRed = 31
+  public static let scrimGreen = 19
+  public static let scrimBlue = 11
+  public static let scrimAlpha = 0.42
+  public static let topOffsetRatio = 0.12
+  public static let viewportWidthRatio = 0.92
+  public static func maxWidth() -> Double { 560 }
+  public static func borderWidth() -> Double { 1 }
+  public static func searchGap() -> Double { 10 }
+  public static func searchPaddingY() -> Double { 14 }
+  public static func searchPaddingX() -> Double { 18 }
+  public static func searchIconSize() -> Double { 18 }
+  public static func searchOutlineWidth() -> Double { 2 }
+  public static func searchOutlineOffset() -> Double { -2 }
+  public static func showsSearchOutline(focused: Bool) -> Bool { focused }
 }
 
 public enum CSTransferModel {
@@ -341,63 +356,94 @@ public struct CSCommandPalette: View {
     let filtered = CSCommandFilter.filter(groups: groups, query: query)
     let resultCount = filtered.reduce(0) { $0 + $1.items.count }
     let stops = CSCommandFilter.stops(resultCount: resultCount)
-    ZStack {
+    let scrimBase = Color(.sRGB, red: Double(CSCommandFilter.scrimRed) / 255.0, green: Double(CSCommandFilter.scrimGreen) / 255.0, blue: Double(CSCommandFilter.scrimBlue) / 255.0, opacity: 1.0)
+    let shape = RoundedRectangle(cornerRadius: pack.radiusLg.points)
+    ZStack(alignment: .top) {
       if CSCommandFilter.closesOnBackdrop() {
-        Color.black.opacity(0.42)
+        scrimBase.opacity(CSCommandFilter.scrimAlpha)
           .frame(maxWidth: .infinity, maxHeight: .infinity)
           .contentShape(Rectangle())
           .onTapGesture {
             onQuery("")
             onClose()
           }
+          .zIndex(pack.depthModal)
           .accessibilityHidden(true)
       }
-    VStack(alignment: .leading, spacing: 8) {
-      HStack {
-        TextField(hint, text: Binding(get: { query }, set: { next in
-          CSFocusRegistry.shared.claim(id: focusId, restore: { trap = 0 })
-          onQuery(next)
-        }))
-          .focused($trap, equals: 0)
-          .onChange(of: trap) { index in
-            if index == 0 { CSFocusRegistry.shared.claim(id: focusId, restore: { trap = 0 }) }
-          }
-        Text(CSCommandFilter.copy("esc", language: locale)).foregroundStyle(pack.mutedColor)
-      }
-      Text(CSCommandFilter.status(count: resultCount, language: locale))
-        .foregroundStyle(pack.mutedColor)
-        .accessibilityAddTraits(.updatesFrequently)
-      ForEach(Array(filtered.enumerated()), id: \.offset) { groupIndex, group in
-        if !group.items.isEmpty {
-          let before = filtered.prefix(groupIndex).reduce(0) { $0 + $1.items.count }
-          if !group.title.isEmpty { Text(group.title).foregroundStyle(pack.mutedColor) }
-          ForEach(Array(group.items.enumerated()), id: \.offset) { itemIndex, item in
-            CSTriggerButton(item) {
-              onSelect(item)
-              onQuery("")
-              onClose()
+      VStack(alignment: .leading, spacing: 0) {
+        searchRow(pack: pack, locale: locale, hint: hint)
+        Text(CSCommandFilter.status(count: resultCount, language: locale))
+          .foregroundStyle(pack.mutedColor)
+          .accessibilityAddTraits(.updatesFrequently)
+        ForEach(Array(filtered.enumerated()), id: \.offset) { groupIndex, group in
+          if !group.items.isEmpty {
+            let before = filtered.prefix(groupIndex).reduce(0) { $0 + $1.items.count }
+            if !group.title.isEmpty { Text(group.title).foregroundStyle(pack.mutedColor) }
+            ForEach(Array(group.items.enumerated()), id: \.offset) { itemIndex, item in
+              CSTriggerButton(item) {
+                onSelect(item)
+                onQuery("")
+                onClose()
+              }
+                .focused($trap, equals: before + itemIndex + 1)
+                .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
             }
-              .focused($trap, equals: before + itemIndex + 1)
-              .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
           }
         }
       }
+      .onAppear { trap = CSFocusTrap.initialIndex(preferred: 0, count: stops) }
+      .csTabTrap { shift in
+        let next = CSFocusTrap.nextIndex(current: trap ?? -1, count: stops, shift: shift, inside: trap != nil)
+        trap = CSModalFocus.pullBack(inside: next != nil) ? CSFocusTrap.initialIndex(preferred: 0, count: stops) : next
+        return stops > 0
+      }
+      .frame(maxWidth: CGFloat(CSCommandFilter.maxWidth()), alignment: .leading)
+      .background(pack.colorSurfacePanel.color, in: shape)
+      .clipShape(shape)
+      .overlay(shape.stroke(pack.colorBorderDefault.color, lineWidth: CGFloat(CSCommandFilter.borderWidth())))
+      .shadow(color: Color.black.opacity(0.24), radius: 24, x: 0, y: 12)
+      .zIndex(pack.depthModal + 1)
+      .accessibilityElement(children: .contain)
+      .accessibilityLabel(CSCommandFilter.copy("aria", language: locale))
+      .accessibilityAddTraits(.isModal)
+      .onExitCommand {
+        onQuery("")
+        onClose()
+      }
     }
-    .onAppear { trap = CSFocusTrap.initialIndex(preferred: 0, count: stops) }
-    .csTabTrap { shift in
-      let next = CSFocusTrap.nextIndex(current: trap ?? -1, count: stops, shift: shift, inside: trap != nil)
-      trap = CSModalFocus.pullBack(inside: next != nil) ? CSFocusTrap.initialIndex(preferred: 0, count: stops) : next
-      return stops > 0
+  }
+
+  private func searchRow(pack: CSTokenModePack, locale: String?, hint: String) -> some View {
+    HStack(alignment: .center, spacing: CGFloat(CSCommandFilter.searchGap())) {
+      CSIcon(name: "search", label: "", dark: dark, highContrast: highContrast, compact: compact)
+        .frame(width: CGFloat(CSCommandFilter.searchIconSize()), height: CGFloat(CSCommandFilter.searchIconSize()))
+        .foregroundStyle(pack.mutedColor)
+      TextField(hint, text: Binding(get: { query }, set: { next in
+        CSFocusRegistry.shared.claim(id: focusId, restore: { trap = 0 })
+        onQuery(next)
+      }))
+        .textFieldStyle(.plain)
+        .font(.system(size: pack.fontSizeMd.points))
+        .foregroundStyle(pack.primaryTextColor)
+        .focused($trap, equals: 0)
+        .onChange(of: trap) { index in
+          if index == 0 { CSFocusRegistry.shared.claim(id: focusId, restore: { trap = 0 }) }
+        }
+      CSKbd(CSCommandFilter.copy("esc", language: locale), dark: dark, highContrast: highContrast, compact: compact)
     }
-    .padding(16)
-    .background(pack.colorSurfacePanel.color)
-    .accessibilityElement(children: .contain)
-    .accessibilityLabel(CSCommandFilter.copy("aria", language: locale))
-    .accessibilityAddTraits(.isModal)
-    .onExitCommand {
-      onQuery("")
-      onClose()
+    .padding(.vertical, CGFloat(CSCommandFilter.searchPaddingY()))
+    .padding(.horizontal, CGFloat(CSCommandFilter.searchPaddingX()))
+    .overlay {
+      if CSCommandFilter.showsSearchOutline(focused: trap == 0) {
+        Rectangle()
+          .stroke(pack.primaryTextColor, lineWidth: CGFloat(CSCommandFilter.searchOutlineWidth()))
+          .padding(CGFloat(-CSCommandFilter.searchOutlineOffset()))
+      }
     }
+    .overlay(alignment: .bottom) {
+      Rectangle()
+        .fill(pack.colorBorderDefault.color)
+        .frame(height: CGFloat(CSCommandFilter.borderWidth()))
     }
   }
 }
