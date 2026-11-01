@@ -132,6 +132,8 @@ public enum CSSortModel {
   public static func itemPaddingY() -> Double { 10 }
   public static func itemPaddingX() -> Double { 12 }
   public static func itemOpacity(dragging: Bool) -> Double { dragging ? 0.5 : 1 }
+  public static func itemBorderWidth(over: Bool) -> Double { over ? 2 : 1 }
+  public static func itemBorderColor(over: Bool, accent: CSColorValue, border: CSColorValue) -> CSColorValue { over ? accent : border }
   public static func rowAt(originY: Double, rowHeight: Double, count: Int, pointY: Double) -> Int? {
     guard count > 0, rowHeight > 0 else { return nil }
     let index = Int(((pointY - originY) / rowHeight).rounded(.down))
@@ -483,6 +485,7 @@ public struct CSSortable: View {
   @State private var originY = 0.0
   @State private var rowHeight = 0.0
   @State private var dragFrom: Int?
+  @State private var dragOver: Int?
 
   public init(items: [String], upLabel: String? = nil, downLabel: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onChange: @escaping ([String]) -> Void) {
     self.items = items
@@ -502,17 +505,20 @@ public struct CSSortable: View {
     let down = CSSortModel.label(downLabel, fallback: CSSortModel.copy("moveDown", language: locale))
     VStack(alignment: .leading, spacing: CGFloat(CSSortModel.listGap())) {
       ForEach(Array(items.enumerated()), id: \.offset) { index, item in
+        let isOver = dragFrom != nil && dragOver == index
         HStack(alignment: .center, spacing: CGFloat(CSSortModel.itemGap())) {
           HStack {
             Text("⠿").accessibilityHidden(true).foregroundStyle(pack.mutedColor)
             Text(item).font(.system(size: pack.fontSizeSm.points)).foregroundStyle(pack.primaryTextColor)
           }
-          .gesture(DragGesture(minimumDistance: 4, coordinateSpace: .global).onChanged { _ in
+          .gesture(DragGesture(minimumDistance: 4, coordinateSpace: .global).onChanged { value in
             if dragFrom == nil { dragFrom = index }
+            dragOver = CSSortModel.rowAt(originY: originY, rowHeight: rowHeight, count: items.count, pointY: value.location.y)
           }.onEnded { value in
             let to = CSSortModel.rowAt(originY: originY, rowHeight: rowHeight, count: items.count, pointY: value.location.y)
             if let next = CSSortModel.drop(items, from: dragFrom, to: to) { onChange(next) }
             dragFrom = nil
+            dragOver = nil
           })
           Button {
             if CSSortModel.canMoveUp(index) { onChange(CSSortModel.reorder(items, from: index, to: index - 1)) }
@@ -533,7 +539,7 @@ public struct CSSortable: View {
         .padding(.vertical, CGFloat(CSSortModel.itemPaddingY()))
         .background(pack.colorSurfacePanel.color)
         .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
-        .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(pack.colorBorderDefault.color, lineWidth: 1))
+        .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(CSSortModel.itemBorderColor(over: isOver, accent: pack.accent, border: pack.colorBorderDefault).color, lineWidth: CGFloat(CSSortModel.itemBorderWidth(over: isOver))))
         .opacity(CSSortModel.itemOpacity(dragging: dragFrom == index))
         .background(GeometryReader { geo in
           Color.clear.preference(key: CSSortRowKey.self, value: geo.frame(in: .global))

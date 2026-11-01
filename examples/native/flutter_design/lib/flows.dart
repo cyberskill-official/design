@@ -305,6 +305,8 @@ double csSortItemGap() => 10;
 double csSortItemPaddingY() => 10;
 double csSortItemPaddingX() => 12;
 double csSortItemOpacity(bool dragging) => dragging ? 0.5 : 1;
+double csSortItemBorderWidth(bool over) => over ? 2 : 1;
+CSColorValue csSortItemBorderColor(bool over, CSColorValue accent, CSColorValue border) => over ? accent : border;
 int? csSortRowAt(double originY, double rowHeight, int count, double pointY) {
   if (count <= 0 || rowHeight <= 0) return null;
   final index = ((pointY - originY) / rowHeight).floor();
@@ -350,6 +352,7 @@ class _CsSortableState extends State<CsSortable> {
     final locale = csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context));
     final up = csSortLabel(widget.upLabel, csSortCopy('moveUp', locale));
     final down = csSortLabel(widget.downLabel, csSortCopy('moveDown', locale));
+    final overIndex = dragFrom == null ? null : csSortRowAt(originY, rowHeight, widget.items.length, pointY);
     return ConstrainedBox(
       constraints: BoxConstraints(maxWidth: csSortMaxWidth()),
       child: Column(key: listKey, children: [
@@ -361,7 +364,10 @@ class _CsSortableState extends State<CsSortable> {
             padding: EdgeInsets.symmetric(horizontal: csSortItemPaddingX(), vertical: csSortItemPaddingY()),
             decoration: BoxDecoration(
               color: csColor(pack.colorSurfacePanel),
-              border: Border.all(color: csColor(pack.colorBorderDefault)),
+              border: Border.all(
+                color: csColor(csSortItemBorderColor(overIndex == index, pack.accent, pack.colorBorderDefault)),
+                width: csSortItemBorderWidth(overIndex == index),
+              ),
               borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
             ),
             child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
@@ -373,7 +379,7 @@ class _CsSortableState extends State<CsSortable> {
               originY = box?.localToGlobal(Offset.zero).dy ?? 0;
               rowHeight = row?.size.height ?? 0;
             },
-            onVerticalDragUpdate: (details) { pointY = details.globalPosition.dy; },
+            onVerticalDragUpdate: (details) { setState(() => pointY = details.globalPosition.dy); },
             onVerticalDragEnd: (_) {
               final to = csSortRowAt(originY, rowHeight, widget.items.length, pointY);
               final next = csSortDrop(widget.items, dragFrom, to);
