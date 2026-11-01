@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'cs_modes.dart';
 import 'icon_paths.dart';
+import 'surfaces.dart';
 
 enum CsButtonRole { primary, danger }
 
@@ -603,6 +604,7 @@ class CsCard extends StatelessWidget {
     required this.highContrast,
     required this.compact,
     this.padding = EdgeInsets.zero,
+    this.material,
   });
 
   final Widget child;
@@ -610,6 +612,7 @@ class CsCard extends StatelessWidget {
   final bool highContrast;
   final bool compact;
   final EdgeInsetsGeometry padding;
+  final CsGlassMaterial? material;
 
   @override
   Widget build(BuildContext context) {
@@ -618,12 +621,23 @@ class CsCard extends StatelessWidget {
       highContrast: highContrast,
       compact: compact,
     );
+    final activeMaterial = material ?? CsGlassMaterial.solid;
+    final baseColor = switch (csGlassSurfaceBase(activeMaterial)) {
+      CsGlassSurfaceBase.page => csColor(pack.colorSurfacePage),
+      CsGlassSurfaceBase.panel => csColor(pack.colorSurfacePanel),
+      CsGlassSurfaceBase.raised => csColor(pack.colorSurfaceRaised),
+    };
+    final fillAlpha = csGlassOpacity(activeMaterial, pack);
+    final borderAlpha = csGlassBorderMix(activeMaterial);
+    final strokeWidth = csGlassBorderWidth(activeMaterial);
     return Container(
       padding: padding,
       decoration: BoxDecoration(
-        color: csColor(pack.colorSurfacePanel),
+        color: baseColor.withValues(alpha: fillAlpha),
         borderRadius: BorderRadius.circular(csPoints(pack.radiusLg)),
-        border: Border.all(color: csColor(pack.colorBorderDefault)),
+        border: strokeWidth > 0
+            ? Border.all(color: csColor(pack.colorBorderDefault).withValues(alpha: borderAlpha), width: strokeWidth)
+            : null,
       ),
       child: child,
     );

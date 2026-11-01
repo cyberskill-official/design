@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the cmdk-list-status-label-item checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the glass-materials-classes checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `94f1f186e25dc506ed63e5a9ef92f9a8044c5ae8`, with the hash note in `0b8f1945`
-- Checkpoint commit hash: `93c2fcb1806714b3fc8abdece1ff118db22a5378`
+- Previous checkpoint: `93c2fcb1806714b3fc8abdece1ff118db22a5378`, with the hash note in `fcdeb41f`
 - Temporarily disabled GitHub Actions push workflows (re-enable with `gh workflow enable` when done): `Design System Gates` (`316944477`), `native-validation` (`377620668`), `native-store` (`318755963`), `OpenSSF Scorecard` (`330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -49,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the command palette list, status, group label, and item styles: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the Liquid Glass material compositions and classes: the catalog test passed in about 0.005s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-`CommandPalette` (`CSCommandPalette` / `CsCommandPalette`) now styles its `340px` max-height scrollable list (`CSCommandFilter.listMaxHeight()`, `listPadding()`, `listGap()` / `csCommandListMaxHeight()`, `csCommandListPadding()`, `csCommandListGap()`), `8px 10px` `--cs-font-size-sm` primary status row (`CSCommandFilter.statusPaddingY()`, `statusPaddingX()`, `showsStatusRow(resultCount:)` / `csCommandStatusPaddingY()`, `csCommandStatusPaddingX()`, `csCommandShowsStatusRow(resultCount)`), `8px 10px 2px` uppercase `--cs-font-size-xs` `--cs-letter-spacing-caps` muted group label (`CSCommandFilter.labelPaddingTop()`, `labelPaddingX()`, `labelPaddingBottom()`, `labelWeight()`, `groupLabelText(_:)` / `csCommandLabelPaddingTop()`, `csCommandLabelPaddingX()`, `csCommandLabelPaddingBottom()`, `csCommandLabelWeight()`, `csCommandGroupLabelText(raw)`), and `10px 12px` `--cs-radius-md` `--cs-font-size-sm` items (`CSCommandFilter.itemPaddingY()`, `itemPaddingX()`, `itemGap()`, `itemshowsRaisedSurface(selected:hovered:)` / `csCommandItemPaddingY()`, `csCommandItemPaddingX()`, `csCommandItemGap()`, `csCommandItemShowsRaisedSurface(selected, hovered)`) with `--cs-color-surface-raised` hover/selected fill and trailing `CSKbd` / `CsKbd` shortcut badge, matching `.cs-cmdk__list`, `.cs-cmdk__status`, `.cs-cmdk__label`, `.cs-cmdk__item`, `.cs-cmdk__item:hover, .cs-cmdk__item[aria-selected="true"]`, and `.cs-cmdk__item .cs-kbd` in `base/shell.css` and `components/navigation/CommandPalette.jsx`.
+Liquid Glass material compositions (`CSGlassMaterial` / `CsGlassMaterial`, `CSGlassSurfaceBase` / `CsGlassSurfaceBase`, `CSGlassShadow` / `CsGlassShadow`, `CSGlassModel` / `csGlass*`) and `CSCard` / `CsCard` material support now compose the five materials (`whisper`, `light`, `standard`/`glassCard`, `heavy`, `solid`/`matte`) with surface base (`page`/`panel`/`raised`), opacity (`60%`, `70%`, `80%`, `90%`, `100%`), backdrop blur (`8px`, `12px`, `16px`, `24px`, `0px`), saturation (`110%`, `130%`, `150%`, `180%`, `100%`), border mix (`0%`, `50%`, `60%`, `80%`, `100%`), border width (`0px` for whisper, `1px` otherwise), shadow (`none`, `none`, `sm`, `lg`, `none`), and `overlaySurfaceClass` precedence (`["cs-surface-matte", "cs-surface-solid", "cs-surface-heavy", "cs-surface-standard", "cs-glass-card", "cs-surface-light", "cs-surface-whisper"]`), matching `base/glass.css` lines 10–53 and `components/_utils/use-overlay-surface.js` line 8.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style Liquid Glass material compositions and classes (`CSGlassSpec` / `csGlassMaterial` / `CSGlassCard` / `CsGlassCard`) in `base/glass.css` lines 10–53: five materials (`whisper`, `light`, `standard`, `heavy`, `solid`/`matte`) with surface base (`page`/`panel`/`raised`), opacity (`60%`, `70%`, `80%`, `90%`, `100%`), backdrop blur (`8px`, `12px`, `16px`, `24px`, `0px`), saturation (`110%`, `130%`, `150%`, `180%`, `100%`), border mix (`0%`, `50%`, `60%`, `80%`, `100%`), and shadow (`none`, `none`, `sm`, `lg`, `none`). Re-read `base/glass.css` lines 10–53 and native `Surfaces.swift` / `Catalog.kt` / `catalog.dart` before editing.
+Style Liquid Glass lens edge, depth utilities, accessibility/capability fallbacks, brand aurora wash, and modal overlay backing rules (`CSGlassModel` / `csGlass*`) in `base/glass.css` lines 54–129: `135deg` `1px` lens edge on `standard`/`heavy`/`glassCard` (`30%` `#fff` at `0%..30%` to `15%` `--cs-color-brand-umber` at `70%..100%`), depth utilities (`bg` `0`, `section` `5`, `card` `10`, `nav` `50` sticky, `modal` `100`, `toast` `200`), reduced-transparency / forced-colors / print / unsupported-backdrop-filter fallbacks, `.cs-aurora` wash (`--cs-color-brand-umber` base, `#fff` ink, three radial gradients), and `.cs-overlay-surface` backing suppression. Re-read `base/glass.css` lines 54–129 before editing.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

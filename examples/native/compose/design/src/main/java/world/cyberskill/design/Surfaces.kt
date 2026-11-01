@@ -694,3 +694,82 @@ fun CsToastStack(modifier: Modifier = Modifier, label: String? = null, language:
   val name = label ?: csToastCopy("notifications", csComboboxResolvedLanguage(language, LocalCsLanguage.current))
   Column(modifier.semantics { contentDescription = name }) { content() }
 }
+
+enum class CsGlassMaterial(val className: String) {
+  Whisper("cs-surface-whisper"),
+  Light("cs-surface-light"),
+  Standard("cs-surface-standard"),
+  GlassCard("cs-glass-card"),
+  Heavy("cs-surface-heavy"),
+  Solid("cs-surface-solid"),
+  Matte("cs-surface-matte"),
+}
+
+enum class CsGlassSurfaceBase { Page, Panel, Raised }
+enum class CsGlassShadow { None, Sm, Lg }
+
+val csGlassOverlaySurfacePrecedence = listOf(
+  "cs-surface-matte",
+  "cs-surface-solid",
+  "cs-surface-heavy",
+  "cs-surface-standard",
+  "cs-glass-card",
+  "cs-surface-light",
+  "cs-surface-whisper",
+)
+
+fun csGlassOverlaySurfaceClass(className: String?): String {
+  val classes = (className ?: "").trim().split(Regex("\\s+")).filter { it.isNotEmpty() }.toSet()
+  return csGlassOverlaySurfacePrecedence.firstOrNull { classes.contains(it) } ?: ""
+}
+
+fun csGlassMaterialFromClassName(className: String?): CsGlassMaterial? {
+  val resolved = csGlassOverlaySurfaceClass(className)
+  return CsGlassMaterial.entries.firstOrNull { it.className == resolved }
+}
+
+fun csGlassSurfaceBase(material: CsGlassMaterial): CsGlassSurfaceBase = when (material) {
+  CsGlassMaterial.Whisper -> CsGlassSurfaceBase.Page
+  CsGlassMaterial.Light, CsGlassMaterial.Standard, CsGlassMaterial.GlassCard, CsGlassMaterial.Solid, CsGlassMaterial.Matte -> CsGlassSurfaceBase.Panel
+  CsGlassMaterial.Heavy -> CsGlassSurfaceBase.Raised
+}
+
+fun csGlassOpacity(material: CsGlassMaterial, pack: CSTokenModePack): Double = when (material) {
+  CsGlassMaterial.Whisper -> pack.glassWhisperOpacity
+  CsGlassMaterial.Light -> pack.glassLightOpacity
+  CsGlassMaterial.Standard, CsGlassMaterial.GlassCard -> pack.glassStandardOpacity
+  CsGlassMaterial.Heavy -> pack.glassHeavyOpacity
+  CsGlassMaterial.Solid, CsGlassMaterial.Matte -> 1.0
+}
+
+fun csGlassBlur(material: CsGlassMaterial, pack: CSTokenModePack) = when (material) {
+  CsGlassMaterial.Whisper -> pack.glassWhisperBlur.toDp()
+  CsGlassMaterial.Light -> pack.glassLightBlur.toDp()
+  CsGlassMaterial.Standard, CsGlassMaterial.GlassCard -> pack.glassStandardBlur.toDp()
+  CsGlassMaterial.Heavy -> pack.glassHeavyBlur.toDp()
+  CsGlassMaterial.Solid, CsGlassMaterial.Matte -> 0.dp
+}
+
+fun csGlassSaturate(material: CsGlassMaterial, pack: CSTokenModePack): Double = when (material) {
+  CsGlassMaterial.Whisper -> pack.glassWhisperSaturate
+  CsGlassMaterial.Light -> pack.glassLightSaturate
+  CsGlassMaterial.Standard, CsGlassMaterial.GlassCard -> pack.glassStandardSaturate
+  CsGlassMaterial.Heavy -> pack.glassHeavySaturate
+  CsGlassMaterial.Solid, CsGlassMaterial.Matte -> 1.0
+}
+
+fun csGlassBorderMix(material: CsGlassMaterial): Double = when (material) {
+  CsGlassMaterial.Whisper -> 0.0
+  CsGlassMaterial.Light -> 0.50
+  CsGlassMaterial.Standard, CsGlassMaterial.GlassCard -> 0.60
+  CsGlassMaterial.Heavy -> 0.80
+  CsGlassMaterial.Solid, CsGlassMaterial.Matte -> 1.0
+}
+
+fun csGlassBorderWidth(material: CsGlassMaterial) = if (material == CsGlassMaterial.Whisper) 0.dp else 1.dp
+
+fun csGlassShadow(material: CsGlassMaterial): CsGlassShadow = when (material) {
+  CsGlassMaterial.Whisper, CsGlassMaterial.Light, CsGlassMaterial.Solid, CsGlassMaterial.Matte -> CsGlassShadow.None
+  CsGlassMaterial.Standard, CsGlassMaterial.GlassCard -> CsGlassShadow.Sm
+  CsGlassMaterial.Heavy -> CsGlassShadow.Lg
+}

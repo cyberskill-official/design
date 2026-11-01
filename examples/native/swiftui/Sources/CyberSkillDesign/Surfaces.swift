@@ -1563,3 +1563,108 @@ public struct CSToastStack<Content: View>: View {
       .accessibilityLabel(name)
   }
 }
+
+public enum CSGlassMaterial: String, Equatable, CaseIterable {
+  case whisper = "cs-surface-whisper"
+  case light = "cs-surface-light"
+  case standard = "cs-surface-standard"
+  case glassCard = "cs-glass-card"
+  case heavy = "cs-surface-heavy"
+  case solid = "cs-surface-solid"
+  case matte = "cs-surface-matte"
+}
+
+public enum CSGlassSurfaceBase: String, Equatable {
+  case page
+  case panel
+  case raised
+}
+
+public enum CSGlassShadow: String, Equatable {
+  case none
+  case sm
+  case lg
+}
+
+public enum CSGlassModel {
+  public static let overlaySurfacePrecedence: [String] = [
+    "cs-surface-matte",
+    "cs-surface-solid",
+    "cs-surface-heavy",
+    "cs-surface-standard",
+    "cs-glass-card",
+    "cs-surface-light",
+    "cs-surface-whisper",
+  ]
+
+  public static func overlaySurfaceClass(_ className: String?) -> String {
+    let raw = className ?? ""
+    let classes = Set(raw.split(whereSeparator: \.isWhitespace).map(String.init))
+    return overlaySurfacePrecedence.first(where: { classes.contains($0) }) ?? ""
+  }
+
+  public static func material(fromClassName className: String?) -> CSGlassMaterial? {
+    let resolved = overlaySurfaceClass(className)
+    return CSGlassMaterial(rawValue: resolved)
+  }
+
+  public static func surfaceBase(_ material: CSGlassMaterial) -> CSGlassSurfaceBase {
+    switch material {
+    case .whisper: return .page
+    case .light, .standard, .glassCard, .solid, .matte: return .panel
+    case .heavy: return .raised
+    }
+  }
+
+  public static func opacity(_ material: CSGlassMaterial, pack: CSTokenModePack) -> Double {
+    switch material {
+    case .whisper: return pack.glassWhisperOpacity
+    case .light: return pack.glassLightOpacity
+    case .standard, .glassCard: return pack.glassStandardOpacity
+    case .heavy: return pack.glassHeavyOpacity
+    case .solid, .matte: return 1.0
+    }
+  }
+
+  public static func blur(_ material: CSGlassMaterial, pack: CSTokenModePack) -> Double {
+    switch material {
+    case .whisper: return pack.glassWhisperBlur.value
+    case .light: return pack.glassLightBlur.value
+    case .standard, .glassCard: return pack.glassStandardBlur.value
+    case .heavy: return pack.glassHeavyBlur.value
+    case .solid, .matte: return 0.0
+    }
+  }
+
+  public static func saturate(_ material: CSGlassMaterial, pack: CSTokenModePack) -> Double {
+    switch material {
+    case .whisper: return pack.glassWhisperSaturate
+    case .light: return pack.glassLightSaturate
+    case .standard, .glassCard: return pack.glassStandardSaturate
+    case .heavy: return pack.glassHeavySaturate
+    case .solid, .matte: return 1.0
+    }
+  }
+
+  public static func borderMix(_ material: CSGlassMaterial) -> Double {
+    switch material {
+    case .whisper: return 0.0
+    case .light: return 0.50
+    case .standard, .glassCard: return 0.60
+    case .heavy: return 0.80
+    case .solid, .matte: return 1.0
+    }
+  }
+
+  public static func borderWidth(_ material: CSGlassMaterial) -> Double {
+    material == .whisper ? 0.0 : 1.0
+  }
+
+  public static func shadow(_ material: CSGlassMaterial) -> CSGlassShadow {
+    switch material {
+    case .whisper, .light, .solid, .matte: return .none
+    case .standard, .glassCard: return .sm
+    case .heavy: return .lg
+    }
+  }
+}

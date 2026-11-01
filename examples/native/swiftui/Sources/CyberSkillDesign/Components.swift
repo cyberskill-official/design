@@ -464,25 +464,45 @@ public struct CSCard<Content: View>: View {
   let compact: Bool
   var spacing: CGFloat
   var padding: CGFloat
+  public let material: CSGlassMaterial?
   let content: () -> Content
 
-  public init(dark: Bool, highContrast: Bool, compact: Bool, spacing: CGFloat = 0, padding: CGFloat = 0, @ViewBuilder content: @escaping () -> Content) {
+  public init(dark: Bool, highContrast: Bool, compact: Bool, spacing: CGFloat = 0, padding: CGFloat = 0, material: CSGlassMaterial? = nil, @ViewBuilder content: @escaping () -> Content) {
     self.dark = dark
     self.highContrast = highContrast
     self.compact = compact
     self.spacing = spacing
     self.padding = padding
+    self.material = material
     self.content = content
   }
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
+    let activeMaterial = material ?? .solid
+    let baseColor: Color = {
+      switch CSGlassModel.surfaceBase(activeMaterial) {
+      case .page: return pack.colorSurfacePage.color
+      case .panel: return pack.colorSurfacePanel.color
+      case .raised: return pack.colorSurfaceRaised.color
+      }
+    }()
+    let fillAlpha = CSGlassModel.opacity(activeMaterial, pack: pack)
+    let borderAlpha = CSGlassModel.borderMix(activeMaterial)
+    let strokeWidth = CGFloat(CSGlassModel.borderWidth(activeMaterial))
+    let shadowSpec = CSGlassModel.shadow(activeMaterial) == .lg ? pack.shadowLg.first : (material == nil || CSGlassModel.shadow(activeMaterial) == .sm ? pack.shadowSm.first : nil)
     VStack(alignment: .leading, spacing: spacing) { content() }
       .padding(padding)
       .frame(maxWidth: .infinity, alignment: .leading)
-      .background(pack.colorSurfacePanel.color)
+      .background(baseColor.opacity(fillAlpha))
       .clipShape(RoundedRectangle(cornerRadius: pack.radiusLg.points))
-      .overlay(RoundedRectangle(cornerRadius: pack.radiusLg.points).stroke(pack.colorBorderDefault.color, lineWidth: 1))
+      .overlay(RoundedRectangle(cornerRadius: pack.radiusLg.points).stroke(pack.colorBorderDefault.color.opacity(borderAlpha), lineWidth: strokeWidth))
+      .shadow(
+        color: shadowSpec?.color.color ?? .clear,
+        radius: shadowSpec?.blur.points ?? 0,
+        x: shadowSpec?.offsetX.points ?? 0,
+        y: shadowSpec?.offsetY.points ?? 0
+      )
   }
 }
 

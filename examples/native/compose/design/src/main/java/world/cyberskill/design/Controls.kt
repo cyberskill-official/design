@@ -449,17 +449,27 @@ fun CsCard(
   compact: Boolean,
   spacing: Dp = 0.dp,
   padding: Dp = 0.dp,
+  material: CsGlassMaterial? = null,
   modifier: Modifier = Modifier,
   content: @Composable androidx.compose.foundation.layout.ColumnScope.() -> Unit,
 ) {
   val pack = csModePack(dark, highContrast, compact)
+  val activeMaterial = material ?: CsGlassMaterial.Solid
+  val baseColor = when (csGlassSurfaceBase(activeMaterial)) {
+    CsGlassSurfaceBase.Page -> pack.colorSurfacePage.toComposeColor()
+    CsGlassSurfaceBase.Panel -> pack.colorSurfacePanel.toComposeColor()
+    CsGlassSurfaceBase.Raised -> pack.colorSurfaceRaised.toComposeColor()
+  }
+  val fillAlpha = csGlassOpacity(activeMaterial, pack).toFloat()
+  val borderAlpha = csGlassBorderMix(activeMaterial).toFloat()
+  val strokeWidth = csGlassBorderWidth(activeMaterial)
   val shape = RoundedCornerShape(pack.radiusLg.toDp())
   Column(
     modifier
       .fillMaxWidth()
       .clip(shape)
-      .border(1.dp, pack.colorBorderDefault.toComposeColor(), shape)
-      .background(pack.colorSurfacePanel.toComposeColor())
+      .then(if (strokeWidth > 0.dp) Modifier.border(strokeWidth, pack.colorBorderDefault.toComposeColor().copy(alpha = borderAlpha), shape) else Modifier)
+      .background(baseColor.copy(alpha = fillAlpha))
       .padding(padding),
     verticalArrangement = Arrangement.spacedBy(spacing),
     content = content,

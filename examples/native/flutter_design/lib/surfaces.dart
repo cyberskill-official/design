@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'controls.dart';
+import 'cs_modes.dart';
 import 'fields.dart';
 
 String? csColorCommit(String value) {
@@ -1008,4 +1009,146 @@ class CsToastStack extends StatelessWidget {
   final List<Widget> children;
   @override
   Widget build(BuildContext context) => Semantics(label: csToastStackName(label, csSelectResolvedLanguage(language, CsLanguageScope.of(context))), child: Column(children: children));
+}
+
+enum CsGlassMaterial {
+  whisper('cs-surface-whisper'),
+  light('cs-surface-light'),
+  standard('cs-surface-standard'),
+  glassCard('cs-glass-card'),
+  heavy('cs-surface-heavy'),
+  solid('cs-surface-solid'),
+  matte('cs-surface-matte');
+
+  const CsGlassMaterial(this.className);
+  final String className;
+}
+
+enum CsGlassSurfaceBase { page, panel, raised }
+enum CsGlassShadow { none, sm, lg }
+
+const List<String> csGlassOverlaySurfacePrecedence = [
+  'cs-surface-matte',
+  'cs-surface-solid',
+  'cs-surface-heavy',
+  'cs-surface-standard',
+  'cs-glass-card',
+  'cs-surface-light',
+  'cs-surface-whisper',
+];
+
+String csGlassOverlaySurfaceClass(String? className) {
+  final classes = (className ?? '').trim().split(RegExp(r'\s+')).where((item) => item.isNotEmpty).toSet();
+  for (final name in csGlassOverlaySurfacePrecedence) {
+    if (classes.contains(name)) return name;
+  }
+  return '';
+}
+
+CsGlassMaterial? csGlassMaterialFromClassName(String? className) {
+  final resolved = csGlassOverlaySurfaceClass(className);
+  for (final material in CsGlassMaterial.values) {
+    if (material.className == resolved) return material;
+  }
+  return null;
+}
+
+CsGlassSurfaceBase csGlassSurfaceBase(CsGlassMaterial material) {
+  switch (material) {
+    case CsGlassMaterial.whisper:
+      return CsGlassSurfaceBase.page;
+    case CsGlassMaterial.light:
+    case CsGlassMaterial.standard:
+    case CsGlassMaterial.glassCard:
+    case CsGlassMaterial.solid:
+    case CsGlassMaterial.matte:
+      return CsGlassSurfaceBase.panel;
+    case CsGlassMaterial.heavy:
+      return CsGlassSurfaceBase.raised;
+  }
+}
+
+double csGlassOpacity(CsGlassMaterial material, CSTokenModePack pack) {
+  switch (material) {
+    case CsGlassMaterial.whisper:
+      return pack.glassWhisperOpacity;
+    case CsGlassMaterial.light:
+      return pack.glassLightOpacity;
+    case CsGlassMaterial.standard:
+    case CsGlassMaterial.glassCard:
+      return pack.glassStandardOpacity;
+    case CsGlassMaterial.heavy:
+      return pack.glassHeavyOpacity;
+    case CsGlassMaterial.solid:
+    case CsGlassMaterial.matte:
+      return 1.0;
+  }
+}
+
+double csGlassBlur(CsGlassMaterial material, CSTokenModePack pack) {
+  switch (material) {
+    case CsGlassMaterial.whisper:
+      return csPoints(pack.glassWhisperBlur);
+    case CsGlassMaterial.light:
+      return csPoints(pack.glassLightBlur);
+    case CsGlassMaterial.standard:
+    case CsGlassMaterial.glassCard:
+      return csPoints(pack.glassStandardBlur);
+    case CsGlassMaterial.heavy:
+      return csPoints(pack.glassHeavyBlur);
+    case CsGlassMaterial.solid:
+    case CsGlassMaterial.matte:
+      return 0;
+  }
+}
+
+double csGlassSaturate(CsGlassMaterial material, CSTokenModePack pack) {
+  switch (material) {
+    case CsGlassMaterial.whisper:
+      return pack.glassWhisperSaturate;
+    case CsGlassMaterial.light:
+      return pack.glassLightSaturate;
+    case CsGlassMaterial.standard:
+    case CsGlassMaterial.glassCard:
+      return pack.glassStandardSaturate;
+    case CsGlassMaterial.heavy:
+      return pack.glassHeavySaturate;
+    case CsGlassMaterial.solid:
+    case CsGlassMaterial.matte:
+      return 1.0;
+  }
+}
+
+double csGlassBorderMix(CsGlassMaterial material) {
+  switch (material) {
+    case CsGlassMaterial.whisper:
+      return 0;
+    case CsGlassMaterial.light:
+      return 0.50;
+    case CsGlassMaterial.standard:
+    case CsGlassMaterial.glassCard:
+      return 0.60;
+    case CsGlassMaterial.heavy:
+      return 0.80;
+    case CsGlassMaterial.solid:
+    case CsGlassMaterial.matte:
+      return 1.0;
+  }
+}
+
+double csGlassBorderWidth(CsGlassMaterial material) => material == CsGlassMaterial.whisper ? 0 : 1;
+
+CsGlassShadow csGlassShadow(CsGlassMaterial material) {
+  switch (material) {
+    case CsGlassMaterial.whisper:
+    case CsGlassMaterial.light:
+    case CsGlassMaterial.solid:
+    case CsGlassMaterial.matte:
+      return CsGlassShadow.none;
+    case CsGlassMaterial.standard:
+    case CsGlassMaterial.glassCard:
+      return CsGlassShadow.sm;
+    case CsGlassMaterial.heavy:
+      return CsGlassShadow.lg;
+  }
 }
