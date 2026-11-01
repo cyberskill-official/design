@@ -9,7 +9,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: pending (`feat(native): align fields calendar, combobox, alert dialog, popover, list item, comment, code block, and sidebar with web contracts`)
+- Checkpoint commit: `c1f4aa1410704a7d33b1cc2e755bd9c63d6aedee` (`feat(native): align fields calendar, combobox, alert dialog, popover, list item, comment, code block, and sidebar with web contracts`)
 - Previous checkpoint: `c7691f1dd7a5e41d5da2c1fa2efbbc8a328e5824`, with the hash note in `891825e9`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
