@@ -1470,31 +1470,77 @@ class CsInputGroup extends StatelessWidget {
 double csItemGap() => 14;
 double csItemPaddingX() => 14;
 double csItemBorderWidth() => 1;
+bool csItemIsInteractive(String? href, bool hasOnClick) => href != null || hasOnClick;
+bool csItemHasInteractiveClass({required bool interactive, required bool disabled}) => interactive && !disabled;
+bool csItemShowsHover({required bool interactive, required bool disabled, required bool hovered}) =>
+    csItemHasInteractiveClass(interactive: interactive, disabled: disabled) && hovered;
+double csItemFocusOutlineWidth(bool focused) => focused ? 2 : 0;
+double csItemFocusOutlineOffset(bool focused) => focused ? 2 : 0;
+double csItemFocusRingWidth(bool focused) => focused ? 5 : 0;
 
-class CsItem extends StatelessWidget {
-  const CsItem({super.key, required this.title, this.subtitle = '', this.dark = false, this.highContrast = false, this.compact = false});
+class CsItem extends StatefulWidget {
+  const CsItem({super.key, required this.title, this.subtitle = '', this.href, this.disabled = false, this.dark = false, this.highContrast = false, this.compact = false, this.onClick});
   final String title;
   final String subtitle;
+  final String? href;
+  final bool disabled;
   final bool dark;
   final bool highContrast;
   final bool compact;
+  final VoidCallback? onClick;
+  @override
+  State<CsItem> createState() => _CsItemState();
+}
+
+class _CsItemState extends State<CsItem> {
+  var hovered = false;
+  var focused = false;
   @override
   Widget build(BuildContext context) {
-    final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: csColor(pack.colorSurfacePanel),
-        borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
-        border: Border.all(color: Colors.transparent, width: csItemBorderWidth()),
-      ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: csItemPaddingX(), vertical: csPoints(pack.space3)),
-        child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(title, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextPrimary))),
-            if (subtitle.isNotEmpty) Text(subtitle, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextMuted))),
-          ]),
-        ]),
+    final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
+    final interactive = csItemIsInteractive(widget.href, widget.onClick != null);
+    final showHover = csItemShowsHover(interactive: interactive, disabled: widget.disabled, hovered: hovered);
+    final showFocus = csItemHasInteractiveClass(interactive: interactive, disabled: widget.disabled) && focused;
+    return MouseRegion(
+      cursor: csItemHasInteractiveClass(interactive: interactive, disabled: widget.disabled) ? SystemMouseCursors.click : MouseCursor.defer,
+      onEnter: (_) => setState(() => hovered = true),
+      onExit: (_) => setState(() => hovered = false),
+      child: Focus(
+        onFocusChange: (next) => setState(() => focused = next),
+        child: GestureDetector(
+          onTap: csItemHasInteractiveClass(interactive: interactive, disabled: widget.disabled) ? widget.onClick : null,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              color: csColor(showHover ? pack.colorSurfaceRaised : pack.colorSurfacePanel),
+              borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
+              border: Border.all(
+                color: showHover ? csColor(pack.colorBorderDefault) : Colors.transparent,
+                width: csItemBorderWidth(),
+              ),
+              boxShadow: [
+                if (showFocus)
+                  BoxShadow(
+                    color: csColor(pack.colorAccentOchre),
+                    spreadRadius: csItemFocusRingWidth(showFocus),
+                  ),
+                if (showFocus)
+                  BoxShadow(
+                    color: csColor(pack.colorTextPrimary),
+                    spreadRadius: csItemFocusOutlineOffset(showFocus) + csItemFocusOutlineWidth(showFocus),
+                  ),
+              ],
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: csItemPaddingX(), vertical: csPoints(pack.space3)),
+              child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(widget.title, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextPrimary))),
+                  if (widget.subtitle.isNotEmpty) Text(widget.subtitle, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextMuted))),
+                ]),
+              ]),
+            ),
+          ),
+        ),
       ),
     );
   }

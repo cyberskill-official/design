@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the item-chrome checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the item-interactive checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `3bcd6f980c9de537abe622ad3fbddd00cf359412`, with the hash note in `d720ec90`
-- Checkpoint commit hash: `760d36b0b7ea7b9cfca1866d35ae2bbe131e8b4b`
+- Previous checkpoint: `760d36b0b7ea7b9cfca1866d35ae2bbe131e8b4b`, with the hash note in `c3b6782b`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the item chrome: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the interactive item chrome: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-The `Item` row (`CSItem` / `CsItem`) now renders centered flex alignment, a 14px gap (`CSItemModel.gap()` / `csItemGap()`), `var(--cs-space-3)` by `14px` (`CSItemModel.paddingX()` / `csItemPaddingX()`) padding, medium corner radius (`var(--cs-radius-md)`), primary text color, a 1px (`CSItemModel.borderWidth()` / `csItemBorderWidth()`) transparent border, and the panel surface background (`var(--cs-color-surface-panel)`), matching `.cs-item { display: flex; align-items: center; gap: 14px; padding: var(--cs-space-3) 14px; border-radius: var(--cs-radius-md); color: var(--cs-color-text-primary); text-align: start; text-decoration: none; border: 1px solid transparent; background: var(--cs-color-surface-panel); }` in `base/collections.css`.
+Interactive `Item` rows (`CSItem` / `CsItem` with `href != nil` or `onClick != nil` and `!disabled`, modeled by `CSItemModel.isInteractive(href:hasOnClick:)` / `csItemIsInteractive(href, hasOnClick)` and `CSItemModel.hasInteractiveClass(interactive:disabled:)` / `csItemHasInteractiveClass(interactive, disabled)`) now apply pointer interactivity, raised hover surface (`var(--cs-color-surface-raised)`) with default border (`var(--cs-color-border-default)`) via `CSItemModel.showsHover(interactive:disabled:hovered:)` / `csItemShowsHover(interactive, disabled, hovered)`, and a 2px primary-text focus outline (`CSItemModel.focusOutlineWidth(focused:)` / `csItemFocusOutlineWidth(focused)`) at a 2px offset (`CSItemModel.focusOutlineOffset(focused:)` / `csItemFocusOutlineOffset(focused)`) with a 5px ochre ring (`CSItemModel.focusRingWidth(focused:)` / `csItemFocusRingWidth(focused)`), matching `.cs-item--interactive { cursor: pointer; font: inherit; inline-size: 100%; }`, `button.cs-item--interactive { border: 1px solid transparent; background: var(--cs-color-surface-panel); }`, `@media (hover: hover) { .cs-item--interactive:hover { background: var(--cs-color-surface-raised); border-color: var(--cs-color-border-default); } }`, and `.cs-item--interactive:focus-visible { outline: 2px solid var(--cs-color-text-primary); outline-offset: 2px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }` in `base/collections.css`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style interactive `Item` rows (`.cs-item--interactive`), hover surface and border (`:hover`), and focus ring (`:focus-visible`). The next rules in `base/collections.css` are `.cs-item--interactive { cursor: pointer; font: inherit; inline-size: 100%; }`, `button.cs-item--interactive { border: 1px solid transparent; background: var(--cs-color-surface-panel); }`, `@media (hover: hover) { .cs-item--interactive:hover { background: var(--cs-color-surface-raised); border-color: var(--cs-color-border-default); } }`, and `.cs-item--interactive:focus-visible { outline: 2px solid var(--cs-color-text-primary); outline-offset: 2px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }`. Re-read those rules and `components/data/Item.jsx` before editing. Do not invent hover or focus rings.
+Style `Item` selected state (`.cs-item.is-selected`) and disabled state (`.cs-item.is-disabled`, `.cs-item[aria-disabled="true"]`, and `div.cs-item.is-disabled`). The next rules in `base/collections.css` are `.cs-item.is-selected { border-color: var(--cs-color-brand-ochre); background: var(--cs-accent-tint, var(--cs-color-surface-raised)); }`, `.cs-item.is-disabled, .cs-item[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; pointer-events: none; }`, and `div.cs-item.is-disabled { opacity: 1; }`. Re-read those rules and `components/data/Item.jsx` before editing. Do not invent selected or disabled semantics.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

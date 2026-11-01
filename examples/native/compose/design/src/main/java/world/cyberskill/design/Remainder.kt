@@ -3,6 +3,7 @@ package world.cyberskill.design
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -1022,9 +1023,21 @@ fun csInputCopy(key: String, language: String?): String {
 fun csItemGap() = 14.dp
 fun csItemPaddingX() = 14.dp
 fun csItemBorderWidth() = 1.dp
-@Composable fun CsItem(title: String, subtitle: String = "", modifier: Modifier = Modifier, dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false) {
+fun csItemIsInteractive(href: String?, hasOnClick: Boolean) = href != null || hasOnClick
+fun csItemHasInteractiveClass(interactive: Boolean, disabled: Boolean) = interactive && !disabled
+fun csItemShowsHover(interactive: Boolean, disabled: Boolean, hovered: Boolean) = csItemHasInteractiveClass(interactive, disabled) && hovered
+fun csItemFocusOutlineWidth(focused: Boolean) = if (focused) 2.dp else 0.dp
+fun csItemFocusOutlineOffset(focused: Boolean) = if (focused) 2.dp else 0.dp
+fun csItemFocusRingWidth(focused: Boolean) = if (focused) 5.dp else 0.dp
+@Composable fun CsItem(title: String, subtitle: String = "", modifier: Modifier = Modifier, href: String? = null, disabled: Boolean = false, dark: Boolean = false, highContrast: Boolean = false, compact: Boolean = false, onClick: (() -> Unit)? = null) {
   val pack = csModePack(dark, highContrast, compact)
-  Row(modifier.fillMaxWidth().clip(RoundedCornerShape(pack.radiusMd.toDp())).background(pack.colorSurfacePanel.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).border(csItemBorderWidth(), Color.Transparent, RoundedCornerShape(pack.radiusMd.toDp())).padding(horizontal = csItemPaddingX(), vertical = pack.space3.toDp()), horizontalArrangement = Arrangement.spacedBy(csItemGap()), verticalAlignment = Alignment.CenterVertically) {
+  val interaction = remember { MutableInteractionSource() }
+  val hovered by interaction.collectIsHoveredAsState()
+  var focused by remember { mutableStateOf(false) }
+  val interactive = csItemIsInteractive(href, onClick != null)
+  val showHover = csItemShowsHover(interactive, disabled, hovered)
+  val showFocus = csItemHasInteractiveClass(interactive, disabled) && focused
+  Row(modifier.fillMaxWidth().hoverable(interaction).onFocusChanged { focused = it.isFocused }.border(csItemFocusRingWidth(showFocus), if (showFocus) pack.colorAccentOchre.toComposeColor() else Color.Transparent, RoundedCornerShape(pack.radiusMd.toDp())).padding(csItemFocusOutlineOffset(showFocus)).border(csItemFocusOutlineWidth(showFocus), if (showFocus) pack.colorTextPrimary.toComposeColor() else Color.Transparent, RoundedCornerShape(pack.radiusMd.toDp())).clip(RoundedCornerShape(pack.radiusMd.toDp())).background((if (showHover) pack.colorSurfaceRaised else pack.colorSurfacePanel).toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).border(csItemBorderWidth(), if (showHover) pack.colorBorderDefault.toComposeColor() else Color.Transparent, RoundedCornerShape(pack.radiusMd.toDp())).let { if (csItemHasInteractiveClass(interactive, disabled)) it.clickable { onClick?.invoke() } else it }.padding(horizontal = csItemPaddingX(), vertical = pack.space3.toDp()), horizontalArrangement = Arrangement.spacedBy(csItemGap()), verticalAlignment = Alignment.CenterVertically) {
     Column {
       Text(title, color = pack.colorTextPrimary.toComposeColor())
       if (subtitle.isNotEmpty()) Text(subtitle, color = pack.colorTextMuted.toComposeColor())
