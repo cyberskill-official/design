@@ -785,14 +785,39 @@ fun CsCodeBlock(code: String, dark: Boolean, highContrast: Boolean, compact: Boo
   }
 }
 
+fun csSidebarWidth() = 248.dp
+fun csSidebarBorderWidth() = 1.dp
+fun csSidebarPaddingY() = 16.dp
+fun csSidebarPaddingX() = 12.dp
+fun csSidebarGap() = 3.dp
+fun csSidebarLabelPaddingTop() = 12.dp
+fun csSidebarLabelPaddingX() = 12.dp
+fun csSidebarLabelPaddingBottom() = 4.dp
+fun csSidebarLabelTracking() = 0.08f
+fun csSidebarShowsLabel(label: String?) = !label.isNullOrEmpty()
+fun csSidebarLabelText(label: String) = label.uppercase()
+
 @Composable
 fun CsSidebar(label: String, items: List<String>, active: String, onSelect: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
   val pack = csModePack(dark, highContrast, compact)
-  Column(modifier) {
-    items.forEach { item ->
-      CsTriggerButton(title = item, onClick = { onSelect(item) }, modifier = Modifier.minimumInteractiveComponentSize()) {
-        Text(item, color = if (item == active) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor())
+  val labelSize = pack.fontSizeXs.toDp().value
+  Row(modifier.width(csSidebarWidth()).background(pack.colorSurfacePanel.toComposeColor()).semantics { if (csSidebarShowsLabel(label)) contentDescription = label }) {
+    Column(Modifier.weight(1f).padding(horizontal = csSidebarPaddingX(), vertical = csSidebarPaddingY()), verticalArrangement = Arrangement.spacedBy(csSidebarGap())) {
+      if (csSidebarShowsLabel(label)) {
+        Text(
+          csSidebarLabelText(label),
+          color = pack.colorTextMuted.toComposeColor(),
+          fontSize = labelSize.sp,
+          letterSpacing = (labelSize * csSidebarLabelTracking()).sp,
+          modifier = Modifier.padding(top = csSidebarLabelPaddingTop(), start = csSidebarLabelPaddingX(), end = csSidebarLabelPaddingX(), bottom = csSidebarLabelPaddingBottom()).semantics { contentDescription = label },
+        )
+      }
+      items.forEach { item ->
+        CsTriggerButton(title = item, onClick = { onSelect(item) }, modifier = Modifier.minimumInteractiveComponentSize()) {
+          Text(item, color = if (item == active) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor())
+        }
       }
     }
+    Box(Modifier.width(csSidebarBorderWidth()).background(pack.colorBorderDefault.toComposeColor()))
   }
 }

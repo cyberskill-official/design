@@ -1058,6 +1058,18 @@ class _CsCodeBlockState extends State<CsCodeBlock> {
   }
 }
 
+double csSidebarWidth() => 248;
+double csSidebarBorderWidth() => 1;
+double csSidebarPaddingY() => 16;
+double csSidebarPaddingX() => 12;
+double csSidebarGap() => 3;
+double csSidebarLabelPaddingTop() => 12;
+double csSidebarLabelPaddingX() => 12;
+double csSidebarLabelPaddingBottom() => 4;
+double csSidebarLabelTracking() => 0.08;
+bool csSidebarShowsLabel(String? label) => label != null && label.isNotEmpty;
+String csSidebarLabelText(String label) => label.toUpperCase();
+
 class CsSidebar extends StatelessWidget {
   const CsSidebar({super.key, required this.label, required this.items, required this.active, required this.onSelect, required this.dark, required this.highContrast, required this.compact});
   final String label;
@@ -1071,12 +1083,45 @@ class CsSidebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
+    final labelSize = csPoints(pack.fontSizeXs);
     return Semantics(
-      label: label,
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        for (final item in items)
-          CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); onSelect(item); }, child: Text(item, style: TextStyle(color: csColor(item == active ? pack.colorBrandOchre : pack.colorTextPrimary))))),
-      ]),
+      label: csSidebarShowsLabel(label) ? label : null,
+      child: Container(
+        width: csSidebarWidth(),
+        padding: EdgeInsets.symmetric(horizontal: csSidebarPaddingX(), vertical: csSidebarPaddingY()),
+        decoration: BoxDecoration(
+          color: csColor(pack.colorSurfacePanel),
+          border: Border(right: BorderSide(color: csColor(pack.colorBorderDefault), width: csSidebarBorderWidth())),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (csSidebarShowsLabel(label)) ...[
+              Padding(
+                padding: EdgeInsets.fromLTRB(csSidebarLabelPaddingX(), csSidebarLabelPaddingTop(), csSidebarLabelPaddingX(), csSidebarLabelPaddingBottom()),
+                child: Semantics(
+                  label: label,
+                  child: ExcludeSemantics(
+                    child: Text(
+                      csSidebarLabelText(label),
+                      style: TextStyle(
+                        color: csColor(pack.colorTextMuted),
+                        fontSize: labelSize,
+                        letterSpacing: labelSize * csSidebarLabelTracking(),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              if (items.isNotEmpty) SizedBox(height: csSidebarGap()),
+            ],
+            for (var index = 0; index < items.length; index++) ...[
+              if (index > 0) SizedBox(height: csSidebarGap()),
+              CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); onSelect(items[index]); }, child: Text(items[index], style: TextStyle(color: csColor(items[index] == active ? pack.colorBrandOchre : pack.colorTextPrimary))))),
+            ],
+          ],
+        ),
+      ),
     );
   }
 }

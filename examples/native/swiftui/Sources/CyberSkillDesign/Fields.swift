@@ -1834,6 +1834,23 @@ public struct CSCodeBlock: View {
   }
 }
 
+public enum CSSidebarModel {
+  public static func width() -> Double { 248 }
+  public static func borderWidth() -> Double { 1 }
+  public static func paddingY() -> Double { 16 }
+  public static func paddingX() -> Double { 12 }
+  public static func gap() -> Double { 3 }
+  public static func labelPaddingTop() -> Double { 12 }
+  public static func labelPaddingX() -> Double { 12 }
+  public static func labelPaddingBottom() -> Double { 4 }
+  public static func labelTracking() -> Double { 0.08 }
+  public static func showsLabel(_ label: String?) -> Bool {
+    guard let label else { return false }
+    return !label.isEmpty
+  }
+  public static func labelText(_ label: String) -> String { label.uppercased() }
+}
+
 public struct CSSidebar: View {
   public let label: String
   public let items: [String]
@@ -1855,13 +1872,32 @@ public struct CSSidebar: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    VStack(alignment: .leading, spacing: 4) {
+    VStack(alignment: .leading, spacing: CGFloat(CSSidebarModel.gap())) {
+      if CSSidebarModel.showsLabel(label) {
+        Text(CSSidebarModel.labelText(label))
+          .font(.system(size: pack.fontSizeXs.points))
+          .tracking(pack.fontSizeXs.points * CGFloat(CSSidebarModel.labelTracking()))
+          .foregroundStyle(pack.mutedColor)
+          .padding(.top, CGFloat(CSSidebarModel.labelPaddingTop()))
+          .padding(.horizontal, CGFloat(CSSidebarModel.labelPaddingX()))
+          .padding(.bottom, CGFloat(CSSidebarModel.labelPaddingBottom()))
+          .accessibilityLabel(label)
+      }
       ForEach(items, id: \.self) { item in
         CSTriggerButton(item) { onSelect(item) }
           .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
           .foregroundStyle(item == active ? pack.colorBrandOchre.color : pack.primaryTextColor)
           .accessibilityAddTraits(item == active ? .isSelected : [])
       }
+    }
+    .padding(.vertical, CGFloat(CSSidebarModel.paddingY()))
+    .padding(.horizontal, CGFloat(CSSidebarModel.paddingX()))
+    .frame(width: CGFloat(CSSidebarModel.width()), alignment: .leading)
+    .background(pack.colorSurfacePanel.color)
+    .overlay(alignment: .trailing) {
+      Rectangle()
+        .fill(pack.colorBorderDefault.color)
+        .frame(width: CGFloat(CSSidebarModel.borderWidth()))
     }
     .accessibilityElement(children: .contain)
     .accessibilityLabel(label)
