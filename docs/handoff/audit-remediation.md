@@ -9,7 +9,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: pending (`fix(native): deduplicate Kotlin/Dart top-level helper symbols across Primitives/Catalog/Records and align Flutter csIconPoints xs/xl scale`)
+- Checkpoint commit: `8a7239cc3f8ae50960e5778f096a008442e10091` (`fix(native): deduplicate Kotlin/Dart top-level helper symbols across Primitives/Catalog/Records and align Flutter csIconPoints xs/xl scale`)
 - Previous checkpoint: `5c551ba2c7644742a532d116096b992bde7da95d`, with the hash note in `8b344aea`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
