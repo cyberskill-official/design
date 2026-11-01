@@ -8,8 +8,12 @@ import androidx.compose.foundation.hoverable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -237,6 +241,14 @@ val csTerminalFgColor = CSColorValue(CSColorSpace.SRGB, listOf(245.0 / 255.0, 23
 val csTerminalMutedColor = CSColorValue(CSColorSpace.SRGB, listOf(201.0 / 255.0, 183.0 / 255.0, 163.0 / 255.0), 1.0)
 fun csTerminalMaxWidth() = 480.dp
 fun csTerminalBorderWidth() = 1.dp
+const val csTerminalDotCount = 3
+fun csTerminalBarGap() = 6.dp
+fun csTerminalBarFontSize() = 11.0
+fun csTerminalBarPaddingY() = 8.dp
+fun csTerminalBarPaddingX() = 12.dp
+fun csTerminalDotSize() = 10.dp
+fun csTerminalDotRadius() = 999.dp
+fun csTerminalTitleMarginStart() = 8.dp
 fun csTerminalSubmits(composing: Boolean, keyCode: Int) = !composing && keyCode != 229
 
 data class CsCascaderNode(val key: String, val label: String, val children: List<CsCascaderNode> = emptyList())
@@ -1252,7 +1264,10 @@ private var SemanticsPropertyReceiver.csTreeControlsValue by csTreeControlsKey
   var lines by remember { mutableStateOf(history) }
   var draft by remember { mutableStateOf(TextFieldValue("")) }
   Column(modifier.widthIn(max = csTerminalMaxWidth()).shadow(pack.shadowMd.firstOrNull()?.blur?.toDp() ?: 0.dp, RoundedCornerShape(pack.radiusLg.toDp())).clip(RoundedCornerShape(pack.radiusLg.toDp())).background(csTerminalBgColor.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp())).border(csTerminalBorderWidth(), csTerminalBorderColor.toComposeColor(), RoundedCornerShape(pack.radiusLg.toDp()))) {
-    Text(bar, color = csTerminalMutedColor.toComposeColor())
+    Row(Modifier.fillMaxWidth().background(csTerminalBarColor.toComposeColor()).padding(horizontal = csTerminalBarPaddingX(), vertical = csTerminalBarPaddingY()), horizontalArrangement = Arrangement.spacedBy(csTerminalBarGap()), verticalAlignment = Alignment.CenterVertically) {
+      repeat(csTerminalDotCount) { Box(Modifier.size(csTerminalDotSize()).background(csTerminalDotColor.toComposeColor(), RoundedCornerShape(csTerminalDotRadius())).clearAndSetSemantics {}) }
+      Text(bar, color = csTerminalMutedColor.toComposeColor(), fontSize = csTerminalBarFontSize().sp, fontWeight = FontWeight.SemiBold, fontFamily = FontFamily.Monospace, modifier = Modifier.padding(start = csTerminalTitleMarginStart()))
+    }
     lines.forEach { line -> if (line.command != null) Text(prompt + " " + line.command); if (line.output != null) Text(line.output, color = csTerminalMutedColor.toComposeColor()) }
     Row {
       Text(prompt)

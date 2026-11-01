@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the terminal-frame checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the terminal-bar checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `34001cdb15f4cd01fa01442540e85f159dc89dc3`, with the hash note in `bee7a6d4`
-- Checkpoint commit hash: `4b2167115f8e2029f7f13518a68258b566274078`
+- Previous checkpoint: `4b2167115f8e2029f7f13518a68258b566274078`, with the hash note in `d3ad9a9e`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the terminal frame: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the terminal bar: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-The terminal frame now defines its always-dark custom properties (`#3a2a1c` border, `#2a1a0d` bar, `#5b4331` dot, `#1a1108` background, `#f5ead9` foreground, `#c9b7a3` muted), a 480px max width (`CSTerminalModel.maxWidth()` / `csTerminalMaxWidth()`), large corner radius (`var(--cs-radius-lg)`), a 1px border (`CSTerminalModel.borderWidth()` / `csTerminalBorderWidth()`), clipped overflow, and the medium elevation shadow (`var(--cs-shadow-md)`), matching `.cs-terminal { --cs-term-border: #3a2a1c; --cs-term-bar: #2a1a0d; --cs-term-dot: #5b4331; --cs-term-bg: #1a1108; --cs-term-fg: #f5ead9; --cs-term-muted: #c9b7a3; max-inline-size: 480px; border-radius: var(--cs-radius-lg); overflow: hidden; border: 1px solid var(--cs-term-border); box-shadow: var(--cs-shadow-md); }` in `base/controls.css`.
+The terminal header bar now renders a 6px item gap (`CSTerminalModel.barGap()` / `csTerminalBarGap()`), `#2a1a0d` bar background, `#c9b7a3` muted text, 600 11px monospaced font (`CSTerminalModel.barFontSize()` / `csTerminalBarFontSize()`), 8px by 12px padding (`CSTerminalModel.barPaddingY()`, `barPaddingX()` / `csTerminalBarPaddingY()`, `csTerminalBarPaddingX()`), three 10px `#5b4331` pill dots (`CSTerminalModel.dotCount`, `dotSize()`, `dotRadius()`), and an 8px leading margin on the title span (`CSTerminalModel.titleMarginStart()` / `csTerminalTitleMarginStart()`), matching `.cs-terminal__bar`, `.cs-terminal__bar i`, and `.cs-terminal__bar span` in `base/controls.css`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style the terminal header bar with a 6px gap, `#2a1a0d` bar background, `#c9b7a3` muted text, 600 11px monospaced font, 8px by 12px padding, three 10px `#5b4331` dots, and an 8px leading margin on the title span. The next rules in `base/controls.css` are `.cs-terminal__bar { display: flex; align-items: center; gap: 6px; background: var(--cs-term-bar); color: var(--cs-term-muted); font: 600 11px var(--cs-font-family-mono); padding: 8px 12px; }`, `.cs-terminal__bar i { inline-size: 10px; block-size: 10px; border-radius: 999px; background: var(--cs-term-dot); }`, and `.cs-terminal__bar span { margin-inline-start: 8px; }`. Re-read those rules before editing. Do not invent dot counts, sizes, or spacings.
+Style the terminal body with `#1a1108` background, `#f5ead9` foreground, 500 13px/1.7 monospaced font, 12px by 14px padding, and a 130px minimum height. The next rule in `base/controls.css` is `.cs-terminal__body { background: var(--cs-term-bg); color: var(--cs-term-fg); font: 500 13px/1.7 var(--cs-font-family-mono); padding: 12px 14px; min-block-size: 130px; }`. Re-read that rule before editing. Do not invent padding, font sizes, or minimum heights.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

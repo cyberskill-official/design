@@ -223,6 +223,14 @@ const csTerminalFgColor = CSColorValue(CSColorSpace.srgb, [245.0 / 255.0, 234.0 
 const csTerminalMutedColor = CSColorValue(CSColorSpace.srgb, [201.0 / 255.0, 183.0 / 255.0, 163.0 / 255.0], 1);
 double csTerminalMaxWidth() => 480;
 double csTerminalBorderWidth() => 1;
+const csTerminalDotCount = 3;
+double csTerminalBarGap() => 6;
+double csTerminalBarFontSize() => 11;
+double csTerminalBarPaddingY() => 8;
+double csTerminalBarPaddingX() => 12;
+double csTerminalDotSize() => 10;
+double csTerminalDotRadius() => 999;
+double csTerminalTitleMarginStart() => 8;
 bool csTerminalSubmits({required bool composing, required int keyCode}) => !composing && keyCode != 229;
 
 class CsCascaderNode {
@@ -1706,7 +1714,28 @@ class _CsTerminalState extends State<CsTerminal> {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(csPoints(pack.radiusLg)),
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(bar, style: TextStyle(color: csColor(csTerminalMutedColor))),
+            DecoratedBox(
+              decoration: BoxDecoration(color: csColor(csTerminalBarColor)),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: csTerminalBarPaddingX(), vertical: csTerminalBarPaddingY()),
+                child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                  for (var index = 0; index < csTerminalDotCount; index++) ...[
+                    if (index > 0) SizedBox(width: csTerminalBarGap()),
+                    ExcludeSemantics(
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: csColor(csTerminalDotColor),
+                          borderRadius: BorderRadius.circular(csTerminalDotRadius()),
+                        ),
+                        child: SizedBox(width: csTerminalDotSize(), height: csTerminalDotSize()),
+                      ),
+                    ),
+                  ],
+                  SizedBox(width: csTerminalBarGap() + csTerminalTitleMarginStart()),
+                  Text(bar, style: TextStyle(color: csColor(csTerminalMutedColor), fontSize: csTerminalBarFontSize(), fontWeight: FontWeight.w600, fontFamily: 'monospace')),
+                ]),
+              ),
+            ),
             for (final line in lines) ...[
               if (line.command != null) Text('${widget.prompt} ${line.command}', style: TextStyle(color: csColor(csTerminalFgColor))),
               if (line.output != null) Text(line.output!, style: TextStyle(color: csColor(csTerminalMutedColor))),

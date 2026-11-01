@@ -260,6 +260,14 @@ public enum CSTerminalModel {
   public static let mutedColor = CSColorValue(colorSpace: .srgb, components: [201.0 / 255.0, 183.0 / 255.0, 163.0 / 255.0], alpha: 1)
   public static func maxWidth() -> Double { 480 }
   public static func borderWidth() -> Double { 1 }
+  public static let dotCount = 3
+  public static func barGap() -> Double { 6 }
+  public static func barFontSize() -> Double { 11 }
+  public static func barPaddingY() -> Double { 8 }
+  public static func barPaddingX() -> Double { 12 }
+  public static func dotSize() -> Double { 10 }
+  public static func dotRadius() -> Double { 999 }
+  public static func titleMarginStart() -> Double { 8 }
 
   public static func submits(composing: Bool, keyCode: Int) -> Bool {
     !composing && keyCode != 229
@@ -635,23 +643,40 @@ public struct CSTerminal: View {
     let inputName = CSTerminalModel.copy("input", language: locale)
     let shadow = pack.shadowMd.first
     VStack(alignment: .leading, spacing: 0) {
-      Text(bar).foregroundStyle(CSTerminalModel.mutedColor.color)
-      ForEach(Array(lines.enumerated()), id: \.offset) { _, line in
-        if let command = line.command { Text(prompt + " " + command).foregroundStyle(pack.colorBrandOchre.color) }
-        if let output = line.output { Text(output).foregroundStyle(CSTerminalModel.mutedColor.color) }
+      HStack(alignment: .center, spacing: CGFloat(CSTerminalModel.barGap())) {
+        ForEach(0..<CSTerminalModel.dotCount, id: \.self) { _ in
+          RoundedRectangle(cornerRadius: CGFloat(CSTerminalModel.dotRadius()))
+            .fill(CSTerminalModel.dotColor.color)
+            .frame(width: CGFloat(CSTerminalModel.dotSize()), height: CGFloat(CSTerminalModel.dotSize()))
+            .accessibilityHidden(true)
+        }
+        Text(bar)
+          .font(.system(size: CGFloat(CSTerminalModel.barFontSize()), weight: .semibold, design: .monospaced))
+          .foregroundStyle(CSTerminalModel.mutedColor.color)
+          .padding(.leading, CGFloat(CSTerminalModel.titleMarginStart()))
       }
-      HStack {
-        Text(prompt).foregroundStyle(pack.colorBrandOchre.color)
-        TextField("", text: $draft)
-          .focused($focused)
-          .accessibilityLabel(inputName)
-          .onSubmit(submit)
-          .onChange(of: focused) { isFocused in
-            if isFocused { CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true }) }
-          }
+      .padding(.vertical, CGFloat(CSTerminalModel.barPaddingY()))
+      .padding(.horizontal, CGFloat(CSTerminalModel.barPaddingX()))
+      .frame(maxWidth: .infinity, alignment: .leading)
+      .background(CSTerminalModel.barColor.color)
+      VStack(alignment: .leading) {
+        ForEach(Array(lines.enumerated()), id: \.offset) { _, line in
+          if let command = line.command { Text(prompt + " " + command).foregroundStyle(pack.colorBrandOchre.color) }
+          if let output = line.output { Text(output).foregroundStyle(CSTerminalModel.mutedColor.color) }
+        }
+        HStack {
+          Text(prompt).foregroundStyle(pack.colorBrandOchre.color)
+          TextField("", text: $draft)
+            .focused($focused)
+            .accessibilityLabel(inputName)
+            .onSubmit(submit)
+            .onChange(of: focused) { isFocused in
+              if isFocused { CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true }) }
+            }
+        }
       }
+      .padding(12)
     }
-    .padding(12)
     .frame(maxWidth: CGFloat(CSTerminalModel.maxWidth()), alignment: .leading)
     .background(CSTerminalModel.bgColor.color, in: RoundedRectangle(cornerRadius: pack.radiusLg.points))
     .clipShape(RoundedRectangle(cornerRadius: pack.radiusLg.points))
