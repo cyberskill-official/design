@@ -410,6 +410,17 @@ class CsFileUpload extends StatelessWidget {
 const csDrawerClose = 'Close';
 const csDrawerPanel = 'Side panel';
 const csDrawerWidth = 480.0;
+const csDrawerScrimRed = 31;
+const csDrawerScrimGreen = 19;
+const csDrawerScrimBlue = 11;
+const csDrawerScrimAlpha = 0.42;
+const csDrawerShadowAlpha = 0.22;
+double csDrawerBorderWidth() => 1;
+double csDrawerShadowOffsetX(String? side) => csDrawerSide(side) == 'left' ? 18 : -18;
+double csDrawerShadowBlur() => 48;
+double csDrawerScrimDepth(double modalDepth) => modalDepth;
+double csDrawerPanelDepth(double modalDepth) => modalDepth + 1;
+bool csDrawerAnimates(bool reducedMotion) => !reducedMotion;
 String csDrawerSide(String? side) => side == 'left' ? 'left' : 'right';
 bool csDrawerShowsTitle(String? title) => title != null && title.isNotEmpty;
 String csDrawerLabel(String? title, String fallback) => csDrawerShowsTitle(title) ? title! : fallback;
@@ -494,22 +505,60 @@ class _CsDrawerState extends State<CsDrawer> {
   Widget build(BuildContext context) {
     if (!widget.open) return const SizedBox.shrink();
     final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
-    return Focus(
-      onKeyEvent: _tab,
-      child: Semantics(
-        label: csDrawerLabel(widget.title, csDrawerCopy('panel', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context)))),
-        child: Column(crossAxisAlignment: csDrawerSide(widget.side) == 'left' ? CrossAxisAlignment.start : CrossAxisAlignment.end, children: [
-          if (csDrawerShowsTitle(widget.title)) Text(widget.title, style: TextStyle(color: csColor(pack.colorTextPrimary))),
-          Text(widget.message, style: TextStyle(color: csColor(pack.colorTextMuted))),
-          TextButton(focusNode: closeNode, onPressed: () {
-            claimClose();
-            widget.onOpenChange(false);
-            widget.onClose?.call();
-            final stack = CsOverlayRegistry.resolved(layerId, [CsOverlayLayer(layerId, 'modal', true)]);
-            csReturnFocus(restoreId, widget.onRestore, layerId, stack);
-          }, child: Semantics(label: widget.closeLabel ?? csDrawerCopy('close', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context))), child: ExcludeSemantics(child: CsIcon(name: 'close', label: '', dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact)))),
-        ]),
-      ),
+    final edge = csDrawerSide(widget.side);
+    final scrimBase = Color.fromARGB(255, csDrawerScrimRed, csDrawerScrimGreen, csDrawerScrimBlue);
+    return Stack(
+      alignment: edge == 'left' ? Alignment.topLeft : Alignment.topRight,
+      children: [
+        Positioned.fill(
+          child: ExcludeSemantics(
+            child: GestureDetector(
+              onTap: () {
+                widget.onOpenChange(false);
+                widget.onClose?.call();
+                final stack = CsOverlayRegistry.resolved(layerId, [CsOverlayLayer(layerId, 'modal', true)]);
+                csReturnFocus(restoreId, widget.onRestore, layerId, stack);
+              },
+              child: ColoredBox(color: scrimBase.withOpacity(csDrawerScrimAlpha)),
+            ),
+          ),
+        ),
+        Focus(
+          onKeyEvent: _tab,
+          child: Semantics(
+            label: csDrawerLabel(widget.title, csDrawerCopy('panel', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context)))),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: csDrawerWidth),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: csColor(pack.colorSurfacePage),
+                  border: edge == 'left'
+                      ? Border(right: BorderSide(color: csColor(pack.colorBorderDefault), width: csDrawerBorderWidth()))
+                      : Border(left: BorderSide(color: csColor(pack.colorBorderDefault), width: csDrawerBorderWidth())),
+                  boxShadow: [
+                    BoxShadow(
+                      color: scrimBase.withOpacity(csDrawerShadowAlpha),
+                      blurRadius: csDrawerShadowBlur(),
+                      offset: Offset(csDrawerShadowOffsetX(edge), 0),
+                    ),
+                  ],
+                ),
+                child: Column(crossAxisAlignment: edge == 'left' ? CrossAxisAlignment.start : CrossAxisAlignment.end, children: [
+                  if (csDrawerShowsTitle(widget.title)) Text(widget.title, style: TextStyle(color: csColor(pack.colorTextPrimary))),
+                  Text(widget.message, style: TextStyle(color: csColor(pack.colorTextMuted))),
+                  TextButton(focusNode: closeNode, onPressed: () {
+                    claimClose();
+                    widget.onOpenChange(false);
+                    widget.onClose?.call();
+                    final stack = CsOverlayRegistry.resolved(layerId, [CsOverlayLayer(layerId, 'modal', true)]);
+                    csReturnFocus(restoreId, widget.onRestore, layerId, stack);
+                  }, child: Semantics(label: widget.closeLabel ?? csDrawerCopy('close', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context))), child: ExcludeSemantics(child: CsIcon(name: 'close', label: '', dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact)))),
+                ]),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

@@ -714,6 +714,17 @@ public enum CSDrawerModel {
   public static let closeLabel = "Close"
   public static let panelLabel = "Side panel"
   public static let width = 480.0
+  public static let scrimRed = 31
+  public static let scrimGreen = 19
+  public static let scrimBlue = 11
+  public static let scrimAlpha = 0.42
+  public static let shadowAlpha = 0.22
+  public static func borderWidth() -> Double { 1 }
+  public static func shadowOffsetX(_ side: String?) -> Double { CSDrawerModel.side(side) == "left" ? 18 : -18 }
+  public static func shadowBlur() -> Double { 48 }
+  public static func scrimDepth(_ modalDepth: Double) -> Double { modalDepth }
+  public static func panelDepth(_ modalDepth: Double) -> Double { modalDepth + 1 }
+  public static func animates(reducedMotion: Bool) -> Bool { !reducedMotion }
   public static func side(_ side: String?) -> String { side == "left" ? "left" : "right" }
   public static func showsTitle(_ title: String?) -> Bool {
     guard let title else { return false }
@@ -769,6 +780,7 @@ public struct CSDrawer: View {
   @State private var closeFocusId = UUID().uuidString
   @FocusState private var trap: Int?
   @Environment(\.csLanguage) private var ancestorLanguage
+  @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
   public init(title: String? = nil, message: String, actions: String? = nil, side: String = "right", closeLabel: String? = nil, open: Binding<Bool>, dark: Bool, highContrast: Bool, compact: Bool, onOpenChange: ((Bool) -> Void)? = nil, onClose: (() -> Void)? = nil, onRestore: (() -> Void)? = nil, layerId: String? = nil, layers: [CSOverlayLayer]? = nil, language: String? = nil) {
     self.title = title
@@ -796,11 +808,13 @@ public struct CSDrawer: View {
     let spoken = CSDrawerModel.label(title: title, fallback: CSDrawerModel.copy("panel", language: languageName))
     let closeName = closeLabel ?? CSDrawerModel.copy("close", language: languageName)
     if open {
+      let scrimBase = Color(.sRGB, red: Double(CSDrawerModel.scrimRed) / 255.0, green: Double(CSDrawerModel.scrimGreen) / 255.0, blue: Double(CSDrawerModel.scrimBlue) / 255.0, opacity: 1.0)
       ZStack(alignment: edge == "left" ? .leading : .trailing) {
-        Color.black.opacity(0.32)
+        scrimBase.opacity(CSDrawerModel.scrimAlpha)
           .frame(maxWidth: .infinity, maxHeight: .infinity)
           .contentShape(Rectangle())
           .onTapGesture(perform: close)
+          .zIndex(CSDrawerModel.scrimDepth(pack.depthModal))
           .accessibilityHidden(true)
         VStack(alignment: .leading, spacing: 12) {
           HStack {
@@ -825,7 +839,20 @@ public struct CSDrawer: View {
         }
         .padding(16)
         .frame(maxWidth: CSDrawerModel.width, maxHeight: .infinity, alignment: .topLeading)
-        .background(pack.colorSurfacePanel.color)
+        .background(pack.colorSurfacePage.color)
+        .overlay(alignment: edge == "left" ? .trailing : .leading) {
+          Rectangle()
+            .fill(pack.colorBorderDefault.color)
+            .frame(width: CGFloat(CSDrawerModel.borderWidth()))
+        }
+        .shadow(
+          color: scrimBase.opacity(CSDrawerModel.shadowAlpha),
+          radius: CGFloat(CSDrawerModel.shadowBlur()),
+          x: CGFloat(CSDrawerModel.shadowOffsetX(edge)),
+          y: 0
+        )
+        .zIndex(CSDrawerModel.panelDepth(pack.depthModal))
+        .animation(CSDrawerModel.animates(reducedMotion: reduceMotion) ? .easeInOut(duration: pack.durationBase.value / 1000.0) : nil, value: open)
         .accessibilityElement(children: .contain)
         .accessibilityLabel(spoken)
         .onAppear {

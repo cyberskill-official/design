@@ -330,6 +330,17 @@ fun CsFileUpload(onFiles: (List<String>) -> Unit, dark: Boolean, highContrast: B
 const val csDrawerClose = "Close"
 const val csDrawerPanel = "Side panel"
 const val csDrawerWidth = 480
+const val csDrawerScrimRed = 31
+const val csDrawerScrimGreen = 19
+const val csDrawerScrimBlue = 11
+const val csDrawerScrimAlpha = 0.42f
+const val csDrawerShadowAlpha = 0.22f
+fun csDrawerBorderWidth() = 1.dp
+fun csDrawerShadowOffsetX(side: String?) = if (csDrawerSide(side) == "left") 18.dp else (-18).dp
+fun csDrawerShadowBlur() = 48.dp
+fun csDrawerScrimDepth(modalDepth: Float) = modalDepth
+fun csDrawerPanelDepth(modalDepth: Float) = modalDepth + 1f
+fun csDrawerAnimates(reducedMotion: Boolean) = !reducedMotion
 fun csDrawerSide(side: String?) = if (side == "left") "left" else "right"
 fun csDrawerShowsTitle(title: String?) = title != null && title.isNotEmpty()
 fun csDrawerLabel(title: String?, fallback: String) = if (csDrawerShowsTitle(title)) title ?: "" else fallback
@@ -371,25 +382,56 @@ fun CsDrawer(title: String, message: String, closeLabel: String? = null, open: B
       onDispose { CsOverlayRegistry.remove(layerId) }
     }
     LaunchedEffect(open) { closeFocus.requestFocus() }
-    Column(modifier.onPreviewKeyEvent { event ->
-      if (event.type != KeyEventType.KeyDown || event.key != Key.Tab) return@onPreviewKeyEvent false
-      val live = CsOverlayRegistry.resolved(layerId, listOf(CsOverlayLayer(layerId, "modal", true)))
-      if (!csOverlayOwns(layerId, live)) return@onPreviewKeyEvent false
-      val next = csFocusNext(trap, 1, event.isShiftPressed, true) ?: return@onPreviewKeyEvent false
-      trap = next
-      true
-    }.semantics { contentDescription = csDrawerLabel(title, panelName) }) {
-      if (csDrawerShowsTitle(title)) Text(title, color = pack.colorTextPrimary.toComposeColor())
-      Text(message, color = pack.colorTextMuted.toComposeColor())
-      TextButton(onClick = {
-        if (!csControlEnabled()) return@TextButton
-        claimClose()
-        onOpenChange(false)
-        onClose?.invoke()
-        val stack = CsOverlayRegistry.resolved(layerId, listOf(CsOverlayLayer(layerId, "modal", true)))
-        csReturnFocus(restoreId, onRestore, layerId, stack)
-      }, enabled = csControlEnabled(), modifier = Modifier.minimumInteractiveComponentSize().focusRequester(closeFocus).onFocusChanged { if (it.isFocused) claimClose() }.semantics { contentDescription = closeName }) {
-        CsIcon(name = "close", label = "", dark = dark, highContrast = highContrast, compact = compact, modifier = Modifier.clearAndSetSemantics { })
+    val scrimColor = Color(csDrawerScrimRed / 255f, csDrawerScrimGreen / 255f, csDrawerScrimBlue / 255f, csDrawerScrimAlpha)
+    Box(modifier.fillMaxSize(), contentAlignment = if (edge == "left") Alignment.TopStart else Alignment.TopEnd) {
+      Box(
+        Modifier
+          .fillMaxSize()
+          .zIndex(csDrawerScrimDepth(pack.depthModal.toFloat()))
+          .background(scrimColor)
+          .clickable {
+            if (!csControlEnabled()) return@clickable
+            onOpenChange(false)
+            onClose?.invoke()
+            val stack = CsOverlayRegistry.resolved(layerId, listOf(CsOverlayLayer(layerId, "modal", true)))
+            csReturnFocus(restoreId, onRestore, layerId, stack)
+          }
+          .clearAndSetSemantics {}
+      )
+      Row(
+        Modifier
+          .widthIn(max = csDrawerWidth.dp)
+          .fillMaxHeight()
+          .zIndex(csDrawerPanelDepth(pack.depthModal.toFloat()))
+          .background(pack.colorSurfacePage.toComposeColor())
+      ) {
+        if (edge != "left") {
+          Box(Modifier.fillMaxHeight().width(csDrawerBorderWidth()).background(pack.colorBorderDefault.toComposeColor()))
+        }
+        Column(Modifier.weight(1f, fill = false).onPreviewKeyEvent { event ->
+          if (event.type != KeyEventType.KeyDown || event.key != Key.Tab) return@onPreviewKeyEvent false
+          val live = CsOverlayRegistry.resolved(layerId, listOf(CsOverlayLayer(layerId, "modal", true)))
+          if (!csOverlayOwns(layerId, live)) return@onPreviewKeyEvent false
+          val next = csFocusNext(trap, 1, event.isShiftPressed, true) ?: return@onPreviewKeyEvent false
+          trap = next
+          true
+        }.semantics { contentDescription = csDrawerLabel(title, panelName) }) {
+          if (csDrawerShowsTitle(title)) Text(title, color = pack.colorTextPrimary.toComposeColor())
+          Text(message, color = pack.colorTextMuted.toComposeColor())
+          TextButton(onClick = {
+            if (!csControlEnabled()) return@TextButton
+            claimClose()
+            onOpenChange(false)
+            onClose?.invoke()
+            val stack = CsOverlayRegistry.resolved(layerId, listOf(CsOverlayLayer(layerId, "modal", true)))
+            csReturnFocus(restoreId, onRestore, layerId, stack)
+          }, enabled = csControlEnabled(), modifier = Modifier.minimumInteractiveComponentSize().focusRequester(closeFocus).onFocusChanged { if (it.isFocused) claimClose() }.semantics { contentDescription = closeName }) {
+            CsIcon(name = "close", label = "", dark = dark, highContrast = highContrast, compact = compact, modifier = Modifier.clearAndSetSemantics { })
+          }
+        }
+        if (edge == "left") {
+          Box(Modifier.fillMaxHeight().width(csDrawerBorderWidth()).background(pack.colorBorderDefault.toComposeColor()))
+        }
       }
     }
   }
