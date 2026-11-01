@@ -1477,12 +1477,15 @@ bool csItemShowsHover({required bool interactive, required bool disabled, requir
 double csItemFocusOutlineWidth(bool focused) => focused ? 2 : 0;
 double csItemFocusOutlineOffset(bool focused) => focused ? 2 : 0;
 double csItemFocusRingWidth(bool focused) => focused ? 5 : 0;
+double csItemOpacity({required bool interactive, required bool disabled}) => interactive && disabled ? 0.55 : 1;
+String? csItemAriaCurrent(bool selected, [String? explicit]) => selected ? (explicit ?? 'true') : explicit;
 
 class CsItem extends StatefulWidget {
-  const CsItem({super.key, required this.title, this.subtitle = '', this.href, this.disabled = false, this.dark = false, this.highContrast = false, this.compact = false, this.onClick});
+  const CsItem({super.key, required this.title, this.subtitle = '', this.href, this.selected = false, this.disabled = false, this.dark = false, this.highContrast = false, this.compact = false, this.onClick});
   final String title;
   final String subtitle;
   final String? href;
+  final bool selected;
   final bool disabled;
   final bool dark;
   final bool highContrast;
@@ -1501,43 +1504,52 @@ class _CsItemState extends State<CsItem> {
     final interactive = csItemIsInteractive(widget.href, widget.onClick != null);
     final showHover = csItemShowsHover(interactive: interactive, disabled: widget.disabled, hovered: hovered);
     final showFocus = csItemHasInteractiveClass(interactive: interactive, disabled: widget.disabled) && focused;
-    return MouseRegion(
-      cursor: csItemHasInteractiveClass(interactive: interactive, disabled: widget.disabled) ? SystemMouseCursors.click : MouseCursor.defer,
-      onEnter: (_) => setState(() => hovered = true),
-      onExit: (_) => setState(() => hovered = false),
-      child: Focus(
-        onFocusChange: (next) => setState(() => focused = next),
-        child: GestureDetector(
-          onTap: csItemHasInteractiveClass(interactive: interactive, disabled: widget.disabled) ? widget.onClick : null,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: csColor(showHover ? pack.colorSurfaceRaised : pack.colorSurfacePanel),
-              borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
-              border: Border.all(
-                color: showHover ? csColor(pack.colorBorderDefault) : Colors.transparent,
-                width: csItemBorderWidth(),
+    return Opacity(
+      opacity: csItemOpacity(interactive: interactive, disabled: widget.disabled),
+      child: IgnorePointer(
+        ignoring: widget.disabled,
+        child: Semantics(
+          selected: widget.selected,
+          child: MouseRegion(
+            cursor: csItemHasInteractiveClass(interactive: interactive, disabled: widget.disabled) ? SystemMouseCursors.click : widget.disabled ? SystemMouseCursors.forbidden : MouseCursor.defer,
+            onEnter: (_) => setState(() => hovered = true),
+            onExit: (_) => setState(() => hovered = false),
+            child: Focus(
+              onFocusChange: (next) => setState(() => focused = next),
+              child: GestureDetector(
+                onTap: csItemHasInteractiveClass(interactive: interactive, disabled: widget.disabled) ? widget.onClick : null,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: csColor(widget.selected ? pack.accentTint : showHover ? pack.colorSurfaceRaised : pack.colorSurfacePanel),
+                    borderRadius: BorderRadius.circular(csPoints(pack.radiusMd)),
+                    border: Border.all(
+                      color: widget.selected ? csColor(pack.colorBrandOchre) : showHover ? csColor(pack.colorBorderDefault) : Colors.transparent,
+                      width: csItemBorderWidth(),
+                    ),
+                    boxShadow: [
+                      if (showFocus)
+                        BoxShadow(
+                          color: csColor(pack.colorAccentOchre),
+                          spreadRadius: csItemFocusRingWidth(showFocus),
+                        ),
+                      if (showFocus)
+                        BoxShadow(
+                          color: csColor(pack.colorTextPrimary),
+                          spreadRadius: csItemFocusOutlineOffset(showFocus) + csItemFocusOutlineWidth(showFocus),
+                        ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: csItemPaddingX(), vertical: csPoints(pack.space3)),
+                    child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                        Text(widget.title, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextPrimary))),
+                        if (widget.subtitle.isNotEmpty) Text(widget.subtitle, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextMuted))),
+                      ]),
+                    ]),
+                  ),
+                ),
               ),
-              boxShadow: [
-                if (showFocus)
-                  BoxShadow(
-                    color: csColor(pack.colorAccentOchre),
-                    spreadRadius: csItemFocusRingWidth(showFocus),
-                  ),
-                if (showFocus)
-                  BoxShadow(
-                    color: csColor(pack.colorTextPrimary),
-                    spreadRadius: csItemFocusOutlineOffset(showFocus) + csItemFocusOutlineWidth(showFocus),
-                  ),
-              ],
-            ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: csItemPaddingX(), vertical: csPoints(pack.space3)),
-              child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Text(widget.title, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextPrimary))),
-                  if (widget.subtitle.isNotEmpty) Text(widget.subtitle, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextMuted))),
-                ]),
-              ]),
             ),
           ),
         ),

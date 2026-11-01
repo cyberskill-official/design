@@ -2264,12 +2264,15 @@ public enum CSItemModel {
   public static func focusOutlineWidth(focused: Bool) -> Double { focused ? 2 : 0 }
   public static func focusOutlineOffset(focused: Bool) -> Double { focused ? 2 : 0 }
   public static func focusRingWidth(focused: Bool) -> Double { focused ? 5 : 0 }
+  public static func opacity(interactive: Bool, disabled: Bool) -> Double { interactive && disabled ? 0.55 : 1 }
+  public static func ariaCurrent(selected: Bool, explicit: String? = nil) -> String? { selected ? (explicit ?? "true") : explicit }
 }
 
 public struct CSItem: View {
   public let title: String
   public let subtitle: String
   public let href: String?
+  public let selected: Bool
   public let disabled: Bool
   let dark: Bool
   let highContrast: Bool
@@ -2277,10 +2280,11 @@ public struct CSItem: View {
   let onClick: (() -> Void)?
   @State private var hovered = false
   @FocusState private var focused: Bool
-  public init(title: String, subtitle: String = "", href: String? = nil, disabled: Bool = false, dark: Bool = false, highContrast: Bool = false, compact: Bool = false, onClick: (() -> Void)? = nil) {
+  public init(title: String, subtitle: String = "", href: String? = nil, selected: Bool = false, disabled: Bool = false, dark: Bool = false, highContrast: Bool = false, compact: Bool = false, onClick: (() -> Void)? = nil) {
     self.title = title
     self.subtitle = subtitle
     self.href = href
+    self.selected = selected
     self.disabled = disabled
     self.dark = dark
     self.highContrast = highContrast
@@ -2302,9 +2306,9 @@ public struct CSItem: View {
     .padding(.vertical, pack.space3.points)
     .padding(.horizontal, CGFloat(CSItemModel.paddingX()))
     .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
-    .background((showHover ? pack.colorSurfaceRaised : pack.colorSurfacePanel).color, in: RoundedRectangle(cornerRadius: pack.radiusMd.points))
+    .background((selected ? pack.accentTint : showHover ? pack.colorSurfaceRaised : pack.colorSurfacePanel).color, in: RoundedRectangle(cornerRadius: pack.radiusMd.points))
     .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
-    .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(showHover ? pack.colorBorderDefault.color : Color.clear, lineWidth: CGFloat(CSItemModel.borderWidth())))
+    .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(selected ? pack.colorBrandOchre.color : showHover ? pack.colorBorderDefault.color : Color.clear, lineWidth: CGFloat(CSItemModel.borderWidth())))
     .overlay(
       RoundedRectangle(cornerRadius: pack.radiusMd.points)
         .inset(by: -CGFloat(CSItemModel.focusRingWidth(focused: showFocus)) / 2)
@@ -2315,6 +2319,9 @@ public struct CSItem: View {
         .inset(by: -(CGFloat(CSItemModel.focusOutlineOffset(focused: showFocus)) + CGFloat(CSItemModel.focusOutlineWidth(focused: showFocus)) / 2))
         .stroke(showFocus ? pack.primaryTextColor : .clear, lineWidth: CGFloat(CSItemModel.focusOutlineWidth(focused: showFocus)))
     )
+    .opacity(CSItemModel.opacity(interactive: interactive, disabled: disabled))
+    .allowsHitTesting(!disabled)
+    .accessibilityAddTraits(selected ? .isSelected : [])
     .focused($focused)
     .onHover { inside in hovered = inside }
     .onTapGesture { if CSItemModel.hasInteractiveClass(interactive: interactive, disabled: disabled) { onClick?() } }

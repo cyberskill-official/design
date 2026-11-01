@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the item-interactive checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the item-states checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `760d36b0b7ea7b9cfca1866d35ae2bbe131e8b4b`, with the hash note in `c3b6782b`
-- Checkpoint commit hash: `ca840b6feaed829c45a2e841330c7569aa3ec75d`
+- Previous checkpoint: `ca840b6feaed829c45a2e841330c7569aa3ec75d`, with the hash note in `080e6ff6`
+- Checkpoint commit hash: `PENDING`
 
 The Cursor canvas is outside this git repo:
 
@@ -48,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the interactive item chrome: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after the item selected and disabled states: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-Interactive `Item` rows (`CSItem` / `CsItem` with `href != nil` or `onClick != nil` and `!disabled`, modeled by `CSItemModel.isInteractive(href:hasOnClick:)` / `csItemIsInteractive(href, hasOnClick)` and `CSItemModel.hasInteractiveClass(interactive:disabled:)` / `csItemHasInteractiveClass(interactive, disabled)`) now apply pointer interactivity, raised hover surface (`var(--cs-color-surface-raised)`) with default border (`var(--cs-color-border-default)`) via `CSItemModel.showsHover(interactive:disabled:hovered:)` / `csItemShowsHover(interactive, disabled, hovered)`, and a 2px primary-text focus outline (`CSItemModel.focusOutlineWidth(focused:)` / `csItemFocusOutlineWidth(focused)`) at a 2px offset (`CSItemModel.focusOutlineOffset(focused:)` / `csItemFocusOutlineOffset(focused)`) with a 5px ochre ring (`CSItemModel.focusRingWidth(focused:)` / `csItemFocusRingWidth(focused)`), matching `.cs-item--interactive { cursor: pointer; font: inherit; inline-size: 100%; }`, `button.cs-item--interactive { border: 1px solid transparent; background: var(--cs-color-surface-panel); }`, `@media (hover: hover) { .cs-item--interactive:hover { background: var(--cs-color-surface-raised); border-color: var(--cs-color-border-default); } }`, and `.cs-item--interactive:focus-visible { outline: 2px solid var(--cs-color-text-primary); outline-offset: 2px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }` in `base/collections.css`.
+`Item` rows (`CSItem` / `CsItem`) now style the selected state (`selected: true`) with brand-ochre border (`var(--cs-color-brand-ochre)`) and accent-tint background (`var(--cs-accent-tint, var(--cs-color-surface-raised))`), expose `aria-current="true"` (`CSItemModel.ariaCurrent(selected:explicit:)` / `csItemAriaCurrent(selected, explicit)`) and selected semantics when `selected` is true, and dim disabled interactive items to `0.55` opacity while keeping static `div` items at `1.0` (`CSItemModel.opacity(interactive:disabled:)` / `csItemOpacity(interactive, disabled)`), matching `.cs-item.is-selected { border-color: var(--cs-color-brand-ochre); background: var(--cs-accent-tint, var(--cs-color-surface-raised)); }`, `.cs-item.is-disabled, .cs-item[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; pointer-events: none; }`, and `div.cs-item.is-disabled { opacity: 1; }` in `base/collections.css`.
 
 - Compose and Flutter were not compiled.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style `Item` selected state (`.cs-item.is-selected`) and disabled state (`.cs-item.is-disabled`, `.cs-item[aria-disabled="true"]`, and `div.cs-item.is-disabled`). The next rules in `base/collections.css` are `.cs-item.is-selected { border-color: var(--cs-color-brand-ochre); background: var(--cs-accent-tint, var(--cs-color-surface-raised)); }`, `.cs-item.is-disabled, .cs-item[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; pointer-events: none; }`, and `div.cs-item.is-disabled { opacity: 1; }`. Re-read those rules and `components/data/Item.jsx` before editing. Do not invent selected or disabled semantics.
+Style `Item` leading, main, title, description, and trailing sub-elements (`.cs-item__leading`, `.cs-item__main`, `.cs-item__title`, `.cs-item__description`, `.cs-item__trailing`) and trailing-slot child fallback. The next rules in `base/collections.css` are `.cs-item__leading { flex: none; display: grid; place-items: center; color: var(--cs-color-text-accent); }`, `.cs-item__main { flex: 1; min-inline-size: 0; display: grid; gap: 2px; }`, `.cs-item__title { font-weight: 600; font-size: var(--cs-font-size-sm); line-height: 1.35; }`, `.cs-item__description { font-size: var(--cs-font-size-xs); color: var(--cs-color-text-muted); line-height: 1.4; }`, and `.cs-item__trailing { flex: none; display: grid; place-items: center; color: var(--cs-color-text-muted); }`. Re-read those rules and `components/data/Item.jsx` before editing. Do not invent item slot rules.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
