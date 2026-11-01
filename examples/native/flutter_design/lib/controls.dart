@@ -1006,3 +1006,198 @@ class _CsDialogState extends State<CsDialog> {
     );
   }
 }
+
+const double csResetTextSizeAdjustPercent = 100.0;
+double csResetScrollPaddingBlockStart(CSTokenModePack pack) => csPoints(pack.scrollPaddingBlockStart);
+double csResetScrollPaddingBlockEnd(CSTokenModePack pack) => csPoints(pack.scrollPaddingBlockEnd);
+double csResetBodyMargin() => 0;
+double csResetBodyFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeBase);
+double csResetBodyLineHeight(CSTokenModePack pack) => pack.fontLineHeightBody;
+double csResetHeadingLineHeight(CSTokenModePack pack) => pack.fontLineHeightHeading;
+String csResetHeadingTextWrap() => 'balance';
+String csResetParagraphTextWrap() => 'pretty';
+double csResetFocusOutlineWidth() => 2;
+double csResetFocusOutlineOffset() => 2;
+double csResetFocusHaloSpread() => 5;
+double csResetFocusDropShadowRadius() => 2;
+double csResetSkipUnfocusedLeft() => -999;
+double csResetSkipUnfocusedSize() => 1;
+int csResetSkipFontWeight() => 700;
+double csResetSkipFocusedOffset() => 12;
+double csResetSkipFocusedDepth(CSTokenModePack pack) => pack.depthToast + 1;
+double csResetSkipFocusedPaddingY() => 10;
+double csResetSkipFocusedPaddingX() => 14;
+double csResetSkipFocusedBorderWidth() => 2;
+double csResetSkipFocusedHaloSpread() => 5;
+
+class CsSkipLink extends StatefulWidget {
+  const CsSkipLink({
+    super.key,
+    required this.label,
+    required this.onPressed,
+    this.dark = false,
+    this.highContrast = false,
+    this.compact = false,
+  });
+
+  final String label;
+  final VoidCallback onPressed;
+  final bool dark;
+  final bool highContrast;
+  final bool compact;
+
+  @override
+  State<CsSkipLink> createState() => _CsSkipLinkState();
+}
+
+class _CsSkipLinkState extends State<CsSkipLink> {
+  bool focused = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final pack = csModePack(
+      dark: widget.dark,
+      highContrast: widget.highContrast,
+      compact: widget.compact,
+    );
+    final radius = BorderRadius.circular(csPoints(pack.radiusMd));
+    return Focus(
+      onFocusChange: (next) => setState(() => focused = next),
+      child: GestureDetector(
+        onTap: widget.onPressed,
+        child: SizedBox(
+          width: focused ? null : csResetSkipUnfocusedSize(),
+          height: focused ? null : csResetSkipUnfocusedSize(),
+          child: Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: csResetSkipFocusedPaddingX(),
+              vertical: csResetSkipFocusedPaddingY(),
+            ),
+            decoration: BoxDecoration(
+              color: csColor(pack.colorSurfacePanel),
+              borderRadius: radius,
+              border: Border.all(
+                color: csColor(pack.colorBrandOchre),
+                width: csResetSkipFocusedBorderWidth(),
+              ),
+              boxShadow: focused
+                  ? [
+                      BoxShadow(
+                        color: csColor(pack.colorAccentOchre),
+                        spreadRadius: csResetSkipFocusedHaloSpread(),
+                      ),
+                    ]
+                  : const [],
+            ),
+            child: Text(
+              widget.label,
+              style: TextStyle(
+                fontSize: csResetBodyFontSize(pack),
+                fontWeight: FontWeight.w700,
+                color: csColor(pack.colorTextPrimary),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+enum CsTypographyRole {
+  display('cs-display'),
+  h1('cs-h1'),
+  h2('cs-h2'),
+  h3('cs-h3'),
+  h4('cs-h4'),
+  bodyLg('cs-body-lg'),
+  body('cs-body'),
+  secondary('cs-secondary'),
+  caption('cs-caption'),
+  eyebrow('cs-eyebrow'),
+  mono('cs-mono');
+
+  const CsTypographyRole(this.className);
+  final String className;
+}
+
+const double csTypographyLetterSpacingTight = -0.01;
+const double csTypographyLetterSpacingNormal = 0.0;
+const double csTypographyLetterSpacingCaps = 0.08;
+const double csTypographyHeadingTracking = -0.01;
+const double csTypographyDisplayFaceMaxWeight = 700.0;
+
+List<String> csTypographyFontFamily(CsTypographyRole role, CSTokenModePack pack, {bool displayFace = false}) {
+  return switch (role) {
+    CsTypographyRole.mono => pack.fontFamilyMono,
+    CsTypographyRole.display || CsTypographyRole.h1 || CsTypographyRole.h2 || CsTypographyRole.h3 || CsTypographyRole.h4 =>
+      displayFace ? pack.fontFamilyDisplay : pack.headingFamily,
+    CsTypographyRole.bodyLg || CsTypographyRole.body || CsTypographyRole.secondary || CsTypographyRole.caption || CsTypographyRole.eyebrow =>
+      pack.fontFamilyUi,
+  };
+}
+
+double csTypographyFontSize(CsTypographyRole role, CSTokenModePack pack) {
+  return switch (role) {
+    CsTypographyRole.display => csPoints(pack.textDisplay),
+    CsTypographyRole.h1 => csPoints(pack.textH1),
+    CsTypographyRole.h2 => csPoints(pack.textH2),
+    CsTypographyRole.h3 => csPoints(pack.textH3),
+    CsTypographyRole.h4 => csPoints(pack.textH4),
+    CsTypographyRole.bodyLg => csPoints(pack.textBodyLg),
+    CsTypographyRole.body || CsTypographyRole.mono => csPoints(pack.textBody),
+    CsTypographyRole.secondary => csPoints(pack.textSecondary),
+    CsTypographyRole.caption => csPoints(pack.textCaption),
+    CsTypographyRole.eyebrow => csPoints(pack.textEyebrow),
+  };
+}
+
+double csTypographyLineHeight(CsTypographyRole role, CSTokenModePack pack) {
+  return switch (role) {
+    CsTypographyRole.display => pack.fontLineHeightTight,
+    CsTypographyRole.h1 || CsTypographyRole.h2 || CsTypographyRole.h3 || CsTypographyRole.h4 => pack.fontLineHeightHeading,
+    CsTypographyRole.bodyLg || CsTypographyRole.body || CsTypographyRole.secondary || CsTypographyRole.caption || CsTypographyRole.eyebrow || CsTypographyRole.mono =>
+      pack.fontLineHeightBody,
+  };
+}
+
+double csTypographyFontWeight(CsTypographyRole role, CSTokenModePack pack, {bool displayFace = false}) {
+  return switch (role) {
+    CsTypographyRole.display || CsTypographyRole.h1 =>
+      displayFace ? math.min(csTypographyDisplayFaceMaxWeight, pack.headingWeightStrong) : pack.headingWeightStrong,
+    CsTypographyRole.h2 || CsTypographyRole.h3 => pack.headingWeight,
+    CsTypographyRole.h4 => pack.fontWeightSemibold,
+    CsTypographyRole.eyebrow => pack.fontWeightBold,
+    CsTypographyRole.bodyLg || CsTypographyRole.body || CsTypographyRole.secondary || CsTypographyRole.caption || CsTypographyRole.mono =>
+      pack.fontWeightRegular,
+  };
+}
+
+double csTypographyLetterSpacingEm(CsTypographyRole role) {
+  return switch (role) {
+    CsTypographyRole.display || CsTypographyRole.h1 || CsTypographyRole.h2 => csTypographyHeadingTracking,
+    CsTypographyRole.eyebrow => csTypographyLetterSpacingCaps,
+    CsTypographyRole.h3 || CsTypographyRole.h4 || CsTypographyRole.bodyLg || CsTypographyRole.body || CsTypographyRole.secondary || CsTypographyRole.caption || CsTypographyRole.mono =>
+      csTypographyLetterSpacingNormal,
+  };
+}
+
+String csTypographyTextWrap(CsTypographyRole role) {
+  return switch (role) {
+    CsTypographyRole.display || CsTypographyRole.h1 || CsTypographyRole.h2 => 'balance',
+    CsTypographyRole.bodyLg || CsTypographyRole.body => 'pretty',
+    CsTypographyRole.h3 || CsTypographyRole.h4 || CsTypographyRole.secondary || CsTypographyRole.caption || CsTypographyRole.eyebrow || CsTypographyRole.mono =>
+      'normal',
+  };
+}
+
+bool csTypographyIsUppercase(CsTypographyRole role) => role == CsTypographyRole.eyebrow;
+
+CSColorValue csTypographyTextColor(CsTypographyRole role, CSTokenModePack pack) {
+  return switch (role) {
+    CsTypographyRole.secondary || CsTypographyRole.caption => pack.colorTextMuted,
+    CsTypographyRole.eyebrow => pack.colorTextAccent,
+    CsTypographyRole.display || CsTypographyRole.h1 || CsTypographyRole.h2 || CsTypographyRole.h3 || CsTypographyRole.h4 || CsTypographyRole.bodyLg || CsTypographyRole.body || CsTypographyRole.mono =>
+      pack.colorTextPrimary,
+  };
+}

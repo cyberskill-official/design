@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the compose-compile-fixes checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the reset-and-typography checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `c94d2bb634ca9c73b747b99410925a02088cfc4b`, with the hash note in `c610886a`
-- Checkpoint commit hash: `2f72057f5c84027ac346cf5815e92946e17daa2d`
+- Previous checkpoint: `2f72057f5c84027ac346cf5815e92946e17daa2d`, with the hash note in `80e58ad7`
 - Temporarily disabled GitHub Actions push workflows (re-enable with `gh workflow enable` when done): `Design System Gates` (`316944477`), `native-validation` (`377620668`), `native-store` (`318755963`), `OpenSSF Scorecard` (`330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -49,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after resolving the Kotlin/Compose compilation and import errors across `Catalog.kt`, `Fields.kt`, `Flows.kt`, `Overlays.kt`, `Primitives.kt`, `Remainder.kt`, `Structures.kt`, and `Surfaces.kt`: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled locally. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after styling the base reset, skip link, and typographic role utilities: the catalog test passed in about 0.007s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled locally. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-Resolved all Kotlin/Compose compilation and import errors in `examples/native/compose/design/src/main/java/world/cyberskill/design/{Catalog,Fields,Flows,Overlays,Primitives,Remainder,Structures,Surfaces}.kt` reported by `:design:compileDebugKotlin`: replaced desktop-only `onPointerEvent` with a shared `pointerInput` / `awaitPointerEventScope` extension in `Remainder.kt`, made `csControlEnabled` non-`@Composable` backed by `CsDisabledScope` so event/key lambdas can call it outside `@Composable` contexts, hoisted `LocalCsLanguage.current` and `LocalContentColor.current` reads out of non-`@Composable` `semantics` and `Canvas` lambdas (`CsCalendar`, `CsProgressBar`, `CsInlineEdit`), fixed misplaced `@Composable` annotations on `CsAlertDialog`, `csTableCopy`, `CsToggle`, and `CsContextMenu`, updated `CsWatermark` `drawText` and `CsContextMenu` `awaitPointerEvent().buttons.isSecondaryPressed`, removed duplicate `csTagCopy` in `Primitives.kt` and `csDescriptionSpoken` in `Catalog.kt`, widened `csDateFormat`/`csDateParse` `language` to `String?`, and added missing layout/semantics/modifier imports in `Catalog.kt`, `Fields.kt`, `Flows.kt`, `Remainder.kt`, `Structures.kt`, and `Surfaces.kt`.
+The base reset, skip link, and typographic role utilities (`CSResetModel` / `CSSkipLink` / `CSTypographyRole` / `CSTypographyModel` and `csReset*` / `CsSkipLink` / `CsTypographyRole` / `csTypography*`) now model `scroll-padding-block` (`space-4` `16px`), page background + primary ink + `font-family-ui` + `font-size-base` (`16px`) + `1.5` body line-height, `1.35` heading line-height with `balance` wrap, `pretty` paragraph wrap, `:focus-visible` `2px` primary outline at `2px` offset + `5px` ochre halo + `2px` ochre drop-shadow fallback, `.cs-skip` offscreen `-999px`/`1x1` and focused `fixed` `12x12` `toast+1` (`201`) `10x14` panel with `2px` brand-ochre border + `5px` ochre halo, and `.cs-display` (`60px`/`1.15`/`800`/`-0.01em`), `.cs-h1` (`36px`/`1.35`/`800`/`-0.01em`), `.cs-h2` (`30px`/`1.35`/`700`/`-0.01em`), `.cs-h3` (`24px`/`1.35`/`700`), `.cs-h4` (`20px`/`1.35`/`600`), `.cs-body-lg` (`18px`/`1.5`/`400`), `.cs-body` (`16px`/`1.5`/`400`), `.cs-secondary` (`14px`/`1.5` muted), `.cs-caption` (`12px`/`1.5` muted), `.cs-eyebrow` (`12px`/`1.5`/`700` uppercase `0.08em` accent), `.cs-mono` (`JetBrains Mono`), and `.cs-display-face` (`Space Grotesk` clamping `800` to `700`), matching `base/reset.css` lines 1–62 and `base/typography.css` lines 1–20.
 
 - Compose and Flutter were not compiled locally.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Style the base reset and typographic role utilities in Swift, Compose, and Flutter (`scroll-padding-block` `space-4` `16px`, page background + primary ink + `font-family-ui` + `font-size-base` + `1.5` body line-height, `1.35` heading line-height, `:focus-visible` `2px` primary outline at `2px` offset + `5px` ochre halo + `2px` ochre drop-shadow fallback, `.cs-skip` offscreen `-999px`/`1x1` and focused `fixed` `12x12` `toast+1` `10x14` panel with `2px` brand-ochre border + `5px` ochre halo + `shadow-md`, plus `.cs-display`/`.cs-h1`..`.cs-h4`/`.cs-body-lg`/`.cs-body`/`.cs-secondary`/`.cs-caption`/`.cs-eyebrow`/`.cs-mono`/`.cs-display-face` role rules from `base/reset.css` lines 1–62 and `base/typography.css` lines 1–20).
+Style the `Button` variants, sizes, loading spinner, and coarse-pointer floors in Swift, Compose, and Flutter (`primary`/`secondary`/`tertiary`/`ghost`/`danger`/`danger-ghost` colors and dark-theme remaps, `xs` `28x28` `4x10` `sm` font, `sm` `36x36` `8x14`, `md` `44x44` `12x20`, `lg` `52px` `16x28`, `100%` full width, `0.58` disabled/loading opacity, `1em` `2px` `0.6s` spinner with reduced-motion suppression, and `44px` coarse-pointer floors from `base/components.css` lines 6–110).
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

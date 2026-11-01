@@ -891,3 +891,169 @@ public struct CSDialog: View {
     CSOverlayRegistry.shared.remove(id: layerId)
   }
 }
+
+public enum CSResetModel {
+  public static let textSizeAdjustPercent = 100.0
+  public static func scrollPaddingBlockStart(_ pack: CSTokenModePack) -> Double { pack.scrollPaddingBlockStart.points }
+  public static func scrollPaddingBlockEnd(_ pack: CSTokenModePack) -> Double { pack.scrollPaddingBlockEnd.points }
+  public static func bodyMargin() -> Double { 0 }
+  public static func bodyFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeBase.points }
+  public static func bodyLineHeight(_ pack: CSTokenModePack) -> Double { pack.fontLineHeightBody }
+  public static func headingLineHeight(_ pack: CSTokenModePack) -> Double { pack.fontLineHeightHeading }
+  public static func headingTextWrap() -> String { "balance" }
+  public static func paragraphTextWrap() -> String { "pretty" }
+  public static func focusOutlineWidth() -> Double { 2 }
+  public static func focusOutlineOffset() -> Double { 2 }
+  public static func focusHaloSpread() -> Double { 5 }
+  public static func focusDropShadowRadius() -> Double { 2 }
+  public static func skipUnfocusedLeft() -> Double { -999 }
+  public static func skipUnfocusedSize() -> Double { 1 }
+  public static func skipFontWeight() -> Int { 700 }
+  public static func skipFocusedOffset() -> Double { 12 }
+  public static func skipFocusedDepth(_ pack: CSTokenModePack) -> Double { pack.depthToast + 1 }
+  public static func skipFocusedPaddingY() -> Double { 10 }
+  public static func skipFocusedPaddingX() -> Double { 14 }
+  public static func skipFocusedBorderWidth() -> Double { 2 }
+  public static func skipFocusedHaloSpread() -> Double { 5 }
+}
+
+public struct CSSkipLink: View {
+  public let label: String
+  public let dark: Bool
+  public let highContrast: Bool
+  public let compact: Bool
+  public let action: () -> Void
+  @FocusState private var focused: Bool
+
+  public init(label: String, dark: Bool = false, highContrast: Bool = false, compact: Bool = false, action: @escaping () -> Void = {}) {
+    self.label = label
+    self.dark = dark
+    self.highContrast = highContrast
+    self.compact = compact
+    self.action = action
+  }
+
+  public var body: some View {
+    let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
+    Button(action: action) {
+      Text(label)
+        .font(.system(size: CGFloat(CSResetModel.bodyFontSize(pack)), weight: .bold))
+        .foregroundStyle(pack.colorTextPrimary.color)
+        .padding(.horizontal, CGFloat(CSResetModel.skipFocusedPaddingX()))
+        .padding(.vertical, CGFloat(CSResetModel.skipFocusedPaddingY()))
+        .background(pack.colorSurfacePanel.color)
+        .clipShape(RoundedRectangle(cornerRadius: pack.radiusMd.points))
+        .overlay(
+          RoundedRectangle(cornerRadius: pack.radiusMd.points)
+            .stroke(pack.colorBrandOchre.color, lineWidth: CGFloat(CSResetModel.skipFocusedBorderWidth()))
+        )
+    }
+    .buttonStyle(.plain)
+    .focused($focused)
+    .frame(
+      width: focused ? nil : CGFloat(CSResetModel.skipUnfocusedSize()),
+      height: focused ? nil : CGFloat(CSResetModel.skipUnfocusedSize())
+    )
+    .clipped()
+    .zIndex(focused ? CSResetModel.skipFocusedDepth(pack) : 0)
+  }
+}
+
+public enum CSTypographyRole: String, CaseIterable {
+  case display = "cs-display"
+  case h1 = "cs-h1"
+  case h2 = "cs-h2"
+  case h3 = "cs-h3"
+  case h4 = "cs-h4"
+  case bodyLg = "cs-body-lg"
+  case body = "cs-body"
+  case secondary = "cs-secondary"
+  case caption = "cs-caption"
+  case eyebrow = "cs-eyebrow"
+  case mono = "cs-mono"
+}
+
+public enum CSTypographyModel {
+  public static let letterSpacingTight = -0.01
+  public static let letterSpacingNormal = 0.0
+  public static let letterSpacingCaps = 0.08
+  public static let headingTracking = -0.01
+  public static let displayFaceMaxWeight = 700.0
+
+  public static func fontFamily(_ role: CSTypographyRole, pack: CSTokenModePack, displayFace: Bool = false) -> [String] {
+    switch role {
+    case .mono:
+      return pack.fontFamilyMono
+    case .display, .h1, .h2, .h3, .h4:
+      return displayFace ? pack.fontFamilyDisplay : pack.headingFamily
+    case .bodyLg, .body, .secondary, .caption, .eyebrow:
+      return pack.fontFamilyUi
+    }
+  }
+
+  public static func fontSize(_ role: CSTypographyRole, pack: CSTokenModePack) -> Double {
+    switch role {
+    case .display: return pack.textDisplay.points
+    case .h1: return pack.textH1.points
+    case .h2: return pack.textH2.points
+    case .h3: return pack.textH3.points
+    case .h4: return pack.textH4.points
+    case .bodyLg: return pack.textBodyLg.points
+    case .body, .mono: return pack.textBody.points
+    case .secondary: return pack.textSecondary.points
+    case .caption: return pack.textCaption.points
+    case .eyebrow: return pack.textEyebrow.points
+    }
+  }
+
+  public static func lineHeight(_ role: CSTypographyRole, pack: CSTokenModePack) -> Double {
+    switch role {
+    case .display: return pack.fontLineHeightTight
+    case .h1, .h2, .h3, .h4: return pack.fontLineHeightHeading
+    case .bodyLg, .body, .secondary, .caption, .eyebrow, .mono: return pack.fontLineHeightBody
+    }
+  }
+
+  public static func fontWeight(_ role: CSTypographyRole, pack: CSTokenModePack, displayFace: Bool = false) -> Double {
+    switch role {
+    case .display, .h1:
+      return displayFace ? min(displayFaceMaxWeight, pack.headingWeightStrong) : pack.headingWeightStrong
+    case .h2, .h3:
+      return pack.headingWeight
+    case .h4:
+      return pack.fontWeightSemibold
+    case .eyebrow:
+      return pack.fontWeightBold
+    case .bodyLg, .body, .secondary, .caption, .mono:
+      return pack.fontWeightRegular
+    }
+  }
+
+  public static func letterSpacingEm(_ role: CSTypographyRole) -> Double {
+    switch role {
+    case .display, .h1, .h2: return headingTracking
+    case .eyebrow: return letterSpacingCaps
+    case .h3, .h4, .bodyLg, .body, .secondary, .caption, .mono: return letterSpacingNormal
+    }
+  }
+
+  public static func textWrap(_ role: CSTypographyRole) -> String {
+    switch role {
+    case .display, .h1, .h2: return "balance"
+    case .bodyLg, .body: return "pretty"
+    case .h3, .h4, .secondary, .caption, .eyebrow, .mono: return "normal"
+    }
+  }
+
+  public static func isUppercase(_ role: CSTypographyRole) -> Bool {
+    role == .eyebrow
+  }
+
+  public static func textColor(_ role: CSTypographyRole, pack: CSTokenModePack) -> CSColorValue {
+    switch role {
+    case .secondary, .caption: return pack.colorTextMuted
+    case .eyebrow: return pack.colorTextAccent
+    case .display, .h1, .h2, .h3, .h4, .bodyLg, .body, .mono: return pack.colorTextPrimary
+    }
+  }
+}

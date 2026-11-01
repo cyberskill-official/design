@@ -55,11 +55,13 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.zIndex
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.pow
@@ -689,4 +691,146 @@ fun CsDialog(
     if (message.isNotEmpty()) Text(message, color = pack.colorTextMuted.toComposeColor())
     if (stops > 0) CsButton(title = confirmTitle, onClick = onConfirm, dark = dark, highContrast = highContrast, compact = compact, modifier = Modifier.focusRequester(confirmFocus))
   }
+}
+
+const val csResetTextSizeAdjustPercent = 100.0
+fun csResetScrollPaddingBlockStart(pack: CSTokenModePack) = pack.scrollPaddingBlockStart.toDp()
+fun csResetScrollPaddingBlockEnd(pack: CSTokenModePack) = pack.scrollPaddingBlockEnd.toDp()
+fun csResetBodyMargin() = 0.dp
+fun csResetBodyFontSize(pack: CSTokenModePack) = pack.fontSizeBase.toDp()
+fun csResetBodyLineHeight(pack: CSTokenModePack) = pack.fontLineHeightBody
+fun csResetHeadingLineHeight(pack: CSTokenModePack) = pack.fontLineHeightHeading
+fun csResetHeadingTextWrap() = "balance"
+fun csResetParagraphTextWrap() = "pretty"
+fun csResetFocusOutlineWidth() = 2.dp
+fun csResetFocusOutlineOffset() = 2.dp
+fun csResetFocusHaloSpread() = 5.dp
+fun csResetFocusDropShadowRadius() = 2.dp
+fun csResetSkipUnfocusedLeft() = (-999).dp
+fun csResetSkipUnfocusedSize() = 1.dp
+fun csResetSkipFontWeight() = 700
+fun csResetSkipFocusedOffset() = 12.dp
+fun csResetSkipFocusedDepth(pack: CSTokenModePack) = (pack.depthToast + 1.0).toFloat()
+fun csResetSkipFocusedPaddingY() = 10.dp
+fun csResetSkipFocusedPaddingX() = 14.dp
+fun csResetSkipFocusedBorderWidth() = 2.dp
+fun csResetSkipFocusedHaloSpread() = 5.dp
+
+@Composable
+fun CsSkipLink(
+  label: String,
+  onClick: () -> Unit,
+  dark: Boolean = false,
+  highContrast: Boolean = false,
+  compact: Boolean = false,
+  modifier: Modifier = Modifier,
+) {
+  val pack = csModePack(dark, highContrast, compact)
+  val handle = rememberFocusHandle("skip-link")
+  var focused by remember { mutableStateOf(false) }
+  val shape = RoundedCornerShape(pack.radiusMd.toDp())
+  TextButton(
+    onClick = { handle.claim(); onClick() },
+    enabled = csControlEnabled(),
+    modifier = modifier
+      .then(if (focused) Modifier.zIndex(csResetSkipFocusedDepth(pack)) else Modifier.size(csResetSkipUnfocusedSize()))
+      .background(pack.colorSurfacePanel.toComposeColor(), shape)
+      .border(csResetSkipFocusedBorderWidth(), pack.colorBrandOchre.toComposeColor(), shape)
+      .focusRequester(handle.requester)
+      .onFocusChanged {
+        focused = it.isFocused
+        if (it.isFocused) handle.claim()
+      },
+    contentPadding = androidx.compose.foundation.layout.PaddingValues(
+      horizontal = csResetSkipFocusedPaddingX(),
+      vertical = csResetSkipFocusedPaddingY(),
+    ),
+  ) {
+    Text(
+      label,
+      color = pack.colorTextPrimary.toComposeColor(),
+      fontSize = csResetBodyFontSize(pack).value.sp,
+      fontWeight = FontWeight.Bold,
+    )
+  }
+}
+
+enum class CsTypographyRole(val className: String) {
+  Display("cs-display"),
+  H1("cs-h1"),
+  H2("cs-h2"),
+  H3("cs-h3"),
+  H4("cs-h4"),
+  BodyLg("cs-body-lg"),
+  Body("cs-body"),
+  Secondary("cs-secondary"),
+  Caption("cs-caption"),
+  Eyebrow("cs-eyebrow"),
+  Mono("cs-mono"),
+}
+
+const val csTypographyLetterSpacingTight = -0.01
+const val csTypographyLetterSpacingNormal = 0.0
+const val csTypographyLetterSpacingCaps = 0.08
+const val csTypographyHeadingTracking = -0.01
+const val csTypographyDisplayFaceMaxWeight = 700.0
+
+fun csTypographyFontFamily(role: CsTypographyRole, pack: CSTokenModePack, displayFace: Boolean = false): List<String> = when (role) {
+  CsTypographyRole.Mono -> pack.fontFamilyMono
+  CsTypographyRole.Display, CsTypographyRole.H1, CsTypographyRole.H2, CsTypographyRole.H3, CsTypographyRole.H4 ->
+    if (displayFace) pack.fontFamilyDisplay else pack.headingFamily
+  CsTypographyRole.BodyLg, CsTypographyRole.Body, CsTypographyRole.Secondary, CsTypographyRole.Caption, CsTypographyRole.Eyebrow ->
+    pack.fontFamilyUi
+}
+
+fun csTypographyFontSize(role: CsTypographyRole, pack: CSTokenModePack): Dp = when (role) {
+  CsTypographyRole.Display -> pack.textDisplay.toDp()
+  CsTypographyRole.H1 -> pack.textH1.toDp()
+  CsTypographyRole.H2 -> pack.textH2.toDp()
+  CsTypographyRole.H3 -> pack.textH3.toDp()
+  CsTypographyRole.H4 -> pack.textH4.toDp()
+  CsTypographyRole.BodyLg -> pack.textBodyLg.toDp()
+  CsTypographyRole.Body, CsTypographyRole.Mono -> pack.textBody.toDp()
+  CsTypographyRole.Secondary -> pack.textSecondary.toDp()
+  CsTypographyRole.Caption -> pack.textCaption.toDp()
+  CsTypographyRole.Eyebrow -> pack.textEyebrow.toDp()
+}
+
+fun csTypographyLineHeight(role: CsTypographyRole, pack: CSTokenModePack): Double = when (role) {
+  CsTypographyRole.Display -> pack.fontLineHeightTight
+  CsTypographyRole.H1, CsTypographyRole.H2, CsTypographyRole.H3, CsTypographyRole.H4 -> pack.fontLineHeightHeading
+  CsTypographyRole.BodyLg, CsTypographyRole.Body, CsTypographyRole.Secondary, CsTypographyRole.Caption, CsTypographyRole.Eyebrow, CsTypographyRole.Mono ->
+    pack.fontLineHeightBody
+}
+
+fun csTypographyFontWeight(role: CsTypographyRole, pack: CSTokenModePack, displayFace: Boolean = false): Double = when (role) {
+  CsTypographyRole.Display, CsTypographyRole.H1 ->
+    if (displayFace) min(csTypographyDisplayFaceMaxWeight, pack.headingWeightStrong) else pack.headingWeightStrong
+  CsTypographyRole.H2, CsTypographyRole.H3 -> pack.headingWeight
+  CsTypographyRole.H4 -> pack.fontWeightSemibold
+  CsTypographyRole.Eyebrow -> pack.fontWeightBold
+  CsTypographyRole.BodyLg, CsTypographyRole.Body, CsTypographyRole.Secondary, CsTypographyRole.Caption, CsTypographyRole.Mono ->
+    pack.fontWeightRegular
+}
+
+fun csTypographyLetterSpacingEm(role: CsTypographyRole): Double = when (role) {
+  CsTypographyRole.Display, CsTypographyRole.H1, CsTypographyRole.H2 -> csTypographyHeadingTracking
+  CsTypographyRole.Eyebrow -> csTypographyLetterSpacingCaps
+  CsTypographyRole.H3, CsTypographyRole.H4, CsTypographyRole.BodyLg, CsTypographyRole.Body, CsTypographyRole.Secondary, CsTypographyRole.Caption, CsTypographyRole.Mono ->
+    csTypographyLetterSpacingNormal
+}
+
+fun csTypographyTextWrap(role: CsTypographyRole): String = when (role) {
+  CsTypographyRole.Display, CsTypographyRole.H1, CsTypographyRole.H2 -> "balance"
+  CsTypographyRole.BodyLg, CsTypographyRole.Body -> "pretty"
+  CsTypographyRole.H3, CsTypographyRole.H4, CsTypographyRole.Secondary, CsTypographyRole.Caption, CsTypographyRole.Eyebrow, CsTypographyRole.Mono -> "normal"
+}
+
+fun csTypographyIsUppercase(role: CsTypographyRole): Boolean = role == CsTypographyRole.Eyebrow
+
+fun csTypographyTextColor(role: CsTypographyRole, pack: CSTokenModePack): CSColorValue = when (role) {
+  CsTypographyRole.Secondary, CsTypographyRole.Caption -> pack.colorTextMuted
+  CsTypographyRole.Eyebrow -> pack.colorTextAccent
+  CsTypographyRole.Display, CsTypographyRole.H1, CsTypographyRole.H2, CsTypographyRole.H3, CsTypographyRole.H4, CsTypographyRole.BodyLg, CsTypographyRole.Body, CsTypographyRole.Mono ->
+    pack.colorTextPrimary
 }
