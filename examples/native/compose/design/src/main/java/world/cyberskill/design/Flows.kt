@@ -52,8 +52,18 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 
 const val csTimeLabel = "Time"
+const val csTimeValueDefault = "09:00"
+const val csTimeDefaultStep = 30.0
+const val csTimeMinStep = 1
+const val csTimeMaxStep = 1440
 const val csTimeClockGlyph = "🕒"
 fun csTimeShowsClockIcon() = true
+fun csTimeClockIconSize() = 16.0
+fun csTimeClockIconStrokeWidth() = 1.8
+fun csTimeSafeStep(step: Double): Int {
+  val whole = step.toInt().toDouble()
+  return if (step.isFinite() && step == whole && whole >= csTimeMinStep && whole <= csTimeMaxStep) whole.toInt() else csTimeDefaultStep.toInt()
+}
 fun csTimeCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
   val vi = mapOf("label" to "Giờ")
@@ -70,8 +80,7 @@ fun csTimeName(label: String?, labelledBy: String?, fallback: String) = when {
   else -> fallback
 }
 fun csTimeSlots(step: Double): List<String> {
-  val whole = step.toInt().toDouble()
-  val safe = if (step.isFinite() && step == whole && whole >= 1 && whole <= 1440) whole.toInt() else 30
+  val safe = csTimeSafeStep(step)
   val out = mutableListOf<String>()
   var minute = 0
   while (minute < 24 * 60) {
@@ -81,8 +90,16 @@ fun csTimeSlots(step: Double): List<String> {
   return out
 }
 
+const val csMentionDefaultRows = 3
+const val csMentionMaxHits = 6
 fun csMentionPlacement(placement: String?) = placement ?: "bottom-start"
 fun csMentionResolvedRows(rows: Int) = maxOf(1, rows)
+fun csMentionResolvedValue(value: String?, defaultValue: String = "") = value ?: defaultValue
+fun csMentionOptionId(listId: String, index: Int) = "$listId-opt-$index"
+fun csMentionActiveDescendantId(listId: String, open: Boolean, activeIndex: Int, hitCount: Int): String? =
+  if (open && activeIndex in 0 until hitCount) csMentionOptionId(listId, activeIndex) else null
+fun csMentionOptionClass(active: Boolean) = if (active) "hl" else ""
+fun csMentionAcceptsKey(composing: Boolean, keyCode: Int) = !composing && keyCode != 229
 fun csMentionActive(index: Int, count: Int) = if (count <= 0) 0 else index.coerceIn(0, count - 1)
 fun csMentionNextIndex(current: Int, count: Int, down: Boolean) = if (count <= 0) 0 else if (down) minOf(count - 1, current + 1) else maxOf(0, current - 1)
 fun csMentionQuery(text: String, caret: Int): String? {
@@ -108,7 +125,7 @@ fun csMentionShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: 
 }
 fun csMentionHits(users: List<String>, query: String?): List<String> {
   if (query == null) return emptyList()
-  return users.filter { it.lowercase().contains(query) }.take(6)
+  return users.filter { it.lowercase().contains(query) }.take(csMentionMaxHits)
 }
 fun csMentionPick(text: String, caret: Int, user: String): String {
   val end = caret.coerceIn(0, text.length)
@@ -119,6 +136,12 @@ fun csMentionPick(text: String, caret: Int, user: String): String {
   return head.substring(0, at) + "@" + user + " " + tail
 }
 
+const val csSortGripGlyph = "⠿"
+const val csSortUpGlyph = "↑"
+const val csSortDownGlyph = "↓"
+fun csSortItemClass(dragging: Boolean, over: Boolean): String =
+  listOfNotNull("cs-sortable__item", if (dragging) "is-dragging" else null, if (over) "is-over" else null).joinToString(" ")
+fun csSortStartsDrag(fromOps: Boolean, key: String): String? = if (fromOps) null else key
 fun csReorder(items: List<String>, from: Int, to: Int): List<String> {
   if (from < 0 || to < 0 || from >= items.size || to >= items.size || from == to) return items
   val next = items.toMutableList()
@@ -127,6 +150,14 @@ fun csReorder(items: List<String>, from: Int, to: Int): List<String> {
   return next
 }
 
+const val csTourDialogRole = "dialog"
+const val csTourSkipButtonVariant = "ghost"
+const val csTourBackButtonVariant = "secondary"
+const val csTourPrimaryButtonVariant = "primary"
+const val csTourButtonSize = "xs"
+fun csTourTitleId(baseId: String) = "$baseId-title"
+fun csTourResetIndexOnOpen(open: Boolean, current: Int) = if (open) 0 else current
+fun csTourPrimaryActionLabel(isLast: Boolean, next: String, done: String) = if (isLast) done else next
 fun csTourClamp(index: Int, count: Int): Int = if (count <= 0) 0 else minOf(count - 1, maxOf(0, index))
 fun csTourNotifyClose(onOpenChange: ((Boolean) -> Unit)?, onClose: (() -> Unit)?) {
   onOpenChange?.invoke(false)
@@ -156,7 +187,7 @@ fun csTourHole(target: CsTourTarget?) = target?.let { CsTourHole(it.left - 6, it
 fun csTourPop(hole: CsTourHole?, viewWidth: Double, viewHeight: Double) = if (hole == null) CsTourPop(80.0, 40.0) else CsTourPop(minOf(viewHeight - 170, hole.y + hole.h + 12), maxOf(12.0, minOf(viewWidth - 292, hole.x)))
 
 @Composable
-fun CsTimePicker(value: String = "09:00", onChange: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, labelledBy: String? = null, step: Double = 30.0, disabled: Boolean = false, language: String? = null) {
+fun CsTimePicker(value: String = csTimeValueDefault, onChange: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, labelledBy: String? = null, step: Double = csTimeDefaultStep, disabled: Boolean = false, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val timeName = csTimeName(label, labelledBy, csTimeCopy("label", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
   val gap = csControlsWaveStyleTimePickerGap()
@@ -187,12 +218,14 @@ fun csMentionPlaceholderText(text: String?, fallback: String) = text ?: fallback
 fun csMentionName(ariaLabel: String?, placeholder: String) = if (ariaLabel.isNullOrEmpty()) placeholder else ariaLabel
 fun csMentionOption(user: String) = "@$user"
 @Composable
-fun CsMentions(text: String, users: List<String>, onChange: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, ariaLabel: String? = null, placeholder: String? = null, rows: Int = 3, portal: Boolean = true, placement: String? = null, language: String? = null) {
+fun CsMentions(text: String? = null, users: List<String> = emptyList(), onChange: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, defaultValue: String = "", ariaLabel: String? = null, placeholder: String? = null, rows: Int = csMentionDefaultRows, portal: Boolean = true, placement: String? = null, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val hint = csMentionPlaceholderText(placeholder, csMentionCopy("placeholder", locale))
   val spoken = csMentionName(ariaLabel, hint)
   val handle = rememberFocusHandle("mentions")
+  var innerText by remember { mutableStateOf(defaultValue) }
+  val currentText = csMentionResolvedValue(text, innerText)
   var dismissed by remember { mutableStateOf(false) }
   var active by remember { mutableStateOf(0) }
   var field by remember { mutableStateOf<CsFloatingRect?>(null) }
@@ -200,7 +233,7 @@ fun CsMentions(text: String, users: List<String>, onChange: (String) -> Unit, da
   var fitted by remember { mutableStateOf<Pair<Double, Double>?>(null) }
   var origin by remember { mutableStateOf(0.0 to 0.0) }
   var panelScale by remember { mutableStateOf(1.0 to 1.0) }
-  val hits = if (dismissed) emptyList() else csMentionHits(users, csMentionQuery(text, text.length))
+  val hits = if (dismissed) emptyList() else csMentionHits(users, csMentionQuery(currentText, currentText.length))
   val current = csMentionActive(active, hits.size)
   val config = LocalConfiguration.current
   val density = LocalDensity.current
@@ -219,12 +252,18 @@ fun CsMentions(text: String, users: List<String>, onChange: (String) -> Unit, da
   val lineCount = csMentionResolvedRows(rows)
   LaunchedEffect(hits.isEmpty()) { if (hits.isEmpty()) { natural = null; fitted = null } }
   Column(modifier.widthIn(max = maxW).onPreviewKeyEvent { event ->
-    if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
+    if (event.type != KeyEventType.KeyDown || !csMentionAcceptsKey(false, 0)) return@onPreviewKeyEvent false
     when (event.key) {
       Key.Escape -> { dismissed = true; true }
       Key.DirectionDown -> if (hits.isNotEmpty()) { active = csMentionNextIndex(current, hits.size, true); true } else false
       Key.DirectionUp -> if (hits.isNotEmpty()) { active = csMentionNextIndex(current, hits.size, false); true } else false
-      Key.Enter -> if (current in hits.indices) { onChange(csMentionPick(text, text.length, hits[current])); dismissed = true; true } else false
+      Key.Enter -> if (current in hits.indices) {
+        val picked = csMentionPick(currentText, currentText.length, hits[current])
+        if (text == null) innerText = picked
+        onChange(picked)
+        dismissed = true
+        true
+      } else false
       else -> false
     }
   }) {
@@ -232,8 +271,8 @@ fun CsMentions(text: String, users: List<String>, onChange: (String) -> Unit, da
       val bounds = it.boundsInWindow()
       field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
     }) {
-      if (text.isEmpty() && hint.isNotEmpty()) Text(hint, color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.clearAndSetSemantics {})
-      androidx.compose.foundation.text.BasicTextField(value = text, minLines = lineCount, maxLines = lineCount, onValueChange = { next -> if (!csControlEnabled()) return@BasicTextField; handle.claim(); dismissed = false; active = 0; onChange(next) }, enabled = csControlEnabled(), modifier = Modifier.focusRequester(handle.requester).onFocusChanged {
+      if (currentText.isEmpty() && hint.isNotEmpty()) Text(hint, color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.clearAndSetSemantics {})
+      androidx.compose.foundation.text.BasicTextField(value = currentText, minLines = lineCount, maxLines = lineCount, onValueChange = { next -> if (!csControlEnabled()) return@BasicTextField; handle.claim(); dismissed = false; active = 0; if (text == null) innerText = next; onChange(next) }, enabled = csControlEnabled(), modifier = Modifier.focusRequester(handle.requester).onFocusChanged {
         if (it.isFocused) handle.claim()
         else if (csMentionClearOnBlur(false)) dismissed = true
       }.semantics { contentDescription = spoken }, textStyle = androidx.compose.ui.text.TextStyle(color = pack.colorTextPrimary.toComposeColor()))
@@ -249,7 +288,13 @@ fun CsMentions(text: String, users: List<String>, onChange: (String) -> Unit, da
         if (natural == null) natural = width to height else fitted = width to height
       }.offset(x = shiftX, y = shiftY).widthIn(max = with(density) { (place?.maxWidth ?: viewWidth).toFloat().toDp() })) {
         hits.forEachIndexed { index, user ->
-          CsTriggerButton(title = csMentionOption(user), onClick = { onChange(csMentionPick(text, text.length, user)); dismissed = true }, modifier = Modifier.minimumInteractiveComponentSize().semantics { stateDescription = (index == current).toString() }) { Text(csMentionOption(user)) }
+          val optId = csMentionOptionId("mentions", index)
+          CsTriggerButton(title = csMentionOption(user), onClick = {
+            val picked = csMentionPick(currentText, currentText.length, user)
+            if (text == null) innerText = picked
+            onChange(picked)
+            dismissed = true
+          }, modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = optId; stateDescription = (index == current).toString() }) { Text(csMentionOption(user)) }
         }
       }
     }
@@ -309,7 +354,7 @@ fun CsSortable(items: List<String>, onChange: (List<String>) -> Unit, dark: Bool
     items.forEachIndexed { index, item ->
       val isOver = overIndex == index
       Row(Modifier.alpha(csSortItemOpacity(dragFrom == index)).border(csSortItemBorderWidth(isOver), csSortItemBorderColor(isOver, pack.accent, pack.colorBorderDefault).toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).background(pack.colorSurfacePanel.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())).padding(horizontal = csSortItemPaddingX(), vertical = csSortItemPaddingY()).onGloballyPositioned { if (it.size.height > 0) rowHeight = it.size.height.toDouble() }, horizontalArrangement = Arrangement.spacedBy(csSortItemGap()), verticalAlignment = Alignment.CenterVertically) {
-        Text("⠿", color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.clearAndSetSemantics {}.pointerInput(items, originY, rowHeight) {
+        Text(csSortGripGlyph, color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.clearAndSetSemantics {}.pointerInput(items, originY, rowHeight) {
           detectDragGestures(
             onDragStart = { offset ->
               dragFrom = index
@@ -328,8 +373,8 @@ fun CsSortable(items: List<String>, onChange: (List<String>) -> Unit, dark: Bool
         })
         Text(item, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.weight(1f))
         Row(horizontalArrangement = Arrangement.spacedBy(csSortOpsGap()), verticalAlignment = Alignment.CenterVertically) {
-          CsTriggerButton(title = "↑", onClick = { if (csSortCanMoveUp(index)) onChange(csReorder(items, index, index - 1)) }, enabled = csSortCanMoveUp(index), modifier = Modifier.alpha(csSortButtonOpacity(csSortCanMoveUp(index))).semantics { contentDescription = up }) { Text("↑", modifier = Modifier.clearAndSetSemantics {}) }
-          CsTriggerButton(title = "↓", onClick = { if (csSortCanMoveDown(index, items.size)) onChange(csReorder(items, index, index + 1)) }, enabled = csSortCanMoveDown(index, items.size), modifier = Modifier.alpha(csSortButtonOpacity(csSortCanMoveDown(index, items.size))).semantics { contentDescription = down }) { Text("↓", modifier = Modifier.clearAndSetSemantics {}) }
+          CsTriggerButton(title = csSortUpGlyph, onClick = { if (csSortCanMoveUp(index)) onChange(csReorder(items, index, index - 1)) }, enabled = csSortCanMoveUp(index), modifier = Modifier.alpha(csSortButtonOpacity(csSortCanMoveUp(index))).semantics { contentDescription = up }) { Text(csSortUpGlyph, modifier = Modifier.clearAndSetSemantics {}) }
+          CsTriggerButton(title = csSortDownGlyph, onClick = { if (csSortCanMoveDown(index, items.size)) onChange(csReorder(items, index, index + 1)) }, enabled = csSortCanMoveDown(index, items.size), modifier = Modifier.alpha(csSortButtonOpacity(csSortCanMoveDown(index, items.size))).semantics { contentDescription = down }) { Text(csSortDownGlyph, modifier = Modifier.clearAndSetSemantics {}) }
         }
       }
     }
@@ -345,7 +390,7 @@ fun CsTour(steps: List<String>, index: Int, onIndex: (Int) -> Unit, onOpenChange
   val done = csTourLabel(doneLabel, csTourCopy("done", locale))
   val close = { csTourNotifyClose(onOpenChange, onClose) }
   var trap by remember { mutableStateOf(0) }
-  LaunchedEffect(open) { if (open) { onIndex(0); trap = 0 } }
+  LaunchedEffect(open) { if (open) { onIndex(csTourResetIndexOnOpen(true, index)); trap = 0 } }
   if (!csTourShows(open, steps.size)) return
   val active = csTourClamp(index, steps.size)
   val pack = csModePack(dark, highContrast, compact)
@@ -375,11 +420,19 @@ fun CsTour(steps: List<String>, index: Int, onIndex: (Int) -> Unit, onOpenChange
       Text(csTourCount(active, steps.size), color = pack.colorTextMuted.toComposeColor())
       CsTriggerButton(title = skip, onClick = { close() }) { Text(skip) }
       if (active > 0) CsTriggerButton(title = back, onClick = { onIndex(active - 1) }) { Text(back) }
-      CsTriggerButton(title = if (last) done else next, onClick = { if (last) close() else onIndex(active + 1) }) { Text(if (last) done else next) }
+      val primaryLabel = csTourPrimaryActionLabel(last, next, done)
+      CsTriggerButton(title = primaryLabel, onClick = { if (last) close() else onIndex(active + 1) }) { Text(primaryLabel) }
     }
   }
 }
 
+const val csTableDefaultRowKey = "id"
+const val csTableDefaultState = "idle"
+fun csTableIsBusy(state: String) = state == "loading"
+fun csTableWrapClass(state: String) = if (state == "error") "cs-table-wrap cs-table-wrap--status" else "cs-table-wrap"
+fun csTableRole(state: String): String? = if (state == "error") "alert" else null
+fun csTableShowsCustomLoading(loadingState: String?) = loadingState != null
+fun csTableShowsCustomError(errorState: String?) = errorState != null
 fun csTableColumnCount(columns: List<String>) = maxOf(1, columns.size)
 fun csTableCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
@@ -395,7 +448,7 @@ fun csTableText(text: String?, fallback: String) = text ?: fallback
 fun csTableShowsCaption(caption: String?) = !caption.isNullOrEmpty()
 fun csTableAlert(state: String) = state == "error"
 @Composable
-fun CsDataTable(rows: List<String>, state: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, columns: List<String> = emptyList(), caption: String? = null, emptyLabel: String? = null, errorLabel: String? = null, loadingLabel: String? = null, loadingRows: Double = 5.0, language: String? = null) {
+fun CsDataTable(rows: List<String>, state: String = csTableDefaultState, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, columns: List<String> = emptyList(), rowKey: String = csTableDefaultRowKey, caption: String? = null, emptyLabel: String? = null, errorLabel: String? = null, loadingLabel: String? = null, loadingRows: Double = 5.0, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val count = csRenderCount(loadingRows, 5, 1)
@@ -406,17 +459,17 @@ fun CsDataTable(rows: List<String>, state: String, dark: Boolean, highContrast: 
   val cellPadY = csTableStyleCellPaddingY()
   Column(modifier) {
     if (csTableShowsCaption(caption)) Text(caption ?: "", color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.padding(bottom = captionMargin))
-    when (state) {
-      "loading" -> Column(Modifier.padding(vertical = statusPadY).semantics { contentDescription = csTableCopy("loading", locale); stateDescription = "true" }) {
-        if (loadingLabel != null) Text(loadingLabel, color = pack.colorTextMuted.toComposeColor())
+    when {
+      csTableIsBusy(state) -> Column(Modifier.padding(vertical = statusPadY).semantics { contentDescription = csTableCopy("loading", locale); stateDescription = "true" }) {
+        if (csTableShowsCustomLoading(loadingLabel) && loadingLabel != null) Text(loadingLabel, color = pack.colorTextMuted.toComposeColor())
         else {
           if (columns.isNotEmpty()) Text(columns.joinToString(" "), color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.padding(horizontal = cellPadX, vertical = cellPadY).clearAndSetSemantics {})
           repeat(count) { Text(" ", modifier = Modifier.clearAndSetSemantics {}, color = pack.colorBorderDefault.toComposeColor()) }
         }
       }
-      "error" -> {
+      state == "error" -> {
         val body: @Composable () -> Unit = {
-          if (errorLabel != null) Text(errorLabel, color = pack.colorSemanticDangerText.toComposeColor()) else Column { Text(csTableCopy("error", locale), color = pack.colorSemanticDangerText.toComposeColor()); Text(csTableCopy("errorHint", locale), color = pack.colorTextMuted.toComposeColor()) }
+          if (csTableShowsCustomError(errorLabel) && errorLabel != null) Text(errorLabel, color = pack.colorSemanticDangerText.toComposeColor()) else Column { Text(csTableCopy("error", locale), color = pack.colorSemanticDangerText.toComposeColor()); Text(csTableCopy("errorHint", locale), color = pack.colorTextMuted.toComposeColor()) }
         }
         if (csTableAlert(state)) Column(Modifier.padding(vertical = statusPadY).semantics { liveRegion = LiveRegionMode.Assertive }) { body() } else Column(Modifier.padding(vertical = statusPadY)) { body() }
       }
@@ -429,7 +482,7 @@ fun CsDataTable(rows: List<String>, state: String, dark: Boolean, highContrast: 
 }
 
 @Composable
-fun CsPopconfirm(title: String, open: Boolean, onOpenChange: (Boolean) -> Unit, onConfirm: () -> Unit, onCancel: () -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, trigger: String? = null, portal: Boolean = true, placement: String? = null, confirmLabel: String? = null, cancelLabel: String? = null, language: String? = null) {
+fun CsPopconfirm(title: String, open: Boolean, onOpenChange: (Boolean) -> Unit, onConfirm: () -> Unit, onCancel: () -> Unit = {}, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, trigger: String? = null, portal: Boolean = true, placement: String? = null, confirmLabel: String? = null, cancelLabel: String? = null, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val spoken = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val okName = csPopconfirmOkText(confirmLabel, csPopconfirmCopy("ok", spoken))
@@ -458,7 +511,7 @@ fun CsPopconfirm(title: String, open: Boolean, onOpenChange: (Boolean) -> Unit, 
   if (!open && natural != null) { natural = null; fitted = null }
   Column(modifier.onPreviewKeyEvent { event ->
     if (event.type != KeyEventType.KeyDown || event.key != Key.Escape || !open) return@onPreviewKeyEvent false
-    onOpenChange(false)
+    onOpenChange(csPopconfirmEscapeClose())
     true
   }) {
     CsTriggerButton(title = triggerFace, onClick = { onOpenChange(!open) }, modifier = Modifier.onGloballyPositioned {
@@ -485,6 +538,7 @@ fun CsPopconfirm(title: String, open: Boolean, onOpenChange: (Boolean) -> Unit, 
 }
 
 const val csToggleLabel = "Toggle"
+fun csToggleIconGap() = 6.dp
 fun csToggleValue(pressed: Boolean?, inner: Boolean) = pressed ?: inner
 fun csToggleShowsIcon(icon: String?) = !icon.isNullOrEmpty()
 fun csToggleHasContent(text: String?, hasNode: Boolean = false) = hasNode || !text.isNullOrBlank()
@@ -506,6 +560,13 @@ fun csToggleCopy(key: String, language: String?): String {
 }
 const val csPopconfirmOk = "Confirm"
 const val csPopconfirmCancel = "Cancel"
+const val csPopconfirmPanelRole = "alertdialog"
+const val csPopconfirmTriggerHasPopup = "dialog"
+const val csPopconfirmCancelButtonVariant = "ghost"
+const val csPopconfirmOkButtonVariant = "primary"
+const val csPopconfirmButtonSize = "xs"
+fun csPopconfirmTitleId(baseId: String) = "$baseId-title"
+fun csPopconfirmEscapeClose() = false
 fun csPopconfirmOkText(label: String?, fallback: String) = label ?: fallback
 fun csPopconfirmTriggerText(trigger: String?, title: String) = trigger ?: title
 fun csPopconfirmPlacement(explicit: String?) = explicit ?: "bottom-start"
@@ -530,10 +591,12 @@ fun csPopconfirmCopy(key: String, language: String?): String {
 }
 fun csPopconfirmSteps() = listOf("close", "confirm")
 @Composable
-fun CsToggle(label: String = "", pressed: Boolean, onChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, icon: String? = null, disabled: Boolean = false, ariaLabel: String? = null, language: String? = null) {
+fun CsToggle(label: String = "", pressed: Boolean? = null, onChange: (Boolean) -> Unit = {}, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, defaultPressed: Boolean = false, icon: String? = null, disabled: Boolean = false, ariaLabel: String? = null, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val handle = rememberFocusHandle("toggle")
   val enabled = csControlEnabled(!disabled)
+  var innerPressed by remember { mutableStateOf(defaultPressed) }
+  val isPressed = csToggleValue(pressed, innerPressed)
   val spoken = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val hasIcon = csToggleShowsIcon(icon)
   val content = csToggleHasContent(label, hasIcon)
@@ -544,11 +607,12 @@ fun CsToggle(label: String = "", pressed: Boolean, onChange: (Boolean) -> Unit, 
   val disabledAlpha = csControlsWaveStyleToggleDisabledOpacity
   TextButton(onClick = {
     if (!enabled) return@TextButton
-    val next = csToggleFlip(pressed, disabled, false) ?: return@TextButton
+    val next = csToggleFlip(isPressed, disabled, false) ?: return@TextButton
     handle.claim()
+    if (pressed == null) innerPressed = next
     onChange(next)
-  }, enabled = enabled, modifier = modifier.alpha(if (enabled) 1f else disabledAlpha).heightIn(min = minH).padding(horizontal = padX, vertical = padY).focusRequester(handle.requester).onFocusChanged { if (it.isFocused && enabled) handle.claim() }.minimumInteractiveComponentSize().semantics { contentDescription = name ?: label; stateDescription = pressed.toString() }) {
-    if (hasIcon && icon != null) Text(icon, color = if (pressed) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor(), modifier = Modifier.clearAndSetSemantics { })
-    if (label.isNotBlank()) Text(label, color = if (pressed) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor(), modifier = Modifier.clearAndSetSemantics { })
+  }, enabled = enabled, modifier = modifier.alpha(if (enabled) 1f else disabledAlpha).heightIn(min = minH).padding(horizontal = padX, vertical = padY).focusRequester(handle.requester).onFocusChanged { if (it.isFocused && enabled) handle.claim() }.minimumInteractiveComponentSize().semantics { contentDescription = name ?: label; stateDescription = isPressed.toString() }) {
+    if (hasIcon && icon != null) Text(icon, color = if (isPressed) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor(), modifier = Modifier.clearAndSetSemantics { })
+    if (label.isNotBlank()) Text(label, color = if (isPressed) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor(), modifier = Modifier.clearAndSetSemantics { })
   }
 }
