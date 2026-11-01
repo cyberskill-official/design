@@ -273,6 +273,7 @@ public enum CSTerminalModel {
   public static func bodyFontSize() -> Double { 13 }
   public static func bodyLineHeight() -> Double { 1.7 }
   public static func bodyMinHeight() -> Double { 130 }
+  public static func lineGap() -> Double { 8 }
 
   public static func submits(composing: Bool, keyCode: Int) -> Bool {
     !composing && keyCode != 229
@@ -666,12 +667,19 @@ public struct CSTerminal: View {
       .background(CSTerminalModel.barColor.color)
       VStack(alignment: .leading) {
         ForEach(Array(lines.enumerated()), id: \.offset) { _, line in
-          if let command = line.command { Text(prompt + " " + command).foregroundStyle(CSTerminalModel.fgColor.color) }
+          if let command = line.command {
+            HStack(alignment: .center, spacing: CGFloat(CSTerminalModel.lineGap())) {
+              Text(prompt).foregroundStyle(pack.colorBrandOchre.color)
+              Text(command).foregroundStyle(CSTerminalModel.fgColor.color)
+            }
+          }
           if let output = line.output { Text(output).foregroundStyle(CSTerminalModel.mutedColor.color) }
         }
-        HStack {
+        HStack(alignment: .center, spacing: CGFloat(CSTerminalModel.lineGap())) {
           Text(prompt).foregroundStyle(pack.colorBrandOchre.color)
           TextField("", text: $draft)
+            .textFieldStyle(.plain)
+            .frame(maxWidth: .infinity)
             .focused($focused)
             .accessibilityLabel(inputName)
             .onSubmit(submit)

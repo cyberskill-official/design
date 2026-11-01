@@ -254,6 +254,7 @@ fun csTerminalBodyPaddingX() = 14.dp
 fun csTerminalBodyFontSize() = 13.0
 fun csTerminalBodyLineHeight() = 1.7
 fun csTerminalBodyMinHeight() = 130.dp
+fun csTerminalLineGap() = 8.dp
 fun csTerminalSubmits(composing: Boolean, keyCode: Int) = !composing && keyCode != 229
 
 data class CsCascaderNode(val key: String, val label: String, val children: List<CsCascaderNode> = emptyList())
@@ -1274,10 +1275,18 @@ private var SemanticsPropertyReceiver.csTreeControlsValue by csTreeControlsKey
       Text(bar, color = csTerminalMutedColor.toComposeColor(), fontSize = csTerminalBarFontSize().sp, fontWeight = FontWeight.SemiBold, fontFamily = FontFamily.Monospace, modifier = Modifier.padding(start = csTerminalTitleMarginStart()))
     }
     Column(Modifier.fillMaxWidth().heightIn(min = csTerminalBodyMinHeight()).background(csTerminalBgColor.toComposeColor()).padding(horizontal = csTerminalBodyPaddingX(), vertical = csTerminalBodyPaddingY())) {
-      lines.forEach { line -> if (line.command != null) Text(prompt + " " + line.command, color = csTerminalFgColor.toComposeColor(), fontSize = csTerminalBodyFontSize().sp, lineHeight = (csTerminalBodyFontSize() * csTerminalBodyLineHeight()).sp, fontWeight = FontWeight.Medium, fontFamily = FontFamily.Monospace); if (line.output != null) Text(line.output, color = csTerminalMutedColor.toComposeColor(), fontSize = csTerminalBodyFontSize().sp, lineHeight = (csTerminalBodyFontSize() * csTerminalBodyLineHeight()).sp, fontWeight = FontWeight.Medium, fontFamily = FontFamily.Monospace) }
-      Row {
+      lines.forEach { line ->
+        if (line.command != null) {
+          Row(horizontalArrangement = Arrangement.spacedBy(csTerminalLineGap()), verticalAlignment = Alignment.CenterVertically) {
+            Text(prompt, color = pack.colorBrandOchre.toComposeColor(), fontSize = csTerminalBodyFontSize().sp, lineHeight = (csTerminalBodyFontSize() * csTerminalBodyLineHeight()).sp, fontWeight = FontWeight.Medium, fontFamily = FontFamily.Monospace)
+            Text(line.command, color = csTerminalFgColor.toComposeColor(), fontSize = csTerminalBodyFontSize().sp, lineHeight = (csTerminalBodyFontSize() * csTerminalBodyLineHeight()).sp, fontWeight = FontWeight.Medium, fontFamily = FontFamily.Monospace)
+          }
+        }
+        if (line.output != null) Text(line.output, color = csTerminalMutedColor.toComposeColor(), fontSize = csTerminalBodyFontSize().sp, lineHeight = (csTerminalBodyFontSize() * csTerminalBodyLineHeight()).sp, fontWeight = FontWeight.Medium, fontFamily = FontFamily.Monospace)
+      }
+      Row(horizontalArrangement = Arrangement.spacedBy(csTerminalLineGap()), verticalAlignment = Alignment.CenterVertically) {
         Text(prompt, color = pack.colorBrandOchre.toComposeColor(), fontSize = csTerminalBodyFontSize().sp, lineHeight = (csTerminalBodyFontSize() * csTerminalBodyLineHeight()).sp, fontWeight = FontWeight.Medium, fontFamily = FontFamily.Monospace)
-        BasicTextField(value = draft, onValueChange = { if (!csControlEnabled()) return@BasicTextField; draft = it }, enabled = csControlEnabled(), textStyle = TextStyle(color = csTerminalFgColor.toComposeColor(), fontSize = csTerminalBodyFontSize().sp, lineHeight = (csTerminalBodyFontSize() * csTerminalBodyLineHeight()).sp, fontWeight = FontWeight.Medium, fontFamily = FontFamily.Monospace), modifier = Modifier.semantics { contentDescription = inputName }.onPreviewKeyEvent { event ->
+        BasicTextField(value = draft, onValueChange = { if (!csControlEnabled()) return@BasicTextField; draft = it }, enabled = csControlEnabled(), textStyle = TextStyle(color = csTerminalFgColor.toComposeColor(), fontSize = csTerminalBodyFontSize().sp, lineHeight = (csTerminalBodyFontSize() * csTerminalBodyLineHeight()).sp, fontWeight = FontWeight.Medium, fontFamily = FontFamily.Monospace), modifier = Modifier.weight(1f).semantics { contentDescription = inputName }.onPreviewKeyEvent { event ->
           if (event.type != KeyEventType.KeyDown || event.key != Key.Enter) return@onPreviewKeyEvent false
           if (!csTerminalSubmits(draft.composition != null, 0)) return@onPreviewKeyEvent false
           val trimmed = draft.text.trim()

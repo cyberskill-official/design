@@ -236,6 +236,7 @@ double csTerminalBodyPaddingX() => 14;
 double csTerminalBodyFontSize() => 13;
 double csTerminalBodyLineHeight() => 1.7;
 double csTerminalBodyMinHeight() => 130;
+double csTerminalLineGap() => 8;
 bool csTerminalSubmits({required bool composing, required int keyCode}) => !composing && keyCode != 229;
 
 class CsCascaderNode {
@@ -1749,11 +1750,17 @@ class _CsTerminalState extends State<CsTerminal> {
                   padding: EdgeInsets.symmetric(horizontal: csTerminalBodyPaddingX(), vertical: csTerminalBodyPaddingY()),
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                     for (final line in lines) ...[
-                      if (line.command != null) Text('${widget.prompt} ${line.command}', style: TextStyle(color: csColor(csTerminalFgColor), fontSize: csTerminalBodyFontSize(), height: csTerminalBodyLineHeight(), fontWeight: FontWeight.w500, fontFamily: 'monospace')),
+                      if (line.command != null)
+                        Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+                          Text(widget.prompt, style: TextStyle(color: csColor(pack.colorBrandOchre), fontSize: csTerminalBodyFontSize(), height: csTerminalBodyLineHeight(), fontWeight: FontWeight.w500, fontFamily: 'monospace')),
+                          SizedBox(width: csTerminalLineGap()),
+                          Text(line.command!, style: TextStyle(color: csColor(csTerminalFgColor), fontSize: csTerminalBodyFontSize(), height: csTerminalBodyLineHeight(), fontWeight: FontWeight.w500, fontFamily: 'monospace')),
+                        ]),
                       if (line.output != null) Text(line.output!, style: TextStyle(color: csColor(csTerminalMutedColor), fontSize: csTerminalBodyFontSize(), height: csTerminalBodyLineHeight(), fontWeight: FontWeight.w500, fontFamily: 'monospace')),
                     ],
-                    Row(children: [
+                    Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
                       Text(widget.prompt, style: TextStyle(color: csColor(pack.colorBrandOchre), fontSize: csTerminalBodyFontSize(), height: csTerminalBodyLineHeight(), fontWeight: FontWeight.w500, fontFamily: 'monospace')),
+                      SizedBox(width: csTerminalLineGap()),
                       Expanded(child: Semantics(textField: true, label: inputName, child: TextField(controller: draft, onSubmitted: _submit, style: TextStyle(color: csColor(csTerminalFgColor), fontSize: csTerminalBodyFontSize(), height: csTerminalBodyLineHeight(), fontWeight: FontWeight.w500, fontFamily: 'monospace'), decoration: const InputDecoration(border: InputBorder.none)))),
                     ]),
                   ]),

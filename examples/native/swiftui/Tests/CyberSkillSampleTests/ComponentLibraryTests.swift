@@ -1690,6 +1690,7 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertEqual(CSTerminalModel.bodyFontSize(), 13)
     XCTAssertEqual(CSTerminalModel.bodyLineHeight(), 1.7)
     XCTAssertEqual(CSTerminalModel.bodyMinHeight(), 130)
+    XCTAssertEqual(CSTerminalModel.lineGap(), 8)
     XCTAssertFalse(CSTerminalModel.submits(composing: true, keyCode: 0))
     XCTAssertFalse(CSTerminalModel.submits(composing: false, keyCode: 229))
     XCTAssertTrue(CSTerminalModel.submits(composing: false, keyCode: 13))
