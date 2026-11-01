@@ -646,6 +646,12 @@ List<Map<String, String>> csGridSorted(List<Map<String, String>> rows, String? s
 }
 String? csGridNextSort(String? current, String key) => current == 'asc:$key' ? 'desc:$key' : current == 'desc:$key' ? null : 'asc:$key';
 String? csGridSortAria(String? current, String key) => current == 'asc:$key' ? 'ascending' : current == 'desc:$key' ? 'descending' : null;
+double csTimelineMarkerSize() => 26;
+double csTimelineItemGap() => 14;
+double csTimelineRailOffset() => 12;
+double csTimelineRailWidth() => 2;
+double csTimelineTodoBorderWidth() => 1;
+bool csTimelineShowsRail(int index, int count) => index >= 0 && index < count - 1;
 String csTimelineMarker(String state) => state == 'todo' ? '' : state == 'now' ? '→' : '✓';
 bool csTimelineShowsDetail(String? text) => text != null && text.isNotEmpty;
 
@@ -670,25 +676,43 @@ class CsTimeline extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        for (final item in items)
-          Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Container(
-              width: 26,
-              height: 26,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: csColor(item.state == 'now' ? pack.colorBrandOchre : item.state == 'todo' ? pack.colorSurfaceRaised : pack.colorSemanticSuccess),
-                shape: BoxShape.circle,
-                border: item.state == 'todo' ? Border.all(color: csColor(pack.colorBorderDefault)) : null,
+        for (var index = 0; index < items.length; index++)
+          Stack(
+            children: [
+              if (csTimelineShowsRail(index, items.length))
+                Positioned(
+                  top: csTimelineMarkerSize(),
+                  bottom: 0,
+                  left: csTimelineRailOffset(),
+                  width: csTimelineRailWidth(),
+                  child: ColoredBox(color: csColor(pack.colorBorderDefault)),
+                ),
+              Padding(
+                padding: EdgeInsets.only(bottom: csPoints(pack.space5)),
+                child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Container(
+                    width: csTimelineMarkerSize(),
+                    height: csTimelineMarkerSize(),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: csColor(items[index].state == 'now' ? pack.colorBrandOchre : items[index].state == 'todo' ? pack.colorSurfaceRaised : pack.colorSemanticSuccess),
+                      shape: BoxShape.circle,
+                      border: items[index].state == 'todo' ? Border.all(color: csColor(pack.colorBorderDefault), width: csTimelineTodoBorderWidth()) : null,
+                    ),
+                    child: ExcludeSemantics(child: Text(csTimelineMarker(items[index].state), style: TextStyle(color: csColor(items[index].state == 'now' ? pack.colorBrandUmber : items[index].state == 'todo' ? pack.colorTextMuted : pack.colorSemanticSuccessFg), fontWeight: FontWeight.w700, fontSize: csPoints(pack.fontSizeXs)))),
+                  ),
+                  SizedBox(width: csTimelineItemGap()),
+                  Expanded(
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      Text(items[index].title, style: TextStyle(color: csColor(pack.colorTextPrimary))),
+                      if (csTimelineShowsDetail(items[index].meta)) Text(items[index].meta!, style: TextStyle(color: csColor(pack.colorTextMuted))),
+                      if (csTimelineShowsDetail(items[index].body)) Text(items[index].body!, style: TextStyle(color: csColor(pack.colorTextMuted))),
+                    ]),
+                  ),
+                ]),
               ),
-              child: ExcludeSemantics(child: Text(csTimelineMarker(item.state), style: TextStyle(color: csColor(item.state == 'now' ? pack.colorBrandUmber : item.state == 'todo' ? pack.colorTextMuted : pack.colorSemanticSuccessFg), fontWeight: FontWeight.w700, fontSize: 12))),
-            ),
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(item.title, style: TextStyle(color: csColor(pack.colorTextPrimary))),
-              if (csTimelineShowsDetail(item.meta)) Text(item.meta!, style: TextStyle(color: csColor(pack.colorTextMuted))),
-              if (csTimelineShowsDetail(item.body)) Text(item.body!, style: TextStyle(color: csColor(pack.colorTextMuted))),
-            ]),
-          ]),
+            ],
+          ),
       ],
     );
   }

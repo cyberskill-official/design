@@ -48,7 +48,11 @@ import androidx.compose.ui.semantics.SemanticsPropertyReceiver
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.pow
@@ -536,6 +540,12 @@ fun csGridSortAria(current: String?, key: String) = when (current) {
   "desc:$key" -> "descending"
   else -> null
 }
+fun csTimelineMarkerSize() = 26.dp
+fun csTimelineItemGap() = 14.dp
+fun csTimelineRailOffset() = 12.dp
+fun csTimelineRailWidth() = 2.dp
+fun csTimelineTodoBorderWidth() = 1.dp
+fun csTimelineShowsRail(index: Int, count: Int) = index >= 0 && index < count - 1
 fun csTimelineMarker(state: String) = if (state == "todo") "" else if (state == "now") "→" else "✓"
 fun csTimelineShowsDetail(text: String?) = text != null && text.isNotEmpty()
 data class CsTimelineItem(val title: String, val state: String = "done", val meta: String? = null, val body: String? = null)
@@ -544,15 +554,22 @@ data class CsTimelineItem(val title: String, val state: String = "done", val met
 fun CsTimeline(items: List<CsTimelineItem>, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
   val pack = csModePack(dark, highContrast, compact)
   Column(modifier) {
-    items.forEach { item ->
+    items.forEachIndexed { index, item ->
       val fill = if (item.state == "now") pack.colorBrandOchre else if (item.state == "todo") pack.colorSurfaceRaised else pack.colorSemanticSuccess
       val ink = if (item.state == "now") pack.colorBrandUmber else if (item.state == "todo") pack.colorTextMuted else pack.colorSemanticSuccessFg
-      Row(verticalAlignment = Alignment.Top) {
-        Text(csTimelineMarker(item.state), color = ink.toComposeColor(), modifier = Modifier.size(26.dp).background(fill.toComposeColor(), CircleShape).then(if (item.state == "todo") Modifier.border(1.dp, pack.colorBorderDefault.toComposeColor(), CircleShape) else Modifier), textAlign = TextAlign.Center)
-        Column {
-          Text(item.title, color = pack.colorTextPrimary.toComposeColor())
-          if (csTimelineShowsDetail(item.meta)) Text(item.meta ?: "", color = pack.colorTextMuted.toComposeColor())
-          if (csTimelineShowsDetail(item.body)) Text(item.body ?: "", color = pack.colorTextMuted.toComposeColor())
+      Box(Modifier.padding(bottom = pack.space5.toDp())) {
+        if (csTimelineShowsRail(index, items.size)) {
+          Box(Modifier.offset(x = csTimelineRailOffset(), y = csTimelineMarkerSize()).width(csTimelineRailWidth()).background(pack.colorBorderDefault.toComposeColor()).clearAndSetSemantics {})
+        }
+        Row(horizontalArrangement = Arrangement.spacedBy(csTimelineItemGap()), verticalAlignment = Alignment.Top) {
+          Box(Modifier.size(csTimelineMarkerSize()).background(fill.toComposeColor(), CircleShape).then(if (item.state == "todo") Modifier.border(csTimelineTodoBorderWidth(), pack.colorBorderDefault.toComposeColor(), CircleShape) else Modifier).zIndex(1f).clearAndSetSemantics {}, contentAlignment = Alignment.Center) {
+            Text(csTimelineMarker(item.state), color = ink.toComposeColor(), fontSize = pack.fontSizeXs.toDp().value.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
+          }
+          Column {
+            Text(item.title, color = pack.colorTextPrimary.toComposeColor())
+            if (csTimelineShowsDetail(item.meta)) Text(item.meta ?: "", color = pack.colorTextMuted.toComposeColor())
+            if (csTimelineShowsDetail(item.body)) Text(item.body ?: "", color = pack.colorTextMuted.toComposeColor())
+          }
         }
       }
     }

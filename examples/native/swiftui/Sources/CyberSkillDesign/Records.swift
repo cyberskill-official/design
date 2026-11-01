@@ -764,6 +764,12 @@ public struct CSCollapsible: View {
 }
 
 public enum CSTimelineModel {
+  public static func markerSize() -> Double { 26 }
+  public static func itemGap() -> Double { 14 }
+  public static func railOffset() -> Double { 12 }
+  public static func railWidth() -> Double { 2 }
+  public static func todoBorderWidth() -> Double { 1 }
+  public static func showsRail(index: Int, count: Int) -> Bool { index >= 0 && index < count - 1 }
   public static func marker(_ state: String) -> String {
     if state == "todo" { return "" }
     if state == "now" { return "→" }
@@ -804,24 +810,35 @@ public struct CSTimeline: View {
 
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    VStack(alignment: .leading, spacing: 12) {
-      ForEach(Array(items.enumerated()), id: \.offset) { _, item in
+    VStack(alignment: .leading, spacing: 0) {
+      ForEach(Array(items.enumerated()), id: \.offset) { index, item in
         let state = item.state
         let fill = state == "now" ? pack.colorBrandOchre : state == "todo" ? pack.colorSurfaceRaised : pack.colorSemanticSuccess
         let ink = state == "now" ? pack.colorBrandUmber : state == "todo" ? pack.colorTextMuted : pack.colorSemanticSuccessFg
-        HStack(alignment: .top, spacing: 8) {
+        HStack(alignment: .top, spacing: CGFloat(CSTimelineModel.itemGap())) {
           Text(CSTimelineModel.marker(state))
-            .font(.system(size: 12, weight: .bold))
+            .font(.system(size: pack.fontSizeXs.points, weight: .bold))
             .foregroundStyle(ink.color)
-            .frame(width: 26, height: 26)
+            .frame(width: CGFloat(CSTimelineModel.markerSize()), height: CGFloat(CSTimelineModel.markerSize()))
             .background(fill.color)
-            .overlay { if state == "todo" { Circle().stroke(pack.colorBorderDefault.color, lineWidth: 1) } }
+            .overlay { if state == "todo" { Circle().stroke(pack.colorBorderDefault.color, lineWidth: CGFloat(CSTimelineModel.todoBorderWidth())) } }
             .clipShape(Circle())
             .accessibilityHidden(true)
           VStack(alignment: .leading, spacing: 2) {
             Text(item.title).foregroundStyle(pack.primaryTextColor)
             if CSTimelineModel.showsDetail(item.meta), let meta = item.meta { Text(meta).foregroundStyle(pack.mutedColor) }
             if CSTimelineModel.showsDetail(item.body), let body = item.body { Text(body).foregroundStyle(pack.primaryTextColor) }
+          }
+        }
+        .padding(.bottom, pack.space5.points)
+        .background(alignment: .topLeading) {
+          if CSTimelineModel.showsRail(index: index, count: items.count) {
+            Rectangle()
+              .fill(pack.colorBorderDefault.color)
+              .frame(width: CGFloat(CSTimelineModel.railWidth()))
+              .padding(.top, CGFloat(CSTimelineModel.markerSize()))
+              .padding(.leading, CGFloat(CSTimelineModel.railOffset()))
+              .accessibilityHidden(true)
           }
         }
       }
