@@ -9,7 +9,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: pending commit for `overlays-menu-menubar-backtop-fab-disclosure-aspect-watermark-parity`
+- Checkpoint commit: `0984b8d4f81b62c3dce5dfc2bb304269c2ba3cc1` (`feat(native): align overlays menu, menubar, back-top, fab, AI disclosure, aspect ratio, and watermark with web contracts`)
 - Previous checkpoint: `34d13cddf2c5e4beebf873a1ab0106a8c2ada43e`, with the hash note in `27b4a228`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
