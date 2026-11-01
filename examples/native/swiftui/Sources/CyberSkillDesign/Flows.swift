@@ -3,6 +3,8 @@ import SwiftUI
 public enum CSTimeModel {
   public static let labelDefault = "Time"
   public static let valueDefault = "09:00"
+  public static let clockGlyph = "🕒"
+  public static func showsClockIcon() -> Bool { true }
   public static func timeName(label: String?, labelledBy: String?, fallback: String) -> String? {
     if let label { return label }
     if let labelledBy, !labelledBy.isEmpty { return nil }
@@ -34,6 +36,9 @@ public enum CSTimeModel {
 }
 
 public enum CSMentionModel {
+  public static let placementDefault = "bottom-start"
+  public static func resolvedPlacement(_ placement: String?) -> String { placement ?? placementDefault }
+  public static func resolvedRows(_ rows: Int) -> Int { max(1, rows) }
   public static func query(text: String, caret: Int) -> String? {
     let end = min(max(caret, 0), text.count)
     let head = String(text.prefix(end))
@@ -54,8 +59,8 @@ public enum CSMentionModel {
   }
   public static func dismissOutside(open: Bool, inside: Bool) -> Bool { open && !inside }
   public static func clearOnBlur(relatedInside: Bool) -> Bool { !relatedInside }
-  public static func shift(anchor: CSFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CSFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double) -> CSMentionPlace? {
-    guard let initial = CSFloatingModel.position(anchor: anchor, panelWidth: naturalWidth, panelHeight: naturalHeight, viewport: viewport, placement: "bottom-start", gap: 0) else { return nil }
+  public static func shift(anchor: CSFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CSFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String = placementDefault) -> CSMentionPlace? {
+    guard let initial = CSFloatingModel.position(anchor: anchor, panelWidth: naturalWidth, panelHeight: naturalHeight, viewport: viewport, placement: placement, gap: 0) else { return nil }
     guard let placed = CSFloatingModel.position(anchor: anchor, panelWidth: fittedWidth, panelHeight: fittedHeight, viewport: viewport, placement: initial.placement, gap: 0) else { return nil }
     let sx = scaleX == 0 ? 1 : scaleX
     let sy = scaleY == 0 ? 1 : scaleY
@@ -147,12 +152,21 @@ public enum CSSortModel {
     let next = reorder(items, from: from, to: to)
     return next == items ? nil : next
   }
+  public static func fallbackButtonAfterMove(to: Int, count: Int) -> String? {
+    if to == 0 { return "down" }
+    if count > 0, to == count - 1 { return "up" }
+    return nil
+  }
 }
 
 public enum CSTourModel {
   public static func clamp(index: Int, count: Int) -> Int {
     guard count > 0 else { return 0 }
     return min(count - 1, max(0, index))
+  }
+  public static func notifyClose(onOpenChange: ((Bool) -> Void)?, onClose: (() -> Void)?) {
+    onOpenChange?(false)
+    onClose?()
   }
 
   public static func copy(_ key: String, language: String?) -> String {
@@ -229,6 +243,9 @@ public enum CSTableModel {
   public static func loadingRows(_ requested: Double) -> Int {
     CSRenderCount.whole(requested, fallback: 5, minimum: 1)
   }
+  public static func columnCount(_ columns: [String]) -> Int {
+    max(1, columns.count)
+  }
   public static func copy(_ key: String, language: String?) -> String {
     let want = CSComboboxModel.primaryLanguage(language) ?? "vi"
     let tables: [String: [String: String]] = [
@@ -244,6 +261,17 @@ public enum CSTableModel {
   public static func text(_ text: String?, fallback: String) -> String { text ?? fallback }
   public static func showsCaption(_ caption: String?) -> Bool { caption?.isEmpty == false }
   public static func isAlert(_ state: String) -> Bool { state == "error" }
+}
+
+private struct CSOptionalTimeLabel: ViewModifier {
+  var name: String?
+  func body(content: Content) -> some View {
+    if let name {
+      content.accessibilityLabel(name)
+    } else {
+      content
+    }
+  }
 }
 
 public struct CSTimePicker: View {
@@ -278,12 +306,18 @@ public struct CSTimePicker: View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let gap = CGFloat(CSControlsWaveStyleModel.timePickerGap())
     let padX = CGFloat(CSControlsWaveStyleModel.timePickerPaddingX())
+    let timeName = CSTimeModel.timeName(label: label, labelledBy: labelledBy, fallback: CSTimeModel.copy("label", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)))
     Menu {
       ForEach(CSTimeModel.slots(step: step), id: \.self) { slot in
         CSTriggerButton(slot) { onChange(slot) }
       }
     } label: {
       HStack(spacing: gap) {
+        if CSTimeModel.showsClockIcon() {
+          Text(CSTimeModel.clockGlyph)
+            .foregroundStyle(pack.mutedColor)
+            .accessibilityHidden(true)
+        }
         Text(value)
           .foregroundStyle(pack.primaryTextColor)
           .padding(.horizontal, padX)
@@ -299,7 +333,7 @@ public struct CSTimePicker: View {
       guard !disabled else { return }
       CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true })
     })
-    .accessibilityLabel(CSTimeModel.timeName(label: label, labelledBy: labelledBy, fallback: CSTimeModel.copy("label", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage))) ?? "")
+    .modifier(CSOptionalTimeLabel(name: timeName))
   }
 }
 
@@ -328,6 +362,9 @@ public struct CSMentions: View {
   public let placeholder: String?
   public let text: String
   public let users: [String]
+  public let rows: Int
+  public let portal: Bool
+  public let placement: String?
   public let language: String?
   let dark: Bool
   let highContrast: Bool
@@ -345,11 +382,14 @@ public struct CSMentions: View {
   @State private var panelScale = CGSize(width: 1, height: 1)
   @State private var measurePass = 0
 
-  public init(ariaLabel: String? = nil, placeholder: String? = nil, text: String, users: [String], dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onChange: @escaping (String) -> Void) {
+  public init(ariaLabel: String? = nil, placeholder: String? = nil, text: String, users: [String], rows: Int = 3, portal: Bool = true, placement: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, onChange: @escaping (String) -> Void) {
     self.ariaLabel = ariaLabel
     self.placeholder = placeholder
     self.text = text
     self.users = users
+    self.rows = CSMentionModel.resolvedRows(rows)
+    self.portal = portal
+    self.placement = placement
     self.language = language
     self.dark = dark
     self.highContrast = highContrast
@@ -368,6 +408,7 @@ public struct CSMentions: View {
     let maxW = CGFloat(CSControlsBatchStyleModel.mentionsMaxWidth())
     let popupInlineStart = CGFloat(CSControlsBatchStyleModel.mentionsPopupInlineStart())
     let popupBlockOffset = CGFloat(CSControlsBatchStyleModel.mentionsPopupBlockOffset())
+    let placeName = CSMentionModel.resolvedPlacement(placement)
     VStack(alignment: .leading) {
       TextField("", text: Binding(get: { text }, set: { next in
         CSFocusRegistry.shared.claim(id: focusId, restore: { mentionFocus = .field })
@@ -375,7 +416,7 @@ public struct CSMentions: View {
         active = 0
         onChange(next)
       }), prompt: Text(hint), axis: .vertical)
-        .lineLimit(3...3)
+        .lineLimit(rows...rows)
         .frame(maxWidth: maxW)
         .focused($mentionFocus, equals: .field)
         .accessibilityLabel(spoken)
@@ -411,7 +452,7 @@ public struct CSMentions: View {
         let viewport = CSFloatingRect(left: 8, top: 8, right: max(8, screen.width - 8), bottom: max(8, screen.height - 8), width: 0, height: 0)
         let placed = naturalSize.flatMap { natural in
           fittedSize.flatMap { fitted in
-            CSMentionModel.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height))
+            CSMentionModel.shift(anchor: box, naturalWidth: natural.width, naturalHeight: natural.height, fittedWidth: fitted.width, fittedHeight: fitted.height, viewport: viewport, originX: Double(panelOrigin?.x ?? anchor.minX), originY: Double(panelOrigin?.y ?? anchor.maxY), scaleX: Double(panelScale.width), scaleY: Double(panelScale.height), placement: placeName)
           }
         }
         VStack(alignment: .leading, spacing: 0) {
@@ -495,6 +536,7 @@ public struct CSSortable: View {
   let compact: Bool
   let onChange: ([String]) -> Void
   @Environment(\.csLanguage) private var ancestorLanguage
+  @FocusState private var sortFocus: String?
   @State private var originY = 0.0
   @State private var rowHeight = 0.0
   @State private var dragFrom: Int?
@@ -535,18 +577,32 @@ public struct CSSortable: View {
           })
           HStack(spacing: CGFloat(CSSortModel.opsGap())) {
             Button {
-              if CSSortModel.canMoveUp(index) { onChange(CSSortModel.reorder(items, from: index, to: index - 1)) }
+              if CSSortModel.canMoveUp(index) {
+                let to = index - 1
+                onChange(CSSortModel.reorder(items, from: index, to: to))
+                if let fallback = CSSortModel.fallbackButtonAfterMove(to: to, count: items.count) {
+                  sortFocus = "\(to)-\(fallback)"
+                }
+              }
             } label: {
               Text("↑").frame(minWidth: 44, minHeight: 44).accessibilityHidden(true)
             }
+            .focused($sortFocus, equals: "\(index)-up")
             .disabled(!CSSortModel.canMoveUp(index))
             .opacity(CSSortModel.buttonOpacity(enabled: CSSortModel.canMoveUp(index)))
             .accessibilityLabel(up)
             Button {
-              if CSSortModel.canMoveDown(index, count: items.count) { onChange(CSSortModel.reorder(items, from: index, to: index + 1)) }
+              if CSSortModel.canMoveDown(index, count: items.count) {
+                let to = index + 1
+                onChange(CSSortModel.reorder(items, from: index, to: to))
+                if let fallback = CSSortModel.fallbackButtonAfterMove(to: to, count: items.count) {
+                  sortFocus = "\(to)-\(fallback)"
+                }
+              }
             } label: {
               Text("↓").frame(minWidth: 44, minHeight: 44).accessibilityHidden(true)
             }
+            .focused($sortFocus, equals: "\(index)-down")
             .disabled(!CSSortModel.canMoveDown(index, count: items.count))
             .opacity(CSSortModel.buttonOpacity(enabled: CSSortModel.canMoveDown(index, count: items.count)))
             .accessibilityLabel(down)
@@ -605,10 +661,11 @@ public struct CSTour: View {
   let compact: Bool
   let onIndex: (Int) -> Void
   let onOpenChange: (Bool) -> Void
+  let onClose: (() -> Void)?
   @Environment(\.csLanguage) private var ancestorLanguage
   @FocusState private var trap: Int?
 
-  public init(steps: [String], index: Int, bodies: [String?] = [], targets: [CSTourTarget?] = [], backLabel: String? = nil, nextLabel: String? = nil, doneLabel: String? = nil, skipLabel: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, open: Bool = true, language: String? = nil, onIndex: @escaping (Int) -> Void, onOpenChange: @escaping (Bool) -> Void) {
+  public init(steps: [String], index: Int, bodies: [String?] = [], targets: [CSTourTarget?] = [], backLabel: String? = nil, nextLabel: String? = nil, doneLabel: String? = nil, skipLabel: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, open: Bool = true, language: String? = nil, onIndex: @escaping (Int) -> Void, onOpenChange: @escaping (Bool) -> Void, onClose: (() -> Void)? = nil) {
     self.steps = steps
     self.bodies = bodies
     self.targets = targets
@@ -624,6 +681,7 @@ public struct CSTour: View {
     self.compact = compact
     self.onIndex = onIndex
     self.onOpenChange = onOpenChange
+    self.onClose = onClose
   }
 
   public var body: some View {
@@ -634,6 +692,7 @@ public struct CSTour: View {
     let next = CSTourModel.label(nextLabel, fallback: CSTourModel.copy("next", language: locale))
     let done = CSTourModel.label(doneLabel, fallback: CSTourModel.copy("done", language: locale))
     let last = CSTourModel.isLast(index: index, count: steps.count)
+    let close = { CSTourModel.notifyClose(onOpenChange: onOpenChange, onClose: onClose) }
     Group {
       if !CSTourModel.shows(open: open, count: steps.count) {
         EmptyView()
@@ -653,7 +712,7 @@ public struct CSTour: View {
             Color.black.opacity(0.42)
               .frame(maxWidth: .infinity, maxHeight: .infinity)
               .contentShape(Rectangle())
-              .onTapGesture { onOpenChange(false) }
+              .onTapGesture { close() }
               .accessibilityHidden(true)
           }
           if let hole {
@@ -670,7 +729,7 @@ public struct CSTour: View {
             if CSTourModel.showsBody(body), let body { Text(body).foregroundStyle(pack.primaryTextColor) }
             Text(CSTourModel.countText(index: index, count: steps.count)).foregroundStyle(pack.mutedColor)
             HStack {
-              CSTriggerButton(skip) { onOpenChange(false) }
+              CSTriggerButton(skip) { close() }
                 .frame(minHeight: 44)
                 .focused($trap, equals: 0)
               if hasBack {
@@ -679,7 +738,7 @@ public struct CSTour: View {
                   .focused($trap, equals: 1)
               }
               CSTriggerButton(last ? done : next) {
-                if last { onOpenChange(false) } else { onIndex(index + 1) }
+                if last { close() } else { onIndex(index + 1) }
               }
               .frame(minHeight: 44)
               .focused($trap, equals: hasBack ? 2 : 1)
@@ -692,7 +751,7 @@ public struct CSTour: View {
           .accessibilityElement(children: .contain)
           .accessibilityLabel(steps[index])
           .accessibilityAddTraits(.isModal)
-          .onExitCommand { onOpenChange(false) }
+          .onExitCommand { close() }
           .onAppear { trap = CSFocusTrap.initialIndex(preferred: nil, count: stops) }
           .csTabTrap { shift in
             let next = CSFocusTrap.nextIndex(current: trap ?? -1, count: stops, shift: shift, inside: trap != nil)
@@ -717,6 +776,7 @@ public struct CSDataTable: View {
   public let state: String
   public let emptyLabel: String?
   public let errorLabel: String?
+  public let loadingLabel: String?
   public let loadingRows: Int
   public let language: String?
   let dark: Bool
@@ -724,13 +784,14 @@ public struct CSDataTable: View {
   let compact: Bool
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(caption: String? = nil, columns: [String], rows: [[String]], state: String = "idle", emptyLabel: String? = nil, errorLabel: String? = nil, loadingRows requested: Double = 5, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil) {
+  public init(caption: String? = nil, columns: [String], rows: [[String]], state: String = "idle", emptyLabel: String? = nil, errorLabel: String? = nil, loadingLabel: String? = nil, loadingRows requested: Double = 5, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil) {
     self.caption = caption
     self.columns = columns
     self.rows = rows
     self.state = state
     self.emptyLabel = emptyLabel
     self.errorLabel = errorLabel
+    self.loadingLabel = loadingLabel
     loadingRows = CSTableModel.loadingRows(requested)
     self.language = language
     self.dark = dark
@@ -752,8 +813,19 @@ public struct CSDataTable: View {
       }
       if state == "loading" {
         VStack(alignment: .leading, spacing: 4) {
-          ForEach(0..<loadingRows, id: \.self) { _ in
-            RoundedRectangle(cornerRadius: 4).fill(pack.borderColor).frame(height: 12)
+          if let loadingLabel {
+            Text(loadingLabel).foregroundStyle(pack.mutedColor)
+          } else {
+            if !columns.isEmpty {
+              Text(columns.joined(separator: " "))
+                .fontWeight(.bold)
+                .foregroundStyle(pack.mutedColor)
+                .padding(.horizontal, cellPadX)
+                .padding(.vertical, cellPadY)
+            }
+            ForEach(0..<loadingRows, id: \.self) { _ in
+              RoundedRectangle(cornerRadius: 4).fill(pack.borderColor).frame(height: 12)
+            }
           }
         }
         .padding(.vertical, statusPadY)
@@ -774,14 +846,23 @@ public struct CSDataTable: View {
         .padding(.vertical, statusPadY)
         .accessibilityElement(children: .contain)
         .accessibilityAddTraits(.updatesFrequently)
-      } else if rows.isEmpty {
-        Text(empty).foregroundStyle(pack.mutedColor).padding(.vertical, statusPadY)
       } else {
-        ForEach(Array(rows.enumerated()), id: \.offset) { _, row in
-          Text(row.joined(separator: " "))
-            .foregroundStyle(pack.primaryTextColor)
+        if !columns.isEmpty {
+          Text(columns.joined(separator: " "))
+            .fontWeight(.bold)
+            .foregroundStyle(pack.mutedColor)
             .padding(.horizontal, cellPadX)
             .padding(.vertical, cellPadY)
+        }
+        if rows.isEmpty {
+          Text(empty).foregroundStyle(pack.mutedColor).padding(.vertical, statusPadY)
+        } else {
+          ForEach(Array(rows.enumerated()), id: \.offset) { _, row in
+            Text(row.joined(separator: " "))
+              .foregroundStyle(pack.primaryTextColor)
+              .padding(.horizontal, cellPadX)
+              .padding(.vertical, cellPadY)
+          }
         }
       }
     }
@@ -795,6 +876,7 @@ public enum CSPopconfirmModel {
   public static let gap = 8.0
   public static func okText(_ label: String?, fallback: String) -> String { label ?? fallback }
   public static func cancelText(_ label: String?, fallback: String) -> String { label ?? fallback }
+  public static func triggerText(_ trigger: String?, title: String) -> String { trigger ?? title }
   public static func copy(_ key: String, language: String?) -> String {
     let want = CSComboboxModel.primaryLanguage(language) ?? "vi"
     let tables: [String: [String: String]] = [
@@ -837,6 +919,8 @@ public struct CSPopconfirmPlace: Equatable {
 
 public struct CSPopconfirm: View {
   public let title: String
+  public let trigger: String?
+  public let portal: Bool
   public let placement: String?
   public let confirmLabel: String?
   public let cancelLabel: String?
@@ -855,8 +939,10 @@ public struct CSPopconfirm: View {
   @State private var panelScale = CGSize(width: 1, height: 1)
   @State private var measurePass = 0
 
-  public init(title: String, confirmLabel: String? = nil, cancelLabel: String? = nil, open: Binding<Bool>, dark: Bool, highContrast: Bool, compact: Bool, onConfirm: @escaping () -> Void, onCancel: @escaping () -> Void, language: String? = nil, placement: String? = nil) {
+  public init(title: String, trigger: String? = nil, portal: Bool = true, confirmLabel: String? = nil, cancelLabel: String? = nil, open: Binding<Bool>, dark: Bool, highContrast: Bool, compact: Bool, onConfirm: @escaping () -> Void, onCancel: @escaping () -> Void, language: String? = nil, placement: String? = nil) {
     self.title = title
+    self.trigger = trigger
+    self.portal = portal
     self.placement = placement
     self.confirmLabel = confirmLabel
     self.cancelLabel = cancelLabel
@@ -872,8 +958,9 @@ public struct CSPopconfirm: View {
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let spoken = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
+    let triggerFace = CSPopconfirmModel.triggerText(trigger, title: title)
     VStack(alignment: .leading) {
-      CSTriggerButton(title) { if let next = CSPopconfirmModel.toggle(open: open, defaultPrevented: false) { open = next } }
+      CSTriggerButton(triggerFace) { if let next = CSPopconfirmModel.toggle(open: open, defaultPrevented: false) { open = next } }
         .frame(minHeight: pack.componentButtonMdMinHeight.points)
         .accessibilityValue(open ? "true" : "false")
         .background(GeometryReader { geo in
@@ -915,6 +1002,9 @@ public struct CSPopconfirm: View {
         .accessibilityHidden(placed == nil)
       }
     }
+    .background(GeometryReader { _ in
+      CSInlineOutside(active: open) { open = false }
+    })
     .onExitCommand { open = false }
     .onPreferenceChange(CSPopconfirmAnchorKey.self) { frame in
       if frame.width > 0, frame.height > 0 { anchor = frame }
@@ -995,6 +1085,7 @@ public enum CSToggleModel {
 
 public struct CSToggle: View {
   public let label: String
+  public let icon: String?
   public let pressed: Bool
   public let disabled: Bool
   public let ariaLabel: String?
@@ -1007,8 +1098,9 @@ public struct CSToggle: View {
   @FocusState private var ownerFocused: Bool
   @Environment(\.csLanguage) private var ancestorLanguage
 
-  public init(label: String, pressed: Bool, disabled: Bool = false, ariaLabel: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, onChange: @escaping (Bool) -> Void, language: String? = nil) {
+  public init(label: String, icon: String? = nil, pressed: Bool, disabled: Bool = false, ariaLabel: String? = nil, dark: Bool, highContrast: Bool, compact: Bool, onChange: @escaping (Bool) -> Void, language: String? = nil) {
     self.label = label
+    self.icon = icon
     self.pressed = pressed
     self.disabled = disabled
     self.ariaLabel = ariaLabel
@@ -1022,7 +1114,8 @@ public struct CSToggle: View {
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let spoken = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
-    let content = CSToggleModel.hasContent(text: label)
+    let hasIcon = CSToggleModel.showsIcon(icon)
+    let content = CSToggleModel.hasContent(text: label, hasNode: hasIcon)
     let name = CSToggleModel.toggleName(ariaLabel: ariaLabel, hasContent: content, fallback: CSToggleModel.copy("label", language: spoken))
     let padY = CGFloat(CSControlsWaveStyleModel.togglePaddingY())
     let padX = CGFloat(CSControlsWaveStyleModel.togglePaddingX())
@@ -1035,10 +1128,16 @@ public struct CSToggle: View {
       }
     } label: {
       if content {
-        Text(label)
-          .padding(.vertical, padY)
-          .padding(.horizontal, padX)
-          .accessibilityHidden(true)
+        HStack(spacing: 6) {
+          if hasIcon, let icon {
+            Text(icon).accessibilityHidden(true)
+          }
+          if !label.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            Text(label).accessibilityHidden(true)
+          }
+        }
+        .padding(.vertical, padY)
+        .padding(.horizontal, padX)
       }
     }
       .disabled(disabled)

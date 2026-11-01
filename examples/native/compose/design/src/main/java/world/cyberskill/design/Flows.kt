@@ -52,6 +52,8 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 
 const val csTimeLabel = "Time"
+const val csTimeClockGlyph = "🕒"
+fun csTimeShowsClockIcon() = true
 fun csTimeCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
   val vi = mapOf("label" to "Giờ")
@@ -79,6 +81,10 @@ fun csTimeSlots(step: Double): List<String> {
   return out
 }
 
+fun csMentionPlacement(placement: String?) = placement ?: "bottom-start"
+fun csMentionResolvedRows(rows: Int) = maxOf(1, rows)
+fun csMentionActive(index: Int, count: Int) = if (count <= 0) 0 else index.coerceIn(0, count - 1)
+fun csMentionNextIndex(current: Int, count: Int, down: Boolean) = if (count <= 0) 0 else if (down) minOf(count - 1, current + 1) else maxOf(0, current - 1)
 fun csMentionQuery(text: String, caret: Int): String? {
   val end = caret.coerceIn(0, text.length)
   val head = text.substring(0, end)
@@ -93,8 +99,8 @@ fun csMentionQuery(text: String, caret: Int): String? {
 fun csMentionDismissOutside(open: Boolean, inside: Boolean) = open && !inside
 fun csMentionClearOnBlur(relatedInside: Boolean) = !relatedInside
 data class CsMentionPlace(val x: Double, val y: Double, val maxWidth: Double, val maxHeight: Double, val placement: String)
-fun csMentionShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CsFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double): CsMentionPlace? {
-  val initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, "bottom-start", 0.0) ?: return null
+fun csMentionShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Double, fittedWidth: Double, fittedHeight: Double, viewport: CsFloatingRect, originX: Double, originY: Double, scaleX: Double, scaleY: Double, placement: String = "bottom-start"): CsMentionPlace? {
+  val initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement, 0.0) ?: return null
   val placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, initial.placement, 0.0) ?: return null
   val sx = if (scaleX == 0.0) 1.0 else scaleX
   val sy = if (scaleY == 0.0) 1.0 else scaleY
@@ -122,6 +128,10 @@ fun csReorder(items: List<String>, from: Int, to: Int): List<String> {
 }
 
 fun csTourClamp(index: Int, count: Int): Int = if (count <= 0) 0 else minOf(count - 1, maxOf(0, index))
+fun csTourNotifyClose(onOpenChange: ((Boolean) -> Unit)?, onClose: (() -> Unit)?) {
+  onOpenChange?.invoke(false)
+  onClose?.invoke()
+}
 fun csTourCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
   val vi = mapOf("skip" to "Bỏ qua", "back" to "Quay lại", "next" to "Tiếp", "done" to "Xong")
@@ -146,15 +156,19 @@ fun csTourHole(target: CsTourTarget?) = target?.let { CsTourHole(it.left - 6, it
 fun csTourPop(hole: CsTourHole?, viewWidth: Double, viewHeight: Double) = if (hole == null) CsTourPop(80.0, 40.0) else CsTourPop(minOf(viewHeight - 170, hole.y + hole.h + 12), maxOf(12.0, minOf(viewWidth - 292, hole.x)))
 
 @Composable
-fun CsTimePicker(value: String, onChange: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, labelledBy: String? = null, step: Double = 30.0, language: String? = null) {
+fun CsTimePicker(value: String = "09:00", onChange: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, labelledBy: String? = null, step: Double = 30.0, disabled: Boolean = false, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
-  val timeName = csTimeName(label, labelledBy, csTimeCopy("label", csComboboxResolvedLanguage(language, LocalCsLanguage.current))) ?: ""
+  val timeName = csTimeName(label, labelledBy, csTimeCopy("label", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
   val gap = csControlsWaveStyleTimePickerGap()
   val padX = csControlsWaveStyleTimePickerPaddingX()
+  val enabled = !disabled && csControlEnabled()
   var open by remember { mutableStateOf(false) }
   Column(modifier, verticalArrangement = Arrangement.spacedBy(gap)) {
-    CsTriggerButton(title = value, onClick = { open = !open }, modifier = Modifier.padding(horizontal = padX).minimumInteractiveComponentSize().semantics { contentDescription = timeName }) { Text(value, color = pack.colorTextPrimary.toComposeColor()) }
-    if (open) csTimeSlots(step).forEach { slot -> CsTriggerButton(title = slot, onClick = { onChange(slot) }, modifier = Modifier.minimumInteractiveComponentSize()) { Text(slot) } }
+    Row(horizontalArrangement = Arrangement.spacedBy(gap), verticalAlignment = Alignment.CenterVertically) {
+      if (csTimeShowsClockIcon()) Text(csTimeClockGlyph, color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.clearAndSetSemantics {})
+      CsTriggerButton(title = value, onClick = { if (enabled) open = !open }, enabled = enabled, modifier = Modifier.padding(horizontal = padX).minimumInteractiveComponentSize().let { if (timeName != null) it.semantics { contentDescription = timeName } else it }) { Text(value, color = pack.colorTextPrimary.toComposeColor()) }
+    }
+    if (open && enabled) csTimeSlots(step).forEach { slot -> CsTriggerButton(title = slot, onClick = { onChange(slot); open = false }, modifier = Modifier.minimumInteractiveComponentSize()) { Text(slot) } }
   }
 }
 
@@ -173,44 +187,53 @@ fun csMentionPlaceholderText(text: String?, fallback: String) = text ?: fallback
 fun csMentionName(ariaLabel: String?, placeholder: String) = if (ariaLabel.isNullOrEmpty()) placeholder else ariaLabel
 fun csMentionOption(user: String) = "@$user"
 @Composable
-fun CsMentions(text: String, users: List<String>, onChange: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, ariaLabel: String? = null, placeholder: String? = null, language: String? = null) {
+fun CsMentions(text: String, users: List<String>, onChange: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, ariaLabel: String? = null, placeholder: String? = null, rows: Int = 3, portal: Boolean = true, placement: String? = null, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val hint = csMentionPlaceholderText(placeholder, csMentionCopy("placeholder", locale))
   val spoken = csMentionName(ariaLabel, hint)
   val handle = rememberFocusHandle("mentions")
   var dismissed by remember { mutableStateOf(false) }
+  var active by remember { mutableStateOf(0) }
   var field by remember { mutableStateOf<CsFloatingRect?>(null) }
   var natural by remember { mutableStateOf<Pair<Double, Double>?>(null) }
   var fitted by remember { mutableStateOf<Pair<Double, Double>?>(null) }
   var origin by remember { mutableStateOf(0.0 to 0.0) }
   var panelScale by remember { mutableStateOf(1.0 to 1.0) }
   val hits = if (dismissed) emptyList() else csMentionHits(users, csMentionQuery(text, text.length))
+  val current = csMentionActive(active, hits.size)
   val config = LocalConfiguration.current
   val density = LocalDensity.current
   val viewWidth = with(density) { config.screenWidthDp.dp.toPx() }.toDouble()
   val viewHeight = with(density) { config.screenHeightDp.dp.toPx() }.toDouble()
   val viewport = CsFloatingRect(8.0, 8.0, maxOf(8.0, viewWidth - 8.0), maxOf(8.0, viewHeight - 8.0), 0.0, 0.0)
+  val placeName = csMentionPlacement(placement)
   val place = field?.let { box ->
     val first = natural
     val second = fitted
-    if (first == null || second == null) null else csMentionShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second)
+    if (first == null || second == null) null else csMentionShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, placeName)
   }
   val shiftX = place?.let { with(density) { it.x.toFloat().toDp() } } ?: csControlsBatchStyleMentionsPopupInlineStart()
   val shiftY = place?.let { with(density) { it.y.toFloat().toDp() } } ?: csControlsBatchStyleMentionsPopupBlockOffset()
   val maxW = csControlsBatchStyleMentionsMaxWidth()
+  val lineCount = csMentionResolvedRows(rows)
   LaunchedEffect(hits.isEmpty()) { if (hits.isEmpty()) { natural = null; fitted = null } }
   Column(modifier.widthIn(max = maxW).onPreviewKeyEvent { event ->
-    if (event.type != KeyEventType.KeyDown || event.key != Key.Escape) return@onPreviewKeyEvent false
-    dismissed = true
-    true
+    if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
+    when (event.key) {
+      Key.Escape -> { dismissed = true; true }
+      Key.DirectionDown -> if (hits.isNotEmpty()) { active = csMentionNextIndex(current, hits.size, true); true } else false
+      Key.DirectionUp -> if (hits.isNotEmpty()) { active = csMentionNextIndex(current, hits.size, false); true } else false
+      Key.Enter -> if (current in hits.indices) { onChange(csMentionPick(text, text.length, hits[current])); dismissed = true; true } else false
+      else -> false
+    }
   }) {
     Box(Modifier.onGloballyPositioned {
       val bounds = it.boundsInWindow()
       field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
     }) {
       if (text.isEmpty() && hint.isNotEmpty()) Text(hint, color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.clearAndSetSemantics {})
-      androidx.compose.foundation.text.BasicTextField(value = text, onValueChange = { next -> if (!csControlEnabled()) return@BasicTextField; handle.claim(); dismissed = false; onChange(next) }, enabled = csControlEnabled(), modifier = Modifier.focusRequester(handle.requester).onFocusChanged {
+      androidx.compose.foundation.text.BasicTextField(value = text, minLines = lineCount, maxLines = lineCount, onValueChange = { next -> if (!csControlEnabled()) return@BasicTextField; handle.claim(); dismissed = false; active = 0; onChange(next) }, enabled = csControlEnabled(), modifier = Modifier.focusRequester(handle.requester).onFocusChanged {
         if (it.isFocused) handle.claim()
         else if (csMentionClearOnBlur(false)) dismissed = true
       }.semantics { contentDescription = spoken }, textStyle = androidx.compose.ui.text.TextStyle(color = pack.colorTextPrimary.toComposeColor()))
@@ -225,8 +248,8 @@ fun CsMentions(text: String, users: List<String>, onChange: (String) -> Unit, da
         panelScale = (bounds.width / width) to (bounds.height / height)
         if (natural == null) natural = width to height else fitted = width to height
       }.offset(x = shiftX, y = shiftY).widthIn(max = with(density) { (place?.maxWidth ?: viewWidth).toFloat().toDp() })) {
-        hits.forEach { user ->
-          CsTriggerButton(title = csMentionOption(user), onClick = { onChange(csMentionPick(text, text.length, user)); dismissed = true }, modifier = Modifier.minimumInteractiveComponentSize()) { Text(csMentionOption(user)) }
+        hits.forEachIndexed { index, user ->
+          CsTriggerButton(title = csMentionOption(user), onClick = { onChange(csMentionPick(text, text.length, user)); dismissed = true }, modifier = Modifier.minimumInteractiveComponentSize().semantics { stateDescription = (index == current).toString() }) { Text(csMentionOption(user)) }
         }
       }
     }
@@ -265,6 +288,11 @@ fun csSortDrop(items: List<String>, from: Int?, to: Int?): List<String>? {
   if (from == null || to == null) return null
   val next = csReorder(items, from, to)
   return if (next == items) null else next
+}
+fun csSortFallbackButtonAfterMove(to: Int, count: Int): String? = when {
+  to == 0 -> "down"
+  count > 0 && to == count - 1 -> "up"
+  else -> null
 }
 @Composable
 fun CsSortable(items: List<String>, onChange: (List<String>) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, upLabel: String? = null, downLabel: String? = null, language: String? = null) {
@@ -309,12 +337,13 @@ fun CsSortable(items: List<String>, onChange: (List<String>) -> Unit, dark: Bool
 }
 
 @Composable
-fun CsTour(steps: List<String>, index: Int, onIndex: (Int) -> Unit, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, bodies: List<String?> = emptyList(), targets: List<CsTourTarget?> = emptyList(), backLabel: String? = null, nextLabel: String? = null, doneLabel: String? = null, skipLabel: String? = null, language: String? = null, open: Boolean = true) {
+fun CsTour(steps: List<String>, index: Int, onIndex: (Int) -> Unit, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, bodies: List<String?> = emptyList(), targets: List<CsTourTarget?> = emptyList(), backLabel: String? = null, nextLabel: String? = null, doneLabel: String? = null, skipLabel: String? = null, language: String? = null, open: Boolean = true, onClose: (() -> Unit)? = null) {
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val skip = csTourLabel(skipLabel, csTourCopy("skip", locale))
   val back = csTourLabel(backLabel, csTourCopy("back", locale))
   val next = csTourLabel(nextLabel, csTourCopy("next", locale))
   val done = csTourLabel(doneLabel, csTourCopy("done", locale))
+  val close = { csTourNotifyClose(onOpenChange, onClose) }
   var trap by remember { mutableStateOf(0) }
   LaunchedEffect(open) { if (open) { onIndex(0); trap = 0 } }
   if (!csTourShows(open, steps.size)) return
@@ -331,26 +360,27 @@ fun CsTour(steps: List<String>, index: Int, onIndex: (Int) -> Unit, onOpenChange
   val popDepth = csControlsBatchStyleTourPopDepth(pack).toFloat()
   val popWidth = csControlsBatchStyleTourPopWidth()
   Box(modifier) {
-    if (csTourClosesOnBackdrop()) Box(Modifier.matchParentSize().clickable { onOpenChange(false) })
+    if (csTourClosesOnBackdrop()) Box(Modifier.matchParentSize().clickable { close() })
     if (hole != null) Box(Modifier.zIndex(holeDepth).offset(hole.x.dp, hole.y.dp).size(hole.w.dp, hole.h.dp).border(3.dp, pack.colorBrandOchre.toComposeColor(), androidx.compose.foundation.shape.RoundedCornerShape(8.dp)))
     Column(Modifier.zIndex(popDepth).widthIn(max = popWidth).offset(pop.left.dp, pop.top.dp).semantics { contentDescription = steps[active] }.onPreviewKeyEvent { event ->
       if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
-      if (event.key == Key.Escape) { onOpenChange(false); return@onPreviewKeyEvent true }
+      if (event.key == Key.Escape) { close(); return@onPreviewKeyEvent true }
       if (event.key != Key.Tab) return@onPreviewKeyEvent false
-      val next = csFocusNext(trap, stops, event.isShiftPressed, trap >= 0) ?: return@onPreviewKeyEvent false
-      trap = if (csModalPullBack(next >= 0)) 0 else next
+      val nextStop = csFocusNext(trap, stops, event.isShiftPressed, trap >= 0) ?: return@onPreviewKeyEvent false
+      trap = if (csModalPullBack(nextStop >= 0)) 0 else nextStop
       true
     }) {
       Text(steps[active], color = pack.colorTextPrimary.toComposeColor())
       if (csTourShowsBody(body)) Text(body ?: "", color = pack.colorTextPrimary.toComposeColor())
       Text(csTourCount(active, steps.size), color = pack.colorTextMuted.toComposeColor())
-      CsTriggerButton(title = skip, onClick = { onOpenChange(false) }) { Text(skip) }
+      CsTriggerButton(title = skip, onClick = { close() }) { Text(skip) }
       if (active > 0) CsTriggerButton(title = back, onClick = { onIndex(active - 1) }) { Text(back) }
-      CsTriggerButton(title = if (last) done else next, onClick = { if (last) onOpenChange(false) else onIndex(active + 1) }) { Text(if (last) done else next) }
+      CsTriggerButton(title = if (last) done else next, onClick = { if (last) close() else onIndex(active + 1) }) { Text(if (last) done else next) }
     }
   }
 }
 
+fun csTableColumnCount(columns: List<String>) = maxOf(1, columns.size)
 fun csTableCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
   val vi = mapOf("empty" to "Không có kết quả", "loading" to "Đang tải bảng", "error" to "Không tải được bảng này", "errorHint" to "Kiểm tra kết nối, rồi thử lại.")
@@ -365,7 +395,7 @@ fun csTableText(text: String?, fallback: String) = text ?: fallback
 fun csTableShowsCaption(caption: String?) = !caption.isNullOrEmpty()
 fun csTableAlert(state: String) = state == "error"
 @Composable
-fun CsDataTable(rows: List<String>, state: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, caption: String? = null, emptyLabel: String? = null, errorLabel: String? = null, loadingRows: Double = 5.0, language: String? = null) {
+fun CsDataTable(rows: List<String>, state: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, columns: List<String> = emptyList(), caption: String? = null, emptyLabel: String? = null, errorLabel: String? = null, loadingLabel: String? = null, loadingRows: Double = 5.0, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val locale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val count = csRenderCount(loadingRows, 5, 1)
@@ -377,23 +407,34 @@ fun CsDataTable(rows: List<String>, state: String, dark: Boolean, highContrast: 
   Column(modifier) {
     if (csTableShowsCaption(caption)) Text(caption ?: "", color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.padding(bottom = captionMargin))
     when (state) {
-      "loading" -> Column(Modifier.padding(vertical = statusPadY).semantics { contentDescription = csTableCopy("loading", locale); stateDescription = "true" }) { repeat(count) { Text(" ", modifier = Modifier.clearAndSetSemantics {}, color = pack.colorBorderDefault.toComposeColor()) } }
+      "loading" -> Column(Modifier.padding(vertical = statusPadY).semantics { contentDescription = csTableCopy("loading", locale); stateDescription = "true" }) {
+        if (loadingLabel != null) Text(loadingLabel, color = pack.colorTextMuted.toComposeColor())
+        else {
+          if (columns.isNotEmpty()) Text(columns.joinToString(" "), color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.padding(horizontal = cellPadX, vertical = cellPadY).clearAndSetSemantics {})
+          repeat(count) { Text(" ", modifier = Modifier.clearAndSetSemantics {}, color = pack.colorBorderDefault.toComposeColor()) }
+        }
+      }
       "error" -> {
         val body: @Composable () -> Unit = {
           if (errorLabel != null) Text(errorLabel, color = pack.colorSemanticDangerText.toComposeColor()) else Column { Text(csTableCopy("error", locale), color = pack.colorSemanticDangerText.toComposeColor()); Text(csTableCopy("errorHint", locale), color = pack.colorTextMuted.toComposeColor()) }
         }
         if (csTableAlert(state)) Column(Modifier.padding(vertical = statusPadY).semantics { liveRegion = LiveRegionMode.Assertive }) { body() } else Column(Modifier.padding(vertical = statusPadY)) { body() }
       }
-      else -> if (rows.isEmpty()) Text(empty, color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.padding(vertical = statusPadY)) else rows.forEach { Text(it, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.padding(horizontal = cellPadX, vertical = cellPadY)) }
+      else -> {
+        if (columns.isNotEmpty()) Text(columns.joinToString(" "), color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.padding(horizontal = cellPadX, vertical = cellPadY))
+        if (rows.isEmpty()) Text(empty, color = pack.colorTextMuted.toComposeColor(), modifier = Modifier.padding(vertical = statusPadY)) else rows.forEach { Text(it, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.padding(horizontal = cellPadX, vertical = cellPadY)) }
+      }
     }
   }
 }
 
 @Composable
-fun CsPopconfirm(title: String, open: Boolean, onOpenChange: (Boolean) -> Unit, onConfirm: () -> Unit, onCancel: () -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, confirmLabel: String? = null, cancelLabel: String? = null, language: String? = null) {
+fun CsPopconfirm(title: String, open: Boolean, onOpenChange: (Boolean) -> Unit, onConfirm: () -> Unit, onCancel: () -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, trigger: String? = null, portal: Boolean = true, placement: String? = null, confirmLabel: String? = null, cancelLabel: String? = null, language: String? = null) {
+  val pack = csModePack(dark, highContrast, compact)
   val spoken = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val okName = csPopconfirmOkText(confirmLabel, csPopconfirmCopy("ok", spoken))
   val cancelName = csPopconfirmOkText(cancelLabel, csPopconfirmCopy("cancel", spoken))
+  val triggerFace = csPopconfirmTriggerText(trigger, title)
   val minW = csControlsWaveStylePopconfirmMinWidth()
   val padY = csControlsWaveStylePopconfirmPaddingY()
   val padX = csControlsWaveStylePopconfirmPaddingX()
@@ -412,14 +453,18 @@ fun CsPopconfirm(title: String, open: Boolean, onOpenChange: (Boolean) -> Unit, 
   val place = field?.let { box ->
     val first = natural
     val second = fitted
-    if (first == null || second == null) null else csPopconfirmShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, csPopconfirmPlacement(null))
+    if (first == null || second == null) null else csPopconfirmShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, csPopconfirmPlacement(placement))
   }
   if (!open && natural != null) { natural = null; fitted = null }
-  Column(modifier) {
-    CsTriggerButton(title = title, onClick = { onOpenChange(!open) }, modifier = Modifier.onGloballyPositioned {
+  Column(modifier.onPreviewKeyEvent { event ->
+    if (event.type != KeyEventType.KeyDown || event.key != Key.Escape || !open) return@onPreviewKeyEvent false
+    onOpenChange(false)
+    true
+  }) {
+    CsTriggerButton(title = triggerFace, onClick = { onOpenChange(!open) }, modifier = Modifier.onGloballyPositioned {
       val bounds = it.boundsInWindow()
       field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
-    }) { Text(title) }
+    }.semantics { stateDescription = open.toString() }) { Text(triggerFace) }
     if (open) Column(Modifier.widthIn(min = minW).padding(horizontal = padX, vertical = padY).onGloballyPositioned {
       val bounds = it.boundsInWindow()
       val width = it.size.width.toDouble()
@@ -432,7 +477,8 @@ fun CsPopconfirm(title: String, open: Boolean, onOpenChange: (Boolean) -> Unit, 
       if (panelScale != nextScale) panelScale = nextScale
       if (natural == null) natural = nextSize else if (fitted != nextSize) fitted = nextSize
     }.offset(x = with(density) { (place?.x ?: 0.0).toFloat().toDp() }, y = place?.let { with(density) { it.y.toFloat().toDp() } } ?: csControlsWaveStylePopconfirmOffset()), verticalArrangement = Arrangement.spacedBy(actionsGap)) {
-      CsTriggerButton(title = cancelName, onClick = { onOpenChange(false); onCancel() }, modifier = Modifier.padding(top = titleMargin)) { Text(cancelName) }
+      Text(title, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.padding(bottom = titleMargin))
+      CsTriggerButton(title = cancelName, onClick = { onOpenChange(false); onCancel() }) { Text(cancelName) }
       CsTriggerButton(title = okName, onClick = { onOpenChange(false); onConfirm() }) { Text(okName) }
     }
   }
@@ -440,6 +486,7 @@ fun CsPopconfirm(title: String, open: Boolean, onOpenChange: (Boolean) -> Unit, 
 
 const val csToggleLabel = "Toggle"
 fun csToggleValue(pressed: Boolean?, inner: Boolean) = pressed ?: inner
+fun csToggleShowsIcon(icon: String?) = !icon.isNullOrEmpty()
 fun csToggleHasContent(text: String?, hasNode: Boolean = false) = hasNode || !text.isNullOrBlank()
 fun csToggleName(ariaLabel: String?, hasContent: Boolean, fallback: String) = when {
   ariaLabel != null -> ariaLabel
@@ -460,6 +507,7 @@ fun csToggleCopy(key: String, language: String?): String {
 const val csPopconfirmOk = "Confirm"
 const val csPopconfirmCancel = "Cancel"
 fun csPopconfirmOkText(label: String?, fallback: String) = label ?: fallback
+fun csPopconfirmTriggerText(trigger: String?, title: String) = trigger ?: title
 fun csPopconfirmPlacement(explicit: String?) = explicit ?: "bottom-start"
 const val csPopconfirmGap = 8.0
 data class CsPopconfirmPlace(val x: Double, val y: Double, val maxWidth: Double, val maxHeight: Double, val placement: String)
@@ -482,12 +530,13 @@ fun csPopconfirmCopy(key: String, language: String?): String {
 }
 fun csPopconfirmSteps() = listOf("close", "confirm")
 @Composable
-fun CsToggle(label: String = "", pressed: Boolean, onChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, disabled: Boolean = false, ariaLabel: String? = null, language: String? = null) {
+fun CsToggle(label: String = "", pressed: Boolean, onChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, icon: String? = null, disabled: Boolean = false, ariaLabel: String? = null, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val handle = rememberFocusHandle("toggle")
   val enabled = csControlEnabled(!disabled)
   val spoken = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
-  val content = csToggleHasContent(label)
+  val hasIcon = csToggleShowsIcon(icon)
+  val content = csToggleHasContent(label, hasIcon)
   val name = csToggleName(ariaLabel, content, csToggleCopy("label", spoken))
   val padY = csControlsWaveStyleTogglePaddingY()
   val padX = csControlsWaveStyleTogglePaddingX()
@@ -498,7 +547,8 @@ fun CsToggle(label: String = "", pressed: Boolean, onChange: (Boolean) -> Unit, 
     val next = csToggleFlip(pressed, disabled, false) ?: return@TextButton
     handle.claim()
     onChange(next)
-  }, enabled = enabled, modifier = modifier.alpha(if (enabled) 1f else disabledAlpha).heightIn(min = minH).padding(horizontal = padX, vertical = padY).focusRequester(handle.requester).onFocusChanged { if (it.isFocused && enabled) handle.claim() }.minimumInteractiveComponentSize().semantics { contentDescription = name ?: label }) {
-    if (content) Text(label, color = if (pressed) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor(), modifier = Modifier.clearAndSetSemantics { })
+  }, enabled = enabled, modifier = modifier.alpha(if (enabled) 1f else disabledAlpha).heightIn(min = minH).padding(horizontal = padX, vertical = padY).focusRequester(handle.requester).onFocusChanged { if (it.isFocused && enabled) handle.claim() }.minimumInteractiveComponentSize().semantics { contentDescription = name ?: label; stateDescription = pressed.toString() }) {
+    if (hasIcon && icon != null) Text(icon, color = if (pressed) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor(), modifier = Modifier.clearAndSetSemantics { })
+    if (label.isNotBlank()) Text(label, color = if (pressed) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor(), modifier = Modifier.clearAndSetSemantics { })
   }
 }

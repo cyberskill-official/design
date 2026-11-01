@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'catalog.dart';
 import 'controls.dart';
 import 'surfaces.dart';
 
 const csTimeLabel = 'Time';
+const csTimeClockGlyph = '🕒';
+bool csTimeShowsClockIcon() => true;
 String csTimeCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
   const vi = {'label': 'Giờ'};
@@ -35,6 +38,14 @@ List<String> csTimeSlots(double step) {
   return out;
 }
 
+String csMentionPlacement(String? placement) => placement ?? 'bottom-start';
+int csMentionResolvedRows(int rows) => rows < 1 ? 1 : rows;
+int csMentionActive(int index, int count) => count <= 0 ? 0 : (index < 0 ? 0 : (index > count - 1 ? count - 1 : index));
+int csMentionNextIndex(int current, int count, {required bool down}) {
+  if (count <= 0) return 0;
+  if (down) return current + 1 < count ? current + 1 : count - 1;
+  return current > 0 ? current - 1 : 0;
+}
 String? csMentionQuery(String text, int caret) {
   final end = caret < 0 ? 0 : (caret > text.length ? text.length : caret);
   final head = text.substring(0, end);
@@ -68,6 +79,10 @@ List<String> csReorder(List<String> items, int from, int to) {
 }
 
 int csTourClamp(int index, int count) => count <= 0 ? 0 : (index < 0 ? 0 : (index > count - 1 ? count - 1 : index));
+void csTourNotifyClose(ValueChanged<bool>? onOpenChange, VoidCallback? onClose) {
+  onOpenChange?.call(false);
+  onClose?.call();
+}
 String csTourCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
   const vi = {'skip': 'Bỏ qua', 'back': 'Quay lại', 'next': 'Tiếp', 'done': 'Xong'};
@@ -117,13 +132,14 @@ CsTourPop csTourPop(CsTourHole? hole, double viewWidth, double viewHeight) {
 }
 
 class CsTimePicker extends StatefulWidget {
-  const CsTimePicker({super.key, this.label, required this.value, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.step = 30, this.labelledBy, this.language});
+  const CsTimePicker({super.key, this.label, this.value = '09:00', required this.onChange, required this.dark, required this.highContrast, required this.compact, this.step = 30, this.disabled = false, this.labelledBy, this.language});
   final String? label;
   final String? labelledBy;
   final String? language;
   final String value;
   final ValueChanged<String> onChange;
   final double step;
+  final bool disabled;
   final bool dark;
   final bool highContrast;
   final bool compact;
@@ -137,13 +153,21 @@ class _CsTimePickerState extends State<CsTimePicker> {
 
   @override
   Widget build(BuildContext context) {
+    final pack = csModePack(dark: widget.dark, highContrast: widget.highContrast, compact: widget.compact);
     final gap = csControlsWaveStyleTimePickerGap();
     final padX = csControlsWaveStyleTimePickerPaddingX();
+    final timeName = csTimeName(widget.label, widget.labelledBy, csTimeCopy('label', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context))));
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(padding: EdgeInsets.symmetric(horizontal: padX), child: CsOwnFocus(builder: (node, claim) => Semantics(label: csTimeName(widget.label, widget.labelledBy, csTimeCopy('label', csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context)))) ?? '', button: true, child: TextButton(focusNode: node, onPressed: () { claim(); setState(() => open = !open); }, child: ExcludeSemantics(child: Text(widget.value)))))),
-      if (open) ...[
+      Row(mainAxisSize: MainAxisSize.min, children: [
+        if (csTimeShowsClockIcon()) ...[
+          ExcludeSemantics(child: Text(csTimeClockGlyph, style: TextStyle(color: csColor(pack.colorTextMuted)))),
+          SizedBox(width: gap),
+        ],
+        Padding(padding: EdgeInsets.symmetric(horizontal: padX), child: CsOwnFocus(builder: (node, claim) => Semantics(label: timeName, button: true, enabled: !widget.disabled, child: TextButton(focusNode: node, onPressed: widget.disabled ? null : () { claim(); setState(() => open = !open); }, child: ExcludeSemantics(child: Text(widget.value, style: TextStyle(color: csColor(pack.colorTextPrimary)))))))),
+      ]),
+      if (open && !widget.disabled) ...[
         SizedBox(height: gap),
-        for (final slot in csTimeSlots(widget.step)) CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onChange(slot); }, child: Text(slot))),
+        for (final slot in csTimeSlots(widget.step)) CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onChange(slot); setState(() => open = false); }, child: Text(slot))),
       ],
     ]);
   }
@@ -176,8 +200,8 @@ class CsMentionPlace {
   final double maxHeight;
   final String placement;
 }
-CsMentionPlace? csMentionShift(CsFloatingRect anchor, double naturalWidth, double naturalHeight, double fittedWidth, double fittedHeight, CsFloatingRect viewport, double originX, double originY, double scaleX, double scaleY) {
-  final initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement: 'bottom-start', gap: 0);
+CsMentionPlace? csMentionShift(CsFloatingRect anchor, double naturalWidth, double naturalHeight, double fittedWidth, double fittedHeight, CsFloatingRect viewport, double originX, double originY, double scaleX, double scaleY, {String placement = 'bottom-start'}) {
+  final initial = csFloatingPlace(anchor, naturalWidth, naturalHeight, viewport, placement: placement, gap: 0);
   if (initial == null) return null;
   final placed = csFloatingPlace(anchor, fittedWidth, fittedHeight, viewport, placement: initial.placement, gap: 0);
   if (placed == null) return null;
@@ -187,12 +211,15 @@ CsMentionPlace? csMentionShift(CsFloatingRect anchor, double naturalWidth, doubl
 }
 
 class CsMentions extends StatefulWidget {
-  const CsMentions({super.key, required this.text, required this.users, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.ariaLabel, this.placeholder, this.language});
+  const CsMentions({super.key, required this.text, required this.users, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.ariaLabel, this.placeholder, this.rows = 3, this.portal = true, this.placement, this.language});
   final String? ariaLabel;
   final String? placeholder;
   final String? language;
   final String text;
   final List<String> users;
+  final int rows;
+  final bool portal;
+  final String? placement;
   final ValueChanged<String> onChange;
   final bool dark;
   final bool highContrast;
@@ -203,6 +230,7 @@ class CsMentions extends StatefulWidget {
 
 class _CsMentionsState extends State<CsMentions> {
   var dismissed = false;
+  var active = 0;
   FocusNode? fieldNode;
   final fieldKey = GlobalKey();
   final listKey = GlobalKey();
@@ -228,6 +256,7 @@ class _CsMentionsState extends State<CsMentions> {
       list.dy,
       1,
       1,
+      placement: csMentionPlacement(widget.placement),
     );
     if (next == null || (place?.x == next.x && place?.y == next.y && place?.placement == next.placement)) return;
     setState(() => place = next);
@@ -263,24 +292,50 @@ class _CsMentionsState extends State<CsMentions> {
     final hint = csMentionPlaceholderText(widget.placeholder, csMentionCopy('placeholder', locale));
     final spoken = csMentionName(widget.ariaLabel, hint);
     final hits = dismissed ? <String>[] : csMentionHits(widget.users, csMentionQuery(widget.text, widget.text.length));
+    final current = csMentionActive(active, hits.length);
+    final lineCount = csMentionResolvedRows(widget.rows);
     final maxW = csControlsBatchStyleMentionsMaxWidth();
     final popupInlineStart = csControlsBatchStyleMentionsPopupInlineStart();
     final popupBlockOffset = csControlsBatchStyleMentionsPopupBlockOffset();
     return TapRegion(
       onTapOutside: hits.isNotEmpty && csMentionDismissOutside(true, false) ? (_) { setState(() => dismissed = true); } : null,
-      child: ConstrainedBox(constraints: BoxConstraints(maxWidth: maxW), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        CsOwnFocus(builder: (node, claim) {
-          if (fieldNode != node) {
-            fieldNode?.removeListener(onFieldBlur);
-            fieldNode = node;
-            node.addListener(onFieldBlur);
+      child: Focus(
+        onKeyEvent: (node, event) {
+          if (event is! KeyDownEvent) return KeyEventResult.ignored;
+          if (event.logicalKey == LogicalKeyboardKey.escape) {
+            setState(() => dismissed = true);
+            return KeyEventResult.handled;
           }
-          return Semantics(textField: true, label: spoken, child: TextField(key: fieldKey, focusNode: node, controller: TextEditingController(text: widget.text), minLines: 3, maxLines: 3, decoration: InputDecoration(hintText: hint.isEmpty ? null : hint), onChanged: (next) { claim(); setState(() => dismissed = false); widget.onChange(next); }));
-        }),
-        if (hits.isNotEmpty) Transform.translate(offset: Offset(place?.x ?? popupInlineStart, place?.y ?? popupBlockOffset), child: Column(key: listKey, crossAxisAlignment: CrossAxisAlignment.start, children: [
-          for (final user in hits) CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onChange(csMentionPick(widget.text, widget.text.length, user)); setState(() => dismissed = true); }, child: Text(csMentionOption(user)))),
+          if (hits.isEmpty) return KeyEventResult.ignored;
+          if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
+            setState(() => active = csMentionNextIndex(current, hits.length, down: true));
+            return KeyEventResult.handled;
+          }
+          if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
+            setState(() => active = csMentionNextIndex(current, hits.length, down: false));
+            return KeyEventResult.handled;
+          }
+          if (event.logicalKey == LogicalKeyboardKey.enter && current >= 0 && current < hits.length) {
+            widget.onChange(csMentionPick(widget.text, widget.text.length, hits[current]));
+            setState(() => dismissed = true);
+            return KeyEventResult.handled;
+          }
+          return KeyEventResult.ignored;
+        },
+        child: ConstrainedBox(constraints: BoxConstraints(maxWidth: maxW), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          CsOwnFocus(builder: (node, claim) {
+            if (fieldNode != node) {
+              fieldNode?.removeListener(onFieldBlur);
+              fieldNode = node;
+              node.addListener(onFieldBlur);
+            }
+            return Semantics(textField: true, label: spoken, child: TextField(key: fieldKey, focusNode: node, controller: TextEditingController(text: widget.text), minLines: lineCount, maxLines: lineCount, decoration: InputDecoration(hintText: hint.isEmpty ? null : hint), onChanged: (next) { claim(); setState(() { dismissed = false; active = 0; }); widget.onChange(next); }));
+          }),
+          if (hits.isNotEmpty) Transform.translate(offset: Offset(place?.x ?? popupInlineStart, place?.y ?? popupBlockOffset), child: Column(key: listKey, crossAxisAlignment: CrossAxisAlignment.start, children: [
+            for (var index = 0; index < hits.length; index++) CsOwnFocus(builder: (node, claim) => Semantics(selected: index == current, child: TextButton(focusNode: node, onPressed: () { claim(); widget.onChange(csMentionPick(widget.text, widget.text.length, hits[index])); setState(() => dismissed = true); }, child: Text(csMentionOption(hits[index]))))),
+          ])),
         ])),
-      ])),
+      ),
     );
   }
 
@@ -333,6 +388,11 @@ List<String>? csSortDrop(List<String> items, int? from, int? to) {
     return null;
   }
   return next;
+}
+String? csSortFallbackButtonAfterMove(int to, int count) {
+  if (to == 0) return 'down';
+  if (count > 0 && to == count - 1) return 'up';
+  return null;
 }
 
 class CsSortable extends StatefulWidget {
@@ -415,7 +475,7 @@ class _CsSortableState extends State<CsSortable> {
 }
 
 class CsTour extends StatefulWidget {
-  const CsTour({super.key, required this.steps, required this.index, required this.onIndex, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, this.bodies = const [], this.targets = const [], this.backLabel, this.nextLabel, this.doneLabel, this.skipLabel, this.language, this.open = true});
+  const CsTour({super.key, required this.steps, required this.index, required this.onIndex, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, this.bodies = const [], this.targets = const [], this.backLabel, this.nextLabel, this.doneLabel, this.skipLabel, this.language, this.open = true, this.onClose});
   final List<String> steps;
   final List<String?> bodies;
   final List<CsTourTarget?> targets;
@@ -428,6 +488,7 @@ class CsTour extends StatefulWidget {
   final bool open;
   final ValueChanged<int> onIndex;
   final ValueChanged<bool> onOpenChange;
+  final VoidCallback? onClose;
   final bool dark;
   final bool highContrast;
   final bool compact;
@@ -447,6 +508,10 @@ class _CsTourState extends State<CsTour> {
   void didUpdateWidget(CsTour oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.open && !oldWidget.open) widget.onIndex(0);
+  }
+
+  void _close() {
+    csTourNotifyClose(widget.onOpenChange, widget.onClose);
   }
 
   @override
@@ -475,26 +540,26 @@ class _CsTourState extends State<CsTour> {
         onKeyEvent: (node, event) {
           if (event is! KeyDownEvent) return KeyEventResult.ignored;
           if (event.logicalKey == LogicalKeyboardKey.escape) {
-            widget.onOpenChange(false);
+            _close();
             return KeyEventResult.handled;
           }
           if (event.logicalKey != LogicalKeyboardKey.tab) return KeyEventResult.ignored;
           final stops = csTourStops(active > 0);
-          final next = csFocusNext(trap, stops, HardwareKeyboard.instance.isShiftPressed, true);
-          if (next == null) return KeyEventResult.ignored;
-          setState(() => trap = next);
+          final nextStop = csFocusNext(trap, stops, HardwareKeyboard.instance.isShiftPressed, true);
+          if (nextStop == null) return KeyEventResult.ignored;
+          setState(() => trap = nextStop);
           return KeyEventResult.handled;
         },
         child: Stack(children: [
-          if (csTourClosesOnBackdrop()) Positioned.fill(child: GestureDetector(onTap: () => widget.onOpenChange(false), child: const ColoredBox(color: Color(0x6B000000)))),
+          if (csTourClosesOnBackdrop()) Positioned.fill(child: GestureDetector(onTap: _close, child: const ColoredBox(color: Color(0x6B000000)))),
           if (hole != null && holeDepth > 0) Positioned(left: hole.x, top: hole.y, width: hole.w, height: hole.h, child: const IgnorePointer(child: DecoratedBox(decoration: BoxDecoration(border: Border.fromBorderSide(BorderSide(color: Color(0xFFF4BA17), width: 3)), borderRadius: BorderRadius.all(Radius.circular(8)))))),
           if (popDepth > 0) Transform.translate(offset: Offset(pop.left, pop.top), child: ConstrainedBox(constraints: BoxConstraints(maxWidth: popWidth), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(widget.steps[active]),
           if (csTourShowsBody(body)) Text(body ?? ''),
           Text(csTourCount(active, widget.steps.length)),
-          CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onOpenChange(false); }, child: Text(skip))),
+          CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); _close(); }, child: Text(skip))),
           if (active > 0) CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onIndex(active - 1); }, child: Text(back))),
-          CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); last ? widget.onOpenChange(false) : widget.onIndex(active + 1); }, child: Text(last ? done : next))),
+          CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); last ? _close() : widget.onIndex(active + 1); }, child: Text(last ? done : next))),
           ]))),
         ]),
       ),
@@ -502,6 +567,7 @@ class _CsTourState extends State<CsTour> {
   }
 }
 
+int csTableColumnCount(List<String> columns) => columns.isEmpty ? 1 : columns.length;
 String csTableCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
   const vi = {'empty': 'Không có kết quả', 'loading': 'Đang tải bảng', 'error': 'Không tải được bảng này', 'errorHint': 'Kiểm tra kết nối, rồi thử lại.'};
@@ -520,12 +586,14 @@ bool csTableShowsCaption(String? caption) => caption != null && caption.isNotEmp
 bool csTableAlert(String state) => state == 'error';
 
 class CsDataTable extends StatelessWidget {
-  const CsDataTable({super.key, required this.rows, required this.state, required this.dark, required this.highContrast, required this.compact, this.caption, this.emptyLabel, this.errorLabel, this.loadingRows = 5, this.language});
+  const CsDataTable({super.key, required this.rows, required this.state, required this.dark, required this.highContrast, required this.compact, this.columns = const [], this.caption, this.emptyLabel, this.errorLabel, this.loadingLabel, this.loadingRows = 5, this.language});
   final String? caption;
+  final List<String> columns;
   final List<String> rows;
   final String state;
   final String? emptyLabel;
   final String? errorLabel;
+  final String? loadingLabel;
   final double loadingRows;
   final String? language;
   final bool dark;
@@ -545,18 +613,25 @@ class CsDataTable extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       if (csTableShowsCaption(caption)) Padding(padding: EdgeInsets.only(bottom: captionMargin), child: Text(caption!)),
       if (state == 'loading')
-        Padding(padding: EdgeInsets.symmetric(vertical: statusPadY), child: Semantics(label: csTableCopy('loading', locale), value: 'true', child: ExcludeSemantics(child: Column(children: [for (var index = 0; index < count; index++) const Text(' ')]))))
+        Padding(padding: EdgeInsets.symmetric(vertical: statusPadY), child: Semantics(label: csTableCopy('loading', locale), value: 'true', child: loadingLabel != null ? Text(loadingLabel!) : ExcludeSemantics(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          if (columns.isNotEmpty) Padding(padding: EdgeInsets.symmetric(horizontal: cellPadX, vertical: cellPadY), child: Text(columns.join(' '))),
+          for (var index = 0; index < count; index++) const Text(' '),
+        ]))))
       else if (state == 'error')
         Padding(padding: EdgeInsets.symmetric(vertical: statusPadY), child: csTableAlert(state) ? Semantics(liveRegion: true, container: true, child: errorLabel != null ? Text(errorLabel!) : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(csTableCopy('error', locale)), Text(csTableCopy('errorHint', locale))])) : (errorLabel != null ? Text(errorLabel!) : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(csTableCopy('error', locale)), Text(csTableCopy('errorHint', locale))])))
-      else if (rows.isEmpty)
-        Padding(padding: EdgeInsets.symmetric(vertical: statusPadY), child: Text(empty))
-      else
-        for (final row in rows) Padding(padding: EdgeInsets.symmetric(horizontal: cellPadX, vertical: cellPadY), child: Text(row)),
+      else ...[
+        if (columns.isNotEmpty) Padding(padding: EdgeInsets.symmetric(horizontal: cellPadX, vertical: cellPadY), child: Text(columns.join(' '))),
+        if (rows.isEmpty)
+          Padding(padding: EdgeInsets.symmetric(vertical: statusPadY), child: Text(empty))
+        else
+          for (final row in rows) Padding(padding: EdgeInsets.symmetric(horizontal: cellPadX, vertical: cellPadY), child: Text(row)),
+      ],
     ]);
   }
 }
 
 String csPopconfirmPlacement(String? explicit) => explicit ?? 'bottom-start';
+String csPopconfirmTriggerText(String? trigger, String title) => trigger ?? title;
 const csPopconfirmGap = 8.0;
 class CsPopconfirmPlace {
   const CsPopconfirmPlace(this.x, this.y, this.maxWidth, this.maxHeight, this.placement);
@@ -577,8 +652,11 @@ CsPopconfirmPlace? csPopconfirmShift(CsFloatingRect anchor, double naturalWidth,
 }
 
 class CsPopconfirm extends StatefulWidget {
-  const CsPopconfirm({super.key, required this.title, this.confirmLabel, this.cancelLabel, required this.open, required this.onOpenChange, required this.onConfirm, required this.onCancel, required this.dark, required this.highContrast, required this.compact, this.language});
+  const CsPopconfirm({super.key, required this.title, this.trigger, this.portal = true, this.placement, this.confirmLabel, this.cancelLabel, required this.open, required this.onOpenChange, required this.onConfirm, required this.onCancel, required this.dark, required this.highContrast, required this.compact, this.language});
   final String title;
+  final String? trigger;
+  final bool portal;
+  final String? placement;
   final String? confirmLabel;
   final String? cancelLabel;
   final String? language;
@@ -625,7 +703,7 @@ class _CsPopconfirmState extends State<CsPopconfirm> {
       list.dy,
       1,
       1,
-      csPopconfirmPlacement(null),
+      csPopconfirmPlacement(widget.placement),
     );
     setState(() { fitted = listBox.size; place = next; });
   }
@@ -633,6 +711,7 @@ class _CsPopconfirmState extends State<CsPopconfirm> {
   @override
   Widget build(BuildContext context) {
     final locale = csSelectResolvedLanguage(widget.language, CsLanguageScope.of(context));
+    final triggerFace = csPopconfirmTriggerText(widget.trigger, widget.title);
     final minW = csControlsWaveStylePopconfirmMinWidth();
     final padY = csControlsWaveStylePopconfirmPaddingY();
     final padX = csControlsWaveStylePopconfirmPaddingX();
@@ -640,19 +719,31 @@ class _CsPopconfirmState extends State<CsPopconfirm> {
     final actionsGap = csControlsWaveStylePopconfirmActionsGap();
     if (!widget.open) { natural = null; fitted = null; }
     if (widget.open) WidgetsBinding.instance.addPostFrameCallback((_) { if (mounted && widget.open) measure(); });
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      CsOwnFocus(builder: (node, claim) => TextButton(key: fieldKey, focusNode: node, onPressed: () { claim(); widget.onOpenChange(!widget.open); }, child: Text(widget.title))),
-      if (widget.open) Opacity(opacity: place == null ? 0 : 1, child: Transform.translate(key: listKey, offset: Offset(place?.x ?? 0, place?.y ?? csControlsWaveStylePopconfirmOffset()), child: ConstrainedBox(constraints: BoxConstraints(minWidth: minW), child: Padding(padding: EdgeInsets.symmetric(horizontal: padX, vertical: padY), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Padding(padding: EdgeInsets.only(bottom: titleMargin), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onOpenChange(false); widget.onCancel(); }, child: Text(csPopconfirmOkText(widget.cancelLabel, csPopconfirmCopy('cancel', locale)))))),
-        SizedBox(height: actionsGap),
-        CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onOpenChange(false); widget.onConfirm(); }, child: Text(csPopconfirmOkText(widget.confirmLabel, csPopconfirmCopy('ok', locale))))),
-      ]))))),
-    ]);
+    return TapRegion(
+      onTapOutside: widget.open ? (_) => widget.onOpenChange(false) : null,
+      child: Focus(
+        onKeyEvent: (node, event) {
+          if (event is! KeyDownEvent || event.logicalKey != LogicalKeyboardKey.escape || !widget.open) return KeyEventResult.ignored;
+          widget.onOpenChange(false);
+          return KeyEventResult.handled;
+        },
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          CsOwnFocus(builder: (node, claim) => Semantics(button: true, toggled: widget.open, child: TextButton(key: fieldKey, focusNode: node, onPressed: () { claim(); widget.onOpenChange(!widget.open); }, child: Text(triggerFace)))),
+          if (widget.open) Opacity(opacity: place == null ? 0 : 1, child: Transform.translate(key: listKey, offset: Offset(place?.x ?? 0, place?.y ?? csControlsWaveStylePopconfirmOffset()), child: ConstrainedBox(constraints: BoxConstraints(minWidth: minW), child: Padding(padding: EdgeInsets.symmetric(horizontal: padX, vertical: padY), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Padding(padding: EdgeInsets.only(bottom: titleMargin), child: Text(widget.title)),
+            CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onOpenChange(false); widget.onCancel(); }, child: Text(csPopconfirmOkText(widget.cancelLabel, csPopconfirmCopy('cancel', locale))))),
+            SizedBox(height: actionsGap),
+            CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); widget.onOpenChange(false); widget.onConfirm(); }, child: Text(csPopconfirmOkText(widget.confirmLabel, csPopconfirmCopy('ok', locale))))),
+          ]))))),
+        ]),
+      ),
+    );
   }
 }
 
 const csToggleLabel = 'Toggle';
 bool csToggleValue(bool? pressed, bool inner) => pressed ?? inner;
+bool csToggleShowsIcon(String? icon) => icon != null && icon.isNotEmpty;
 bool csToggleHasContent(String? text, {bool hasNode = false}) => hasNode || (text != null && text.trim().isNotEmpty);
 String? csToggleName(String? ariaLabel, bool hasContent, String fallback) {
   if (ariaLabel != null) return ariaLabel;
@@ -690,8 +781,9 @@ String csPopconfirmCopy(String key, String? language) {
 }
 List<String> csPopconfirmSteps() => ['close', 'confirm'];
 class CsToggle extends StatelessWidget {
-  const CsToggle({super.key, this.label = '', required this.pressed, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.disabled = false, this.ariaLabel, this.language});
+  const CsToggle({super.key, this.label = '', this.icon, required this.pressed, required this.onChange, required this.dark, required this.highContrast, required this.compact, this.disabled = false, this.ariaLabel, this.language});
   final String label;
+  final String? icon;
   final bool disabled;
   final String? ariaLabel;
   final String? language;
@@ -705,7 +797,8 @@ class CsToggle extends StatelessWidget {
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
     final spoken = csToggleCopy('label', csSelectResolvedLanguage(language, CsLanguageScope.of(context)));
-    final content = csToggleHasContent(label);
+    final hasIcon = csToggleShowsIcon(icon);
+    final content = csToggleHasContent(label, hasNode: hasIcon);
     final name = csToggleName(ariaLabel, content, spoken);
     final next = csToggleFlip(pressed, disabled, false);
     final padY = csControlsWaveStyleTogglePaddingY();
@@ -724,7 +817,10 @@ class CsToggle extends StatelessWidget {
             child: TextButton(
               focusNode: node,
               onPressed: next == null ? null : () { claim(); onChange(next); },
-              child: content ? ExcludeSemantics(child: Text(label, style: TextStyle(color: csColor(pressed ? pack.colorBrandOchre : pack.colorTextPrimary)))) : const SizedBox.shrink(),
+              child: content ? ExcludeSemantics(child: Row(mainAxisSize: MainAxisSize.min, children: [
+                if (hasIcon && icon != null) Text(icon!, style: TextStyle(color: csColor(pressed ? pack.colorBrandOchre : pack.colorTextPrimary))),
+                if (label.trim().isNotEmpty) Text(label, style: TextStyle(color: csColor(pressed ? pack.colorBrandOchre : pack.colorTextPrimary))),
+              ])) : const SizedBox.shrink(),
             ),
           ),
         ),
