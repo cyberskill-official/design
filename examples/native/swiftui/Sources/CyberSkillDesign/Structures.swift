@@ -545,9 +545,9 @@ public struct CSTransfer: View {
     let target = CSTransferModel.title(targetTitle, fallback: CSTransferModel.copy("target", language: locale))
     let toward = CSTransferModel.title(toTargetLabel, fallback: CSTransferModel.copy("toTarget", language: locale))
     let back = CSTransferModel.title(toSourceLabel, fallback: CSTransferModel.copy("toSource", language: locale))
-    HStack(alignment: .top) {
+    HStack(alignment: .top, spacing: CGFloat(CSControlsBatchStyleModel.transferGap())) {
       list(title: source, target: false, pack: pack)
-      VStack {
+      VStack(spacing: CGFloat(CSControlsBatchStyleModel.transferGap())) {
         Button {
           let next = CSTransferModel.move(value: value, checked: checked, items: keys, toTarget: true)
           onChange(next.value, next.checked)
@@ -577,6 +577,7 @@ public struct CSTransfer: View {
         }), dark: dark, highContrast: highContrast, compact: compact)
       }
     }
+    .frame(maxHeight: CGFloat(CSControlsBatchStyleModel.transferListMaxHeight()))
   }
 }
 
@@ -609,16 +610,18 @@ public struct CSInputOTP: View {
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let name = CSOneTimeCode.label(label, fallback: CSOneTimeCode.copy("label", language: CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)))
-    HStack {
+    HStack(spacing: CGFloat(CSControlsWaveStyleModel.otpGap())) {
       ForEach(0..<max(length, 0), id: \.self) { index in
         let digit = CSOneTimeCode.box(value: value, index: index)
         Text(digit.isEmpty ? "·" : digit)
+          .font(.system(size: CGFloat(CSControlsWaveStyleModel.otpFontSize()), weight: .bold))
           .accessibilityLabel(CSOneTimeCode.digitName(label: name, index: index, length: max(length, 0)))
-          .frame(width: 44, height: pack.componentButtonMdMinHeight.points)
+          .frame(width: CGFloat(CSControlsWaveStyleModel.otpCellWidth()), height: CGFloat(CSControlsWaveStyleModel.otpCellHeight()))
           .foregroundStyle(pack.primaryTextColor)
-          .overlay(RoundedRectangle(cornerRadius: 4).stroke(pack.borderColor, lineWidth: 1))
+          .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(pack.borderColor, lineWidth: 1))
       }
     }
+    .opacity(disabled ? CSControlsWaveStyleModel.otpDisabledOpacity : 1.0)
     TextField(name, text: Binding(get: { value }, set: { next in
       CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true })
       if let committed = CSOneTimeCode.commit(raw: next, length: Double(length), disabled: disabled) { onChange(committed) }
@@ -628,6 +631,7 @@ public struct CSInputOTP: View {
       if isFocused { CSFocusRegistry.shared.claim(id: focusId, restore: { focused = true }) }
     }
     .disabled(disabled)
+    .opacity(disabled ? CSControlsWaveStyleModel.otpDisabledOpacity : 1.0)
     .accessibilityElement(children: .ignore)
     .accessibilityLabel(name)
     .accessibilityValue(Text(value))
@@ -666,21 +670,24 @@ public struct CSCarousel: View {
     let previousName = previousLabel ?? CSCarouselModel.copy("prev", language: spoken)
     let nextName = nextLabel ?? CSCarouselModel.copy("next", language: spoken)
     let slideWord = CSCarouselModel.copy("slide", language: spoken)
-    VStack {
+    let navSize = CGFloat(CSControlsBatchStyleModel.carouselNavSize())
+    let dotTarget = CGFloat(CSControlsBatchStyleModel.carouselDotTargetSize())
+    VStack(spacing: CGFloat(CSControlsBatchStyleModel.carouselGap())) {
       if slides.indices.contains(index) {
         Text(slides[index]).foregroundStyle(pack.primaryTextColor)
       }
-      HStack {
+      HStack(spacing: CGFloat(CSControlsBatchStyleModel.carouselGap())) {
         CSTriggerButton(previousName) { onChange(CSCarouselModel.go(index: index, delta: -1, count: slides.count)) }
           .disabled(!CSCarouselModel.canMove(count: slides.count))
-          .frame(minWidth: 44, minHeight: 44)
+          .frame(minWidth: navSize, minHeight: navSize)
         CSTriggerButton(nextName) { onChange(CSCarouselModel.go(index: index, delta: 1, count: slides.count)) }
           .disabled(!CSCarouselModel.canMove(count: slides.count))
-          .frame(minWidth: 44, minHeight: 44)
+          .frame(minWidth: navSize, minHeight: navSize)
       }
-      HStack {
+      HStack(spacing: CGFloat(CSControlsBatchStyleModel.carouselGap())) {
         ForEach(slides.indices, id: \.self) { dot in
           CSTriggerButton(CSCarouselModel.slideLabel(index: dot, count: slides.count, word: slideWord)) { onChange(dot) }
+            .frame(minWidth: dotTarget, minHeight: dotTarget)
             .accessibilityValue(CSCarouselModel.currentDot(index: dot, active: index) ? "true" : "")
         }
       }
@@ -719,7 +726,7 @@ public struct CSTree: View {
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let shown = CSTreeModel.visible(nodes: nodes, open: open)
-    VStack(alignment: .leading, spacing: 0) {
+    VStack(alignment: .leading, spacing: CGFloat(CSControlsBatchStyleModel.treeRowGap())) {
       ForEach(shown, id: \.key) { node in
         CSTriggerButton(node.label) {
           onSelect(node.key)
@@ -729,7 +736,7 @@ public struct CSTree: View {
             onOpen(next)
           }
         }
-        .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
+        .frame(minWidth: CGFloat(CSControlsBatchStyleModel.treeTwistWidth()), maxWidth: .infinity, minHeight: max(pack.componentButtonMdMinHeight.points, CGFloat(CSControlsBatchStyleModel.treeTwistHeight())), alignment: .leading)
         .foregroundStyle(selected == node.key ? pack.colorBrandOchre.color : pack.primaryTextColor)
         .accessibilityAddTraits(selected == node.key ? .isSelected : [])
       }
@@ -790,7 +797,7 @@ public struct CSFileUpload: View {
     let spoken = CSComboboxModel.resolvedLanguage(explicit: language, ancestor: ancestorLanguage)
     let shownTitle = CSFilePick.title(title, fallback: CSFilePick.copy("title", language: spoken))
     let shownHint = CSFilePick.hint(hint, fallback: CSFilePick.copy("hint", language: spoken))
-    VStack(alignment: .leading, spacing: 6) {
+    VStack(alignment: .leading, spacing: CGFloat(CSControlsWaveStyleModel.dropzoneGap())) {
       Canvas { context, size in
         let source = CSIconPaths.path(data: CSFilePick.icon)
         let scale = min(size.width, size.height) / 24
@@ -802,8 +809,9 @@ public struct CSFileUpload: View {
       Text(shownHint).foregroundStyle(pack.mutedColor)
     }
     .frame(maxWidth: .infinity, minHeight: pack.componentButtonMdMinHeight.points, alignment: .leading)
-    .padding(16)
-    .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(pack.borderColor, lineWidth: 1))
+    .padding(.horizontal, CGFloat(CSControlsWaveStyleModel.dropzonePaddingX()))
+    .padding(.vertical, CGFloat(CSControlsWaveStyleModel.dropzonePaddingY()))
+    .overlay(RoundedRectangle(cornerRadius: pack.radiusMd.points).stroke(pack.borderColor, lineWidth: CGFloat(CSControlsWaveStyleModel.dropzoneBorderWidth())))
     .accessibilityElement(children: .combine)
     .accessibilityLabel(shownTitle)
     .accessibilityHint(shownHint)

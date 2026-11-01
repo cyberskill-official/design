@@ -34,6 +34,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
@@ -424,18 +425,18 @@ fun CsTransfer(
   val toward = csTransferTitle(toTargetLabel, csTransferCopy("toTarget", locale))
   val back = csTransferTitle(toSourceLabel, csTransferCopy("toSource", locale))
   val keys = items.map { it.first }
-  Row(modifier) {
-    Column {
+  Row(modifier, horizontalArrangement = Arrangement.spacedBy(csControlsBatchStyleTransferGap())) {
+    Column(Modifier.heightIn(max = csControlsBatchStyleTransferListMaxHeight())) {
       Text(source)
       items.filter { !value.contains(it.first) }.forEach { item ->
         CsCheckbox(label = item.second, checked = checked.contains(item.first), onCheckedChange = { onChange(value, csTransferToggle(checked, item.first)) }, dark = dark, highContrast = highContrast, compact = compact)
       }
     }
-    Column {
+    Column(verticalArrangement = Arrangement.spacedBy(csControlsBatchStyleTransferGap())) {
       CsTriggerButton(title = "›", onClick = { val next = csTransferMove(value, checked, keys, true); onChange(next.first, next.second) }, modifier = Modifier.semantics { contentDescription = toward }) { Text("›", modifier = Modifier.clearAndSetSemantics {}) }
       CsTriggerButton(title = "‹", onClick = { val next = csTransferMove(value, checked, keys, false); onChange(next.first, next.second) }, modifier = Modifier.semantics { contentDescription = back }) { Text("‹", modifier = Modifier.clearAndSetSemantics {}) }
     }
-    Column {
+    Column(Modifier.heightIn(max = csControlsBatchStyleTransferListMaxHeight())) {
       Text(target)
       items.filter { value.contains(it.first) }.forEach { item ->
         CsCheckbox(label = item.second, checked = checked.contains(item.first), onCheckedChange = { onChange(value, csTransferToggle(checked, item.first)) }, dark = dark, highContrast = highContrast, compact = compact)
@@ -445,12 +446,34 @@ fun CsTransfer(
 }
 
 @Composable
-fun CsInputOTP(value: String, onChange: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, length: Double = 6.0, language: String? = null) {
+fun CsInputOTP(value: String, onChange: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, length: Double = 6.0, disabled: Boolean = false, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val digits = csOneTimeDigits(value, length)
+  val cellCount = csRenderCount(length, 6)
   val name = csOneTimeLabelText(label, csOneTimeCopy("label", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
   val handle = rememberFocusHandle("otp")
-  androidx.compose.foundation.text.BasicTextField(value = digits, onValueChange = { next -> if (!csControlEnabled()) return@BasicTextField; handle.claim(); csOneTimeCommit(next, length, false)?.let(onChange) }, enabled = csControlEnabled(), modifier = modifier.focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.semantics { contentDescription = name }, textStyle = androidx.compose.ui.text.TextStyle(color = pack.colorTextPrimary.toComposeColor()))
+  Column(modifier.alpha(if (disabled) csControlsWaveStyleOtpDisabledOpacity else 1f), verticalArrangement = Arrangement.spacedBy(csControlsWaveStyleOtpGap())) {
+    Row(horizontalArrangement = Arrangement.spacedBy(csControlsWaveStyleOtpGap())) {
+      for (index in 0 until maxOf(cellCount, 0)) {
+        val digit = csOneTimeBox(digits, index)
+        Box(
+          Modifier
+            .width(csControlsWaveStyleOtpCellWidth())
+            .height(csControlsWaveStyleOtpCellHeight())
+            .border(1.dp, pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp())),
+          contentAlignment = Alignment.Center,
+        ) {
+          Text(
+            if (digit.isEmpty()) "·" else digit,
+            color = pack.colorTextPrimary.toComposeColor(),
+            fontSize = csControlsWaveStyleOtpFontSize().value.sp,
+            fontWeight = FontWeight.Bold,
+          )
+        }
+      }
+    }
+    androidx.compose.foundation.text.BasicTextField(value = digits, onValueChange = { next -> if (!csControlEnabled(!disabled)) return@BasicTextField; handle.claim(); csOneTimeCommit(next, length, disabled)?.let(onChange) }, enabled = csControlEnabled(!disabled), modifier = Modifier.focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.semantics { contentDescription = name }, textStyle = androidx.compose.ui.text.TextStyle(color = pack.colorTextPrimary.toComposeColor()))
+  }
 }
 
 @Composable
@@ -461,11 +484,19 @@ fun CsCarousel(slides: List<String>, index: Int, onChange: (Int) -> Unit, dark: 
   val nextName = nextLabel ?: csCarouselCopy("next", spoken)
   val slideWord = csCarouselCopy("slide", spoken)
   val active = csCarouselClamp(index, slides.size)
-  Column(modifier.semantics { contentDescription = csCarouselStatus(active, slides.size, slideWord) }) {
+  Column(
+    modifier.semantics { contentDescription = csCarouselStatus(active, slides.size, slideWord) },
+    verticalArrangement = Arrangement.spacedBy(csControlsBatchStyleCarouselGap()),
+  ) {
     if (slides.indices.contains(active)) Text(slides[active], color = pack.colorTextPrimary.toComposeColor())
-    Row {
-      CsTriggerButton(title = previousName, onClick = { onChange(csCarouselGo(active, -1, slides.size)) }, enabled = slides.size > 1) { Text(previousName) }
-      CsTriggerButton(title = nextName, onClick = { onChange(csCarouselGo(active, 1, slides.size)) }, enabled = slides.size > 1) { Text(nextName) }
+    Row(horizontalArrangement = Arrangement.spacedBy(csControlsBatchStyleCarouselGap())) {
+      CsTriggerButton(title = previousName, onClick = { onChange(csCarouselGo(active, -1, slides.size)) }, enabled = slides.size > 1, modifier = Modifier.size(csControlsBatchStyleCarouselNavSize()).minimumInteractiveComponentSize()) { Text(previousName) }
+      CsTriggerButton(title = nextName, onClick = { onChange(csCarouselGo(active, 1, slides.size)) }, enabled = slides.size > 1, modifier = Modifier.size(csControlsBatchStyleCarouselNavSize()).minimumInteractiveComponentSize()) { Text(nextName) }
+    }
+    Row(horizontalArrangement = Arrangement.spacedBy(csControlsBatchStyleCarouselGap())) {
+      slides.indices.forEach { dot ->
+        CsTriggerButton(title = csCarouselSlideLabel(dot, slides.size, slideWord), onClick = { onChange(dot) }, modifier = Modifier.size(csControlsBatchStyleCarouselDotTargetSize()).minimumInteractiveComponentSize()) { Text("•") }
+      }
     }
   }
 }
@@ -473,10 +504,10 @@ fun CsCarousel(slides: List<String>, index: Int, onChange: (Int) -> Unit, dark: 
 @Composable
 fun CsTree(label: String, nodes: List<CsTreeNode>, open: Map<String, Boolean>, selected: String?, onSelect: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
   val pack = csModePack(dark, highContrast, compact)
-  Column(modifier) {
+  Column(modifier, verticalArrangement = Arrangement.spacedBy(csControlsBatchStyleTreeRowGap())) {
     Text(label, color = pack.colorTextMuted.toComposeColor())
     csTreeVisible(nodes, open).forEach { node ->
-      CsTriggerButton(title = node.label, onClick = { onSelect(node.key) }, modifier = Modifier.fillMaxWidth().minimumInteractiveComponentSize()) {
+      CsTriggerButton(title = node.label, onClick = { onSelect(node.key) }, modifier = Modifier.fillMaxWidth().widthIn(min = csControlsBatchStyleTreeTwistWidth()).heightIn(min = csControlsBatchStyleTreeTwistHeight()).minimumInteractiveComponentSize()) {
         Text(node.label, color = if (selected == node.key) pack.colorBrandOchre.toComposeColor() else pack.colorTextPrimary.toComposeColor())
       }
     }
@@ -489,7 +520,14 @@ fun CsFileUpload(onFiles: (List<String>) -> Unit, dark: Boolean, highContrast: B
   val spoken = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val shownTitle = csFileTitle(title, csFileCopy("title", spoken))
   val shownHint = csFileHint(hint, csFileCopy("hint", spoken))
-  Column(modifier.semantics { contentDescription = shownTitle }) {
+  Column(
+    modifier
+      .fillMaxWidth()
+      .border(csControlsWaveStyleDropzoneBorderWidth(), pack.colorBorderDefault.toComposeColor(), RoundedCornerShape(pack.radiusMd.toDp()))
+      .padding(horizontal = csControlsWaveStyleDropzonePaddingX(), vertical = csControlsWaveStyleDropzonePaddingY())
+      .semantics { contentDescription = shownTitle },
+    verticalArrangement = Arrangement.spacedBy(csControlsWaveStyleDropzoneGap()),
+  ) {
     Text(shownTitle, color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.clearAndSetSemantics {})
     Text(shownHint, color = pack.colorTextMuted.toComposeColor())
   }

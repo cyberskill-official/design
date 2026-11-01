@@ -494,15 +494,19 @@ class CsTransfer extends StatelessWidget {
               compact: compact,
             ),
         ];
+    final listGap = csControlsBatchStyleTransferGap();
+    final maxListHeight = csControlsBatchStyleTransferListMaxHeight();
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Column(children: column(source, false)),
+        ConstrainedBox(constraints: BoxConstraints(maxHeight: maxListHeight), child: Column(children: column(source, false))),
+        SizedBox(width: listGap),
         Column(children: [
           Semantics(button: true, label: toward, child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); final next = csTransferMove(value, checked, keys, true); onChange(next.$1, next.$2); }, child: const ExcludeSemantics(child: Text('›'))))),
           Semantics(button: true, label: back, child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); final next = csTransferMove(value, checked, keys, false); onChange(next.$1, next.$2); }, child: const ExcludeSemantics(child: Text('‹'))))),
         ]),
-        Column(children: column(target, true)),
+        SizedBox(width: listGap),
+        ConstrainedBox(constraints: BoxConstraints(maxHeight: maxListHeight), child: Column(children: column(target, true))),
       ],
     );
   }
@@ -523,7 +527,12 @@ class CsInputOTP extends StatelessWidget {
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
     final name = csOneTimeLabelText(label, csOneTimeCopy('label', csSelectResolvedLanguage(language, CsLanguageScope.of(context))));
-    return CsOwnFocus(builder: (node, claim) => Semantics(label: name, textField: true, child: TextField(focusNode: node, controller: TextEditingController(text: csOneTimeDigits(value, requested: length)), decoration: InputDecoration(labelText: name.isEmpty ? null : name), style: TextStyle(color: csColor(pack.colorTextPrimary)), onChanged: (next) { claim(); final committed = csOneTimeCommit(next, requested: length, disabled: false); if (committed != null) onChange(committed); })));
+    final cellGap = csControlsWaveStyleOtpGap();
+    final cellWidth = csControlsWaveStyleOtpCellWidth();
+    final cellHeight = csControlsWaveStyleOtpCellHeight();
+    final fontSize = csControlsWaveStyleOtpFontSize();
+    final disabledOpacity = csControlsWaveStyleOtpDisabledOpacity;
+    return CsOwnFocus(builder: (node, claim) => Semantics(label: name, textField: true, child: Opacity(opacity: disabledOpacity >= 0 ? 1.0 : disabledOpacity, child: ConstrainedBox(constraints: BoxConstraints(minWidth: cellWidth + cellGap, minHeight: cellHeight), child: TextField(focusNode: node, controller: TextEditingController(text: csOneTimeDigits(value, requested: length)), decoration: InputDecoration(labelText: name.isEmpty ? null : name), style: TextStyle(color: csColor(pack.colorTextPrimary), fontSize: fontSize), onChanged: (next) { claim(); final committed = csOneTimeCommit(next, requested: length, disabled: false); if (committed != null) onChange(committed); })))));
   }
 }
 
@@ -546,11 +555,16 @@ class CsCarousel extends StatelessWidget {
     final spoken = csSelectResolvedLanguage(language, CsLanguageScope.of(context));
     final previousName = previousLabel ?? csCarouselCopy('prev', spoken);
     final nextName = nextLabel ?? csCarouselCopy('next', spoken);
+    final gap = csControlsBatchStyleCarouselGap();
+    final navSize = csControlsBatchStyleCarouselNavSize();
+    final dotTarget = csControlsBatchStyleCarouselDotTargetSize();
     return Column(children: [
       if (slides.isNotEmpty) Text(slides[active]),
+      SizedBox(height: gap),
       Row(children: [
-        CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: slides.length < 2 ? null : () { claim(); onChange(csCarouselGo(active, -1, slides.length)); }, child: Text(previousName))),
-        CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: slides.length < 2 ? null : () { claim(); onChange(csCarouselGo(active, 1, slides.length)); }, child: Text(nextName))),
+        ConstrainedBox(constraints: BoxConstraints(minWidth: navSize, minHeight: dotTarget), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: slides.length < 2 ? null : () { claim(); onChange(csCarouselGo(active, -1, slides.length)); }, child: Text(previousName)))),
+        SizedBox(width: gap),
+        ConstrainedBox(constraints: BoxConstraints(minWidth: navSize, minHeight: dotTarget), child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: slides.length < 2 ? null : () { claim(); onChange(csCarouselGo(active, 1, slides.length)); }, child: Text(nextName)))),
       ]),
     ]);
   }
@@ -570,12 +584,17 @@ class CsTree extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
+    final rowGap = csControlsBatchStyleTreeRowGap();
+    final twistWidth = csControlsBatchStyleTreeTwistWidth();
+    final twistHeight = csControlsBatchStyleTreeTwistHeight();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label, style: TextStyle(color: csColor(pack.colorTextMuted))),
-        for (final node in csTreeVisible(nodes, open))
-          CsOwnFocus(builder: (focusNode, claim) => TextButton(focusNode: focusNode, onPressed: () { claim(); onSelect(node.key); }, child: Text(node.label, style: TextStyle(color: csColor(selected == node.key ? pack.colorBrandOchre : pack.colorTextPrimary))))),
+        for (final node in csTreeVisible(nodes, open)) ...[
+          SizedBox(height: rowGap),
+          ConstrainedBox(constraints: BoxConstraints(minWidth: twistWidth, minHeight: twistHeight), child: CsOwnFocus(builder: (focusNode, claim) => TextButton(focusNode: focusNode, onPressed: () { claim(); onSelect(node.key); }, child: Text(node.label, style: TextStyle(color: csColor(selected == node.key ? pack.colorBrandOchre : pack.colorTextPrimary)))))),
+        ],
       ],
     );
   }
@@ -598,10 +617,15 @@ class CsFileUpload extends StatelessWidget {
     final spoken = csSelectResolvedLanguage(language, CsLanguageScope.of(context));
     final shownTitle = csFileTitle(title, csFileCopy('title', spoken));
     final shownHint = csFileHint(hint, csFileCopy('hint', spoken));
-    return Semantics(label: shownTitle, hint: shownHint, child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+    final gap = csControlsWaveStyleDropzoneGap();
+    final borderWidth = csControlsWaveStyleDropzoneBorderWidth();
+    final padX = csControlsWaveStyleDropzonePaddingX();
+    final padY = csControlsWaveStyleDropzonePaddingY();
+    return Semantics(label: shownTitle, hint: shownHint, child: Container(padding: EdgeInsets.symmetric(horizontal: padX, vertical: padY), decoration: BoxDecoration(border: Border.all(color: csColor(pack.colorBorderDefault), width: borderWidth)), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       ExcludeSemantics(child: Text(shownTitle, style: TextStyle(color: csColor(pack.colorTextPrimary)))),
+      SizedBox(height: gap),
       ExcludeSemantics(child: Text(shownHint, style: TextStyle(color: csColor(pack.colorTextMuted)))),
-    ]));
+    ])));
   }
 }
 

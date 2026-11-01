@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the components-and-overlays-views-style-wiring checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the structures-views-style-wiring checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `78cfe349aeb4980a2307a91349e9ca645a334a85`, with the hash note in `f64945f0`
-- Checkpoint commit hash: `54b612cecf0611d105c261dd22c98ac39f3bcfe5`
+- Previous checkpoint: `54b612cecf0611d105c261dd22c98ac39f3bcfe5`, with the hash note in `43f01ce1`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -55,13 +54,13 @@ Last run after styling `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `Navigat
 
 ## Latest checkpoint
 
-Wired the rendered views in `Components.swift`/`Controls.kt`/`controls.dart` (`CSDivider`/`CsDivider`, `CSSelect`/`CsSelect`, and `CSDialog`/`CsDialog`) and `Overlays.swift`/`Overlays.kt`/`overlays.dart` (`CSMenu`/`CsMenu`, `CSMenubar`/`CsMenubar`, `CSBackTop`/`CsBackTop`, `CSFab`/`CsFab`, `CSAIDisclosure`/`CsAIDisclosure`, and `CSAspectRatio`/`CsAspectRatio`) to consume `CSDividerModel`, `CSTextFieldModel`, `CSSelectModel`, `CSDialogModel`, `CSNavigationStyleModel`, `CSControlsBatchStyleModel`, `CSControlsWaveStyleModel`, `CSAIDisclosureStyleModel`, and `CSDataStyleModel`.
+Wired the rendered views in `Structures.swift`, `Structures.kt`, and `structures.dart` (`CSTransfer`/`CsTransfer`, `CSInputOTP`/`CsInputOTP`, `CSCarousel`/`CsCarousel`, `CSTree`/`CsTree`, and `CSFileUpload`/`CsFileUpload`) to consume `CSControlsBatchStyleModel` (`transferGap()`, `transferListMaxHeight()`, `carouselGap()`, `carouselNavSize()`, `carouselDotTargetSize()`, `treeRowGap()`, `treeTwistWidth()`, `treeTwistHeight()`) and `CSControlsWaveStyleModel` (`otpGap()`, `otpCellWidth()`, `otpCellHeight()`, `otpFontSize()`, `otpDisabledOpacity`, `dropzoneGap()`, `dropzoneBorderWidth()`, `dropzonePaddingX()`, `dropzonePaddingY()`).
 
 - `swift test --package-path examples/native/swiftui` and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Wire the remaining rendered views in `Structures.swift`, `Structures.kt`, and `structures.dart` (`CSTransfer`/`CsTransfer`, `CSInputOTP`/`CsInputOtp`, `CSCarousel`/`CsCarousel`, `CSTree`/`CsTree`, and `CSFileUpload`/`CsFileUpload`) to consume `CSControlsBatchStyleModel` and `CSControlsWaveStyleModel`.
+Wire the remaining rendered views in `Fields.swift`, `Fields.kt`, and `fields.dart` to consume their style models.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 
