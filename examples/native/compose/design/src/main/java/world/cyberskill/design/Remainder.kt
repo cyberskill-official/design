@@ -22,7 +22,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.PointerEventType
-import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import kotlinx.coroutines.delay
@@ -54,7 +53,6 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.matchParentSize
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -76,10 +74,21 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.SemanticsPropertyKey
 import androidx.compose.ui.semantics.SemanticsPropertyReceiver
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import kotlin.math.pow
+
+fun Modifier.onPointerEvent(eventType: PointerEventType, onEvent: (androidx.compose.ui.input.pointer.PointerEvent) -> Unit): Modifier =
+  this.pointerInput(eventType) {
+    awaitPointerEventScope {
+      while (true) {
+        val event = awaitPointerEvent()
+        if (event.type == eventType) onEvent(event)
+      }
+    }
+  }
 
 data class CsKeyEvent(val key: String, val ctrl: Boolean = false, val meta: Boolean = false, val shift: Boolean = false, val alt: Boolean = false)
 
@@ -622,12 +631,21 @@ val LocalCsForm = androidx.compose.runtime.compositionLocalOf { false }
 @Composable fun CsLanguage(language: String?, content: @Composable () -> Unit) {
   androidx.compose.runtime.CompositionLocalProvider(LocalCsLanguage provides language) { content() }
 }
+object CsDisabledScope {
+  var disabled: Boolean = false
+}
 val LocalCsDisabled = androidx.compose.runtime.compositionLocalOf { false }
-@Composable fun csControlEnabled(enabled: Boolean = true) = enabled && !LocalCsDisabled.current
+fun csControlEnabled(enabled: Boolean = true): Boolean = enabled && !CsDisabledScope.disabled
 @Composable fun CsForm(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
   androidx.compose.runtime.CompositionLocalProvider(LocalCsForm provides true) { Column(modifier) { content() } }
 }
 @Composable fun CsFieldset(legend: String? = null, disabled: Boolean = false, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+  val previous = CsDisabledScope.disabled
+  CsDisabledScope.disabled = previous || disabled
+  DisposableEffect(disabled) {
+    CsDisabledScope.disabled = previous || disabled
+    onDispose { CsDisabledScope.disabled = previous }
+  }
   androidx.compose.runtime.CompositionLocalProvider(LocalCsForm provides true, LocalCsDisabled provides disabled) {
     Column(modifier.onPreviewKeyEvent { _ -> disabled }) {
       if (!legend.isNullOrEmpty()) Text(legend)
@@ -639,6 +657,7 @@ val LocalCsDisabled = androidx.compose.runtime.compositionLocalOf { false }
       }
     }
   }
+  CsDisabledScope.disabled = previous
 }
 fun csFormFieldShowsLabel(label: String) = label.trim().isNotEmpty()
 fun csFormFieldShowsHint(hint: String?) = !hint.isNullOrEmpty()
@@ -962,11 +981,12 @@ fun csInlineCopy(key: String, language: String?): String {
   val empty = emptyLabel.ifEmpty { csInlineCopy("empty", locale) }
   if (!editing) {
     val shown = csInlineText(value, empty)
+    val penColor = LocalContentColor.current
     TextButton(onClick = { claimEdit(); closed = false; sawFocus = false; cancelling = false; draft = value; editing = true }, modifier.focusRequester(editRequester).onFocusChanged { if (it.isFocused) claimEdit() }.semantics { contentDescription = csInlineEditLabel(edit, label) }, enabled = csControlEnabled()) {
       Row {
         Text(shown, modifier = Modifier.clearAndSetSemantics {})
         if (csInlineShowsPen(editing)) Canvas(Modifier.size(13.dp).clearAndSetSemantics {}) {
-          drawPath(csIconPathData(csInlinePen, size.minDimension), LocalContentColor.current, style = Stroke(width = 1.9f, cap = StrokeCap.Round, join = StrokeJoin.Round))
+          drawPath(csIconPathData(csInlinePen, size.minDimension), penColor, style = Stroke(width = 1.9f, cap = StrokeCap.Round, join = StrokeJoin.Round))
         }
       }
     }

@@ -43,10 +43,11 @@ import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.input.pointer.PointerEventType
-import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.boundsInRoot
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
+import androidx.compose.ui.zIndex
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.LiveRegionMode
@@ -591,7 +592,6 @@ fun csStatusKind(name: String) = when (name) {
 }
 fun csStatusPulses(pulse: Boolean, reducedMotion: Boolean) = pulse && !reducedMotion
 const val csDescriptionColumnMin = 160.0
-fun csDescriptionSpoken(term: String) = term
 const val csKbdPadX = 7.0
 fun csKbdKeyFace(text: String) = text
 const val csButtonGroupOverlap = -1.0

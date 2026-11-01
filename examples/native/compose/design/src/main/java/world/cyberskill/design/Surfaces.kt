@@ -44,9 +44,12 @@ import androidx.compose.ui.input.key.isShiftPressed
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
+import androidx.compose.ui.input.pointer.isSecondaryPressed
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.boundsInRoot
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.unit.dp
 
 fun csColorCommit(value: String): String? {
@@ -144,14 +147,14 @@ fun csDateShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeight: Dou
   return CsDatePlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement)
 }
 
-fun csDateFormat(day: Int, month: Int, year: Int, language: String): String {
+fun csDateFormat(day: Int, month: Int, year: Int, language: String?): String {
   val code = csComboboxPrimaryLanguage(language) ?: "vi"
   if (code == "vi") return "%02d/%02d/%04d".format(day, month + 1, year)
   if (code == "ja") return "%04d/%02d/%02d".format(year, month + 1, day)
   val months = arrayOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
   return "%02d %s %04d".format(day, months[month], year)
 }
-fun csDateParse(text: String, language: String): CsCalendarDate? {
+fun csDateParse(text: String, language: String?): CsCalendarDate? {
   val trimmed = text.trim()
   if (trimmed.isEmpty()) return null
   val code = csComboboxPrimaryLanguage(language) ?: "vi"
@@ -494,6 +497,7 @@ fun csContextCopy(key: String, language: String?): String {
   return key
 }
 
+@Composable
 fun CsContextMenu(items: List<String>, onSelect: (String) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, language: String? = null) {
   var raw by remember { mutableStateOf<Pair<Double, Double>?>(null) }
   var natural by remember { mutableStateOf<Pair<Double, Double>?>(null) }
@@ -533,8 +537,9 @@ fun CsContextMenu(items: List<String>, onSelect: (String) -> Unit, dark: Boolean
     true
   }.pointerInput(Unit) {
     awaitEachGesture {
-      val down = awaitFirstDown(requireUnconsumed = false)
-      if (!down.buttons.isSecondaryPressed) return@awaitEachGesture
+      val event = awaitPointerEvent()
+      val down = event.changes.firstOrNull { it.pressed } ?: return@awaitEachGesture
+      if (!event.buttons.isSecondaryPressed) return@awaitEachGesture
       raw = csContextPoint(down.position.x.toDouble(), down.position.y.toDouble(), 0.0, 0.0)
       natural = null
       fitted = null

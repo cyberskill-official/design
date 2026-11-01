@@ -36,6 +36,7 @@ import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.isShiftPressed
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
@@ -342,7 +343,6 @@ fun CsTour(steps: List<String>, index: Int, onIndex: (Int) -> Unit, onOpenChange
   }
 }
 
-@Composable
 fun csTableCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
   val vi = mapOf("empty" to "Không có kết quả", "loading" to "Đang tải bảng", "error" to "Không tải được bảng này", "errorHint" to "Kiểm tra kết nối, rồi thử lại.")
@@ -464,6 +464,7 @@ fun csPopconfirmCopy(key: String, language: String?): String {
   return key
 }
 fun csPopconfirmSteps() = listOf("close", "confirm")
+@Composable
 fun CsToggle(label: String = "", pressed: Boolean, onChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, disabled: Boolean = false, ariaLabel: String? = null, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val handle = rememberFocusHandle("toggle")

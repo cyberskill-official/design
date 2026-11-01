@@ -39,10 +39,12 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.layout.boundsInRoot
 import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.zIndex
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -51,6 +53,7 @@ import androidx.compose.ui.window.PopupProperties
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.isShiftPressed
@@ -61,6 +64,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.key.type
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.error
 import androidx.compose.ui.semantics.SemanticsPropertyKey
@@ -286,18 +290,19 @@ fun CsCalendar(monthLabel: String, year: Int, month: Int, selected: Int?, onSele
     focusedDay = next.third
     true
   }) {
+    val calLocale = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
     Row {
       CsTriggerButton(title = "‹", onClick = {
         val next = csCalendarShift(viewYear, viewMonth, -1)
         viewYear = next.first
         viewMonth = next.second
-      }, modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = csCalendarCopy("prev", csComboboxResolvedLanguage(language, LocalCsLanguage.current)) }) { Text("‹", modifier = Modifier.clearAndSetSemantics {}) }
-      Text(csCalendarHeading(viewMonth, viewYear, csComboboxResolvedLanguage(language, LocalCsLanguage.current)), color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.semantics { contentDescription = monthLabel })
+      }, modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = csCalendarCopy("prev", calLocale) }) { Text("‹", modifier = Modifier.clearAndSetSemantics {}) }
+      Text(csCalendarHeading(viewMonth, viewYear, calLocale), color = pack.colorTextPrimary.toComposeColor(), modifier = Modifier.semantics { contentDescription = monthLabel })
       CsTriggerButton(title = "›", onClick = {
         val next = csCalendarShift(viewYear, viewMonth, 1)
         viewYear = next.first
         viewMonth = next.second
-      }, modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = csCalendarCopy("next", csComboboxResolvedLanguage(language, LocalCsLanguage.current)) }) { Text("›", modifier = Modifier.clearAndSetSemantics {}) }
+      }, modifier = Modifier.minimumInteractiveComponentSize().semantics { contentDescription = csCalendarCopy("next", calLocale) }) { Text("›", modifier = Modifier.clearAndSetSemantics {}) }
     }
     csCalendarGrid(viewYear, viewMonth).forEach { day ->
       if (day != null) {
@@ -484,7 +489,6 @@ fun CsCombobox(label: String, options: List<CsComboboxOption>, query: String, hi
   }
 }
 
-@Composable
 const val csAlertConfirm = "Confirm"
 const val csAlertCancel = "Cancel"
 fun csAlertOpen(open: Boolean?, internalOpen: Boolean) = open ?: internalOpen
@@ -533,6 +537,7 @@ fun csFocusNext(current: Int, count: Int, shift: Boolean, inside: Boolean): Int?
 fun csAlertDismiss() = listOf("open-false", "cancel")
 fun csAlertConfirmOrder() = listOf("open-false", "confirm")
 
+@Composable
 fun CsAlertDialog(title: String, message: String, onConfirm: () -> Unit, onCancel: () -> Unit, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, destructive: Boolean = false, confirmLabel: String? = null, cancelLabel: String? = null, language: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val spoken = csComboboxResolvedLanguage(language, LocalCsLanguage.current)

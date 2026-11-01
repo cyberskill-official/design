@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the responsive-cq-grid-reflow checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the compose-compile-fixes checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -10,8 +10,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
 - Checkpoint commit: see the latest commit that touches this file. The first push of this handoff records that hash in the section below after the commit exists.
-- Previous checkpoint: `a065903b579d384c681d53c4393b27f69a81a443`, with the hash note in `afbdd42a`
-- Checkpoint commit hash: `c94d2bb634ca9c73b747b99410925a02088cfc4b`
+- Previous checkpoint: `c94d2bb634ca9c73b747b99410925a02088cfc4b`, with the hash note in `c610886a`
 - Temporarily disabled GitHub Actions push workflows (re-enable with `gh workflow enable` when done): `Design System Gates` (`316944477`), `native-validation` (`377620668`), `native-store` (`318755963`), `OpenSSF Scorecard` (`330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -49,20 +48,20 @@ From the repo root, with Node >= 22.12:
 swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents && node _audit/ci/test-native-samples.mjs
 ```
 
-Last run after the responsive layer container-query helpers, desk/sheet breakpoint padding, sidebar wrap strip, canvas-desk scroll floor, fixed-column grid collapse, 44px touch floor, and 360px reflow: the catalog test passed in about 0.005s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
+Last run after resolving the Kotlin/Compose compilation and import errors across `Catalog.kt`, `Fields.kt`, `Flows.kt`, `Overlays.kt`, `Primitives.kt`, `Remainder.kt`, `Structures.kt`, and `Surfaces.kt`: the catalog test passed in about 0.006s, and `test-native-samples.mjs` printed `PASS`. Compose and Flutter were not compiled locally. There is no `ANDROID_HOME`, no Flutter SDK, and no `javac`.
 
 `_audit/ci/test-publication-validation.mjs` fails on Node 24 before any command runs. That failure is environmental. CI uses Node 22. Do not loosen the check.
 
 ## Latest checkpoint
 
-The responsive layer (`CSResponsiveModel` / `csResponsive*`) now models `100%` max-width / `auto` height media, `.cs-cq` (`container-type: inline-size; container-name: cs`) with `<=768px` `1fr` columns (`.cs-cq-cols-2`/`3`/`4`), `.cs-cq-hide-narrow`, and `<=640px` `.cs-cq-stack`, `.cs-desk` (`24x10` at `<=768px`, `12x6` at `<=640px`) and `.cs-sheet` (`40x40` at `<=768px`, `26x20` + `8px` radius at `<=640px`, `20x15` at `<=360px`) padding with `overflow-wrap: anywhere`, horizontal table scrolling at `<=768px`, `.cs-sidebar` horizontal wrap strip at `<=768px` (`4x10` gap, `0` inline-end border, `1px` block-end border, `100%` `.cs-sidebar__label`, `1fr` app-shell collapse), `.cs-canvas-desk` horizontal scroll with `960px` floor at `<=1280px` and preserved inner columns, `22px` phone inline section padding, inline fixed-column grid collapse (`3..6 -> 2` at `<=768px`, `2..6 -> 1` and two-column fractional specs at `<=640px`), `44px` touch floor on `.cs-nav-item` and `.cs-search` at `<=768px`, and `<=360px` reflow (`.cs-tabs` scroll + `thin`/`none` scrollbar, `.cs-pagination` wrap, `.cs-otp` wrap + `4px` gap + `36x40` fine-pointer inputs, `.cs-dl` `1fr`), matching `base/responsive.css` lines 1–188.
+Resolved all Kotlin/Compose compilation and import errors in `examples/native/compose/design/src/main/java/world/cyberskill/design/{Catalog,Fields,Flows,Overlays,Primitives,Remainder,Structures,Surfaces}.kt` reported by `:design:compileDebugKotlin`: replaced desktop-only `onPointerEvent` with a shared `pointerInput` / `awaitPointerEventScope` extension in `Remainder.kt`, made `csControlEnabled` non-`@Composable` backed by `CsDisabledScope` so event/key lambdas can call it outside `@Composable` contexts, hoisted `LocalCsLanguage.current` and `LocalContentColor.current` reads out of non-`@Composable` `semantics` and `Canvas` lambdas (`CsCalendar`, `CsProgressBar`, `CsInlineEdit`), fixed misplaced `@Composable` annotations on `CsAlertDialog`, `csTableCopy`, `CsToggle`, and `CsContextMenu`, updated `CsWatermark` `drawText` and `CsContextMenu` `awaitPointerEvent().buttons.isSecondaryPressed`, removed duplicate `csTagCopy` in `Primitives.kt` and `csDescriptionSpoken` in `Catalog.kt`, widened `csDateFormat`/`csDateParse` `language` to `String?`, and added missing layout/semantics/modifier imports in `Catalog.kt`, `Fields.kt`, `Flows.kt`, `Remainder.kt`, `Structures.kt`, and `Surfaces.kt`.
 
-- Compose and Flutter were not compiled.
+- Compose and Flutter were not compiled locally.
 - Swift catalog test and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Fix all Kotlin/Compose compilation errors in `examples/native/compose/design/src/main/java/world/cyberskill/design/{Fields,Flows,Overlays,Primitives,Records,Remainder,Structures,Surfaces}.kt` reported by the `ubuntu-24.04` `:design:compileDebugKotlin` run (`@Composable` invocation contexts, missing `boundsInRoot`/`positionInRoot`/`matchParentSize`/`drawText`/`isShiftPressed`/`onPointerEvent`/`contentDescription`/`selected`/`buttons` imports or helpers, duplicate `csTagCopy` in `Primitives.kt` vs `Records.kt`, and nullable `String?` arguments in `Surfaces.kt`).
+Style the base reset and typographic role utilities in Swift, Compose, and Flutter (`scroll-padding-block` `space-4` `16px`, page background + primary ink + `font-family-ui` + `font-size-base` + `1.5` body line-height, `1.35` heading line-height, `:focus-visible` `2px` primary outline at `2px` offset + `5px` ochre halo + `2px` ochre drop-shadow fallback, `.cs-skip` offscreen `-999px`/`1x1` and focused `fixed` `12x12` `toast+1` `10x14` panel with `2px` brand-ochre border + `5px` ochre halo + `shadow-md`, plus `.cs-display`/`.cs-h1`..`.cs-h4`/`.cs-body-lg`/`.cs-body`/`.cs-secondary`/`.cs-caption`/`.cs-eyebrow`/`.cs-mono`/`.cs-display-face` role rules from `base/reset.css` lines 1–62 and `base/typography.css` lines 1–20).
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

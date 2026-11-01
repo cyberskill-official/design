@@ -4,7 +4,6 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.matchParentSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
@@ -27,8 +26,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.drawscope.drawText
 import androidx.compose.ui.graphics.drawscope.rotate
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.drawText
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
 import androidx.compose.ui.input.key.key
@@ -532,7 +532,7 @@ fun CsWatermark(text: String = "CyberSkill", modifier: Modifier = Modifier, opac
       val centers = csWatermarkCenters(size.width, size.height, gap.toFloat())
       centers.forEach { point ->
         rotate(rotate, point) {
-          drawText(measurer, text, topLeft = Offset(point.x, point.y), color = ink)
+          drawText(textMeasurer = measurer, text = text, topLeft = Offset(point.x, point.y), style = TextStyle(color = ink))
         }
       }
     }

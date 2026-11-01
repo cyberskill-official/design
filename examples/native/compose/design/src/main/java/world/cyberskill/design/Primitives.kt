@@ -236,12 +236,13 @@ fun CsProgressBar(
     "success" -> pack.colorSemanticSuccess
     else -> pack.colorBrandOchre
   }
+  val progressName = csProgressBarName(label, csProgressCopy("label", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
   LinearProgressIndicator(
     progress = (measurement.percent / 100.0).toFloat(),
     modifier = modifier
       .fillMaxWidth()
       .semantics {
-        contentDescription = csProgressBarName(label, csProgressCopy("label", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
+        contentDescription = progressName
         progressBarRangeInfo = ProgressBarRangeInfo(measurement.clamped.toFloat(), 0f..measurement.max.toFloat())
       },
     color = color.toComposeColor(),
@@ -483,16 +484,6 @@ fun CsSpinner(
 }
 
 fun csTagLabel(text: String?, fallback: String) = text ?: fallback
-fun csTagCopy(key: String, language: String?): String {
-  val want = csComboboxPrimaryLanguage(language) ?: "vi"
-  val vi = mapOf("remove" to "Gỡ")
-  val en = mapOf("remove" to "Remove")
-  for (locale in linkedSetOf(want, "en", "vi")) {
-    val table = if (locale == "vi") vi else if (locale == "en") en else emptyMap()
-    table[key]?.let { return it }
-  }
-  return key
-}
 
 @Composable
 fun CsTag(
