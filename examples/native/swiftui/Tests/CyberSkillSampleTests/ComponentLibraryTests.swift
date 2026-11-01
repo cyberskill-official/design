@@ -3365,6 +3365,15 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertEqual(CSQRCodeModel.accessibleLabel(label: "Invite QR", value: "https://cyberskill.world"), "Invite QR")
     XCTAssertEqual(CSTreeSelectModel.resolvedPlacement(nil), "bottom-start")
     XCTAssertEqual(CSTreeSelectModel.resolvedPlacement("top-start"), "top-start")
+    XCTAssertEqual(CSRadioModel.descriptionId("r1", description: "Hint"), "r1-description")
+    XCTAssertNil(CSRadioModel.descriptionId("r1", description: ""))
+    let radioGroup = CSRadioGroup(label: "Plan", name: "plan", options: [CSRadioOption(value: "a", label: "A")], selection: .constant("a"), dark: false, highContrast: false, compact: false)
+    XCTAssertEqual(radioGroup.name, "plan")
+    let circleSkeleton = CSSkeleton(variant: "circle", radius: 8, dark: false, highContrast: false, compact: false)
+    XCTAssertEqual(circleSkeleton.variant, "circle")
+    XCTAssertEqual(circleSkeleton.radius, 8)
+    let defaultAvatar = CSAvatar(dark: false, highContrast: false, compact: false)
+    XCTAssertEqual(defaultAvatar.name, "")
   }
 
   func testSwitchAndDialogExposeTheModeResolvedControls() {

@@ -266,6 +266,9 @@ public enum CSRadioModel {
   public static func descId(_ id: String, description: String?) -> String? {
     showsText(description) ? id + "-desc" : nil
   }
+  public static func descriptionId(_ id: String, description: String?) -> String? {
+    showsText(description) ? id + "-description" : nil
+  }
   public static func labelledBy(explicit: String?, hasAriaLabel: Bool, labelId: String?) -> String? {
     if let explicit { return explicit }
     return hasAriaLabel ? nil : labelId
@@ -355,6 +358,7 @@ public struct CSRadioOption: Hashable {
 
 public struct CSRadioGroup: View {
   public let label: String?
+  public let name: String?
   public let options: [CSRadioOption]
   @Binding var selection: String
   let dark: Bool
@@ -363,8 +367,9 @@ public struct CSRadioGroup: View {
   @State private var focusId = UUID().uuidString
   @FocusState private var focusedValue: String?
 
-  public init(label: String? = nil, options: [CSRadioOption], selection: Binding<String>, dark: Bool, highContrast: Bool, compact: Bool) {
+  public init(label: String? = nil, name: String? = nil, options: [CSRadioOption], selection: Binding<String>, dark: Bool, highContrast: Bool, compact: Bool) {
     self.label = label
+    self.name = name
     self.options = options
     _selection = selection
     self.dark = dark
@@ -471,7 +476,7 @@ public struct CSAvatar: View {
   let highContrast: Bool
   let compact: Bool
 
-  public init(name: String, size: CSAvatarSize = .md, square: Bool = false, source: String? = nil, dark: Bool, highContrast: Bool, compact: Bool) {
+  public init(name: String = "", size: CSAvatarSize = .md, square: Bool = false, source: String? = nil, dark: Bool, highContrast: Bool, compact: Bool) {
     self.name = name
     self.size = size
     self.square = square
@@ -1265,6 +1270,8 @@ public enum CSSkeletonModel {
 public struct CSSkeleton: View {
   public let lines: Int
   public let circle: Bool
+  public let variant: String
+  public let radius: CGFloat?
   public let width: CGFloat
   public let height: CGFloat
   let dark: Bool
@@ -1273,9 +1280,11 @@ public struct CSSkeleton: View {
   @Environment(\.accessibilityReduceMotion) private var reduceMotion
   @State private var phase = false
 
-  public init(lines: Int = 0, circle: Bool = false, width: CGFloat = 120, height: CGFloat = 12, dark: Bool, highContrast: Bool, compact: Bool) {
+  public init(lines: Int = 0, circle: Bool = false, variant: String = "block", radius: CGFloat? = nil, width: CGFloat = 120, height: CGFloat = 12, dark: Bool, highContrast: Bool, compact: Bool) {
     self.lines = lines
     self.circle = circle
+    self.variant = variant
+    self.radius = radius
     self.width = width
     self.height = height
     self.dark = dark
@@ -1286,18 +1295,19 @@ public struct CSSkeleton: View {
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let count = CSSkeletonModel.lineCount(Double(lines))
-    let round = CSSkeletonModel.isCircle(variant: circle ? "circle" : "block", lines: count)
+    let round = CSSkeletonModel.isCircle(variant: circle ? "circle" : variant, lines: count)
+    let corner = radius ?? pack.radiusSm.points
     Group {
       if count > 0 {
         VStack(alignment: .leading, spacing: 8) {
           ForEach(0..<count, id: \.self) { index in
-            RoundedRectangle(cornerRadius: pack.radiusSm.points)
+            RoundedRectangle(cornerRadius: corner)
               .fill(pack.borderColor)
               .frame(width: width * CSSkeletonModel.lineWidth(index: index, count: count), height: height)
           }
         }
       } else {
-        RoundedRectangle(cornerRadius: round ? width / 2 : pack.radiusSm.points)
+        RoundedRectangle(cornerRadius: round ? width / 2 : corner)
           .fill(pack.borderColor)
           .frame(width: width, height: round ? width : height)
       }
@@ -1426,6 +1436,13 @@ public struct CSTag: View {
         .foregroundStyle(pack.primaryTextColor)
       if CSTagModel.showsRemove(hasOnRemove: onRemove != nil), let onRemove {
         CSTriggerButton("×", action: onRemove)
+          .overlay {
+            CSIconPaths.path(data: CSTagModel.closeIconPath)
+              .stroke(pack.mutedColor, style: StrokeStyle(lineWidth: CGFloat(CSTagModel.closeStrokeWidth()), lineCap: .round))
+              .frame(width: CGFloat(CSTagModel.closeIconSize()), height: CGFloat(CSTagModel.closeIconSize()))
+              .allowsHitTesting(false)
+              .accessibilityHidden(true)
+          }
           .frame(minWidth: 44, minHeight: 44)
           .accessibilityLabel(spoken)
       }

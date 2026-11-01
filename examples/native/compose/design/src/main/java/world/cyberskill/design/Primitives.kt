@@ -33,6 +33,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onPreviewKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -45,6 +50,7 @@ import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.progressBarRangeInfo
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlin.math.max
@@ -75,6 +81,7 @@ fun csProgressCopy(key: String, language: String?): String {
 fun csRadioShowsText(value: String?) = !value.isNullOrEmpty()
 fun csRadioLabelId(id: String, label: String?) = if (csRadioShowsText(label)) "$id-label" else null
 fun csRadioDescId(id: String, description: String?) = if (csRadioShowsText(description)) "$id-desc" else null
+fun csRadioDescriptionId(id: String, description: String?) = if (csRadioShowsText(description)) "$id-description" else null
 fun csRadioLabelledBy(explicit: String?, hasAriaLabel: Boolean, labelId: String?) = when {
   explicit != null -> explicit
   hasAriaLabel -> null
@@ -271,6 +278,7 @@ fun CsRadioGroup(
   highContrast: Boolean,
   compact: Boolean,
   modifier: Modifier = Modifier,
+  name: String? = null,
 ) {
   val pack = csModePack(dark, highContrast, compact)
   androidx.compose.runtime.CompositionLocalProvider(LocalCsForm provides true) { Column(modifier.semantics { if (csCheckboxShows(label)) contentDescription = label }, verticalArrangement = Arrangement.spacedBy(csFormsStyleRadioGroupGap())) {
@@ -341,7 +349,7 @@ fun CsProgressBar(
 
 @Composable
 fun CsAvatar(
-  name: String,
+  name: String = "",
   dark: Boolean,
   highContrast: Boolean,
   compact: Boolean,
@@ -483,6 +491,15 @@ fun csTabsStop(index: Int, selected: Int) = if (index == selected) 0 else -1
 fun csTabsShowsCount(count: Int?) = count != null
 fun csTabsOrientation(vertical: Boolean) = if (vertical) "vertical" else null
 fun csTabsListLabel(label: String?, fallback: String) = label ?: fallback
+fun csTabsMove(current: Int, count: Int, key: String, vertical: Boolean = false): Int? {
+  if (count <= 0) return null
+  val index = current.coerceIn(0, count - 1)
+  if (key == if (vertical) "ArrowDown" else "ArrowRight") return (index + 1) % count
+  if (key == if (vertical) "ArrowUp" else "ArrowLeft") return (index - 1 + count) % count
+  if (key == "Home") return 0
+  if (key == "End") return count - 1
+  return null
+}
 fun csTabsCopy(key: String, language: String?): String {
   val want = csComboboxPrimaryLanguage(language) ?: "vi"
   val vi = mapOf("list" to "Tab")
@@ -554,13 +571,30 @@ fun CsTabs(
 ) {
   val pack = csModePack(dark, highContrast, compact)
   val listName = csTabsListLabel(label, csTabsCopy("list", csComboboxResolvedLanguage(language, LocalCsLanguage.current)))
-  Row(modifier.semantics { contentDescription = listName }, horizontalArrangement = Arrangement.spacedBy(csNavigationStyleTabsGap())) {
+  val tabListModifier = modifier
+    .semantics { contentDescription = listName }
+    .onPreviewKeyEvent { event ->
+      if (event.type != KeyEventType.KeyDown || tabs.isEmpty()) return@onPreviewKeyEvent false
+      val key = when (event.key) {
+        Key.DirectionRight -> "ArrowRight"
+        Key.DirectionLeft -> "ArrowLeft"
+        Key.DirectionDown -> "ArrowDown"
+        Key.DirectionUp -> "ArrowUp"
+        Key.MoveHome -> "Home"
+        Key.MoveEnd -> "End"
+        else -> return@onPreviewKeyEvent false
+      }
+      val current = csTabsIndex(tabs.map { it.value }, selection)
+      val next = csTabsMove(current, tabs.size, key, vertical) ?: return@onPreviewKeyEvent false
+      onSelect(tabs[next].value)
+      true
+    }
+  val renderTabs: @Composable () -> Unit = {
     tabs.forEach { tab ->
       val selected = selection == tab.value
       val handle = rememberFocusHandle("tab-${tab.value}")
       Column(
         Modifier
-          .weight(1f)
           .minimumInteractiveComponentSize()
           .focusRequester(handle.requester)
           .onFocusChanged { if (it.isFocused) handle.claim() }
@@ -591,6 +625,11 @@ fun CsTabs(
       }
     }
   }
+  if (vertical) {
+    Column(tabListModifier, verticalArrangement = Arrangement.spacedBy(csNavigationStyleTabsGap())) { renderTabs() }
+  } else {
+    Row(tabListModifier, horizontalArrangement = Arrangement.spacedBy(csNavigationStyleTabsGap())) { renderTabs() }
+  }
 }
 
 fun csSkeletonLines(requested: Double) = csRenderCount(requested, 0)
@@ -606,14 +645,16 @@ fun CsSkeleton(
   modifier: Modifier = Modifier,
   lines: Int = 0,
   circle: Boolean = false,
+  variant: String = "block",
+  radius: Dp? = null,
   width: Int = 120,
   height: Int = 12,
 ) {
   val pack = csModePack(dark, highContrast, compact)
   val color = pack.colorBorderDefault.toComposeColor()
-  val radius = RoundedCornerShape(pack.radiusSm.toDp())
+  val shape = RoundedCornerShape(radius ?: pack.radiusSm.toDp())
   val count = csSkeletonLines(lines.toDouble())
-  val round = csSkeletonCircle(if (circle) "circle" else "block", count)
+  val round = csSkeletonCircle(if (circle) "circle" else variant, count)
   if (count > 0) {
     Column(modifier.clearAndSetSemantics { }, verticalArrangement = Arrangement.spacedBy(8.dp)) {
       repeat(count) { index ->
@@ -621,7 +662,7 @@ fun CsSkeleton(
           Modifier
             .width((width * csSkeletonLineWidth(index, count)).dp)
             .height(height.dp)
-            .clip(radius)
+            .clip(shape)
             .background(color),
         )
       }
@@ -630,7 +671,7 @@ fun CsSkeleton(
     Box(
       modifier
         .then(if (round) Modifier.size(width.dp) else Modifier.width(width.dp).height(height.dp))
-        .clip(if (round) CircleShape else radius)
+        .clip(if (round) CircleShape else shape)
         .background(color)
         .clearAndSetSemantics { },
     )
@@ -702,6 +743,9 @@ fun CsTag(
     Text(title, color = pack.colorTextPrimary.toComposeColor(), fontSize = csFeedbackStyleTagFontSize(pack).value.sp, fontWeight = FontWeight.SemiBold)
     if (csTagShowsRemove(onRemove != null) && onRemove != null) {
       CsTriggerButton(title = "×", onClick = onRemove, modifier = Modifier.minimumInteractiveComponentSize()) {
+        Canvas(Modifier.size(csTagCloseIconSize())) {
+          drawPath(csIconPathData(csTagCloseIconPath, size.minDimension), pack.colorTextMuted.toComposeColor(), style = Stroke(width = csTagCloseStrokeWidth()))
+        }
         Text("×", modifier = Modifier.semantics { contentDescription = spoken })
       }
     }

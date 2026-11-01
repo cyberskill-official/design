@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'controls.dart';
 import 'cs_modes.dart';
@@ -39,6 +40,7 @@ String csProgressCopy(String key, String? language) {
 bool csRadioShowsText(String? value) => value != null && value.isNotEmpty;
 String? csRadioLabelId(String id, String? label) => csRadioShowsText(label) ? '$id-label' : null;
 String? csRadioDescId(String id, String? description) => csRadioShowsText(description) ? '$id-desc' : null;
+String? csRadioDescriptionId(String id, String? description) => csRadioShowsText(description) ? '$id-description' : null;
 String? csRadioLabelledBy(String? explicit, bool hasAriaLabel, String? labelId) {
   if (explicit != null) return explicit;
   return hasAriaLabel ? null : labelId;
@@ -318,9 +320,11 @@ class CsRadioGroup extends StatelessWidget {
     required this.dark,
     required this.highContrast,
     required this.compact,
+    this.name,
   });
 
   final String label;
+  final String? name;
   final List<CsRadioOption> options;
   final String selection;
   final ValueChanged<String> onSelect;
@@ -421,7 +425,7 @@ class CsProgressBar extends StatelessWidget {
 class CsAvatar extends StatelessWidget {
   const CsAvatar({
     super.key,
-    required this.name,
+    this.name = '',
     required this.dark,
     required this.highContrast,
     required this.compact,
@@ -664,6 +668,15 @@ int csTabsStop(int index, int selected) => index == selected ? 0 : -1;
 bool csTabsShowsCount(int? count) => count != null;
 String? csTabsOrientation(bool vertical) => vertical ? 'vertical' : null;
 String csTabsListLabel(String? label, String fallback) => label ?? fallback;
+int? csTabsMove(int current, int count, String key, {bool vertical = false}) {
+  if (count <= 0) return null;
+  final index = current < 0 ? 0 : (current >= count ? count - 1 : current);
+  if (key == (vertical ? 'ArrowDown' : 'ArrowRight')) return (index + 1) % count;
+  if (key == (vertical ? 'ArrowUp' : 'ArrowLeft')) return (index - 1 + count) % count;
+  if (key == 'Home') return 0;
+  if (key == 'End') return count - 1;
+  return null;
+}
 String csTabsCopy(String key, String? language) {
   final want = csSelectPrimaryLanguage(language) ?? 'vi';
   const vi = {'list': 'Tab'};
@@ -775,64 +788,97 @@ class CsTabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
+    Widget buildTab(CsTabItem tab) {
+      final selected = selection == tab.value;
+      final borderBottom = csNavigationStyleTabBorderBottomColor(pack, selected: selected);
+      return ConstrainedBox(
+        constraints: BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            border: borderBottom != null
+                ? Border(bottom: BorderSide(color: csColor(borderBottom), width: csNavigationStyleTabBorderBottomWidth()))
+                : null,
+          ),
+          child: CsOwnFocus(builder: (node, claim) => TextButton(
+            focusNode: node,
+            onPressed: () { claim(); onSelect(tab.value); },
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  tab.label,
+                  style: TextStyle(
+                    fontSize: csNavigationStyleTabFontSize(pack),
+                    fontWeight: FontWeight.w600,
+                    color: csColor(csNavigationStyleTabTextColor(pack, selected: selected, dark: dark)),
+                  ),
+                ),
+                if (csTabsShowsCount(tab.count) && tab.count != null) ...[
+                  SizedBox(width: csNavigationStyleTabGap()),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: csNavigationStyleTabCountPaddingX(),
+                      vertical: csNavigationStyleTabCountPaddingY(),
+                    ),
+                    child: Text(
+                      '${tab.count}',
+                      style: TextStyle(
+                        fontSize: csNavigationStyleTabCountFontSize(pack),
+                        color: csColor(pack.colorTextMuted),
+                      ),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          )),
+        ),
+      );
+    }
     return Semantics(
       label: csTabsListLabel(label, csTabsCopy('list', csSelectResolvedLanguage(language, CsLanguageScope.of(context)))),
-      child: Row(
-        children: [
-          for (var i = 0; i < tabs.length; i++) ...[
-            if (i > 0) SizedBox(width: csNavigationStyleTabsGap()),
-            Expanded(
-              child: Builder(builder: (context) {
-                final tab = tabs[i];
-                final selected = selection == tab.value;
-                final borderBottom = csNavigationStyleTabBorderBottomColor(pack, selected: selected);
-                return ConstrainedBox(
-                  constraints: BoxConstraints(minHeight: csPoints(pack.componentButtonMdMinHeight)),
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      border: borderBottom != null
-                          ? Border(bottom: BorderSide(color: csColor(borderBottom), width: csNavigationStyleTabBorderBottomWidth()))
-                          : null,
-                    ),
-                    child: CsOwnFocus(builder: (node, claim) => TextButton(
-                      focusNode: node,
-                      onPressed: () { claim(); onSelect(tab.value); },
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            tab.label,
-                            style: TextStyle(
-                              fontSize: csNavigationStyleTabFontSize(pack),
-                              fontWeight: FontWeight.w600,
-                              color: csColor(csNavigationStyleTabTextColor(pack, selected: selected, dark: dark)),
-                            ),
-                          ),
-                          if (csTabsShowsCount(tab.count) && tab.count != null) ...[
-                            SizedBox(width: csNavigationStyleTabGap()),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: csNavigationStyleTabCountPaddingX(),
-                                vertical: csNavigationStyleTabCountPaddingY(),
-                              ),
-                              child: Text(
-                                '${tab.count}',
-                                style: TextStyle(
-                                  fontSize: csNavigationStyleTabCountFontSize(pack),
-                                  color: csColor(pack.colorTextMuted),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ],
-                      ),
-                    )),
-                  ),
-                );
-              }),
-            ),
-          ],
-        ],
+      child: Focus(
+        onKeyEvent: (node, event) {
+          if (event is! KeyDownEvent || tabs.isEmpty) return KeyEventResult.ignored;
+          String? key;
+          if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
+            key = 'ArrowRight';
+          } else if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
+            key = 'ArrowLeft';
+          } else if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
+            key = 'ArrowDown';
+          } else if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
+            key = 'ArrowUp';
+          } else if (event.logicalKey == LogicalKeyboardKey.home) {
+            key = 'Home';
+          } else if (event.logicalKey == LogicalKeyboardKey.end) {
+            key = 'End';
+          }
+          if (key == null) return KeyEventResult.ignored;
+          final current = csTabsIndex(tabs.map((tab) => tab.value).toList(), selection);
+          final next = csTabsMove(current, tabs.length, key, vertical: vertical);
+          if (next == null) return KeyEventResult.ignored;
+          onSelect(tabs[next].value);
+          return KeyEventResult.handled;
+        },
+        child: vertical
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  for (var i = 0; i < tabs.length; i++) ...[
+                    if (i > 0) SizedBox(height: csNavigationStyleTabsGap()),
+                    buildTab(tabs[i]),
+                  ],
+                ],
+              )
+            : Row(
+                children: [
+                  for (var i = 0; i < tabs.length; i++) ...[
+                    if (i > 0) SizedBox(width: csNavigationStyleTabsGap()),
+                    Expanded(child: buildTab(tabs[i])),
+                  ],
+                ],
+              ),
       ),
     );
   }
@@ -855,12 +901,16 @@ class CsSkeleton extends StatelessWidget {
     required this.compact,
     this.lines = 0,
     this.circle = false,
+    this.variant = 'block',
+    this.radius,
     this.width = 120,
     this.height = 12,
   });
 
   final int lines;
   final bool circle;
+  final String variant;
+  final double? radius;
   final double width;
   final double height;
   final bool dark;
@@ -871,7 +921,7 @@ class CsSkeleton extends StatelessWidget {
   Widget build(BuildContext context) {
     final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
     final color = csColor(pack.colorBorderDefault);
-    final radius = BorderRadius.circular(csPoints(pack.radiusSm));
+    final cornerRadius = BorderRadius.circular(radius ?? csPoints(pack.radiusSm));
     final count = csSkeletonLines(lines.toDouble());
     if (count > 0) {
       return ExcludeSemantics(
@@ -883,13 +933,13 @@ class CsSkeleton extends StatelessWidget {
                 margin: const EdgeInsets.only(bottom: 8),
                 width: width * csSkeletonLineWidth(index, count),
                 height: height,
-                decoration: BoxDecoration(color: color, borderRadius: radius),
+                decoration: BoxDecoration(color: color, borderRadius: cornerRadius),
               ),
           ],
         ),
       );
     }
-    final round = csSkeletonCircle(circle ? 'circle' : 'block', count);
+    final round = csSkeletonCircle(circle ? 'circle' : variant, count);
     return ExcludeSemantics(
       child: Container(
         width: width,
@@ -897,7 +947,7 @@ class CsSkeleton extends StatelessWidget {
         decoration: BoxDecoration(
           color: color,
           shape: round ? BoxShape.circle : BoxShape.rectangle,
-          borderRadius: round ? null : radius,
+          borderRadius: round ? null : cornerRadius,
         ),
       ),
     );
@@ -1033,7 +1083,18 @@ class CsTag extends StatelessWidget {
                 onPressed: () { claim(); onRemove!(); },
                 tooltip: spoken,
                 constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
-                icon: const ExcludeSemantics(child: Text('×')),
+                icon: ExcludeSemantics(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CustomPaint(
+                        size: Size.square(csTagCloseIconSize()),
+                        painter: _AlertMarkPainter(csColor(pack.colorTextMuted), csTagCloseIconPath),
+                      ),
+                      const Text('×'),
+                    ],
+                  ),
+                ),
               ),
             )),
         ],
@@ -1094,6 +1155,12 @@ class CsStat extends StatelessWidget {
         if (csStatShowsDelta(delta)) ...[
           SizedBox(height: csDataStyleStatGap()),
           Row(children: [
+            ExcludeSemantics(
+              child: CustomPaint(
+                size: const Size(14, 14),
+                painter: _AlertMarkPainter(csColor(ink), csStatArrowPath(dir)),
+              ),
+            ),
             ExcludeSemantics(child: Text(csStatMark(trend), style: TextStyle(fontSize: csDataStyleStatDeltaFontSize(pack), fontWeight: FontWeight.w700, color: csColor(ink)))),
             SizedBox(width: csDataStyleStatDeltaGap()),
             Text(delta ?? '', style: TextStyle(fontSize: csDataStyleStatDeltaFontSize(pack), fontWeight: FontWeight.w700, color: csColor(ink))),

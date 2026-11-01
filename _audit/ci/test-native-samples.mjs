@@ -558,6 +558,10 @@ assert(remainderSwift.includes('cancelling: cancelling') && remainderKotlin.incl
 assert(remainderKotlin.includes('editing = true') && remainderDart.includes('editing = true'), 'native inline edits open a field');
 assert(remainderSwift.includes('if !isFocused { finish() }') && remainderKotlin.includes('else if (sawFocus) finish()') && remainderDart.includes('else if (sawFocus) finish()'), 'native inline edits commit on blur');
 assert(remainderKotlin.includes('csQrMatrix(value)') && remainderDart.includes('csQrMatrix(value)'), 'native QR widgets draw the matrix');
+const primitivesSwift = read('examples/native/swiftui/Sources/CyberSkillDesign/Primitives.swift');
+const primitivesKotlin = read('examples/native/compose/design/src/main/java/world/cyberskill/design/Primitives.kt');
+const primitivesDart = read('examples/native/flutter_design/lib/primitives.dart');
+assert(primitivesSwift.includes('func descriptionId(_ id: String, description: String?)') && primitivesSwift.includes('CSTagModel.closeIconPath') && primitivesKotlin.includes('fun csRadioDescriptionId(') && primitivesKotlin.includes('fun csTabsMove(') && primitivesKotlin.includes('drawPath(csIconPathData(csTagCloseIconPath') && primitivesDart.includes('csRadioDescriptionId(') && primitivesDart.includes('csTabsMove(') && primitivesDart.includes('csTagCloseIconPath)') && primitivesDart.includes('csStatArrowPath(dir)'), 'native primitives radio, tabs, skeleton, tag, stat, and avatar match web descriptionId, vertical/roving tabs, skeleton variant/radius, tag close SVG icon, stat trend arrow SVG, and avatar default name');
 assert(read(join(flutterRoot, 'lib/screens/home_screen.dart')).includes('CsListRow'), 'Flutter home uses the design library list');
 const mainDart = read(join(flutterRoot, 'lib/main.dart'));
 assert(mainDart.includes("'/sign-in'") && mainDart.includes("'/home'") && mainDart.includes("'/settings'"), 'Flutter routes');
