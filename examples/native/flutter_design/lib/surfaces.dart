@@ -560,11 +560,14 @@ class CsScrollArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: maxHeight),
-      child: Padding(
-        padding: EdgeInsets.all(csDataStyleScrollAreaFocusOutlineWidth(false)),
-        child: SingleChildScrollView(child: child),
+    return Focus(
+      canRequestFocus: csDataStyleScrollAreaTabStop() == 0,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: maxHeight),
+        child: Padding(
+          padding: EdgeInsets.all(csDataStyleScrollAreaFocusOutlineWidth(false)),
+          child: SingleChildScrollView(child: child),
+        ),
       ),
     );
   }
@@ -596,7 +599,7 @@ class CsImage extends StatelessWidget {
 }
 
 class CsLogo extends StatelessWidget {
-  const CsLogo({super.key, required this.dark, required this.highContrast, required this.compact, this.title = 'CyberSkill', this.decorative = false, this.size = 32});
+  const CsLogo({super.key, required this.dark, required this.highContrast, required this.compact, this.title = csLogoStyleDefaultTitle, this.decorative = false, this.size = 32});
   final String title;
   final bool decorative;
   final double size;
@@ -606,9 +609,10 @@ class CsLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final label = csLogoStyleAriaLabel(title, decorative);
     final text = Text(title);
     final height = csLogoStyleAutoBlockSize() ? size : null;
-    return SizedBox(width: size, height: height, child: decorative ? ExcludeSemantics(child: text) : text);
+    return SizedBox(width: size, height: height, child: csLogoStyleAriaHidden(decorative) == true ? ExcludeSemantics(child: text) : Semantics(image: true, label: label, child: ExcludeSemantics(child: text)));
   }
 }
 
@@ -999,16 +1003,26 @@ class _CsNavigationMenuState extends State<CsNavigationMenu> {
 }
 
 class CsCardHeader extends StatelessWidget {
-  const CsCardHeader({super.key, required this.title, required this.dark, required this.highContrast, required this.compact});
+  const CsCardHeader({super.key, required this.title, required this.dark, required this.highContrast, required this.compact, this.subtitle});
   final String title;
+  final String? subtitle;
   final bool dark;
   final bool highContrast;
   final bool compact;
   @override
-  Widget build(BuildContext context) => Padding(
-    padding: EdgeInsets.only(left: csDataStyleCardHeaderPaddingX(), top: csDataStyleCardHeaderPaddingTop(), right: csDataStyleCardHeaderPaddingX(), bottom: csDataStyleCardHeaderPaddingBottom()),
-    child: Text(title, style: const TextStyle(fontWeight: FontWeight.w700)),
-  );
+  Widget build(BuildContext context) {
+    final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
+    return Padding(
+      padding: EdgeInsets.only(left: csDataStyleCardHeaderPaddingX(), top: csDataStyleCardHeaderPaddingTop(), right: csDataStyleCardHeaderPaddingX(), bottom: csDataStyleCardHeaderPaddingBottom()),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        if (csDataStyleCardShowsSlot(title)) Text(title, style: TextStyle(fontWeight: FontWeight.w700, color: csColor(pack.colorTextPrimary))),
+        if (csDataStyleCardShowsSlot(subtitle)) ...[
+          SizedBox(height: csDataStyleCardSubtitleMarginTop()),
+          Text(subtitle!, style: TextStyle(fontSize: csDataStyleCardSubtitleFontSize(pack), color: csColor(pack.colorTextMuted))),
+        ],
+      ]),
+    );
+  }
 }
 
 class CsCardBody extends StatelessWidget {

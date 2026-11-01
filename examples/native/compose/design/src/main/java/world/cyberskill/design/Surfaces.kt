@@ -423,7 +423,7 @@ fun CsCitationList(items: List<String>, dark: Boolean, highContrast: Boolean, co
 
 @Composable
 fun CsScrollArea(maxHeight: Int, modifier: Modifier = Modifier, content: @Composable () -> Unit) {
-  Column(modifier.padding(csDataStyleScrollAreaFocusOutlineWidth(false))) { content() }
+  Column(modifier.heightIn(max = maxHeight.dp).padding(csDataStyleScrollAreaFocusOutlineWidth(csDataStyleScrollAreaTabStop() < 0))) { content() }
 }
 
 @Composable
@@ -435,10 +435,11 @@ fun CsImage(dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Mo
 }
 
 @Composable
-fun CsLogo(title: String, decorative: Boolean, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
+fun CsLogo(title: String = csLogoStyleDefaultTitle, decorative: Boolean = false, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, size: androidx.compose.ui.unit.Dp = csLogoStyleDefaultSize()) {
   val pack = csModePack(dark, highContrast, compact)
   val autoHeight = csLogoStyleAutoBlockSize()
-  Text(if (decorative) "" else title, color = pack.colorBrandOchre.toComposeColor(), modifier = if (autoHeight) modifier else modifier)
+  val label = csLogoStyleAriaLabel(title, decorative)
+  Text(if (decorative) "" else title, color = pack.colorBrandOchre.toComposeColor(), modifier = modifier.sizeIn(minWidth = size, minHeight = if (autoHeight) size else 0.dp).let { if (csLogoStyleAriaHidden(decorative) == true) it.clearAndSetSemantics {} else if (label != null) it.semantics { contentDescription = label } else it })
 }
 
 const val csContextMenu = "Context menu"
@@ -688,8 +689,12 @@ fun CsNavigationMenu(items: List<CsNavMenuItem>, dark: Boolean, highContrast: Bo
 }
 
 @Composable
-fun CsCardHeader(title: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
-  Text(title, color = csModePack(dark, highContrast, compact).colorTextPrimary.toComposeColor(), modifier = modifier.padding(start = csDataStyleCardHeaderPaddingX(), top = csDataStyleCardHeaderPaddingTop(), end = csDataStyleCardHeaderPaddingX(), bottom = csDataStyleCardHeaderPaddingBottom()))
+fun CsCardHeader(title: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, subtitle: String? = null) {
+  val pack = csModePack(dark, highContrast, compact)
+  Column(modifier.padding(start = csDataStyleCardHeaderPaddingX(), top = csDataStyleCardHeaderPaddingTop(), end = csDataStyleCardHeaderPaddingX(), bottom = csDataStyleCardHeaderPaddingBottom()), verticalArrangement = Arrangement.spacedBy(csDataStyleCardSubtitleMarginTop())) {
+    if (csDataStyleCardShowsSlot(title)) Text(title, color = pack.colorTextPrimary.toComposeColor(), fontWeight = FontWeight.Bold)
+    if (csDataStyleCardShowsSlot(subtitle)) Text(subtitle ?: "", color = pack.colorTextMuted.toComposeColor(), fontSize = csDataStyleCardSubtitleFontSize(pack).value.sp)
+  }
 }
 
 @Composable

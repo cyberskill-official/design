@@ -938,9 +938,16 @@ String csDataStyleTooltipArrowPointsToward(String placement) {
 }
 double csDataStyleScrollAreaRadius(CSTokenModePack pack) => csPoints(pack.radiusMd);
 String csDataStyleScrollAreaScrollbarWidth() => 'thin';
+int csDataStyleScrollAreaTabStop() => 0;
+String? csDataStyleScrollAreaMaxBlockSize(double? maxHeight) {
+  if (maxHeight == null) return null;
+  final rounded = maxHeight.roundToDouble();
+  return maxHeight == rounded ? '${rounded.toInt()}px' : '${maxHeight}px';
+}
 double csDataStyleScrollAreaFocusOutlineWidth(bool focused) => focused ? 2 : 0;
 double csDataStyleScrollAreaFocusOutlineOffset(bool focused) => focused ? -2 : 0;
 double csDataStyleScrollAreaFocusHaloSpread(bool focused) => focused ? 5 : 0;
+bool csDataStyleCardShowsSlot(String? value) => value != null && value.isNotEmpty;
 double csDataStyleAspectRatioRadius(CSTokenModePack pack) => csPoints(pack.radiusMd);
 String csDataStyleAspectRatioMediaObjectFit() => 'cover';
 
@@ -1135,6 +1142,13 @@ double csAiStyleLumiSize([String size = 'md']) {
   }
 }
 double csAiStyleLumiRingSpread({bool ring = false}) => ring ? 3 : 0;
+const String csAiStyleLumiDefaultAlt = 'Lumi';
+const String csAiStyleLumiGlyph = '✦';
+bool csAiStyleLumiHasImage(String? src) => src != null && src.isNotEmpty;
+String? csAiStyleLumiWrapperRole(String? src, String alt) =>
+    !csAiStyleLumiHasImage(src) && alt.isNotEmpty ? 'img' : null;
+String? csAiStyleLumiWrapperLabel(String? src, String alt) =>
+    !csAiStyleLumiHasImage(src) && alt.isNotEmpty ? alt : null;
 
 const double csControlsWaveStyleStepperButtonDisabledOpacity = 0.45;
 const double csControlsWaveStyleDropzoneHoverOchrePortion = 0.08;
@@ -1821,8 +1835,18 @@ double csReviewGateStyleRiskFontSize() => 13;
 bool csReviewGateStyleRiskUppercase() => true;
 double csReviewGateStyleReviewerFontSize() => 14;
 
+const String csLogoStyleDefaultTitle = 'CyberSkill';
+const String csLogoStyleViewBox = '0 0 1007 1007';
+double csLogoStyleDefaultSize() => 32;
 bool csLogoStyleAutoBlockSize() => true;
 String csLogoStyleVerticalAlign() => 'middle';
+String csLogoStyleEscapeTitle(String title) =>
+    title.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+String csLogoStyleTitleTag(String title, bool decorative) =>
+    decorative ? '' : '<title>${csLogoStyleEscapeTitle(title)}</title>';
+String? csLogoStyleRole(bool decorative) => decorative ? null : 'img';
+bool? csLogoStyleAriaHidden(bool decorative) => decorative ? true : null;
+String? csLogoStyleAriaLabel(String title, bool decorative) => decorative ? null : title;
 bool csModalOwned(String active, String? opener, bool insidePanel) => active == 'body' || (opener != null && active == opener) || insidePanel;
 bool csModalShouldRestore(bool wasTop, bool ownedFocus, bool openerConnected, bool openerHidden) => wasTop && ownedFocus && openerConnected && !openerHidden;
 bool csModalPullBack(bool inside) => !inside;

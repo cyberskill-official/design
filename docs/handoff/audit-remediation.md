@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the alert-banner-parity checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the logo-lumi-masonry-cardheader-scrollarea-parity checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -9,8 +9,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: `728a4626362c6c2efe05fa0a972bc394e590a8ef` (`feat(native): align alert banner icon, copy, presence, and dismiss callbacks with web Alert`)
-- Previous checkpoint: `cf5493c5a600af47785e9f612589155ff31945f7`, with the hash note in `2d5824de`
+- Checkpoint commit: pending (`feat(native): align logo, Lumi avatar, masonry, card header, and scroll area with web contracts`)
+- Previous checkpoint: `728a4626362c6c2efe05fa0a972bc394e590a8ef`, with the hash note in `44be4d24`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -54,13 +54,13 @@ Last run after styling `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `Navigat
 
 ## Latest checkpoint
 
-Aligned `CSAlert`/`CsAlert` in `Primitives.swift`, `Primitives.kt`, and `primitives.dart` with `components/feedback/Alert.jsx` (`CSAlertModel` / `csAlertBanner*`): draws the 20x20 default variant SVG icon path (`info`, `success`, `warning`, `danger`) with 1.9 stroke width when `icon` is nil or keeps an explicit `icon` string, shows `title` and `message` only when non-empty (preserving `"0"`), localizes `dismiss` (`"Đóng"` / `"Close"`) via `strings.Alert` unless overridden by `dismissLabel`, shows the dismiss button when any of `onOpenChange`/`onClose`/`onDismiss` is provided, and invokes `onOpenChange(false)`, `onClose()`, and `onDismiss()` in web order.
+Aligned `CSLogo`/`CsLogo`, `CSLumiAvatar`/`CsLumiAvatar`, `CSMasonry`/`CsMasonry`, `CSCardHeader`/`CsCardHeader`, and `CSScrollArea`/`CsScrollArea` across SwiftUI, Jetpack Compose, and Flutter with `Logo.jsx`, `LumiAvatar.jsx`, `Masonry.jsx`, `Card.jsx`, and `ScrollArea.jsx`: `CSLogoStyleModel`/`csLogoStyle*` models default size 32, default title `"CyberSkill"`, viewBox `"0 0 1007 1007"`, XML title escaping (`&`, `<`, `>`), and decorative `role`/`aria-hidden`/`aria-label`/`<title>` suppression; `CSLumiAvatar`/`CsLumiAvatar` supports `src` and `ring` (default `false`), renders `"✦"` when `src` is absent, and applies `role="img"`/`aria-label` only when `!src && alt` is non-empty; `CSMasonry`/`CsMasonry` adds `CSMasonryModel`/`csMasonry*` (`defaultColumns = 3`, `defaultGap = 16`, `safeColumns`, `itemMarginBottom`); `CSCardHeader`/`CsCardHeader` adds optional `subtitle` with `"0"`-preserving slot presence; and `CSScrollArea`/`CsScrollArea` models `tabIndex={0}` (`scrollAreaTabStop() == 0`) and `scrollAreaMaxBlockSize`.
 
 - `swift test --package-path examples/native/swiftui` and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Align `CSLumiAvatar`/`CsLumiAvatar`, `CSLogo`/`CsLogo`, `CSAspectRatio`/`CsAspectRatio`, `CSMasonry`/`CsMasonry`, and `CSScrollArea`/`CsScrollArea` with their web component contracts (`LumiAvatar.jsx`, `Logo.jsx`, `AspectRatio.jsx`, `Masonry.jsx`, `ScrollArea.jsx`).
+Inspect and close the next concrete behavioral parity gaps across `Primitives`, `Catalog`, `Records`, `Overlays`, `Structures`, `Fields`, `Flows`, `Surfaces`, and `Remainder` against their web `components/**/*.jsx` counterparts.
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

@@ -1640,39 +1640,66 @@ class CsLocaleProvider extends StatelessWidget {
   Widget build(BuildContext context) => child;
 }
 
+const int csMasonryDefaultColumns = 3;
+double csMasonryDefaultGap() => 16;
+int csMasonrySafeColumns(int columns) => columns < 1 ? 1 : columns;
+double csMasonryItemMarginBottom([double? gap]) => gap ?? csMasonryDefaultGap();
+
 class CsLumiAvatar extends StatelessWidget {
-  const CsLumiAvatar({super.key, required this.dark, required this.highContrast, required this.compact, this.alt = 'Lumi', this.size = 'md'});
+  const CsLumiAvatar({super.key, required this.dark, required this.highContrast, required this.compact, this.alt = csAiStyleLumiDefaultAlt, this.size = 'md', this.src, this.ring = false});
   final String alt;
   final String size;
+  final String? src;
+  final bool ring;
   final bool dark;
   final bool highContrast;
   final bool compact;
   @override
   Widget build(BuildContext context) {
+    final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
     final dim = csAiStyleLumiSize(size);
-    final spread = csAiStyleLumiRingSpread(ring: true);
-    return Padding(
-      padding: EdgeInsets.all(spread),
-      child: SizedBox(
-        width: dim,
-        height: dim,
-        child: CsIcon(name: 'sparkle', size: size, label: alt, dark: dark, highContrast: highContrast, compact: compact),
+    final spread = csAiStyleLumiRingSpread(ring: ring);
+    final label = csAiStyleLumiWrapperLabel(src, alt) ?? alt;
+    return Semantics(
+      image: label.isNotEmpty,
+      label: label.isNotEmpty ? label : null,
+      child: Padding(
+        padding: EdgeInsets.all(spread),
+        child: Container(
+          width: dim,
+          height: dim,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: csColor(pack.colorBrandOchre),
+            shape: BoxShape.circle,
+          ),
+          child: ExcludeSemantics(
+            child: Text(
+              csAiStyleLumiHasImage(src) ? alt : csAiStyleLumiGlyph,
+              style: TextStyle(color: csColor(pack.colorBrandUmber), fontWeight: FontWeight.w700),
+            ),
+          ),
+        ),
       ),
     );
   }
 }
 
 class CsMasonry extends StatelessWidget {
-  const CsMasonry({super.key, required this.children, this.columns = 3});
+  const CsMasonry({super.key, required this.children, this.columns = csMasonryDefaultColumns, this.gap = 16});
   final int columns;
+  final double gap;
   final List<Widget> children;
   @override
-  Widget build(BuildContext context) => Column(children: [
-    for (var i = 0; i < children.length; i++) ...[
-      if (i > 0) SizedBox(height: csControlsBatchStyleSortableGap()),
-      children[i],
-    ],
-  ]);
+  Widget build(BuildContext context) {
+    final spacing = csMasonrySafeColumns(columns) >= 1 ? csMasonryItemMarginBottom(gap) : gap;
+    return Column(children: [
+      for (var i = 0; i < children.length; i++) ...[
+        if (i > 0) SizedBox(height: spacing),
+        children[i],
+      ],
+    ]);
+  }
 }
 
 class CsMenuItem extends StatelessWidget {

@@ -860,7 +860,8 @@ public struct CSScrollArea<Content: View>: View {
   public var body: some View {
     ScrollView { content() }
       .frame(maxHeight: maxHeight)
-      .padding(CGFloat(CSDataStyleModel.scrollAreaFocusOutlineWidth(focused: false)))
+      .padding(CGFloat(CSDataStyleModel.scrollAreaFocusOutlineWidth(focused: CSDataStyleModel.scrollAreaTabStop() < 0)))
+      .focusable()
   }
 }
 
@@ -939,7 +940,7 @@ public struct CSLogo: View {
   let highContrast: Bool
   let compact: Bool
 
-  public init(title: String = "CyberSkill", decorative: Bool = false, size: CGFloat = 32, dark: Bool, highContrast: Bool, compact: Bool) {
+  public init(title: String = CSLogoStyleModel.defaultTitle, decorative: Bool = false, size: CGFloat = CGFloat(CSLogoStyleModel.defaultSize()), dark: Bool, highContrast: Bool, compact: Bool) {
     self.title = title
     self.decorative = decorative
     self.size = size
@@ -952,11 +953,12 @@ public struct CSLogo: View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let align: Alignment = CSLogoStyleModel.verticalAlign() == "middle" ? .center : .leading
     let height: CGFloat? = CSLogoStyleModel.autoBlockSize() ? size : nil
+    let label = CSLogoStyleModel.ariaLabel(title: title, decorative: decorative) ?? ""
     Text(title)
       .foregroundStyle(pack.colorBrandOchre.color)
       .frame(width: size, height: height, alignment: align)
-      .accessibilityHidden(decorative)
-      .accessibilityLabel(decorative ? "" : title)
+      .accessibilityHidden(CSLogoStyleModel.ariaHidden(decorative: decorative) == true)
+      .accessibilityLabel(label)
   }
 }
 
@@ -1522,24 +1524,35 @@ private struct CSNavPanelKey: PreferenceKey {
 
 public struct CSCardHeader: View {
   public let title: String
+  public let subtitle: String?
   let dark: Bool
   let highContrast: Bool
   let compact: Bool
-  public init(title: String, dark: Bool, highContrast: Bool, compact: Bool) {
+  public init(title: String, subtitle: String? = nil, dark: Bool, highContrast: Bool, compact: Bool) {
     self.title = title
+    self.subtitle = subtitle
     self.dark = dark
     self.highContrast = highContrast
     self.compact = compact
   }
   public var body: some View {
     let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
-    Text(title)
-      .font(.headline)
-      .foregroundStyle(pack.primaryTextColor)
-      .padding(.top, CGFloat(CSDataStyleModel.cardHeaderPaddingTop()))
-      .padding(.horizontal, CGFloat(CSDataStyleModel.cardHeaderPaddingX()))
-      .padding(.bottom, CGFloat(CSDataStyleModel.cardHeaderPaddingBottom()))
-      .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
+    VStack(alignment: .leading, spacing: CGFloat(CSDataStyleModel.cardSubtitleMarginTop())) {
+      if CSDataStyleModel.cardShowsSlot(title) {
+        Text(title)
+          .font(.headline)
+          .foregroundStyle(pack.primaryTextColor)
+      }
+      if CSDataStyleModel.cardShowsSlot(subtitle), let subtitle {
+        Text(subtitle)
+          .font(.system(size: CGFloat(CSDataStyleModel.cardSubtitleFontSize(pack))))
+          .foregroundStyle(pack.mutedColor)
+      }
+    }
+    .padding(.top, CGFloat(CSDataStyleModel.cardHeaderPaddingTop()))
+    .padding(.horizontal, CGFloat(CSDataStyleModel.cardHeaderPaddingX()))
+    .padding(.bottom, CGFloat(CSDataStyleModel.cardHeaderPaddingBottom()))
+    .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
   }
 }
 

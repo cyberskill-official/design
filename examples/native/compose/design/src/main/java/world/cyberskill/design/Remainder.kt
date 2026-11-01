@@ -1080,8 +1080,18 @@ fun csItemMainExtraText(hasExplicitTrailing: Boolean, hasTitle: Boolean, childre
   }
 }
 @Composable fun CsLocaleProvider(language: String, modifier: Modifier = Modifier, content: @Composable () -> Unit) { Column(modifier) { content() } }
-@Composable fun CsLumiAvatar(alt: String, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, size: String = "md") { CsIcon(name = "sparkle", size = size, label = alt, dark = dark, highContrast = highContrast, compact = compact, modifier = modifier.size(csAiStyleLumiSize(size)).padding(csAiStyleLumiRingSpread(true))) }
-@Composable fun CsMasonry(columns: Int, modifier: Modifier = Modifier, content: @Composable () -> Unit) { Column(modifier, verticalArrangement = Arrangement.spacedBy(csControlsBatchStyleSortableGap())) { content() } }
+const val csMasonryDefaultColumns = 3
+fun csMasonryDefaultGap() = 16.dp
+fun csMasonrySafeColumns(columns: Int) = maxOf(1, columns)
+fun csMasonryItemMarginBottom(gap: androidx.compose.ui.unit.Dp = csMasonryDefaultGap()) = gap
+@Composable fun CsLumiAvatar(alt: String = csAiStyleLumiDefaultAlt, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, size: String = "md", src: String? = null, ring: Boolean = false) {
+  val pack = csModePack(dark, highContrast, compact)
+  val label = csAiStyleLumiWrapperLabel(src, alt) ?: alt
+  Box(modifier.padding(csAiStyleLumiRingSpread(ring)).size(csAiStyleLumiSize(size)).background(pack.colorBrandOchre.toComposeColor(), RoundedCornerShape(999.dp)).let { if (label.isNotEmpty()) it.semantics { contentDescription = label } else it.clearAndSetSemantics {} }, contentAlignment = Alignment.Center) {
+    Text(if (csAiStyleLumiHasImage(src)) alt else csAiStyleLumiGlyph, color = pack.colorBrandUmber.toComposeColor(), modifier = Modifier.clearAndSetSemantics {})
+  }
+}
+@Composable fun CsMasonry(columns: Int = csMasonryDefaultColumns, modifier: Modifier = Modifier, gap: androidx.compose.ui.unit.Dp = csMasonryDefaultGap(), content: @Composable () -> Unit) { val safe = csMasonrySafeColumns(columns); Column(modifier, verticalArrangement = Arrangement.spacedBy(if (safe >= 1) csMasonryItemMarginBottom(gap) else gap)) { content() } }
 @Composable fun CsMenuItem(title: String, onSelect: () -> Unit, modifier: Modifier = Modifier) {
   val handle = rememberFocusHandle("menu-item")
   TextButton(onClick = { handle.claim(); onSelect() }, modifier.focusRequester(handle.requester).onFocusChanged { if (it.isFocused) handle.claim() }.minimumInteractiveComponentSize(), enabled = csControlEnabled(), contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = csNavigationStyleMenuItemPaddingX(), vertical = csNavigationStyleMenuItemPaddingY())) { Text(title) }

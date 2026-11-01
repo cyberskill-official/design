@@ -753,9 +753,18 @@ public enum CSDataStyleModel {
   }
   public static func scrollAreaRadius(_ pack: CSTokenModePack) -> Double { pack.radiusMd.points }
   public static func scrollAreaScrollbarWidth() -> String { "thin" }
+  public static func scrollAreaTabStop() -> Int { 0 }
+  public static func scrollAreaMaxBlockSize(_ maxHeight: Double?) -> String? {
+    guard let maxHeight else { return nil }
+    return maxHeight.rounded() == maxHeight ? "\(Int(maxHeight))px" : "\(maxHeight)px"
+  }
   public static func scrollAreaFocusOutlineWidth(focused: Bool) -> Double { focused ? 2 : 0 }
   public static func scrollAreaFocusOutlineOffset(focused: Bool) -> Double { focused ? -2 : 0 }
   public static func scrollAreaFocusHaloSpread(focused: Bool) -> Double { focused ? 5 : 0 }
+  public static func cardShowsSlot(_ value: String?) -> Bool {
+    guard let value else { return false }
+    return !value.isEmpty
+  }
   public static func aspectRatioRadius(_ pack: CSTokenModePack) -> Double { pack.radiusMd.points }
   public static func aspectRatioMediaObjectFit() -> String { "cover" }
 }
@@ -934,6 +943,18 @@ public enum CSAIStyleModel {
     }
   }
   public static func lumiRingSpread(ring: Bool = false) -> Double { ring ? 3 : 0 }
+  public static let lumiDefaultAlt = "Lumi"
+  public static let lumiGlyph = "✦"
+  public static func lumiHasImage(_ src: String?) -> Bool {
+    guard let src else { return false }
+    return !src.isEmpty
+  }
+  public static func lumiWrapperRole(src: String?, alt: String) -> String? {
+    !lumiHasImage(src) && !alt.isEmpty ? "img" : nil
+  }
+  public static func lumiWrapperLabel(src: String?, alt: String) -> String? {
+    !lumiHasImage(src) && !alt.isEmpty ? alt : nil
+  }
 }
 
 public enum CSControlsWaveStyleModel {
@@ -1661,8 +1682,29 @@ public enum CSReviewGateStyleModel {
 }
 
 public enum CSLogoStyleModel {
+  public static let defaultTitle = "CyberSkill"
+  public static let viewBox = "0 0 1007 1007"
+  public static func defaultSize() -> Double { 32 }
   public static func autoBlockSize() -> Bool { true }
   public static func verticalAlign() -> String { "middle" }
+  public static func escapeTitle(_ title: String) -> String {
+    title
+      .replacingOccurrences(of: "&", with: "&amp;")
+      .replacingOccurrences(of: "<", with: "&lt;")
+      .replacingOccurrences(of: ">", with: "&gt;")
+  }
+  public static func titleTag(title: String, decorative: Bool) -> String {
+    decorative ? "" : "<title>\(escapeTitle(title))</title>"
+  }
+  public static func role(decorative: Bool) -> String? {
+    decorative ? nil : "img"
+  }
+  public static func ariaHidden(decorative: Bool) -> Bool? {
+    decorative ? true : nil
+  }
+  public static func ariaLabel(title: String, decorative: Bool) -> String? {
+    decorative ? nil : title
+  }
 }
 
 public struct CSDialog: View {

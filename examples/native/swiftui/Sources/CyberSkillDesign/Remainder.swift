@@ -2400,30 +2400,53 @@ public struct CSLocaleProvider<Content: View>: View {
 public struct CSLumiAvatar: View {
   public let alt: String
   public let size: String
+  public let src: String?
+  public let ring: Bool
   let dark: Bool
   let highContrast: Bool
   let compact: Bool
-  public init(alt: String = "Lumi", size: String = "md", dark: Bool, highContrast: Bool, compact: Bool) {
+  public init(alt: String = CSAIStyleModel.lumiDefaultAlt, size: String = "md", src: String? = nil, ring: Bool = false, dark: Bool, highContrast: Bool, compact: Bool) {
     self.alt = alt
     self.size = size
+    self.src = src
+    self.ring = ring
     self.dark = dark
     self.highContrast = highContrast
     self.compact = compact
   }
   public var body: some View {
+    let pack = CSControlMode.pack(dark: dark, highContrast: highContrast, compact: compact)
     let dim = CGFloat(CSAIStyleModel.lumiSize(size: size))
-    let spread = CGFloat(CSAIStyleModel.lumiRingSpread(ring: true))
-    CSIcon(name: "sparkle", size: size, label: alt, dark: dark, highContrast: highContrast, compact: compact)
+    let spread = CGFloat(CSAIStyleModel.lumiRingSpread(ring: ring))
+    let label = CSAIStyleModel.lumiWrapperLabel(src: src, alt: alt) ?? alt
+    Text(CSAIStyleModel.lumiHasImage(src) ? alt : CSAIStyleModel.lumiGlyph)
+      .foregroundStyle(pack.colorBrandUmber.color)
       .frame(width: dim, height: dim)
+      .background(pack.colorBrandOchre.color)
+      .clipShape(Circle())
       .padding(spread)
+      .accessibilityHidden(label.isEmpty)
+      .accessibilityLabel(label)
   }
+}
+
+public enum CSMasonryModel {
+  public static let defaultColumns = 3
+  public static func defaultGap() -> Double { 16 }
+  public static func safeColumns(_ columns: Int) -> Int { max(1, columns) }
+  public static func itemMarginBottom(_ gap: Double = defaultGap()) -> Double { gap }
 }
 
 public struct CSMasonry<Content: View>: View {
   public let columns: Int
+  public let gap: Double
   let content: () -> Content
-  public init(columns: Int = 3, @ViewBuilder content: @escaping () -> Content) { self.columns = max(1, columns); self.content = content }
-  public var body: some View { VStack(alignment: .leading, spacing: CGFloat(CSControlsBatchStyleModel.sortableGap())) { content() } }
+  public init(columns: Int = CSMasonryModel.defaultColumns, gap: Double = CSMasonryModel.defaultGap(), @ViewBuilder content: @escaping () -> Content) {
+    self.columns = CSMasonryModel.safeColumns(columns)
+    self.gap = gap
+    self.content = content
+  }
+  public var body: some View { VStack(alignment: .leading, spacing: CGFloat(CSMasonryModel.itemMarginBottom(gap))) { content() } }
 }
 
 public struct CSMenuItem: View {

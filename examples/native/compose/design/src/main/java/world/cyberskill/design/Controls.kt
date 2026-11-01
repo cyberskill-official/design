@@ -717,9 +717,16 @@ fun csDataStyleTooltipArrowPointsToward(placement: String) = when {
 }
 fun csDataStyleScrollAreaRadius(pack: CSTokenModePack) = pack.radiusMd.toDp()
 fun csDataStyleScrollAreaScrollbarWidth() = "thin"
+fun csDataStyleScrollAreaTabStop() = 0
+fun csDataStyleScrollAreaMaxBlockSize(maxHeight: Double?): String? {
+  if (maxHeight == null) return null
+  val rounded = kotlin.math.round(maxHeight)
+  return if (maxHeight == rounded) "${rounded.toLong()}px" else "${maxHeight}px"
+}
 fun csDataStyleScrollAreaFocusOutlineWidth(focused: Boolean) = if (focused) 2.dp else 0.dp
 fun csDataStyleScrollAreaFocusOutlineOffset(focused: Boolean) = if (focused) (-2).dp else 0.dp
 fun csDataStyleScrollAreaFocusHaloSpread(focused: Boolean) = if (focused) 5.dp else 0.dp
+fun csDataStyleCardShowsSlot(value: String?) = !value.isNullOrEmpty()
 fun csDataStyleAspectRatioRadius(pack: CSTokenModePack) = pack.radiusMd.toDp()
 fun csDataStyleAspectRatioMediaObjectFit() = "cover"
 
@@ -879,6 +886,11 @@ fun csAiStyleLumiSize(size: String = "md") = when (size) {
   else -> 44.dp
 }
 fun csAiStyleLumiRingSpread(ring: Boolean = false) = if (ring) 3.dp else 0.dp
+const val csAiStyleLumiDefaultAlt = "Lumi"
+const val csAiStyleLumiGlyph = "✦"
+fun csAiStyleLumiHasImage(src: String?) = !src.isNullOrEmpty()
+fun csAiStyleLumiWrapperRole(src: String?, alt: String) = if (!csAiStyleLumiHasImage(src) && alt.isNotEmpty()) "img" else null
+fun csAiStyleLumiWrapperLabel(src: String?, alt: String) = if (!csAiStyleLumiHasImage(src) && alt.isNotEmpty()) alt else null
 
 const val csControlsWaveStyleStepperButtonDisabledOpacity = 0.45f
 const val csControlsWaveStyleDropzoneHoverOchrePortion = 0.08
@@ -1422,8 +1434,16 @@ fun csReviewGateStyleRiskFontSize() = 13.sp
 fun csReviewGateStyleRiskUppercase() = true
 fun csReviewGateStyleReviewerFontSize() = 14.sp
 
+const val csLogoStyleDefaultTitle = "CyberSkill"
+const val csLogoStyleViewBox = "0 0 1007 1007"
+fun csLogoStyleDefaultSize() = 32.dp
 fun csLogoStyleAutoBlockSize() = true
 fun csLogoStyleVerticalAlign() = "middle"
+fun csLogoStyleEscapeTitle(title: String) = title.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+fun csLogoStyleTitleTag(title: String, decorative: Boolean) = if (decorative) "" else "<title>${csLogoStyleEscapeTitle(title)}</title>"
+fun csLogoStyleRole(decorative: Boolean) = if (decorative) null else "img"
+fun csLogoStyleAriaHidden(decorative: Boolean) = if (decorative) true else null
+fun csLogoStyleAriaLabel(title: String, decorative: Boolean) = if (decorative) null else title
 
 @Composable
 fun CsDialog(
