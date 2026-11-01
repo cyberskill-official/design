@@ -600,6 +600,9 @@ public enum CSFabModel {
   public static let dialGap = 8.0
   public static let placementDefault = "top-end"
   public static func label(_ label: String?) -> String? { label }
+  public static func isStatic(_ position: String?) -> Bool { position == "static" }
+  public static func mainGlyph(icon: String?, label: String) -> String { icon ?? label }
+  public static func selectAction(index: Int, count: Int) -> Int? { index >= 0 && index < count ? index : nil }
   public static func toggles(actionCount: Int) -> Bool { actionCount > 0 }
   public static func expanded(actionCount: Int, open: Bool) -> Bool? { actionCount > 0 ? open : nil }
   public static func nextOpen(actionCount: Int, open: Bool) -> Bool? { actionCount > 0 ? !open : nil }
@@ -631,6 +634,7 @@ public struct CSFabPlace: Equatable {
 
 public struct CSFab: View {
   public let label: String
+  public let icon: String?
   public let actions: [String]
   public let position: String
   public let placement: String?
@@ -645,9 +649,11 @@ public struct CSFab: View {
   let highContrast: Bool
   let compact: Bool
   let onPress: () -> Void
+  let onSelectAction: ((Int) -> Void)?
 
-  public init(label: String, actions: [String] = [], position: String = "fixed", dark: Bool, highContrast: Bool, compact: Bool, onPress: @escaping () -> Void = {}, placement: String? = nil) {
+  public init(label: String, icon: String? = nil, actions: [String] = [], position: String = "fixed", dark: Bool, highContrast: Bool, compact: Bool, onPress: @escaping () -> Void = {}, onSelectAction: ((Int) -> Void)? = nil, placement: String? = nil) {
     self.label = label
+    self.icon = icon
     self.actions = actions
     self.position = position
     self.placement = placement
@@ -655,6 +661,7 @@ public struct CSFab: View {
     self.highContrast = highContrast
     self.compact = compact
     self.onPress = onPress
+    self.onSelectAction = onSelectAction
   }
 
   public var body: some View {
@@ -682,7 +689,7 @@ public struct CSFab: View {
           .opacity(placed == nil ? 0 : 1)
           .accessibilityHidden(placed == nil)
       }
-      CSTriggerButton(label) {
+      CSTriggerButton(CSFabModel.mainGlyph(icon: icon, label: label)) {
         if let next = CSFabModel.nextOpen(actionCount: actions.count, open: open) { open = next } else { onPress() }
       }
       .frame(width: CGFloat(CSControlsWaveStyleModel.fabMainSize()), height: CGFloat(CSControlsWaveStyleModel.fabMainSize()))
@@ -722,14 +729,47 @@ public struct CSFab: View {
   }
 
   private func dial(pack: CSTokenModePack) -> some View {
-    ForEach(Array(actions.enumerated()), id: \.offset) { _, action in
-      CSTriggerButton(action) { open = false }
+    ForEach(Array(actions.enumerated()), id: \.offset) { index, action in
+      CSTriggerButton(action) {
+        open = false
+        if let chosen = CSFabModel.selectAction(index: index, count: actions.count) { onSelectAction?(chosen) }
+      }
         .frame(width: CGFloat(CSControlsWaveStyleModel.fabMiniSize()), height: CGFloat(CSControlsWaveStyleModel.fabMiniSize()))
         .foregroundStyle(pack.primaryTextColor)
         .background(pack.colorSurfacePanel.color)
         .clipShape(Circle())
         .accessibilityLabel(action)
     }
+  }
+}
+
+public struct CSFloatingActionButton: View {
+  public let label: String
+  public let icon: String?
+  public let actions: [String]
+  public let position: String
+  public let placement: String?
+  let dark: Bool
+  let highContrast: Bool
+  let compact: Bool
+  let onPress: () -> Void
+  let onSelectAction: ((Int) -> Void)?
+
+  public init(label: String, icon: String? = nil, actions: [String] = [], position: String = "fixed", dark: Bool, highContrast: Bool, compact: Bool, onPress: @escaping () -> Void = {}, onSelectAction: ((Int) -> Void)? = nil, placement: String? = nil) {
+    self.label = label
+    self.icon = icon
+    self.actions = actions
+    self.position = position
+    self.placement = placement
+    self.dark = dark
+    self.highContrast = highContrast
+    self.compact = compact
+    self.onPress = onPress
+    self.onSelectAction = onSelectAction
+  }
+
+  public var body: some View {
+    CSFab(label: label, icon: icon, actions: actions, position: position, dark: dark, highContrast: highContrast, compact: compact, onPress: onPress, onSelectAction: onSelectAction, placement: placement)
   }
 }
 
@@ -923,6 +963,38 @@ public struct CSAIDisclosure: View {
         measurePass = 0
       }
     }
+  }
+}
+
+public struct CSAIDisclosureBadge: View {
+  public let label: String?
+  public let details: String?
+  public let sources: [String]
+  public let expandedLabel: String
+  public let collapsedLabel: String
+  @Binding var open: Bool
+  let dark: Bool
+  let highContrast: Bool
+  let compact: Bool
+  public let language: String?
+  public let placement: String?
+
+  public init(label: String? = nil, details: String? = nil, sources: [String] = [], expandedLabel: String = "true", collapsedLabel: String = "false", open: Binding<Bool>, dark: Bool, highContrast: Bool, compact: Bool, language: String? = nil, placement: String? = nil) {
+    self.label = label
+    self.details = details
+    self.sources = sources
+    self.expandedLabel = expandedLabel
+    self.collapsedLabel = collapsedLabel
+    _open = open
+    self.dark = dark
+    self.highContrast = highContrast
+    self.compact = compact
+    self.language = language
+    self.placement = placement
+  }
+
+  public var body: some View {
+    CSAIDisclosure(label: label, details: details, sources: sources, expandedLabel: expandedLabel, collapsedLabel: collapsedLabel, open: $open, dark: dark, highContrast: highContrast, compact: compact, language: language, placement: placement)
   }
 }
 

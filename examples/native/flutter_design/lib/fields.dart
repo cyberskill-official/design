@@ -877,10 +877,68 @@ class _CsPopoverState extends State<CsPopover> {
 double csListGap() => 2;
 double csListItemPaddingY() => 10;
 bool csListIsInteractive(bool hasOnClick) => hasOnClick;
+String csListRowTag(bool interactive) => interactive ? 'button' : 'div';
+String? csListRowRole(bool interactive) => interactive ? null : 'listitem';
+bool csListWrapsListItem(bool interactive) => interactive;
 double csListItemBorderWidth() => 0;
 bool csListItemShowsHoverFill({required bool interactive, required bool hovered}) => interactive && hovered;
 double csListMainGap() => 1;
 bool csListShowsSlot(String? value) => value != null;
+
+class CsListItem extends StatelessWidget {
+  const CsListItem({
+    super.key,
+    this.title,
+    this.subtitle,
+    this.lead,
+    this.trail,
+    this.onClick,
+    required this.dark,
+    required this.highContrast,
+    required this.compact,
+  });
+
+  final String? title;
+  final String? subtitle;
+  final String? lead;
+  final String? trail;
+  final VoidCallback? onClick;
+  final bool dark;
+  final bool highContrast;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) {
+    final pack = csModePack(dark: dark, highContrast: highContrast, compact: compact);
+    final interactive = csListIsInteractive(onClick != null);
+    return GestureDetector(
+      onTap: interactive ? onClick : null,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: csPoints(pack.space3), vertical: csListItemPaddingY()),
+        child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+          if (csListShowsSlot(lead)) ...[
+            Text(lead!, style: TextStyle(color: csColor(pack.colorTextAccent))),
+            SizedBox(width: csPoints(pack.space3)),
+          ],
+          Expanded(
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              if (csListShowsSlot(title))
+                Text(title!, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextPrimary), fontSize: csPoints(pack.fontSizeSm), fontWeight: FontWeight.w600)),
+              if (csListShowsSlot(subtitle)) ...[
+                SizedBox(height: csListMainGap()),
+                Text(subtitle!, textAlign: TextAlign.start, style: TextStyle(color: csColor(pack.colorTextMuted), fontSize: csPoints(pack.fontSizeXs))),
+              ],
+            ]),
+          ),
+          if (csListShowsSlot(trail)) ...[
+            SizedBox(width: csPoints(pack.space3)),
+            Text(trail!, style: TextStyle(color: csColor(pack.colorTextMuted), fontSize: csPoints(pack.fontSizeSm))),
+          ],
+        ]),
+      ),
+    );
+  }
+}
 
 class CsList extends StatefulWidget {
   const CsList({super.key, required this.items, required this.dark, required this.highContrast, required this.compact, this.leads = const [], this.trails = const [], this.onSelect});

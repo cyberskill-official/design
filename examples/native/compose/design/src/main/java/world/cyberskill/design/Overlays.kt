@@ -55,6 +55,9 @@ import androidx.compose.ui.unit.dp
 enum class CsRovingKey { Right, Left, Up, Down, Home, End }
 
 const val csFabMain = 56.0
+fun csFabIsStatic(position: String?) = position == "static"
+fun csFabMainGlyph(icon: String?, label: String) = icon ?: label
+fun csFabSelectAction(index: Int, count: Int): Int? = if (index in 0 until count) index else null
 fun csFabNextOpen(actionCount: Int, open: Boolean) = if (actionCount > 0) !open else null
 fun csFabPlacement(explicit: String?) = explicit ?: "top-end"
 const val csFabGap = 10.0
@@ -408,7 +411,7 @@ fun CsBackTop(offset: Double, onPress: () -> Unit, dark: Boolean, highContrast: 
 }
 
 @Composable
-fun CsFab(label: String, actions: List<String>, onPress: () -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier) {
+fun CsFab(label: String, actions: List<String>, onPress: () -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, icon: String? = null, position: String = "fixed", placement: String? = null, onSelectAction: ((Int) -> Unit)? = null) {
   val pack = csModePack(dark, highContrast, compact)
   var open by remember { mutableStateOf(false) }
   var field by remember { mutableStateOf<CsFloatingRect?>(null) }
@@ -424,7 +427,7 @@ fun CsFab(label: String, actions: List<String>, onPress: () -> Unit, dark: Boole
   val place = field?.let { box ->
     val first = natural
     val second = fitted
-    if (first == null || second == null) null else csFabShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, csFabPlacement(null))
+    if (first == null || second == null) null else csFabShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, csFabPlacement(placement))
   }
   if (!open && natural != null) { natural = null; fitted = null }
   Column(modifier) {
@@ -443,15 +446,25 @@ fun CsFab(label: String, actions: List<String>, onPress: () -> Unit, dark: Boole
       }.offset(x = with(density) { (place?.x ?: 0.0).toFloat().toDp() }, y = with(density) { (place?.y ?: 0.0).toFloat().toDp() }).alpha(if (place == null) 0f else 1f),
       verticalArrangement = Arrangement.spacedBy(csControlsWaveStyleFabDialGap()),
     ) {
-      actions.forEach { action -> CsTriggerButton(title = action, onClick = { open = false }, modifier = Modifier.size(csControlsWaveStyleFabMiniSize()).minimumInteractiveComponentSize()) { Text(action) } }
+      actions.forEachIndexed { index, action ->
+        CsTriggerButton(title = action, onClick = {
+          open = false
+          csFabSelectAction(index, actions.size)?.let { onSelectAction?.invoke(it) }
+        }, modifier = Modifier.size(csControlsWaveStyleFabMiniSize()).minimumInteractiveComponentSize()) { Text(action) }
+      }
     }
-    CsTriggerButton(title = label, onClick = { if (actions.isEmpty()) onPress() else open = !open }, modifier = Modifier.size(csControlsWaveStyleFabMainSize()).minimumInteractiveComponentSize().onGloballyPositioned {
+    CsTriggerButton(title = csFabMainGlyph(icon, label), onClick = { if (actions.isEmpty()) onPress() else open = !open }, modifier = Modifier.size(csControlsWaveStyleFabMainSize()).minimumInteractiveComponentSize().onGloballyPositioned {
       val bounds = it.boundsInWindow()
       field = CsFloatingRect(bounds.left.toDouble(), bounds.top.toDouble(), bounds.right.toDouble(), bounds.bottom.toDouble(), bounds.width.toDouble(), bounds.height.toDouble())
-    }.background(pack.colorBrandUmber.toComposeColor())) {
-      Text(label, color = pack.colorSemanticInfoFg.toComposeColor())
+    }.background(pack.colorBrandUmber.toComposeColor()).semantics { contentDescription = label }) {
+      Text(csFabMainGlyph(icon, label), color = pack.colorSemanticInfoFg.toComposeColor())
     }
   }
+}
+
+@Composable
+fun CsFloatingActionButton(label: String, actions: List<String> = emptyList(), onPress: () -> Unit = {}, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, icon: String? = null, position: String = "fixed", placement: String? = null, onSelectAction: ((Int) -> Unit)? = null) {
+  CsFab(label = label, actions = actions, onPress = onPress, dark = dark, highContrast = highContrast, compact = compact, modifier = modifier, icon = icon, position = position, placement = placement, onSelectAction = onSelectAction)
 }
 
 const val csDisclosureLabel = "AI assisted"
@@ -489,7 +502,7 @@ fun csDisclosureShift(anchor: CsFloatingRect, naturalWidth: Double, naturalHeigh
   return CsDisclosurePlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement)
 }
 @Composable
-fun CsAIDisclosure(sources: List<String>, expandedLabel: String, collapsedLabel: String, open: Boolean, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, details: String? = null, language: String? = null) {
+fun CsAIDisclosure(sources: List<String>, expandedLabel: String, collapsedLabel: String, open: Boolean, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, details: String? = null, language: String? = null, placement: String? = null) {
   val pack = csModePack(dark, highContrast, compact)
   val spoken = csComboboxResolvedLanguage(language, LocalCsLanguage.current)
   val badge = csDisclosureLabelText(label, csDisclosureCopy("label", spoken))
@@ -508,7 +521,7 @@ fun CsAIDisclosure(sources: List<String>, expandedLabel: String, collapsedLabel:
   val place = field?.let { box ->
     val first = natural
     val second = fitted
-    if (first == null || second == null) null else csDisclosureShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, csDisclosurePlacementText(null, csDisclosurePlacement))
+    if (first == null || second == null) null else csDisclosureShift(box, first.first, first.second, second.first, second.second, viewport, origin.first, origin.second, panelScale.first, panelScale.second, csDisclosurePlacementText(placement, csDisclosurePlacement))
   }
   if (!open && natural != null) { natural = null; fitted = null }
   Column(modifier, verticalArrangement = Arrangement.spacedBy(csDisclosureStylePanelTopOffset())) {
@@ -547,6 +560,11 @@ fun CsAIDisclosure(sources: List<String>, expandedLabel: String, collapsedLabel:
       }
     }
   }
+}
+
+@Composable
+fun CsAIDisclosureBadge(sources: List<String> = emptyList(), expandedLabel: String = "true", collapsedLabel: String = "false", open: Boolean, onOpenChange: (Boolean) -> Unit, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, label: String? = null, details: String? = null, language: String? = null, placement: String? = null) {
+  CsAIDisclosure(sources = sources, expandedLabel = expandedLabel, collapsedLabel = collapsedLabel, open = open, onOpenChange = onOpenChange, dark = dark, highContrast = highContrast, compact = compact, modifier = modifier, label = label, details = details, language = language, placement = placement)
 }
 
 @Composable

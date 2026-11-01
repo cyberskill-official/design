@@ -41,6 +41,9 @@ String csMenuCopy(String key, String? language) {
 }
 
 const csFabMain = 56.0;
+bool csFabIsStatic(String? position) => position == 'static';
+String csFabMainGlyph(String? icon, String label) => icon ?? label;
+int? csFabSelectAction(int index, int count) => index >= 0 && index < count ? index : null;
 String csFabPlacement(String? explicit) => explicit ?? 'top-end';
 const csFabGap = 10.0;
 class CsFabPlace {
@@ -478,16 +481,39 @@ class CsBackTop extends StatelessWidget {
 }
 
 class CsFab extends StatefulWidget {
-  const CsFab({super.key, required this.label, required this.onPress, required this.dark, required this.highContrast, required this.compact, this.actions = const []});
+  const CsFab({super.key, required this.label, required this.onPress, required this.dark, required this.highContrast, required this.compact, this.icon, this.actions = const [], this.position = 'fixed', this.placement, this.onSelectAction});
   final String label;
+  final String? icon;
   final List<String> actions;
+  final String position;
+  final String? placement;
   final VoidCallback onPress;
+  final ValueChanged<int>? onSelectAction;
   final bool dark;
   final bool highContrast;
   final bool compact;
 
   @override
   State<CsFab> createState() => _CsFabState();
+}
+
+class CsFloatingActionButton extends StatelessWidget {
+  const CsFloatingActionButton({super.key, required this.label, required this.onPress, required this.dark, required this.highContrast, required this.compact, this.icon, this.actions = const [], this.position = 'fixed', this.placement, this.onSelectAction});
+  final String label;
+  final String? icon;
+  final List<String> actions;
+  final String position;
+  final String? placement;
+  final VoidCallback onPress;
+  final ValueChanged<int>? onSelectAction;
+  final bool dark;
+  final bool highContrast;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) {
+    return CsFab(label: label, icon: icon, actions: actions, position: position, placement: placement, onPress: onPress, onSelectAction: onSelectAction, dark: dark, highContrast: highContrast, compact: compact);
+  }
 }
 
 class _CsFabState extends State<CsFab> {
@@ -523,7 +549,7 @@ class _CsFabState extends State<CsFab> {
       list.dy,
       1,
       1,
-      csFabPlacement(null),
+      csFabPlacement(widget.placement),
     );
     setState(() { fitted = listBox.size; place = next; });
   }
@@ -545,7 +571,16 @@ class _CsFabState extends State<CsFab> {
                 SizedBox(
                   width: csControlsWaveStyleFabMiniSize(),
                   height: csControlsWaveStyleFabMiniSize(),
-                  child: CsOwnFocus(builder: (node, claim) => TextButton(focusNode: node, onPressed: () { claim(); setState(() => open = false); }, child: Text(widget.actions[i]))),
+                  child: CsOwnFocus(builder: (node, claim) => TextButton(
+                    focusNode: node,
+                    onPressed: () {
+                      claim();
+                      setState(() => open = false);
+                      final chosen = csFabSelectAction(i, widget.actions.length);
+                      if (chosen != null) widget.onSelectAction?.call(chosen);
+                    },
+                    child: Text(widget.actions[i]),
+                  )),
                 ),
               ],
             ],
@@ -553,18 +588,22 @@ class _CsFabState extends State<CsFab> {
         SizedBox(
           width: csControlsWaveStyleFabMainSize(),
           height: csControlsWaveStyleFabMainSize(),
-          child: CsOwnFocus(builder: (node, claim) => TextButton(
-            key: fieldKey,
-            focusNode: node,
-            onPressed: () {
-              claim();
-              if (widget.actions.isEmpty) {
-                widget.onPress();
-              } else {
-                setState(() => open = !open);
-              }
-            },
-            child: Text(widget.label, style: TextStyle(color: csColor(pack.colorSemanticInfoFg))),
+          child: CsOwnFocus(builder: (node, claim) => Semantics(
+            label: widget.label,
+            button: true,
+            child: TextButton(
+              key: fieldKey,
+              focusNode: node,
+              onPressed: () {
+                claim();
+                if (widget.actions.isEmpty) {
+                  widget.onPress();
+                } else {
+                  setState(() => open = !open);
+                }
+              },
+              child: Text(csFabMainGlyph(widget.icon, widget.label), style: TextStyle(color: csColor(pack.colorSemanticInfoFg))),
+            ),
           )),
         ),
       ],
@@ -619,10 +658,11 @@ CsDisclosurePlace? csDisclosureShift(CsFloatingRect anchor, double naturalWidth,
   return CsDisclosurePlace((placed.left - originX) / sx, (placed.top - originY) / sy, initial.maxWidth, initial.maxHeight, placed.placement);
 }
 class CsAIDisclosure extends StatefulWidget {
-  const CsAIDisclosure({super.key, this.label, this.details, required this.sources, required this.expandedLabel, required this.collapsedLabel, required this.open, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, this.language});
+  const CsAIDisclosure({super.key, this.label, this.details, required this.sources, required this.expandedLabel, required this.collapsedLabel, required this.open, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, this.language, this.placement});
   final String? label;
   final String? details;
   final String? language;
+  final String? placement;
   final List<String> sources;
   final String expandedLabel;
   final String collapsedLabel;
@@ -633,6 +673,27 @@ class CsAIDisclosure extends StatefulWidget {
   final bool compact;
   @override
   State<CsAIDisclosure> createState() => _CsAIDisclosureState();
+}
+
+class CsAIDisclosureBadge extends StatelessWidget {
+  const CsAIDisclosureBadge({super.key, this.label, this.details, this.sources = const [], this.expandedLabel = 'true', this.collapsedLabel = 'false', required this.open, required this.onOpenChange, required this.dark, required this.highContrast, required this.compact, this.language, this.placement});
+  final String? label;
+  final String? details;
+  final String? language;
+  final String? placement;
+  final List<String> sources;
+  final String expandedLabel;
+  final String collapsedLabel;
+  final bool open;
+  final ValueChanged<bool> onOpenChange;
+  final bool dark;
+  final bool highContrast;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) {
+    return CsAIDisclosure(label: label, details: details, sources: sources, expandedLabel: expandedLabel, collapsedLabel: collapsedLabel, open: open, onOpenChange: onOpenChange, dark: dark, highContrast: highContrast, compact: compact, language: language, placement: placement);
+  }
 }
 
 class _CsAIDisclosureState extends State<CsAIDisclosure> {
@@ -667,7 +728,7 @@ class _CsAIDisclosureState extends State<CsAIDisclosure> {
       list.dy,
       1,
       1,
-      csDisclosurePlacementText(null, csDisclosurePlacement),
+      csDisclosurePlacementText(widget.placement, csDisclosurePlacement),
     );
     setState(() { fitted = listBox.size; place = next; });
   }

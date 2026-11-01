@@ -1,6 +1,6 @@
 # Handoff: 29 Oct 2026 audit remediation
 
-Updated: 2026-11-01, after the primitives-radio-tab-slider-stat-tag-parity checkpoint. Goal is still active. Do not mark it complete.
+Updated: 2026-11-01, after the overlays-fab-disclosure-listitem-parity checkpoint. Goal is still active. Do not mark it complete.
 
 Operator instruction for this checkpoint: commit and push, then record the behavior hash and push that note. Do not publish, deploy, or merge.
 
@@ -9,8 +9,8 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: `85486451c70215014e2b623af3621a0debaa7555` (`feat(native): align primitives radio, tab, slider, skeleton, tag, and stat with web contracts`)
-- Previous checkpoint: `9b38226d583973f5158a3520b9c3699790f7cc68`, with the hash note in `bfc64072`
+- Checkpoint commit: pending commit for `overlays-fab-disclosure-listitem-parity`
+- Previous checkpoint: `85486451c70215014e2b623af3621a0debaa7555`, with the hash note in `d7a86741`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
 The Cursor canvas is outside this git repo:
@@ -54,13 +54,13 @@ Last run after styling `Link`, `Anchor`, `Image`, `Toolbar`, `Menubar`, `Navigat
 
 ## Latest checkpoint
 
-Aligned `CSRadio`/`CsRadio`, `CSTab`/`CsTab`, `CSTabs`/`CsTabs`, `CSSlider`/`CsSlider`, `CSSkeleton`/`CsSkeleton`, `CSTag`/`CsTag`, and `CSStat`/`CsStat` across `Primitives.swift`, `Primitives.kt`, and `primitives.dart` with `RadioGroup.jsx`, `Tabs.jsx`, `Slider.jsx`, `Skeleton.jsx`, `Tag.jsx`, and `Stat.jsx`: exported standalone `CSRadio`/`CsRadio` and `CSTab`/`CsTab` controls on all three platforms; added `CSRadioModel.labelId`/`descId`/`labelledBy`/`describedBy` (`csRadioLabelId`/`csRadioDescId`/`csRadioLabelledBy`/`csRadioDescribedBy`), `CSTabsModel.orientation` (`csTabsOrientation`), and `count`/`id`/`controls` on `CSTabItem`/`CsTabItem`; wired Compose and Flutter `CsTabs` to render count pills and active bottom underlines; wired Compose and Flutter `CsSlider` to collapse reversed ranges (`csSliderUpper`) and snap values by `step` (`csSliderSnap`); wired Compose `CsSkeleton` through `csSkeletonLines`/`csSkeletonCircle`; added `CSTagModel.closeIconPath`/`closeIconSize`/`closeStrokeWidth`/`showsRemove`; and wired Compose and Flutter `CsStat` to token font sizes, delta gaps, and the SVG trend arrow path.
+Exported `CSFloatingActionButton`/`CsFloatingActionButton` and `CSAIDisclosureBadge`/`CsAIDisclosureBadge` on all three native platforms and `CsListItem` on Compose and Flutter (`CSListItem` already existed in SwiftUI), completing 100% export parity for all 120 PascalCase components in `_esm/react.mjs` across SwiftUI, Jetpack Compose, and Flutter; added `CSFabModel.isStatic`/`mainGlyph`/`selectAction` (`csFabIsStatic`/`csFabMainGlyph`/`csFabSelectAction`) and wired `icon`, `position`, `placement`, and `onSelectAction` into `CSFab`/`CsFab` and `CSFloatingActionButton`/`CsFloatingActionButton`; added `placement` to `CsAIDisclosure`/`CsAIDisclosureBadge` in Compose and Flutter; and added `CSListModel.rowTag(interactive:)`/`rowRole(interactive:)`/`wrapsListItem(interactive:)` (`csListRowTag`/`csListRowRole`/`csListWrapsListItem`) matching `ListItem` in `components/data/List.jsx`.
 
-- `swift test --package-path examples/native/swiftui` and `node _audit/ci/test-native-samples.mjs` passed.
+- `swift test --package-path examples/native/swiftui --filter testCatalogRulesMatchTheWebComponents` and `node _audit/ci/test-native-samples.mjs` passed.
 
 ## Next concrete step
 
-Inspect and close the next concrete behavioral parity gaps across `Catalog`, `Records`, `Overlays`, `Structures`, `Fields`, `Flows`, `Surfaces`, and `Remainder` against their web `components/**/*.jsx` counterparts (starting with `Overlays` and `Controls` exports `CSAIDisclosureBadge`, `CSFloatingActionButton`, `CsListItem`, and `Catalog` component behaviors).
+Inspect and close the next concrete behavioral parity gaps across `Catalog`, `Records`, `Overlays`, `Structures`, `Fields`, `Flows`, `Surfaces`, and `Remainder` against their web `components/**/*.jsx` counterparts (starting with `Catalog` components `CsTextarea`, `CsSearchField`, `CSResult`/`CsResult`, `CSToast`/`CsToast`, and `CSStatusIndicator`/`CsStatusIndicator`).
 
 Keep going one real behavior at a time. Do not stop at another string table when a view already calls `copy`. Do not redefine F8 as "struct names exist".
 

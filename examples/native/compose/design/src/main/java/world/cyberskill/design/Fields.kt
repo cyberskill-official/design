@@ -711,10 +711,30 @@ fun CsPopover(label: String, open: Boolean, onOpenChange: (Boolean) -> Unit, dar
 fun csListGap() = 2.dp
 fun csListItemPaddingY() = 10.dp
 fun csListIsInteractive(hasOnClick: Boolean) = hasOnClick
+fun csListRowTag(interactive: Boolean) = if (interactive) "button" else "div"
+fun csListRowRole(interactive: Boolean) = if (interactive) null else "listitem"
+fun csListWrapsListItem(interactive: Boolean) = interactive
 fun csListItemBorderWidth() = 0.dp
 fun csListItemShowsHoverFill(interactive: Boolean, hovered: Boolean) = interactive && hovered
 fun csListMainGap() = 1.dp
 fun csListShowsSlot(value: String?) = value != null
+
+@Composable
+fun CsListItem(title: String? = null, subtitle: String? = null, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, lead: String? = null, trail: String? = null, onClick: (() -> Unit)? = null) {
+  val pack = csModePack(dark, highContrast, compact)
+  val interactive = csListIsInteractive(onClick != null)
+  val interaction = remember { MutableInteractionSource() }
+  val hovered by interaction.collectIsHoveredAsState()
+  val showHover = csListItemShowsHoverFill(interactive, hovered)
+  Row(modifier.fillMaxWidth().hoverable(interaction).clip(RoundedCornerShape(pack.radiusMd.toDp())).background(if (showHover) pack.colorSurfaceRaised.toComposeColor() else Color.Transparent, RoundedCornerShape(pack.radiusMd.toDp())).let { if (interactive) it.clickable { onClick?.invoke() } else it }.padding(horizontal = pack.space3.toDp(), vertical = csListItemPaddingY()), horizontalArrangement = Arrangement.spacedBy(pack.space3.toDp()), verticalAlignment = Alignment.CenterVertically) {
+    if (csListShowsSlot(lead)) Text(lead ?: "", color = pack.colorTextAccent.toComposeColor())
+    Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(csListMainGap())) {
+      if (csListShowsSlot(title)) Text(title ?: "", color = pack.colorTextPrimary.toComposeColor(), fontSize = pack.fontSizeSm.toDp().value.sp, fontWeight = FontWeight.SemiBold)
+      if (csListShowsSlot(subtitle)) Text(subtitle ?: "", color = pack.colorTextMuted.toComposeColor(), fontSize = pack.fontSizeXs.toDp().value.sp)
+    }
+    if (csListShowsSlot(trail)) Text(trail ?: "", color = pack.colorTextMuted.toComposeColor(), fontSize = pack.fontSizeSm.toDp().value.sp)
+  }
+}
 
 @Composable
 fun CsList(items: List<Pair<String, String>>, dark: Boolean, highContrast: Boolean, compact: Boolean, modifier: Modifier = Modifier, leads: List<String?> = emptyList(), trails: List<String?> = emptyList(), onSelect: ((Int) -> Unit)? = null) {

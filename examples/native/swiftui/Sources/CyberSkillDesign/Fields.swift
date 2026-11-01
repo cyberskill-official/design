@@ -1606,6 +1606,9 @@ public enum CSListModel {
   public static func gap() -> Double { 2 }
   public static func itemPaddingY() -> Double { 10 }
   public static func isInteractive(hasOnClick: Bool) -> Bool { hasOnClick }
+  public static func rowTag(interactive: Bool) -> String { interactive ? "button" : "div" }
+  public static func rowRole(interactive: Bool) -> String? { interactive ? nil : "listitem" }
+  public static func wrapsListItem(interactive: Bool) -> Bool { interactive }
   public static func itemBorderWidth() -> Double { 0 }
   public static func itemShowsHoverFill(interactive: Bool, hovered: Bool) -> Bool { interactive && hovered }
   public static func mainGap() -> Double { 1 }

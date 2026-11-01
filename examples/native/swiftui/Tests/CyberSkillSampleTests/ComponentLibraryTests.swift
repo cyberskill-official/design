@@ -3244,6 +3244,23 @@ final class ComponentLibraryTests: XCTestCase {
     XCTAssertEqual(CSTagModel.closeStrokeWidth(), 2.4)
     XCTAssertTrue(CSTagModel.showsRemove(hasOnRemove: true))
     XCTAssertFalse(CSTagModel.showsRemove(hasOnRemove: false))
+    XCTAssertTrue(CSFabModel.isStatic("static"))
+    XCTAssertFalse(CSFabModel.isStatic("fixed"))
+    XCTAssertEqual(CSFabModel.mainGlyph(icon: "+", label: "Create"), "+")
+    XCTAssertEqual(CSFabModel.mainGlyph(icon: nil, label: "Create"), "Create")
+    XCTAssertEqual(CSFabModel.selectAction(index: 1, count: 3), 1)
+    XCTAssertNil(CSFabModel.selectAction(index: 3, count: 3))
+    let fabAlias = CSFloatingActionButton(label: "Create", icon: "+", actions: ["Note"], position: "static", dark: false, highContrast: false, compact: false)
+    XCTAssertEqual(fabAlias.label, "Create")
+    XCTAssertEqual(fabAlias.icon, "+")
+    let disclosureAlias = CSAIDisclosureBadge(label: "AI", sources: ["Doc"], open: .constant(false), dark: false, highContrast: false, compact: false)
+    XCTAssertEqual(disclosureAlias.label, "AI")
+    XCTAssertEqual(CSListModel.rowTag(interactive: true), "button")
+    XCTAssertEqual(CSListModel.rowTag(interactive: false), "div")
+    XCTAssertNil(CSListModel.rowRole(interactive: true))
+    XCTAssertEqual(CSListModel.rowRole(interactive: false), "listitem")
+    XCTAssertTrue(CSListModel.wrapsListItem(interactive: true))
+    XCTAssertFalse(CSListModel.wrapsListItem(interactive: false))
   }
 
   func testSwitchAndDialogExposeTheModeResolvedControls() {
