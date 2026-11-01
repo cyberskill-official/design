@@ -943,6 +943,99 @@ double csDataStyleScrollAreaFocusHaloSpread(bool focused) => focused ? 5 : 0;
 double csDataStyleAspectRatioRadius(CSTokenModePack pack) => csPoints(pack.radiusMd);
 String csDataStyleAspectRatioMediaObjectFit() => 'cover';
 
+const double csNavigationStylePaginationDisabledOpacity = 0.45;
+const double csNavigationStyleMenuDangerHoverAlpha = 0.1;
+double csNavigationStyleTabsGap() => 4;
+double csNavigationStyleTabsBorderBottomWidth() => 1;
+int csNavigationStyleTabFontWeight() => 600;
+double csNavigationStyleTabFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeSm);
+double csNavigationStyleTabPaddingY() => 10;
+double csNavigationStyleTabPaddingX() => 14;
+double csNavigationStyleTabBorderBottomWidth() => 2;
+double csNavigationStyleTabGap() => 7;
+CSColorValue csNavigationStyleTabTextColor(
+  CSTokenModePack pack, {
+  bool selected = false,
+  bool hovered = false,
+  bool dark = false,
+}) =>
+    selected
+        ? (dark ? pack.colorBrandOchre : pack.colorBrandUmber)
+        : hovered
+            ? pack.colorTextPrimary
+            : pack.colorTextMuted;
+CSColorValue? csNavigationStyleTabBorderBottomColor(CSTokenModePack pack, {bool selected = false}) =>
+    selected ? pack.colorBrandOchre : null;
+double csNavigationStyleTabFocusOutlineWidth(bool focused) => focused ? 2 : 0;
+double csNavigationStyleTabFocusOutlineOffset(bool focused) => focused ? -3 : 0;
+double csNavigationStyleTabFocusRadius(CSTokenModePack pack) => csPoints(pack.radiusSm);
+double csNavigationStyleTabFocusHaloSpread(bool focused) => focused ? 5 : 0;
+double csNavigationStyleTabCountFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeXs);
+double csNavigationStyleTabCountPaddingY() => 1;
+double csNavigationStyleTabCountPaddingX() => 7;
+double csNavigationStyleBreadcrumbGap() => 8;
+double csNavigationStyleBreadcrumbItemGap() => 8;
+double csNavigationStyleBreadcrumbFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeSm);
+CSColorValue csNavigationStyleBreadcrumbLinkColor(CSTokenModePack pack, {bool hovered = false}) =>
+    hovered ? pack.colorTextAccent : pack.colorTextMuted;
+CSColorValue csNavigationStyleBreadcrumbSeparatorColor(CSTokenModePack pack) =>
+    pack.colorBorderDefault;
+int csNavigationStyleBreadcrumbCurrentFontWeight() => 600;
+CSColorValue csNavigationStyleBreadcrumbCurrentColor(CSTokenModePack pack) =>
+    pack.colorTextPrimary;
+double csNavigationStylePaginationGap() => 4;
+double csNavigationStylePaginationButtonSize() => 38;
+double csNavigationStylePaginationButtonPaddingX() => 10;
+double csNavigationStylePaginationButtonBorderWidth() => 1;
+int csNavigationStylePaginationButtonFontWeight() => 600;
+double csNavigationStylePaginationButtonFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeSm);
+CSColorValue csNavigationStylePaginationButtonBackground(
+  CSTokenModePack pack, {
+  bool current = false,
+  bool dark = false,
+}) =>
+    current ? (dark ? pack.colorBrandOchre : pack.colorBrandUmber) : pack.colorSurfacePanel;
+CSColorValue csNavigationStylePaginationButtonForeground(
+  CSTokenModePack pack, {
+  bool current = false,
+  bool dark = false,
+}) =>
+    current ? (dark ? pack.colorBrandUmber : pack.colorTextInverse) : pack.colorTextPrimary;
+CSColorValue? csNavigationStylePaginationButtonBorderColor(
+  CSTokenModePack pack, {
+  bool current = false,
+  bool hovered = false,
+  bool disabled = false,
+}) {
+  if (current) return null;
+  return (hovered && !disabled) ? pack.colorBrandOchre : pack.colorBorderDefault;
+}
+double csNavigationStylePaginationButtonOpacity({bool disabled = false}) =>
+    disabled ? csNavigationStylePaginationDisabledOpacity : 1.0;
+double csNavigationStylePaginationEllipsisPaddingX() => 4;
+double csNavigationStyleMenuListOffset() => 6;
+double csNavigationStyleMenuListMinWidth() => 200;
+double csNavigationStyleMenuListBorderWidth() => 1;
+double csNavigationStyleMenuListPadding() => 6;
+double csNavigationStyleMenuListDepth(CSTokenModePack pack) => pack.depthDropdown;
+double csNavigationStyleMenuListGap() => 2;
+double csNavigationStyleMenuItemGap() => 10;
+double csNavigationStyleMenuItemFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeSm);
+double csNavigationStyleMenuItemPaddingY() => 8;
+double csNavigationStyleMenuItemPaddingX() => 10;
+double csNavigationStyleMenuItemFocusOutlineWidth(bool focused) => focused ? 2 : 0;
+double csNavigationStyleMenuItemFocusOutlineOffset(bool focused) => focused ? -3 : 0;
+double csNavigationStyleMenuItemFocusHaloSpread(bool focused) => focused ? 5 : 0;
+double csNavigationStyleMenuSeparatorHeight() => 1;
+double csNavigationStyleMenuSeparatorMarginY() => 4;
+double csNavigationStyleMenuSeparatorMarginX() => 2;
+double csNavigationStyleMenuLabelFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeXs);
+const double csNavigationStyleMenuLabelLetterSpacingEm = 0.08;
+bool csNavigationStyleMenuLabelUppercase() => true;
+double csNavigationStyleMenuLabelPaddingTop() => 6;
+double csNavigationStyleMenuLabelPaddingX() => 10;
+double csNavigationStyleMenuLabelPaddingBottom() => 2;
+
 class CsDivider extends StatelessWidget {
   const CsDivider({
     super.key,

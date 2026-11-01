@@ -760,6 +760,84 @@ public enum CSDataStyleModel {
   public static func aspectRatioMediaObjectFit() -> String { "cover" }
 }
 
+public enum CSNavigationStyleModel {
+  public static let paginationDisabledOpacity = 0.45
+  public static let menuDangerHoverAlpha = 0.1
+  public static func tabsGap() -> Double { 4 }
+  public static func tabsBorderBottomWidth() -> Double { 1 }
+  public static func tabFontWeight() -> Int { 600 }
+  public static func tabFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeSm.points }
+  public static func tabPaddingY() -> Double { 10 }
+  public static func tabPaddingX() -> Double { 14 }
+  public static func tabBorderBottomWidth() -> Double { 2 }
+  public static func tabGap() -> Double { 7 }
+  public static func tabTextColor(selected: Bool = false, hovered: Bool = false, dark: Bool = false, pack: CSTokenModePack) -> CSColorValue {
+    if selected { return dark ? pack.colorBrandOchre : pack.colorBrandUmber }
+    return hovered ? pack.colorTextPrimary : pack.colorTextMuted
+  }
+  public static func tabBorderBottomColor(selected: Bool = false, pack: CSTokenModePack) -> CSColorValue? {
+    selected ? pack.colorBrandOchre : nil
+  }
+  public static func tabFocusOutlineWidth(focused: Bool) -> Double { focused ? 2 : 0 }
+  public static func tabFocusOutlineOffset(focused: Bool) -> Double { focused ? -3 : 0 }
+  public static func tabFocusRadius(_ pack: CSTokenModePack) -> Double { pack.radiusSm.points }
+  public static func tabFocusHaloSpread(focused: Bool) -> Double { focused ? 5 : 0 }
+  public static func tabCountFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeXs.points }
+  public static func tabCountPaddingY() -> Double { 1 }
+  public static func tabCountPaddingX() -> Double { 7 }
+  public static func breadcrumbGap() -> Double { 8 }
+  public static func breadcrumbItemGap() -> Double { 8 }
+  public static func breadcrumbFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeSm.points }
+  public static func breadcrumbLinkColor(hovered: Bool = false, pack: CSTokenModePack) -> CSColorValue {
+    hovered ? pack.colorTextAccent : pack.colorTextMuted
+  }
+  public static func breadcrumbSeparatorColor(_ pack: CSTokenModePack) -> CSColorValue { pack.colorBorderDefault }
+  public static func breadcrumbCurrentFontWeight() -> Int { 600 }
+  public static func breadcrumbCurrentColor(_ pack: CSTokenModePack) -> CSColorValue { pack.colorTextPrimary }
+  public static func paginationGap() -> Double { 4 }
+  public static func paginationButtonSize() -> Double { 38 }
+  public static func paginationButtonPaddingX() -> Double { 10 }
+  public static func paginationButtonBorderWidth() -> Double { 1 }
+  public static func paginationButtonFontWeight() -> Int { 600 }
+  public static func paginationButtonFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeSm.points }
+  public static func paginationButtonBackground(current: Bool = false, dark: Bool = false, pack: CSTokenModePack) -> CSColorValue {
+    current ? (dark ? pack.colorBrandOchre : pack.colorBrandUmber) : pack.colorSurfacePanel
+  }
+  public static func paginationButtonForeground(current: Bool = false, dark: Bool = false, pack: CSTokenModePack) -> CSColorValue {
+    current ? (dark ? pack.colorBrandUmber : pack.colorTextInverse) : pack.colorTextPrimary
+  }
+  public static func paginationButtonBorderColor(current: Bool = false, hovered: Bool = false, disabled: Bool = false, pack: CSTokenModePack) -> CSColorValue? {
+    if current { return nil }
+    return (hovered && !disabled) ? pack.colorBrandOchre : pack.colorBorderDefault
+  }
+  public static func paginationButtonOpacity(disabled: Bool = false) -> Double {
+    disabled ? paginationDisabledOpacity : 1.0
+  }
+  public static func paginationEllipsisPaddingX() -> Double { 4 }
+  public static func menuListOffset() -> Double { 6 }
+  public static func menuListMinWidth() -> Double { 200 }
+  public static func menuListBorderWidth() -> Double { 1 }
+  public static func menuListPadding() -> Double { 6 }
+  public static func menuListDepth(_ pack: CSTokenModePack) -> Double { pack.depthDropdown }
+  public static func menuListGap() -> Double { 2 }
+  public static func menuItemGap() -> Double { 10 }
+  public static func menuItemFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeSm.points }
+  public static func menuItemPaddingY() -> Double { 8 }
+  public static func menuItemPaddingX() -> Double { 10 }
+  public static func menuItemFocusOutlineWidth(focused: Bool) -> Double { focused ? 2 : 0 }
+  public static func menuItemFocusOutlineOffset(focused: Bool) -> Double { focused ? -3 : 0 }
+  public static func menuItemFocusHaloSpread(focused: Bool) -> Double { focused ? 5 : 0 }
+  public static func menuSeparatorHeight() -> Double { 1 }
+  public static func menuSeparatorMarginY() -> Double { 4 }
+  public static func menuSeparatorMarginX() -> Double { 2 }
+  public static func menuLabelFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeXs.points }
+  public static func menuLabelLetterSpacingEm() -> Double { 0.08 }
+  public static func menuLabelUppercase() -> Bool { true }
+  public static func menuLabelPaddingTop() -> Double { 6 }
+  public static func menuLabelPaddingX() -> Double { 10 }
+  public static func menuLabelPaddingBottom() -> Double { 2 }
+}
+
 public struct CSDivider: View {
   public let label: CSPresenceValue
   public let vertical: Bool

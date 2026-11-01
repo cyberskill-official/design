@@ -723,6 +723,74 @@ fun csDataStyleScrollAreaFocusHaloSpread(focused: Boolean) = if (focused) 5.dp e
 fun csDataStyleAspectRatioRadius(pack: CSTokenModePack) = pack.radiusMd.toDp()
 fun csDataStyleAspectRatioMediaObjectFit() = "cover"
 
+const val csNavigationStylePaginationDisabledOpacity = 0.45f
+const val csNavigationStyleMenuDangerHoverAlpha = 0.1f
+fun csNavigationStyleTabsGap() = 4.dp
+fun csNavigationStyleTabsBorderBottomWidth() = 1.dp
+fun csNavigationStyleTabFontWeight() = 600
+fun csNavigationStyleTabFontSize(pack: CSTokenModePack) = pack.fontSizeSm.toDp()
+fun csNavigationStyleTabPaddingY() = 10.dp
+fun csNavigationStyleTabPaddingX() = 14.dp
+fun csNavigationStyleTabBorderBottomWidth() = 2.dp
+fun csNavigationStyleTabGap() = 7.dp
+fun csNavigationStyleTabTextColor(selected: Boolean = false, hovered: Boolean = false, dark: Boolean = false, pack: CSTokenModePack) =
+  if (selected) (if (dark) pack.colorBrandOchre else pack.colorBrandUmber)
+  else if (hovered) pack.colorTextPrimary else pack.colorTextMuted
+fun csNavigationStyleTabBorderBottomColor(selected: Boolean = false, pack: CSTokenModePack) =
+  if (selected) pack.colorBrandOchre else null
+fun csNavigationStyleTabFocusOutlineWidth(focused: Boolean) = if (focused) 2.dp else 0.dp
+fun csNavigationStyleTabFocusOutlineOffset(focused: Boolean) = if (focused) (-3).dp else 0.dp
+fun csNavigationStyleTabFocusRadius(pack: CSTokenModePack) = pack.radiusSm.toDp()
+fun csNavigationStyleTabFocusHaloSpread(focused: Boolean) = if (focused) 5.dp else 0.dp
+fun csNavigationStyleTabCountFontSize(pack: CSTokenModePack) = pack.fontSizeXs.toDp()
+fun csNavigationStyleTabCountPaddingY() = 1.dp
+fun csNavigationStyleTabCountPaddingX() = 7.dp
+fun csNavigationStyleBreadcrumbGap() = 8.dp
+fun csNavigationStyleBreadcrumbItemGap() = 8.dp
+fun csNavigationStyleBreadcrumbFontSize(pack: CSTokenModePack) = pack.fontSizeSm.toDp()
+fun csNavigationStyleBreadcrumbLinkColor(hovered: Boolean = false, pack: CSTokenModePack) =
+  if (hovered) pack.colorTextAccent else pack.colorTextMuted
+fun csNavigationStyleBreadcrumbSeparatorColor(pack: CSTokenModePack) = pack.colorBorderDefault
+fun csNavigationStyleBreadcrumbCurrentFontWeight() = 600
+fun csNavigationStyleBreadcrumbCurrentColor(pack: CSTokenModePack) = pack.colorTextPrimary
+fun csNavigationStylePaginationGap() = 4.dp
+fun csNavigationStylePaginationButtonSize() = 38.dp
+fun csNavigationStylePaginationButtonPaddingX() = 10.dp
+fun csNavigationStylePaginationButtonBorderWidth() = 1.dp
+fun csNavigationStylePaginationButtonFontWeight() = 600
+fun csNavigationStylePaginationButtonFontSize(pack: CSTokenModePack) = pack.fontSizeSm.toDp()
+fun csNavigationStylePaginationButtonBackground(current: Boolean = false, dark: Boolean = false, pack: CSTokenModePack) =
+  if (current) (if (dark) pack.colorBrandOchre else pack.colorBrandUmber) else pack.colorSurfacePanel
+fun csNavigationStylePaginationButtonForeground(current: Boolean = false, dark: Boolean = false, pack: CSTokenModePack) =
+  if (current) (if (dark) pack.colorBrandUmber else pack.colorTextInverse) else pack.colorTextPrimary
+fun csNavigationStylePaginationButtonBorderColor(current: Boolean = false, hovered: Boolean = false, disabled: Boolean = false, pack: CSTokenModePack) =
+  if (current) null else if (hovered && !disabled) pack.colorBrandOchre else pack.colorBorderDefault
+fun csNavigationStylePaginationButtonOpacity(disabled: Boolean = false) =
+  if (disabled) csNavigationStylePaginationDisabledOpacity else 1f
+fun csNavigationStylePaginationEllipsisPaddingX() = 4.dp
+fun csNavigationStyleMenuListOffset() = 6.dp
+fun csNavigationStyleMenuListMinWidth() = 200.dp
+fun csNavigationStyleMenuListBorderWidth() = 1.dp
+fun csNavigationStyleMenuListPadding() = 6.dp
+fun csNavigationStyleMenuListDepth(pack: CSTokenModePack) = pack.depthDropdown
+fun csNavigationStyleMenuListGap() = 2.dp
+fun csNavigationStyleMenuItemGap() = 10.dp
+fun csNavigationStyleMenuItemFontSize(pack: CSTokenModePack) = pack.fontSizeSm.toDp()
+fun csNavigationStyleMenuItemPaddingY() = 8.dp
+fun csNavigationStyleMenuItemPaddingX() = 10.dp
+fun csNavigationStyleMenuItemFocusOutlineWidth(focused: Boolean) = if (focused) 2.dp else 0.dp
+fun csNavigationStyleMenuItemFocusOutlineOffset(focused: Boolean) = if (focused) (-3).dp else 0.dp
+fun csNavigationStyleMenuItemFocusHaloSpread(focused: Boolean) = if (focused) 5.dp else 0.dp
+fun csNavigationStyleMenuSeparatorHeight() = 1.dp
+fun csNavigationStyleMenuSeparatorMarginY() = 4.dp
+fun csNavigationStyleMenuSeparatorMarginX() = 2.dp
+fun csNavigationStyleMenuLabelFontSize(pack: CSTokenModePack) = pack.fontSizeXs.toDp()
+const val csNavigationStyleMenuLabelLetterSpacingEm = 0.08
+fun csNavigationStyleMenuLabelUppercase() = true
+fun csNavigationStyleMenuLabelPaddingTop() = 6.dp
+fun csNavigationStyleMenuLabelPaddingX() = 10.dp
+fun csNavigationStyleMenuLabelPaddingBottom() = 2.dp
+
 @Composable
 fun CsDivider(
   dark: Boolean,
