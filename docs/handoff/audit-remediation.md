@@ -9,7 +9,7 @@ Operator instruction for this checkpoint: commit and push, then record the behav
 - Repo: `/Users/stephencheng/Projects/CyberSkill/design`
 - Branch: `main`, tracking `origin/main`
 - Audit baseline before this work: `b935f72be11c464603f533a694b043c52f90e747` (`v2.0.0`)
-- Checkpoint commit: pending commit for `overlays-fab-disclosure-listitem-parity`
+- Checkpoint commit: `2c926972e05c1c342d8dc15fd65f90e5e937a2c4` (`feat(native): export CSFloatingActionButton, CSAIDisclosureBadge, and CsListItem with speed-dial and listitem contracts`)
 - Previous checkpoint: `85486451c70215014e2b623af3621a0debaa7555`, with the hash note in `d7a86741`
 - GitHub Actions push workflows temporarily disabled during intermediate checkpoint pushes (`316944477`, `377620668`, `318755963`, `330342703`)
 
