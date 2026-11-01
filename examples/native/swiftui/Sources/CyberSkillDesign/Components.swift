@@ -838,6 +838,104 @@ public enum CSNavigationStyleModel {
   public static func menuLabelPaddingBottom() -> Double { 2 }
 }
 
+public enum CSAIStyleModel {
+  public static let userInkHex = "#ffffff"
+  public static let suggestHoverOchrePortion = 0.08
+  public static let typingIdleOpacity = 0.5
+  public static let typingPeakOpacity = 1.0
+  public static let typingReducedMotionOpacity = 0.7
+  public static let citationBadgeInfoPortion = 0.14
+  public static let lumiHighlightHex = "#ffd873"
+  public static let lumiRingOchreAlpha = 0.34
+  public static func promptBorderWidth() -> Double { 1 }
+  public static func promptPaddingY() -> Double { 10 }
+  public static func promptPaddingX() -> Double { 12 }
+  public static func promptGap() -> Double { 8 }
+  public static func promptBorderColor(focusedWithin: Bool = false, pack: CSTokenModePack) -> CSColorValue {
+    focusedWithin ? pack.colorTextPrimary : pack.colorBorderDefault
+  }
+  public static func promptFocusOutlineWidth(focusedWithin: Bool) -> Double { focusedWithin ? 2 : 0 }
+  public static func promptFocusOutlineOffset(focusedWithin: Bool) -> Double { focusedWithin ? 2 : 0 }
+  public static func promptFocusHaloSpread(focusedWithin: Bool) -> Double { focusedWithin ? 5 : 0 }
+  public static func promptFieldMinHeight() -> Double { 44 }
+  public static func promptFieldLineHeight(_ pack: CSTokenModePack) -> Double { pack.fontLineHeightBody }
+  public static func promptBarGap() -> Double { 10 }
+  public static func promptHintGap() -> Double { 6 }
+  public static func promptHintFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeXs.points }
+  public static func chatGap() -> Double { 14 }
+  public static func chatMsgGap() -> Double { 10 }
+  public static func chatMsgReverse(role: String) -> Bool { role == "user" }
+  public static func chatAvatarSize() -> Double { 32 }
+  public static func chatAvatarBackground(role: String, pack: CSTokenModePack) -> CSColorValue {
+    role == "user" ? pack.colorBrandUmber : pack.colorBrandOchre
+  }
+  public static func chatColGap() -> Double { 3 }
+  public static func chatColMaxWidthRatio() -> Double { 0.8 }
+  public static func chatNameFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeXs.points }
+  public static func chatNameFontWeight() -> Int { 700 }
+  public static func chatBubblePaddingY() -> Double { 10 }
+  public static func chatBubblePaddingX() -> Double { 14 }
+  public static func chatBubbleRadius() -> Double { 14 }
+  public static func chatBubbleCornerCutRadius() -> Double { 4 }
+  public static func chatBubbleFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeSm.points }
+  public static func chatBubbleLineHeight(_ pack: CSTokenModePack) -> Double { pack.fontLineHeightBody }
+  public static func confidenceGap() -> Double { 6 }
+  public static func confidenceHeadFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeXs.points }
+  public static func confidenceHeadLetterSpacingEm() -> Double { 0.08 }
+  public static func confidenceHeadUppercase() -> Bool { true }
+  public static func confidenceLevelFontWeight() -> Int { 700 }
+  public static func confidenceLevelFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeSm.points }
+  public static func confidenceTrackGap() -> Double { 3 }
+  public static func confidenceSegmentHeight() -> Double { 8 }
+  public static func confidenceSegmentRadius() -> Double { 2 }
+  public static func suggestGap() -> Double { 8 }
+  public static func suggestButtonBorderWidth() -> Double { 1 }
+  public static func suggestButtonPaddingY() -> Double { 8 }
+  public static func suggestButtonPaddingX() -> Double { 14 }
+  public static func suggestButtonFontWeight() -> Int { 600 }
+  public static func suggestButtonFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeSm.points }
+  public static func suggestButtonGap() -> Double { 7 }
+  public static func suggestButtonBorderColor(hovered: Bool = false, pack: CSTokenModePack) -> CSColorValue {
+    hovered ? pack.colorBrandOchre : pack.colorBorderDefault
+  }
+  public static func typingGap() -> Double { 5 }
+  public static func typingPaddingY() -> Double { 12 }
+  public static func typingPaddingX() -> Double { 16 }
+  public static func typingBorderWidth() -> Double { 1 }
+  public static func typingRadius() -> Double { 14 }
+  public static func typingCornerCutRadius() -> Double { 4 }
+  public static func typingDotSize() -> Double { 7 }
+  public static func typingDurationMs() -> Double { 1200 }
+  public static func typingDotDelayMs(index: Int) -> Double {
+    switch index {
+    case 1: return 180
+    case 2: return 360
+    default: return 0
+    }
+  }
+  public static func typingPeakTranslateY(reducedMotion: Bool = false) -> Double { reducedMotion ? 0 : -4 }
+  public static func citationsGap() -> Double { 8 }
+  public static func citationsLabelFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeXs.points }
+  public static func citationsLabelLetterSpacingEm() -> Double { 0.08 }
+  public static func citationsLabelUppercase() -> Bool { true }
+  public static func citationGap() -> Double { 9 }
+  public static func citationFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeSm.points }
+  public static func citationBadgeSize() -> Double { 20 }
+  public static func citationBadgeRadius() -> Double { 6 }
+  public static func citationBadgeFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSize2xs.points }
+  public static func citationBadgeFontWeight() -> Int { 700 }
+  public static func citationTextLineHeight() -> Double { 1.4 }
+  public static func citationSourceFontSize(_ pack: CSTokenModePack) -> Double { pack.fontSizeXs.points }
+  public static func lumiSize(size: String = "md") -> Double {
+    switch size {
+    case "sm": return 32
+    case "lg": return 64
+    default: return 44
+    }
+  }
+  public static func lumiRingSpread(ring: Bool = false) -> Double { ring ? 3 : 0 }
+}
+
 public struct CSDivider: View {
   public let label: CSPresenceValue
   public let vertical: Bool

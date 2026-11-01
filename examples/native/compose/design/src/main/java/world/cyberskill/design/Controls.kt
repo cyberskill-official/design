@@ -791,6 +791,95 @@ fun csNavigationStyleMenuLabelPaddingTop() = 6.dp
 fun csNavigationStyleMenuLabelPaddingX() = 10.dp
 fun csNavigationStyleMenuLabelPaddingBottom() = 2.dp
 
+const val csAiStyleUserInkHex = "#ffffff"
+const val csAiStyleSuggestHoverOchrePortion = 0.08
+const val csAiStyleTypingIdleOpacity = 0.5f
+const val csAiStyleTypingPeakOpacity = 1f
+const val csAiStyleTypingReducedMotionOpacity = 0.7f
+const val csAiStyleCitationBadgeInfoPortion = 0.14
+const val csAiStyleLumiHighlightHex = "#ffd873"
+const val csAiStyleLumiRingOchreAlpha = 0.34f
+fun csAiStylePromptBorderWidth() = 1.dp
+fun csAiStylePromptPaddingY() = 10.dp
+fun csAiStylePromptPaddingX() = 12.dp
+fun csAiStylePromptGap() = 8.dp
+fun csAiStylePromptBorderColor(focusedWithin: Boolean = false, pack: CSTokenModePack) =
+  if (focusedWithin) pack.colorTextPrimary else pack.colorBorderDefault
+fun csAiStylePromptFocusOutlineWidth(focusedWithin: Boolean) = if (focusedWithin) 2.dp else 0.dp
+fun csAiStylePromptFocusOutlineOffset(focusedWithin: Boolean) = if (focusedWithin) 2.dp else 0.dp
+fun csAiStylePromptFocusHaloSpread(focusedWithin: Boolean) = if (focusedWithin) 5.dp else 0.dp
+fun csAiStylePromptFieldMinHeight() = 44.dp
+fun csAiStylePromptFieldLineHeight(pack: CSTokenModePack) = pack.fontLineHeightBody
+fun csAiStylePromptBarGap() = 10.dp
+fun csAiStylePromptHintGap() = 6.dp
+fun csAiStylePromptHintFontSize(pack: CSTokenModePack) = pack.fontSizeXs.toDp()
+fun csAiStyleChatGap() = 14.dp
+fun csAiStyleChatMsgGap() = 10.dp
+fun csAiStyleChatMsgReverse(role: String) = role == "user"
+fun csAiStyleChatAvatarSize() = 32.dp
+fun csAiStyleChatAvatarBackground(role: String, pack: CSTokenModePack) =
+  if (role == "user") pack.colorBrandUmber else pack.colorBrandOchre
+fun csAiStyleChatColGap() = 3.dp
+const val csAiStyleChatColMaxWidthRatio = 0.8
+fun csAiStyleChatNameFontSize(pack: CSTokenModePack) = pack.fontSizeXs.toDp()
+fun csAiStyleChatNameFontWeight() = 700
+fun csAiStyleChatBubblePaddingY() = 10.dp
+fun csAiStyleChatBubblePaddingX() = 14.dp
+fun csAiStyleChatBubbleRadius() = 14.dp
+fun csAiStyleChatBubbleCornerCutRadius() = 4.dp
+fun csAiStyleChatBubbleFontSize(pack: CSTokenModePack) = pack.fontSizeSm.toDp()
+fun csAiStyleChatBubbleLineHeight(pack: CSTokenModePack) = pack.fontLineHeightBody
+fun csAiStyleConfidenceGap() = 6.dp
+fun csAiStyleConfidenceHeadFontSize(pack: CSTokenModePack) = pack.fontSizeXs.toDp()
+const val csAiStyleConfidenceHeadLetterSpacingEm = 0.08
+fun csAiStyleConfidenceHeadUppercase() = true
+fun csAiStyleConfidenceLevelFontWeight() = 700
+fun csAiStyleConfidenceLevelFontSize(pack: CSTokenModePack) = pack.fontSizeSm.toDp()
+fun csAiStyleConfidenceTrackGap() = 3.dp
+fun csAiStyleConfidenceSegmentHeight() = 8.dp
+fun csAiStyleConfidenceSegmentRadius() = 2.dp
+fun csAiStyleSuggestGap() = 8.dp
+fun csAiStyleSuggestButtonBorderWidth() = 1.dp
+fun csAiStyleSuggestButtonPaddingY() = 8.dp
+fun csAiStyleSuggestButtonPaddingX() = 14.dp
+fun csAiStyleSuggestButtonFontWeight() = 600
+fun csAiStyleSuggestButtonFontSize(pack: CSTokenModePack) = pack.fontSizeSm.toDp()
+fun csAiStyleSuggestButtonGap() = 7.dp
+fun csAiStyleSuggestButtonBorderColor(hovered: Boolean = false, pack: CSTokenModePack) =
+  if (hovered) pack.colorBrandOchre else pack.colorBorderDefault
+fun csAiStyleTypingGap() = 5.dp
+fun csAiStyleTypingPaddingY() = 12.dp
+fun csAiStyleTypingPaddingX() = 16.dp
+fun csAiStyleTypingBorderWidth() = 1.dp
+fun csAiStyleTypingRadius() = 14.dp
+fun csAiStyleTypingCornerCutRadius() = 4.dp
+fun csAiStyleTypingDotSize() = 7.dp
+fun csAiStyleTypingDurationMs() = 1200.0
+fun csAiStyleTypingDotDelayMs(index: Int) = when (index) {
+  1 -> 180.0
+  2 -> 360.0
+  else -> 0.0
+}
+fun csAiStyleTypingPeakTranslateY(reducedMotion: Boolean = false) = if (reducedMotion) 0.dp else (-4).dp
+fun csAiStyleCitationsGap() = 8.dp
+fun csAiStyleCitationsLabelFontSize(pack: CSTokenModePack) = pack.fontSizeXs.toDp()
+const val csAiStyleCitationsLabelLetterSpacingEm = 0.08
+fun csAiStyleCitationsLabelUppercase() = true
+fun csAiStyleCitationGap() = 9.dp
+fun csAiStyleCitationFontSize(pack: CSTokenModePack) = pack.fontSizeSm.toDp()
+fun csAiStyleCitationBadgeSize() = 20.dp
+fun csAiStyleCitationBadgeRadius() = 6.dp
+fun csAiStyleCitationBadgeFontSize(pack: CSTokenModePack) = pack.fontSize2xs.toDp()
+fun csAiStyleCitationBadgeFontWeight() = 700
+const val csAiStyleCitationTextLineHeight = 1.4
+fun csAiStyleCitationSourceFontSize(pack: CSTokenModePack) = pack.fontSizeXs.toDp()
+fun csAiStyleLumiSize(size: String = "md") = when (size) {
+  "sm" -> 32.dp
+  "lg" -> 64.dp
+  else -> 44.dp
+}
+fun csAiStyleLumiRingSpread(ring: Boolean = false) = if (ring) 3.dp else 0.dp
+
 @Composable
 fun CsDivider(
   dark: Boolean,

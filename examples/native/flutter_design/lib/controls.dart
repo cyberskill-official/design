@@ -1036,6 +1036,105 @@ double csNavigationStyleMenuLabelPaddingTop() => 6;
 double csNavigationStyleMenuLabelPaddingX() => 10;
 double csNavigationStyleMenuLabelPaddingBottom() => 2;
 
+const String csAiStyleUserInkHex = '#ffffff';
+const double csAiStyleSuggestHoverOchrePortion = 0.08;
+const double csAiStyleTypingIdleOpacity = 0.5;
+const double csAiStyleTypingPeakOpacity = 1.0;
+const double csAiStyleTypingReducedMotionOpacity = 0.7;
+const double csAiStyleCitationBadgeInfoPortion = 0.14;
+const String csAiStyleLumiHighlightHex = '#ffd873';
+const double csAiStyleLumiRingOchreAlpha = 0.34;
+double csAiStylePromptBorderWidth() => 1;
+double csAiStylePromptPaddingY() => 10;
+double csAiStylePromptPaddingX() => 12;
+double csAiStylePromptGap() => 8;
+CSColorValue csAiStylePromptBorderColor(CSTokenModePack pack, {bool focusedWithin = false}) =>
+    focusedWithin ? pack.colorTextPrimary : pack.colorBorderDefault;
+double csAiStylePromptFocusOutlineWidth(bool focusedWithin) => focusedWithin ? 2 : 0;
+double csAiStylePromptFocusOutlineOffset(bool focusedWithin) => focusedWithin ? 2 : 0;
+double csAiStylePromptFocusHaloSpread(bool focusedWithin) => focusedWithin ? 5 : 0;
+double csAiStylePromptFieldMinHeight() => 44;
+double csAiStylePromptFieldLineHeight(CSTokenModePack pack) => pack.fontLineHeightBody;
+double csAiStylePromptBarGap() => 10;
+double csAiStylePromptHintGap() => 6;
+double csAiStylePromptHintFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeXs);
+double csAiStyleChatGap() => 14;
+double csAiStyleChatMsgGap() => 10;
+bool csAiStyleChatMsgReverse(String role) => role == 'user';
+double csAiStyleChatAvatarSize() => 32;
+CSColorValue csAiStyleChatAvatarBackground(String role, CSTokenModePack pack) =>
+    role == 'user' ? pack.colorBrandUmber : pack.colorBrandOchre;
+double csAiStyleChatColGap() => 3;
+const double csAiStyleChatColMaxWidthRatio = 0.8;
+double csAiStyleChatNameFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeXs);
+int csAiStyleChatNameFontWeight() => 700;
+double csAiStyleChatBubblePaddingY() => 10;
+double csAiStyleChatBubblePaddingX() => 14;
+double csAiStyleChatBubbleRadius() => 14;
+double csAiStyleChatBubbleCornerCutRadius() => 4;
+double csAiStyleChatBubbleFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeSm);
+double csAiStyleChatBubbleLineHeight(CSTokenModePack pack) => pack.fontLineHeightBody;
+double csAiStyleConfidenceGap() => 6;
+double csAiStyleConfidenceHeadFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeXs);
+const double csAiStyleConfidenceHeadLetterSpacingEm = 0.08;
+bool csAiStyleConfidenceHeadUppercase() => true;
+int csAiStyleConfidenceLevelFontWeight() => 700;
+double csAiStyleConfidenceLevelFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeSm);
+double csAiStyleConfidenceTrackGap() => 3;
+double csAiStyleConfidenceSegmentHeight() => 8;
+double csAiStyleConfidenceSegmentRadius() => 2;
+double csAiStyleSuggestGap() => 8;
+double csAiStyleSuggestButtonBorderWidth() => 1;
+double csAiStyleSuggestButtonPaddingY() => 8;
+double csAiStyleSuggestButtonPaddingX() => 14;
+int csAiStyleSuggestButtonFontWeight() => 600;
+double csAiStyleSuggestButtonFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeSm);
+double csAiStyleSuggestButtonGap() => 7;
+CSColorValue csAiStyleSuggestButtonBorderColor(CSTokenModePack pack, {bool hovered = false}) =>
+    hovered ? pack.colorBrandOchre : pack.colorBorderDefault;
+double csAiStyleTypingGap() => 5;
+double csAiStyleTypingPaddingY() => 12;
+double csAiStyleTypingPaddingX() => 16;
+double csAiStyleTypingBorderWidth() => 1;
+double csAiStyleTypingRadius() => 14;
+double csAiStyleTypingCornerCutRadius() => 4;
+double csAiStyleTypingDotSize() => 7;
+double csAiStyleTypingDurationMs() => 1200;
+double csAiStyleTypingDotDelayMs(int index) {
+  switch (index) {
+    case 1:
+      return 180;
+    case 2:
+      return 360;
+    default:
+      return 0;
+  }
+}
+double csAiStyleTypingPeakTranslateY({bool reducedMotion = false}) => reducedMotion ? 0 : -4;
+double csAiStyleCitationsGap() => 8;
+double csAiStyleCitationsLabelFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeXs);
+const double csAiStyleCitationsLabelLetterSpacingEm = 0.08;
+bool csAiStyleCitationsLabelUppercase() => true;
+double csAiStyleCitationGap() => 9;
+double csAiStyleCitationFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeSm);
+double csAiStyleCitationBadgeSize() => 20;
+double csAiStyleCitationBadgeRadius() => 6;
+double csAiStyleCitationBadgeFontSize(CSTokenModePack pack) => csPoints(pack.fontSize2xs);
+int csAiStyleCitationBadgeFontWeight() => 700;
+const double csAiStyleCitationTextLineHeight = 1.4;
+double csAiStyleCitationSourceFontSize(CSTokenModePack pack) => csPoints(pack.fontSizeXs);
+double csAiStyleLumiSize([String size = 'md']) {
+  switch (size) {
+    case 'sm':
+      return 32;
+    case 'lg':
+      return 64;
+    default:
+      return 44;
+  }
+}
+double csAiStyleLumiRingSpread({bool ring = false}) => ring ? 3 : 0;
+
 class CsDivider extends StatelessWidget {
   const CsDivider({
     super.key,
