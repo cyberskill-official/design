@@ -141,11 +141,11 @@ function slotAccent(seeds, elKey, slot, variantName) {
     return { L: pinned.L, C: pinned.C, H: pinned.Hdeg, hex: el.pinMiddleHex.toUpperCase() };
   }
   const h = (((el.h + (off.dh || 0)) % 360) + 360) % 360;
-  const cTarget = Math.max(0.01, inten.c * el.cScale + (off.dc || 0));
+  const cTarget = off.cAbs != null ? off.cAbs : Math.max(0.01, inten.c * el.cScale + (off.dc || 0));
   let L = inten.l;
   let hex = lchDegToHex(L, cTarget, h);
   // Soft washes: if gamut crushing wiped the tint, ease L down slightly until a pastel chroma reads.
-  if (slot === 'soft') {
+  if (slot === 'soft' && off.cAbs == null) {
     const minC = Math.min(0.035, Math.max(0.028, cTarget * 0.55));
     for (let i = 0; i < 40 && hexToLCH(hex).C < minC; i++) {
       L = clamp(L - 0.003, 0.90, inten.l);
@@ -156,16 +156,39 @@ function slotAccent(seeds, elKey, slot, variantName) {
   return { L: out.L, C: out.C, H: out.Hdeg, hex };
 }
 
-function deriveLightRoles(seeds, accent, gradB, { pinThoStudio }) {
+function deriveLightRoles(seeds, accent, gradB, { pinThoStudio, slot }) {
   const { L, C, H } = accent;
   const r = seeds.roles;
-  const strongSeed = lchDegToHex(clamp(L + r.strongDeltaL, 0.2, 0.75), C * 0.95, H);
+  const strongTargetL = slot === 'soft' ? 0.535 : slot === 'middle' ? 0.485 : 0.355;
+  const strongTargetC =
+    slot === 'soft'
+      ? clamp(C * 1.35, 0.052, 0.135)
+      : slot === 'middle'
+        ? clamp(C * 0.95, 0.055, 0.15)
+        : clamp(C * 0.92, 0.062, 0.145);
+  const strongSeed = lchDegToHex(strongTargetL, strongTargetC, H);
   // Bright is always a pastel heading colour (not a slight nudge of deep midtones).
-  const brightL = Math.max(0.84, L + r.brightDeltaL);
-  const bright = lchDegToHex(clamp(brightL, 0.78, 0.94), Math.min(C * 0.75, 0.12), H);
-  const on = lchDegToHex(r.onL, Math.min(C * r.inkCScale, 0.08), H);
-  const tint = lchDegToHex(r.tintL, Math.min(C * r.tintCScale, 0.035), H);
-  const ink = lchDegToHex(r.inkL, Math.min(C * r.inkCScale, 0.08), H);
+  const brightTargetL = slot === 'soft' ? 0.94 : slot === 'middle' ? 0.90 : 0.855;
+  const brightTargetC = slot === 'soft' ? clamp(C * 0.85, 0.032, 0.10) : clamp(C * 0.72, 0.045, 0.12);
+  const bright = lchDegToHex(brightTargetL, brightTargetC, H);
+  const tintTargetL = slot === 'soft' ? 0.978 : slot === 'middle' ? 0.968 : 0.956;
+  const tintTargetC =
+    slot === 'soft'
+      ? clamp(C * 0.28, 0.010, 0.025)
+      : slot === 'middle'
+        ? clamp(C * 0.25, 0.012, 0.032)
+        : clamp(C * 0.22, 0.015, 0.036);
+  const tint = lchDegToHex(tintTargetL, tintTargetC, H);
+  let ink = lchDegToHex(r.inkL, clamp(C * r.inkCScale, 0.02, 0.08), H);
+  for (let i = 0; i < 60 && (apca(ink, tint) < 78 || apca(bright, ink) < 62); i++) {
+    const lch = hexToLCH(ink);
+    ink = lchDegToHex(clamp(lch.L - 0.005, 0.12, 0.35), lch.C, H);
+  }
+  let on = lchDegToHex(r.onL, clamp(C * r.inkCScale, 0.02, 0.08), H);
+  for (let i = 0; i < 60 && (apca(on, bright) < 78 || wcagRatio(on, bright) < 6.5); i++) {
+    const lch = hexToLCH(on);
+    on = lchDegToHex(clamp(lch.L - 0.005, 0.10, 0.35), lch.C, H);
+  }
   const accentHex = accent.hex;
 
   const finishStrong = (seed) => {
@@ -210,13 +233,34 @@ function deriveLightRoles(seeds, accent, gradB, { pinThoStudio }) {
   };
 }
 
-function deriveDarkRoles(seeds, light) {
+function deriveDarkRoles(seeds, light, slot) {
   const D = seeds.dark;
   const T = D.targets;
-  const lightH = hexToLCH(light['--cs-accent']).Hdeg;
+  const lightAccent = hexToLCH(light['--cs-accent']);
+  const lightH = lightAccent.Hdeg;
 
-  let accent = solveL(light['--cs-accent'], D.panel, T.accent);
-  let bright = solveL(light['--cs-accent-bright'], D.panel, T.bright);
+  // Stepped dark accent lightness so soft > middle > deep stays visually distinct in dark mode
+  // while clearing the Lc >= 60 floor on dark panel (#221710).
+  const darkAccentL = slot === 'soft' ? 0.855 : slot === 'middle' ? 0.795 : 0.735;
+  const darkAccentC =
+    slot === 'soft'
+      ? clamp(lightAccent.C * 1.15, 0.038, 0.13)
+      : slot === 'middle'
+        ? clamp(lightAccent.C * 0.95, 0.052, 0.165)
+        : clamp(lightAccent.C * 0.92, 0.065, 0.155);
+  let accent = lchDegToHex(darkAccentL, darkAccentC, lightH);
+  accent = solveL(accent, D.panel, T.accent);
+
+  const aLCH0 = hexToLCH(accent);
+  const darkBrightL = slot === 'soft' ? 0.925 : slot === 'middle' ? 0.885 : 0.855;
+  const darkBrightC =
+    slot === 'soft'
+      ? clamp(aLCH0.C * 0.80, 0.034, 0.10)
+      : slot === 'middle'
+        ? clamp(aLCH0.C * 0.85, 0.045, 0.12)
+        : clamp(aLCH0.C * 0.85, 0.050, 0.12);
+  let bright = lchDegToHex(darkBrightL, darkBrightC, lightH);
+  bright = solveL(bright, D.panel, Math.max(T.bright, 76));
 
   // Re-pin hue after solve (solveL preserves H, but clamp gamut for safety)
   const pinH = (hex) => {
@@ -226,7 +270,7 @@ function deriveDarkRoles(seeds, light) {
   accent = pinH(accent);
   bright = pinH(bright);
   accent = solveL(accent, D.panel, T.accent);
-  bright = solveL(bright, D.panel, T.bright);
+  bright = solveL(bright, D.panel, Math.max(T.bright, 76));
 
   const bestOn = (s) => {
     const d = apca(D.ink, s);
@@ -234,33 +278,29 @@ function deriveDarkRoles(seeds, light) {
     return d >= l ? { on: D.ink, lc: d } : { on: D.text, lc: l };
   };
 
-  let strong = pinH(light['--cs-accent-strong']);
-  let bo = bestOn(strong);
-  if (bo.lc < T.on) {
-    const [L0, C0, Hrad] = toLCH(rgb2oklab(hex2rgb(strong)));
-    const tryDir = (dir) => {
-      for (let i = 1; i <= 60; i++) {
-        const L = clamp(L0 + dir * 0.01 * i, 0.05, 0.97);
-        const hx = lchToHex(L, C0, Hrad);
-        if (bestOn(hx).lc >= T.on) return { hx, steps: i };
-      }
-      return null;
-    };
-    const up = tryDir(1);
-    const down = tryDir(-1);
-    const pick = up && down ? (up.steps <= down.steps ? up : down) : up || down;
-    if (pick) {
-      strong = pinH(pick.hx);
-      bo = bestOn(strong);
-    }
-  }
-
   const aLCH = hexToLCH(accent);
-  const tint = lchDegToHex(D.tintL, Math.min(aLCH.C, D.tintCMax), lightH);
-  let ink = pinH(light['--cs-accent-ink']);
-  if (!hex2rgb(ink) || apca(ink, tint) < T.ink) {
-    ink = solveL(bright, tint, T.ink);
-    ink = pinH(ink);
+  const darkStrongL = slot === 'soft' ? 0.525 : slot === 'middle' ? 0.455 : 0.36;
+  const darkStrongC =
+    slot === 'soft'
+      ? clamp(aLCH.C * 1.05, 0.042, 0.13)
+      : slot === 'middle'
+        ? clamp(aLCH.C * 1.00, 0.052, 0.15)
+        : clamp(aLCH.C * 0.95, 0.060, 0.145);
+  const strong = lchDegToHex(darkStrongL, darkStrongC, lightH);
+  const bo = bestOn(strong);
+
+  const darkTintL = slot === 'soft' ? 0.295 : slot === 'middle' ? 0.245 : 0.195;
+  const darkTintC =
+    slot === 'soft'
+      ? clamp(aLCH.C * 0.42, 0.018, 0.048)
+      : slot === 'middle'
+        ? clamp(aLCH.C * 0.45, 0.022, 0.055)
+        : clamp(aLCH.C * 0.48, 0.024, 0.060);
+  const tint = lchDegToHex(darkTintL, Math.min(darkTintC, D.tintCMax), lightH);
+  let ink = solveL(bright, tint, Math.max(T.ink, 78));
+  ink = pinH(ink);
+  if (!hex2rgb(ink) || apca(ink, tint) < Math.max(T.ink, 78)) {
+    ink = solveL(ink, tint, Math.max(T.ink, 78));
   }
 
   const onStrong = ensureOnStrong(strong, [bo.on, D.ink, D.text, '#1A1108', '#FFFDF8']);
@@ -336,13 +376,13 @@ function buildAllPacks(seeds) {
       const neighbor = seeds.tuongSinh[elKey];
       const gradB = middleAccent[neighbor] || accent.hex;
       const pinThoStudio = elKey === 'tho' && !s.variant;
-      const light = deriveLightRoles(seeds, accent, gradB, { pinThoStudio });
+      const light = deriveLightRoles(seeds, accent, gradB, { pinThoStudio, slot: s.slot });
       const darkSeedLight = { ...light };
       ensureBodyOnStrong(light);
       light['--cs-color-link'] = ensureLinkOnSurfaces(light['--cs-accent-strong'], bodyLinkSurfaces(light, 'light'));
       // Semantic accent text supports small body copy on the same surfaces as links.
       light['--cs-color-text-accent'] = pinThoStudio ? '#6E3B0E' : light['--cs-color-link'];
-      const dark = deriveDarkRoles(seeds, darkSeedLight);
+      const dark = deriveDarkRoles(seeds, darkSeedLight, s.slot);
       ensureBodyOnStrong(dark);
       dark['--cs-color-link'] = ensureLinkOnSurfaces(dark['--cs-accent-bright'], bodyLinkSurfaces(dark, 'dark'), 4.5, 78, 'dark');
       dark['--cs-color-text-accent'] = dark['--cs-color-link'];

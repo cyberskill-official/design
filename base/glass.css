@@ -107,8 +107,8 @@
 .cs-aurora {
   background-color: var(--cs-color-brand-umber);
   background-image:
-    radial-gradient(90% 120% at 12% -10%, color-mix(in oklab, var(--cs-color-brand-ochre) 46%, transparent), transparent 55%),
-    radial-gradient(70% 90% at 88% 8%, color-mix(in oklab, #ffcf5c 32%, transparent), transparent 60%),
+    radial-gradient(90% 120% at 12% -10%, color-mix(in oklab, var(--cs-accent, var(--cs-color-brand-ochre)) 46%, transparent), transparent 55%),
+    radial-gradient(70% 90% at 88% 8%, color-mix(in oklab, var(--cs-accent-grad-b, #ffcf5c) 32%, transparent), transparent 60%),
     radial-gradient(120% 120% at 50% 120%, color-mix(in oklab, #1a1108 60%, transparent), transparent 60%);
   color: #fff; /* on-aurora wash */
 }

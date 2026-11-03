@@ -38,8 +38,8 @@
 
 .cs-button--secondary {
   background: var(--cs-color-surface-panel, #ffffff);
-  border-color: var(--_cs-light, var(--cs-color-brand-umber, #45210e))var(--_cs-dark, var(--cs-color-brand-ochre));
-  color: var(--_cs-light, var(--cs-color-brand-umber, #45210e))var(--_cs-dark, var(--cs-color-brand-ochre));
+  border-color: var(--_cs-light, var(--cs-accent-strong, #45210e))var(--_cs-dark, var(--cs-accent, #f4ba17));
+  color: var(--_cs-light, var(--cs-color-text-accent, #45210e))var(--_cs-dark, var(--cs-color-text-accent, #f4ba17));
 }
 .cs-button--secondary:hover { background: var(--cs-color-surface-raised, #fbf4e9); filter: none; }
 

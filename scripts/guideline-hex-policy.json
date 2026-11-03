@@ -733,88 +733,88 @@
     {
       "path": "guidelines/elements-variants.html",
       "kind": "inline-style",
-      "context": "(span class=sw) background:#428693",
-      "hex": "#428693",
+      "context": "(span class=sw) background:#00CEE4",
+      "hex": "#00CEE4",
       "count": 1,
       "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "inline-style",
-      "context": "(span class=sw) background:#668643",
-      "hex": "#668643",
+      "context": "(span class=sw) background:#06556F",
+      "hex": "#06556F",
       "count": 1,
       "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "inline-style",
-      "context": "(span class=sw) background:#707D7E",
-      "hex": "#707D7E",
+      "context": "(span class=sw) background:#105C36",
+      "hex": "#105C36",
       "count": 1,
       "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "inline-style",
-      "context": "(span class=sw) background:#87D2E1",
-      "hex": "#87D2E1",
+      "context": "(span class=sw) background:#384D72",
+      "hex": "#384D72",
       "count": 1,
       "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "inline-style",
-      "context": "(span class=sw) background:#98741A",
-      "hex": "#98741A",
+      "context": "(span class=sw) background:#723E06",
+      "hex": "#723E06",
       "count": 1,
       "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "inline-style",
-      "context": "(span class=sw) background:#ADD386",
-      "hex": "#ADD386",
+      "context": "(span class=sw) background:#82CF66",
+      "hex": "#82CF66",
       "count": 1,
       "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "inline-style",
-      "context": "(span class=sw) background:#AEE2ED",
-      "hex": "#AEE2ED",
+      "context": "(span class=sw) background:#93050F",
+      "hex": "#93050F",
       "count": 1,
       "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "inline-style",
-      "context": "(span class=sw) background:#BB5A32",
-      "hex": "#BB5A32",
+      "context": "(span class=sw) background:#9DF7F5",
+      "hex": "#9DF7F5",
       "count": 1,
       "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "inline-style",
-      "context": "(span class=sw) background:#C7E2AC",
-      "hex": "#C7E2AC",
+      "context": "(span class=sw) background:#C4B78F",
+      "hex": "#C4B78F",
       "count": 1,
       "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "inline-style",
-      "context": "(span class=sw) background:#D1C2A8",
-      "hex": "#D1C2A8",
+      "context": "(span class=sw) background:#D3E7FC",
+      "hex": "#D3E7FC",
       "count": 1,
       "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "inline-style",
-      "context": "(span class=sw) background:#E1D6C3",
-      "hex": "#E1D6C3",
+      "context": "(span class=sw) background:#DAEFAA",
+      "hex": "#DAEFAA",
       "count": 1,
       "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
     },
@@ -829,24 +829,24 @@
     {
       "path": "guidelines/elements-variants.html",
       "kind": "inline-style",
-      "context": "(span class=sw) background:#F6D389",
-      "hex": "#F6D389",
+      "context": "(span class=sw) background:#F9E3A7",
+      "hex": "#F9E3A7",
       "count": 1,
       "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "inline-style",
-      "context": "(span class=sw) background:#FFAD8E",
-      "hex": "#FFAD8E",
+      "context": "(span class=sw) background:#FC9C69",
+      "hex": "#FC9C69",
       "count": 1,
       "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "inline-style",
-      "context": "(span class=sw) background:#FFC7CC",
-      "hex": "#FFC7CC",
+      "context": "(span class=sw) background:#FEDBDC",
+      "hex": "#FEDBDC",
       "count": 1,
       "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
     },
@@ -861,88 +861,88 @@
     {
       "path": "guidelines/elements-variants.html",
       "kind": "text",
-      "context": "#428693",
-      "hex": "#428693",
+      "context": "#00CEE4",
+      "hex": "#00CEE4",
       "count": 1,
       "reason": "Literal token/color specimen; source spelling must match the illustrated value."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "text",
-      "context": "#668643",
-      "hex": "#668643",
+      "context": "#06556F",
+      "hex": "#06556F",
       "count": 1,
       "reason": "Literal token/color specimen; source spelling must match the illustrated value."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "text",
-      "context": "#707D7E",
-      "hex": "#707D7E",
+      "context": "#105C36",
+      "hex": "#105C36",
       "count": 1,
       "reason": "Literal token/color specimen; source spelling must match the illustrated value."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "text",
-      "context": "#87D2E1",
-      "hex": "#87D2E1",
+      "context": "#384D72",
+      "hex": "#384D72",
       "count": 1,
       "reason": "Literal token/color specimen; source spelling must match the illustrated value."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "text",
-      "context": "#98741A",
-      "hex": "#98741A",
+      "context": "#723E06",
+      "hex": "#723E06",
       "count": 1,
       "reason": "Literal token/color specimen; source spelling must match the illustrated value."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "text",
-      "context": "#ADD386",
-      "hex": "#ADD386",
+      "context": "#82CF66",
+      "hex": "#82CF66",
       "count": 1,
       "reason": "Literal token/color specimen; source spelling must match the illustrated value."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "text",
-      "context": "#AEE2ED",
-      "hex": "#AEE2ED",
+      "context": "#93050F",
+      "hex": "#93050F",
       "count": 1,
       "reason": "Literal token/color specimen; source spelling must match the illustrated value."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "text",
-      "context": "#BB5A32",
-      "hex": "#BB5A32",
+      "context": "#9DF7F5",
+      "hex": "#9DF7F5",
       "count": 1,
       "reason": "Literal token/color specimen; source spelling must match the illustrated value."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "text",
-      "context": "#C7E2AC",
-      "hex": "#C7E2AC",
+      "context": "#C4B78F",
+      "hex": "#C4B78F",
       "count": 1,
       "reason": "Literal token/color specimen; source spelling must match the illustrated value."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "text",
-      "context": "#D1C2A8",
-      "hex": "#D1C2A8",
+      "context": "#D3E7FC",
+      "hex": "#D3E7FC",
       "count": 1,
       "reason": "Literal token/color specimen; source spelling must match the illustrated value."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "text",
-      "context": "#E1D6C3",
-      "hex": "#E1D6C3",
+      "context": "#DAEFAA",
+      "hex": "#DAEFAA",
       "count": 1,
       "reason": "Literal token/color specimen; source spelling must match the illustrated value."
     },
@@ -957,24 +957,24 @@
     {
       "path": "guidelines/elements-variants.html",
       "kind": "text",
-      "context": "#F6D389",
-      "hex": "#F6D389",
+      "context": "#F9E3A7",
+      "hex": "#F9E3A7",
       "count": 1,
       "reason": "Literal token/color specimen; source spelling must match the illustrated value."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "text",
-      "context": "#FFAD8E",
-      "hex": "#FFAD8E",
+      "context": "#FC9C69",
+      "hex": "#FC9C69",
       "count": 1,
       "reason": "Literal token/color specimen; source spelling must match the illustrated value."
     },
     {
       "path": "guidelines/elements-variants.html",
       "kind": "text",
-      "context": "#FFC7CC",
-      "hex": "#FFC7CC",
+      "context": "#FEDBDC",
+      "hex": "#FEDBDC",
       "count": 1,
       "reason": "Literal token/color specimen; source spelling must match the illustrated value."
     },

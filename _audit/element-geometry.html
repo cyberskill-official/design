@@ -70,22 +70,28 @@ const SLOT_OF = {
   for (const [el, ks] of Object.entries(byEl)) {
     const ordered = ['soft', 'middle', 'deep'].map((slot) => ks.find((k) => SLOT_OF[k] === slot));
     const accents = ordered.map((k) => packs[k].light['--cs-accent']);
+    const darkAccents = ordered.map((k) => packs[k].dark['--cs-accent']);
+    const darkStrongs = ordered.map((k) => packs[k].dark['--cs-accent-strong']);
     const Ls = accents.map((h) => hexToLCH(h).L);
+    const dLs = darkAccents.map((h) => hexToLCH(h).L);
+    const dsLs = darkStrongs.map((h) => hexToLCH(h).L);
     let ok = true;
-    let mono = Ls[0] > Ls[1] + 1e-6 && Ls[1] > Ls[2] + 1e-6;
+    let mono = Ls[0] > Ls[1] + 1e-6 && Ls[1] > Ls[2] + 1e-6 && dLs[0] > dLs[1] + 1e-6 && dLs[1] > dLs[2] + 1e-6 && dsLs[0] > dsLs[1] + 1e-6 && dsLs[1] > dsLs[2] + 1e-6;
     for (let i = 0; i < accents.length; i++) {
       for (let j = i + 1; j < accents.length; j++) {
         const dE = deltaEok(accents[i], accents[j]);
         const dL = Math.abs(hexToLCH(accents[i]).L - hexToLCH(accents[j]).L);
-        // Owner bar: both ΔE and ΔL must clear — not either-or.
-        if (dE < tol.minDeltaE || dL < tol.minDeltaL) ok = false;
+        const ddE = deltaEok(darkAccents[i], darkAccents[j]);
+        // Owner bar: both ΔE and ΔL must clear in light and dark.
+        if (dE < tol.minDeltaE || dL < tol.minDeltaL || ddE < 0.045) ok = false;
       }
     }
-    row(ok && mono, `variant distinctness (${el}): soft>middle>deep L + minΔE ${tol.minDeltaE} · minΔL ${tol.minDeltaL}`+(mono?'':' · non-monotonic L'));
+    row(ok && mono, `variant distinctness (${el}): light/dark soft>middle>deep L + minΔE ${tol.minDeltaE} · minΔL ${tol.minDeltaL}`+(mono?'':' · non-monotonic L'));
   }
 
   let hueOk = true;
   let worst = 0;
+  let minCrossDe = Infinity;
   for (const k of keys) {
     const lh = hexToLCH(packs[k].light['--cs-accent']).Hdeg;
     const dh = hexToLCH(packs[k].dark['--cs-accent']).Hdeg;
@@ -93,7 +99,18 @@ const SLOT_OF = {
     worst = Math.max(worst, d);
     if (d > tol.hueLockDeg) hueOk = false;
   }
-  row(hueOk, `hue identity light↔dark: max Δh ${worst.toFixed(1)}° ≤ ${tol.hueLockDeg}°`);
+  for (const slot of ['soft', 'middle', 'deep']) {
+    const group = keys.filter((k) => SLOT_OF[k] === slot);
+    for (let i = 0; i < group.length; i++) {
+      for (let j = i + 1; j < group.length; j++) {
+        const dELight = deltaEok(packs[group[i]].light['--cs-accent'], packs[group[j]].light['--cs-accent']);
+        const dEDark = deltaEok(packs[group[i]].dark['--cs-accent'], packs[group[j]].dark['--cs-accent']);
+        minCrossDe = Math.min(minCrossDe, dELight, dEDark);
+        if (dELight < 0.04 || dEDark < 0.04) hueOk = false;
+      }
+    }
+  }
+  row(hueOk, `hue identity light↔dark & cross-family ΔE: max Δh ${worst.toFixed(1)}° ≤ ${tol.hueLockDeg}° · min cross-family ΔE ${minCrossDe.toFixed(3)} ≥ 0.040`);
 
   // Tho middle pins logo ochre
   const tho = packs['tho|'].light['--cs-accent'].toUpperCase();

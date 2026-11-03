@@ -90,11 +90,17 @@ const chip=(lc,t)=>'<span class="lc '+(lc>=t?'ok':(lc>=t-10?'warn':'bad'))+'">Lc
     const el=(/\[data-cs-element="(\w+)"\]/.exec(sel)||[])[1]; if(!el) continue;
     const va=(/\[data-cs-variant="(\w+)"\]/.exec(sel)||[])[1]||'';
     const dark=/data-theme="dark"/.test(sel);
-    const decls={}; let d; const dr=/(--cs-accent[\w-]*)\s*:\s*([^;]+);/g;
-    while((d=dr.exec(body))) decls[d[1].replace('--cs-accent','').replace(/^-/,'')||'accent']=d[2].trim();
-    if(!Object.keys(decls).length) continue;
+    const lightDecls={}, darkDecls={}; let d; const dr=/(--(?:_cs-(?:light|dark)-accent|cs-accent)[\w-]*)\s*:\s*([^;]+);/g;
+    while((d=dr.exec(body))){
+      const prop=d[1], val=d[2].trim();
+      if(prop.startsWith('--_cs-light-accent')) lightDecls[prop.replace('--_cs-light-accent','').replace(/^-/,'')||'accent']=val;
+      else if(prop.startsWith('--_cs-dark-accent')) darkDecls[prop.replace('--_cs-dark-accent','').replace(/^-/,'')||'accent']=val;
+      else (dark?darkDecls:lightDecls)[prop.replace('--cs-accent','').replace(/^-/,'')||'accent']=val;
+    }
+    if(!Object.keys(lightDecls).length && !Object.keys(darkDecls).length) continue;
     const k=el+'|'+va; packs[k]=packs[k]||{light:{},dark:{}};
-    Object.assign(dark?packs[k].dark:packs[k].light, decls);
+    Object.assign(packs[k].light, lightDecls);
+    Object.assign(packs[k].dark, darkDecls);
   }
   const list=document.getElementById('list');
   const out=[]; const verdict={packs:{},currentFail:0,proposedFail:0};

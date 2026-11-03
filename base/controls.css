@@ -29,12 +29,12 @@
 .cs-stepper input::-webkit-outer-spin-button, .cs-stepper input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
 /* Slider (native range) */
-.cs-slider { inline-size: 100%; accent-color: var(--_cs-light, var(--cs-color-brand-umber))var(--_cs-dark, var(--cs-color-brand-ochre)); block-size: 22px; cursor: pointer; }
+.cs-slider { inline-size: 100%; accent-color: var(--_cs-light, var(--cs-accent-strong))var(--_cs-dark, var(--cs-accent)); block-size: 22px; cursor: pointer; }
 .cs-slider:focus-visible { outline: 2px solid var(--cs-color-text-primary); outline-offset: 4px; border-radius: var(--cs-radius-full); box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
 
 /* FileUpload / dropzone */
 .cs-dropzone { display: grid; gap: 6px; justify-items: center; text-align: center; border: 2px dashed var(--cs-color-border-default); border-radius: var(--cs-radius-lg); padding: 28px 24px; background: var(--cs-color-surface-raised); cursor: pointer; color: var(--cs-color-text-primary); transition: border-color var(--cs-duration-fast) var(--cs-ease-standard), background var(--cs-duration-fast) var(--cs-ease-standard); }
-.cs-dropzone:hover, .cs-dropzone.is-dragging { border-color: var(--cs-color-brand-ochre); background: color-mix(in oklab, var(--cs-color-brand-ochre) 8%, var(--cs-color-surface-panel)); }
+.cs-dropzone:hover, .cs-dropzone.is-dragging { border-color: var(--cs-accent); background: color-mix(in oklab, var(--cs-accent) 8%, var(--cs-color-surface-panel)); }
 .cs-dropzone__icon { color: var(--cs-color-text-accent); }
 .cs-dropzone__title { font-weight: 700; }
 .cs-dropzone__hint { font-size: var(--cs-font-size-sm); color: var(--cs-color-text-muted); }
@@ -42,7 +42,7 @@
 /* SegmentedControl (matches Status Hub lens switcher) */
 .cs-segmented { display: inline-flex; gap: 4px; background: var(--cs-color-surface-raised); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-full); padding: 3px; }
 .cs-segmented button { border: 0; background: transparent; border-radius: var(--cs-radius-full); padding: 7px 15px; font: inherit; font-family: var(--cs-font-family-ui); font-weight: 600; font-size: var(--cs-font-size-sm); color: var(--cs-color-text-accent); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
-.cs-segmented button[aria-checked="true"], .cs-segmented button[aria-pressed="true"], .cs-segmented button[aria-selected="true"] { background: var(--_cs-light, var(--cs-color-brand-umber))var(--_cs-dark, var(--cs-color-brand-ochre)); color: var(--_cs-light, var(--cs-color-text-inverse))var(--_cs-dark, var(--cs-color-brand-umber)); }
+.cs-segmented button[aria-checked="true"], .cs-segmented button[aria-pressed="true"], .cs-segmented button[aria-selected="true"] { background: var(--_cs-light, var(--cs-component-button-primary-bg))var(--_cs-dark, var(--cs-component-button-primary-bg)); color: var(--_cs-light, var(--cs-component-button-primary-fg))var(--_cs-dark, var(--cs-component-button-primary-fg)); }
 
 /* StatusIndicator */
 .cs-status { display: inline-flex; align-items: center; gap: 7px; font-family: var(--cs-font-family-ui); font-size: var(--cs-font-size-sm); font-weight: 600; color: var(--cs-color-text-primary); }
@@ -65,7 +65,7 @@
 .cs-toggle:disabled { opacity: .5; cursor: not-allowed; }
 .cs-rating { display: inline-flex; gap: 4px; }
 .cs-rating button { background: none; border: 0; padding: 2px; cursor: pointer; color: var(--cs-color-border-default); display: grid; place-items: center; }
-.cs-rating button.on { color: var(--cs-color-brand-ochre); }
+.cs-rating button.on { color: var(--cs-accent); }
 .cs-rating[data-readonly="true"] button { cursor: default; }
 .cs-rating button:focus-visible { outline: 2px solid var(--cs-color-text-primary); outline-offset: 2px; border-radius: 4px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
 .cs-otp { display: inline-flex; gap: 8px; }

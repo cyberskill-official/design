@@ -456,11 +456,12 @@ function applyAxis(ifr, ax){
     h.setAttribute("data-cs-density",ax.density||"comfortable");
     h.setAttribute("data-cs-contrast",ax.contrast||"standard");
     const w=ifr.contentWindow;
-    if(ax.lang && w && w.__dcSetProps && w.__dcRootName){
+    if(w && w.__dcSetProps && w.__dcRootName){
       const r=w.__dcRootName&&w.__dcRootName();
       if(r){
-        const language = ax.lang==="vi"?"Tiếng Việt":ax.lang==="ja"?"日本語":"English";
-        w.__dcSetProps(r,{language});
+        const nextProps={theme:ax.theme||"light",element:ax.elm||"tho"};
+        if(ax.lang) nextProps.language=ax.lang==="vi"?"Tiếng Việt":ax.lang==="ja"?"日本語":"English";
+        w.__dcSetProps(r,nextProps);
       }
     }
   }catch(e){}

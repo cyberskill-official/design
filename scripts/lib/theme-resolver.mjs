@@ -66,8 +66,9 @@ export function emitThemeResolver(root,packs,roleKeys) {
       l[k]=`color-mix(in oklab, var(${channel('light','--cs-accent')}) ${lp}%, ${light[k]})`;
       d[k]=`color-mix(in oklab, var(${channel('dark','--cs-accent')}) ${dp}%, ${dark[k]})`;
     }
-    l['--cs-component-button-primary-bg']=light['--cs-component-button-primary-bg'];
-    l['--cs-component-button-primary-fg']=light['--cs-component-button-primary-fg'];
+    const isDefaultTho = p.el === 'tho' && !p.variant;
+    l['--cs-component-button-primary-bg']=isDefaultTho ? light['--cs-component-button-primary-bg'] : p.light['--cs-accent-strong'];
+    l['--cs-component-button-primary-fg']=isDefaultTho ? light['--cs-component-button-primary-fg'] : p.light['--cs-accent-on-strong'];
     d['--cs-component-button-primary-bg']=p.dark['--cs-accent-strong'];
     d['--cs-component-button-primary-fg']=p.dark['--cs-accent-on-strong'];
     css+=`\n[data-cs-element="${p.el}"]${p.variant?`[data-cs-variant="${p.variant}"]`:''} {\n${lines(channels(l,d))}\n}\n`;

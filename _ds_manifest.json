@@ -4479,7 +4479,7 @@
     },
     {
       "name": "--cs-accent-strong",
-      "value": "#916D10",
+      "value": "#916D11",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "important": false,
@@ -4551,7 +4551,7 @@
     },
     {
       "name": "--cs-accent-grad-b",
-      "value": "#F3B958",
+      "value": "#C4B78F",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "important": false,

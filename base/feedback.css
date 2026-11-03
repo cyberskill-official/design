@@ -4,6 +4,8 @@
 .cs-badge { display: inline-flex; align-items: center; gap: 5px; font-family: var(--cs-font-family-ui); font-size: var(--cs-font-size-xs); font-weight: 700; line-height: 1; padding: 4px 9px; border-radius: var(--cs-radius-full); text-transform: uppercase; letter-spacing: 0.04em; background: var(--cs-color-surface-raised); color: var(--cs-color-text-accent); border: 1px solid var(--cs-color-border-default); }
 .cs-badge--solid { border-color: transparent; color: #fff; /* on-brand-umber ink (allowlisted; text-inverse flips in dark) */ background: var(--cs-color-brand-umber); }
 .cs-badge--ochre { background: var(--cs-color-brand-ochre); color: var(--cs-color-brand-umber); border-color: transparent; }
+[data-cs-element]:not([data-cs-element="tho"]:not([data-cs-variant]), [data-cs-element="tho"][data-cs-variant=""]) .cs-badge--solid { background: var(--cs-accent-strong); color: var(--cs-accent-on-strong); }
+[data-cs-element]:not([data-cs-element="tho"]:not([data-cs-variant]), [data-cs-element="tho"][data-cs-variant=""]) .cs-badge--ochre { background: var(--cs-accent-tint); color: var(--cs-color-text-accent); border-color: color-mix(in oklab, var(--cs-accent) 55%, transparent); }
 .cs-badge--success { background: var(--cs-color-semantic-success); color: var(--cs-color-semantic-success-fg); border-color: transparent; }
 .cs-badge--danger { background: var(--cs-color-semantic-danger); color: var(--cs-color-semantic-danger-fg); border-color: transparent; }
 .cs-badge--warning { background: var(--cs-color-semantic-warning); color: var(--cs-color-semantic-warning-fg); border-color: transparent; }
@@ -49,12 +51,12 @@
 @media (prefers-reduced-motion: reduce) { .cs-toast { animation: none; } }
 
 /* Spinner */
-.cs-spinner { display: inline-block; inline-size: 20px; block-size: 20px; border-radius: 50%; border: 2.5px solid color-mix(in oklab, var(--cs-color-brand-umber) 22%, transparent); border-color: var(--_cs-light, color-mix(in oklab, var(--cs-color-brand-umber) 22%, transparent))var(--_cs-dark, color-mix(in oklab, var(--cs-color-brand-ochre) 26%, transparent)); border-top-color: var(--_cs-light, var(--cs-color-brand-umber))var(--_cs-dark, var(--cs-color-brand-ochre)); animation: cs-spin 0.62s linear infinite; }
+.cs-spinner { display: inline-block; inline-size: 20px; block-size: 20px; border-radius: 50%; border: 2.5px solid color-mix(in oklab, var(--cs-accent-strong) 22%, transparent); border-color: var(--_cs-light, color-mix(in oklab, var(--cs-accent-strong) 22%, transparent))var(--_cs-dark, color-mix(in oklab, var(--cs-accent) 26%, transparent)); border-top-color: var(--_cs-light, var(--cs-accent-strong))var(--_cs-dark, var(--cs-accent)); animation: cs-spin 0.62s linear infinite; }
 @media (prefers-reduced-motion: reduce) { .cs-spinner { animation: none; } }
 
 /* Progress bar */
 .cs-progress { inline-size: 100%; block-size: 10px; border-radius: var(--cs-radius-full); background: var(--cs-color-surface-raised); overflow: hidden; }
-.cs-progress__fill { display: block; block-size: 100%; border-radius: inherit; background: var(--cs-color-brand-ochre); transition: inline-size var(--cs-duration-slow) var(--cs-ease-standard); }
+.cs-progress__fill { display: block; block-size: 100%; border-radius: inherit; background: var(--cs-accent); transition: inline-size var(--cs-duration-slow) var(--cs-ease-standard); }
 .cs-progress--umber .cs-progress__fill { background: var(--cs-color-brand-umber); }
 .cs-progress--success .cs-progress__fill { background: var(--cs-color-semantic-success); }
 

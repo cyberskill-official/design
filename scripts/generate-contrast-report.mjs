@@ -26,14 +26,23 @@ function parsePacks(css) {
     if (/data-theme="system"/.test(sel)) continue;
     const dark = /data-theme="dark"/.test(sel);
     if (/data-cs-element\]/.test(sel) && !/data-cs-element="/.test(sel)) continue;
-    const decls = {};
+    const lightDecls = {};
+    const darkDecls = {};
     let d;
-    const dr = /(--cs-[\w-]+)\s*:\s*([^;]+);/g;
-    while ((d = dr.exec(body))) decls[d[1]] = d[2].trim();
-    if (!decls['--cs-accent'] || !hex2rgb(decls['--cs-accent'])) continue;
+    const dr = /(--(?:_cs-(?:light|dark)-|cs-)[\w-]+)\s*:\s*([^;]+);/g;
+    while ((d = dr.exec(body))) {
+      const prop = d[1];
+      const val = d[2].trim();
+      if (prop.startsWith('--_cs-light-')) lightDecls['--cs-' + prop.slice('--_cs-light-'.length)] = val;
+      else if (prop.startsWith('--_cs-dark-')) darkDecls['--cs-' + prop.slice('--_cs-dark-'.length)] = val;
+      else if (prop.startsWith('--cs-')) (dark ? darkDecls : lightDecls)[prop] = val;
+    }
+    const accentCheck = lightDecls['--cs-accent'] || darkDecls['--cs-accent'];
+    if (!accentCheck || !hex2rgb(accentCheck)) continue;
     const k = el + (va ? ' · ' + va : '');
     packs[k] = packs[k] || { light: {}, dark: {} };
-    Object.assign(dark ? packs[k].dark : packs[k].light, decls);
+    Object.assign(packs[k].light, lightDecls);
+    Object.assign(packs[k].dark, darkDecls);
   }
   return packs;
 }

@@ -70,10 +70,10 @@ await withBrowserFixture(async page => {
     document.documentElement.setAttribute('data-cs-element', 'hoa');
     document.documentElement.setAttribute('data-theme', 'dark');
   });
-  await expectPair('hoa dark', [138, 74, 48], [255, 255, 255]);
+  await expectPair('hoa dark', [136, 62, 13], [255, 255, 255]);
 
   await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'light'));
-  await expectPair('hoa light after dark', [69, 33, 14], [255, 255, 255]);
+  await expectPair('hoa light after dark', [150, 68, 11], [255, 255, 255]);
 
   await page.evaluate(() => {
     document.documentElement.removeAttribute('data-cs-element');

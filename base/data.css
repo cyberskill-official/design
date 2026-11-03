@@ -4,7 +4,7 @@
 .cs-card { background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-lg); box-shadow: var(--cs-shadow-sm); color: var(--cs-color-text-primary); overflow: hidden; }
 .cs-card--flat { box-shadow: none; }
 .cs-card--interactive { cursor: pointer; transition: border-color var(--cs-duration-fast) var(--cs-ease-standard), transform var(--cs-duration-fast) var(--cs-ease-standard); }
-.cs-card--interactive:hover { border-color: var(--cs-color-brand-ochre); box-shadow: var(--cs-shadow-md); }
+.cs-card--interactive:hover { border-color: var(--cs-accent); box-shadow: var(--cs-shadow-md); }
 .cs-card--interactive:focus-visible { box-shadow: 0 0 0 5px var(--cs-color-accent-ochre), var(--cs-shadow-sm); transition: border-color var(--cs-duration-fast) var(--cs-ease-standard), transform var(--cs-duration-fast) var(--cs-ease-standard); }
 .cs-card--flat.cs-card--interactive:focus-visible { box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
 .cs-card--interactive:active { transform: translateY(1px); }
@@ -27,7 +27,7 @@
 .cs-stat__delta--flat { color: var(--cs-color-text-muted); }
 
 /* Avatar */
-.cs-avatar { display: inline-grid; place-items: center; overflow: hidden; border-radius: 50%; background: var(--cs-color-brand-umber); color: var(--cs-color-brand-ochre); font-family: var(--cs-font-family-ui); font-weight: 700; flex: none; user-select: none; }
+.cs-avatar { display: inline-grid; place-items: center; overflow: hidden; border-radius: 50%; background: var(--cs-accent-strong); color: var(--cs-accent-on-strong); font-family: var(--cs-font-family-ui); font-weight: 700; flex: none; user-select: none; }
 .cs-avatar img { inline-size: 100%; block-size: 100%; object-fit: cover; display: block; }
 .cs-avatar--sm { inline-size: 28px; block-size: 28px; font-size: var(--cs-font-size-xs); }
 .cs-avatar--md { inline-size: 40px; block-size: 40px; font-size: var(--cs-font-size-sm); }

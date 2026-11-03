@@ -37,7 +37,7 @@
     },
     {
       "path": "tokens/elements.css",
-      "sha256": "704d2316d9001b01bdeea45b39d6021fb6fdb2085405cdff64f0d7b424063de8"
+      "sha256": "b6282cecc7e8b3c154530b36e62f36e9744c73c24e8ae59cbe1ea5650d3073cb"
     },
     {
       "path": "tokens/styles.css",
@@ -57,23 +57,23 @@
     },
     {
       "path": "base/components.css",
-      "sha256": "eaa8aebac8a0b42d9d131e3bb36973550ce849c9673c3f20f60c9fce996bf8d1"
+      "sha256": "2d5c749472a81727264b44897997d35fc0ecef1857e5dbf0b25b1ac5cb370248"
     },
     {
       "path": "base/forms.css",
-      "sha256": "ad4d5ee47296f3632d8099f83f648162495b723d6ce14513a70f8536611212bb"
+      "sha256": "4999e66483fa95bab74e087471b7762f2a2e566331809488e5416cbf1d662522"
     },
     {
       "path": "base/feedback.css",
-      "sha256": "149e3d5113c20d48490b763da94161d1c549b4eda08b33a57e4bc482c4344e15"
+      "sha256": "6d9217035b2d71a67aa6a99bcbf75051b6d912ece0ff5c9d4f3c52261fbbcc09"
     },
     {
       "path": "base/data.css",
-      "sha256": "761943998c926a56dcb97f5cb6a2eae2b691df08001048846018cf8343001241"
+      "sha256": "62ab058ede8310b52ba7b6b9645fe36faeddace1754085cab30d67f0fbff55ff"
     },
     {
       "path": "base/navigation.css",
-      "sha256": "aaffc6045a14889cef15b1962437a4589854146a1e5b66c51f2c75dc486a6474"
+      "sha256": "687f619f37cc675866d6c9e3bfab7b9ed208f563ff78e3427c9ede68c3fc605a"
     },
     {
       "path": "base/ai.css",
@@ -81,19 +81,19 @@
     },
     {
       "path": "base/controls.css",
-      "sha256": "5ff2b53f486c59d6dc01eb884208767c715f4fa7299e90fc95e77a7e8b7c1030"
+      "sha256": "7784408919b89da59b6f2bc2bf668df01d254356502f94847304feb348366963"
     },
     {
       "path": "base/collections.css",
-      "sha256": "599f6afb08d82f445a3b021e64796a95c3974c6e36e265442245b65a6fe6e39f"
+      "sha256": "72eb80330ef7414ba2dc3ee8228421181668eb9d5031e6e4c0a34978454da766"
     },
     {
       "path": "base/shell.css",
-      "sha256": "20313a08c925a58a4ce141407fa5bcba7f360bde6436cfaf22d9dd6cef89d939"
+      "sha256": "3f758d518ac51e360c77a258100446085c942da1c6e39a95def95ec42fc8365e"
     },
     {
       "path": "base/glass.css",
-      "sha256": "1a1c7a0e311bbfb9f158cfc7281c275d6b10359ebaced0e8fbbb8988af1a07e5"
+      "sha256": "8195a8cbd960fa2ff15ceb2897864cd80bc3ca22eb9cf601c6f5e0f3a8c04a14"
     },
     {
       "path": "base/interaction.css",
@@ -4205,7 +4205,7 @@
       "line": 19,
       "column": 3,
       "name": "--cs-accent-strong",
-      "value": "#916D10",
+      "value": "#916D11",
       "important": false,
       "visibility": "public",
       "context": [
@@ -4333,7 +4333,7 @@
       "line": 27,
       "column": 3,
       "name": "--cs-accent-grad-b",
-      "value": "#F3B958",
+      "value": "#C4B78F",
       "important": false,
       "visibility": "public",
       "context": [
@@ -5565,7 +5565,7 @@
       "line": 122,
       "column": 3,
       "name": "--_cs-light-accent-strong",
-      "value": "#916D10",
+      "value": "#916D11",
       "important": false,
       "visibility": "private",
       "context": [
@@ -5581,7 +5581,7 @@
       "line": 123,
       "column": 3,
       "name": "--_cs-dark-accent-strong",
-      "value": "#916D10",
+      "value": "#916D11",
       "important": false,
       "visibility": "private",
       "context": [
@@ -5821,7 +5821,7 @@
       "line": 138,
       "column": 3,
       "name": "--_cs-light-accent-grad-b",
-      "value": "#F3B958",
+      "value": "#C4B78F",
       "important": false,
       "visibility": "private",
       "context": [
@@ -5837,7 +5837,7 @@
       "line": 139,
       "column": 3,
       "name": "--_cs-dark-accent-grad-b",
-      "value": "#F3B958",
+      "value": "#C4B78F",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6097,7 +6097,7 @@
       "line": 156,
       "column": 3,
       "name": "--_cs-light-accent",
-      "value": "#F8E9C0",
+      "value": "#F9E3A7",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6113,7 +6113,7 @@
       "line": 157,
       "column": 3,
       "name": "--_cs-dark-accent",
-      "value": "#F8E9C0",
+      "value": "#E6CD88",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6129,7 +6129,7 @@
       "line": 158,
       "column": 3,
       "name": "--_cs-light-accent-strong",
-      "value": "#80724E",
+      "value": "#856A03",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6145,7 +6145,7 @@
       "line": 159,
       "column": 3,
       "name": "--_cs-dark-accent-strong",
-      "value": "#665A37",
+      "value": "#80671A",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6161,7 +6161,7 @@
       "line": 160,
       "column": 3,
       "name": "--_cs-light-accent-bright",
-      "value": "#F6EBCC",
+      "value": "#FDEAB7",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6177,7 +6177,7 @@
       "line": 161,
       "column": 3,
       "name": "--_cs-dark-accent-bright",
-      "value": "#F6EBCC",
+      "value": "#F9E5AE",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6193,7 +6193,7 @@
       "line": 162,
       "column": 3,
       "name": "--_cs-light-accent-on",
-      "value": "#292414",
+      "value": "#271E06",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6257,7 +6257,7 @@
       "line": 166,
       "column": 3,
       "name": "--_cs-light-accent-tint",
-      "value": "#FBF7EA",
+      "value": "#FEF8E7",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6273,7 +6273,7 @@
       "line": 167,
       "column": 3,
       "name": "--_cs-dark-accent-tint",
-      "value": "#332701",
+      "value": "#342C15",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6289,7 +6289,7 @@
       "line": 168,
       "column": 3,
       "name": "--_cs-light-accent-ink",
-      "value": "#292414",
+      "value": "#292108",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6305,7 +6305,7 @@
       "line": 169,
       "column": 3,
       "name": "--_cs-dark-accent-ink",
-      "value": "#F6EBCC",
+      "value": "#F9E5AE",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6321,7 +6321,7 @@
       "line": 170,
       "column": 3,
       "name": "--_cs-light-accent-glow",
-      "value": "rgba(248, 233, 192, 0.48)",
+      "value": "rgba(249, 227, 167, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6337,7 +6337,7 @@
       "line": 171,
       "column": 3,
       "name": "--_cs-dark-accent-glow",
-      "value": "rgba(248, 233, 192, 0.48)",
+      "value": "rgba(249, 227, 167, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6353,7 +6353,7 @@
       "line": 172,
       "column": 3,
       "name": "--_cs-light-accent-grad-a",
-      "value": "#F8E9C0",
+      "value": "#F9E3A7",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6369,7 +6369,7 @@
       "line": 173,
       "column": 3,
       "name": "--_cs-dark-accent-grad-a",
-      "value": "#F8E9C0",
+      "value": "#F9E3A7",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6385,7 +6385,7 @@
       "line": 174,
       "column": 3,
       "name": "--_cs-light-accent-grad-b",
-      "value": "#F3B958",
+      "value": "#C4B78F",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6401,7 +6401,7 @@
       "line": 175,
       "column": 3,
       "name": "--_cs-dark-accent-grad-b",
-      "value": "#F3B958",
+      "value": "#C4B78F",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6417,7 +6417,7 @@
       "line": 176,
       "column": 3,
       "name": "--_cs-light-color-text-accent",
-      "value": "#625431",
+      "value": "#695300",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6433,7 +6433,7 @@
       "line": 177,
       "column": 3,
       "name": "--_cs-dark-color-text-accent",
-      "value": "#F6EBCC",
+      "value": "#F9E5AE",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6449,7 +6449,7 @@
       "line": 178,
       "column": 3,
       "name": "--_cs-light-color-link",
-      "value": "#625431",
+      "value": "#695300",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6465,7 +6465,7 @@
       "line": 179,
       "column": 3,
       "name": "--_cs-dark-color-link",
-      "value": "#F6EBCC",
+      "value": "#F9E5AE",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6641,7 +6641,7 @@
       "line": 190,
       "column": 3,
       "name": "--_cs-light-component-button-primary-bg",
-      "value": "#45210E",
+      "value": "#856A03",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6657,7 +6657,7 @@
       "line": 191,
       "column": 3,
       "name": "--_cs-dark-component-button-primary-bg",
-      "value": "#665A37",
+      "value": "#80671A",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6721,7 +6721,7 @@
       "line": 198,
       "column": 3,
       "name": "--_cs-dark-accent",
-      "value": "#F4BA17",
+      "value": "#E9B321",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6737,7 +6737,7 @@
       "line": 199,
       "column": 3,
       "name": "--_cs-light-accent-strong",
-      "value": "#916D10",
+      "value": "#916D11",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6753,7 +6753,7 @@
       "line": 200,
       "column": 3,
       "name": "--_cs-dark-accent-strong",
-      "value": "#73560B",
+      "value": "#6E5205",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6785,7 +6785,7 @@
       "line": 202,
       "column": 3,
       "name": "--_cs-dark-accent-bright",
-      "value": "#FEC42C",
+      "value": "#FDD378",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6881,7 +6881,7 @@
       "line": 208,
       "column": 3,
       "name": "--_cs-dark-accent-tint",
-      "value": "#352602",
+      "value": "#2B1E00",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6913,7 +6913,7 @@
       "line": 210,
       "column": 3,
       "name": "--_cs-dark-accent-ink",
-      "value": "#FECD5E",
+      "value": "#FDD378",
       "important": false,
       "visibility": "private",
       "context": [
@@ -6993,7 +6993,7 @@
       "line": 215,
       "column": 3,
       "name": "--_cs-light-accent-grad-b",
-      "value": "#F3B958",
+      "value": "#C4B78F",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7009,7 +7009,7 @@
       "line": 216,
       "column": 3,
       "name": "--_cs-dark-accent-grad-b",
-      "value": "#F3B958",
+      "value": "#C4B78F",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7041,7 +7041,7 @@
       "line": 218,
       "column": 3,
       "name": "--_cs-dark-color-text-accent",
-      "value": "#FED57C",
+      "value": "#FFD57A",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7073,7 +7073,7 @@
       "line": 220,
       "column": 3,
       "name": "--_cs-dark-color-link",
-      "value": "#FED57C",
+      "value": "#FFD57A",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7265,7 +7265,7 @@
       "line": 232,
       "column": 3,
       "name": "--_cs-dark-component-button-primary-bg",
-      "value": "#73560B",
+      "value": "#6E5205",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7313,7 +7313,7 @@
       "line": 238,
       "column": 3,
       "name": "--_cs-light-accent",
-      "value": "#513801",
+      "value": "#723E06",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7329,7 +7329,7 @@
       "line": 239,
       "column": 3,
       "name": "--_cs-dark-accent",
-      "value": "#CDB07E",
+      "value": "#E0A97C",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7345,7 +7345,7 @@
       "line": 240,
       "column": 3,
       "name": "--_cs-light-accent-strong",
-      "value": "#201300",
+      "value": "#5A3004",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7361,7 +7361,7 @@
       "line": 241,
       "column": 3,
       "name": "--_cs-dark-accent-strong",
-      "value": "#1F1300",
+      "value": "#5C3001",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7377,7 +7377,7 @@
       "line": 242,
       "column": 3,
       "name": "--_cs-light-accent-bright",
-      "value": "#DEC7A2",
+      "value": "#F2C5A3",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7393,7 +7393,7 @@
       "line": 243,
       "column": 3,
       "name": "--_cs-dark-accent-bright",
-      "value": "#E4CDA8",
+      "value": "#F8C7A1",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7409,7 +7409,7 @@
       "line": 244,
       "column": 3,
       "name": "--_cs-light-accent-on",
-      "value": "#2D220E",
+      "value": "#080200",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7473,7 +7473,7 @@
       "line": 248,
       "column": 3,
       "name": "--_cs-light-accent-tint",
-      "value": "#FFF6E7",
+      "value": "#FCEEE3",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7489,7 +7489,7 @@
       "line": 249,
       "column": 3,
       "name": "--_cs-dark-accent-tint",
-      "value": "#372502",
+      "value": "#220F01",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7505,7 +7505,7 @@
       "line": 250,
       "column": 3,
       "name": "--_cs-light-accent-ink",
-      "value": "#2D220E",
+      "value": "#321B07",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7521,7 +7521,7 @@
       "line": 251,
       "column": 3,
       "name": "--_cs-dark-accent-ink",
-      "value": "#E7D0AB",
+      "value": "#FBCAA4",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7537,7 +7537,7 @@
       "line": 252,
       "column": 3,
       "name": "--_cs-light-accent-glow",
-      "value": "rgba(81, 56, 1, 0.48)",
+      "value": "rgba(114, 62, 6, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7553,7 +7553,7 @@
       "line": 253,
       "column": 3,
       "name": "--_cs-dark-accent-glow",
-      "value": "rgba(81, 56, 1, 0.48)",
+      "value": "rgba(114, 62, 6, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7569,7 +7569,7 @@
       "line": 254,
       "column": 3,
       "name": "--_cs-light-accent-grad-a",
-      "value": "#513801",
+      "value": "#723E06",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7585,7 +7585,7 @@
       "line": 255,
       "column": 3,
       "name": "--_cs-dark-accent-grad-a",
-      "value": "#513801",
+      "value": "#723E06",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7601,7 +7601,7 @@
       "line": 256,
       "column": 3,
       "name": "--_cs-light-accent-grad-b",
-      "value": "#F3B958",
+      "value": "#C4B78F",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7617,7 +7617,7 @@
       "line": 257,
       "column": 3,
       "name": "--_cs-dark-accent-grad-b",
-      "value": "#F3B958",
+      "value": "#C4B78F",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7633,7 +7633,7 @@
       "line": 258,
       "column": 3,
       "name": "--_cs-light-color-text-accent",
-      "value": "#201300",
+      "value": "#462402",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7649,7 +7649,7 @@
       "line": 259,
       "column": 3,
       "name": "--_cs-dark-color-text-accent",
-      "value": "#EED7B1",
+      "value": "#FFD2AF",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7665,7 +7665,7 @@
       "line": 260,
       "column": 3,
       "name": "--_cs-light-color-link",
-      "value": "#201300",
+      "value": "#462402",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7681,7 +7681,7 @@
       "line": 261,
       "column": 3,
       "name": "--_cs-dark-color-link",
-      "value": "#EED7B1",
+      "value": "#FFD2AF",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7857,7 +7857,7 @@
       "line": 272,
       "column": 3,
       "name": "--_cs-light-component-button-primary-bg",
-      "value": "#45210E",
+      "value": "#5A3004",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7873,7 +7873,7 @@
       "line": 273,
       "column": 3,
       "name": "--_cs-dark-component-button-primary-bg",
-      "value": "#1F1300",
+      "value": "#5C3001",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7921,7 +7921,7 @@
       "line": 279,
       "column": 3,
       "name": "--_cs-light-accent",
-      "value": "#FFE1D8",
+      "value": "#FEDBDC",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7937,7 +7937,7 @@
       "line": 280,
       "column": 3,
       "name": "--_cs-dark-accent",
-      "value": "#FFE1D8",
+      "value": "#EBC4C5",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7953,7 +7953,7 @@
       "line": 281,
       "column": 3,
       "name": "--_cs-light-accent-strong",
-      "value": "#856E68",
+      "value": "#896163",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7969,7 +7969,7 @@
       "line": 282,
       "column": 3,
       "name": "--_cs-dark-accent-strong",
-      "value": "#6F5750",
+      "value": "#836061",
       "important": false,
       "visibility": "private",
       "context": [
@@ -7985,7 +7985,7 @@
       "line": 283,
       "column": 3,
       "name": "--_cs-light-accent-bright",
-      "value": "#FCE6DF",
+      "value": "#FFE3E4",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8001,7 +8001,7 @@
       "line": 284,
       "column": 3,
       "name": "--_cs-dark-accent-bright",
-      "value": "#FCE6DF",
+      "value": "#FDDDDE",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8017,7 +8017,7 @@
       "line": 285,
       "column": 3,
       "name": "--_cs-light-accent-on",
-      "value": "#2C211E",
+      "value": "#281B1C",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8081,7 +8081,7 @@
       "line": 289,
       "column": 3,
       "name": "--_cs-light-accent-tint",
-      "value": "#FEF4F2",
+      "value": "#FFF5F5",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8097,7 +8097,7 @@
       "line": 290,
       "column": 3,
       "name": "--_cs-dark-accent-tint",
-      "value": "#38231C",
+      "value": "#352929",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8113,7 +8113,7 @@
       "line": 291,
       "column": 3,
       "name": "--_cs-light-accent-ink",
-      "value": "#2C211E",
+      "value": "#2B1E1E",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8129,7 +8129,7 @@
       "line": 292,
       "column": 3,
       "name": "--_cs-dark-accent-ink",
-      "value": "#FCE6DF",
+      "value": "#FDDDDE",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8145,7 +8145,7 @@
       "line": 293,
       "column": 3,
       "name": "--_cs-light-accent-glow",
-      "value": "rgba(255, 225, 216, 0.48)",
+      "value": "rgba(254, 219, 220, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8161,7 +8161,7 @@
       "line": 294,
       "column": 3,
       "name": "--_cs-dark-accent-glow",
-      "value": "rgba(255, 225, 216, 0.48)",
+      "value": "rgba(254, 219, 220, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8177,7 +8177,7 @@
       "line": 295,
       "column": 3,
       "name": "--_cs-light-accent-grad-a",
-      "value": "#FFE1D8",
+      "value": "#FEDBDC",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8193,7 +8193,7 @@
       "line": 296,
       "column": 3,
       "name": "--_cs-dark-accent-grad-a",
-      "value": "#FFE1D8",
+      "value": "#FEDBDC",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8241,7 +8241,7 @@
       "line": 299,
       "column": 3,
       "name": "--_cs-light-color-text-accent",
-      "value": "#66504B",
+      "value": "#714B4D",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8257,7 +8257,7 @@
       "line": 300,
       "column": 3,
       "name": "--_cs-dark-color-text-accent",
-      "value": "#FCE6DF",
+      "value": "#FDDDDE",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8273,7 +8273,7 @@
       "line": 301,
       "column": 3,
       "name": "--_cs-light-color-link",
-      "value": "#66504B",
+      "value": "#714B4D",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8289,7 +8289,7 @@
       "line": 302,
       "column": 3,
       "name": "--_cs-dark-color-link",
-      "value": "#FCE6DF",
+      "value": "#FDDDDE",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8465,7 +8465,7 @@
       "line": 313,
       "column": 3,
       "name": "--_cs-light-component-button-primary-bg",
-      "value": "#45210E",
+      "value": "#896163",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8481,7 +8481,7 @@
       "line": 314,
       "column": 3,
       "name": "--_cs-dark-component-button-primary-bg",
-      "value": "#6F5750",
+      "value": "#836061",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8529,7 +8529,7 @@
       "line": 320,
       "column": 3,
       "name": "--_cs-light-accent",
-      "value": "#FCAF91",
+      "value": "#FC9C69",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8545,7 +8545,7 @@
       "line": 321,
       "column": 3,
       "name": "--_cs-dark-accent",
-      "value": "#FCAF91",
+      "value": "#FEA272",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8561,7 +8561,7 @@
       "line": 322,
       "column": 3,
       "name": "--_cs-light-accent-strong",
-      "value": "#A46146",
+      "value": "#96440B",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8577,7 +8577,7 @@
       "line": 323,
       "column": 3,
       "name": "--_cs-dark-accent-strong",
-      "value": "#8A4A30",
+      "value": "#883E0D",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8593,7 +8593,7 @@
       "line": 324,
       "column": 3,
       "name": "--_cs-light-accent-bright",
-      "value": "#FED3C3",
+      "value": "#FFD3BD",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8609,7 +8609,7 @@
       "line": 325,
       "column": 3,
       "name": "--_cs-dark-accent-bright",
-      "value": "#FED3C3",
+      "value": "#FECDB4",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8625,7 +8625,7 @@
       "line": 326,
       "column": 3,
       "name": "--_cs-light-accent-on",
-      "value": "#381B10",
+      "value": "#361402",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8689,7 +8689,7 @@
       "line": 330,
       "column": 3,
       "name": "--_cs-light-accent-tint",
-      "value": "#FFF4F0",
+      "value": "#FFF1EA",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8705,7 +8705,7 @@
       "line": 331,
       "column": 3,
       "name": "--_cs-dark-accent-tint",
-      "value": "#411E0F",
+      "value": "#351706",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8721,7 +8721,7 @@
       "line": 332,
       "column": 3,
       "name": "--_cs-light-accent-ink",
-      "value": "#381B10",
+      "value": "#3A1501",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8737,7 +8737,7 @@
       "line": 333,
       "column": 3,
       "name": "--_cs-dark-accent-ink",
-      "value": "#FED3C3",
+      "value": "#FECDB4",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8753,7 +8753,7 @@
       "line": 334,
       "column": 3,
       "name": "--_cs-light-accent-glow",
-      "value": "rgba(252, 175, 145, 0.48)",
+      "value": "rgba(252, 156, 105, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8769,7 +8769,7 @@
       "line": 335,
       "column": 3,
       "name": "--_cs-dark-accent-glow",
-      "value": "rgba(252, 175, 145, 0.48)",
+      "value": "rgba(252, 156, 105, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8785,7 +8785,7 @@
       "line": 336,
       "column": 3,
       "name": "--_cs-light-accent-grad-a",
-      "value": "#FCAF91",
+      "value": "#FC9C69",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8801,7 +8801,7 @@
       "line": 337,
       "column": 3,
       "name": "--_cs-dark-accent-grad-a",
-      "value": "#FCAF91",
+      "value": "#FC9C69",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8849,7 +8849,7 @@
       "line": 340,
       "column": 3,
       "name": "--_cs-light-color-text-accent",
-      "value": "#793B20",
+      "value": "#793609",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8865,7 +8865,7 @@
       "line": 341,
       "column": 3,
       "name": "--_cs-dark-color-text-accent",
-      "value": "#FED3C3",
+      "value": "#FFD1BA",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8881,7 +8881,7 @@
       "line": 342,
       "column": 3,
       "name": "--_cs-light-color-link",
-      "value": "#793B20",
+      "value": "#793609",
       "important": false,
       "visibility": "private",
       "context": [
@@ -8897,7 +8897,7 @@
       "line": 343,
       "column": 3,
       "name": "--_cs-dark-color-link",
-      "value": "#FED3C3",
+      "value": "#FFD1BA",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9073,7 +9073,7 @@
       "line": 354,
       "column": 3,
       "name": "--_cs-light-component-button-primary-bg",
-      "value": "#45210E",
+      "value": "#96440B",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9089,7 +9089,7 @@
       "line": 355,
       "column": 3,
       "name": "--_cs-dark-component-button-primary-bg",
-      "value": "#8A4A30",
+      "value": "#883E0D",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9137,7 +9137,7 @@
       "line": 361,
       "column": 3,
       "name": "--_cs-light-accent",
-      "value": "#622B06",
+      "value": "#93050F",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9153,7 +9153,7 @@
       "line": 362,
       "column": 3,
       "name": "--_cs-dark-accent",
-      "value": "#E8A683",
+      "value": "#FC9A8F",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9169,7 +9169,7 @@
       "line": 363,
       "column": 3,
       "name": "--_cs-light-accent-strong",
-      "value": "#280D00",
+      "value": "#760008",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9185,7 +9185,7 @@
       "line": 364,
       "column": 3,
       "name": "--_cs-dark-accent-strong",
-      "value": "#280D00",
+      "value": "#6D1D19",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9201,7 +9201,7 @@
       "line": 365,
       "column": 3,
       "name": "--_cs-light-accent-bright",
-      "value": "#F1BEA4",
+      "value": "#FFBCB4",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9217,7 +9217,7 @@
       "line": 366,
       "column": 3,
       "name": "--_cs-dark-accent-bright",
-      "value": "#F8C4AA",
+      "value": "#FFC1B9",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9233,7 +9233,7 @@
       "line": 367,
       "column": 3,
       "name": "--_cs-light-accent-on",
-      "value": "#361D0F",
+      "value": "#0D0000",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9297,7 +9297,7 @@
       "line": 371,
       "column": 3,
       "name": "--_cs-light-accent-tint",
-      "value": "#FFF4EF",
+      "value": "#FFEBE9",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9313,7 +9313,7 @@
       "line": 372,
       "column": 3,
       "name": "--_cs-dark-accent-tint",
-      "value": "#401F0B",
+      "value": "#2A0806",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9329,7 +9329,7 @@
       "line": 373,
       "column": 3,
       "name": "--_cs-light-accent-ink",
-      "value": "#361D0F",
+      "value": "#400C0B",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9345,7 +9345,7 @@
       "line": 374,
       "column": 3,
       "name": "--_cs-dark-accent-ink",
-      "value": "#FBC7AD",
+      "value": "#FFC6BF",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9361,7 +9361,7 @@
       "line": 375,
       "column": 3,
       "name": "--_cs-light-accent-glow",
-      "value": "rgba(98, 43, 6, 0.48)",
+      "value": "rgba(147, 5, 15, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9377,7 +9377,7 @@
       "line": 376,
       "column": 3,
       "name": "--_cs-dark-accent-glow",
-      "value": "rgba(98, 43, 6, 0.48)",
+      "value": "rgba(147, 5, 15, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9393,7 +9393,7 @@
       "line": 377,
       "column": 3,
       "name": "--_cs-light-accent-grad-a",
-      "value": "#622B06",
+      "value": "#93050F",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9409,7 +9409,7 @@
       "line": 378,
       "column": 3,
       "name": "--_cs-dark-accent-grad-a",
-      "value": "#622B06",
+      "value": "#93050F",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9457,7 +9457,7 @@
       "line": 381,
       "column": 3,
       "name": "--_cs-light-color-text-accent",
-      "value": "#280D00",
+      "value": "#550306",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9473,7 +9473,7 @@
       "line": 382,
       "column": 3,
       "name": "--_cs-dark-color-text-accent",
-      "value": "#FED1BB",
+      "value": "#FDD0CA",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9489,7 +9489,7 @@
       "line": 383,
       "column": 3,
       "name": "--_cs-light-color-link",
-      "value": "#280D00",
+      "value": "#550306",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9505,7 +9505,7 @@
       "line": 384,
       "column": 3,
       "name": "--_cs-dark-color-link",
-      "value": "#FED1BB",
+      "value": "#FDD0CA",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9681,7 +9681,7 @@
       "line": 395,
       "column": 3,
       "name": "--_cs-light-component-button-primary-bg",
-      "value": "#45210E",
+      "value": "#760008",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9697,7 +9697,7 @@
       "line": 396,
       "column": 3,
       "name": "--_cs-dark-component-button-primary-bg",
-      "value": "#280D00",
+      "value": "#6D1D19",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9745,7 +9745,7 @@
       "line": 402,
       "column": 3,
       "name": "--_cs-light-accent",
-      "value": "#C0F5FC",
+      "value": "#9DF7F5",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9761,7 +9761,7 @@
       "line": 403,
       "column": 3,
       "name": "--_cs-dark-accent",
-      "value": "#C0F5FC",
+      "value": "#79E4E2",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9777,7 +9777,7 @@
       "line": 404,
       "column": 3,
       "name": "--_cs-light-accent-strong",
-      "value": "#4B7B81",
+      "value": "#037D7D",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9793,7 +9793,7 @@
       "line": 405,
       "column": 3,
       "name": "--_cs-dark-accent-strong",
-      "value": "#316167",
+      "value": "#077A79",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9809,7 +9809,7 @@
       "line": 406,
       "column": 3,
       "name": "--_cs-light-accent-bright",
-      "value": "#CDF4F9",
+      "value": "#B1FBF9",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9825,7 +9825,7 @@
       "line": 407,
       "column": 3,
       "name": "--_cs-dark-accent-bright",
-      "value": "#CDF4F9",
+      "value": "#A6F8F6",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9841,7 +9841,7 @@
       "line": 408,
       "column": 3,
       "name": "--_cs-light-accent-on",
-      "value": "#13282B",
+      "value": "#012525",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9905,7 +9905,7 @@
       "line": 412,
       "column": 3,
       "name": "--_cs-light-accent-tint",
-      "value": "#EBFAFC",
+      "value": "#E6FDFC",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9921,7 +9921,7 @@
       "line": 413,
       "column": 3,
       "name": "--_cs-dark-accent-tint",
-      "value": "#022F34",
+      "value": "#0D3333",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9937,7 +9937,7 @@
       "line": 414,
       "column": 3,
       "name": "--_cs-light-accent-ink",
-      "value": "#13282B",
+      "value": "#032727",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9953,7 +9953,7 @@
       "line": 415,
       "column": 3,
       "name": "--_cs-dark-accent-ink",
-      "value": "#CDF4F9",
+      "value": "#A6F8F6",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9969,7 +9969,7 @@
       "line": 416,
       "column": 3,
       "name": "--_cs-light-accent-glow",
-      "value": "rgba(192, 245, 252, 0.48)",
+      "value": "rgba(157, 247, 245, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -9985,7 +9985,7 @@
       "line": 417,
       "column": 3,
       "name": "--_cs-dark-accent-glow",
-      "value": "rgba(192, 245, 252, 0.48)",
+      "value": "rgba(157, 247, 245, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10001,7 +10001,7 @@
       "line": 418,
       "column": 3,
       "name": "--_cs-light-accent-grad-a",
-      "value": "#C0F5FC",
+      "value": "#9DF7F5",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10017,7 +10017,7 @@
       "line": 419,
       "column": 3,
       "name": "--_cs-dark-accent-grad-a",
-      "value": "#C0F5FC",
+      "value": "#9DF7F5",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10033,7 +10033,7 @@
       "line": 420,
       "column": 3,
       "name": "--_cs-light-accent-grad-b",
-      "value": "#A3D768",
+      "value": "#82CF66",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10049,7 +10049,7 @@
       "line": 421,
       "column": 3,
       "name": "--_cs-dark-accent-grad-b",
-      "value": "#A3D768",
+      "value": "#82CF66",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10065,7 +10065,7 @@
       "line": 422,
       "column": 3,
       "name": "--_cs-light-color-text-accent",
-      "value": "#2E5E64",
+      "value": "#116060",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10081,7 +10081,7 @@
       "line": 423,
       "column": 3,
       "name": "--_cs-dark-color-text-accent",
-      "value": "#CDF4F9",
+      "value": "#A6F8F6",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10097,7 +10097,7 @@
       "line": 424,
       "column": 3,
       "name": "--_cs-light-color-link",
-      "value": "#2E5E64",
+      "value": "#116060",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10113,7 +10113,7 @@
       "line": 425,
       "column": 3,
       "name": "--_cs-dark-color-link",
-      "value": "#CDF4F9",
+      "value": "#A6F8F6",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10289,7 +10289,7 @@
       "line": 436,
       "column": 3,
       "name": "--_cs-light-component-button-primary-bg",
-      "value": "#45210E",
+      "value": "#037D7D",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10305,7 +10305,7 @@
       "line": 437,
       "column": 3,
       "name": "--_cs-dark-component-button-primary-bg",
-      "value": "#316167",
+      "value": "#077A79",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10353,7 +10353,7 @@
       "line": 443,
       "column": 3,
       "name": "--_cs-light-accent",
-      "value": "#2EDBF7",
+      "value": "#00CEE4",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10369,7 +10369,7 @@
       "line": 444,
       "column": 3,
       "name": "--_cs-dark-accent",
-      "value": "#2EDBF7",
+      "value": "#32D2E7",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10385,7 +10385,7 @@
       "line": 445,
       "column": 3,
       "name": "--_cs-light-accent-strong",
-      "value": "#0B7E8E",
+      "value": "#166B76",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10401,7 +10401,7 @@
       "line": 446,
       "column": 3,
       "name": "--_cs-dark-accent-strong",
-      "value": "#046270",
+      "value": "#04626D",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10417,7 +10417,7 @@
       "line": 447,
       "column": 3,
       "name": "--_cs-light-accent-bright",
-      "value": "#99EEFF",
+      "value": "#94EFFD",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10433,7 +10433,7 @@
       "line": 448,
       "column": 3,
       "name": "--_cs-dark-accent-bright",
-      "value": "#99EEFF",
+      "value": "#79EDFF",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10449,7 +10449,7 @@
       "line": 449,
       "column": 3,
       "name": "--_cs-light-accent-on",
-      "value": "#012A30",
+      "value": "#012429",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10513,7 +10513,7 @@
       "line": 453,
       "column": 3,
       "name": "--_cs-light-accent-tint",
-      "value": "#E7FBFF",
+      "value": "#DFFBFF",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10529,7 +10529,7 @@
       "line": 454,
       "column": 3,
       "name": "--_cs-dark-accent-tint",
-      "value": "#032F36",
+      "value": "#03252A",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10545,7 +10545,7 @@
       "line": 455,
       "column": 3,
       "name": "--_cs-light-accent-ink",
-      "value": "#012A30",
+      "value": "#03272C",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10561,7 +10561,7 @@
       "line": 456,
       "column": 3,
       "name": "--_cs-dark-accent-ink",
-      "value": "#99EEFF",
+      "value": "#79EDFF",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10577,7 +10577,7 @@
       "line": 457,
       "column": 3,
       "name": "--_cs-light-accent-glow",
-      "value": "rgba(46, 219, 247, 0.48)",
+      "value": "rgba(0, 206, 228, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10593,7 +10593,7 @@
       "line": 458,
       "column": 3,
       "name": "--_cs-dark-accent-glow",
-      "value": "rgba(46, 219, 247, 0.48)",
+      "value": "rgba(0, 206, 228, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10609,7 +10609,7 @@
       "line": 459,
       "column": 3,
       "name": "--_cs-light-accent-grad-a",
-      "value": "#2EDBF7",
+      "value": "#00CEE4",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10625,7 +10625,7 @@
       "line": 460,
       "column": 3,
       "name": "--_cs-dark-accent-grad-a",
-      "value": "#2EDBF7",
+      "value": "#00CEE4",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10641,7 +10641,7 @@
       "line": 461,
       "column": 3,
       "name": "--_cs-light-accent-grad-b",
-      "value": "#A3D768",
+      "value": "#82CF66",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10657,7 +10657,7 @@
       "line": 462,
       "column": 3,
       "name": "--_cs-dark-accent-grad-b",
-      "value": "#A3D768",
+      "value": "#82CF66",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10673,7 +10673,7 @@
       "line": 463,
       "column": 3,
       "name": "--_cs-light-color-text-accent",
-      "value": "#035763",
+      "value": "#0D535C",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10689,7 +10689,7 @@
       "line": 464,
       "column": 3,
       "name": "--_cs-dark-color-text-accent",
-      "value": "#99EEFF",
+      "value": "#79EDFF",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10705,7 +10705,7 @@
       "line": 465,
       "column": 3,
       "name": "--_cs-light-color-link",
-      "value": "#035763",
+      "value": "#0D535C",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10721,7 +10721,7 @@
       "line": 466,
       "column": 3,
       "name": "--_cs-dark-color-link",
-      "value": "#99EEFF",
+      "value": "#79EDFF",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10897,7 +10897,7 @@
       "line": 477,
       "column": 3,
       "name": "--_cs-light-component-button-primary-bg",
-      "value": "#45210E",
+      "value": "#166B76",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10913,7 +10913,7 @@
       "line": 478,
       "column": 3,
       "name": "--_cs-dark-component-button-primary-bg",
-      "value": "#046270",
+      "value": "#04626D",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10961,7 +10961,7 @@
       "line": 484,
       "column": 3,
       "name": "--_cs-light-accent",
-      "value": "#004554",
+      "value": "#06556F",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10977,7 +10977,7 @@
       "line": 485,
       "column": 3,
       "name": "--_cs-dark-accent",
-      "value": "#82BCCD",
+      "value": "#80BDD8",
       "important": false,
       "visibility": "private",
       "context": [
@@ -10993,7 +10993,7 @@
       "line": 486,
       "column": 3,
       "name": "--_cs-light-accent-strong",
-      "value": "#011A21",
+      "value": "#034257",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11009,7 +11009,7 @@
       "line": 487,
       "column": 3,
       "name": "--_cs-dark-accent-strong",
-      "value": "#011A21",
+      "value": "#00445A",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11025,7 +11025,7 @@
       "line": 488,
       "column": 3,
       "name": "--_cs-light-accent-bright",
-      "value": "#A8D3E0",
+      "value": "#A9D8ED",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11041,7 +11041,7 @@
       "line": 489,
       "column": 3,
       "name": "--_cs-dark-accent-bright",
-      "value": "#ABD6E3",
+      "value": "#A5D8F0",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11057,7 +11057,7 @@
       "line": 490,
       "column": 3,
       "name": "--_cs-light-accent-on",
-      "value": "#10282F",
+      "value": "#001721",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11121,7 +11121,7 @@
       "line": 494,
       "column": 3,
       "name": "--_cs-light-accent-tint",
-      "value": "#EAFAFF",
+      "value": "#E5F3FA",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11137,7 +11137,7 @@
       "line": 495,
       "column": 3,
       "name": "--_cs-dark-accent-tint",
-      "value": "#002F3A",
+      "value": "#021821",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11153,7 +11153,7 @@
       "line": 496,
       "column": 3,
       "name": "--_cs-light-accent-ink",
-      "value": "#10282F",
+      "value": "#092531",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11169,7 +11169,7 @@
       "line": 497,
       "column": 3,
       "name": "--_cs-dark-accent-ink",
-      "value": "#AED9E6",
+      "value": "#A8DBF3",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11185,7 +11185,7 @@
       "line": 498,
       "column": 3,
       "name": "--_cs-light-accent-glow",
-      "value": "rgba(0, 69, 84, 0.48)",
+      "value": "rgba(6, 85, 111, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11201,7 +11201,7 @@
       "line": 499,
       "column": 3,
       "name": "--_cs-dark-accent-glow",
-      "value": "rgba(0, 69, 84, 0.48)",
+      "value": "rgba(6, 85, 111, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11217,7 +11217,7 @@
       "line": 500,
       "column": 3,
       "name": "--_cs-light-accent-grad-a",
-      "value": "#004554",
+      "value": "#06556F",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11233,7 +11233,7 @@
       "line": 501,
       "column": 3,
       "name": "--_cs-dark-accent-grad-a",
-      "value": "#004554",
+      "value": "#06556F",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11249,7 +11249,7 @@
       "line": 502,
       "column": 3,
       "name": "--_cs-light-accent-grad-b",
-      "value": "#A3D768",
+      "value": "#82CF66",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11265,7 +11265,7 @@
       "line": 503,
       "column": 3,
       "name": "--_cs-dark-accent-grad-b",
-      "value": "#A3D768",
+      "value": "#82CF66",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11281,7 +11281,7 @@
       "line": 504,
       "column": 3,
       "name": "--_cs-light-color-text-accent",
-      "value": "#011A21",
+      "value": "#003142",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11297,7 +11297,7 @@
       "line": 505,
       "column": 3,
       "name": "--_cs-dark-color-text-accent",
-      "value": "#B6E1EF",
+      "value": "#AFE2FA",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11313,7 +11313,7 @@
       "line": 506,
       "column": 3,
       "name": "--_cs-light-color-link",
-      "value": "#011A21",
+      "value": "#003142",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11329,7 +11329,7 @@
       "line": 507,
       "column": 3,
       "name": "--_cs-dark-color-link",
-      "value": "#B6E1EF",
+      "value": "#AFE2FA",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11505,7 +11505,7 @@
       "line": 518,
       "column": 3,
       "name": "--_cs-light-component-button-primary-bg",
-      "value": "#45210E",
+      "value": "#034257",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11521,7 +11521,7 @@
       "line": 519,
       "column": 3,
       "name": "--_cs-dark-component-button-primary-bg",
-      "value": "#011A21",
+      "value": "#00445A",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11569,7 +11569,7 @@
       "line": 525,
       "column": 3,
       "name": "--_cs-light-accent",
-      "value": "#E1F1C8",
+      "value": "#DAEFAA",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11585,7 +11585,7 @@
       "line": 526,
       "column": 3,
       "name": "--_cs-dark-accent",
-      "value": "#E1F1C8",
+      "value": "#C4DB8C",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11601,7 +11601,7 @@
       "line": 527,
       "column": 3,
       "name": "--_cs-light-accent-strong",
-      "value": "#6B7754",
+      "value": "#62780E",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11617,7 +11617,7 @@
       "line": 528,
       "column": 3,
       "name": "--_cs-dark-accent-strong",
-      "value": "#54603E",
+      "value": "#607420",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11633,7 +11633,7 @@
       "line": 529,
       "column": 3,
       "name": "--_cs-light-accent-bright",
-      "value": "#E5F1D2",
+      "value": "#E2F4BA",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11649,7 +11649,7 @@
       "line": 530,
       "column": 3,
       "name": "--_cs-dark-accent-bright",
-      "value": "#E5F1D2",
+      "value": "#DCF0B1",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11665,7 +11665,7 @@
       "line": 531,
       "column": 3,
       "name": "--_cs-light-accent-on",
-      "value": "#212617",
+      "value": "#1C2307",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11729,7 +11729,7 @@
       "line": 535,
       "column": 3,
       "name": "--_cs-light-accent-tint",
-      "value": "#F4F9ED",
+      "value": "#F5FBE8",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11745,7 +11745,7 @@
       "line": 536,
       "column": 3,
       "name": "--_cs-dark-accent-tint",
-      "value": "#232D0B",
+      "value": "#293016",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11761,7 +11761,7 @@
       "line": 537,
       "column": 3,
       "name": "--_cs-light-accent-ink",
-      "value": "#212617",
+      "value": "#1E250A",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11777,7 +11777,7 @@
       "line": 538,
       "column": 3,
       "name": "--_cs-dark-accent-ink",
-      "value": "#E5F1D2",
+      "value": "#DCF0B1",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11793,7 +11793,7 @@
       "line": 539,
       "column": 3,
       "name": "--_cs-light-accent-glow",
-      "value": "rgba(225, 241, 200, 0.48)",
+      "value": "rgba(218, 239, 170, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11809,7 +11809,7 @@
       "line": 540,
       "column": 3,
       "name": "--_cs-dark-accent-glow",
-      "value": "rgba(225, 241, 200, 0.48)",
+      "value": "rgba(218, 239, 170, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11825,7 +11825,7 @@
       "line": 541,
       "column": 3,
       "name": "--_cs-light-accent-grad-a",
-      "value": "#E1F1C8",
+      "value": "#DAEFAA",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11841,7 +11841,7 @@
       "line": 542,
       "column": 3,
       "name": "--_cs-dark-accent-grad-a",
-      "value": "#E1F1C8",
+      "value": "#DAEFAA",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11857,7 +11857,7 @@
       "line": 543,
       "column": 3,
       "name": "--_cs-light-accent-grad-b",
-      "value": "#FCAF91",
+      "value": "#FC9C69",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11873,7 +11873,7 @@
       "line": 544,
       "column": 3,
       "name": "--_cs-dark-accent-grad-b",
-      "value": "#FCAF91",
+      "value": "#FC9C69",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11889,7 +11889,7 @@
       "line": 545,
       "column": 3,
       "name": "--_cs-light-color-text-accent",
-      "value": "#505C3A",
+      "value": "#4A5B02",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11905,7 +11905,7 @@
       "line": 546,
       "column": 3,
       "name": "--_cs-dark-color-text-accent",
-      "value": "#E5F1D2",
+      "value": "#DCF0B1",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11921,7 +11921,7 @@
       "line": 547,
       "column": 3,
       "name": "--_cs-light-color-link",
-      "value": "#505C3A",
+      "value": "#4A5B02",
       "important": false,
       "visibility": "private",
       "context": [
@@ -11937,7 +11937,7 @@
       "line": 548,
       "column": 3,
       "name": "--_cs-dark-color-link",
-      "value": "#E5F1D2",
+      "value": "#DCF0B1",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12113,7 +12113,7 @@
       "line": 559,
       "column": 3,
       "name": "--_cs-light-component-button-primary-bg",
-      "value": "#45210E",
+      "value": "#62780E",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12129,7 +12129,7 @@
       "line": 560,
       "column": 3,
       "name": "--_cs-dark-component-button-primary-bg",
-      "value": "#54603E",
+      "value": "#607420",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12177,7 +12177,7 @@
       "line": 566,
       "column": 3,
       "name": "--_cs-light-accent",
-      "value": "#A3D768",
+      "value": "#82CF66",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12193,7 +12193,7 @@
       "line": 567,
       "column": 3,
       "name": "--_cs-dark-accent",
-      "value": "#A3D768",
+      "value": "#8AD370",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12209,7 +12209,7 @@
       "line": 568,
       "column": 3,
       "name": "--_cs-light-accent-strong",
-      "value": "#528003",
+      "value": "#2B7100",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12225,7 +12225,7 @@
       "line": 569,
       "column": 3,
       "name": "--_cs-dark-accent-strong",
-      "value": "#416501",
+      "value": "#286704",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12241,7 +12241,7 @@
       "line": 570,
       "column": 3,
       "name": "--_cs-light-accent-bright",
-      "value": "#C5ED9C",
+      "value": "#B9F0A6",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12257,7 +12257,7 @@
       "line": 571,
       "column": 3,
       "name": "--_cs-dark-accent-bright",
-      "value": "#C5ED9C",
+      "value": "#B2EC9E",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12273,7 +12273,7 @@
       "line": 572,
       "column": 3,
       "name": "--_cs-light-accent-on",
-      "value": "#182A00",
+      "value": "#0A2700",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12337,7 +12337,7 @@
       "line": 576,
       "column": 3,
       "name": "--_cs-light-accent-tint",
-      "value": "#EFFCE3",
+      "value": "#EAFAE5",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12353,7 +12353,7 @@
       "line": 577,
       "column": 3,
       "name": "--_cs-dark-accent-tint",
-      "value": "#1F2E0B",
+      "value": "#12260B",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12369,7 +12369,7 @@
       "line": 578,
       "column": 3,
       "name": "--_cs-light-accent-ink",
-      "value": "#182A00",
+      "value": "#0D2902",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12385,7 +12385,7 @@
       "line": 579,
       "column": 3,
       "name": "--_cs-dark-accent-ink",
-      "value": "#C5ED9C",
+      "value": "#B2EC9E",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12401,7 +12401,7 @@
       "line": 580,
       "column": 3,
       "name": "--_cs-light-accent-glow",
-      "value": "rgba(163, 215, 104, 0.48)",
+      "value": "rgba(130, 207, 102, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12417,7 +12417,7 @@
       "line": 581,
       "column": 3,
       "name": "--_cs-dark-accent-glow",
-      "value": "rgba(163, 215, 104, 0.48)",
+      "value": "rgba(130, 207, 102, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12433,7 +12433,7 @@
       "line": 582,
       "column": 3,
       "name": "--_cs-light-accent-grad-a",
-      "value": "#A3D768",
+      "value": "#82CF66",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12449,7 +12449,7 @@
       "line": 583,
       "column": 3,
       "name": "--_cs-dark-accent-grad-a",
-      "value": "#A3D768",
+      "value": "#82CF66",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12465,7 +12465,7 @@
       "line": 584,
       "column": 3,
       "name": "--_cs-light-accent-grad-b",
-      "value": "#FCAF91",
+      "value": "#FC9C69",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12481,7 +12481,7 @@
       "line": 585,
       "column": 3,
       "name": "--_cs-dark-accent-grad-b",
-      "value": "#FCAF91",
+      "value": "#FC9C69",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12497,7 +12497,7 @@
       "line": 586,
       "column": 3,
       "name": "--_cs-light-color-text-accent",
-      "value": "#38570C",
+      "value": "#24570B",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12513,7 +12513,7 @@
       "line": 587,
       "column": 3,
       "name": "--_cs-dark-color-text-accent",
-      "value": "#C5ED9C",
+      "value": "#B2EC9E",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12529,7 +12529,7 @@
       "line": 588,
       "column": 3,
       "name": "--_cs-light-color-link",
-      "value": "#38570C",
+      "value": "#24570B",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12545,7 +12545,7 @@
       "line": 589,
       "column": 3,
       "name": "--_cs-dark-color-link",
-      "value": "#C5ED9C",
+      "value": "#B2EC9E",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12721,7 +12721,7 @@
       "line": 600,
       "column": 3,
       "name": "--_cs-light-component-button-primary-bg",
-      "value": "#45210E",
+      "value": "#2B7100",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12737,7 +12737,7 @@
       "line": 601,
       "column": 3,
       "name": "--_cs-dark-component-button-primary-bg",
-      "value": "#416501",
+      "value": "#286704",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12785,7 +12785,7 @@
       "line": 607,
       "column": 3,
       "name": "--_cs-light-accent",
-      "value": "#1A4A01",
+      "value": "#105C36",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12801,7 +12801,7 @@
       "line": 608,
       "column": 3,
       "name": "--_cs-dark-accent",
-      "value": "#8EC27D",
+      "value": "#84C49B",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12817,7 +12817,7 @@
       "line": 609,
       "column": 3,
       "name": "--_cs-light-accent-strong",
-      "value": "#051D00",
+      "value": "#0A4829",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12833,7 +12833,7 @@
       "line": 610,
       "column": 3,
       "name": "--_cs-dark-accent-strong",
-      "value": "#061D00",
+      "value": "#074A29",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12849,7 +12849,7 @@
       "line": 611,
       "column": 3,
       "name": "--_cs-light-accent-bright",
-      "value": "#B0D8A3",
+      "value": "#ACDDBD",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12865,7 +12865,7 @@
       "line": 612,
       "column": 3,
       "name": "--_cs-dark-accent-bright",
-      "value": "#B0D8A3",
+      "value": "#A8DFBB",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12881,7 +12881,7 @@
       "line": 613,
       "column": 3,
       "name": "--_cs-light-accent-on",
-      "value": "#162A0E",
+      "value": "#011C0D",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12945,7 +12945,7 @@
       "line": 617,
       "column": 3,
       "name": "--_cs-light-accent-tint",
-      "value": "#ECFDE7",
+      "value": "#E6F5EB",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12961,7 +12961,7 @@
       "line": 618,
       "column": 3,
       "name": "--_cs-dark-accent-tint",
-      "value": "#193011",
+      "value": "#031A0C",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12977,7 +12977,7 @@
       "line": 619,
       "column": 3,
       "name": "--_cs-light-accent-ink",
-      "value": "#162A0E",
+      "value": "#0B2818",
       "important": false,
       "visibility": "private",
       "context": [
@@ -12993,7 +12993,7 @@
       "line": 620,
       "column": 3,
       "name": "--_cs-dark-accent-ink",
-      "value": "#B6DFA9",
+      "value": "#A8DFBB",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13009,7 +13009,7 @@
       "line": 621,
       "column": 3,
       "name": "--_cs-light-accent-glow",
-      "value": "rgba(26, 74, 1, 0.48)",
+      "value": "rgba(16, 92, 54, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13025,7 +13025,7 @@
       "line": 622,
       "column": 3,
       "name": "--_cs-dark-accent-glow",
-      "value": "rgba(26, 74, 1, 0.48)",
+      "value": "rgba(16, 92, 54, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13041,7 +13041,7 @@
       "line": 623,
       "column": 3,
       "name": "--_cs-light-accent-grad-a",
-      "value": "#1A4A01",
+      "value": "#105C36",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13057,7 +13057,7 @@
       "line": 624,
       "column": 3,
       "name": "--_cs-dark-accent-grad-a",
-      "value": "#1A4A01",
+      "value": "#105C36",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13073,7 +13073,7 @@
       "line": 625,
       "column": 3,
       "name": "--_cs-light-accent-grad-b",
-      "value": "#FCAF91",
+      "value": "#FC9C69",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13089,7 +13089,7 @@
       "line": 626,
       "column": 3,
       "name": "--_cs-dark-accent-grad-b",
-      "value": "#FCAF91",
+      "value": "#FC9C69",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13105,7 +13105,7 @@
       "line": 627,
       "column": 3,
       "name": "--_cs-light-color-text-accent",
-      "value": "#051D00",
+      "value": "#04361D",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13121,7 +13121,7 @@
       "line": 628,
       "column": 3,
       "name": "--_cs-dark-color-text-accent",
-      "value": "#BDE5B0",
+      "value": "#B0E7C3",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13137,7 +13137,7 @@
       "line": 629,
       "column": 3,
       "name": "--_cs-light-color-link",
-      "value": "#051D00",
+      "value": "#04361D",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13153,7 +13153,7 @@
       "line": 630,
       "column": 3,
       "name": "--_cs-dark-color-link",
-      "value": "#BDE5B0",
+      "value": "#B0E7C3",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13329,7 +13329,7 @@
       "line": 641,
       "column": 3,
       "name": "--_cs-light-component-button-primary-bg",
-      "value": "#45210E",
+      "value": "#0A4829",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13345,7 +13345,7 @@
       "line": 642,
       "column": 3,
       "name": "--_cs-dark-component-button-primary-bg",
-      "value": "#061D00",
+      "value": "#074A29",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13393,7 +13393,7 @@
       "line": 648,
       "column": 3,
       "name": "--_cs-light-accent",
-      "value": "#FEE5C7",
+      "value": "#D3E7FC",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13409,7 +13409,7 @@
       "line": 649,
       "column": 3,
       "name": "--_cs-dark-accent",
-      "value": "#FEE5C7",
+      "value": "#BCD2EA",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13425,7 +13425,7 @@
       "line": 650,
       "column": 3,
       "name": "--_cs-light-accent-strong",
-      "value": "#847058",
+      "value": "#56708B",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13441,7 +13441,7 @@
       "line": 651,
       "column": 3,
       "name": "--_cs-dark-accent-strong",
-      "value": "#6B573E",
+      "value": "#576D83",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13457,7 +13457,7 @@
       "line": 652,
       "column": 3,
       "name": "--_cs-light-accent-bright",
-      "value": "#FBE8D2",
+      "value": "#DDEDFF",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13473,7 +13473,7 @@
       "line": 653,
       "column": 3,
       "name": "--_cs-dark-accent-bright",
-      "value": "#FBE8D2",
+      "value": "#D6E9FD",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13489,7 +13489,7 @@
       "line": 654,
       "column": 3,
       "name": "--_cs-light-accent-on",
-      "value": "#2B2217",
+      "value": "#182029",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13553,7 +13553,7 @@
       "line": 658,
       "column": 3,
       "name": "--_cs-light-accent-tint",
-      "value": "#FDF5ED",
+      "value": "#F3F8FE",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13569,7 +13569,7 @@
       "line": 659,
       "column": 3,
       "name": "--_cs-dark-accent-tint",
-      "value": "#37250B",
+      "value": "#262D35",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13585,7 +13585,7 @@
       "line": 660,
       "column": 3,
       "name": "--_cs-light-accent-ink",
-      "value": "#2B2217",
+      "value": "#1A232B",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13601,7 +13601,7 @@
       "line": 661,
       "column": 3,
       "name": "--_cs-dark-accent-ink",
-      "value": "#FBE8D2",
+      "value": "#D6E9FD",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13617,7 +13617,7 @@
       "line": 662,
       "column": 3,
       "name": "--_cs-light-accent-glow",
-      "value": "rgba(254, 229, 199, 0.48)",
+      "value": "rgba(211, 231, 252, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13633,7 +13633,7 @@
       "line": 663,
       "column": 3,
       "name": "--_cs-dark-accent-glow",
-      "value": "rgba(254, 229, 199, 0.48)",
+      "value": "rgba(211, 231, 252, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13649,7 +13649,7 @@
       "line": 664,
       "column": 3,
       "name": "--_cs-light-accent-grad-a",
-      "value": "#FEE5C7",
+      "value": "#D3E7FC",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13665,7 +13665,7 @@
       "line": 665,
       "column": 3,
       "name": "--_cs-dark-accent-grad-a",
-      "value": "#FEE5C7",
+      "value": "#D3E7FC",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13681,7 +13681,7 @@
       "line": 666,
       "column": 3,
       "name": "--_cs-light-accent-grad-b",
-      "value": "#2EDBF7",
+      "value": "#00CEE4",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13697,7 +13697,7 @@
       "line": 667,
       "column": 3,
       "name": "--_cs-dark-accent-grad-b",
-      "value": "#2EDBF7",
+      "value": "#00CEE4",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13713,7 +13713,7 @@
       "line": 668,
       "column": 3,
       "name": "--_cs-light-color-text-accent",
-      "value": "#67543D",
+      "value": "#3D5670",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13729,7 +13729,7 @@
       "line": 669,
       "column": 3,
       "name": "--_cs-dark-color-text-accent",
-      "value": "#FBE8D2",
+      "value": "#D6E9FD",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13745,7 +13745,7 @@
       "line": 670,
       "column": 3,
       "name": "--_cs-light-color-link",
-      "value": "#67543D",
+      "value": "#3D5670",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13761,7 +13761,7 @@
       "line": 671,
       "column": 3,
       "name": "--_cs-dark-color-link",
-      "value": "#FBE8D2",
+      "value": "#D6E9FD",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13937,7 +13937,7 @@
       "line": 682,
       "column": 3,
       "name": "--_cs-light-component-button-primary-bg",
-      "value": "#45210E",
+      "value": "#56708B",
       "important": false,
       "visibility": "private",
       "context": [
@@ -13953,7 +13953,7 @@
       "line": 683,
       "column": 3,
       "name": "--_cs-dark-component-button-primary-bg",
-      "value": "#6B573E",
+      "value": "#576D83",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14001,7 +14001,7 @@
       "line": 689,
       "column": 3,
       "name": "--_cs-light-accent",
-      "value": "#F3B958",
+      "value": "#C4B78F",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14017,7 +14017,7 @@
       "line": 690,
       "column": 3,
       "name": "--_cs-dark-accent",
-      "value": "#F3B958",
+      "value": "#C8BC96",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14033,7 +14033,7 @@
       "line": 691,
       "column": 3,
       "name": "--_cs-light-accent-strong",
-      "value": "#996A08",
+      "value": "#6A5E3A",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14049,7 +14049,7 @@
       "line": 692,
       "column": 3,
       "name": "--_cs-dark-accent-strong",
-      "value": "#795303",
+      "value": "#615633",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14065,7 +14065,7 @@
       "line": 693,
       "column": 3,
       "name": "--_cs-light-accent-bright",
-      "value": "#FDD89F",
+      "value": "#E8DEBD",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14081,7 +14081,7 @@
       "line": 694,
       "column": 3,
       "name": "--_cs-dark-accent-bright",
-      "value": "#FDD89F",
+      "value": "#E3D9B8",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14097,7 +14097,7 @@
       "line": 695,
       "column": 3,
       "name": "--_cs-light-accent-on",
-      "value": "#312002",
+      "value": "#241F0F",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14161,7 +14161,7 @@
       "line": 699,
       "column": 3,
       "name": "--_cs-light-accent-tint",
-      "value": "#FFF5E7",
+      "value": "#F8F4EA",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14177,7 +14177,7 @@
       "line": 700,
       "column": 3,
       "name": "--_cs-dark-accent-tint",
-      "value": "#382503",
+      "value": "#242013",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14193,7 +14193,7 @@
       "line": 701,
       "column": 3,
       "name": "--_cs-light-accent-ink",
-      "value": "#312002",
+      "value": "#262112",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14209,7 +14209,7 @@
       "line": 702,
       "column": 3,
       "name": "--_cs-dark-accent-ink",
-      "value": "#FDD89F",
+      "value": "#E3D9B8",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14225,7 +14225,7 @@
       "line": 703,
       "column": 3,
       "name": "--_cs-light-accent-glow",
-      "value": "rgba(243, 185, 88, 0.48)",
+      "value": "rgba(196, 183, 143, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14241,7 +14241,7 @@
       "line": 704,
       "column": 3,
       "name": "--_cs-dark-accent-glow",
-      "value": "rgba(243, 185, 88, 0.48)",
+      "value": "rgba(196, 183, 143, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14257,7 +14257,7 @@
       "line": 705,
       "column": 3,
       "name": "--_cs-light-accent-grad-a",
-      "value": "#F3B958",
+      "value": "#C4B78F",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14273,7 +14273,7 @@
       "line": 706,
       "column": 3,
       "name": "--_cs-dark-accent-grad-a",
-      "value": "#F3B958",
+      "value": "#C4B78F",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14289,7 +14289,7 @@
       "line": 707,
       "column": 3,
       "name": "--_cs-light-accent-grad-b",
-      "value": "#2EDBF7",
+      "value": "#00CEE4",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14305,7 +14305,7 @@
       "line": 708,
       "column": 3,
       "name": "--_cs-dark-accent-grad-b",
-      "value": "#2EDBF7",
+      "value": "#00CEE4",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14321,7 +14321,7 @@
       "line": 709,
       "column": 3,
       "name": "--_cs-light-color-text-accent",
-      "value": "#65460B",
+      "value": "#564B27",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14337,7 +14337,7 @@
       "line": 710,
       "column": 3,
       "name": "--_cs-dark-color-text-accent",
-      "value": "#FDD89F",
+      "value": "#E5DBBA",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14353,7 +14353,7 @@
       "line": 711,
       "column": 3,
       "name": "--_cs-light-color-link",
-      "value": "#65460B",
+      "value": "#564B27",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14369,7 +14369,7 @@
       "line": 712,
       "column": 3,
       "name": "--_cs-dark-color-link",
-      "value": "#FDD89F",
+      "value": "#E5DBBA",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14545,7 +14545,7 @@
       "line": 723,
       "column": 3,
       "name": "--_cs-light-component-button-primary-bg",
-      "value": "#45210E",
+      "value": "#6A5E3A",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14561,7 +14561,7 @@
       "line": 724,
       "column": 3,
       "name": "--_cs-dark-component-button-primary-bg",
-      "value": "#795303",
+      "value": "#615633",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14609,7 +14609,7 @@
       "line": 730,
       "column": 3,
       "name": "--_cs-light-accent",
-      "value": "#503901",
+      "value": "#384D72",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14625,7 +14625,7 @@
       "line": 731,
       "column": 3,
       "name": "--_cs-dark-accent",
-      "value": "#CCB17E",
+      "value": "#9FB7E0",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14641,7 +14641,7 @@
       "line": 732,
       "column": 3,
       "name": "--_cs-light-accent-strong",
-      "value": "#1F1400",
+      "value": "#293C5C",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14657,7 +14657,7 @@
       "line": 733,
       "column": 3,
       "name": "--_cs-dark-accent-strong",
-      "value": "#1F1400",
+      "value": "#2B3D5D",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14673,7 +14673,7 @@
       "line": 734,
       "column": 3,
       "name": "--_cs-light-accent-bright",
-      "value": "#DCC8A2",
+      "value": "#BED0F0",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14689,7 +14689,7 @@
       "line": 735,
       "column": 3,
       "name": "--_cs-dark-accent-bright",
-      "value": "#DFCBA5",
+      "value": "#BBD0F4",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14705,7 +14705,7 @@
       "line": 736,
       "column": 3,
       "name": "--_cs-light-accent-on",
-      "value": "#2D220E",
+      "value": "#020818",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14769,7 +14769,7 @@
       "line": 740,
       "column": 3,
       "name": "--_cs-light-accent-tint",
-      "value": "#FEF6E7",
+      "value": "#EBF1FB",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14785,7 +14785,7 @@
       "line": 741,
       "column": 3,
       "name": "--_cs-dark-accent-tint",
-      "value": "#362602",
+      "value": "#0D1523",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14801,7 +14801,7 @@
       "line": 742,
       "column": 3,
       "name": "--_cs-light-accent-ink",
-      "value": "#2D220E",
+      "value": "#182232",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14817,7 +14817,7 @@
       "line": 743,
       "column": 3,
       "name": "--_cs-dark-accent-ink",
-      "value": "#E6D1AB",
+      "value": "#BED3F7",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14833,7 +14833,7 @@
       "line": 744,
       "column": 3,
       "name": "--_cs-light-accent-glow",
-      "value": "rgba(80, 57, 1, 0.48)",
+      "value": "rgba(56, 77, 114, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14849,7 +14849,7 @@
       "line": 745,
       "column": 3,
       "name": "--_cs-dark-accent-glow",
-      "value": "rgba(80, 57, 1, 0.48)",
+      "value": "rgba(56, 77, 114, 0.48)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14865,7 +14865,7 @@
       "line": 746,
       "column": 3,
       "name": "--_cs-light-accent-grad-a",
-      "value": "#503901",
+      "value": "#384D72",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14881,7 +14881,7 @@
       "line": 747,
       "column": 3,
       "name": "--_cs-dark-accent-grad-a",
-      "value": "#503901",
+      "value": "#384D72",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14897,7 +14897,7 @@
       "line": 748,
       "column": 3,
       "name": "--_cs-light-accent-grad-b",
-      "value": "#2EDBF7",
+      "value": "#00CEE4",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14913,7 +14913,7 @@
       "line": 749,
       "column": 3,
       "name": "--_cs-dark-accent-grad-b",
-      "value": "#2EDBF7",
+      "value": "#00CEE4",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14929,7 +14929,7 @@
       "line": 750,
       "column": 3,
       "name": "--_cs-light-color-text-accent",
-      "value": "#1F1400",
+      "value": "#1B2E4C",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14945,7 +14945,7 @@
       "line": 751,
       "column": 3,
       "name": "--_cs-dark-color-text-accent",
-      "value": "#ECD8B2",
+      "value": "#C8DBFD",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14961,7 +14961,7 @@
       "line": 752,
       "column": 3,
       "name": "--_cs-light-color-link",
-      "value": "#1F1400",
+      "value": "#1B2E4C",
       "important": false,
       "visibility": "private",
       "context": [
@@ -14977,7 +14977,7 @@
       "line": 753,
       "column": 3,
       "name": "--_cs-dark-color-link",
-      "value": "#ECD8B2",
+      "value": "#C8DBFD",
       "important": false,
       "visibility": "private",
       "context": [
@@ -15153,7 +15153,7 @@
       "line": 764,
       "column": 3,
       "name": "--_cs-light-component-button-primary-bg",
-      "value": "#45210E",
+      "value": "#293C5C",
       "important": false,
       "visibility": "private",
       "context": [
@@ -15169,7 +15169,7 @@
       "line": 765,
       "column": 3,
       "name": "--_cs-dark-component-button-primary-bg",
-      "value": "#1F1400",
+      "value": "#2B3D5D",
       "important": false,
       "visibility": "private",
       "context": [

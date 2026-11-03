@@ -132,8 +132,8 @@ const preview = {
           { value: 'tho|sand', title: 'Thổ · sand (soft)' },
           { value: 'tho|clay', title: 'Thổ · clay (deep)' },
           { value: 'hoa|', title: 'Hỏa · ember (middle)' },
-          { value: 'hoa|plasma', title: 'Hỏa · plasma (deep)' },
-          { value: 'hoa|lava', title: 'Hỏa · lava (soft)' },
+          { value: 'hoa|plasma', title: 'Hỏa · plasma (soft)' },
+          { value: 'hoa|lava', title: 'Hỏa · lava (deep)' },
           { value: 'thuy|', title: 'Thủy · river (middle)' },
           { value: 'thuy|mist', title: 'Thủy · mist (soft)' },
           { value: 'thuy|ocean', title: 'Thủy · ocean (deep)' },
@@ -141,8 +141,8 @@ const preview = {
           { value: 'moc|bamboo', title: 'Mộc · bamboo (soft)' },
           { value: 'moc|forest', title: 'Mộc · forest (deep)' },
           { value: 'kim|', title: 'Kim · champagne (middle)' },
-          { value: 'kim|titanium', title: 'Kim · titanium (deep)' },
-          { value: 'kim|steel', title: 'Kim · steel (soft)' },
+          { value: 'kim|titanium', title: 'Kim · titanium (soft)' },
+          { value: 'kim|steel', title: 'Kim · steel (deep)' },
         ],
         dynamicTitle: true,
       },
@@ -211,9 +211,14 @@ const preview = {
       if (typeof document !== 'undefined') {
         const root = document.documentElement;
         root.setAttribute('data-theme', theme);
+        if (element) root.setAttribute('data-cs-element', element);
+        else root.removeAttribute('data-cs-element');
+        if (variant) root.setAttribute('data-cs-variant', variant);
+        else root.removeAttribute('data-cs-variant');
         root.setAttribute('data-cs-style', style);
         root.setAttribute('data-cs-density', density);
         root.setAttribute('data-cs-contrast', contrast);
+        root.setAttribute('lang', language);
       }
       return (
         <div

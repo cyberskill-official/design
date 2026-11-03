@@ -1,6 +1,6 @@
 ---
 name: "CyberSkill Design System"
-version: "2.1.0"
+version: "2.2.0"
 generated: "2026-07-23"
 generator: "scripts/generate-design-md.mjs (npm run build:design-md)"
 sources:
@@ -66,14 +66,14 @@ Gói màu nhấn mặc định = Thổ (nguyên tố của studio). Toàn bộ 1
 | Token | Giá trị |
 |---|---|
 | `--cs-accent` | `#F4BA17` |
-| `--cs-accent-strong` | `#916D10` |
+| `--cs-accent-strong` | `#916D11` |
 | `--cs-accent-bright` | `#F4BA17` |
 | `--cs-accent-on` | `#45210E` |
 | `--cs-accent-tint` | `#FBF4E9` |
 | `--cs-accent-ink` | `#45210E` |
 | `--cs-accent-glow` | `rgba(244, 186, 23, 0.48)` |
 | `--cs-accent-grad-a` | `#F4BA17` |
-| `--cs-accent-grad-b` | `#F3B958` |
+| `--cs-accent-grad-b` | `#C4B78F` |
 | `--cs-accent-on-strong` | `#FFFFFF` |
 
 ### Bảng màu tài liệu

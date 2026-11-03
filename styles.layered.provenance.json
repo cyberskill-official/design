@@ -44,7 +44,7 @@
     },
     {
       "path": "tokens/elements.css",
-      "sha256": "704d2316d9001b01bdeea45b39d6021fb6fdb2085405cdff64f0d7b424063de8"
+      "sha256": "b6282cecc7e8b3c154530b36e62f36e9744c73c24e8ae59cbe1ea5650d3073cb"
     },
     {
       "path": "tokens/styles.css",
@@ -64,23 +64,23 @@
     },
     {
       "path": "base/components.css",
-      "sha256": "eaa8aebac8a0b42d9d131e3bb36973550ce849c9673c3f20f60c9fce996bf8d1"
+      "sha256": "2d5c749472a81727264b44897997d35fc0ecef1857e5dbf0b25b1ac5cb370248"
     },
     {
       "path": "base/forms.css",
-      "sha256": "ad4d5ee47296f3632d8099f83f648162495b723d6ce14513a70f8536611212bb"
+      "sha256": "4999e66483fa95bab74e087471b7762f2a2e566331809488e5416cbf1d662522"
     },
     {
       "path": "base/feedback.css",
-      "sha256": "149e3d5113c20d48490b763da94161d1c549b4eda08b33a57e4bc482c4344e15"
+      "sha256": "6d9217035b2d71a67aa6a99bcbf75051b6d912ece0ff5c9d4f3c52261fbbcc09"
     },
     {
       "path": "base/data.css",
-      "sha256": "761943998c926a56dcb97f5cb6a2eae2b691df08001048846018cf8343001241"
+      "sha256": "62ab058ede8310b52ba7b6b9645fe36faeddace1754085cab30d67f0fbff55ff"
     },
     {
       "path": "base/navigation.css",
-      "sha256": "aaffc6045a14889cef15b1962437a4589854146a1e5b66c51f2c75dc486a6474"
+      "sha256": "687f619f37cc675866d6c9e3bfab7b9ed208f563ff78e3427c9ede68c3fc605a"
     },
     {
       "path": "base/ai.css",
@@ -88,19 +88,19 @@
     },
     {
       "path": "base/controls.css",
-      "sha256": "5ff2b53f486c59d6dc01eb884208767c715f4fa7299e90fc95e77a7e8b7c1030"
+      "sha256": "7784408919b89da59b6f2bc2bf668df01d254356502f94847304feb348366963"
     },
     {
       "path": "base/collections.css",
-      "sha256": "599f6afb08d82f445a3b021e64796a95c3974c6e36e265442245b65a6fe6e39f"
+      "sha256": "72eb80330ef7414ba2dc3ee8228421181668eb9d5031e6e4c0a34978454da766"
     },
     {
       "path": "base/shell.css",
-      "sha256": "20313a08c925a58a4ce141407fa5bcba7f360bde6436cfaf22d9dd6cef89d939"
+      "sha256": "3f758d518ac51e360c77a258100446085c942da1c6e39a95def95ec42fc8365e"
     },
     {
       "path": "base/glass.css",
-      "sha256": "1a1c7a0e311bbfb9f158cfc7281c275d6b10359ebaced0e8fbbb8988af1a07e5"
+      "sha256": "8195a8cbd960fa2ff15ceb2897864cd80bc3ca22eb9cf601c6f5e0f3a8c04a14"
     },
     {
       "path": "base/interaction.css",
@@ -156,5 +156,5 @@
     "fonts/spacegrotesk-var-vietnamese.woff2"
   ],
   "importantCount": 46,
-  "sha256": "c03e18931e2101925da6fa7f80f935a52f45cc0b6bc0ee3bd840ec66f76f1fe4"
+  "sha256": "90fb740bf5d84ed3d2687736f06c873b494df7ecd5e53a2325fb9eedaf3dd305"
 }

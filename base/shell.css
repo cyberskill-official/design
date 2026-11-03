@@ -6,8 +6,8 @@
 .cs-nav-item { display: flex; align-items: center; gap: 11px; padding: 9px 12px; border-radius: var(--cs-radius-md); color: var(--cs-color-text-primary); font-family: var(--cs-font-family-ui); font-weight: 600; font-size: var(--cs-font-size-sm); text-decoration: none; cursor: pointer; border: 0; background: transparent; inline-size: 100%; text-align: start; }
 .cs-nav-item:hover { background: var(--cs-color-surface-raised); }
 .cs-nav-item__icon { flex: none; color: var(--cs-color-text-muted); display: grid; place-items: center; }
-.cs-nav-item.is-active { background: color-mix(in oklab, var(--cs-color-brand-ochre) 22%, var(--cs-color-surface-panel)); color: var(--_cs-light, var(--cs-color-brand-umber))var(--_cs-dark, var(--cs-color-brand-ochre)); }
-.cs-nav-item.is-active .cs-nav-item__icon { color: var(--_cs-light, var(--cs-color-brand-umber))var(--_cs-dark, var(--cs-color-brand-ochre)); }
+.cs-nav-item.is-active { background: var(--_cs-light, var(--cs-accent-tint))var(--_cs-dark, color-mix(in oklab, var(--cs-accent) 22%, var(--cs-color-surface-panel))); color: var(--_cs-light, var(--cs-color-text-accent))var(--_cs-dark, var(--cs-color-text-accent)); }
+.cs-nav-item.is-active .cs-nav-item__icon { color: var(--_cs-light, var(--cs-color-text-accent))var(--_cs-dark, var(--cs-color-text-accent)); }
 .cs-nav-item__trail { margin-inline-start: auto; }
 
 /* Steps */
@@ -15,9 +15,9 @@
 .cs-step { flex: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; position: relative; padding-inline-end: 12px; }
 .cs-step:not(:last-child)::after { content: ""; position: absolute; inset-block-start: 13px; inset-inline-start: 34px; inline-size: calc(100% - 46px); block-size: 2px; background: var(--cs-color-border-default); }
 .cs-step__marker { inline-size: 28px; block-size: 28px; border-radius: 50%; display: grid; place-items: center; font-family: var(--cs-font-family-mono); font-weight: 700; font-size: var(--cs-font-size-sm); background: var(--cs-color-surface-raised); color: var(--cs-color-text-muted); border: 1px solid var(--cs-color-border-default); z-index: 1; }
-.cs-step--done .cs-step__marker { background: var(--cs-color-brand-umber); color: #fff; /* on-brand-umber ink */ border-color: transparent; }
-.cs-step--done:not(:last-child)::after { background: var(--cs-color-brand-umber); }
-.cs-step--active .cs-step__marker { background: var(--cs-color-brand-ochre); color: var(--cs-color-brand-umber); border-color: transparent; box-shadow: 0 0 0 4px color-mix(in oklab, var(--cs-color-brand-ochre) 28%, transparent); }
+.cs-step--done .cs-step__marker { background: var(--cs-accent-strong); color: var(--cs-accent-on-strong); border-color: transparent; }
+.cs-step--done:not(:last-child)::after { background: var(--cs-accent-strong); }
+.cs-step--active .cs-step__marker { background: var(--cs-accent-bright); color: var(--cs-accent-on); border-color: transparent; box-shadow: 0 0 0 4px color-mix(in oklab, var(--cs-accent) 28%, transparent); }
 .cs-step__title { font-weight: 700; font-size: var(--cs-font-size-sm); }
 .cs-step__body { font-size: var(--cs-font-size-xs); color: var(--cs-color-text-muted); }
 
