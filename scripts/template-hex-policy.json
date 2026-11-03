@@ -2923,14 +2923,6 @@
       "reason": "Fixed cream ink on the immutable Umber fill; adaptive inverse/page tokens would change the existing pairing in Dark."
     },
     {
-      "path": "templates/playground.html",
-      "kind": "stylesheet",
-      "context": ".grp button[aria-pressed=\"true\"] | color:#fff",
-      "hex": "#FFF",
-      "count": 1,
-      "reason": "Fixed white ink on an authored brand/image/chrome fill; adaptive text-inverse changes by theme and is not equivalent."
-    },
-    {
       "path": "templates/sales-one-pager/SalesOnePager.dc.html",
       "kind": "inline-style",
       "context": "(div class=cs-avoid cs-sales-cta) color:#FFFDF8",
@@ -4721,6 +4713,62 @@
       "hex": "#FFF",
       "count": 1,
       "reason": "Print/export paper contract deliberately forces fixed white instead of an adaptive theme surface."
+    },
+    {
+      "path": "templates/email-safe/email-announcement.html",
+      "kind": "stylesheet",
+      "context": "@media (prefers-color-scheme: dark) > .container,.card | color:#f5ead9!important",
+      "hex": "#F5EAD9",
+      "count": 1,
+      "reason": "Email clients do not support external token stylesheets, OKLab/color-mix or custom-property cascades reliably; email-safe templates inline explicit light/dark client palettes."
+    },
+    {
+      "path": "templates/email-safe/email-dunning.html",
+      "kind": "stylesheet",
+      "context": "@media (prefers-color-scheme: dark) > .container,.card | color:#f5ead9!important",
+      "hex": "#F5EAD9",
+      "count": 1,
+      "reason": "Email clients do not support external token stylesheets, OKLab/color-mix or custom-property cascades reliably; email-safe templates inline explicit light/dark client palettes."
+    },
+    {
+      "path": "templates/email-safe/email-investor.html",
+      "kind": "stylesheet",
+      "context": "@media (prefers-color-scheme: dark) > .container,.card | color:#f5ead9!important",
+      "hex": "#F5EAD9",
+      "count": 1,
+      "reason": "Email clients do not support external token stylesheets, OKLab/color-mix or custom-property cascades reliably; email-safe templates inline explicit light/dark client palettes."
+    },
+    {
+      "path": "templates/email-safe/email-launch.html",
+      "kind": "stylesheet",
+      "context": "@media (prefers-color-scheme: dark) > .container,.card | color:#f5ead9!important",
+      "hex": "#F5EAD9",
+      "count": 1,
+      "reason": "Email clients do not support external token stylesheets, OKLab/color-mix or custom-property cascades reliably; email-safe templates inline explicit light/dark client palettes."
+    },
+    {
+      "path": "templates/email-safe/email-newsletter.html",
+      "kind": "stylesheet",
+      "context": "@media (prefers-color-scheme: dark) > .container,.card | color:#f5ead9!important",
+      "hex": "#F5EAD9",
+      "count": 1,
+      "reason": "Email clients do not support external token stylesheets, OKLab/color-mix or custom-property cascades reliably; email-safe templates inline explicit light/dark client palettes."
+    },
+    {
+      "path": "templates/email-safe/email-status.html",
+      "kind": "stylesheet",
+      "context": "@media (prefers-color-scheme: dark) > .container,.card | color:#f5ead9!important",
+      "hex": "#F5EAD9",
+      "count": 1,
+      "reason": "Email clients do not support external token stylesheets, OKLab/color-mix or custom-property cascades reliably; email-safe templates inline explicit light/dark client palettes."
+    },
+    {
+      "path": "templates/email-safe/email-transactional.html",
+      "kind": "stylesheet",
+      "context": "@media (prefers-color-scheme: dark) > .container,.card | color:#f5ead9!important",
+      "hex": "#F5EAD9",
+      "count": 1,
+      "reason": "Email clients do not support external token stylesheets, OKLab/color-mix or custom-property cascades reliably; email-safe templates inline explicit light/dark client palettes."
     }
   ]
 }

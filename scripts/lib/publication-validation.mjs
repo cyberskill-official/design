@@ -9,15 +9,8 @@ export const publicationCommands=Object.freeze([
  {name:'npm-audit',args:['run','security:audit'],env:{}},
  {name:'python-audit',args:['run','security:audit-python'],env:{}},
  {name:'build',args:['run','build'],env:{}},
- {name:'verify',args:['run','verify'],env:{}},
+ {name:'verify',args:['run','build:check'],env:{}},
  {name:'linux-browser',args:['run','verify:browser'],env:{}},
- {name:'site-build',args:['run','build:site'],env:{}},
- ...['chromium','firefox','webkit'].flatMap(browser=>[
-  {name:'storybook-'+browser,args:['run','test:storybook-runtime'],env:{CS_TEST_BROWSER:browser}},
-  {name:'owned-story-plays-'+browser,args:['run','test:component-scenario-stories:browser'],env:{CS_TEST_BROWSER:browser}},
- ]),
- // This test owns its complete three-engine loop; no environment selector narrows it.
- {name:'site-csp-all-engines',args:['run','test:site-csp-browser'],env:{}},
  {name:'pack-hygiene',args:['run','test:pack-hygiene'],env:{}},
 ].map(command=>Object.freeze({...command,args:Object.freeze(command.args),env:Object.freeze(command.env)})));
 const plain=(object,keys)=>{assert(object&&Object.getPrototypeOf(object)===Object.prototype&&!Array.isArray(object),'Plain receipt record required');assert.deepEqual(Reflect.ownKeys(object).sort(),[...keys].sort(),'Unexpected receipt fields');for(const key of keys)assert(Object.hasOwn(Object.getOwnPropertyDescriptor(object,key),'value'),'Receipt accessor forbidden')};

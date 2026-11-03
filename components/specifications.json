@@ -53,7 +53,7 @@
     "components/button/FloatingActionButton.d.ts": "ef227b7981571aa815ca1d874db3458feb33428a79aef949ee770d8ecc13ee00",
     "components/button/FloatingActionButton.jsx": "2c13907fa52c618377dd1aab15c46f73b2ce22c563b54bf0f5aefb16e3829943",
     "components/button/FloatingActionButton.prompt.md": "7a5ae660de398911d5bdfd736984974a62220fc6f6d0ee2e31561a3d381209ed",
-    "components/contracts.json": "056f30f33ccde3657ea6ece747a37d7e2787e15a01400ebab1709b8e3f3777d2",
+    "components/contracts.json": "e4ebe085e32dc639dea36cb032155c6aa557e61411bec7fa800691dd61a2ce03",
     "components/data/Accordion.d.ts": "0c5b1140bba3076f0642ae9c23701fbdae406e01f9a08a7beb7ddaeac8aa903f",
     "components/data/Accordion.jsx": "2bd0ed6b7ddb3daa85f941a0260ef3f08a7a261de3336eabff49c6cade44791b",
     "components/data/Accordion.prompt.md": "3e1ed56757fa588a6d1e1422710ab0734452c2f0856d1dffe816e99c34640b6b",
@@ -2776,8 +2776,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
-            "base/interaction.css",
-            "base/responsive.css"
+            "base/interaction.css"
           ]
         },
         {
@@ -3595,8 +3594,7 @@
         {
           "name": "cs-anchor__title",
           "stylesheets": [
-            "base/controls.css",
-            "base/responsive.css"
+            "base/controls.css"
           ]
         }
       ],
@@ -6069,8 +6067,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
-            "base/interaction.css",
-            "base/responsive.css"
+            "base/interaction.css"
           ]
         },
         {
@@ -7375,8 +7372,7 @@
           "name": "cs-cal__wd",
           "stylesheets": [
             "base/a11y.css",
-            "base/controls.css",
-            "base/responsive.css"
+            "base/controls.css"
           ]
         }
       ],
@@ -13413,8 +13409,7 @@
           "name": "cs-code__copy",
           "stylesheets": [
             "base/a11y.css",
-            "base/collections.css",
-            "base/responsive.css"
+            "base/collections.css"
           ]
         }
       ],
@@ -22559,8 +22554,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
-            "base/interaction.css",
-            "base/responsive.css"
+            "base/interaction.css"
           ]
         },
         {
@@ -27565,8 +27559,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
-            "base/interaction.css",
-            "base/responsive.css"
+            "base/interaction.css"
           ]
         },
         {
@@ -28356,8 +28349,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
-            "base/interaction.css",
-            "base/responsive.css"
+            "base/interaction.css"
           ]
         },
         {
@@ -29049,8 +29041,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
-            "base/interaction.css",
-            "base/responsive.css"
+            "base/interaction.css"
           ]
         },
         {
@@ -29949,8 +29940,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
-            "base/interaction.css",
-            "base/responsive.css"
+            "base/interaction.css"
           ]
         },
         {
@@ -31852,8 +31842,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
-            "base/interaction.css",
-            "base/responsive.css"
+            "base/interaction.css"
           ]
         },
         {
@@ -42341,8 +42330,7 @@
           "name": "cs-native-select",
           "stylesheets": [
             "base/forms.css",
-            "base/interaction.css",
-            "base/responsive.css"
+            "base/interaction.css"
           ]
         },
         {
@@ -44098,8 +44086,7 @@
           "stylesheets": [
             "base/a11y.css",
             "base/controls.css",
-            "base/interaction.css",
-            "base/responsive.css"
+            "base/interaction.css"
           ]
         }
       ],
@@ -45474,8 +45461,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
-            "base/interaction.css",
-            "base/responsive.css"
+            "base/interaction.css"
           ]
         },
         {
@@ -45494,8 +45480,7 @@
           "name": "cs-button--xs",
           "stylesheets": [
             "base/a11y.css",
-            "base/components.css",
-            "base/responsive.css"
+            "base/components.css"
           ]
         },
         {
@@ -47231,8 +47216,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
-            "base/interaction.css",
-            "base/responsive.css"
+            "base/interaction.css"
           ]
         },
         {
@@ -47264,8 +47248,7 @@
         {
           "name": "cs-prompt__bar",
           "stylesheets": [
-            "base/ai.css",
-            "base/responsive.css"
+            "base/ai.css"
           ]
         },
         {
@@ -52385,8 +52368,7 @@
           "name": "cs-select",
           "stylesheets": [
             "base/forms.css",
-            "base/interaction.css",
-            "base/responsive.css"
+            "base/interaction.css"
           ]
         },
         {
@@ -53570,8 +53552,7 @@
           "name": "cs-slider",
           "stylesheets": [
             "base/a11y.css",
-            "base/controls.css",
-            "base/responsive.css"
+            "base/controls.css"
           ]
         }
       ],
@@ -54051,8 +54032,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
-            "base/interaction.css",
-            "base/responsive.css"
+            "base/interaction.css"
           ]
         },
         {
@@ -54066,8 +54046,7 @@
           "name": "cs-button--xs",
           "stylesheets": [
             "base/a11y.css",
-            "base/components.css",
-            "base/responsive.css"
+            "base/components.css"
           ]
         },
         {
@@ -58093,8 +58072,7 @@
           "name": "cs-tag__close",
           "stylesheets": [
             "base/a11y.css",
-            "base/feedback.css",
-            "base/responsive.css"
+            "base/feedback.css"
           ]
         }
       ],
@@ -58671,8 +58649,7 @@
           "name": "cs-tag__close",
           "stylesheets": [
             "base/a11y.css",
-            "base/feedback.css",
-            "base/responsive.css"
+            "base/feedback.css"
           ]
         },
         {
@@ -65328,8 +65305,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
-            "base/interaction.css",
-            "base/responsive.css"
+            "base/interaction.css"
           ]
         },
         {
@@ -65355,8 +65331,7 @@
           "name": "cs-button--xs",
           "stylesheets": [
             "base/a11y.css",
-            "base/components.css",
-            "base/responsive.css"
+            "base/components.css"
           ]
         },
         {
@@ -66032,8 +66007,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
-            "base/interaction.css",
-            "base/responsive.css"
+            "base/interaction.css"
           ]
         },
         {
@@ -66047,8 +66021,7 @@
           "name": "cs-button--xs",
           "stylesheets": [
             "base/a11y.css",
-            "base/components.css",
-            "base/responsive.css"
+            "base/components.css"
           ]
         },
         {

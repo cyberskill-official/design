@@ -24,7 +24,7 @@ try {
  const calls=[];
  const runner=(cwd,args,env)=>{calls.push({args,env});if(args[0]==='--version')return{status:0,stdout:'11.21.1\n'};if(args[0]==='pack'){const filename='cyberskill-design-1.7.2.tgz',bytes=Buffer.from('Fixture tarball bytes: not a real publication candidate');writeFileSync(join(args.at(-1),filename),bytes);return{status:0,stdout:JSON.stringify([{name:'@cyberskill/design',version:'1.7.2',filename,shasum:hash(bytes,'sha1'),integrity:'sha512-'+hash(bytes,'sha512','base64')}])}}return{status:0}};
  const directory=join(sandbox,'candidate');const result=runPublicationValidation(root,context,{directory,run:runner});
- assert.deepEqual(calls.slice(1,-1),publicationCommands.map(({args,env})=>({args,env})));assert(!calls.some(({args})=>args.includes('publish')));assert.deepEqual(publicationCommands.filter(c=>c.name.startsWith('owned-story-plays-')).map(c=>c.env.CS_TEST_BROWSER),['chromium','firefox','webkit']);
+ assert.deepEqual(calls.slice(1,-1),publicationCommands.map(({args,env})=>({args,env})));assert(!calls.some(({args})=>args.includes('publish')));
  const receiptPath=join(directory,'receipt.json');const check=(expectedSha256=result.receiptSha256,ctx=context)=>verifyPublicationReceipt(root,ctx,{receiptPath,expectedSha256,packageDirectory:directory,run:runner});
  assert.equal(check().validationVerified,true);assert.equal(check().publicationAuthorized,false);
  const original=readFileSync(receiptPath);

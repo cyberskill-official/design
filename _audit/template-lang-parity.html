@@ -77,10 +77,10 @@ const LEXICON=[
   {name:'FOR IMMEDIATE RELEASE',re:/\bFOR IMMEDIATE RELEASE\b/g},
   {name:'Interview kit',re:/\bInterview kit\b/g},
 ];
-/** Non-rendered catalog chrome — title + HTML comments including @template name. */
+/** Non-rendered catalog chrome — title + meta + HTML comments including @template name. */
 function catalogRanges(text){
   const ranges=[]; let m;
-  const titleRe=/<title\b[^>]*>[\s\S]*?<\/title>/gi;
+  const titleRe=/<title\b[^>]*>[\s\S]*?<\/title>|<meta\b[^>]*>/gi;
   while((m=titleRe.exec(text))) ranges.push([m.index,m.index+m[0].length]);
   const cmtRe=/<!--[\s\S]*?-->/g;
   while((m=cmtRe.exec(text))) ranges.push([m.index,m.index+m[0].length]);

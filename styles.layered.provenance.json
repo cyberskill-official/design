@@ -88,7 +88,7 @@
     },
     {
       "path": "base/controls.css",
-      "sha256": "bf72775650203866ee99f1322a613d431aa7c0b14b13bd8d1ee1e751bf0e8839"
+      "sha256": "5ff2b53f486c59d6dc01eb884208767c715f4fa7299e90fc95e77a7e8b7c1030"
     },
     {
       "path": "base/collections.css",
@@ -112,7 +112,7 @@
     },
     {
       "path": "base/responsive.css",
-      "sha256": "8925d6ee572a1a45b85da644bb58fc8f0446f5144a3a96d240a4c796d618f184"
+      "sha256": "68e0c66ee9eccfb681e5345e0800a00869a9deec14900dcc262fed2a6ab1f918"
     }
   ],
   "assets": [
@@ -155,6 +155,6 @@
     "fonts/spacegrotesk-var-latin.woff2",
     "fonts/spacegrotesk-var-vietnamese.woff2"
   ],
-  "importantCount": 62,
-  "sha256": "061ddc8b905d2f6aa4b103a1056569971e68a52a944e0ab9ed39941174161c6c"
+  "importantCount": 46,
+  "sha256": "c03e18931e2101925da6fa7f80f935a52f45cc0b6bc0ee3bd840ec66f76f1fe4"
 }

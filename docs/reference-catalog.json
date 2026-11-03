@@ -116,7 +116,7 @@
     "templates/vn-total-rewards-appendix/VnTotalRewardsAppendix.dc.html": "ee941a6d26aa525bba779015ca01f4bdb7246571db2c3558499d7bc2fee3c2aa",
     "templates/vn-training-commitment/VnTrainingCommitment.dc.html": "49b2b4459bf2a900ddfafe679b6f3b088c78a31f611ae76dc3ac276e05a14c46",
     "templates/vn-travel-expense-policy/VnTravelExpensePolicy.dc.html": "1e585bd53ec6fb41322082bddfb7eed4ac811bfabb1ad2d639b9babba6c0e212",
-    "tokens/tokens.dtcg.json": "bf1d6260e8c270a49a1d2de3a18ff759a0f26b000ee2b7d46cfdb57d95db2a3d"
+    "tokens/tokens.dtcg.json": "598f440dbf754285b8c147fce8b6df1962a2fa7ee9c9ba6745ea25986377fb27"
   },
   "documents": [
     {
@@ -1077,7 +1077,7 @@
       "path": "docs/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "dbd2df5178885caf087900fd8e88c350fb507b24e84dcd04530e9c4665b9f482"
+      "sha256": "0c5d44fae32bfbea1e54de79d28145668d2295dd937b0931ddd25f1fddb5fb30"
     },
     {
       "path": "docs/storybook.md",
@@ -1353,7 +1353,7 @@
       "path": "docs/vi/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "30c1c9b7784a2ff3f94a41391dbda2eebf0d75eb76f367158320c8b3f47a33cc"
+      "sha256": "fed084f86cf19c58a36b9db586d68bdca9bb2c8810180ab92d5fee180dc950ad"
     },
     {
       "path": "docs/vi/storybook.md",
