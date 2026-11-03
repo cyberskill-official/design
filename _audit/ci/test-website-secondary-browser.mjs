@@ -40,7 +40,7 @@ for (const browser of ['chromium', 'firefox', 'webkit']) await withBrowserFixtur
       check(browser, name, 'contact demo destination', await page.locator('.band a').getAttribute('href'), 'index.html#contact');
     } else {
       check(browser, name, 'Vietnamese sample roles', await page.locator('.sec-alt .eyebrow').textContent(), 'Vị trí minh họa');
-      check(browser, name, 'Vietnamese built-in role titles', await page.locator('.role h3').allTextContents(), ['Kỹ sư sản phẩm cấp cao', 'Kỹ sư hệ thống thiết kế', 'Nhà thiết kế sản phẩm AI', 'Trưởng nhóm tăng trưởng sáng lập']);
+      check(browser, name, 'Vietnamese built-in role titles', await page.locator('.role h3').allTextContents(), ['Kỹ sư sản phẩm cấp cao', 'Kỹ sư hệ thống thiết kế', 'Nhà thiết kế sản phẩm AI', 'Trưởng nhóm Tăng trưởng đầu tiên']);
       check(browser, name, 'four localized demo destinations', await page.locator('.role a').evaluateAll(els => els.map(e => ({
         href: e.getAttribute('href'),
         text: e.textContent

@@ -1263,7 +1263,7 @@ ${mediaRels}
         box-shadow:0 1px 2px rgba(35,26,18,.08);
       }
       [data-omelette-chrome="export"] button:hover{background:#f7f0e6}
-      [data-omelette-chrome="export"] button:focus-visible{outline:2px solid #F4BA17;outline-offset:2px}
+      [data-omelette-chrome="export"] button:focus-visible{outline:2px solid #45210E;outline-offset:2px;box-shadow:0 0 0 5px #F4BA17}
       [data-cs-export="menu"]{
         min-width:148px;background:#fff;border:1px solid #c9b8a8;border-radius:8px;
         box-shadow:0 8px 24px rgba(35,26,18,.12);overflow:hidden;padding:4px;

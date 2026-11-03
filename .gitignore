@@ -39,6 +39,7 @@ __pycache__/
 # Node (only if you later add tooling)
 node_modules/
 npm-debug.log*
+*.tsbuildinfo
 
 # Keep (do NOT ignore): styles.css, tokens/, base/, components/, templates/,
 # guidelines/, ui_kits/, fonts/, assets/, docs/, _audit/*.html (harnesses),
@@ -73,5 +74,6 @@ examples/native/**/*.keystore
 examples/native/**/*.p8
 examples/native/**/*-play-key.json
 
-# Generated Vercel Build Output API deployment artifacts.
+# Generated Vercel Build Output API deployment artifacts and local link state.
+/.vercel/
 /.vercel/output/

@@ -3,14 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Interactive W3C DTCG and CSS design token explorer for CyberSkill.">
 <title>CyberSkill · Tokens</title>
 <link rel="stylesheet" href="../styles.css">
 <style>
-  *{box-sizing:border-box}html,body{height:100%}
-  body{margin:0;font-family:var(--cs-font-family-ui);background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);display:flex;flex-direction:column}
+  *{box-sizing:border-box}html,body{height:100%;overflow-x:clip}
+  button,input,select{min-block-size:32px}
+  body{margin:0;font-family:var(--cs-font-family-ui);background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);display:flex;flex-direction:column;overflow-x:clip}
   .bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:12px 16px;background:var(--cs-color-surface-panel);border-block-end:1px solid var(--cs-color-border-default)}
-  .bar h1{font-size:15px;font-weight:800;margin:0;letter-spacing:-.01em}
-  .bar h1 b{color:var(--_cs-light,var(--cs-color-brand-umber)) var(--_cs-dark,var(--cs-color-brand-ochre))}
+  .bar h1{font-size:15px;font-weight:800;margin:0;letter-spacing:-.01em;color:var(--_cs-light,var(--cs-color-brand-umber)) var(--_cs-dark,var(--cs-color-brand-ochre))}
   .modes{display:flex;gap:4px;padding:3px;border-radius:999px;background:var(--cs-color-surface-page);border:1px solid var(--cs-color-border-default)}
   .modes button{appearance:none;border:0;background:transparent;font:600 12.5px var(--cs-font-family-ui);padding:6px 12px;border-radius:999px;cursor:pointer;color:var(--cs-color-text-primary)}
   .modes button[aria-pressed="true"]{background:var(--_cs-light,var(--cs-color-brand-umber)) var(--_cs-dark,var(--cs-color-brand-ochre));color:var(--_cs-light,var(--cs-color-text-inverse)) var(--_cs-dark,var(--cs-color-brand-umber))}
@@ -19,20 +20,21 @@
   .filters input{width:min(220px,40vw)}
   .meta{font:12px/1.4 var(--cs-font-family-mono);font-weight:600;color:var(--cs-color-text-primary)}
   .chips{display:flex;flex-wrap:wrap;gap:6px;padding:10px 16px;background:var(--cs-color-surface-panel);border-block-end:1px solid var(--cs-color-border-default)}
-  .chips button{appearance:none;border:1px solid var(--cs-color-border-default);background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);font:600 11.5px var(--cs-font-family-ui);padding:5px 10px;border-radius:999px;cursor:pointer}
+  .chips button{appearance:none;border:1px solid var(--cs-color-border-default);background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);font:600 12px var(--cs-font-family-ui);padding:5px 10px;border-radius:999px;cursor:pointer}
   .chips button[aria-pressed="true"]{background:var(--_cs-light,var(--cs-color-brand-umber)) var(--_cs-dark,var(--cs-color-brand-ochre));color:var(--_cs-light,var(--cs-color-text-inverse)) var(--_cs-dark,var(--cs-color-brand-umber));border-color:var(--_cs-light,var(--cs-color-brand-umber)) var(--_cs-dark,var(--cs-color-brand-ochre))}
-  .chips button .n{font-family:var(--cs-font-family-mono);font-size:10px;opacity:.85;margin-inline-start:4px}
-  .panel{flex:1;min-height:0;overflow:auto}
+  .chips :is(.n,.num){font-family:var(--cs-font-family-mono);font-size:12px;opacity:.85;margin-inline-start:4px}
+  .panel{flex:1;min-height:0;min-width:0;max-width:100%;overflow:auto}
   .panel.hide{display:none}
   table{width:100%;border-collapse:collapse;font-size:13px}
   th,td{text-align:start;padding:8px 12px;border-block-end:1px solid var(--cs-color-border-default);vertical-align:top}
-  th{position:sticky;top:0;background:var(--cs-color-surface-panel);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--cs-color-text-primary);z-index:1;font-weight:800}
+  thead{position:sticky;top:1px;z-index:1}
+  th{background:var(--cs-color-surface-panel);font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--cs-color-text-primary);font-weight:800}
   tr:hover td{background:var(--cs-color-surface-raised)}
   .swatch{display:inline-block;width:14px;height:14px;border-radius:4px;border:1px solid var(--cs-color-border-default);vertical-align:middle;margin-inline-end:6px}
   code{font-family:var(--cs-font-family-mono);font-size:12px}
   .path{font-family:var(--cs-font-family-mono);font-size:12px;word-break:break-all}
   .group{color:var(--cs-color-text-primary);font-size:12px;font-weight:600}
-  .copy{appearance:none;border:1px solid var(--cs-color-border-default);background:var(--cs-color-surface-page);color:var(--_cs-light,var(--cs-color-brand-umber)) var(--_cs-dark,var(--cs-color-text-primary));font:700 10.5px var(--cs-font-family-mono);padding:3px 7px;border-radius:6px;cursor:pointer;margin-inline-start:6px}
+  .copy{appearance:none;border:1px solid var(--cs-color-border-default);background:var(--cs-color-surface-page);color:var(--_cs-light,var(--cs-color-brand-umber)) var(--_cs-dark,var(--cs-color-text-primary));font:700 12px var(--cs-font-family-mono);padding:4px 8px;border-radius:6px;cursor:pointer;margin-inline-start:6px}
   .copy:hover{border-color:var(--cs-color-brand-ochre)}
   .copy.ok{background:#dcfce7;color:#166534;border-color:#16a34a55}
   #raw{margin:0;padding:16px 18px;font:12px/1.5 var(--cs-font-family-mono);white-space:pre;overflow:auto;min-height:100%;background:var(--cs-color-surface-panel);color:var(--cs-color-text-primary)}
@@ -40,10 +42,12 @@
   .src{font-size:12px;color:var(--cs-color-text-primary);font-weight:600}
   .src select{font:inherit;font-size:12px;padding:4px 8px;border-radius:6px;border:1px solid var(--cs-color-border-default);background:var(--cs-color-surface-page);color:var(--cs-color-text-primary)}
   .src-help{margin:0;padding:8px 16px;font:12.5px/1.45 var(--cs-font-family-ui);color:var(--cs-color-text-primary);background:var(--cs-color-surface-panel);border-block-end:1px solid var(--cs-color-border-default)}
-  .src-help code{font-family:var(--cs-font-family-mono);font-size:11.5px}
-  .toast{position:fixed;inset-block-end:16px;inset-inline-end:16px;background:var(--cs-color-brand-umber);color:var(--cs-color-text-inverse);font:600 12.5px var(--cs-font-family-ui);padding:8px 12px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .15s}
+  .src-help code{font-family:var(--cs-font-family-mono);font-size:12px}
+  @media(max-width:640px) and (pointer:fine){th,td{padding:6px 4px;word-break:break-word}.path,td:nth-child(3){max-width:85px;word-break:break-all}}
+  .toast{position:fixed;inset-block-end:16px;inset-inline-end:16px;background:var(--_cs-light,var(--cs-color-brand-umber)) var(--_cs-dark,var(--cs-color-brand-ochre));color:var(--_cs-light,var(--cs-color-text-inverse)) var(--_cs-dark,var(--cs-color-brand-umber));font:600 12.5px var(--cs-font-family-ui);padding:8px 12px;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .15s}
   .toast.on{opacity:1}
   @media(pointer:coarse){
+    html,body{overflow-x:visible}
     button,input,select{min-inline-size:44px;min-block-size:44px}
     select{block-size:44px}
     body{height:auto;min-block-size:100vh}

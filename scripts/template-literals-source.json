@@ -65,7 +65,7 @@
   "commonCopy": {
     "skip-to-content": {
       "en": "Skip to content",
-      "vi": "Bỏ qua nội dung"
+      "vi": "Bỏ qua đến nội dung"
     },
     "in-progress": {
       "en": "In progress",
@@ -189,7 +189,7 @@
     },
     "healthy": {
       "en": "Healthy",
-      "vi": "Khỏe"
+      "vi": "Ổn định"
     },
     "services": {
       "en": "Services",
@@ -1439,7 +1439,7 @@
           "glanceL": "Tóm tắt",
           "g1t": "Ước miễn phí",
           "g1b": "Lời khuyên trước; không cần đăng ký để hỏi.",
-          "g2t": "Con người trong vòng lặp",
+          "g2t": "Có người kiểm duyệt",
           "g2b": "Mọi điều ước đều có người rà soát.",
           "g3t": "Một ngày làm việc",
           "g3b": "Phản hồi đầu tiên, cam kết.",
@@ -1832,7 +1832,7 @@
           "propH": "Đề xuất",
           "toH": "Đánh đổi",
           "gainsT": "Được gì",
-          "gainsB": "Một nguồn sự thật duy nhất; JSON nguồn gốc cho mỗi token; không còn chép tay giữa các nền tảng.",
+          "gainsB": "Một nguồn dữ liệu chuẩn duy nhất; JSON nguồn gốc cho mỗi token; không còn chép tay giữa các nền tảng.",
           "costsT": "Mất gì (thẳng thắn)",
           "costsB": "Thêm một bước build và thời gian làm quen DTCG. Chuyển đổi 159 token tốn khoảng một sprint làm cẩn thận.",
           "rollH": "Triển khai"

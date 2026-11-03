@@ -3,7 +3,7 @@
   "$extensions": {
     "com.cyberskill": {
       "system": "CyberSkill Design System",
-      "version": "2.0.0",
+      "version": "2.1.0",
       "generated": "2026-07-23",
       "source": "tokens/tokens.json",
       "note": "CSS remains authoritative. Scope maps are CSS-valued vendor extensions; use the CyberSkill adapter. Relative em numbers retain relativeUnit; cssScale converts percentage ratios. nativeFormat preserves established native representation.",
@@ -531,7 +531,7 @@
       "declarationGraph": {
         "path": "declarations.json",
         "schemaVersion": 1,
-        "sha256": "3d6182f0567e7f5faefc41af5c3cb1b223067b91483ffd6ae0f35c578a0af37e",
+        "sha256": "cbd2cb63b9a29aaaf4b3b66d04b46107e1384ffb6773614fd836d76584b41591",
         "declarations": 1077,
         "publicDeclarations": 397,
         "publicNames": 216,

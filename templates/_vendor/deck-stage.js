@@ -10,10 +10,10 @@
       const root=this.attachShadow({mode:'open'});
       root.innerHTML=`<style>
         :host{display:block;position:relative;width:100%;height:100vh;overflow:hidden;background:var(--cs-color-surface-page,#fffdf8)}
-        .viewport{position:absolute;inset:0;display:grid;place-items:center;overflow:auto}
-        .canvas{position:relative;width:var(--deck-width);height:var(--deck-height);flex:none;transform:scale(var(--deck-scale,1));transform-origin:center}
+        .viewport{position:absolute;inset:0 0 64px 0;overflow:hidden}
+        .canvas{position:absolute;top:50%;left:50%;width:var(--deck-width);height:var(--deck-height);transform:translate(-50%,-50%) scale(var(--deck-scale,1));transform-origin:center}
         ::slotted(section){position:absolute;inset:0;width:100%;height:100%;box-sizing:border-box}
-        ::slotted(section:not([data-deck-active])){display:none}
+        @media not print{::slotted(section:not([data-deck-active])){display:none!important}}
         nav{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:6px;border-radius:8px;background:var(--cs-color-surface-panel,#fffdf8);color:var(--cs-color-text-primary,#26323a);font-family:var(--cs-font-family-ui,system-ui)}
         button{min-width:44px;min-height:44px;border:1px solid var(--cs-color-border-default,#8c8277);border-radius:6px;color:inherit;background:inherit;font:inherit;cursor:pointer}
         button:focus-visible{outline:2px solid var(--cs-color-focus,#45210e);outline-offset:2px}

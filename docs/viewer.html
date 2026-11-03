@@ -1,28 +1,25 @@
 <!DOCTYPE html>
-<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>CyberSkill · Docs</title>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Bilingual documentation viewer for CyberSkill Design System."><title>CyberSkill · Docs</title>
 <link rel="stylesheet" href="../styles.css">
 <style>
-  *{box-sizing:border-box}html,body{height:100%}
+  *{box-sizing:border-box}html,body{height:100%;overflow-x:clip}
   body{margin:0;font-family:var(--cs-font-family-ui);background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);display:grid;grid-template-columns:min(230px,36vw) 1fr}
   aside{border-inline-end:1px solid var(--cs-color-border-default);background:var(--cs-color-surface-panel);overflow:auto;padding:14px 10px}
-  aside h1{font-size:13px;font-weight:800;margin:2px 8px 6px;color:var(--cs-color-brand-umber)}
-  [data-theme="dark"] aside h1{color:var(--cs-color-brand-ochre)}
+  aside h1{font-size:13px;font-weight:800;margin:2px 8px 6px;color:var(--_cs-light,var(--cs-color-brand-umber)) var(--_cs-dark,var(--cs-color-brand-ochre))}
   .langtog{display:flex;gap:4px;margin:0 8px 10px}
-  .langtog button{flex:1;font:700 11px/1 var(--cs-font-family-ui);letter-spacing:.04em;padding:7px 0;border-radius:8px;border:1px solid var(--cs-color-border-default);background:var(--cs-color-surface-raised);color:var(--cs-color-text-muted);cursor:pointer}
-  .langtog button.on{background:var(--cs-color-brand-umber);color:var(--cs-color-text-inverse);border-color:var(--cs-color-brand-umber)}
-  [data-theme="dark"] .langtog button.on{background:var(--cs-color-brand-ochre);color:var(--cs-color-brand-umber);border-color:var(--cs-color-brand-ochre)}
-  .langhint{font-size:10.5px;color:var(--cs-color-text-muted);margin:0 10px 8px;line-height:1.4}
+  .langtog button{flex:1;font:700 12px/1 var(--cs-font-family-ui);letter-spacing:.04em;padding:7px 0;min-block-size:32px;border-radius:8px;border:1px solid var(--cs-color-border-default);background:var(--cs-color-surface-raised);color:var(--cs-color-text-muted);cursor:pointer}
+  .langtog button.on{background:var(--_cs-light,var(--cs-color-brand-umber)) var(--_cs-dark,var(--cs-color-brand-ochre));color:var(--_cs-light,var(--cs-color-text-inverse)) var(--_cs-dark,var(--cs-color-brand-umber));border-color:var(--_cs-light,var(--cs-color-brand-umber)) var(--_cs-dark,var(--cs-color-brand-ochre))}
+  .langhint{font-size:12px;color:var(--cs-color-text-muted);margin:0 10px 8px;line-height:1.4}
   aside a{display:block;font-size:13px;font-weight:600;color:var(--cs-color-text-muted);text-decoration:none;padding:7px 10px;border-radius:8px}
   aside a:hover{color:var(--cs-color-text-primary);background:var(--cs-color-surface-raised)}
-  aside a.on{color:var(--cs-color-brand-umber);background:var(--cs-color-surface-raised)}
-  [data-theme="dark"] aside a.on{color:var(--cs-color-brand-ochre)}
-  aside .grp{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--cs-color-text-muted);margin:14px 10px 5px}
+  aside a.on{color:var(--_cs-light,var(--cs-color-brand-umber)) var(--_cs-dark,var(--cs-color-brand-ochre));background:var(--cs-color-surface-raised)}
+  aside .grp{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--cs-color-text-muted);margin:14px 10px 5px}
   #docsearch{box-sizing:border-box;border:1px solid var(--cs-color-border-default);border-radius:8px;background:var(--cs-color-surface-raised);padding:8px 10px;font:inherit;font-size:12.5px;margin:0 8px 10px;width:calc(100% - 16px)}
   .searchres{font-size:12px;color:var(--cs-color-text-muted);padding:0 10px 6px}
   .searchhit{display:block;padding:7px 10px;border-radius:8px;text-decoration:none;color:var(--cs-color-text-primary)}
   .searchhit:hover{background:var(--cs-color-surface-raised)}
-  .searchhit b{color:var(--cs-color-brand-umber)}[data-theme="dark"] .searchhit b{color:var(--cs-color-brand-ochre)}
-  .searchhit .snip{display:block;font-size:11px;color:var(--cs-color-text-muted);font-weight:400;margin-top:2px}
+  .searchhit b{color:var(--_cs-light,var(--cs-color-brand-umber)) var(--_cs-dark,var(--cs-color-brand-ochre))}
+  .searchhit .snip{display:block;font-size:12px;color:var(--cs-color-text-muted);font-weight:400;margin-top:2px}
   mark{background:var(--cs-color-brand-ochre);color:var(--cs-color-brand-umber);border-radius:2px;padding:0 1px}
   main{overflow:auto;padding:30px 38px}
   article{max-width:820px;line-height:1.62;font-size:14.5px}

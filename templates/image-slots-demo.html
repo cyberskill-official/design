@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Layout-safe patterns for real photography in CyberSkill templates.">
 <link rel="stylesheet" href="../styles.css">
 <script src="../image-slot.js"></script>
 <title>CyberSkill — real imagery pattern</title>
 <style>
   body{margin:0;background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);font-family:var(--cs-font-family-ui);padding:36px 28px;max-width:960px;margin:0 auto}
-  h1{font-size:26px;letter-spacing:-.02em;margin:0 0 4px}h1 b{color:var(--cs-color-brand-umber)}
-  .sub{color:var(--cs-color-text-muted);margin:0 0 26px;font-size:14px;line-height:1.55}
-  .lbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--cs-color-text-accent);margin:26px 0 10px}
+  h1{font-size:26px;letter-spacing:-.02em;margin:0 0 4px}
+  .sub{color:var(--cs-color-text-muted);margin:0 0 26px;font-size:14px;line-height:1.55;max-width:68ch}
+  .lbl{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--cs-color-text-accent);margin:26px 0 10px}
   /* Full-bleed hero: slot behind, aurora tint, warm scrim so the empty drop-tile
      still reads, content on top (click-through so the slot stays droppable). */
-  .hero{position:relative;height:300px;border-radius:var(--cs-radius-lg);overflow:hidden;box-shadow:var(--cs-shadow-md)}
+  .hero{position:relative;height:300px;border-radius:var(--cs-radius-lg);overflow:hidden;box-shadow:var(--cs-shadow-md);margin-bottom:48px}
   .hero .slot{position:absolute;inset:0;z-index:0}
   .hero .aurora{position:absolute;inset:0;opacity:.5;z-index:1;pointer-events:none}
-  .hero .scrim{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,rgba(42,26,13,.82),rgba(42,26,13,.35) 62%,transparent)}
+  .hero .scrim{position:absolute;inset:0;z-index:2;pointer-events:none}
+  .hero .scrim::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(42,26,13,.82),rgba(42,26,13,.35) 62%,transparent)}
   .hero .content{position:absolute;z-index:3;left:0;bottom:0;padding:32px 36px;color:#fff;pointer-events:none;max-width:560px}
   .hero .k{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--cs-accent-bright)}
   .hero h2{font-size:34px;font-weight:800;letter-spacing:-.02em;line-height:1.06;margin:8px 0 6px;color:#fff}
   .hero p{font-size:15px;line-height:1.5;opacity:.92;margin:0}
-  .row{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+  .row{display:flex;gap:22px;align-items:center;flex-wrap:wrap;margin-bottom:64px}
   .person{display:flex;gap:12px;align-items:center}
   .person .nm{font-weight:700;font-size:14px}.person .rl{font-size:12px;color:var(--cs-color-text-muted)}
   .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-  .card{border:1px solid var(--cs-color-border-default);border-radius:var(--cs-radius-lg);overflow:hidden;background:var(--cs-color-surface-panel);box-shadow:var(--cs-shadow-sm)}
+  .card{border:1px solid var(--cs-color-border-default);border-radius:var(--cs-radius-lg);overflow:hidden;background:var(--cs-color-surface-panel);color:var(--cs-color-text-primary);box-shadow:var(--cs-shadow-xs)}
   .card .cap{padding:14px 16px}.card .cap b{font-size:15px}.card .cap p{margin:4px 0 0;font-size:13px;color:var(--cs-color-text-muted);line-height:1.5}
-  .note{margin-top:28px;font-size:12.5px;color:var(--cs-color-text-muted);line-height:1.6;border-top:1px dashed var(--cs-color-border-default);padding-top:14px}
-  .note code{font-family:var(--cs-font-family-mono);font-size:11.5px;background:var(--cs-color-surface-raised);border-radius:4px;padding:0 4px}
+  .note{margin-top:28px;font-size:12.5px;color:var(--cs-color-text-muted);line-height:1.6;border-top:1px dashed var(--cs-color-border-default);padding-top:14px;max-width:68ch}
+  .note code{font-family:var(--cs-font-family-mono);font-size:12px;background:var(--cs-color-surface-raised);color:var(--cs-color-text-primary);border-radius:4px;padding:0 4px}
 </style></head>
 <body>
 <main>

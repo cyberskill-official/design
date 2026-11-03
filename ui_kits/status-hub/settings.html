@@ -4,6 +4,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Status Hub — settings: Tabs, form controls, switches, danger zone" />
 <title data-vi="CyberSkill · Cài đặt">CyberSkill · Settings</title>
 <link rel="icon" href="../../assets/favicon.svg" />
 <link rel="stylesheet" href="../../styles.css" />
@@ -11,7 +12,7 @@
 <style>
   html, body { margin: 0; background: var(--cs-color-surface-page); }
   .set-grid { display: grid; gap: 18px; margin: 22px 0 64px; }
-  .panel h3.sec { margin: 0 0 4px; font-size: 18px; }
+  .panel h2.sec, .panel h3.sec { margin: 0 0 4px; font-size: 18px; text-transform: none; letter-spacing: normal; color: var(--cs-color-text-primary); }
   .panel .hint { margin: 0 0 18px; color: var(--cs-color-text-muted); font-size: 14px; }
   .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; }
   .toggle-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid var(--cs-color-border-default); }
@@ -36,7 +37,7 @@
         <span class="hd-mark"><img src="../../assets/logo-mark.svg" alt="" /></span>
         <div><h1 data-vi="Cài đặt">Settings</h1><p class="hd-sub" data-vi="CyberSkill · không gian làm việc và tùy chọn">CyberSkill · workspace &amp; preferences</p></div>
       </div>
-      <div class="hd-side"><p class="hd-meta"><span data-vi="Hồ sơ minh họa">Sample profile</span><br />an@cyberskill.world</p></div>
+      <div class="hd-side"><div class="hd-meta"><span data-vi="Hồ sơ minh họa">Sample profile</span><br />an@cyberskill.world</div></div>
     </div>
   </header>
 
@@ -50,18 +51,18 @@
 
     <form class="set-grid" id="settingsPreview">
       <section class="panel" id="panel-profile" role="tabpanel" aria-labelledby="tab-profile" tabindex="0">
-        <h3 class="sec" data-vi="Hồ sơ">Profile</h3>
+        <h2 class="sec" data-vi="Hồ sơ">Profile</h2>
         <p class="hint" data-vi="Bản xem trước cục bộ. Thay đổi chưa được lưu vào tài khoản.">Local preview. Changes are not saved to an account.</p>
         <div class="field-row">
           <label class="cs-field"><span class="cs-field__label" data-vi="Họ và tên">Full name</span><input class="cs-field__control" value="Nguyễn Hoàng An" /></label>
           <label class="cs-field"><span class="cs-field__label" data-vi="Email công việc">Work email</span><input class="cs-field__control" type="email" value="an@cyberskill.world" /></label>
-          <label class="cs-field"><span class="cs-field__label" data-vi="Nhóm">Squad</span><span class="cs-select"><select class="cs-field__control"><option value="Platform" data-vi="Nền tảng">Platform</option><option value="AI">AI</option><option value="Growth" data-vi="Tăng trưởng">Growth</option></select><span class="cs-select__chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></span></label>
-          <label class="cs-field"><span class="cs-field__label" data-vi="Ngôn ngữ giao diện">Interface language</span><span class="cs-select"><select class="cs-field__control" data-preview-language-select><option value="en">English</option><option value="vi">Tiếng Việt</option></select><span class="cs-select__chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></span></label>
+          <label class="cs-field"><span class="cs-field__label" data-vi="Nhóm">Squad</span><span class="cs-select"><select class="cs-field__control"><option value="Platform" data-vi="Nền tảng">Platform</option><option value="AI">AI</option><option value="Growth" data-vi="Tăng trưởng">Growth</option></select><span class="cs-select__chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span></span></label>
+          <label class="cs-field"><span class="cs-field__label" data-vi="Ngôn ngữ giao diện">Interface language</span><span class="cs-select"><select class="cs-field__control" data-preview-language-select><option value="en">English</option><option value="vi">Tiếng Việt</option></select><span class="cs-select__chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span></span></label>
         </div>
       </section>
 
       <section class="panel" id="panel-notifications" role="tabpanel" aria-labelledby="tab-notifications" tabindex="0" hidden>
-        <h3 class="sec" data-vi="Thông báo">Notifications</h3>
+        <h2 class="sec" data-vi="Thông báo">Notifications</h2>
         <p class="hint" data-vi="Giữ yên lặng — chỉ những gì bạn yêu cầu.">We keep it quiet — only what you ask for.</p>
         <div class="cs-scroll-area" style="max-block-size:220px;padding-inline-end:6px" tabindex="0" aria-label="Notification preferences" data-vi-aria-label="Tùy chọn thông báo">
           <div class="toggle-row"><div><div class="t" id="lbl-release" data-vi="Ghi chú phát hành">Release notes</div><div class="d" data-vi="Bản tóm tắt mỗi lần phát hành dự án. Song ngữ (EN + VI).">A summary each time a project ships. Bilingual (EN + VN).</div></div><label class="cs-switch"><input type="checkbox" role="switch" checked aria-labelledby="lbl-release" /><span class="cs-switch__track"></span></label></div>
@@ -72,12 +73,12 @@
       </section>
 
       <section class="panel" id="panel-appearance" role="tabpanel" aria-labelledby="tab-appearance" tabindex="0" hidden>
-        <h3 class="sec" data-vi="Giao diện">Appearance</h3>
+        <h2 class="sec" data-vi="Giao diện">Appearance</h2>
         <p class="hint" data-vi="Chọn giao diện màu cho bản xem trước này.">Choose the color theme for this preview.</p>
         <button type="button" class="cs-button" id="appearance-theme" data-vi="Đổi sáng / tối">Toggle light / dark</button>
       </section>
       <section class="panel" id="panel-team" role="tabpanel" aria-labelledby="tab-team" tabindex="0" hidden>
-        <h3 class="sec" data-vi="Đội ngũ">Team</h3>
+        <h2 class="sec" data-vi="Đội ngũ">Team</h2>
         <p class="hint" data-vi="Bản xem trước tĩnh này không kết nối danh bạ đội ngũ.">This static preview does not connect to a team directory.</p>
       </section>
       <section class="danger">

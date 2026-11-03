@@ -4,6 +4,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Status Hub — project detail: Full project view: breadcrumb, steps, tasks, timeline, risk" />
 <title>CyberSkill · Design System v1.6</title>
 <link rel="icon" href="../../assets/favicon.svg" />
 <link rel="stylesheet" href="../../styles.css" />
@@ -13,19 +14,19 @@
   .pd { max-width: 1000px; margin: 0 auto; padding: 22px 28px 72px;
     /* G1 / TASK-IMP-025 — local CQ host (page is not under `.wrap`). */
     container-type: inline-size; container-name: cs; }
-  .crumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--cs-color-text-muted); margin: 18px 0 16px; }
-  .crumb a { color: var(--cs-color-text-muted); text-decoration: none; }
+  .crumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--cs-color-text-muted); margin: 18px 0 16px; flex-wrap: wrap; }
+  .crumb a { color: var(--cs-color-text-muted); text-decoration: none; white-space: nowrap; }
   .crumb a:hover { color: var(--cs-color-text-accent); }
   .crumb .sep { color: var(--cs-color-border-default); }
   .crumb .cur { color: var(--cs-color-text-primary); font-weight: 600; }
   .pd-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 8px; }
   .pd-head h1 { font-size: 30px; font-weight: 800; letter-spacing: -.02em; margin: 0 0 6px; }
-  .pd-head h1 .k { font-family: var(--cs-font-family-mono); color: var(--cs-color-text-primary); }
+  .pd-head h1 .k { font-family: var(--cs-font-family-mono); }
   .pd-head p { margin: 0; color: var(--cs-color-text-muted); max-width: 560px; }
   .pd-actions { display: flex; gap: 10px; }
   .pd-stats { display: grid; grid-template-columns: repeat(auto-fit,minmax(140px,1fr)); gap: 20px; background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: 14px; padding: 20px 22px; margin: 20px 0; }
-  .stat .l { font-size: 11px; text-transform: uppercase; letter-spacing: .07em; color: var(--cs-color-text-muted); }
-  .stat .v { font-size: 26px; font-weight: 800; letter-spacing: -.01em; margin-top: 2px; }
+  .stat .l { font-size: 12px; text-transform: uppercase; letter-spacing: .07em; color: var(--cs-color-text-muted); }
+  .stat .v { font-size: 26px; font-weight: 800; letter-spacing: -.01em; margin-top: 2px; font-variant-numeric: tabular-nums; }
   .pd-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; align-items: start; }
   .panel h2.sec { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--cs-color-text-muted); margin: 0 0 14px; }
   .steps-wrap { margin: 6px 0 4px; }
@@ -33,7 +34,7 @@
   .task:first-of-type { border-top: 0; }
   .task .mono { font-family: var(--cs-font-family-mono); font-size: 12.5px; color: var(--cs-color-text-primary); }
   .task .nm { flex: 1; font-size: 14px; }
-  .toggle { position: fixed; right: 20px; bottom: 20px; z-index: 60; border: 1px solid var(--cs-color-border-default); background: var(--cs-color-surface-panel); color: var(--cs-color-text-primary); width: 44px; height: 44px; border-radius: 999px; cursor: pointer; box-shadow: var(--cs-shadow-md); display: grid; place-items: center; }
+  .toggle { position: fixed; right: 20px; bottom: 20px; z-index: 60; border: 1px solid var(--cs-color-border-default); background: var(--cs-color-surface-panel); color: var(--cs-color-text-primary); width: 44px; height: 44px; border-radius: 999px; cursor: pointer; box-shadow: var(--cs-shadow-xs); display: grid; place-items: center; }
   @media (max-width: 820px) { .pd-grid { grid-template-columns: 1fr; } }
   @container cs (max-width: 768px) { .pd-grid { grid-template-columns: 1fr; } }
 </style>

@@ -32,6 +32,7 @@
 .cs-switch input:checked + .cs-switch__track { background: var(--_cs-light, var(--cs-color-brand-umber))var(--_cs-dark, var(--cs-color-brand-ochre)); }
 .cs-switch input:checked + .cs-switch__track::after { transform: translateX(18px); }
 .cs-switch input:focus-visible + .cs-switch__track { outline: 2px solid var(--cs-color-text-primary); outline-offset: 2px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
+.cs-switch:focus-within { outline-style: solid; outline-width: 2px; outline-color: var(--cs-color-text-primary); outline-offset: 4px; border-radius: 6px; }
 .cs-switch.is-disabled { opacity: 0.55; cursor: not-allowed; }
 
 /* Textarea reuses .cs-field; give it sane sizing */

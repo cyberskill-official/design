@@ -1,8 +1,8 @@
 "use client";
 import {
   Slider
-} from "../../chunks/chunk-NH6M42ZI.mjs";
-import "../../chunks/chunk-25AOTZAM.mjs";
+} from "../../chunks/chunk-ASGO2FW5.mjs";
+import "../../chunks/chunk-JZYRXWPD.mjs";
 import "../../chunks/chunk-CQQ2JOJD.mjs";
 import "../../chunks/chunk-5LXHLKXS.mjs";
 import "../../chunks/chunk-BQH4YUGI.mjs";

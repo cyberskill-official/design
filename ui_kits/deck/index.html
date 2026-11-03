@@ -4,6 +4,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Brand deck — CyberSkill: 16:9 presentation — browser print and host capture hooks" />
 <title>CyberSkill · Brand deck</title>
 <!-- Preserve relative assets for literal/clean entry URLs and nested mounts. -->
 <script>
@@ -21,6 +22,7 @@
 <link rel="stylesheet" href="../../styles.css" />
 <style>
   html, body { margin: 0; background: #2a1a0d; }
+  .cs-skip:focus-visible, deck-stage:focus-visible, deck-stage:focus-within { outline: 2px solid var(--cs-color-text-primary); outline-offset: -2px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
   deck-stage:not(:defined) { visibility: hidden; }
   .sl { box-sizing: border-box; display: flex; flex-direction: column; font-family: var(--cs-font-family-ui); }
   .sl-umber { background: var(--cs-color-brand-umber); color: #fff; }
@@ -47,8 +49,8 @@
   .quote { font-size: 72px; font-weight: 700; line-height: 1.22; max-width: 1400px; }
   .quote .hl { color: var(--cs-color-brand-ochre); }
   .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px; margin-top: 24px; }
-  .stat .v { font-size: 96px; font-weight: 800; letter-spacing: -.02em; color: var(--cs-color-text-accent); line-height: 1; }
-  .stat .l { font-size: 26px; opacity: .85; margin-top: 10px; }
+  .stat .v { font-size: 96px; font-weight: 800; letter-spacing: -.02em; color: var(--cs-color-text-accent); line-height: 1; font-variant-numeric: tabular-nums; }
+  .stat .l { font-size: 26px; opacity: .85; margin-top: 10px; font-variant-numeric: tabular-nums; }
   .close-wrap { align-items: center; text-align: center; justify-content: center; }
   .close-wrap img { width: 128px; height: 128px; }
 </style>

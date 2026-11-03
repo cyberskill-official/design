@@ -84,8 +84,9 @@ div.cs-item.is-disabled { opacity: 1; }
   position: relative; background: var(--cs-code-bg); color: var(--cs-code-fg); border-radius: var(--cs-radius-lg); overflow: hidden; border: 1px solid var(--cs-code-border);
 }
 .cs-code__bar { display: flex; align-items: center; justify-content: space-between; padding: 8px 14px; border-block-end: 1px solid var(--cs-code-border); font-family: var(--cs-font-family-mono); font-size: var(--cs-font-size-xs); color: var(--cs-code-muted); }
-.cs-code__copy { border: 0; background: transparent; color: var(--cs-code-muted); cursor: pointer; font: inherit; font-family: var(--cs-font-family-ui); font-weight: 600; }
+.cs-code__copy { border: 0; background: transparent; color: var(--cs-code-muted); cursor: pointer; font: inherit; font-family: var(--cs-font-family-ui); font-weight: 600; min-block-size: 32px; padding-inline: 8px; border-radius: var(--cs-radius-sm); }
 .cs-code__copy:hover { color: var(--cs-color-brand-ochre); }
+.cs-code__copy:focus-visible { outline-color: var(--cs-code-fg); }
 .cs-code pre { margin: 0; padding: 14px 16px; overflow: auto; font-family: var(--cs-font-family-mono); font-size: var(--cs-font-size-sm); line-height: 1.6; }
 .cs-code code { font-family: inherit; }
 

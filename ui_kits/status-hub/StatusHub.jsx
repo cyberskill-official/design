@@ -13,8 +13,8 @@ function SearchGlyph() {
 }
 function ThemeGlyph({ dark }) {
   return dark
-    ? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>
-    : <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20 13.5A8 8 0 1 1 10.5 4a6.5 6.5 0 0 0 9.5 9.5z"/></svg>;
+    ? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>
+    : <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 13.5A8 8 0 1 1 10.5 4a6.5 6.5 0 0 0 9.5 9.5z"/></svg>;
 }
 
 /* Bilingual UI copy — kit fully EN⇄VN (owner decision, Jul 2026).
@@ -30,19 +30,19 @@ const T = {
     status: "Status", all: "All", of: "of",
     key: "Key", project: "Project", squad: "Squad", owner: "Owner", progress: "Progress",
     thisWeek: "This week", tasks: "Tasks", risk: "Risk", close: "Close",
-    langBtn: "VN", theme: "Toggle theme",
+    langBtn: "VN", langToggle: "Toggle language", theme: "Toggle theme",
   },
   vi: {
     sub: "CyberSkill · một trang, ba lăng kính · Hiện Thực Hoá Ý Chí",
     updated: "Cập nhật", portfolio: "Danh mục",
     projects: "Dự án", inprog: "Đang làm", shipped: "Đã ra mắt", blocked: "Bị chặn", planned: "Dự kiến", avg: "Tiến độ TB",
-    velocity: "Tốc độ · task giao / tuần", perShipped: " đã giao",
+    velocity: "Nhịp độ · công việc hoàn tất / tuần", perShipped: " đã hoàn tất",
     nowTitle: "Đang ra mắt",
     search: "Tìm dự án…", view: "Chế độ xem", lenses: { board: "Bảng công việc", table: "Bảng dữ liệu", releases: "Phát hành" },
     status: "Trạng thái", all: "Tất cả", of: "trên",
     key: "Mã", project: "Dự án", squad: "Nhóm", owner: "Phụ trách", progress: "Tiến độ",
     thisWeek: "Tuần này", tasks: "Công việc", risk: "Rủi ro", close: "Đóng",
-    langBtn: "EN", theme: "Đổi giao diện",
+    langBtn: "EN", langToggle: "Đổi ngôn ngữ", theme: "Đổi giao diện",
   },
 };
 const statusLabels = (t) => ({ done: t.shipped, active: t.inprog, hold: t.blocked, todo: t.planned });
@@ -166,7 +166,7 @@ function StatusHub() {
           </div>
           <div className="hd-side">
             <p className="hd-meta">{t.updated}<br />{VI ? VI.updated : D.updated}</p>
-            <button className="btn ghost" onClick={() => setLang((l) => l === "en" ? "vi" : "en")} aria-label="Toggle language" style={{ fontWeight: 700, fontSize: 13 }}>{t.langBtn}</button>
+            <button className="btn ghost" onClick={() => setLang((l) => l === "en" ? "vi" : "en")} aria-label={t.langToggle} style={{ fontWeight: 700, fontSize: 13 }}>{t.langBtn}</button>
             <button className="btn ghost" onClick={() => setDark((v) => !v)} aria-label={t.theme}><ThemeGlyph dark={dark} /></button>
           </div>
         </div>
@@ -255,7 +255,7 @@ function StatusHub() {
 
         <div id="lens-panel" role="tabpanel" aria-labelledby={`lens-${lens}`} tabIndex={0}>
         {lens === "board" && (
-          <div className="grid">
+          <div className="grid" data-slot="board">
             {shown.map((p0) => { const p = loc(p0); return (
               <button className={"card" + (p.status === "active" ? " hot" : "")} key={p.key} aria-haspopup="dialog" onClick={() => setSel(p0)}>
                 <div className="card-h"><h3><span className="k mono">{p.key}</span> · {p.name}</h3><span className="pct">{p.pct}%</span></div>

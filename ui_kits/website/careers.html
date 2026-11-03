@@ -4,20 +4,28 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="cyberskill.world — careers: Sample values and roles with contact-preview links" />
 <title>CyberSkill · Careers</title>
 <link rel="icon" href="../../assets/favicon.svg" />
 <link rel="stylesheet" href="../../styles.css" />
 <link rel="stylesheet" href="site.css" />
 <style>
+  /* hero: banner */
   html, body { margin: 0; }
-  .car-hero { background: var(--cs-color-brand-umber); color: #fff; padding: 76px 0 64px; position: relative; overflow: hidden; }
+  @media screen and (min-width: 1024px) {
+    .car-hero + .sec { padding-top: 84px; }
+    .roles { gap: 28px; }
+    .role { padding: 36px 28px; }
+  }
+  .car-hero { background: var(--cs-color-brand-umber); color: #fff; padding: 88px 0 64px; position: relative; overflow: hidden; }
   .car-hero::before { content: ""; position: absolute; inset: 0; background-image: url("../../assets/aurora-tho.webp"); background-size: cover; background-position: center; opacity: .32; }
   .car-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(26,17,8,.28), rgba(26,17,8,.78)); }
   .car-hero .container { position: relative; z-index: 1; }
   .car-hero h1 { font-size: clamp(36px, 5vw, 54px); font-weight: 800; letter-spacing: -.02em; color: var(--cs-color-brand-ochre); margin: 12px 0 6px; }
   .car-hero p { font-size: 18px; opacity: .92; max-width: 600px; margin: 0; }
   .vals { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-  .val { border-top: 3px solid var(--cs-color-brand-ochre); padding-top: 16px; }
+  .val { border-top: 3px solid var(--cs-color-brand-ochre); padding-top: 12px; }
+  .sec .eyebrow { margin-bottom: 20px; }
   .val h3 { margin: 0 0 6px; font-size: 18px; }
   .val p { margin: 0; color: var(--cs-color-text-muted); font-size: 14px; line-height: 1.5; }
   .roles { display: grid; gap: 12px; }
@@ -37,14 +45,14 @@
     <div class="container hdr-in">
       <a class="brand" href="index.html"><img src="../../assets/logo-mark.svg" alt="" />CyberSkill</a>
       <nav class="nav"><a href="index.html#services" data-vi="Dịch vụ">Services</a><a href="work.html" data-vi="Dự án">Work</a><a href="careers.html" data-vi="Tuyển dụng">Careers</a><a href="index.html#contact" data-vi="Liên hệ">Contact</a></nav>
-      <div class="hdr-side"><a class="mini" href="#" id="langToggle">Tiếng Việt</a><a class="mini" style="background:var(--cs-color-brand-umber);color:#fff;border-color:transparent" href="index.html#top" data-vi="Trò chuyện với Lumi">Talk to Lumi</a></div>
+      <div class="hdr-side"><a class="mini" href="#" id="langToggle" aria-label="Switch to Tiếng Việt" data-vi-aria-label="Chuyển sang English">Tiếng Việt</a><a class="mini" style="background:var(--cs-color-brand-umber);color:#fff;border-color:transparent" href="index.html#top" data-vi="Trò chuyện với Lumi">Talk to Lumi</a></div>
     </div>
   </header>
 
   <main id="main" tabindex="-1">
   <section class="car-hero">
     <div class="container">
-      <div class="eyebrow" style="color:var(--cs-color-brand-ochre)" data-vi="Tuyển dụng">Careers</div>
+      <div class="eyebrow" role="group" style="color:var(--cs-color-brand-ochre)" data-vi="Tuyển dụng">Careers</div>
       <h1 data-vi="Cùng xây với chúng tôi">Build with us</h1>
       <p data-vi="Nội dung tuyển dụng minh họa. Bản mẫu này chưa xác minh vị trí đang tuyển hay nhận hồ sơ ứng tuyển.">Illustrative careers content. This sample does not verify open vacancies or accept applications.</p>
     </div>
@@ -53,7 +61,7 @@
   <section class="sec">
     <div class="container">
       <div class="eyebrow" data-vi="Cách chúng tôi làm việc">How we work</div>
-      <h2 style="margin:8px 0 32px" data-vi="Điều chúng tôi trân trọng">What we value</h2>
+      <h2 style="margin:0 0 10px" data-vi="Điều chúng tôi trân trọng">What we value</h2>
       <div class="vals">
         <div class="val"><h3 data-vi="Ấm áp">Warm</h3><p data-vi="Chúng tôi đối xử với khách hàng và với nhau bằng sự quan tâm chân thành.">We treat clients and each other with genuine care.</p></div>
         <div class="val"><h3 data-vi="Thẳng thắn">Direct</h3><p data-vi="Lời nói giản dị, kết quả cụ thể, không vòng vo.">Plain words, concrete outcomes, no hedging.</p></div>
@@ -66,12 +74,21 @@
   <section class="sec sec-alt">
     <div class="container">
       <div class="eyebrow" data-vi="Vị trí minh họa">Sample roles</div>
-      <h2 style="margin:8px 0 28px" data-vi="Nơi dành cho bạn">Where you fit</h2>
+      <h2 style="margin:0 0 10px" data-vi="Nơi dành cho bạn">Where you fit</h2>
       <div class="roles">
         <div class="role"><div><h3 data-vi="Kỹ sư sản phẩm cấp cao">Senior Product Engineer</h3><div class="meta"><span data-vi="Nền tảng">Platform</span><span data-vi="Sài Gòn · Kết hợp">Saigon · Hybrid</span><span data-vi="Toàn thời gian">Full-time</span></div></div><a class="btn-gold" href="index.html#contact" data-vi="Xem bản mẫu liên hệ →">View contact demo →</a></div>
         <div class="role"><div><h3 data-vi="Kỹ sư hệ thống thiết kế">Design Systems Engineer</h3><div class="meta"><span data-vi="Nền tảng">Platform</span><span data-vi="Từ xa · VN">Remote · VN</span><span data-vi="Toàn thời gian">Full-time</span></div></div><a class="btn-gold" href="index.html#contact" data-vi="Xem bản mẫu liên hệ →">View contact demo →</a></div>
         <div class="role"><div><h3 data-vi="Nhà thiết kế sản phẩm AI">AI Product Designer</h3><div class="meta"><span>AI</span><span data-vi="Sài Gòn · Kết hợp">Saigon · Hybrid</span><span data-vi="Toàn thời gian">Full-time</span></div></div><a class="btn-gold" href="index.html#contact" data-vi="Xem bản mẫu liên hệ →">View contact demo →</a></div>
-        <div class="role"><div><h3 data-vi="Trưởng nhóm tăng trưởng sáng lập">Founding Growth Lead</h3><div class="meta"><span data-vi="Tăng trưởng">Growth</span><span data-vi="Sài Gòn">Saigon</span><span data-vi="Toàn thời gian">Full-time</span></div></div><a class="btn-gold" href="index.html#contact" data-vi="Xem bản mẫu liên hệ →">View contact demo →</a></div>
+        <div class="role"><div><h3 data-vi="Trưởng nhóm Tăng trưởng đầu tiên">Founding Growth Lead</h3><div class="meta"><span data-vi="Tăng trưởng">Growth</span><span data-vi="Sài Gòn">Saigon</span><span data-vi="Toàn thời gian">Full-time</span></div></div><a class="btn-gold" href="index.html#contact" data-vi="Xem bản mẫu liên hệ →">View contact demo →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="container">
+      <div class="band">
+        <div><h2 data-vi="Bạn cũng có một điều ước?">Have a wish of your own?</h2><p data-vi="Thử bản xem trước liên hệ. Bản mẫu này chưa gửi lời nhắn.">Try the contact preview. This sample does not send a message.</p></div>
+        <a class="btn-gold" href="index.html#contact" data-vi="Ước một điều →">Make a wish →</a>
       </div>
     </div>
   </section>

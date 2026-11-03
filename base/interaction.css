@@ -8,7 +8,6 @@
   transition: background var(--cs-duration-fast) var(--cs-ease-standard),
     border-color var(--cs-duration-fast) var(--cs-ease-standard),
     filter var(--cs-duration-fast) var(--cs-ease-standard),
-    box-shadow var(--cs-duration-base) var(--cs-ease-standard),
     transform var(--cs-duration-fast) var(--cs-ease-standard);
 }
 .cs-button--primary:hover:not(.is-disabled),
@@ -34,6 +33,12 @@
 .cs-ai-disclosure__badge:focus-visible,
 .cs-switch input:focus-visible + .cs-switch__track {
   box-shadow: 0 0 0 5px var(--cs-color-accent-ochre);
+}
+.cs-button:focus-visible {
+  transition: background var(--cs-duration-fast) var(--cs-ease-standard),
+    border-color var(--cs-duration-fast) var(--cs-ease-standard),
+    filter var(--cs-duration-fast) var(--cs-ease-standard),
+    transform var(--cs-duration-fast) var(--cs-ease-standard);
 }
 .cs-cmdk__search:focus-within {
   box-shadow: 0 0 0 5px var(--cs-color-accent-ochre), inset 0 0 0 4px var(--cs-color-accent-ochre);

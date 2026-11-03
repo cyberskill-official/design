@@ -4,7 +4,7 @@
     "path": "scripts/generate-reference-catalog.mjs",
     "sha256": "be85a593b4b29f0d26e5733502f8d9e4f536e10ab015173a34f4101af11723ef"
   },
-  "version": "2.0.0",
+  "version": "2.1.0",
   "interpretation": "The document inventory covers Git-listed Markdown and llms.txt; HTML count surfaces are tracked separately. Audience follows the website publication policy, not npm membership. Source paths locate repository evidence and need not all be packaged. Roles describe source routing and audience, not approval, factual freshness of every sentence, translation quality or capability certification.",
   "countScope": "Counts describe declared inventory only. Declared language/theme/boolean controls are inventory facts, not proof of complete content, working behavior or every supported state; token declarations and typed base values are distinct counts.",
   "counts": {
@@ -30,25 +30,25 @@
   "sourceHashes": {
     "_audit/visual-diff.html": "fd344cf31f0aa4130dddec2a99dca5ef60d9d08025b5dc2b4b729a1d388c5bb8",
     "_ds_manifest.json": "aa7c859299ef367e7df3aee45706ab58836d7fe0274c32c117b7c0534159ff37",
-    "scripts/public-site-policy.json": "a6fd0dae713d483d3a39b33d1151ada7e6b295cd6ea352c69e708d3106779724",
-    "templates/app-shell/AppShell.dc.html": "08307cd2ef46ee1142af4bbfa9e25728fa4d919bf3a40cd568374f8728ee7c44",
-    "templates/article/Article.dc.html": "d2330c050a3cf0df9267b36f8025552bcaa5c962bf1462b694fa8e359360efdf",
-    "templates/auth/Auth.dc.html": "c75ac411379fbf0e85dcff730c4cc18540fa60c667f0689bc5eb001dc7b0f2b6",
-    "templates/bod-deck/BodDeck.dc.html": "6e704e1a9dd1217928af7b75b2484e9436e4f9d97840cce4af18c3ddb4723561",
-    "templates/bod-investor-update/BodInvestorUpdate.dc.html": "fd9afac8ef2c82ca4a09d01d6219789895a3f0f4dee68901f7185401b01975fe",
+    "scripts/public-site-policy.json": "ffc461f55367201365ed6c8b97e0c06eed50e139e312644da3727d76c7feea47",
+    "templates/app-shell/AppShell.dc.html": "f71017a26f12b71d9e653dff79635ed14d5eb4a3dac9c5ce095188c537b858e3",
+    "templates/article/Article.dc.html": "9b2ed3af604ac9e552f33bc922ec7dd2659b786dcb624cb491f7a437658adb2f",
+    "templates/auth/Auth.dc.html": "ab6fb52740dbda804c9963cd2b63aa7d482c4b3cd2fa87b9a7f0c20ab2ef1e64",
+    "templates/bod-deck/BodDeck.dc.html": "83a2ea61af568fef5600a002bf646af8fda7467e83778439524edc51514b2431",
+    "templates/bod-investor-update/BodInvestorUpdate.dc.html": "3d62bb7dc28fd362ba9b2d28fb37829b5c0a64019bb158aa3cccf56e32e87449",
     "templates/bod-memo/BodMemo.dc.html": "0b02a967a853e66fc782995697abfdf847270c37182c661b68777024832ed8a2",
-    "templates/bod-minutes/BodMinutes.dc.html": "0a4ee1be659e58757a8929ad7512b0b537ecf13603a251e27b8fda02c3f0ae62",
-    "templates/bod-report/BodReport.dc.html": "659ccd0fe40afc77710b81dfd761c5b8b567e7e390c8f5d32dbca7bf8fcac96f",
-    "templates/bod-resolution/BodResolution.dc.html": "c026e33acefab9b540d074b698c43367245c43c9db42cdb073bce3a66b0db4f4",
-    "templates/culture-event-invite/CultureEventInvite.dc.html": "0355f9a4c2bc2b992b6f0ef2a04ada1e56937787fc2b901fc8f70511f2ea8832",
-    "templates/dashboard/Dashboard.dc.html": "cd6f4bcbabace3da50c154678da46b4644fcdb392e0b5ee08087950e15cb5f83",
-    "templates/delivery-change-note/DeliveryChangeNote.dc.html": "99c2dba501eeda137f0d15bfd4118d811f1b4dcdf4594467bfb00c65761d95a6",
-    "templates/delivery-kickoff/DeliveryKickoff.dc.html": "fe824e543f1cb08e54cb128e137e3aff8dfb32966485a8cfecd3e63ca9dad392",
-    "templates/delivery-qbr-deck/DeliveryQbrDeck.dc.html": "41627c49657273d3cdb55a83cb853e7e01175905d470cdf32ce6e71b2f3a9895",
-    "templates/delivery-runbook/DeliveryRunbook.dc.html": "bee4ff78c07edc468e06a5388db0326a9e2fe076d03a46dd860d4ea0ca69616a",
+    "templates/bod-minutes/BodMinutes.dc.html": "b1e9cdc7138fa9ed68db3abdb85def196827fd23a8d88de17adacd619c9eb3ab",
+    "templates/bod-report/BodReport.dc.html": "933135a28361c29630e7d956a1b40ac7db90877f17f3b2d5756c88b8df9911d6",
+    "templates/bod-resolution/BodResolution.dc.html": "556de5898071083404ad3dd4cfa26affc8e65b63b4bff05875e9c412e4285c98",
+    "templates/culture-event-invite/CultureEventInvite.dc.html": "3558f19ef07c7b1396ffe4bd1a3a4b5bc8045f7b3bcaa81dccd5b1c5ee74f11c",
+    "templates/dashboard/Dashboard.dc.html": "e39de5367d3b0309a9c29ad61ab379707b327fb71cb19d1fe87f8e7b9ab64f6d",
+    "templates/delivery-change-note/DeliveryChangeNote.dc.html": "735d445393d900cbd5778cd1ff373fd76f661d081737b073922ca771009d330a",
+    "templates/delivery-kickoff/DeliveryKickoff.dc.html": "a801d7af5c90f3856a827c1d30f6d01d4c3e2e9f41d9e05ea6d6426c3e67d9f6",
+    "templates/delivery-qbr-deck/DeliveryQbrDeck.dc.html": "2463e404a33208fca14222473d571c58e096ca6b97cfa1de788bd1490299d011",
+    "templates/delivery-runbook/DeliveryRunbook.dc.html": "d90b886e3b2466d21fd253e446446c0e48651d308bfb136f3828b1252cedf2d0",
     "templates/delivery-status-email/DeliveryStatusEmail.dc.html": "fed3c9b079806e96a2db546ffb730fe1a89743fef73f77735c6ace53062f6377",
-    "templates/doc-style-guide/DocStyleGuide.dc.html": "46fc9f9224cde3ee5e295bc49b77185181ec004c6738b2a8972bcc9c08a90305",
-    "templates/doc-suite-index/DocSuiteIndex.dc.html": "4d8ee6917588183c3673359461a0c9e40b9381025f079f74ee4c1e53135d9758",
+    "templates/doc-style-guide/DocStyleGuide.dc.html": "2056c6ac47a5fdead465624ead14cabcbd11843cde66e068660b3c3315777efa",
+    "templates/doc-suite-index/DocSuiteIndex.dc.html": "1eb6b888ee3ef6a0577d00dffaba22b5f617938c190e1b2967d474106d9863d8",
     "templates/doc-templates/DocTemplates.dc.html": "f19141cfd000577756ddcba34f741e0eaf6a91c48361584ba5c69620d6ad633b",
     "templates/email/Email.dc.html": "cf22e4a30dde68057711f84da381493c0ae173778495e7fa43cbba70a89e1ce1",
     "templates/finance-dunning-email/FinanceDunningEmail.dc.html": "b2926e9e22aee796f45b2baf7b87e64fda7c9d55c307e95bd0a2b5a0b8c43080",
@@ -56,28 +56,28 @@
     "templates/finance-invoice/FinanceInvoice.dc.html": "9949f6ab1e5e7b6d146c0eba6bf354a81886fcb6580619dc25fdb03e8b949929",
     "templates/finance-quote/FinanceQuote.dc.html": "bac098fc98613628134e426853961d5e7bd1f7b01d7909a4ff62e5a7416a981c",
     "templates/hr-announcement/HrAnnouncement.dc.html": "0112e244d7a771830ea07411ac85edacbcd1f377d092626fe1a10cc13e66fe82",
-    "templates/hr-interview-kit/HrInterviewKit.dc.html": "61f3928eb7d05da9f5f0da0c3a7ba316b6c32c2404a10e56f0bfcb253740ddf2",
-    "templates/hr-offboarding/HrOffboarding.dc.html": "e5123509499c450a6655ee9181248d6d236fbb8d5e2377fdad7c3c5bb9c920dd",
-    "templates/hr-performance-review/HrPerformanceReview.dc.html": "fb229712e2b04c9cc4404ff78fb0f2c3d679dbc8402df1365d25d5ef14268a2a",
-    "templates/hr-pip/HrPip.dc.html": "d8b068ac019fe19a4de76fe62cefd5eca4e43b4cffe3041aeaba99133ff8093e",
-    "templates/legal-msa/LegalMsa.dc.html": "98b3bd58aad7f09b2a8989dc8b90dec01a56209a9d692a919d214ad7f3fb7ce3",
+    "templates/hr-interview-kit/HrInterviewKit.dc.html": "8c6b7bea5fd9d1212397f7a1d567d3b5deaea3b3e2c6516360dc3835f3308774",
+    "templates/hr-offboarding/HrOffboarding.dc.html": "7d902d416206b55d971a2d55d042df64e8feee472858174a05c206a3367ff810",
+    "templates/hr-performance-review/HrPerformanceReview.dc.html": "9d5a94ffff22a0d0b021f378c9b395c88401021ec768326a935a521f9b8e50a9",
+    "templates/hr-pip/HrPip.dc.html": "5118af88420e5550afa32c808e7f3ea375ed809609bb2ce739d0402a7b5ca1c6",
+    "templates/legal-msa/LegalMsa.dc.html": "c7926031e304e9f416c013934344add0b738a5377d667114b6cb6c8584858ca6",
     "templates/legal-sow/LegalSow.dc.html": "a4f3ca8b67f41e546601d11618c8027187ff7a95bb51cee136a1231bf65d11cd",
-    "templates/marketing-campaign-brief/MarketingCampaignBrief.dc.html": "7dc806eff2985764755529105c712b135a0e7ccffead8a3e194535d1e0fa6e0f",
-    "templates/marketing-case-study/MarketingCaseStudy.dc.html": "d4ded5365ab4bf4bc37b9f4f2a50f93b8cfd592ce65848884266e50e9d96780b",
+    "templates/marketing-campaign-brief/MarketingCampaignBrief.dc.html": "3f6b4e1e3c5eea9324b5cb282f10e6a7e64437fbbd73549b5c2aeb22d6bbafe6",
+    "templates/marketing-case-study/MarketingCaseStudy.dc.html": "31f200f4c58c7c6a1d520a6b5c5729fb365a004ff545dc4b8b8d7222e86235fd",
     "templates/marketing-launch/MarketingLaunch.dc.html": "80b1d3d9f5bdb5fd78e01c0f074d37500ae91591f429c887ab809a052ae90987",
     "templates/marketing-newsletter/MarketingNewsletter.dc.html": "b87b3d465883dbdcb3325572caf3a025b1396788b1995e6f42193de7bfeabfbc",
-    "templates/marketing-page/MarketingPage.dc.html": "a109bff06969a8eed5c5a199b99e0d80d8591eb1b1da49fd6c1f29dd8951b4e5",
-    "templates/marketing-press-release/MarketingPressRelease.dc.html": "e6b060afae0c18ad7573df7df18bc3b588d5d03a6349fb30dfc2fe1b22ea262f",
-    "templates/marketing-social-kit/MarketingSocialKit.dc.html": "b7dec810a82622091b6a6fea16637aeb07bb37f76577aee849d5200b0b3cbda8",
-    "templates/sales-one-pager/SalesOnePager.dc.html": "e6b40cb38c9d39dc58d0928181ce83c9b8e96c04c57193df862481e0bc09b24a",
-    "templates/sales-proposal-deck/SalesProposalDeck.dc.html": "55e87783d9f6ee48acb013f157cdd03d0db906a0b7985ceb609d9456e6bebf03",
-    "templates/settings/Settings.dc.html": "bb1443744098af9449cd17790faa109d0538644fa7bbada0496349e0e4de9b46",
-    "templates/slide-deck/SlideDeck.dc.html": "4abc662839d35901d26e1c49400428a919b55518739a143e450266877546cc44",
-    "templates/team-meeting-agenda/TeamMeetingAgenda.dc.html": "f0ab3dbc6cb4b28b065b527b4a0e4abde81a7e96e0e49513ab4a41c07aafc01c",
-    "templates/tech-incident-report/TechIncidentReport.dc.html": "a4b1348aa2858709e0e89c7dddc2ae6215e0a49a183cdc454d97014f2446df0c",
+    "templates/marketing-page/MarketingPage.dc.html": "54fa23a31a7037210672fe43548ff07229d58faf818ef90afcf5898d1d50db83",
+    "templates/marketing-press-release/MarketingPressRelease.dc.html": "d0bf78d1eed5a213b7967070d206e40f5816765a4d1c314a1e83a1dbd41b0d5c",
+    "templates/marketing-social-kit/MarketingSocialKit.dc.html": "8d86218ee66b4af6d8a97acdfca0ede0224ee43bded83d32cfb4edb869f71f57",
+    "templates/sales-one-pager/SalesOnePager.dc.html": "ceac39dd8e3ccf39c0db695a6f7f15de41736b7e2f794d5ecd5a3c4b379010f1",
+    "templates/sales-proposal-deck/SalesProposalDeck.dc.html": "1ce3b5aa09d263b7fdab25002ed6975bafff9b503d2e58d3b0cbfe0d7f023fff",
+    "templates/settings/Settings.dc.html": "033c391850a03f8d7103de1d50b9fc377e1a9b689721900b74fbd59f9ddea4af",
+    "templates/slide-deck/SlideDeck.dc.html": "c87f1551b8704b6486e81d38703a55fee7ea51711b55b04dbc263ec947a873e1",
+    "templates/team-meeting-agenda/TeamMeetingAgenda.dc.html": "69668851b61e0b21e3710dccac02772402b69dd00a73ede29b3c9981a2529ce1",
+    "templates/tech-incident-report/TechIncidentReport.dc.html": "037a4c943bd5b0a367011df0f64a4b8977a87d0bebc3bb5f5c718de1ce819a22",
     "templates/tech-release-notes/TechReleaseNotes.dc.html": "6f271eeda023da50ee640e3df171e24ca160143232ab2c6e0243e8fed81b2726",
-    "templates/tech-retro/TechRetro.dc.html": "de141e560e507a18d24b28bedcd2ebd3af1fe35488a895d4c00e9aae2b9160d6",
-    "templates/tech-rfc/TechRfc.dc.html": "ed611e3ec8f7f682b2703d7718e44fa47f4bcba928946b859e5975819cfba772",
+    "templates/tech-retro/TechRetro.dc.html": "ac268c817891399285e3efbbc72e3a425b50d67874bdc0d4ad2ee6ebdaa10a39",
+    "templates/tech-rfc/TechRfc.dc.html": "283a1ae0cc7569ad53e1923eda560aeca592d32c6f5a88161a798675f08f016e",
     "templates/vn-appointment-transfer/VnAppointmentTransfer.dc.html": "78c1e79582be111786a5c3bb93a70715481b01531b0c5fc71688883ea1f5fe72",
     "templates/vn-certificate-of-employment/VnCertificateOfEmployment.dc.html": "88aa8a66a15ae4ae104476fb44066121038fbf6b09b4f4482c75f3d613e5c3d5",
     "templates/vn-code-of-conduct/VnCodeOfConduct.dc.html": "ee9b48c9c0b11517c580fc63490ad25a83eef86c74b3518d5f6b56f6c97e7c4f",
@@ -86,10 +86,10 @@
     "templates/vn-contractor-agreement/VnContractorAgreement.dc.html": "a2a33cf7965a7131563d6de8dfbba292029a82f04f6191b8d5a1fd803c4f3d77",
     "templates/vn-data-protection-policy/VnDataProtectionPolicy.dc.html": "aef4c67f13c08dfa0cc517144a6c0064b9e9c93e0cf3849bc01c21e798372324",
     "templates/vn-disciplinary-case-file/VnDisciplinaryCaseFile.dc.html": "4f5e7ca1ab10e02c16eed846aa0db3fc90000393ed5a1ff0be1235298204b05f",
-    "templates/vn-disciplinary-schedule/VnDisciplinarySchedule.dc.html": "03fd2d2be347c11d19f57dc88b5841c4a2d4a9fb896231a794d791a5c076ac9e",
+    "templates/vn-disciplinary-schedule/VnDisciplinarySchedule.dc.html": "40a06061cc96eb4eb92a62726f6b1e2f9b494433335d70876e027e91667fab6a",
     "templates/vn-employee-request/VnEmployeeRequest.dc.html": "37687bd0a9f130686ea8423e47499cf4882a4e0a3ec114556d1b2fe25a48e9d2",
     "templates/vn-exit-handover/VnExitHandover.dc.html": "ac649e0215c76819f0bdaf53c3e2512f073e54da23ba26ef00a8ae50227463fc",
-    "templates/vn-foreign-employee-pack/VnForeignEmployeePack.dc.html": "e20d4e9b2bf802f9c8703041bf77f750796d2b4d4d51d0c4bb38c50550eb509e",
+    "templates/vn-foreign-employee-pack/VnForeignEmployeePack.dc.html": "d5244fccd5fc6cd7313c728e17ac40053635a702d1da86cd55beca430a9d3259",
     "templates/vn-framework-agreement/VnFrameworkAgreement.dc.html": "90b02080044e04d361effb776947030d7eb066d18d27f6935da6b4ac1a8bb056",
     "templates/vn-grassroots-democracy/VnGrassrootsDemocracy.dc.html": "2901c6a3dca332bd5bddddad51aea7ba15508e4da20a92659f3e6f7d962a10df",
     "templates/vn-infosec-policy/VnInfosecPolicy.dc.html": "07cd714c4966ee15d2d0e84107de325fb0c3e18ae37e2b42a07ca62294287781",
@@ -97,26 +97,26 @@
     "templates/vn-internship-agreement/VnInternshipAgreement.dc.html": "1269a5411316eaa9180d5ce09b823e9454cee415e085e2890d540689663fac5b",
     "templates/vn-job-description/VnJobDescription.dc.html": "443779ed1e8741e0048574123eec9f296a3b2852a60994a012ef6afa48d22d0d",
     "templates/vn-labor-contract/VnLaborContract.dc.html": "870d7f14ad6f34e488bc112b23d6d3fdf43e29dc82da67132f55199de7dc06ab",
-    "templates/vn-labour-management-book/VnLabourManagementBook.dc.html": "52580f14d38da8a2f4083ef3b5ffd3dfd1ad658e37ed15ad516a074270c3ea10",
+    "templates/vn-labour-management-book/VnLabourManagementBook.dc.html": "149661da23cf1f51229345be462f0215c1095957f73159e14f31baae4828e53d",
     "templates/vn-mutual-nda/VnMutualNda.dc.html": "ed3739e2d5283bb27262ff014c9bd8bb7e52953b27ff1e683505183fe4e9730d",
     "templates/vn-ndnca-ip/VnNdncaIp.dc.html": "46198cb4249797eb0358bbf6188149a190e21cc526a8f3cc765ba277c7a22601",
     "templates/vn-offer-letter/VnOfferLetter.dc.html": "10d7100246be6ebdf7a766e8a8a4c26fa6cc37fa35839117ab4dd956bda15e8b",
-    "templates/vn-onboarding-checklist/VnOnboardingChecklist.dc.html": "05865d6dc3e4873ad93e5a83ff5cf142d09f1ce03cc9edf075c2096bd29abeb7",
+    "templates/vn-onboarding-checklist/VnOnboardingChecklist.dc.html": "1955996b6185927bc0566de27cb40a05eee55162ad6047f3b3142705ec3cbde6",
     "templates/vn-pdpl-consent/VnPdplConsent.dc.html": "160a38af83f606b3299c8e44667d0a540117fb3912883f3873a5f3bd811dbe80",
     "templates/vn-performance-evaluation-regulation/VnPerformanceEvaluationRegulation.dc.html": "64b084059df8eec2fe38ac49a91e6153e8e74c7b8137c4d64427b7be15230ce1",
     "templates/vn-performance-review-form/VnPerformanceReviewForm.dc.html": "86cda018eaa16c74463b05698577da6af0c38d4fe3e0dd65e2b833cdde1b2e6a",
-    "templates/vn-phantom-stock/VnPhantomStock.dc.html": "8cc34482e9a70df761cf83c34e5ad66a20f51b14d76cb23f7b922cf76d2b14d1",
+    "templates/vn-phantom-stock/VnPhantomStock.dc.html": "07d3997310341213857ce36356e1f474c3f06dbf0e16ce336c700ff63d865127",
     "templates/vn-probation-contract/VnProbationContract.dc.html": "5199007104f263a2ca808eff60954de0555ebc86f861295a237762920f2a527e",
-    "templates/vn-receipt-acknowledgement/VnReceiptAcknowledgement.dc.html": "06139099f994269e82459562522dbdb6f761ed0c246e34b3130bc9ba1682cac3",
+    "templates/vn-receipt-acknowledgement/VnReceiptAcknowledgement.dc.html": "d51b5ff608b8ffb8618d2b9c64b89f72ddb0360452924c6f9f7051688026ec0a",
     "templates/vn-remote-work-policy/VnRemoteWorkPolicy.dc.html": "10ef4f4955df2d7e7902652565de0d275ca61080e45421f8f86e7f5698522aa3",
     "templates/vn-resignation-letter/VnResignationLetter.dc.html": "6d98e4352e71672245acdf45be2c6403e12861faab2edd44e91263c6ca155d16",
-    "templates/vn-salary-scale/VnSalaryScale.dc.html": "6cda571b5e4657a76a3db8485a0a400862c5e45d9b392c2a1b7e2d247a60cd03",
+    "templates/vn-salary-scale/VnSalaryScale.dc.html": "8d37239d772f60bcad268a44874493fedffc0650251607fc1dcd9d058eca2f0f",
     "templates/vn-sow-appendix/VnSowAppendix.dc.html": "c04069dd949f383cef3f8123c7c1cd5b479ae88f3cd3a872e6693fc71f14ae30",
     "templates/vn-termination-decision/VnTerminationDecision.dc.html": "cd766f07aaab5e3de82a75d95e6aa1de69e1360c36f65770bd78bbf8834c7148",
     "templates/vn-total-rewards-appendix/VnTotalRewardsAppendix.dc.html": "ee941a6d26aa525bba779015ca01f4bdb7246571db2c3558499d7bc2fee3c2aa",
     "templates/vn-training-commitment/VnTrainingCommitment.dc.html": "49b2b4459bf2a900ddfafe679b6f3b088c78a31f611ae76dc3ac276e05a14c46",
     "templates/vn-travel-expense-policy/VnTravelExpensePolicy.dc.html": "1e585bd53ec6fb41322082bddfb7eed4ac811bfabb1ad2d639b9babba6c0e212",
-    "tokens/tokens.dtcg.json": "27671e79b9683d94a6c693f8c4b6d5fa3f51ac4662563d8f48a0d9f0bb208e74"
+    "tokens/tokens.dtcg.json": "bf1d6260e8c270a49a1d2de3a18ff759a0f26b000ee2b7d46cfdb57d95db2a3d"
   },
   "documents": [
     {
@@ -129,7 +129,7 @@
       "path": "DESIGN.md",
       "audience": "documentation",
       "role": "generated_reference",
-      "sha256": "16f06be6d7aedf316692e87212fe6a0aeab4159493862c8d75cbb9f8d2cebbd5"
+      "sha256": "57fa0c69afce6a2db927ed835bfbc3dc477d1d7aacf26b6eefd031e02a966db9"
     },
     {
       "path": "MAINTAINERS.md",
@@ -141,7 +141,7 @@
       "path": "README.md",
       "audience": "documentation",
       "role": "human_orientation",
-      "sha256": "e82279867f2a700656cec243186e450a1b10875b59352d71759f0c4d6fd94936"
+      "sha256": "632c6c2398d1c27a2aa5b9878d7ac7eac3200395b1dafe42829af5da030fae87"
     },
     {
       "path": "SECURITY.md",
@@ -909,19 +909,19 @@
       "path": "docs/consuming.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "fbad9146a792ec7f6110eb95fbbad2a0e83b7eabb4fc640c1d0e3a59df674012"
+      "sha256": "2ce69f681b052ee8650d59f38b3d7c5328ba4a728997d278432b238946b6e731"
     },
     {
       "path": "docs/contrast-report.md",
       "audience": "documentation",
       "role": "generated_measurement",
-      "sha256": "37169f6e6c03a3ee9ef4c3323b79b74dcfd8295e61563cc29a0a9228a8bcacbe"
+      "sha256": "7c3022379a530b982621c6fc669afe5c1778de13a752a8505f02c9111d89eb65"
     },
     {
       "path": "docs/conventions.md",
       "audience": "documentation",
       "role": "normative_repository_contract",
-      "sha256": "463ce2853474e35fbc75b7634deaf05324545a2688e1683a2acd9381b9cc88c6"
+      "sha256": "b8b0e47adc75dc9096c4ce44e1abcb18da99f0beae30d842839b99f5c013a00e"
     },
     {
       "path": "docs/decisions.md",
@@ -1059,7 +1059,7 @@
       "path": "docs/release-notes.md",
       "audience": "documentation",
       "role": "release_history",
-      "sha256": "02d7e9e7ff28f2629626da966207440041eb0d829fb3963bf7a6f2c9578483d8"
+      "sha256": "b8f575990e31cf5f95054520711ffc70ed9f38de2c432e2fd16ef24bc69b5201"
     },
     {
       "path": "docs/releasing.md",
@@ -1077,7 +1077,7 @@
       "path": "docs/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "c9851667475bea6b0545ffd1ed5ce1de8d36bcf7a060f925c67a9c64acf5a02c"
+      "sha256": "dbd2df5178885caf087900fd8e88c350fb507b24e84dcd04530e9c4665b9f482"
     },
     {
       "path": "docs/storybook.md",
@@ -1185,19 +1185,19 @@
       "path": "docs/vi/consuming.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "193e92614745fbc61b606cae816033ff2ab69077c0e379bc1c40c5bfc47658bf"
+      "sha256": "96b2c802f868dfc963090b1c1ec49572ae9227bb85477a6a33fb5b77fd921be2"
     },
     {
       "path": "docs/vi/contrast-report.md",
       "audience": "documentation",
       "role": "generated_measurement",
-      "sha256": "c05e7495551868cbdd7d99e562547d18d6e622ddb2a249faa70612975f0182a0"
+      "sha256": "a03bc903f2b868ff0eb66c72e047ea51cc0b4521cff36bcd9d8e49afaa53c7c4"
     },
     {
       "path": "docs/vi/conventions.md",
       "audience": "documentation",
       "role": "normative_repository_contract",
-      "sha256": "5f45f7818f93713f04b19e7464cf69a946f929ece10618ef36284e123515839b"
+      "sha256": "4811537bc8e6747b44ccfd41ef316b645f3e666b291313a8cbdf8dee1e4ca458"
     },
     {
       "path": "docs/vi/decisions.md",
@@ -1233,13 +1233,13 @@
       "path": "docs/vi/entrypoints/DESIGN.md",
       "audience": "documentation",
       "role": "generated_reference",
-      "sha256": "29d7d17a181f0f95fa75ff0e48ed7662b5c5f689c9fdcdab58d02b87def3c409"
+      "sha256": "15dde0d7ac53ea0a4317f2f3c268a404ff8d776186936baece3d19e22caf930d"
     },
     {
       "path": "docs/vi/entrypoints/README.md",
       "audience": "documentation",
       "role": "human_orientation",
-      "sha256": "7c49c1b136caebad303006c8151a23fe952f99f5288893fb87caf935cc97162d"
+      "sha256": "86c32b78d8a7f81ecaeb578b11fc7260c73b025684c9ab505918aeb920961ca2"
     },
     {
       "path": "docs/vi/entrypoints/SKILL.md",
@@ -1335,7 +1335,7 @@
       "path": "docs/vi/release-notes.md",
       "audience": "documentation",
       "role": "release_history",
-      "sha256": "a82b9a782ece6e13d0aaaf74d4e53f8eacb16a2c52cbab7957146776d5c1242b"
+      "sha256": "9f8ed3d4619bbfe96d9891a9e47ab9f938c288b29730115bdda3800ab0d038e4"
     },
     {
       "path": "docs/vi/releasing.md",
@@ -1353,7 +1353,7 @@
       "path": "docs/vi/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "77f327da2367b939fc61c95407ee0f731505211dbb067b46244fd949246cd577"
+      "sha256": "30c1c9b7784a2ff3f94a41391dbda2eebf0d75eb76f367158320c8b3f47a33cc"
     },
     {
       "path": "docs/vi/storybook.md",

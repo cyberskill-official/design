@@ -177,7 +177,7 @@ export const strings = {
   },
   Result: {
     en: { success: "Done", error: "We couldn't complete that", warning: "Please check", info: "Here's what happened" },
-    vi: { success: "Hoàn tất", error: "Chúng tôi chưa hoàn tất được", warning: "Vui lòng kiểm tra", info: "Đây là điều đã xảy ra" },
+    vi: { success: "Hoàn tất", error: "Chưa thực hiện được thao tác này", warning: "Vui lòng kiểm tra", info: "Thông tin chi tiết" },
   },
   InlineEdit: {
     en: { edit: "Edit", empty: "Add text" },
@@ -218,11 +218,11 @@ export const strings = {
   },
   PromptInput: {
     en: { placeholder: "Type your wish…", send: "Send", hint: "Lumi replies, then hands clear wishes to a human." },
-    vi: { placeholder: "Nhập điều ước của bạn…", send: "Gửi", hint: "Lumi trả lời, rồi chuyển điều ước rõ ràng cho con người." },
+    vi: { placeholder: "Nhập điều ước của bạn…", send: "Gửi", hint: "Lumi phản hồi trước, rồi chuyển điều ước rõ ràng đến đội ngũ." },
   },
   HumanReviewGate: {
     en: { aria: "Human review gate", risk: "review required", approve: "Approve", reject: "Reject", reviewer: "Reviewer" },
-    vi: { aria: "Cổng kiểm duyệt của con người", risk: "cần xem xét", approve: "Phê duyệt", reject: "Từ chối", reviewer: "Người duyệt" },
+    vi: { aria: "Bước duyệt của người phụ trách", risk: "cần xem xét", approve: "Phê duyệt", reject: "Từ chối", reviewer: "Người duyệt" },
   },
 
   Switch: {

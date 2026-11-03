@@ -84,7 +84,7 @@ function Website() {
       <section className="hero" id="top">
         <div className="container hero-in">
           <div>
-            <div className="eyebrow">{t.eyebrow}</div>
+            <div className="eyebrow" role="group">{t.eyebrow}</div>
             <h1>{t.slogan}</h1>
             <div className="vn">{t.sub}</div>
             <p className="lead">{t.lead}</p>
@@ -103,7 +103,7 @@ function Website() {
           <div className="eyebrow">{t.nav[0]}</div>
           <h2>{t.servicesTitle}</h2>
           <p className="sec-lead">{t.servicesLead}</p>
-          <div className="svc-grid">
+          <div className="svc-grid" data-slot="services">
             {t.services.map((s, i) => (
               <article className="svc cs-surface-standard" key={i}>
                 <div className="svc-ic"><I name={s.icon} /></div>
@@ -120,7 +120,7 @@ function Website() {
           <div className="eyebrow">{t.nav[2]}</div>
           <h2>{t.processTitle}</h2>
           <p className="sec-lead">{t.processLead}</p>
-          <div className="steps">
+          <div className="steps" data-slot="process">
             {t.steps.map((s) => (
               <div className="step" key={s.n}><span className="n">{s.n}</span><h3>{s.t}</h3><p>{s.s}</p></div>
             ))}

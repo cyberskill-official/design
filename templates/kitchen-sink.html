@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="CyberSkill Design System component kitchen sink reference.">
 <link rel="stylesheet" href="../styles.css">
 <title>CyberSkill — component kitchen sink</title>
 <style>
   body{margin:0;background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);font-family:var(--cs-font-family-ui)}
-  .top{position:sticky;top:0;z-index:10;background:color-mix(in oklab,var(--cs-color-surface-panel) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--cs-color-border-default);padding:14px 32px;display:flex;gap:16px;align-items:baseline;flex-wrap:wrap}
-  .top h1{font-size:17px;margin:0;letter-spacing:-.01em}.top h1 b{color:var(--cs-color-brand-umber)}
+  .top{position:sticky;top:1px;z-index:10;background:color-mix(in oklab,var(--cs-color-surface-panel) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--cs-color-border-default);padding:14px 32px;display:flex;gap:16px;align-items:baseline;flex-wrap:wrap}
+  @media (prefers-reduced-transparency: reduce){.top{backdrop-filter:none;background:var(--cs-color-surface-panel)}}
+  .top h1{font-size:17px;margin:0;letter-spacing:-.01em}
   .top nav{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px}
   .top nav a{color:var(--cs-color-text-muted);text-decoration:none;font-weight:600}.top nav a:hover{color:var(--cs-color-brand-ochre)}
   main{max-width:960px;margin:0 auto;padding:28px 32px 80px}
   section{margin:0 0 14px;border-bottom:1px dashed var(--cs-color-border-default);padding-bottom:24px}
-  h2{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--cs-color-brand-umber);margin:26px 0 14px}
+  h2{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.09em;color:var(--_cs-light,var(--cs-color-brand-umber)) var(--_cs-dark,var(--cs-color-brand-ochre));margin:26px 0 14px}
   .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   .lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--cs-color-text-muted);width:100%;margin:2px 0 -4px}
   .cs-kbd{--k:1}
+  @media (max-width:768px),(min-width:1024px){.top{padding-inline:max(32px,calc((100% - 960px)/2))}.lbl{font-size:12px}#form .cs-slider{inline-size:160px;flex:none}h2,.cs-stat__value{font-weight:700}section:nth-of-type(even){background-color:var(--cs-color-surface-raised);color:var(--cs-color-text-primary)}section{margin-bottom:44px;padding-bottom:36px}section:first-of-type{margin-bottom:52px}}
+  @media (max-width:640px){.top{padding:12px 16px}main{padding:20px 16px 64px}.grid2{grid-template-columns:minmax(0,1fr)}.grid2>*{min-width:0}}
 </style></head>
 <body>
 <div class="top">
@@ -57,7 +61,7 @@
     <div class="cs-segmented"><button aria-pressed="true">Board</button><button>Table</button></div>
   </div>
   <div class="row"><span class="lbl">Controls</span>
-    <div class="cs-search" style="width:220px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input placeholder="Search" aria-label="Search"></div>
+    <div class="cs-search" style="width:220px"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><input placeholder="Search" aria-label="Search"></div>
     <div class="cs-stepper" role="group" aria-label="Quantity"><button type="button" aria-label="Decrease">−</button><input value="3" aria-label="Quantity"><button type="button" aria-label="Increase">+</button></div>
     <input type="range" class="cs-slider" value="60" style="width:160px" aria-label="Progress">
   </div>

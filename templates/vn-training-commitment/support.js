@@ -90,7 +90,7 @@
     const R = window.React;
     return Array.from(nodes).map((node, index) => {
       const key = prefix + index;
-      if (node.nodeType === Node.TEXT_NODE) return binding(node.textContent, scope);
+      if (node.nodeType === Node.TEXT_NODE) return node.textContent.replace(/\{\{\s*([^{}]+?)\s*\}\}/g, (_, name) => String(resolveName(name.trim(), scope) ?? ''));
       if (node.nodeType !== Node.ELEMENT_NODE) return null;
       const tag = node.localName;
       const control = tag === 'template' ? node.getAttribute('data-cs-dc-control') : tag === 'sc-for' ? 'for' : tag === 'sc-if' ? 'if' : null;

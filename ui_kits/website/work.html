@@ -4,32 +4,37 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="cyberskill.world — work: Sample case-study grid, results band and contact-preview link" />
 <title>CyberSkill · Work</title>
 <link rel="icon" href="../../assets/favicon.svg" />
 <link rel="stylesheet" href="../../styles.css" />
 <link rel="stylesheet" href="site.css" />
 <style>
+  /* hero: banner */
   html, body { margin: 0; }
-  .work-hero { background: var(--cs-color-brand-umber); color: #fff; padding: 72px 0 60px; position: relative; overflow: hidden; }
+  @media screen and (min-width: 1024px) {
+    .work-hero + .sec { padding-top: 84px; }
+  }
+  .work-hero { background: var(--cs-color-brand-umber); color: #fff; padding: 88px 0 60px; position: relative; overflow: hidden; }
   .work-hero::before { content: ""; position: absolute; inset: 0; background-image: url("../../assets/aurora-tho.webp"); background-size: cover; background-position: center; opacity: .34; }
   .work-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(26,17,8,.3), rgba(26,17,8,.75)); }
   .work-hero .container { position: relative; z-index: 1; }
   .work-hero h1 { font-size: clamp(36px, 5vw, 54px); font-weight: 800; letter-spacing: -.02em; color: var(--cs-color-brand-ochre); margin: 12px 0 6px; }
   .work-hero p { font-size: 18px; opacity: .92; max-width: 620px; margin: 0; }
   .case-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 22px; }
-  .case { border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-lg); overflow: hidden; background: var(--cs-color-surface-panel); box-shadow: var(--cs-shadow-sm); transition: border-color .12s, box-shadow .12s; }
-  .case:hover { border-color: var(--cs-color-brand-ochre); box-shadow: var(--cs-shadow-md); }
+  .case { border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-lg); overflow: hidden; background: var(--cs-color-surface-panel); color: var(--cs-color-text-primary); box-shadow: var(--cs-shadow-xs); transition: border-color var(--cs-duration-fast) var(--cs-ease-standard); }
+  .case:hover { border-color: var(--cs-color-brand-ochre); box-shadow: var(--cs-shadow-sm); }
   .case-cap { height: 128px; display: flex; align-items: flex-end; padding: 16px 18px; font-family: var(--cs-font-family-mono); font-weight: 700; font-size: 22px; }
   .case-cap.a { background: var(--cs-color-brand-umber); color: var(--cs-color-brand-ochre); }
   .case-cap.b { background: var(--cs-color-brand-ochre); color: var(--cs-color-brand-umber); }
   .case-cap.c { background: #6E3B0E; color: #fff; }
   .case-b { padding: 18px 20px 22px; }
-  .case-b h3 { margin: 0 0 6px; font-size: 20px; }
+  .case-b h2, .case-b h3 { margin: 0 0 6px; font-size: 20px; }
   .case-b p { margin: 0 0 14px; color: var(--cs-color-text-muted); font-size: 14.5px; line-height: 1.5; }
   .case-tags { display: flex; flex-wrap: wrap; gap: 6px; }
   .case-tags span { font-size: 12px; font-weight: 600; background: var(--cs-color-surface-raised); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-full); padding: 4px 10px; color: var(--cs-color-text-primary); }
   .results { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
-  .results .n { font-size: 44px; font-weight: 800; letter-spacing: -.02em; color: var(--cs-color-text-primary); }
+  .results .n { font-size: 44px; font-weight: 800; letter-spacing: -.02em; color: var(--cs-color-text-primary); font-variant-numeric: tabular-nums; }
   .results .l { color: var(--cs-color-text-muted); font-size: 14px; margin-top: 2px; }
   @media (max-width: 760px) { .results { grid-template-columns: 1fr 1fr; } .nav { display: none; } }
   /* G1 / TASK-IMP-025 — results band from `.container` width. */
@@ -46,14 +51,14 @@
     <div class="container hdr-in">
       <a class="brand" href="index.html"><img src="../../assets/logo-mark.svg" alt="" />CyberSkill</a>
       <nav class="nav"><a href="index.html#services" data-vi="Dịch vụ">Services</a><a href="work.html" data-vi="Dự án">Work</a><a href="careers.html" data-vi="Tuyển dụng">Careers</a><a href="index.html#contact" data-vi="Liên hệ">Contact</a></nav>
-      <div class="hdr-side"><a class="mini" href="#" id="langToggle">Tiếng Việt</a><a class="mini" style="background:var(--cs-color-brand-umber);color:#fff;border-color:transparent" href="index.html#top" data-vi="Trò chuyện với Lumi">Talk to Lumi</a></div>
+      <div class="hdr-side"><a class="mini" href="#" id="langToggle" aria-label="Switch to Tiếng Việt" data-vi-aria-label="Chuyển sang English">Tiếng Việt</a><a class="mini" style="background:var(--cs-color-brand-umber);color:#fff;border-color:transparent" href="index.html#top" data-vi="Trò chuyện với Lumi">Talk to Lumi</a></div>
     </div>
   </header>
 
   <main id="main" tabindex="-1">
   <section class="work-hero">
     <div class="container">
-      <div class="eyebrow" style="color:var(--cs-color-brand-ochre)" data-vi="Dự án minh họa">Sample work</div>
+      <div class="eyebrow" role="group" style="color:var(--cs-color-brand-ochre)" data-vi="Dự án minh họa">Sample work</div>
       <h1 data-vi="Những điều ước minh họa">Sample wishes</h1>
       <p data-vi="Nội dung minh họa giao diện. Xác minh dự án, kết quả và số liệu trước khi công bố.">Illustrative interface content. Verify projects, results and figures before publishing.</p>
     </div>

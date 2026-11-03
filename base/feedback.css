@@ -33,7 +33,7 @@
 .cs-alert--danger .cs-alert__icon { color: var(--cs-color-semantic-danger-text); }
 
 /* Toast */
-.cs-toast-stack { position: fixed; inset-block-end: 20px; inset-inline-end: 20px; z-index: var(--cs-depth-toast); display: grid; gap: 10px; max-inline-size: min(380px, calc(100vw - 40px)); }
+.cs-toast-stack { position: fixed; inset-block-end: 20px; inset-inline-end: 20px; z-index: var(--cs-depth-toast); display: grid; gap: 10px; max-inline-size: min(380px, calc(100% - 40px)); }
 .cs-toast { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: start; padding: 12px 14px; border-radius: var(--cs-radius-md); background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); box-shadow: var(--cs-shadow-md); color: var(--cs-color-text-primary); animation: cs-toast-in var(--cs-duration-base) var(--cs-ease-entrance); }
 .cs-toast__icon { color: var(--cs-color-text-accent); }
 .cs-toast--default { border-inline-start: 4px solid var(--cs-color-semantic-info); }

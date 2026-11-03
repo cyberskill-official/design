@@ -2,11 +2,13 @@
 *, *::before, *::after { box-sizing: border-box; }
 html {
   -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
   scroll-padding-block-start: var(--cs-scroll-padding-block-start, var(--cs-space-4, 16px));
   scroll-padding-block-end: var(--cs-scroll-padding-block-end, var(--cs-space-4, 16px));
 }
 body {
   margin: 0;
+  overflow-x: clip;
   background: var(--cs-color-surface-page, #fffdf8);
   color: var(--cs-color-text-primary, #45210e);
   font-family: var(--cs-font-family-ui, ui-sans-serif, system-ui);

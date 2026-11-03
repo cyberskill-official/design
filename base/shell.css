@@ -23,7 +23,7 @@
 
 /* Popover */
 .cs-popover { position: relative; display: inline-block; }
-.cs-popover__panel { position: absolute; inset-block-start: calc(100% + 8px); inset-inline-start: 0; min-inline-size: 240px; background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); box-shadow: var(--cs-shadow-md); padding: 14px; z-index: var(--cs-depth-dropdown, 60); }
+.cs-popover__panel { position: absolute; inset-block-start: calc(100% + 8px); inset-inline-start: 0; min-inline-size: 240px; background: var(--cs-color-surface-panel); color: var(--cs-color-text-primary); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); box-shadow: var(--cs-shadow-md); padding: 14px; z-index: var(--cs-depth-dropdown, 60); }
 .cs-popover__panel--end { inset-inline-start: auto; inset-inline-end: 0; }
 
 /* Drawer */
@@ -36,8 +36,8 @@
 .cs-drawer__close:hover { color: var(--cs-color-semantic-danger-text); }
 .cs-drawer__body { flex: 1; overflow: auto; padding: 20px; }
 .cs-drawer__footer { padding: 14px 20px; border-block-start: 1px solid var(--cs-color-border-default); display: flex; gap: 10px; justify-content: flex-end; }
-@keyframes cs-drawer-in { from { margin-inline-end: calc(-1 * min(480px, 100vw)); } to { margin-inline-end: 0; } }
-@keyframes cs-drawer-in-left { from { margin-inline-start: calc(-1 * min(480px, 100vw)); } to { margin-inline-start: 0; } }
+@keyframes cs-drawer-in { from { margin-inline-end: calc(-1 * min(480px, 100%)); } to { margin-inline-end: 0; } }
+@keyframes cs-drawer-in-left { from { margin-inline-start: calc(-1 * min(480px, 100%)); } to { margin-inline-start: 0; } }
 @media (prefers-reduced-motion: reduce) { .cs-drawer { animation: none; } }
 
 /* CommandPalette */

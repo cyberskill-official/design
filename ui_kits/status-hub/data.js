@@ -46,12 +46,12 @@ window.SH_DATA = {
 // Vietnamese variants (kit fully EN⇄VN per owner decision, Jul 2026). window.SH_VI
 window.SH_VI = {
   updated: "18/07/2026, 13:20 ICT",
-  blurbs: { CDS: "Liên kết component Liquid Glass + 15 gói Ngũ Hành.", GENIE: "Proxy Claude không cần khóa; luồng tiếp nhận điều ước theo kịch bản.", SITE: "Trang giới thiệu song ngữ kể chuyện; thu lead đang chạy.", OS: "Kho nhớ BRAIN + cổng nghiệm thu có con người.", AUDIT: "Bộ kiểm định trung lập 125 tiêu chí; giữ hạng L3.", TOKENS: "DTCG → CSS/TS/Swift/Kotlin/Flutter/Figma." },
-  risks: { GENIE: "Tài sản GLB là phụ thuộc ngoài khó — chưa chốt đặt hàng (TASK-CHAR-021).", OS: "Bị chặn bởi hạ tầng: sổ cái nguồn gốc cần dịch vụ ký số (mục tiêu Q1 2027)." },
+  blurbs: { CDS: "Liên kết component Liquid Glass + 15 gói Ngũ Hành.", GENIE: "Proxy Claude không lưu khóa; luồng nhận điều ước theo kịch bản.", SITE: "Trang giới thiệu song ngữ dẫn chuyện; biểu mẫu nhận yêu cầu đang mở.", OS: "Bộ nhớ BRAIN + bước nghiệm thu có người duyệt.", AUDIT: "Bộ kiểm định trung lập 125 tiêu chí; giữ hạng L3.", TOKENS: "DTCG → CSS/TS/Swift/Kotlin/Flutter/Figma." },
+  risks: { GENIE: "Mô hình 3D GLB phụ thuộc bên ngoài — chưa chốt đơn đặt hàng (TASK-CHAR-021).", OS: "Bị chặn bởi hạ tầng: sổ cái nguồn gốc cần dịch vụ ký số (mục tiêu Q1 2027)." },
   owners: { "Design Lead": "Trưởng thiết kế", "AI Lead": "Trưởng AI", "Web Lead": "Trưởng web", "Eng Lead": "Trưởng kỹ thuật", "DesignOps": "DesignOps" },
   squads: { Platform: "Nền tảng", AI: "AI", Growth: "Tăng trưởng" },
   updatedRel: { "2h ago": "2 giờ trước", "5h ago": "5 giờ trước", "1h ago": "1 giờ trước", "1d ago": "1 ngày trước", "3d ago": "3 ngày trước", "6h ago": "6 giờ trước" },
   relWhen: { "v1.6.0": "Tuần này", "v1.5.1": "04/07/2026", "v1.4.0": "13/06/2026", "v1.3.0": "14/05/2026" },
   relTitles: { "v1.6.0": "Liên kết Glass + gói Ngũ Hành v2", "v1.5.1": "15 gói Ngũ Hành ra mắt", "v1.4.0": "Liquid Glass vào mã", "v1.3.0": "Tài sản thương hiệu + Logo" },
-  relItems: { "v1.6.0": ["Liên kết component .cs-surface-* (tùy chọn)", "Trình kiểm gói Ngũ Hành v2 (0 cảnh báo trên 15 gói)", "Kiểm tra lại APCA cho chế độ tối"], "v1.5.1": ["Cả 15 gói lên trạng thái đã ra mắt", "Regression ảnh chụp từng gói", "Script dựng gallery"], "v1.4.0": ["Scalar --cs-glass-* + --cs-depth-*", "Lớp chất liệu glass.css", "Fallback khi giảm độ trong suốt"], "v1.3.0": ["Master mark chính thức ra mắt", "<Logo> React từ artwork gốc", "Light thành theme mặc định"] },
+  relItems: { "v1.6.0": ["Liên kết component .cs-surface-* (tùy chọn)", "Trình kiểm gói Ngũ Hành v2 (0 cảnh báo trên 15 gói)", "Kiểm tra lại APCA cho chế độ tối"], "v1.5.1": ["Cả 15 gói lên trạng thái đã ra mắt", "Kiểm thử đối chiếu ảnh chụp từng gói", "Script dựng trang trưng bày"], "v1.4.0": ["Scalar --cs-glass-* + --cs-depth-*", "Lớp chất liệu glass.css", "Fallback khi giảm độ trong suốt"], "v1.3.0": ["Master mark chính thức ra mắt", "<Logo> React từ bản vẽ gốc", "Giao diện Sáng làm mặc định"] },
 };
