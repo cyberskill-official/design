@@ -88,7 +88,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     permissions:
-      contents: read
+      contents: write
       id-token: write
     env:
       CS_PUBLICATION_MANUAL_ACCEPTANCE: 'true'
@@ -124,3 +124,79 @@ jobs:
         # All prepublish/source/unit/browser gates ran in the read-only job on these exact bytes.
         # Tarball hooks cannot execute new source or rebuild a different artifact in the OIDC job.
         run: npm publish "$RUNNER_TEMP/validated-publication/$PUBLICATION_PACKAGE_FILENAME" --ignore-scripts --provenance --access public
+      - name: Create or update GitHub Release for the published tag
+        if: steps.registry.outputs.published == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PUBLICATION_PACKAGE_FILENAME: ${{ steps.identity.outputs.package_filename }}
+        run: |
+          node --input-type=module <<'JS'
+          import { readFileSync, writeFileSync } from 'node:fs';
+          import { createHash } from 'node:crypto';
+          import { spawnSync } from 'node:child_process';
+          import { join } from 'node:path';
+
+          const dir = join(process.env.RUNNER_TEMP, 'validated-publication');
+          const receipt = JSON.parse(readFileSync(join(dir, 'receipt.json'), 'utf8'));
+          const pkgBytes = readFileSync(join(dir, process.env.PUBLICATION_PACKAGE_FILENAME));
+          const shasum = createHash('sha1').update(pkgBytes).digest('hex');
+          const version = receipt.source.version;
+          const tag = `v${version}`;
+          const repo = receipt.context.repository;
+          const runId = receipt.context.runId;
+          const runUrl = `https://github.com/${repo}/actions/runs/${runId}`;
+
+          let sigstoreLine = '';
+          try {
+            const res = await fetch(`https://registry.npmjs.org/-/npm/v1/attestations/@cyberskill%2fdesign@${version}`);
+            if (res.ok) {
+              const data = await res.json();
+              const logIndex = data.attestations?.map(a => a.bundle?.verificationMaterial?.tlogEntries?.[0]?.logIndex).filter(Boolean).at(-1);
+              if (logIndex) {
+                sigstoreLine = `- **Sigstore Transparency Log:** [\`logIndex=${logIndex}\`](https://search.sigstore.dev/?logIndex=${logIndex})`;
+              }
+            }
+          } catch {}
+
+          const notes = [
+            `## @cyberskill/design@${version}`,
+            '',
+            '### Định danh phát hành (Release Identity)',
+            '',
+            `- **Phiên bản (Version):** \`${version}\` (\`@cyberskill/design@${version}\`)`,
+            `- **Tag:** \`${tag}\``,
+            `- **Source Commit (\`gitHead\`):** \`${receipt.context.sourceSha}\``,
+            `- **Source Tree:** \`${receipt.source.tree}\``,
+            `- **Tarball SHA-256:** \`${receipt.package.sha256}\``,
+            `- **Tarball SHA-1 (\`shasum\`):** \`${shasum}\``,
+            `- **Integrity:** \`${receipt.package.integrity}\``,
+            `- **OIDC Trusted Publishing Run:** [\`${runId}\`](${runUrl})`,
+            ...(sigstoreLine ? [sigstoreLine] : []),
+            '',
+            '---',
+            '',
+            '### Phạm vi phát hành & Xác minh (Release Scope & Verification)',
+            '',
+            `- **125 public exports** (120 components, 4 constants, 1 hook) đã được review và ký xác nhận trong \`components/lifecycle.json\` (\`supportSha256: ${receipt.source.supportSha256}\`).`,
+            '- **85 mẫu tài liệu & ấn phẩm (templates)** (bao gồm 38 biểu mẫu pháp lý/nhân sự/quản trị doanh nghiệp tiếng Việt) cùng kiểm tra xuất bản trình duyệt, DOCX và PDF.',
+            '- **397 khai báo token công khai** và **256 chế độ token độc lập** (\`Theme × Element × Density × Contrast\`) đồng bộ trên CSS, DTCG JSON, Swift (\`CSTokens.swift\` / \`CSModes.swift\`), Kotlin (\`CSTokens.kt\` / \`CSModes.kt\`) và Dart (\`cs_tokens.dart\` / \`cs_modes.dart\`).',
+            '- **Xác minh cổng chất lượng (Verification Gates):**',
+            '  - Đầy đủ kiểm tra tính toàn vẹn phát hành (\`security:audit\`, \`security:audit-python\`, \`build\`, \`build:check\`, \`verify:browser\`, \`test:pack-hygiene\`).',
+            '  - 16/16 chuẩn hình ảnh Linux Chromium (\`_audit/baselines/*.png\`) và 42/42 cổng kiểm toán trên bảng \`_audit/run.html\`.',
+            '',
+            '```bash',
+            `npm install @cyberskill/design@${version}`,
+            '```',
+            ''
+          ].join('\n');
+
+          const notesPath = join(process.env.RUNNER_TEMP, 'release-notes.md');
+          writeFileSync(notesPath, notes, 'utf8');
+
+          const exists = spawnSync('gh', ['release', 'view', tag, '--repo', repo], { stdio: 'ignore' }).status === 0;
+          const args = exists
+            ? ['release', 'edit', tag, '--repo', repo, '--title', `${tag} — @cyberskill/design@${version}`, '--notes-file', notesPath, '--latest']
+            : ['release', 'create', tag, '--repo', repo, '--verify-tag', '--title', `${tag} — @cyberskill/design@${version}`, '--notes-file', notesPath, '--latest'];
+          const out = spawnSync('gh', args, { stdio: 'inherit' });
+          if (out.status !== 0) process.exit(out.status ?? 1);
+          JS

@@ -400,6 +400,7 @@
     "test:doc-navigation": "node scripts/generate-doc-navigation.mjs --check && node _audit/ci/test-doc-navigation.mjs",
     "test:packed-templates": "node _audit/ci/test-packed-template-bootstrap.mjs",
     "test:template-content": "node _audit/ci/lib/run-browsers.mjs _audit/ci/test-template-content-browser.mjs",
+    "release": "node scripts/release.mjs",
     "test:prepare-release": "node _audit/ci/test-prepare-release.mjs",
     "release:prepare": "node scripts/prepare-release.mjs",
     "test:image-slot-capabilities": "node _audit/ci/test-image-slot-capabilities-browser.mjs",
