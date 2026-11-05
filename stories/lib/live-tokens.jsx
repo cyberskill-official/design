@@ -127,8 +127,60 @@ export { parseColorToRgb, apcaLc } from '../../_audit/lib/apca.mjs';
 
 const MONO = 'var(--cs-font-family-mono)';
 
+/** Live document language readout (updates when the Language toolbar axis changes). */
+export function useDocLang() {
+  const [lang, setLang] = React.useState(
+    () => (typeof document !== 'undefined' && document.documentElement.lang === 'vi' ? 'vi' : 'en'),
+  );
+  React.useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const read = () => setLang(document.documentElement.lang === 'vi' ? 'vi' : 'en');
+    read();
+    const obs = new MutationObserver(read);
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+    return () => obs.disconnect();
+  }, []);
+  return lang;
+}
+
+const VI_TITLES = {
+  'Color Palette': 'Bảng màu (Color Palette)',
+  'Base Palette': 'Bảng màu cơ sở (Base Palette)',
+  'Semantic Tokens': 'Token ngữ nghĩa (Semantic Tokens)',
+  'Brand anchors': 'Điểm neo thương hiệu',
+  'Element Family Accents': 'Màu nhấn Ngũ Hành (Element Accents)',
+  'Semantic Status': 'Trạng thái ngữ nghĩa (Semantic Status)',
+  'Surfaces': 'Bề mặt (Surfaces)',
+  'Text': 'Văn bản (Text)',
+  'Borders': 'Đường viền (Borders)',
+  'Typography Scale': 'Thang chữ (Typography Scale)',
+  'Font Families': 'Họ phông chữ (Font Families)',
+  'Font Sizes & Line Heights': 'Cỡ chữ & chiều cao dòng',
+  'Spacing & Radius': 'Khoảng cách & bo góc (Spacing & Radius)',
+  'Spacing Scale': 'Thang khoảng cách (Spacing Scale)',
+  'Border Radius': 'Bán kính bo góc (Border Radius)',
+  'Shadows & Motion': 'Bóng đổ & chuyển động (Shadows & Motion)',
+  'Elevation & Shadows': 'Độ nổi & bóng đổ (Elevation & Shadows)',
+  'Motion Durations & Easing': 'Thời lượng & đường cong chuyển động',
+  'Five Elements (Ngũ Hành)': 'Ngũ Hành (Five Elements)',
+  'APCA Contrast Matrix': 'Ma trận tương phản APCA',
+  'Keyboard Navigation': 'Điều hướng bàn phím (Keyboard Navigation)',
+  'Focus Rings': 'Vòng tiêu điểm (Focus Rings)',
+  'Reduced Motion': 'Giảm chuyển động (Reduced Motion)',
+};
+
+const VI_HEADERS = {
+  Preview: 'Xem trước',
+  Swatch: 'Mẫu màu',
+  Sample: 'Mẫu thử',
+  Bar: 'Thanh đo',
+  Box: 'Khung mẫu',
+  Motion: 'Chuyển động',
+};
+
 /** Copy a token name to the clipboard (token names are the API). */
 export function CopyButton({ text }) {
+  const lang = useDocLang();
   const [copied, setCopied] = React.useState(false);
   const timer = React.useRef(null);
   React.useEffect(() => () => clearTimeout(timer.current), []);
@@ -147,17 +199,19 @@ export function CopyButton({ text }) {
       type="button"
       className="cs-button cs-button--ghost cs-button--xs"
       onClick={copy}
-      aria-label={'Copy token name ' + text}
+      aria-label={(lang === 'vi' ? 'Sao chép tên token ' : 'Copy token name ') + text}
       style={{ gap: 6 }}
     >
       <Icon name={copied ? 'check' : 'copy'} size="sm" />
-      {copied ? 'Copied' : 'Copy'}
+      {copied ? (lang === 'vi' ? 'Đã chép' : 'Copied') : (lang === 'vi' ? 'Sao chép' : 'Copy')}
     </button>
   );
 }
 
 export function PageTitle({ children }) {
-  return <h1 className="cs-h2" style={{ margin: '0 0 8px' }}>{children}</h1>;
+  const lang = useDocLang();
+  const text = lang === 'vi' && typeof children === 'string' && VI_TITLES[children] ? VI_TITLES[children] : children;
+  return <h1 className="cs-h2" style={{ margin: '0 0 8px' }}>{text}</h1>;
 }
 
 export function Lede({ children }) {
@@ -169,15 +223,18 @@ export function Lede({ children }) {
 }
 
 export function SectionTitle({ children }) {
-  return <h2 className="cs-h4" style={{ margin: '28px 0 10px' }}>{children}</h2>;
+  const lang = useDocLang();
+  const text = lang === 'vi' && typeof children === 'string' && VI_TITLES[children] ? VI_TITLES[children] : children;
+  return <h2 className="cs-h4" style={{ margin: '28px 0 10px' }}>{text}</h2>;
 }
 
 export function LiveNote() {
+  const lang = useDocLang();
   return (
     <p className="cs-caption" style={{ margin: '0 0 16px' }}>
-      Values on this page are read live from the CSS cascade (getComputedStyle) inside the
-      preview scope. Theme / Element toolbar changes and supported OS preference
-      changes refresh these readings; inspect the rendered product separately.
+      {lang === 'vi'
+        ? 'Các giá trị trên trang này được đọc trực tiếp từ tầng CSS (getComputedStyle) bên trong vùng xem trước. Khi đổi thanh công cụ Giao diện / Ngũ Hành / Ngôn ngữ hoặc tùy chọn hệ điều hành, bảng đọc sẽ tự động cập nhật.'
+        : 'Values on this page are read live from the CSS cascade (getComputedStyle) inside the preview scope. Theme / Element toolbar changes and supported OS preference changes refresh these readings; inspect the rendered product separately.'}
     </p>
   );
 }
@@ -220,7 +277,9 @@ export function Swatch({ value, size = 40, radius = 8 }) {
  * rows: [{ name, value, preview?, note? }]
  */
 export function TokenTable({ rows, previewHeader = 'Preview' }) {
+  const lang = useDocLang();
   const hasPreview = rows.some((r) => r.preview !== undefined);
+  const resolvedPreviewHeader = lang === 'vi' && VI_HEADERS[previewHeader] ? VI_HEADERS[previewHeader] : previewHeader;
   const th = {
     textAlign: 'left',
     padding: '8px 12px',
@@ -239,10 +298,10 @@ export function TokenTable({ rows, previewHeader = 'Preview' }) {
     <table style={{ width: '100%', borderCollapse: 'collapse', background: 'var(--cs-color-surface-panel)', borderRadius: 'var(--cs-radius-lg)', overflow: 'hidden', border: '1px solid var(--cs-color-border-default)' }}>
       <thead>
         <tr>
-          {hasPreview ? <th style={th}>{previewHeader}</th> : null}
+          {hasPreview ? <th style={th}>{resolvedPreviewHeader}</th> : null}
           <th style={th}>Token</th>
-          <th style={th}>Live value</th>
-          <th style={{ ...th, width: 96 }}>Copy</th>
+          <th style={th}>{lang === 'vi' ? 'Giá trị thực tế' : 'Live value'}</th>
+          <th style={{ ...th, width: 96 }}>{lang === 'vi' ? 'Sao chép' : 'Copy'}</th>
         </tr>
       </thead>
       <tbody>

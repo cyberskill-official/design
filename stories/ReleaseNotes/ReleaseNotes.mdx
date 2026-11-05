@@ -1,6 +1,11 @@
 import { Meta } from '@storybook/addon-docs/blocks';
+import { IframeSurface } from '../Maintainer/IframeSurface.jsx';
 
 <Meta title="Release Notes/Overview" />
+
+<IframeSurface src="/docs/viewer.html?embed=1#docs/release-notes.md" title="Release Notes" fullBleed />
+
+<div hidden>
 
 # Release Notes
 
@@ -109,3 +114,5 @@ CSS tokens and generated JSON/DTCG/native outputs have different representationa
 
 - A root **`CHANGELOG.md`** (forbidden by doctrine and docs-consistency)
 - Storybook as a consumer dependency
+
+</div>

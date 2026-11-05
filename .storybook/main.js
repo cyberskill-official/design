@@ -62,8 +62,39 @@ function dsRootFilesPlugin() {
       }
     });
   };
+  let isDev = false;
+  const VIRTUAL_STYLES_ID = '\0cs-dev-styles';
   return {
     name: 'ds-root-files',
+    enforce: 'pre',
+    configResolved(resolvedConfig) {
+      isDev = resolvedConfig.command === 'serve';
+    },
+    resolveId(source, importer) {
+      if (
+        isDev &&
+        source === '../styles.css' &&
+        importer &&
+        importer.replace(/\\/g, '/').endsWith('/.storybook/preview.jsx')
+      ) {
+        return VIRTUAL_STYLES_ID;
+      }
+      return null;
+    },
+    load(id) {
+      if (id === VIRTUAL_STYLES_ID) {
+        return `
+          if (typeof document !== 'undefined' && document.head && !document.getElementById('cs-dev-root-styles')) {
+            const link = document.createElement('link');
+            link.id = 'cs-dev-root-styles';
+            link.rel = 'stylesheet';
+            link.href = '/styles.css';
+            document.head.prepend(link);
+          }
+        `;
+      }
+      return null;
+    },
     configureServer: attach,
     configurePreviewServer: attach,
     writeBundle(options) {
@@ -107,6 +138,7 @@ const config = {
         },
       },
       server: {
+        allowedHosts: ['localhost', '127.0.0.1'],
         fs: { allow: [repoRoot] },
       },
     });

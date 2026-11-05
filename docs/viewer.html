@@ -21,32 +21,43 @@
   .searchhit b{color:var(--_cs-light,var(--cs-color-brand-umber)) var(--_cs-dark,var(--cs-color-brand-ochre))}
   .searchhit .snip{display:block;font-size:12px;color:var(--cs-color-text-muted);font-weight:400;margin-top:2px}
   mark{background:var(--cs-color-brand-ochre);color:var(--cs-color-brand-umber);border-radius:2px;padding:0 1px}
-  main{overflow:auto;padding:30px 38px}
-  article{max-width:820px;line-height:1.62;font-size:14.5px}
-  article h1{font-size:24px;letter-spacing:-.015em;margin:0 0 12px}
-  article h2{font-size:18px;margin:28px 0 8px;padding-top:10px;border-top:1px solid var(--cs-color-border-default)}
-  article h3{font-size:15px;margin:20px 0 6px}
-  article code{font-family:var(--cs-font-family-mono);font-size:.86em;background:var(--cs-color-surface-raised);border-radius:4px;padding:1px 5px}
-  article pre{background:var(--cs-color-surface-raised);border:1px solid var(--cs-color-border-default);border-radius:10px;padding:12px 14px;overflow:auto}
-  article pre code{background:none;padding:0;font-size:12px;line-height:1.55}
-  article table{border-collapse:collapse;margin:10px 0;width:100%}
-  article th,article td{border:1px solid var(--cs-color-border-default);padding:7px 10px;text-align:start;font-size:13px;vertical-align:top}
-  article th{background:var(--cs-color-surface-raised)}
-  article blockquote{margin:10px 0;padding:6px 14px;border-inline-start:3px solid var(--cs-color-brand-ochre);color:var(--cs-color-text-muted);background:var(--cs-color-surface-raised);border-radius:0 8px 8px 0}
+  main{overflow:auto;padding:clamp(24px,3vw,40px) clamp(20px,4vw,52px) 72px;min-width:0}
+  article{max-width:min(1160px,100%);width:100%;margin:0 auto;line-height:1.65;font-size:14.5px;min-width:0}
+  article h1{font-size:28px;letter-spacing:-.02em;line-height:1.25;margin:0 0 14px;padding-bottom:10px;border-bottom:2px solid color-mix(in oklab,var(--cs-accent) 45%,var(--cs-color-border-default))}
+  article h2{font-size:19px;letter-spacing:-.01em;line-height:1.35;margin:30px 0 10px;padding-top:12px;border-top:1px solid var(--cs-color-border-default);color:var(--cs-color-text-accent)}
+  article h3{font-size:15.5px;line-height:1.4;margin:22px 0 6px}
+  article h4{font-size:14px;line-height:1.4;margin:18px 0 4px;color:var(--cs-color-text-muted)}
+  article code{font-family:var(--cs-font-family-mono);font-size:.86em;background:var(--cs-color-surface-raised);color:var(--cs-color-text-primary);border:1px solid color-mix(in oklab,var(--cs-accent) 28%,var(--cs-color-border-default));border-radius:4px;padding:1px 5px}
+  article pre{background:var(--cs-color-surface-raised);border:1px solid var(--cs-color-border-default);border-radius:10px;padding:12px 14px;overflow:auto;max-width:100%}
+  article pre code{background:none;border:0;padding:0;font-size:12px;line-height:1.55;white-space:pre}
+  .tbl-wrap{width:100%;max-width:100%;overflow-x:auto;margin:14px 0;border:1px solid var(--cs-color-border-default);border-radius:var(--cs-radius-md);background:var(--cs-color-surface-panel)}
+  article table{border-collapse:collapse;margin:0;width:100%}
+  article th,article td{border-bottom:1px solid var(--cs-color-border-default);border-inline-end:1px solid var(--cs-color-border-default);padding:9px 12px;text-align:start;font-size:13px;vertical-align:top;line-height:1.5}
+  article th:last-child,article td:last-child{border-inline-end:0}
+  article tr:last-child td{border-bottom:0}
+  article th{background:var(--cs-color-surface-raised);color:var(--cs-color-text-primary);font-weight:700;border-bottom:2px solid color-mix(in oklab,var(--cs-accent) 50%,var(--cs-color-border-default))}
+  article blockquote{margin:12px 0;padding:10px 16px;border-inline-start:3px solid var(--cs-accent);color:var(--cs-color-text-primary);background:var(--cs-color-surface-raised);border-radius:0 8px 8px 0}
+  .md-badge{display:inline;font:700 11.5px/1.2 var(--cs-font-family-mono);padding:3px 10px;border-radius:999px;background:var(--cs-accent-tint);color:var(--cs-accent-ink);border:1px solid color-mix(in oklab,var(--cs-accent) 45%,var(--cs-color-border-default));text-decoration:none}
+  html.embed article pre[data-source-metadata]{display:none}
+  html.embed[data-cs-density="compact"] main{padding:18px 24px 48px}
+  html.embed[data-cs-density="compact"] article{font-size:13.5px;line-height:1.52}
+  html.embed[data-cs-density="compact"] article h1{font-size:22px;margin-bottom:8px;padding-bottom:6px}
+  html.embed[data-cs-density="compact"] article h2{font-size:16.5px;margin:20px 0 6px;padding-top:8px}
+  html.embed[data-cs-density="compact"] article th,html.embed[data-cs-density="compact"] article td{padding:5px 8px;font-size:12px}
   article ul,article ol{padding-inline-start:22px}
-  article li{margin:3px 0;overflow-wrap:anywhere}
+  article li{margin:4px 0;overflow-wrap:anywhere}
   article p,article blockquote{overflow-wrap:anywhere}
   article code{white-space:break-spaces;overflow-wrap:anywhere}
-  article hr{border:0;border-top:1px dashed var(--cs-color-border-default);margin:20px 0}
+  article hr{border:0;border-top:1px dashed var(--cs-color-border-default);margin:22px 0}
   article a{color:var(--cs-color-link)}article a:hover{color:var(--cs-color-link-hover)}
   #err{color:#B42318;font-family:var(--cs-font-family-mono);font-size:13px}
   html.embed body{grid-template-columns:1fr}
   html.embed aside{display:none}
-  html.embed main{padding:24px 32px}
+  html.embed main{padding:clamp(24px,3vw,40px) clamp(24px,4vw,56px) 72px}
   @media (pointer:coarse){
     .langtog button,#docsearch,aside a{min-inline-size:44px;min-block-size:44px}
     #navlinks a[data-p]{display:flex;align-items:center}
-    article a{display:inline-flex;align-items:center;min-inline-size:44px;min-block-size:44px;max-inline-size:100%;overflow-wrap:anywhere}
+    article a,article a.md-badge{display:inline-flex;align-items:center;min-inline-size:44px;min-block-size:44px;max-inline-size:100%;overflow-wrap:anywhere}
   }
   @media (max-width:640px){
     body{grid-template-columns:1fr}
@@ -80,7 +91,18 @@ const UI={
 // Language persistence is optional; privacy settings can expose null storage.
 function savedLanguage(){ try{ return localStorage.getItem('cs-docs-lang'); }catch{ return null; } }
 function saveLanguage(value){ try{ localStorage.setItem('cs-docs-lang',value); }catch{} }
-let lang=savedLanguage()==='en'?'en':'vi';
+function initialLanguage(){
+  const q=new URLSearchParams(location.search).get('lang');
+  if(q==='en'||q==='vi') return q;
+  if(document.documentElement.classList.contains('embed') && window.parent && window.parent!==window){
+    try{
+      const pLang=window.parent.document.documentElement.getAttribute('lang');
+      if(pLang==='en'||pLang==='vi') return pLang;
+    }catch{}
+  }
+  return savedLanguage()==='en'?'en':'vi';
+}
+let lang=initialLanguage();
 function contentLanguage(path,language=lang){ return path.startsWith('docs/') || Object.hasOwn(ENTRANCE_VI,path) ? language : 'en'; }
 function DOCS(){ return lang==='vi'?DOCS_VI:DOCS_EN; }
 const ALL=DOCS_EN.flatMap(g=>g[1].map(d=>d[0]));
@@ -98,20 +120,32 @@ function syncLangUi(){
     : 'Guides and entrance documents have paired VI/EN views';
   document.getElementById('docsearch').placeholder=UI[lang].search+'…';
   document.getElementById('docsearch').setAttribute('aria-label',UI[lang].search);
-  document.documentElement.lang=lang==='vi'?'vi':'en';
+  const nextDocLang=lang==='vi'?'vi':'en';
+  if(document.documentElement.lang!==nextDocLang) document.documentElement.lang=nextDocLang;
 }
 function renderNav(){ nav.innerHTML=''; for(const [g,items] of DOCS()){ const h=document.createElement('div'); h.className='grp'; h.textContent=g; nav.appendChild(h);
   for(const [p,label] of items){ const a=document.createElement('a'); a.href='#'+p; a.dataset.p=p; a.textContent=label; nav.appendChild(a); } } }
 syncLangUi(); renderNav();
-document.querySelector('.langtog').addEventListener('click',(e)=>{
-  const b=e.target.closest('button[data-lang]'); if(!b) return;
-  lang=b.dataset.lang; saveLanguage(lang);
+function setViewerLanguage(next,persist=true){
+  const norm=next==='en'?'en':next==='vi'?'vi':null;
+  if(!norm || norm===lang) return;
+  lang=norm;
+  if(persist) saveLanguage(lang);
   syncLangUi(); renderNav(); markActive();
   docCache=null; // refetch under new language
   cancelSearch();
   load(cur||'README.md');
   const q=searchBox.value.trim();
   if(q.length>=2) runSearch(q);
+}
+window.__csSetDocLang=(next)=>setViewerLanguage(next,false);
+new MutationObserver(()=>{
+  const attr=document.documentElement.getAttribute('lang');
+  if((attr==='en'||attr==='vi') && attr!==lang) setViewerLanguage(attr,false);
+}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+document.querySelector('.langtog').addEventListener('click',(e)=>{
+  const b=e.target.closest('button[data-lang]'); if(!b) return;
+  setViewerLanguage(b.dataset.lang,true);
 });
 function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function labelsNow(){ const L={}; for(const [,items] of DOCS()) for(const [p,l] of items) L[p]=l; return L; }
@@ -153,6 +187,8 @@ function inline(s){ return esc(s)
   .replace(/`([^`]+)`/g,(m,c)=>'<code>'+c+'</code>')
   .replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>')
   .replace(/(^|[\s(])\*([^*\n]+)\*/g,'$1<i>$2</i>')
+  .replace(/\[!\[([^\]]*)\]\(([^)\s]+)\)\]\(([^)\s]+)\)/g,'<a class="md-badge" href="$3">$1 ↗</a>')
+  .replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g,'<a class="md-badge" href="$2">$1</a>')
   .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g,'<a href="$2">$1</a>'); }
 function md(src){
   src=src.replace(/\r/g,''); const fences=[];
@@ -168,7 +204,7 @@ function md(src){
     if(/^\s*(-{3,}|\*{3,})\s*$/.test(L)){ out.push('<hr>'); i++; continue; }
     if(/^\|/.test(L)){ const rows=grab(/^\|/); const cells=r=>r.replace(/^\||\|$/g,'').split('|').map(c=>inline(c.trim()));
       let hd=null,body=rows; if(rows.length>1&&/^[\s|:\-]+$/.test(rows[1])){ hd=cells(rows[0]); body=rows.slice(2); }
-      out.push('<table>'+(hd?'<thead><tr>'+hd.map(c=>'<th>'+c+'</th>').join('')+'</tr></thead>':'')+'<tbody>'+body.map(r=>'<tr>'+cells(r).map(c=>'<td>'+c+'</td>').join('')+'</tr>').join('')+'</tbody></table>'); continue; }
+      out.push('<div class="tbl-wrap"><table>'+(hd?'<thead><tr>'+hd.map(c=>'<th>'+c+'</th>').join('')+'</tr></thead>':'')+'<tbody>'+body.map(r=>'<tr>'+cells(r).map(c=>'<td>'+c+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>'); continue; }
     if(/^\s*[-*+]\s+/.test(L)){
       const li=[];
       while(i<lines.length){
@@ -240,9 +276,24 @@ async function fetchDoc(p){
         lastErr = new Error('hosting intercepted '+u+' (got HTML, not markdown)');
         continue;
       }
-      // Count metadata is generated source syntax, not visible prose. Strip only
-      // complete numeric markers before rendering and indexing search snippets.
-      return text.replace(/<!-- cs-count:[A-Za-z]+ -->(\d+)<!-- \/cs-count -->/g, '$1');
+      // Count and source-version metadata are generated source syntax, not visible prose.
+      // Strip complete markers and bilingual entrypoint banners before rendering and indexing.
+      return text
+        .replace(/<!-- cs-count:[A-Za-z]+ -->(\d+)<!-- \/cs-count -->/g, '$1')
+        .replace(/<!-- cs-source-version:[a-z0-9-]+ -->([^<>\r\n]*)<!-- \/cs-source-version -->/g, '$1')
+        .replace(
+          /<!-- BEGIN PINNED TOOLCHAIN BOOTSTRAP -->\s*([\s\S]*?)\s*<!-- END PINNED TOOLCHAIN BOOTSTRAP -->/g,
+          (_, body) => body.trim().split(/\n\s*\n/)[0] || ''
+        )
+        .replace(
+          /<!-- BEGIN GENERATED ENTRY LANGUAGE ROUTE v1 -->\s*([\s\S]*?)\s*<!-- END GENERATED ENTRY LANGUAGE ROUTE v1 -->\s*/g,
+          (_, body) => (document.documentElement.classList.contains('embed') ? '' : body.trim() + '\n\n')
+        )
+        .replace(/^[ \t]*<!--\s*(?:BEGIN|END|Generated by)\b[\s\S]*?-->[ \t]*\r?\n?/gm, '')
+        .replace(
+          /^\*\*(?:English|Tiếng Việt)\*\*\s*·\s*\[(?:English|Tiếng Việt)\]\([^)]+\)[ \t]*\r?\n+/m,
+          (m) => (document.documentElement.classList.contains('embed') ? '' : m)
+        );
     }catch(e){ lastErr = e; }
   }
   throw lastErr || new Error('all fetch paths failed');
