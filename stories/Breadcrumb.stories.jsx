@@ -23,3 +23,15 @@ export const Matrix = {
     </div>
   ),
 };
+
+// BEGIN GENERATED COMPONENT SCENARIO STORIES
+import {renderComponentScenario, playComponentScenario} from "./_scenarios/renderer.jsx";
+export const ScenarioBreadcrumbEmpty = {
+  name: "Breadcrumb: Empty collection",
+  args: {
+  "items": []
+},
+  render: args => renderComponentScenario("Breadcrumb--empty",args),
+  play: ({canvasElement}) => playComponentScenario("Breadcrumb--empty",canvasElement),
+};
+// END GENERATED COMPONENT SCENARIO STORIES

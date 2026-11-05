@@ -43,7 +43,7 @@ html, body { overflow-x: clip; }
 .hero-in { position: relative; z-index: 1; display: grid; grid-template-columns: 1.35fr .65fr; gap: var(--cs-space-8); align-items: center; padding-block: 84px 96px; }
 .hero-in > * { min-width: 0; }
 .hero .eyebrow { color: var(--cs-color-brand-ochre); }
-.hero h1 { font-size: clamp(40px, 6vw, 68px); font-weight: 800; letter-spacing: -.02em; line-height: 1.05; margin: 14px 0 6px; color: var(--cs-color-brand-ochre); }
+.hero h1 { font-size: clamp(var(--cs-font-size-3xl, 40px), 6vw, 68px); font-weight: 800; letter-spacing: -.02em; line-height: 1.05; margin: 14px 0 6px; color: var(--cs-color-brand-ochre); }
 .hero .vn { font-size: 20px; font-weight: 600; opacity: .9; margin-bottom: 18px; }
 .hero .lead { font-size: 18px; line-height: 1.55; max-width: min(620px, var(--cs-prose-measure, 45rem)); opacity: .95; }
 .wish { display: flex; gap: 10px; margin-top: 26px; max-width: 620px; flex-wrap: wrap; }
@@ -68,7 +68,7 @@ html, body { overflow-x: clip; }
 /* section shell */
 .sec { padding: 88px 0; }
 .sec-alt { background: var(--cs-color-surface-raised); }
-.sec h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -.02em; margin: 8px 0 10px; }
+.sec h2 { font-size: clamp(var(--cs-font-size-xl, 28px), 4vw, var(--cs-font-size-3xl, 40px)); font-weight: 800; letter-spacing: -.02em; margin: 8px 0 10px; }
 .sec-lead { font-size: 17px; color: var(--cs-color-text-muted); max-width: min(620px, var(--cs-prose-measure, 45rem)); margin: 0 0 40px; }
 
 /* services */

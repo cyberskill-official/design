@@ -3,7 +3,7 @@
   "interpretation": "Discovery projection: every public export and authored prop definition, with inherited prop counts. Inherited native props, full signatures, support evidence/history and compiler metadata remain in components/api-index.json. Declarations remain authoritative; this projection does not establish runtime, semantic or human acceptance.",
   "completeIndex": {
     "path": "components/api-index.json",
-    "sha256": "98cfba2bc03008a756666d4054e7593b9e9e704df26a5a0f8d0847a33d30f596"
+    "sha256": "468afbb6e09f78a1be6fe2b2b06bbd6ea30f4fa06abb835c191eb6490082854a"
   },
   "exports": [
     {

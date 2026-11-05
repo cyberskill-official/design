@@ -19,8 +19,8 @@ assert.equal(vi.match(/^---\n[\s\S]*?\n---/)[0], en.match(/^---\n[\s\S]*?\n---/)
 assert.equal((vi.match(/^#{1,6} /gm) || []).length, (en.match(/^#{1,6} /gm) || []).length);
 assert(vi.includes('Không ánh xạ lại') && vi.includes('không chứng nhận chất lượng dịch'));
 assert(en.includes('compiled ESM `dist/esm/_esm/react.mjs` by default'));
-for (const heading of ['## Static HTML component anatomy (.cs-*)', '## Layout, grid & responsive strategy', "## Guardrails (Do's & Don'ts)"]) assert(en.includes(heading), 'Missing English DESIGN.md v2 section: ' + heading);
-for (const heading of ['## Cấu trúc thành phần HTML tĩnh (.cs-*)', '## Bố cục, lưới và chiến lược đáp ứng', '## Nguyên tắc thực hành (Nên và Không nên)']) assert(vi.includes(heading), 'Missing Vietnamese DESIGN.md v2 section: ' + heading);
+for (const heading of ['## Static HTML component anatomy (.cs-*)', '## Layout, grid & responsive strategy', "## Guardrails (Do's & Don'ts)", '## Agent prompt guide & starter blueprint']) assert(en.includes(heading), 'Missing English DESIGN.md v2 section: ' + heading);
+for (const heading of ['## Cấu trúc thành phần HTML tĩnh (.cs-*)', '## Bố cục, lưới và chiến lược đáp ứng', '## Nguyên tắc thực hành (Nên và Không nên)', '## Hướng dẫn prompt cho Agent và khung khởi tạo']) assert(vi.includes(heading), 'Missing Vietnamese DESIGN.md v2 section: ' + heading);
 for (const token of ['.cs-button', '.cs-table__cell--numeric', '.cs-display--fluid', '.cs-h1--fluid', '.cs-tabular', 'var(--cs-color-border-subtle)', 'var(--cs-color-surface-scrim)']) {
   assert(en.includes('`' + token + '`') && vi.includes('`' + token + '`'), 'Missing open-spec v2 selector/token in DESIGN.md: ' + token);
 }

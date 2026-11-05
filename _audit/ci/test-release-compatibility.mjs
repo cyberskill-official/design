@@ -6,8 +6,14 @@ import { createHash } from 'node:crypto';
 import { compatibilityBlockers, validateCompatibilityRegistry } from '../../scripts/lib/release-compatibility.mjs';
 const actual = JSON.parse(readFileSync('components/release-compatibility.json'));
 const currentRepoVersion = readFileSync('VERSION', 'utf8').trim();
+const publishedRelease = JSON.parse(readFileSync('_audit/ci/fixtures/npm-published-release.json', 'utf8'));
 assert.equal(actual.baselineVersion, currentRepoVersion, 'Compatibility baselineVersion must stay synchronized with current VERSION so prepare-release works');
 assert.deepEqual(compatibilityBlockers('.', currentRepoVersion, '2.2.1', { registry: actual, today: '2026-11-05' }), [], 'Current 2.2.0 baseline allows clean patch/minor preparation when pendingChanges is empty');
+for (const docPath of ['README.md', 'docs/consuming.md', 'docs/release-notes.md', 'stories/ReleaseNotes/ReleaseNotes.mdx', 'docs/vi/entrypoints/README.md', 'docs/vi/consuming.md', 'docs/vi/release-notes.md']) {
+  const docText = readFileSync(docPath, 'utf8');
+  assert(docText.includes(publishedRelease.version), `${docPath} must reference recorded npm published release ${publishedRelease.version}`);
+  assert(!/latest published npm release \(`1\.7\.2`\)|2\.0\.0-alpha\.0 \(unpublished\)|2\.0\.0-alpha\.0 \(chưa phát hành\)/.test(docText), `${docPath} must not regress to pre-2.0.0 unpublished prose`);
+}
 const history = JSON.parse(readFileSync('_audit/remediation/segmented-role-removal-proposal-history.json'));
 assert.equal(createHash('sha256').update(history.sourceBytes).digest('hex'), history.sourceSha256, 'Archived original registry retains exact bytes');
 const previous = JSON.parse(history.sourceBytes);

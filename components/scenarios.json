@@ -4,13 +4,13 @@
   "interpretation": "Bounded actual DOM/ARIA scenarios; not Cartesian API coverage, manual AT acceptance or support approval.",
   "coverage": {
     "components": 120,
-    "cases": 247,
+    "cases": 254,
     "categories": {
       "default": 120,
       "finite": 74,
       "disabled": 24,
       "error": 16,
-      "empty": 13
+      "empty": 20
     },
     "finiteComponents": 16,
     "finiteDomains": 18
@@ -35,7 +35,7 @@
     "components/ai/PromptSuggestions.jsx": "c4c6fca2eb27fd7eb7357a75bc3df9191973eddb051bb0db4eb95a3fe9970345",
     "components/ai/TypingIndicator.d.ts": "7ec84442d341918431dcf9421910895203d7cf52bbf8b3fbfee61fa69404ceaa",
     "components/ai/TypingIndicator.jsx": "a367cad658005f314bb3e59a191c6edb5f464a65bc1f48e7e4769165ba35b39c",
-    "components/api-index.json": "98cfba2bc03008a756666d4054e7593b9e9e704df26a5a0f8d0847a33d30f596",
+    "components/api-index.json": "468afbb6e09f78a1be6fe2b2b06bbd6ea30f4fa06abb835c191eb6490082854a",
     "components/brand/LumiAvatar.d.ts": "955af96a1311731719eeebdeaee88e1d1d99f4efcf14ec6e2eadbe3933957ec6",
     "components/brand/LumiAvatar.jsx": "aef2a9a8be4e4d6eb240d2a4bd6ca32b396fab995663750c812e3b38d228901c",
     "components/button/Button.d.ts": "d2de8fecaf5d8001a0293c2c40b56d915046ce49be126b955338bb8ccfba1904",
@@ -236,7 +236,7 @@
     "components/textfield/TextField.d.ts": "b4762c2a83d9de17f64c6ab61d7291a4e58a32dbd432206464ed56b8d358d54c",
     "components/textfield/TextField.jsx": "878810214bb342d85d933884b5b19984b57f7281e4560c18280b8f4c021c5f99",
     "schemas/component-scenarios.schema.json": "e92986bf453e6b21d41e00f9818213fd7fb63fc17daba1d0ffd5ed092b2d0c96",
-    "scripts/fixtures/component-scenarios.json": "c85276cf6ef9d92a443ed8f6d5ea9a7c0b53c08f6c28ebd1d9ff635b1b5c1486",
+    "scripts/fixtures/component-scenarios.json": "22b1173a5da3ac227a12950663c9209440853b369b8ebd97dcba74282a78d49c",
     "scripts/fixtures/static-html-reference.json": "7077fab3557aebc62ebf2a60858ea7f37f8231870d68bde99eeb4ae885417fa2",
     "scripts/generate-component-scenario-stories.mjs": "0642cec25308d4b8c9aa16052290a6d67648d686ebddd0d36ba03943ea2aa6c8",
     "scripts/generate-component-scenarios.mjs": "d5c2106a7dbadec145bcfa2afb310ca8cc4b07f42276392f8ecc9521e4c81ab7",
@@ -410,12 +410,13 @@
     {
       "name": "Breadcrumb",
       "caseIds": [
-        "Breadcrumb--default"
+        "Breadcrumb--default",
+        "Breadcrumb--empty"
       ],
       "finiteDomains": {},
       "disabled": "no-declared-disabled-prop",
       "error": "no-declared-error-prop",
-      "empty": "not-classified-no-empty-claim",
+      "empty": "supported-and-asserted",
       "keyboard": "Canonical bounded keyboard evidence remains in components/specifications.json; these state scenes are not a whole keyboard contract."
     },
     {
@@ -783,12 +784,13 @@
     {
       "name": "Dock",
       "caseIds": [
-        "Dock--default"
+        "Dock--default",
+        "Dock--empty"
       ],
       "finiteDomains": {},
       "disabled": "no-declared-disabled-prop",
       "error": "no-declared-error-prop",
-      "empty": "not-classified-no-empty-claim",
+      "empty": "supported-and-asserted",
       "keyboard": "Canonical bounded keyboard evidence remains in components/specifications.json; these state scenes are not a whole keyboard contract."
     },
     {
@@ -1189,12 +1191,13 @@
     {
       "name": "NavigationMenu",
       "caseIds": [
-        "NavigationMenu--default"
+        "NavigationMenu--default",
+        "NavigationMenu--empty"
       ],
       "finiteDomains": {},
       "disabled": "no-declared-disabled-prop",
       "error": "no-declared-error-prop",
-      "empty": "not-classified-no-empty-claim",
+      "empty": "supported-and-asserted",
       "keyboard": "Canonical bounded keyboard evidence remains in components/specifications.json; these state scenes are not a whole keyboard contract."
     },
     {
@@ -1324,12 +1327,13 @@
     {
       "name": "RadioGroup",
       "caseIds": [
-        "RadioGroup--default"
+        "RadioGroup--default",
+        "RadioGroup--empty"
       ],
       "finiteDomains": {},
       "disabled": "no-declared-disabled-prop",
       "error": "no-declared-error-prop",
-      "empty": "not-classified-no-empty-claim",
+      "empty": "supported-and-asserted",
       "keyboard": "Canonical bounded keyboard evidence remains in components/specifications.json; these state scenes are not a whole keyboard contract."
     },
     {
@@ -1412,12 +1416,13 @@
       "caseIds": [
         "Select--default",
         "Select--disabled",
-        "Select--error"
+        "Select--error",
+        "Select--empty"
       ],
       "finiteDomains": {},
       "disabled": "supported-and-asserted",
       "error": "supported-and-asserted",
-      "empty": "not-classified-no-empty-claim",
+      "empty": "supported-and-asserted",
       "keyboard": "Canonical bounded keyboard evidence remains in components/specifications.json; these state scenes are not a whole keyboard contract."
     },
     {
@@ -1464,12 +1469,13 @@
     {
       "name": "Sortable",
       "caseIds": [
-        "Sortable--default"
+        "Sortable--default",
+        "Sortable--empty"
       ],
       "finiteDomains": {},
       "disabled": "no-declared-disabled-prop",
       "error": "no-declared-error-prop",
-      "empty": "not-classified-no-empty-claim",
+      "empty": "supported-and-asserted",
       "keyboard": "Canonical bounded keyboard evidence remains in components/specifications.json; these state scenes are not a whole keyboard contract."
     },
     {
@@ -1589,12 +1595,13 @@
       "caseIds": [
         "TagInput--default",
         "TagInput--disabled",
-        "TagInput--error"
+        "TagInput--error",
+        "TagInput--empty"
       ],
       "finiteDomains": {},
       "disabled": "supported-and-asserted",
       "error": "supported-and-asserted",
-      "empty": "not-classified-no-empty-claim",
+      "empty": "supported-and-asserted",
       "keyboard": "Canonical bounded keyboard evidence remains in components/specifications.json; these state scenes are not a whole keyboard contract."
     },
     {
@@ -2587,6 +2594,29 @@
       "expectation": {
         "kind": "mounted",
         "referenceKind": "rendered-dom-reference"
+      },
+      "sourcePath": "components/navigation/Breadcrumb.jsx",
+      "declarationPath": "components/navigation/Breadcrumb.d.ts"
+    },
+    {
+      "id": "Breadcrumb--empty",
+      "component": "Breadcrumb",
+      "category": "empty",
+      "props": {
+        "items": []
+      },
+      "expectation": {
+        "kind": "empty-collection",
+        "props": {
+          "items": []
+        },
+        "collectionProp": "items",
+        "selector": ".cs-breadcrumb",
+        "noItems": "li",
+        "sourceEvidence": {
+          "components/navigation/Breadcrumb.jsx": "205de44c5157c6d543f403520f8ba6f0e1a5b0930696eebd5f762ea3b8da6f98",
+          "components/navigation/Breadcrumb.d.ts": "5cc08095cf636892fcdc0f058a1b0188aed566cf45d82cead05d97d41ec421da"
+        }
       },
       "sourcePath": "components/navigation/Breadcrumb.jsx",
       "declarationPath": "components/navigation/Breadcrumb.d.ts"
@@ -4405,6 +4435,29 @@
       "declarationPath": "components/navigation/Dock.d.ts"
     },
     {
+      "id": "Dock--empty",
+      "component": "Dock",
+      "category": "empty",
+      "props": {
+        "items": []
+      },
+      "expectation": {
+        "kind": "empty-collection",
+        "props": {
+          "items": []
+        },
+        "collectionProp": "items",
+        "selector": ".cs-dock",
+        "noItems": ".cs-dock__item",
+        "sourceEvidence": {
+          "components/navigation/Dock.jsx": "77956d94bda2e3eb7e7514926c8adf86da964d59eba49d70368cc63888b3ad2b",
+          "components/navigation/Dock.d.ts": "64256c51d10ca1a2864a22e43a78b77e965e2264142048f66e0a0f5c41dcb34f"
+        }
+      },
+      "sourcePath": "components/navigation/Dock.jsx",
+      "declarationPath": "components/navigation/Dock.d.ts"
+    },
+    {
       "id": "Drawer--default",
       "component": "Drawer",
       "category": "default",
@@ -5684,6 +5737,29 @@
       "declarationPath": "components/navigation/NavigationMenu.d.ts"
     },
     {
+      "id": "NavigationMenu--empty",
+      "component": "NavigationMenu",
+      "category": "empty",
+      "props": {
+        "items": []
+      },
+      "expectation": {
+        "kind": "empty-collection",
+        "props": {
+          "items": []
+        },
+        "collectionProp": "items",
+        "selector": ".cs-navmenu",
+        "noItems": ".cs-navmenu__top",
+        "sourceEvidence": {
+          "components/navigation/NavigationMenu.jsx": "2d8e2f9cc80d24827b4b070517b1d69609bf842b9c26fc06912e51a273f2fd98",
+          "components/navigation/NavigationMenu.d.ts": "d1bc18f0a2991167cc4b556ef10cdf09f061992be6b6733945447503bd768dbc"
+        }
+      },
+      "sourcePath": "components/navigation/NavigationMenu.jsx",
+      "declarationPath": "components/navigation/NavigationMenu.d.ts"
+    },
+    {
       "id": "NumberField--default",
       "component": "NumberField",
       "category": "default",
@@ -6079,6 +6155,31 @@
       "expectation": {
         "kind": "mounted",
         "referenceKind": "rendered-dom-reference"
+      },
+      "sourcePath": "components/forms/RadioGroup.jsx",
+      "declarationPath": "components/forms/RadioGroup.d.ts"
+    },
+    {
+      "id": "RadioGroup--empty",
+      "component": "RadioGroup",
+      "category": "empty",
+      "props": {
+        "options": [],
+        "legend": "Project",
+        "value": "a"
+      },
+      "expectation": {
+        "kind": "empty-collection",
+        "props": {
+          "options": []
+        },
+        "collectionProp": "options",
+        "selector": ".cs-radio-group",
+        "noItems": "input[type=\"radio\"]",
+        "sourceEvidence": {
+          "components/forms/RadioGroup.jsx": "b72f446770714b8032ebaeaf060418dae4133c882ea1c69412b87c0c6a1823d3",
+          "components/forms/RadioGroup.d.ts": "e0ddb6fc1612855357ee1c452e976b08826bc912dcca6181be9b50a0bfbda9a4"
+        }
       },
       "sourcePath": "components/forms/RadioGroup.jsx",
       "declarationPath": "components/forms/RadioGroup.d.ts"
@@ -6514,6 +6615,31 @@
       "declarationPath": "components/forms/Select.d.ts"
     },
     {
+      "id": "Select--empty",
+      "component": "Select",
+      "category": "empty",
+      "props": {
+        "label": "Project",
+        "options": [],
+        "defaultValue": "a"
+      },
+      "expectation": {
+        "kind": "empty-collection",
+        "props": {
+          "options": []
+        },
+        "collectionProp": "options",
+        "selector": ".cs-select",
+        "noItems": "option:not([disabled])",
+        "sourceEvidence": {
+          "components/forms/Select.jsx": "a87c83c2783177fdaa135bb576e772b2c10fd8517d574622d8b15ceb611452b1",
+          "components/forms/Select.d.ts": "3131838de8601d1aa7e59a691bd548b2db1ee421a1274d11b5a71233f65ee5e7"
+        }
+      },
+      "sourcePath": "components/forms/Select.jsx",
+      "declarationPath": "components/forms/Select.d.ts"
+    },
+    {
       "id": "Sidebar--default",
       "component": "Sidebar",
       "category": "default",
@@ -6688,6 +6814,29 @@
       "expectation": {
         "kind": "mounted",
         "referenceKind": "rendered-dom-reference"
+      },
+      "sourcePath": "components/data/Sortable.jsx",
+      "declarationPath": "components/data/Sortable.d.ts"
+    },
+    {
+      "id": "Sortable--empty",
+      "component": "Sortable",
+      "category": "empty",
+      "props": {
+        "items": []
+      },
+      "expectation": {
+        "kind": "empty-collection",
+        "props": {
+          "items": []
+        },
+        "collectionProp": "items",
+        "selector": ".cs-sortable",
+        "noItems": ".cs-sortable__item",
+        "sourceEvidence": {
+          "components/data/Sortable.jsx": "de39e14bb0655473e483b6878f4ddbd399ab0f6c7b5c757a01f2f895782c713c",
+          "components/data/Sortable.d.ts": "f6a98218ec87776fb7be05e7fb9c3420f184358975c4f8a784bd12f3de17bbde"
+        }
       },
       "sourcePath": "components/data/Sortable.jsx",
       "declarationPath": "components/data/Sortable.d.ts"
@@ -7083,6 +7232,30 @@
           "error": "TagInput scenario validation error"
         },
         "marker": "TagInput scenario validation error",
+        "sourceEvidence": {
+          "components/forms/TagInput.jsx": "775a7e22922619577b27bbd0bfc2cc4b193e938fd4b2dc7dc44e997e219c41a3",
+          "components/forms/TagInput.d.ts": "4fb776216f431ed5c9d9ffde7407b3a4d5c979f57b91f7b80b32523f272df7d7"
+        }
+      },
+      "sourcePath": "components/forms/TagInput.jsx",
+      "declarationPath": "components/forms/TagInput.d.ts"
+    },
+    {
+      "id": "TagInput--empty",
+      "component": "TagInput",
+      "category": "empty",
+      "props": {
+        "label": "Tags",
+        "defaultValue": []
+      },
+      "expectation": {
+        "kind": "empty-collection",
+        "props": {
+          "defaultValue": []
+        },
+        "collectionProp": "defaultValue",
+        "selector": ".cs-taginput",
+        "noItems": ".cs-tag",
         "sourceEvidence": {
           "components/forms/TagInput.jsx": "775a7e22922619577b27bbd0bfc2cc4b193e938fd4b2dc7dc44e997e219c41a3",
           "components/forms/TagInput.d.ts": "4fb776216f431ed5c9d9ffde7407b3a4d5c979f57b91f7b80b32523f272df7d7"

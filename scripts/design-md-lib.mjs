@@ -224,6 +224,12 @@ export function buildDesignMd({ dtcg, manifest, version, language = "en" }) {
   L.push(t("- **Do (Accessibility & motion):** preserve the dual-ring focus indicator (`outline: 2px solid var(--cs-color-text-primary)` + `box-shadow: 0 0 0 5px var(--cs-color-accent-ochre)`), maintain `APCA Lc >= 75` for body text, enforce `>= 44px` hit targets under `@media (pointer: coarse)`, and provide opaque surface fallbacks under `prefers-reduced-transparency: reduce` and `forced-colors: active`."));
   L.push(t("- **Don't (Accessibility & runtime boundary):** never remove `:focus-visible` outlines without an ancestor `:focus-within` composite ring, never rely on colour alone to communicate status (always pair semantic colour with an icon, badge text, or border weight), and never claim static `.cs-*` HTML markup alone provides React keyboard navigation, focus trapping, or ARIA state updates."));
   L.push("");
+  L.push(t("## Agent prompt guide & starter blueprint"));
+  L.push("");
+  L.push(t("- **Root attributes (`<html>`):** set `lang=\"vi\"` (or `lang=\"en\"`), `data-theme=\"light\"` (`\"dark\"` | `\"system\"`), optional `data-cs-element=\"tho\"` (`\"kim\"` | `\"moc\"` | `\"thuy\"` | `\"hoa\"` | `\"tho\"`), optional `data-cs-density=\"comfortable\"` (`\"compact\"`), and optional `data-cs-contrast=\"high\"`."));
+  L.push(t("- **Runtime selection:** load `styles.css` (or `styles.layered.css`) for static `.cs-*` HTML; import `@cyberskill/design` (`dist/esm/_esm/react.mjs`) for compiled React ESM or `@cyberskill/design/source` (`_esm/react.mjs`) for raw JSX; use `templates/_vendor/support.js` only when previewing `.dc.html` documents."));
+  L.push(t("- **Prompting checklist for AI generators:** specify (1) target runtime (`static-html` vs `react`), (2) theme and Ngũ Hành element (`data-theme`, `data-cs-element`), (3) bilingual copy pair (`vi` + `en` with full Vietnamese diacritics), (4) responsive container (`max-width: var(--cs-container-xl)` or `.cs-cq`), and (5) tabular numeral alignment (`.cs-tabular` / `.cs-table__cell--numeric`) for metrics and tables."));
+  L.push("");
   L.push(t("## Components inventory"));
   L.push("");
   L.push(language === "vi" ? `${componentFiles.length} tệp thành phần · ${exportNames.length} mục xuất (từ \`_ds_manifest.json\`). Mỗi thành phần chính có \`.jsx\` + \`.d.ts\` + \`.prompt.md\`.` : `${componentFiles.length} component files · ${exportNames.length} exports (from \`_ds_manifest.json\`). Every primary ships \`.jsx\` + \`.d.ts\` + \`.prompt.md\`.`);

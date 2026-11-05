@@ -59,3 +59,17 @@ export const States = {
     </div>
   ),
 };
+
+// BEGIN GENERATED COMPONENT SCENARIO STORIES
+import {renderComponentScenario, playComponentScenario} from "./_scenarios/renderer.jsx";
+export const ScenarioRadioGroupEmpty = {
+  name: "RadioGroup: Empty collection",
+  args: {
+  "options": [],
+  "legend": "Project",
+  "value": "a"
+},
+  render: args => renderComponentScenario("RadioGroup--empty",args),
+  play: ({canvasElement}) => playComponentScenario("RadioGroup--empty",canvasElement),
+};
+// END GENERATED COMPONENT SCENARIO STORIES

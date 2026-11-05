@@ -2462,7 +2462,7 @@
           {
             "statement": "Owned Storybook Default fixture declares an example of TagInput through its component metadata. This is source evidence; mounting, interactions and accessibility require a matching runtime receipt.",
             "sourcePath": "stories/TagInput.stories.jsx",
-            "sourceSha256": "471e377999616133c27c20275dc67d85d3297e821a262758b1c17ac85e24b203",
+            "sourceSha256": "c7dc22346768cab5fe3493a09b3136a8de12b33ddf967dd2e09ebc84b46bb05f",
             "sourceSnippets": [
               "export default {\n  title: 'Components/Forms/TagInput',\n  component: TagInput,\n  tags: ['autodocs'],\n  argTypes: {\n  \"rootProps\": {\"control\":\"object\",\"description\":\"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.\",\"table\":{\"category\":\"DOM targets\"}},\n  \"controlProps\": {\"control\":\"object\",\"description\":\"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.\",\"table\":{\"category\":\"DOM targets\"}},\n  \"description\": {\"control\":\"text\"},\n  \"error\": {\"control\":\"text\"},\n  \"required\": {\"control\":\"boolean\"},\n    label: { control: 'text' },\n    value: { control: 'object' },\n    defaultValue: { control: 'object' },\n    placeholder: { control: 'text' },\n    max: { control: 'number' },\n    disabled: { control: 'boolean' },\n    lang: { control: 'text' },\n  },\n  args: { label: 'Tags', defaultValue: ['design', 'vn'] },\n};",
               "export const Default = {};"
@@ -3653,7 +3653,7 @@
           {
             "statement": "Owned Storybook Default fixture declares an example of Sortable through its component metadata. This is source evidence; mounting, interactions and accessibility require a matching runtime receipt.",
             "sourcePath": "stories/Sortable.stories.jsx",
-            "sourceSha256": "b316051536fcac4352dc0f6beb2843ad89d1832f23d9560399df86cc0a74ce3d",
+            "sourceSha256": "a1ce13d84e450a168f8da8b59794d5ed40b87f460b756331eafe093e8e50ff4b",
             "sourceSnippets": [
               "export default {\n  title: 'Components/Data/Sortable',\n  component: Sortable,\n  tags: ['autodocs'],\n  argTypes: {\n  \"rootProps\": {\"control\":\"object\",\"description\":\"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.\",\"table\":{\"category\":\"DOM targets\"}},\n    items: { control: 'object' },\n    onChange: { control: false },\n    lang: { control: 'select', options: ['en', 'vi'] },\n  },\n  args: { items: [{ key: 'a', label: 'Alpha' }, { key: 'b', label: 'Beta' }], lang: 'en' },\n};",
               "export const Default = {};"
@@ -4914,7 +4914,7 @@
           {
             "statement": "Owned Storybook Default fixture declares an example of Select through its component metadata. This is source evidence; mounting, interactions and accessibility require a matching runtime receipt.",
             "sourcePath": "stories/Select.stories.jsx",
-            "sourceSha256": "da1541f6f267141b7fa35825680dd6b233e544342d7baec65fa1dc7e9ff54638",
+            "sourceSha256": "8e90a784ba35bd49c45443a17a6386e45a5b44e9a1fa7de17d671070dda72752",
             "sourceSnippets": [
               "export default {\n  title: 'Components/Forms/Select',\n  component: Select,\n  tags: ['autodocs'],\n  argTypes: {\n  \"required\": {\"control\":\"boolean\"},\n    lang: { control: 'select', options: ['en', 'vi'] },\n\n    label: { control: 'text' },\n    placeholder: { control: 'text' },\n    description: { control: 'text' },\n    error: { control: 'text' },\n    options: { control: 'object' },\n    defaultValue: { control: 'text' },\n    disabled: { control: 'boolean' },\n  },\n  args: { lang: 'vi', label: 'Element', options: [{ value: 'tho', label: 'Thổ' }, { value: 'hoa', label: 'Hỏa' }], defaultValue: 'tho' },\n};",
               "export const Default = {};"
@@ -5504,7 +5504,7 @@
           {
             "statement": "Owned Storybook Default fixture declares an example of RadioGroup through its component metadata. This is source evidence; mounting, interactions and accessibility require a matching runtime receipt.",
             "sourcePath": "stories/RadioGroup.stories.jsx",
-            "sourceSha256": "7dfa556cfc4e1e491cce2f1bc53e3823263c2154798e11a0a791cc0831c0f68e",
+            "sourceSha256": "46b321c7ac19c224758e2fc358d44e2999ef80fb61669258d495433b0d23e648",
             "sourceSnippets": [
               "export default {\n  title: 'Components/Forms/RadioGroup',\n  component: RadioGroup,\n  tags: ['autodocs'],\n  argTypes: {\n  \"rootProps\": {\"control\":\"object\",\"description\":\"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.\",\"table\":{\"category\":\"DOM targets\"}},\n  \"legend\": {\n    \"control\": \"object\"\n  },\n  \"name\": {\n    \"control\": \"text\"\n  },\n  \"value\": {\n    \"control\": \"text\"\n  },\n  \"onChange\": {\n    \"control\": false\n  },\n  \"options\": {\n    \"control\": \"object\"\n  },\n  \"label\": {\n    \"control\": \"text\"\n  },\n  \"description\": {\n    \"control\": \"text\"\n  }\n},\n  args: {\n    name: 'theme',\n    legend: 'Theme',\n    value: 'light',\n    options: [{ value: 'light', label: 'Light' }, { value: 'dark', label: 'Dark' }],\n  },\n};",
               "export const Default = {};"
@@ -5927,7 +5927,7 @@
           {
             "statement": "Owned Storybook Default fixture declares an example of NavigationMenu through its component metadata. This is source evidence; mounting, interactions and accessibility require a matching runtime receipt.",
             "sourcePath": "stories/NavigationMenu.stories.jsx",
-            "sourceSha256": "dcd6502abad3513d81b2a9ba93053c3d295da496af2c6f62027a215797ba50e4",
+            "sourceSha256": "e94cf969f9f71545bd6f72ef452105e8984cc3b39283c1fb431fb1a93b48ec62",
             "sourceSnippets": [
               "export default {\n  title: 'Components/Navigation/NavigationMenu',\n  component: NavigationMenu,\n  tags: ['autodocs'],\n  argTypes: {\n    portal: {control: 'boolean', description: 'Body portal after client mount by default; false keeps inline/server markup and ancestor clipping.'},\n    placement: {control: 'select', options: DECLARED_DOMAINS.NavigationMenu[\"placement\"], description: 'Preferred physical side; flips/shifts within the visual viewport. Top/bottom start/end follow inline direction.'},\n  \"items\": {\n    \"control\": \"object\"\n  }\n},\n  args: { portal: true, items: [{ label: 'Product', href: '#' }, { label: 'Docs', href: '#' }] },\n};",
               "export const Default = {};"
@@ -6294,7 +6294,7 @@
           {
             "statement": "Owned Storybook Default fixture declares an example of Dock through its component metadata. This is source evidence; mounting, interactions and accessibility require a matching runtime receipt.",
             "sourcePath": "stories/Dock.stories.jsx",
-            "sourceSha256": "be1f631a8e6b0f223ada75af2db3ed663cd8d9722dfbe236684e9406a7db40e2",
+            "sourceSha256": "6365160effe502352aaefcee71717497cd97ea22d295bbc337401303e7242648",
             "sourceSnippets": [
               "export default {\n  title: 'Components/Navigation/Dock',\n  component: Dock,\n  tags: ['autodocs'],\n  argTypes: {\n  \"rootProps\": {\"control\":\"object\",\"description\":\"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.\",\"table\":{\"category\":\"DOM targets\"}},\n  \"items\": {\n    \"control\": \"object\"\n  },\n  \"label\": {\n    \"control\": \"text\"\n  }\n},\n  args: { items: [{ id: 'home', label: 'Home' }, { id: 'search', label: 'Search' }] },\n};",
               "export const Default = {};"
@@ -7959,7 +7959,7 @@
           {
             "statement": "Owned Storybook Default fixture declares an example of Breadcrumb through its component metadata. This is source evidence; mounting, interactions and accessibility require a matching runtime receipt.",
             "sourcePath": "stories/Breadcrumb.stories.jsx",
-            "sourceSha256": "f4939fee959b954e5aee9698d9019fd46612b7f9731edfcd06da8d0991fc13a0",
+            "sourceSha256": "cdf1a8c5aaf4db97287c453fe3d424e8722e9d99ab696fb61b3044a71609961a",
             "sourceSnippets": [
               "export default {\n  title: 'Components/Navigation/Breadcrumb',\n  component: Breadcrumb,\n  tags: ['autodocs'],\n  argTypes: {\n  \"items\": {\n    \"control\": \"object\"\n  }\n},\n  args: { items: [{ href: '#', label: 'Home' }, { label: 'Button' }] },\n};",
               "export const Default = {};"
@@ -8454,6 +8454,15 @@
             "assert(c.querySelectorAll('[role=\"status\"]').length>=4,'all four are status live-regions')",
             "assert((c.querySelector('.cs-spinner').getAttribute('aria-label')||'').length>0,'spinner labeled')"
           ]
+        },
+        {
+          "id": "spinner-behavior-size",
+          "statement": "Applies custom pixel dimensions and the accessible status label to the spinner element.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "Spinner — applies custom pixel size and status label",
+          "assertions": [
+            "assert(el?.getAttribute('aria-label')==='Syncing'&&el?.style.width==='28px','28px spinner')"
+          ]
         }
       ],
       "semantics": {
@@ -8634,6 +8643,15 @@
             "assert(c.querySelector('.cs-aspect-ratio').style.aspectRatio==='1 / 1','ratio applied')",
             "assert(c.textContent.includes('Frame'),'child preserved')"
           ]
+        },
+        {
+          "id": "aspectratio-behavior-ratio",
+          "statement": "Applies the ratio prop to the inline CSS aspect-ratio style.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "AspectRatio — ratio prop updates inline aspectRatio style",
+          "assertions": [
+            "assert(c.querySelector('.cs-aspect-ratio')?.style.aspectRatio.replace(/\\s+/g,'')==='4/3','ratio applied')"
+          ]
         }
       ],
       "semantics": {
@@ -8710,6 +8728,15 @@
           "assertions": [
             "assert(NS.Avatar,'missing')",
             "assert(c.textContent.includes('AB'),'initials')"
+          ]
+        },
+        {
+          "id": "avatar-behavior-initials",
+          "statement": "Derives uppercase initials and applies size and square modifiers from props.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "Avatar — derives initials and square modifier from props",
+          "assertions": [
+            "assert(c.querySelector('.cs-avatar--lg.cs-avatar--square')?.textContent==='AN','initials+square')"
           ]
         }
       ],
@@ -8789,6 +8816,15 @@
             "assert(NS.AvatarGroup,'missing')",
             "assert(c.textContent.includes('AB')&&c.textContent.includes('CD'),'both avatars')"
           ]
+        },
+        {
+          "id": "avatargroup-behavior-cluster",
+          "statement": "Clusters multiple Avatar children inside the group container.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "AvatarGroup — clusters multiple Avatar children",
+          "assertions": [
+            "assert(c.querySelectorAll('.cs-avatar-group .cs-avatar').length===2,'2 avatars in group')"
+          ]
         }
       ],
       "semantics": {
@@ -8864,6 +8900,15 @@
           "assertions": [
             "assert(NS.Badge,'missing')",
             "assert(c.textContent.includes('New'),'badge text')"
+          ]
+        },
+        {
+          "id": "badge-behavior-variant-dot",
+          "statement": "Renders the requested variant class and optional status dot alongside label content.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "Badge — variant and dot render status indicator",
+          "assertions": [
+            "assert(Boolean(c.querySelector('.cs-badge--success .cs-badge__dot'))&&c.textContent.includes('Active'),'badge variant+dot')"
           ]
         }
       ],
@@ -8944,6 +8989,15 @@
             "assert(NS.ButtonGroup,'missing')",
             "assert(c.querySelector('[role=\"group\"]')||c.textContent.includes('Actions'),'group present')",
             "assert(c.textContent.includes('Save'),'group child')"
+          ]
+        },
+        {
+          "id": "buttongroup-behavior-actions",
+          "statement": "Exposes a labelled group container whose child Buttons dispatch click actions.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "ButtonGroup — groups child action buttons with label",
+          "assertions": [
+            "assert(clicked&&Boolean(c.querySelector('[role=\"group\"][aria-label=\"Actions\"]')),'group click')"
           ]
         }
       ],
@@ -9108,6 +9162,15 @@
             "assert(NS.CardFooter,'missing')",
             "assert(c.textContent.includes('Footer'),'footer text')"
           ]
+        },
+        {
+          "id": "cardfooter-behavior-actions",
+          "statement": "Renders the card footer container and forwards interactive child actions.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "CardFooter — renders footer actions container",
+          "assertions": [
+            "assert(saved,'footer button click')"
+          ]
         }
       ],
       "semantics": {
@@ -9183,6 +9246,15 @@
           "assertions": [
             "assert(NS.CardHeader,'missing')",
             "assert(c.textContent.includes('Title'),'header title')"
+          ]
+        },
+        {
+          "id": "cardheader-behavior-slots",
+          "statement": "Renders the card title, subtitle, and trailing child slot content.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "CardHeader — renders title subtitle and action slot",
+          "assertions": [
+            "assert(c.querySelector('.cs-card__title')?.textContent==='Overview'&&c.querySelector('.cs-card__subtitle')?.textContent==='Q4','header title+subtitle')"
           ]
         }
       ],
@@ -9266,6 +9338,15 @@
             "assert(NS.Chart,'missing')",
             "assert(c.querySelector('[role=\"img\"]').getAttribute('aria-label')==='Revenue','chart name')"
           ]
+        },
+        {
+          "id": "chart-behavior-bars-legend",
+          "statement": "Renders SVG bar geometry and optional numeric values in the chart legend.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "Chart — renders bar rects and legend values",
+          "assertions": [
+            "assert(c.querySelectorAll('.cs-chart svg rect').length===2&&c.querySelector('.cs-chart__legend')?.textContent.includes('20'),'2 bars+legend')"
+          ]
         }
       ],
       "semantics": {
@@ -9347,6 +9428,15 @@
           "assertions": [
             "assert(NS.ChatMessage,'missing')",
             "assert(c.textContent.includes('Hello'),'message text')"
+          ]
+        },
+        {
+          "id": "chatmessage-behavior-role",
+          "statement": "Applies role-specific message alignment and displays the provided sender name.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "ChatMessage — switches alignment and sender name by role",
+          "assertions": [
+            "assert(Boolean(c.querySelector('.cs-chat-msg--user'))&&c.querySelector('.cs-chat-msg__name')?.textContent==='Linh','user role+name')"
           ]
         }
       ],
@@ -9432,6 +9522,15 @@
             "assert(NS.ConfidenceMeter,'missing')",
             "assert(c.textContent.toLowerCase().includes('high'),'level text')"
           ]
+        },
+        {
+          "id": "confidencemeter-behavior-value",
+          "statement": "Computes the filled segment count and verbal confidence level from a numeric value.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "ConfidenceMeter — computes high tone and meter valuenow from value",
+          "assertions": [
+            "assert(c.querySelector('[role=\"meter\"]')?.getAttribute('aria-valuenow')==='5'&&c.querySelector('.cs-confidence__level')?.textContent==='High','meter 5/5 High')"
+          ]
         }
       ],
       "semantics": {
@@ -9514,6 +9613,15 @@
             "assert(NS.DataTable,'missing')",
             "assert(c.querySelector('table'),'table element')",
             "assert(c.textContent.includes('An'),'cell text')"
+          ]
+        },
+        {
+          "id": "datatable-behavior-loading",
+          "statement": "Marks the table wrapper busy and renders the requested number of skeleton rows when loading.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "DataTable — renders skeleton rows when state is loading",
+          "assertions": [
+            "assert(c.querySelector('.cs-table-wrap')?.getAttribute('aria-busy')==='true'&&c.querySelectorAll('tbody tr').length===2,'loading skeleton rows')"
           ]
         }
       ],
@@ -9603,6 +9711,15 @@
             "assert(c.querySelector('dt').textContent==='City','term')",
             "assert(c.querySelector('dd').textContent==='Hue','value')"
           ]
+        },
+        {
+          "id": "descriptionlist-behavior-pairs",
+          "statement": "Renders each item term and value as paired dt and dd elements.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "DescriptionList — pairs dt terms with dd descriptions",
+          "assertions": [
+            "assert(c.querySelector('.cs-dl dt')?.textContent==='Owner'&&c.querySelector('.cs-dl dd')?.textContent==='CyberSkill','dt+dd')"
+          ]
         }
       ],
       "semantics": {
@@ -9681,6 +9798,15 @@
             "assert(NS.Divider,'missing')",
             "assert(c.querySelector('[role=\"separator\"]').textContent.includes('Or'),'labelled separator')"
           ]
+        },
+        {
+          "id": "divider-behavior-labelled",
+          "statement": "Renders a labelled separator element when a label prop is supplied.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "Divider — renders labelled separator role",
+          "assertions": [
+            "assert(c.querySelector('.cs-divider--label[role=\"separator\"]')?.textContent==='OR','labelled separator')"
+          ]
         }
       ],
       "semantics": {
@@ -9758,6 +9884,15 @@
           "assertions": [
             "assert(NS.EmptyState,'missing')",
             "assert(c.textContent.includes('Nothing yet'),'empty title')"
+          ]
+        },
+        {
+          "id": "emptystate-behavior-actions",
+          "statement": "Renders the empty state title and dispatches callbacks from the actions slot.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "EmptyState — renders title body and triggers action slot",
+          "assertions": [
+            "assert(retried&&c.querySelector('.cs-empty__title')?.textContent==='No items','empty action')"
           ]
         }
       ],
@@ -10264,6 +10399,15 @@
             "assert(NS.Icon,'missing')",
             "assert(c.querySelector('[role=\"img\"]').getAttribute('aria-label')==='Close','icon name')"
           ]
+        },
+        {
+          "id": "icon-behavior-labelled",
+          "statement": "Exposes role=img and aria-label on the SVG icon when a label prop is provided.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "Icon — exposes labelled svg role when label is provided",
+          "assertions": [
+            "assert(svg?.getAttribute('role')==='img'&&svg?.getAttribute('aria-label')==='Verified','labelled icon')"
+          ]
         }
       ],
       "semantics": {
@@ -10339,6 +10483,15 @@
           "assertions": [
             "assert(NS.Kbd,'missing')",
             "assert(c.textContent.includes('Esc'),'key text')"
+          ]
+        },
+        {
+          "id": "kbd-behavior-shortcut",
+          "statement": "Renders the keyboard shortcut text inside a kbd.cs-kbd element.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "Kbd — renders keyboard shortcut token",
+          "assertions": [
+            "assert(c.querySelector('kbd.cs-kbd')?.textContent==='⌘K','kbd text')"
           ]
         }
       ],
@@ -10503,6 +10656,15 @@
             "assert(NS.Logo,'missing')",
             "assert((c.querySelector('[aria-label]')||c).getAttribute?.('aria-label')==='CyberSkill'||c.textContent.includes('CyberSkill'),'logo name')"
           ]
+        },
+        {
+          "id": "logo-behavior-mark",
+          "statement": "Renders the official brand mark SVG at the requested pixel size with its accessible label.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "Logo — renders official mark svg with accessible label",
+          "assertions": [
+            "assert(svg?.getAttribute('width')==='40'&&svg?.getAttribute('aria-label')==='CyberSkill Brand','logo svg')"
+          ]
         }
       ],
       "semantics": {
@@ -10579,6 +10741,15 @@
           "assertions": [
             "assert(NS.LumiAvatar,'missing')",
             "assert(c.querySelector('svg,img,.cs-lumi'),'mark present')"
+          ]
+        },
+        {
+          "id": "lumiavatar-behavior-ring",
+          "statement": "Applies size and ring modifiers and renders the fallback sparkle glyph when src is omitted.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "LumiAvatar — renders ring modifier and fallback sparkle glyph",
+          "assertions": [
+            "assert(Boolean(c.querySelector('.cs-lumi--lg.cs-lumi--ring'))&&c.textContent.includes('✦'),'lumi ring+glyph')"
           ]
         }
       ],
@@ -10657,6 +10828,15 @@
           "assertions": [
             "assert(NS.Masonry,'missing')",
             "assert(c.textContent.includes('Tile'),'tile text')"
+          ]
+        },
+        {
+          "id": "masonry-behavior-columns",
+          "statement": "Applies columnCount styling and wraps each child in a masonry item container.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "Masonry — wraps children in column items with configured gap",
+          "assertions": [
+            "assert(c.querySelector('.cs-masonry')?.style.columnCount==='2'&&c.querySelectorAll('.cs-masonry__item').length===2,'2 columns')"
           ]
         }
       ],
@@ -10837,6 +11017,15 @@
             "assert(NS.OverlayProvider,'missing')",
             "assert(c.textContent.includes('Inside'),'provider child')"
           ]
+        },
+        {
+          "id": "overlayprovider-behavior-root",
+          "statement": "Mounts a uniquely identified data-cs-overlay-root element alongside provider children.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "OverlayProvider — mounts unique overlay portal root",
+          "assertions": [
+            "assert(Boolean(c.querySelector('[data-cs-overlay-root][id^=\"cs-overlay-root-\"]'))&&Boolean(c.querySelector('[data-in-provider]')),'provider root id')"
+          ]
         }
       ],
       "semantics": {
@@ -10913,6 +11102,15 @@
           "assertions": [
             "assert(NS.ProgressBar,'missing')",
             "assert(c.querySelector('[role=\"progressbar\"]').getAttribute('aria-valuenow')==='40','progress value')"
+          ]
+        },
+        {
+          "id": "progressbar-behavior-fill",
+          "statement": "Sets aria-valuenow and the fill bar width percentage from value and max.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "ProgressBar — clamps value and sets fill percentage width",
+          "assertions": [
+            "assert(c.querySelector('.cs-progress--success')?.getAttribute('aria-valuenow')==='75'&&c.querySelector('.cs-progress__fill')?.style.width==='75%','75% fill')"
           ]
         }
       ],
@@ -10991,6 +11189,15 @@
           "assertions": [
             "assert(NS.QRCode,'missing')",
             "assert(c.querySelector('[role=\"img\"]').getAttribute('aria-label')==='Site code','qr name')"
+          ]
+        },
+        {
+          "id": "qrcode-behavior-matrix",
+          "statement": "Encodes a non-empty value string into an SVG path matrix inside the QR container.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "QRCode — encodes non-empty value into svg path matrix",
+          "assertions": [
+            "assert((c.querySelector('.cs-qrcode svg path')?.getAttribute('d')||'').length>20,'qr path')"
           ]
         }
       ],
@@ -11072,6 +11279,15 @@
             "assert(c.querySelector('input[type=\"radio\"]'),'native radio')",
             "assert(c.textContent.includes('Yes'),'radio label')"
           ]
+        },
+        {
+          "id": "radio-behavior-change",
+          "statement": "Checks the native radio input and fires onChange when clicked.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "Radio — change callback fires when standalone radio is selected",
+          "assertions": [
+            "assert(picked&&c.querySelector('input[type=\"radio\"]').checked,'radio checked')"
+          ]
         }
       ],
       "semantics": {
@@ -11134,7 +11350,7 @@
           {
             "statement": "Owned Storybook States fixture declares an example of Radio. This is source evidence; mounting, interactions and accessibility require a matching runtime receipt.",
             "sourcePath": "stories/RadioGroup.stories.jsx",
-            "sourceSha256": "7dfa556cfc4e1e491cce2f1bc53e3823263c2154798e11a0a791cc0831c0f68e",
+            "sourceSha256": "46b321c7ac19c224758e2fc358d44e2999ef80fb61669258d495433b0d23e648",
             "sourceSnippets": [
               "export const States = {\n  name: 'States',\n  render: (args) => (\n    <div style={{ display: 'grid', gap: 12, maxWidth: 420 }}>\n      <RadioGroup {...args} name=\"s1\" legend=\"Theme\" value=\"light\" options={[{ value: 'light', label: 'Light' }, { value: 'dark', label: 'Dark' }]} />\n      <RadioGroup {...args} name=\"s2\" legend=\"Theme\" value=\"light\" options={[{ value: 'light', label: 'Light', disabled: true }, { value: 'dark', label: 'Dark' }]} />\n      <Radio name=\"solo\" value=\"a\" label=\"Companion Radio\" />\n      <Radio name=\"solo\" value=\"b\" label=\"Disabled Radio\" disabled />\n    </div>\n  ),\n};"
             ]
@@ -11152,6 +11368,15 @@
           "assertions": [
             "assert(NS.Result,'missing')",
             "assert(c.textContent.includes('Saved'),'result title')"
+          ]
+        },
+        {
+          "id": "result-behavior-actions",
+          "statement": "Applies the status modifier class and dispatches actions from the result actions slot.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "Result — renders status variant title and action slot",
+          "assertions": [
+            "assert(acted&&Boolean(c.querySelector('.cs-result--success')),'result action')"
           ]
         }
       ],
@@ -11236,6 +11461,15 @@
           "assertions": [
             "assert(NS.ScrollArea,'missing')",
             "assert(c.textContent.includes('Scrollable'),'scroll content')"
+          ]
+        },
+        {
+          "id": "scrollarea-behavior-maxheight",
+          "statement": "Applies maxBlockSize from maxHeight on a keyboard-focusable scroll container.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "ScrollArea — applies maxHeight constraint on focusable container",
+          "assertions": [
+            "assert(el?.tabIndex===0&&el?.style.maxBlockSize==='180px','maxBlockSize 180px')"
           ]
         }
       ],
@@ -11405,6 +11639,15 @@
             "assert(NS.Skeleton,'missing')",
             "assert(c.querySelector('[aria-hidden=\"true\"]'),'decorative skeleton')"
           ]
+        },
+        {
+          "id": "skeleton-behavior-lines",
+          "statement": "Renders the requested number of text placeholder lines with a shorter trailing line.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "Skeleton — renders requested text placeholder lines",
+          "assertions": [
+            "assert(lines.length===3&&lines[2].style.width==='70%','3 skeleton lines')"
+          ]
         }
       ],
       "semantics": {
@@ -11484,6 +11727,15 @@
           "assertions": [
             "assert(NS.Stat,'missing')",
             "assert(c.textContent.includes('Shipped')&&c.textContent.includes('12'),'metric')"
+          ]
+        },
+        {
+          "id": "stat-behavior-trend",
+          "statement": "Renders the formatted metric value and the directional trend modifier on the delta badge.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "Stat — renders metric value and trend delta indicator",
+          "assertions": [
+            "assert(c.querySelector('.cs-stat__value')?.textContent==='$42k'&&Boolean(c.querySelector('.cs-stat__delta--up')),'stat up delta')"
           ]
         }
       ],
@@ -11568,6 +11820,15 @@
             "assert(NS.StatusIndicator,'missing')",
             "assert(c.textContent.includes('Online'),'status text')"
           ]
+        },
+        {
+          "id": "statusindicator-behavior-pulse",
+          "statement": "Applies the status tone and pulse classes alongside the status label text.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "StatusIndicator — applies status tone and pulse class",
+          "assertions": [
+            "assert(Boolean(c.querySelector('.cs-status--online.cs-status--pulse .cs-status__dot'))&&c.textContent.includes('Healthy'),'online pulse')"
+          ]
         }
       ],
       "semantics": {
@@ -11646,6 +11907,15 @@
           "assertions": [
             "assert(NS.Steps,'missing')",
             "assert(c.querySelector('[aria-current=\"step\"]').textContent.includes('Plan'),'current step')"
+          ]
+        },
+        {
+          "id": "steps-behavior-current",
+          "statement": "Marks steps before current as done and sets aria-current=step on the active step.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "Steps — marks prior steps done and current step active",
+          "assertions": [
+            "assert(items[0].classList.contains('cs-step--done')&&items[1].getAttribute('aria-current')==='step','step 0 done, step 1 current')"
           ]
         }
       ],
@@ -11729,6 +11999,15 @@
             "assert(NS.Tab,'missing')",
             "assert(c.querySelector('[role=\"tab\"]').getAttribute('aria-selected')==='true','selected tab')"
           ]
+        },
+        {
+          "id": "tab-behavior-count",
+          "statement": "Renders the tab count badge and invokes onClick when the tab button is activated.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "Tab — standalone tab button reflects selected state and count",
+          "assertions": [
+            "assert(hit&&c.querySelector('.cs-tab__count')?.textContent==='4','tab click+count')"
+          ]
         }
       ],
       "semantics": {
@@ -11805,6 +12084,15 @@
           "assertions": [
             "assert(NS.Timeline,'missing')",
             "assert(c.textContent.includes('Started'),'event title')"
+          ]
+        },
+        {
+          "id": "timeline-behavior-state",
+          "statement": "Applies item state modifiers and renders optional event metadata in the timeline trail.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "Timeline — renders state markers and event metadata",
+          "assertions": [
+            "assert(Boolean(c.querySelector('.cs-timeline__item--now'))&&c.querySelector('.cs-timeline__meta')?.textContent==='Today','timeline now+meta')"
           ]
         }
       ],
@@ -11978,6 +12266,15 @@
             "assert(NS.TypingIndicator,'missing')",
             "assert(c.querySelector('[role=\"status\"]'),'typing status')"
           ]
+        },
+        {
+          "id": "typingindicator-behavior-dots",
+          "statement": "Exposes the status label and renders three typing indicator dot spans.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "TypingIndicator — renders three animated dots with status label",
+          "assertions": [
+            "assert(el?.getAttribute('aria-label')==='Lumi is thinking'&&el?.querySelectorAll('span').length===3,'3 dots')"
+          ]
         }
       ],
       "semantics": {
@@ -12054,6 +12351,15 @@
           "assertions": [
             "assert(NS.Watermark,'missing')",
             "assert(c.querySelector('[aria-hidden=\"true\"]')?.style.maskImage.includes('Draft'),'watermark text')"
+          ]
+        },
+        {
+          "id": "watermark-behavior-mask",
+          "statement": "Encodes the watermark text into the repeating SVG mask layer over child content.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "Watermark — encodes watermark text into repeating svg mask layer",
+          "assertions": [
+            "assert((mask?.style.maskImage||mask?.style.webkitMaskImage||'').includes('CONFIDENTIAL'),'watermark mask')"
           ]
         }
       ],

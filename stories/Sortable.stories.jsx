@@ -24,3 +24,15 @@ export const Matrix = {
     </div>
   ),
 };
+
+// BEGIN GENERATED COMPONENT SCENARIO STORIES
+import {renderComponentScenario, playComponentScenario} from "./_scenarios/renderer.jsx";
+export const ScenarioSortableEmpty = {
+  name: "Sortable: Empty collection",
+  args: {
+  "items": []
+},
+  render: args => renderComponentScenario("Sortable--empty",args),
+  play: ({canvasElement}) => playComponentScenario("Sortable--empty",canvasElement),
+};
+// END GENERATED COMPONENT SCENARIO STORIES

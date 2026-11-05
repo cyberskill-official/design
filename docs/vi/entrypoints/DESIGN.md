@@ -400,6 +400,12 @@ Bố cục dựa trên nhịp không gian `4px` (`--cs-space-1` đến `--cs-spa
 - **Nên (Khả năng tiếp cận và chuyển động):** giữ chỉ báo focus hai vòng (`outline: 2px solid var(--cs-color-text-primary)` + `box-shadow: 0 0 0 5px var(--cs-color-accent-ochre)`), duy trì `APCA Lc >= 75` cho văn bản nội dung, đảm bảo vùng chạm `>= 44px` khi `@media (pointer: coarse)`, và cung cấp bề mặt đặc dự phòng khi `prefers-reduced-transparency: reduce` hoặc `forced-colors: active`.
 - **Không nên (Khả năng tiếp cận và ranh giới runtime):** không xóa đường viền `:focus-visible` nếu phần tử cha không có vòng focus kết hợp `:focus-within`, không dùng màu sắc đơn lẻ để biểu đạt trạng thái (luôn kết hợp màu ngữ nghĩa với biểu tượng, nhãn chữ hoặc độ dày viền), và không coi HTML tĩnh `.cs-*` tự có sẵn điều hướng bàn phím, giữ focus hay cập nhật trạng thái ARIA như thành phần React.
 
+## Hướng dẫn prompt cho Agent và khung khởi tạo
+
+- **Thuộc tính gốc (`<html>`):** đặt `lang="vi"` (hoặc `lang="en"`), `data-theme="light"` (`"dark"` | `"system"`), tùy chọn `data-cs-element="tho"` (`"kim"` | `"moc"` | `"thuy"` | `"hoa"` | `"tho"`), tùy chọn `data-cs-density="comfortable"` (`"compact"`), và tùy chọn `data-cs-contrast="high"`.
+- **Chọn runtime:** nạp `styles.css` (hoặc `styles.layered.css`) cho HTML tĩnh `.cs-*`; nhập `@cyberskill/design` (`dist/esm/_esm/react.mjs`) cho React ESM đã biên dịch hoặc `@cyberskill/design/source` (`_esm/react.mjs`) cho JSX nguồn; chỉ dùng `templates/_vendor/support.js` khi xem trước tài liệu `.dc.html`.
+- **Danh sách kiểm tra khi viết prompt cho AI:** nêu rõ (1) runtime đích (`static-html` hay `react`), (2) chủ đề và nguyên tố Ngũ Hành (`data-theme`, `data-cs-element`), (3) cặp nội dung song ngữ (`vi` + `en` giữ nguyên dấu tiếng Việt), (4) khung chứa đáp ứng (`max-width: var(--cs-container-xl)` hoặc `.cs-cq`), và (5) căn chỉnh chữ số dạng bảng (`.cs-tabular` / `.cs-table__cell--numeric`) cho chỉ số và bảng.
+
 ## Danh mục thành phần
 
 107 tệp thành phần · 125 mục xuất (từ `_ds_manifest.json`). Mỗi thành phần chính có `.jsx` + `.d.ts` + `.prompt.md`.

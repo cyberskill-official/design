@@ -90,4 +90,15 @@ export const ScenarioSelectError = {
   render: args => renderComponentScenario("Select--error",args),
   play: ({canvasElement}) => playComponentScenario("Select--error",canvasElement),
 };
+
+export const ScenarioSelectEmpty = {
+  name: "Select: Empty collection",
+  args: {
+  "label": "Project",
+  "options": [],
+  "defaultValue": "a"
+},
+  render: args => renderComponentScenario("Select--empty",args),
+  play: ({canvasElement}) => playComponentScenario("Select--empty",canvasElement),
+};
 // END GENERATED COMPONENT SCENARIO STORIES

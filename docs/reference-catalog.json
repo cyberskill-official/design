@@ -129,7 +129,7 @@
       "path": "DESIGN.md",
       "audience": "documentation",
       "role": "generated_reference",
-      "sha256": "c136df9a3835d37406bccbfd973e37184f97aa9a97e3c24d127d28457b25db02"
+      "sha256": "4fe92f785a04c0d780afbdfcdab0dc3f217b514f766b65b1d380d4b08f9d70f5"
     },
     {
       "path": "MAINTAINERS.md",
@@ -885,7 +885,7 @@
       "path": "docs/component-scenarios.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "aa5fefbdfd0d4b305c0577bbd7e2dc31babacff2e46fbbc60088c94a2b0b3cbb"
+      "sha256": "a8217378a83dfacf6e29395477c866d12447e3fb7f4d0cb3b79b41bcf6de616e"
     },
     {
       "path": "docs/component-semantic-contracts.md",
@@ -1161,7 +1161,7 @@
       "path": "docs/vi/component-scenarios.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "7e0aa4ec74e8f9c12079d98529e1949771e581ae3c529ab353fb8609e942e2d7"
+      "sha256": "2f229a7a2a9dc84cbbcf295b73e11274affd9cc993b2c25cfa069950b1580349"
     },
     {
       "path": "docs/vi/component-semantic-contracts.md",
@@ -1233,7 +1233,7 @@
       "path": "docs/vi/entrypoints/DESIGN.md",
       "audience": "documentation",
       "role": "generated_reference",
-      "sha256": "85f3c85a6394dcb75ab4f5c0b2ca0ba774591656627c2ff23ea2d59ab4e83575"
+      "sha256": "49bfd80fa127ee27ef5291e15ab7fb36d6ceaeb901ad87542de458e4419287cc"
     },
     {
       "path": "docs/vi/entrypoints/README.md",

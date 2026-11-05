@@ -78,4 +78,14 @@ export const ScenarioTagInputError = {
   render: args => renderComponentScenario("TagInput--error",args),
   play: ({canvasElement}) => playComponentScenario("TagInput--error",canvasElement),
 };
+
+export const ScenarioTagInputEmpty = {
+  name: "TagInput: Empty collection",
+  args: {
+  "label": "Tags",
+  "defaultValue": []
+},
+  render: args => renderComponentScenario("TagInput--empty",args),
+  play: ({canvasElement}) => playComponentScenario("TagInput--empty",canvasElement),
+};
 // END GENERATED COMPONENT SCENARIO STORIES

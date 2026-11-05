@@ -26,3 +26,15 @@ export const Matrix = {
     </div>
   ),
 };
+
+// BEGIN GENERATED COMPONENT SCENARIO STORIES
+import {renderComponentScenario, playComponentScenario} from "./_scenarios/renderer.jsx";
+export const ScenarioNavigationMenuEmpty = {
+  name: "NavigationMenu: Empty collection",
+  args: {
+  "items": []
+},
+  render: args => renderComponentScenario("NavigationMenu--empty",args),
+  play: ({canvasElement}) => playComponentScenario("NavigationMenu--empty",canvasElement),
+};
+// END GENERATED COMPONENT SCENARIO STORIES
