@@ -5750,7 +5750,7 @@
       "scope": ".cs-display-face",
       "important": false,
       "declarationOrder": 1050,
-      "sourceLine": 23
+      "sourceLine": 24
     },
     {
       "name": "--cs-term-border",

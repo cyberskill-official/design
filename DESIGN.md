@@ -27,6 +27,10 @@ gate: "_audit/design-md-parity.html (window.__designmd)"
 - **Accessibility floor:** APCA Lc ≥ 75 body text · ≥ 44px touch targets · focus rings never removed · honour `prefers-reduced-motion` / `prefers-contrast`.
 - **Voice:** warm · direct · honest · respectful — all four at once, never "fun/playful/edgy".
 
+### Visual theme, atmosphere & surface pacing
+
+CyberSkill pairs warm architectural craft with optical precision: pages open on Warm Alabaster `--cs-color-surface-page` (`#FFFDF8` light / `#1a1108` dark), elevate content into crisp `--cs-color-surface-panel` (`.cs-card`) or warm `--cs-color-surface-raised` (`.cs-card--raised`), highlight spotlight tiers with `.cs-card--featured` (`--cs-accent-strong` / `--cs-accent` rim), and layer four optical Liquid Glass tiers (`.cs-surface-whisper`, `.cs-surface-light`, `.cs-surface-standard`, `.cs-surface-heavy`) plus `.cs-aurora` hero washes.
+
 ## Colors
 
 Core semantic colours. Dark values are the `[data-theme="dark"]` overrides (the `system` theme mirrors them under `prefers-color-scheme: dark`).
@@ -58,6 +62,12 @@ Core semantic colours. Dark values are the `[data-theme="dark"]` overrides (the 
 | `--cs-color-semantic-danger-text` | `#4B0502` | `#FFD2CF` |
 | `--cs-color-semantic-warning-text` | `#441801` | `#FFD887` |
 | `--cs-color-semantic-info-text` | `#000A75` | `#C7DFFF` |
+
+### Functional color roles
+
+- **Brand & primary actions:** `--cs-color-brand-umber` (`#45210E`) and `--cs-color-brand-ochre` (`#F4BA17`) anchor identity; `--cs-component-button-primary-bg` and `--cs-component-button-primary-fg` drive primary CTAs across light and `[data-theme="dark"]`.
+- **Surface hierarchy & borders:** alternate `--cs-color-surface-page`, `--cs-color-surface-panel`, and `--cs-color-surface-raised` to pace sections; frame containers with `--cs-color-border-default`, internal table/list rules with `var(--cs-color-border-subtle)`, and modal/drawer/tour backdrops with `var(--cs-color-surface-scrim)`.
+- **Text & semantic status pairs:** use `--cs-color-text-primary`, `--cs-color-text-muted`, and `--cs-color-text-accent` for hierarchy (`APCA Lc >= 75` body floor); pair solid status fills (`--cs-color-semantic-success`, `--cs-color-semantic-danger`, `--cs-color-semantic-warning`, `--cs-color-semantic-info`) with `*-fg` tokens and tinted surfaces with `*-text` tokens.
 
 ### Accent roles (Ngũ Hành)
 
@@ -151,6 +161,11 @@ Semantic aliases into the ramp — write intent, not magic numbers. `Resolves to
 | `--cs-heading-weight-strong` | `var(--cs-font-weight-extrabold)` | `800` |
 | `--cs-heading-weight` | `var(--cs-font-weight-bold)` | `700` |
 | `--cs-heading-tracking` | `var(--cs-letter-spacing-tight)` | `-0.01em` |
+
+### Full typography hierarchy & font substitutes
+
+- **Role utility hierarchy (`base/typography.css`):** `.cs-display` (`--cs-text-display` `3.75rem`, weight `800`, line-height `1.15`, tracking `-0.01em`) and fluid `.cs-display--fluid`; `.cs-h1` (`--cs-text-h1` `2.25rem`, weight `800`, line-height `1.35`) and `.cs-h1--fluid`; `.cs-h2` (`--cs-text-h2` `1.875rem`, weight `700`); `.cs-h3` (`--cs-text-h3` `1.5rem`, weight `700`); `.cs-h4` (`--cs-text-h4` `1.25rem`, weight `600`); `.cs-body-lg` (`--cs-text-body-lg` `1.125rem`, line-height `1.5`); `.cs-body` (`--cs-text-body` `1rem`, line-height `1.5`); `.cs-secondary` (`--cs-text-secondary` `0.875rem`); `.cs-caption` (`--cs-text-caption` `0.75rem`); `.cs-eyebrow` (`--cs-text-eyebrow` `0.75rem`, weight `700`, uppercase, tracking `0.08em`); `.cs-mono` (`--cs-font-family-mono`), `.cs-tabular` (`tabular-nums`), and `.cs-prose` (`--cs-prose-measure` `45rem`).
+- **Font substitutes & Vietnamese diacritic safety:** when self-hosted WOFF2 faces are unavailable in external sandboxes, `--cs-font-family-ui` (`Be Vietnam Pro`) falls back to `ui-sans-serif, system-ui, sans-serif` (or `Inter`), `--cs-font-family-display` (`Space Grotesk`) falls back to `'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif`, and `--cs-font-family-mono` (`JetBrains Mono`) falls back to `ui-monospace, SFMono-Regular, Menlo, Consolas, monospace`; always preserve `--cs-font-line-height-body` (`1.5`) and `--cs-font-line-height-heading` (`1.35`) so stacked Vietnamese diacritics never clip.
 
 ## Spacing & radius
 
@@ -269,6 +284,11 @@ Scoped overrides (distinct from the base token rows):
 | `--cs-icon-md` | `20px` |
 | `--cs-icon-lg` | `24px` |
 
+### Whitespace philosophy, border radius scale & media geometry
+
+- **Whitespace & section rhythm:** separate major page bands with `--cs-space-16` (`64px`) to `--cs-space-24` (`96px`), keep card internal padding at `--cs-space-4` (`16px`) to `--cs-space-6` (`24px`), and cap long-form reading columns with `.cs-prose` (`--cs-prose-measure` `45rem`).
+- **Border radius scale & media geometry (`Shapes`):** `--cs-radius-sm` (`4px`) for `.cs-kbd`, `.cs-code`, and compact tags; `--cs-radius-md` (`8px`) for `.cs-button`, `.cs-field__control`, `.cs-popover__panel`, and `.cs-menu__list`; `--cs-radius-lg` (`14px`) for `.cs-card`, `.cs-dialog`, `.cs-cmdk`, and `.cs-surface-*` glass panels; `--cs-radius-full` (`999px`) for `.cs-badge`, `.cs-tag`, and circular `.cs-avatar`; frame media with `.cs-card__media`, `AspectRatio` (`16:9`, `4:3`, `1:1`), `.cs-image__zoom`, and `.cs-aurora--photo`.
+
 ## Elevation
 
 Shadow values are the raw CSS box-shadow strings from `$extensions["com.cyberskill"].css` (structured DTCG objects carry the same layers). Dark overrides shown.
@@ -305,6 +325,11 @@ Shadow values are the raw CSS box-shadow strings from `$extensions["com.cyberski
 | `--cs-glass-heavy-blur` | `24px` |
 | `--cs-glass-heavy-saturate` | `180%` |
 | `--cs-glass-heavy-opacity` | `90%` |
+
+### Elevation hierarchy (Levels 0–5) & decorative depth
+
+- **Six-level surface & shadow hierarchy:** Level 0 (`--cs-depth-bg` `0`) flat `--cs-color-surface-page` canvas; Level 1 (`--cs-depth-section` `5`) `--cs-color-surface-raised` bands, `.cs-card--flat`, and `.cs-card--raised`; Level 2 (`--cs-depth-card` `10`) default `.cs-card` with `--cs-shadow-xs` / `--cs-shadow-sm` and `.cs-surface-whisper` / `.cs-surface-light`; Level 3 interactive/spotlight `.cs-card--interactive:hover` and `.cs-card--featured` with `--cs-shadow-md` and `.cs-surface-standard`; Level 4 (`--cs-depth-nav` `50`, `--cs-depth-dropdown` `60`, `--cs-depth-overlay` `80`) sticky headers, `.cs-popover__panel`, `.cs-menu__list`, and `.cs-surface-heavy` with `--cs-shadow-lg`; Level 5 (`--cs-depth-modal` `100`, `--cs-depth-toast` `200`) `.cs-dialog`, `.cs-drawer`, `.cs-cmdk`, and `.cs-toast` with `--cs-shadow-xl` over `var(--cs-color-surface-scrim)`.
+- **Decorative depth:** combine warm Umber multi-layer ambient shadows with a `1px` specular inner border (`--_cs-glass-border`) on `.cs-surface-*` panels and radial Ochre/Umber washes on `.cs-aurora` hero bands; under `prefers-reduced-transparency: reduce` or `forced-colors: active`, surfaces fall back to opaque `.cs-surface-solid`.
 
 ## Motion
 
@@ -378,10 +403,15 @@ Static HTML consumers and zero-runtime generators style semantic HTML elements d
 
 - **Actions & buttons (`base/components.css`):** primary `.cs-button`, variants `.cs-button--secondary`, `.cs-button--tertiary`, `.cs-button--ghost`, `.cs-button--danger`, `.cs-button--danger-ghost`; sizes `.cs-button--xs` (`28px`, `44px` on `pointer: coarse`), `.cs-button--sm` (`36px`, `44px` on `pointer: coarse`), default medium (`44px`), `.cs-button--lg` (`52px`), full-width `.cs-button--full`; states `.is-disabled`, `.is-loading` with `.cs-button__spinner`.
 - **Form controls & fields (`base/components.css`, `base/forms.css`, `base/controls.css`):** field wrapper `.cs-field` with `.cs-field__label`, `.cs-field__control`, `.cs-field__description`, `.cs-field__error` and invalid state `.cs-field.is-invalid`; selection controls `.cs-check`, `.cs-radio`, `.cs-switch` (`.cs-switch__track`); composite inputs `.cs-select`, `.cs-native-select`, `.cs-search` (`.cs-search__clear`), `.cs-stepper`, `.cs-otp`, `.cs-slider`, `.cs-segmented`.
-- **Cards & Liquid Glass surfaces (`base/data.css`, `base/glass.css`):** card container `.cs-card` (modifiers `.cs-card--flat`, `.cs-card--interactive`; slots `.cs-card__media`, `.cs-card__header`, `.cs-card__title`, `.cs-card__subtitle`, `.cs-card__body`, `.cs-card__footer`); optical glass tiers `.cs-surface-whisper`, `.cs-surface-light`, `.cs-surface-standard` (alias `.cs-glass-card`), `.cs-surface-heavy`, opaque fallback `.cs-surface-solid` (alias `.cs-surface-matte`), and brand hero wash `.cs-aurora` (`.cs-aurora--photo`).
-- **Data display & typography (`base/components.css`, `base/data.css`, `base/typography.css`, `base/collections.css`):** responsive table wrapper `.cs-table-wrap` and `.cs-table` with right-aligned tabular numeric cells `.cs-table__cell--numeric` and subtle row rule `var(--cs-color-border-subtle)`; KPI block `.cs-stat` (`.cs-stat__label`, `.cs-stat__value`, `.cs-stat__delta--up`, `.cs-stat__delta--down`, `.cs-stat__delta--flat`); status pills `.cs-badge` (`.cs-badge--solid`, `.cs-badge--ochre`, `.cs-badge--success`, `.cs-badge--warning`, `.cs-badge--danger`, `.cs-badge--info`, `.cs-badge__dot`) and removable `.cs-tag`; `.cs-avatar` (`.cs-avatar--sm`, `.cs-avatar--md`, `.cs-avatar--lg`, `.cs-avatar--square`, `.cs-avatar-group`); `.cs-kbd`, `.cs-code`, `.cs-dl`; type role classes `.cs-display`, `.cs-display--fluid`, `.cs-h1`, `.cs-h1--fluid`, `.cs-h2`, `.cs-h3`, `.cs-h4`, `.cs-body-lg`, `.cs-body`, `.cs-secondary`, `.cs-caption`, `.cs-eyebrow`, `.cs-mono`, `.cs-tabular`, and opt-in display scope `.cs-display-face`.
+- **Cards & Liquid Glass surfaces (`base/data.css`, `base/glass.css`):** card container `.cs-card` (modifiers `.cs-card--flat`, `.cs-card--raised`, `.cs-card--featured`, `.cs-card--interactive`; slots `.cs-card__media`, `.cs-card__header`, `.cs-card__title`, `.cs-card__subtitle`, `.cs-card__body`, `.cs-card__footer`); optical glass tiers `.cs-surface-whisper`, `.cs-surface-light`, `.cs-surface-standard` (alias `.cs-glass-card`), `.cs-surface-heavy`, opaque fallback `.cs-surface-solid` (alias `.cs-surface-matte`), and brand hero wash `.cs-aurora` (`.cs-aurora--photo`).
+- **Data display & typography (`base/components.css`, `base/data.css`, `base/typography.css`, `base/collections.css`):** responsive table wrapper `.cs-table-wrap` and `.cs-table` with right-aligned tabular numeric cells `.cs-table__cell--numeric` and subtle row rule `var(--cs-color-border-subtle)`; KPI block `.cs-stat` (`.cs-stat__label`, `.cs-stat__value`, `.cs-stat__delta--up`, `.cs-stat__delta--down`, `.cs-stat__delta--flat`); status pills `.cs-badge` (`.cs-badge--solid`, `.cs-badge--ochre`, `.cs-badge--success`, `.cs-badge--warning`, `.cs-badge--danger`, `.cs-badge--info`, `.cs-badge__dot`) and removable `.cs-tag`; `.cs-avatar` (`.cs-avatar--sm`, `.cs-avatar--md`, `.cs-avatar--lg`, `.cs-avatar--square`, `.cs-avatar-group`); `.cs-kbd`, `.cs-code`, `.cs-dl`; type role classes `.cs-display`, `.cs-display--fluid`, `.cs-h1`, `.cs-h1--fluid`, `.cs-h2`, `.cs-h3`, `.cs-h4`, `.cs-body-lg`, `.cs-body`, `.cs-secondary`, `.cs-caption`, `.cs-eyebrow`, `.cs-mono`, `.cs-tabular`, `.cs-prose`, and opt-in display scope `.cs-display-face`.
 - **Feedback & overlays (`base/feedback.css`, `base/components.css`, `base/shell.css`):** inline banner `.cs-alert` (`.cs-alert--info`, `.cs-alert--success`, `.cs-alert--warning`, `.cs-alert--danger`, `.cs-alert__icon`, `.cs-alert__title`, `.cs-alert__body`, `.cs-alert__dismiss`); toast stack `.cs-toast-stack` and `.cs-toast`; modal `.cs-dialog-layer` with theme-adaptive backdrop `.cs-dialog__overlay` (`var(--cs-color-surface-scrim)`), panel `.cs-dialog` (`.cs-dialog__header`, `.cs-dialog__title`, `.cs-dialog__body`, `.cs-dialog__actions`) and `.cs-alert-dialog` (`.cs-alert-dialog--destructive`); slide-over `.cs-drawer-scrim` and `.cs-drawer` (`.cs-drawer--left`); `.cs-popover` (`.cs-popover__panel`), `.cs-tooltip` (`.cs-tooltip__bubble`), `.cs-progress` (`.cs-progress__fill`), `.cs-spinner`, `.cs-skeleton`.
 - **Navigation, app shell & AI (`base/navigation.css`, `base/shell.css`, `base/ai.css`, `base/controls.css`):** app sidebar `.cs-sidebar` (`.cs-sidebar__label`, `.cs-nav-item`, `.cs-nav-item.is-active`), `.cs-tabs` (`.cs-tab`, `.cs-tab__count`), `.cs-breadcrumb`, `.cs-pagination`, `.cs-menu` (`.cs-menu__list`, `.cs-menu__item`, `.cs-menu__item--danger`, `.cs-menu__sep`), `.cs-steps` (`.cs-step`, `.cs-step--done`, `.cs-step--active`), command palette `.cs-cmdk-scrim` and `.cs-cmdk` (`.cs-cmdk__search`, `.cs-cmdk__list`, `.cs-cmdk__item`); AI surfaces `.cs-prompt`, `.cs-chat-msg`, `.cs-ai-disclosure` (`.cs-ai-disclosure__badge`, `.cs-ai-disclosure__panel`), `.cs-review-gate`, and `.cs-terminal`.
+
+### Signature components & canonical surface examples (ex-*)
+
+- **Signature CyberSkill surfaces:** (1) 4-tier Liquid Glass (`.cs-surface-whisper` to `.cs-surface-heavy`), (2) `.cs-aurora` radial Ochre/Umber hero wash, (3) Trustworthy AI triad (`AIDisclosureBadge` `.cs-ai-disclosure`, `ConfidenceMeter`, `HumanReviewGate` `.cs-review-gate`, `LumiAvatar` `.cs-lumi`), (4) Ngũ Hành 15-pack elemental accents (`data-cs-element`), and (5) 85 bilingual `.dc.html` document templates.
+- **Canonical cross-collection examples (`ex-*`):** `ex-pricing-tier` → `.cs-card` with `.cs-card__header`, `.cs-stat__value.cs-tabular`, and `.cs-button--secondary`; `ex-pricing-tier-featured` → `.cs-card.cs-card--featured` with `.cs-badge--ochre` and primary `.cs-button`; `ex-product-selector` → `.cs-card.cs-card--raised` with `.cs-segmented` and `.cs-check`; `ex-cart-drawer` → `.cs-drawer-scrim` + `.cs-drawer` with `.cs-dl` line items and `.cs-drawer__footer`; `ex-app-shell-row` → `.cs-sidebar` + `.cs-nav-item.is-active`; `ex-data-table-cell` → `.cs-table-wrap` + `.cs-table` + `.cs-table__cell--numeric`; `ex-auth-form-card` → `.cs-card` + `.cs-form` + `.cs-field` + `.cs-button--full`; `ex-modal-card` → `.cs-dialog-layer` + `.cs-dialog__overlay` + `.cs-dialog`; `ex-empty-state-card` → `.cs-card.cs-card--flat` + `EmptyState`; `ex-toast` → `.cs-toast-stack` + `.cs-toast`.
 
 ## Layout, grid & responsive strategy
 
@@ -405,6 +435,9 @@ Layouts compose on a `4px` spatial rhythm (`--cs-space-1` to `--cs-space-24`) wi
 - **Root attributes (`<html>`):** set `lang="vi"` (or `lang="en"`), `data-theme="light"` (`"dark"` | `"system"`), optional `data-cs-element="tho"` (`"kim"` | `"moc"` | `"thuy"` | `"hoa"` | `"tho"`), optional `data-cs-density="comfortable"` (`"compact"`), and optional `data-cs-contrast="high"`.
 - **Runtime selection:** load `styles.css` (or `styles.layered.css`) for static `.cs-*` HTML; import `@cyberskill/design` (`dist/esm/_esm/react.mjs`) for compiled React ESM or `@cyberskill/design/source` (`_esm/react.mjs`) for raw JSX; use `templates/_vendor/support.js` only when previewing `.dc.html` documents.
 - **Prompting checklist for AI generators:** specify (1) target runtime (`static-html` vs `react`), (2) theme and Ngũ Hành element (`data-theme`, `data-cs-element`), (3) bilingual copy pair (`vi` + `en` with full Vietnamese diacritics), (4) responsive container (`max-width: var(--cs-container-xl)` or `.cs-cq`), and (5) tabular numeral alignment (`.cs-tabular` / `.cs-table__cell--numeric`) for metrics and tables.
+- **Quick color & token reference:** Primary brand Umber `#45210E` (`--cs-color-brand-umber`) · Accent Ochre `#F4BA17` (`--cs-color-brand-ochre`) · Page canvas `#FFFDF8` / dark `#1a1108` (`--cs-color-surface-page`) · Panel `#FFFFFF` / dark `#221710` (`--cs-color-surface-panel`) · Raised `#FBF4E9` / dark `#2b1e14` (`--cs-color-surface-raised`) · Default border `#E7D9C6` / dark `#4a3a2c` (`--cs-color-border-default`).
+- **Ready-to-use example prompts:** (1) Hero band: `.cs-aurora` section with `.cs-eyebrow`, `.cs-display--fluid`, `.cs-prose` lead, primary `.cs-button` + `.cs-button--secondary`; (2) SaaS workspace: `.cs-sidebar` + `main` grid with 3-up `.cs-card` / `.cs-card--featured` KPI row (`.cs-stat__value.cs-tabular`) and `.cs-table-wrap` > `.cs-table` with `.cs-table__cell--numeric`; (3) Trustworthy AI review panel: `.cs-card.cs-surface-standard` pairing `.cs-chat-msg`, `.cs-ai-disclosure`, and `.cs-review-gate`.
+- **Iteration guide & known scope boundaries:** modify one component or section band at a time using `--cs-*` custom properties (never raw hex); verify light, `[data-theme="dark"]`, `360px` mobile reflow, and `pointer: coarse` `44px` targets; remember that static `.cs-*` HTML provides visual styling only (interactive keyboard roving, focus trapping, and ARIA live announcements require React components or consumer scripts, and `.dc.html` files require `templates/_vendor/support.js`).
 
 ## Components inventory
 

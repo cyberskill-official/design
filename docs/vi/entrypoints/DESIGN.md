@@ -27,6 +27,10 @@ gate: "_audit/design-md-parity.html (window.__designmd)"
 - **Ngưỡng khả năng tiếp cận:** APCA Lc ≥ 75 cho văn bản nội dung · vùng chạm ≥ 44px · không loại bỏ vòng focus · tôn trọng `prefers-reduced-motion` / `prefers-contrast`.
 - **Giọng điệu:** ấm áp · trực tiếp · trung thực · tôn trọng — luôn đủ cả bốn, không theo kiểu “vui nhộn/tinh nghịch/gây sốc”.
 
+### Chủ đề thị giác, bầu không khí và nhịp bề mặt
+
+CyberSkill kết hợp tay nghề kiến trúc ấm áp với độ chính xác quang học: trang mở đầu trên nền Warm Alabaster `--cs-color-surface-page` (`#FFFDF8` sáng / `#1a1108` tối), nâng nội dung lên `--cs-color-surface-panel` (`.cs-card`) hoặc `--cs-color-surface-raised` ấm (`.cs-card--raised`), làm nổi bật gói tiêu điểm bằng `.cs-card--featured` (viền `--cs-accent-strong` / `--cs-accent`), và xếp lớp bốn cấp kính quang học Liquid Glass (`.cs-surface-whisper`, `.cs-surface-light`, `.cs-surface-standard`, `.cs-surface-heavy`) cùng nền hero `.cs-aurora`.
+
 ## Màu sắc
 
 Màu ngữ nghĩa cốt lõi. Giá trị tối là phần ghi đè `[data-theme="dark"]` (chủ đề `system` áp dụng cùng giá trị khi có `prefers-color-scheme: dark`).
@@ -58,6 +62,12 @@ Màu ngữ nghĩa cốt lõi. Giá trị tối là phần ghi đè `[data-theme=
 | `--cs-color-semantic-danger-text` | `#4B0502` | `#FFD2CF` |
 | `--cs-color-semantic-warning-text` | `#441801` | `#FFD887` |
 | `--cs-color-semantic-info-text` | `#000A75` | `#C7DFFF` |
+
+### Vai trò chức năng của màu sắc
+
+- **Thương hiệu và tác vụ chính:** `--cs-color-brand-umber` (`#45210E`) và `--cs-color-brand-ochre` (`#F4BA17`) định hình nhận diện; `--cs-component-button-primary-bg` và `--cs-component-button-primary-fg` điều khiển nút kêu gọi hành động chính trên cả nền sáng và `[data-theme="dark"]`.
+- **Phân cấp bề mặt và đường viền:** luân phiên `--cs-color-surface-page`, `--cs-color-surface-panel`, và `--cs-color-surface-raised` để tạo nhịp phân đoạn; đóng khung bằng `--cs-color-border-default`, kẻ hàng bảng/danh sách nội bộ bằng `var(--cs-color-border-subtle)`, và phủ nền mờ hộp thoại/ngăn trượt/hướng dẫn bằng `var(--cs-color-surface-scrim)`.
+- **Văn bản và cặp trạng thái ngữ nghĩa:** dùng `--cs-color-text-primary`, `--cs-color-text-muted`, và `--cs-color-text-accent` cho phân cấp chữ (ngưỡng nội dung `APCA Lc >= 75`); ghép nền trạng thái đặc (`--cs-color-semantic-success`, `--cs-color-semantic-danger`, `--cs-color-semantic-warning`, `--cs-color-semantic-info`) với token `*-fg` và bề mặt pha sắc nhẹ với token `*-text`.
 
 ### Vai trò màu nhấn (Ngũ Hành)
 
@@ -151,6 +161,11 @@ Bí danh ngữ nghĩa trỏ vào thang chữ — thể hiện ý định thay v�
 | `--cs-heading-weight-strong` | `var(--cs-font-weight-extrabold)` | `800` |
 | `--cs-heading-weight` | `var(--cs-font-weight-bold)` | `700` |
 | `--cs-heading-tracking` | `var(--cs-letter-spacing-tight)` | `-0.01em` |
+
+### Hệ thống phân cấp kiểu chữ đầy đủ và phông chữ thay thế
+
+- **Phân cấp lớp tiện ích chữ (`base/typography.css`):** `.cs-display` (`--cs-text-display` `3.75rem`, độ đậm `800`, chiều cao dòng `1.15`, giãn chữ `-0.01em`) và lớp co giãn `.cs-display--fluid`; `.cs-h1` (`--cs-text-h1` `2.25rem`, độ đậm `800`, chiều cao dòng `1.35`) và `.cs-h1--fluid`; `.cs-h2` (`--cs-text-h2` `1.875rem`, độ đậm `700`); `.cs-h3` (`--cs-text-h3` `1.5rem`, độ đậm `700`); `.cs-h4` (`--cs-text-h4` `1.25rem`, độ đậm `600`); `.cs-body-lg` (`--cs-text-body-lg` `1.125rem`, chiều cao dòng `1.5`); `.cs-body` (`--cs-text-body` `1rem`, chiều cao dòng `1.5`); `.cs-secondary` (`--cs-text-secondary` `0.875rem`); `.cs-caption` (`--cs-text-caption` `0.75rem`); `.cs-eyebrow` (`--cs-text-eyebrow` `0.75rem`, độ đậm `700`, chữ hoa, giãn chữ `0.08em`); `.cs-mono` (`--cs-font-family-mono`), `.cs-tabular` (`tabular-nums`), và `.cs-prose` (`--cs-prose-measure` `45rem`).
+- **Phông chữ thay thế và an toàn dấu tiếng Việt:** khi tệp WOFF2 tự lưu trữ không khả dụng trong môi trường bên ngoài, `--cs-font-family-ui` (`Be Vietnam Pro`) rơi về `ui-sans-serif, system-ui, sans-serif` (hoặc `Inter`), `--cs-font-family-display` (`Space Grotesk`) rơi về `'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif`, và `--cs-font-family-mono` (`JetBrains Mono`) rơi về `ui-monospace, SFMono-Regular, Menlo, Consolas, monospace`; luôn giữ `--cs-font-line-height-body` (`1.5`) và `--cs-font-line-height-heading` (`1.35`) để dấu tiếng Việt chồng tầng không bao giờ bị cắt.
 
 ## Khoảng cách và bán kính
 
@@ -269,6 +284,11 @@ Các giá trị ghi đè theo phạm vi (tách biệt với các hàng token cơ
 | `--cs-icon-md` | `20px` |
 | `--cs-icon-lg` | `24px` |
 
+### Triết lý khoảng trắng, thang bán kính bo góc và hình học đa phương tiện
+
+- **Khoảng trắng và nhịp phân đoạn:** tách các dải nội dung lớn bằng `--cs-space-16` (`64px`) đến `--cs-space-24` (`96px`), giữ đệm trong của thẻ ở `--cs-space-4` (`16px`) đến `--cs-space-6` (`24px`), và giới hạn độ rộng cột đọc dài bằng `.cs-prose` (`--cs-prose-measure` `45rem`).
+- **Thang bán kính bo góc và hình học đa phương tiện (`Shapes`):** `--cs-radius-sm` (`4px`) cho `.cs-kbd`, `.cs-code`, và nhãn nhỏ; `--cs-radius-md` (`8px`) cho `.cs-button`, `.cs-field__control`, `.cs-popover__panel`, và `.cs-menu__list`; `--cs-radius-lg` (`14px`) cho `.cs-card`, `.cs-dialog`, `.cs-cmdk`, và tấm kính `.cs-surface-*`; `--cs-radius-full` (`999px`) cho `.cs-badge`, `.cs-tag`, và `.cs-avatar` tròn; đóng khung hình ảnh bằng `.cs-card__media`, `AspectRatio` (`16:9`, `4:3`, `1:1`), `.cs-image__zoom`, và `.cs-aurora--photo`.
+
 ## Độ nổi
 
 Giá trị bóng là chuỗi CSS box-shadow nguyên gốc từ `$extensions["com.cyberskill"].css` (đối tượng DTCG có cấu trúc lưu cùng các lớp). Bảng có giá trị ghi đè cho chủ đề tối.
@@ -305,6 +325,11 @@ Giá trị bóng là chuỗi CSS box-shadow nguyên gốc từ `$extensions["com
 | `--cs-glass-heavy-blur` | `24px` |
 | `--cs-glass-heavy-saturate` | `180%` |
 | `--cs-glass-heavy-opacity` | `90%` |
+
+### Phân cấp độ nổi (Cấp 0–5) và chiều sâu trang trí
+
+- **Phân cấp bề mặt và bóng đổ sáu mức:** Cấp 0 (`--cs-depth-bg` `0`) nền phẳng `--cs-color-surface-page`; Cấp 1 (`--cs-depth-section` `5`) dải nền `--cs-color-surface-raised`, `.cs-card--flat`, và `.cs-card--raised`; Cấp 2 (`--cs-depth-card` `10`) thẻ `.cs-card` mặc định với `--cs-shadow-xs` / `--cs-shadow-sm` và `.cs-surface-whisper` / `.cs-surface-light`; Cấp 3 thẻ tương tác/tiêu điểm `.cs-card--interactive:hover` và `.cs-card--featured` với `--cs-shadow-md` cùng `.cs-surface-standard`; Cấp 4 (`--cs-depth-nav` `50`, `--cs-depth-dropdown` `60`, `--cs-depth-overlay` `80`) thanh đầu trang cố định, `.cs-popover__panel`, `.cs-menu__list`, và `.cs-surface-heavy` với `--cs-shadow-lg`; Cấp 5 (`--cs-depth-modal` `100`, `--cs-depth-toast` `200`) `.cs-dialog`, `.cs-drawer`, `.cs-cmdk`, và `.cs-toast` với `--cs-shadow-xl` trên lớp chắn `var(--cs-color-surface-scrim)`.
+- **Chiều sâu trang trí:** kết hợp bóng đổ đa lớp tông Umber ấm với viền sáng nội bộ `1px` (`--_cs-glass-border`) trên các tấm `.cs-surface-*` và dải chuyển sắc hướng tâm Ochre/Umber trên nền hero `.cs-aurora`; khi bật `prefers-reduced-transparency: reduce` hoặc `forced-colors: active`, bề mặt tự chuyển về nền đặc `.cs-surface-solid`.
 
 ## Chuyển động
 
@@ -378,10 +403,15 @@ Bên dùng HTML tĩnh và công cụ sinh mã không kèm runtime định kiểu
 
 - **Tác vụ và nút bấm (`base/components.css`):** nút chính `.cs-button`, các biến thể `.cs-button--secondary`, `.cs-button--tertiary`, `.cs-button--ghost`, `.cs-button--danger`, `.cs-button--danger-ghost`; kích thước `.cs-button--xs` (`28px`, nâng lên `44px` khi `pointer: coarse`), `.cs-button--sm` (`36px`, nâng lên `44px` khi `pointer: coarse`), cỡ trung bình mặc định (`44px`), `.cs-button--lg` (`52px`), trải rộng toàn khung `.cs-button--full`; trạng thái `.is-disabled`, `.is-loading` kèm `.cs-button__spinner`.
 - **Điều khiển biểu mẫu và trường nhập (`base/components.css`, `base/forms.css`, `base/controls.css`):** khung trường `.cs-field` gồm `.cs-field__label`, `.cs-field__control`, `.cs-field__description`, `.cs-field__error` và trạng thái lỗi `.cs-field.is-invalid`; điều khiển lựa chọn `.cs-check`, `.cs-radio`, `.cs-switch` (`.cs-switch__track`); ô nhập phức hợp `.cs-select`, `.cs-native-select`, `.cs-search` (`.cs-search__clear`), `.cs-stepper`, `.cs-otp`, `.cs-slider`, `.cs-segmented`.
-- **Thẻ nội dung và bề mặt Liquid Glass (`base/data.css`, `base/glass.css`):** khung thẻ `.cs-card` (biến thể `.cs-card--flat`, `.cs-card--interactive`; vùng con `.cs-card__media`, `.cs-card__header`, `.cs-card__title`, `.cs-card__subtitle`, `.cs-card__body`, `.cs-card__footer`); các cấp vật liệu kính `.cs-surface-whisper`, `.cs-surface-light`, `.cs-surface-standard` (bí danh `.cs-glass-card`), `.cs-surface-heavy`, bề mặt đặc dự phòng `.cs-surface-solid` (bí danh `.cs-surface-matte`), và nền hero thương hiệu `.cs-aurora` (`.cs-aurora--photo`).
-- **Hiển thị dữ liệu và kiểu chữ (`base/components.css`, `base/data.css`, `base/typography.css`, `base/collections.css`):** khung bảng thích ứng `.cs-table-wrap` và `.cs-table` với ô số căn phải dạng bảng `.cs-table__cell--numeric` cùng đường kẻ hàng dịu `var(--cs-color-border-subtle)`; khối chỉ số `.cs-stat` (`.cs-stat__label`, `.cs-stat__value`, `.cs-stat__delta--up`, `.cs-stat__delta--down`, `.cs-stat__delta--flat`); nhãn trạng thái `.cs-badge` (`.cs-badge--solid`, `.cs-badge--ochre`, `.cs-badge--success`, `.cs-badge--warning`, `.cs-badge--danger`, `.cs-badge--info`, `.cs-badge__dot`) và thẻ xóa được `.cs-tag`; `.cs-avatar` (`.cs-avatar--sm`, `.cs-avatar--md`, `.cs-avatar--lg`, `.cs-avatar--square`, `.cs-avatar-group`); `.cs-kbd`, `.cs-code`, `.cs-dl`; các lớp vai trò chữ `.cs-display`, `.cs-display--fluid`, `.cs-h1`, `.cs-h1--fluid`, `.cs-h2`, `.cs-h3`, `.cs-h4`, `.cs-body-lg`, `.cs-body`, `.cs-secondary`, `.cs-caption`, `.cs-eyebrow`, `.cs-mono`, `.cs-tabular`, và phạm vi chọn họ chữ tiêu đề `.cs-display-face`.
+- **Thẻ nội dung và bề mặt Liquid Glass (`base/data.css`, `base/glass.css`):** khung thẻ `.cs-card` (biến thể `.cs-card--flat`, `.cs-card--raised`, `.cs-card--featured`, `.cs-card--interactive`; vùng con `.cs-card__media`, `.cs-card__header`, `.cs-card__title`, `.cs-card__subtitle`, `.cs-card__body`, `.cs-card__footer`); các cấp vật liệu kính `.cs-surface-whisper`, `.cs-surface-light`, `.cs-surface-standard` (bí danh `.cs-glass-card`), `.cs-surface-heavy`, bề mặt đặc dự phòng `.cs-surface-solid` (bí danh `.cs-surface-matte`), và nền hero thương hiệu `.cs-aurora` (`.cs-aurora--photo`).
+- **Hiển thị dữ liệu và kiểu chữ (`base/components.css`, `base/data.css`, `base/typography.css`, `base/collections.css`):** khung bảng thích ứng `.cs-table-wrap` và `.cs-table` với ô số căn phải dạng bảng `.cs-table__cell--numeric` cùng đường kẻ hàng dịu `var(--cs-color-border-subtle)`; khối chỉ số `.cs-stat` (`.cs-stat__label`, `.cs-stat__value`, `.cs-stat__delta--up`, `.cs-stat__delta--down`, `.cs-stat__delta--flat`); nhãn trạng thái `.cs-badge` (`.cs-badge--solid`, `.cs-badge--ochre`, `.cs-badge--success`, `.cs-badge--warning`, `.cs-badge--danger`, `.cs-badge--info`, `.cs-badge__dot`) và thẻ xóa được `.cs-tag`; `.cs-avatar` (`.cs-avatar--sm`, `.cs-avatar--md`, `.cs-avatar--lg`, `.cs-avatar--square`, `.cs-avatar-group`); `.cs-kbd`, `.cs-code`, `.cs-dl`; các lớp vai trò chữ `.cs-display`, `.cs-display--fluid`, `.cs-h1`, `.cs-h1--fluid`, `.cs-h2`, `.cs-h3`, `.cs-h4`, `.cs-body-lg`, `.cs-body`, `.cs-secondary`, `.cs-caption`, `.cs-eyebrow`, `.cs-mono`, `.cs-tabular`, `.cs-prose`, và phạm vi chọn họ chữ tiêu đề `.cs-display-face`.
 - **Phản hồi và lớp phủ (`base/feedback.css`, `base/components.css`, `base/shell.css`):** thông báo nội tuyến `.cs-alert` (`.cs-alert--info`, `.cs-alert--success`, `.cs-alert--warning`, `.cs-alert--danger`, `.cs-alert__icon`, `.cs-alert__title`, `.cs-alert__body`, `.cs-alert__dismiss`); ngăn xếp `.cs-toast-stack` và `.cs-toast`; hộp thoại `.cs-dialog-layer` với nền mờ thích ứng chủ đề `.cs-dialog__overlay` (`var(--cs-color-surface-scrim)`), khung `.cs-dialog` (`.cs-dialog__header`, `.cs-dialog__title`, `.cs-dialog__body`, `.cs-dialog__actions`) và `.cs-alert-dialog` (`.cs-alert-dialog--destructive`); ngăn trượt `.cs-drawer-scrim` và `.cs-drawer` (`.cs-drawer--left`); `.cs-popover` (`.cs-popover__panel`), `.cs-tooltip` (`.cs-tooltip__bubble`), `.cs-progress` (`.cs-progress__fill`), `.cs-spinner`, `.cs-skeleton`.
 - **Điều hướng, khung ứng dụng và AI (`base/navigation.css`, `base/shell.css`, `base/ai.css`, `base/controls.css`):** thanh bên `.cs-sidebar` (`.cs-sidebar__label`, `.cs-nav-item`, `.cs-nav-item.is-active`), `.cs-tabs` (`.cs-tab`, `.cs-tab__count`), `.cs-breadcrumb`, `.cs-pagination`, `.cs-menu` (`.cs-menu__list`, `.cs-menu__item`, `.cs-menu__item--danger`, `.cs-menu__sep`), `.cs-steps` (`.cs-step`, `.cs-step--done`, `.cs-step--active`), bảng lệnh `.cs-cmdk-scrim` và `.cs-cmdk` (`.cs-cmdk__search`, `.cs-cmdk__list`, `.cs-cmdk__item`); bề mặt AI `.cs-prompt`, `.cs-chat-msg`, `.cs-ai-disclosure` (`.cs-ai-disclosure__badge`, `.cs-ai-disclosure__panel`), `.cs-review-gate`, và `.cs-terminal`.
+
+### Thành phần đặc trưng và các bề mặt mẫu chuẩn (ex-*)
+
+- **Bề mặt đặc trưng của CyberSkill:** (1) 4 cấp kính quang học Liquid Glass (`.cs-surface-whisper` đến `.cs-surface-heavy`), (2) nền hero hướng tâm Ochre/Umber `.cs-aurora`, (3) bộ ba AI đáng tin cậy (`AIDisclosureBadge` `.cs-ai-disclosure`, `ConfidenceMeter`, `HumanReviewGate` `.cs-review-gate`, `LumiAvatar` `.cs-lumi`), (4) 15 gói màu nhấn Ngũ Hành (`data-cs-element`), và (5) 85 mẫu tài liệu song ngữ `.dc.html`.
+- **Các bề mặt mẫu chuẩn đối chiếu (`ex-*`):** `ex-pricing-tier` → `.cs-card` gồm `.cs-card__header`, `.cs-stat__value.cs-tabular`, và `.cs-button--secondary`; `ex-pricing-tier-featured` → `.cs-card.cs-card--featured` kèm `.cs-badge--ochre` và nút chính `.cs-button`; `ex-product-selector` → `.cs-card.cs-card--raised` kèm `.cs-segmented` và `.cs-check`; `ex-cart-drawer` → `.cs-drawer-scrim` + `.cs-drawer` kèm danh sách khoản mục `.cs-dl` và `.cs-drawer__footer`; `ex-app-shell-row` → `.cs-sidebar` + `.cs-nav-item.is-active`; `ex-data-table-cell` → `.cs-table-wrap` + `.cs-table` + `.cs-table__cell--numeric`; `ex-auth-form-card` → `.cs-card` + `.cs-form` + `.cs-field` + `.cs-button--full`; `ex-modal-card` → `.cs-dialog-layer` + `.cs-dialog__overlay` + `.cs-dialog`; `ex-empty-state-card` → `.cs-card.cs-card--flat` + `EmptyState`; `ex-toast` → `.cs-toast-stack` + `.cs-toast`.
 
 ## Bố cục, lưới và chiến lược đáp ứng
 
@@ -405,6 +435,9 @@ Bố cục dựa trên nhịp không gian `4px` (`--cs-space-1` đến `--cs-spa
 - **Thuộc tính gốc (`<html>`):** đặt `lang="vi"` (hoặc `lang="en"`), `data-theme="light"` (`"dark"` | `"system"`), tùy chọn `data-cs-element="tho"` (`"kim"` | `"moc"` | `"thuy"` | `"hoa"` | `"tho"`), tùy chọn `data-cs-density="comfortable"` (`"compact"`), và tùy chọn `data-cs-contrast="high"`.
 - **Chọn runtime:** nạp `styles.css` (hoặc `styles.layered.css`) cho HTML tĩnh `.cs-*`; nhập `@cyberskill/design` (`dist/esm/_esm/react.mjs`) cho React ESM đã biên dịch hoặc `@cyberskill/design/source` (`_esm/react.mjs`) cho JSX nguồn; chỉ dùng `templates/_vendor/support.js` khi xem trước tài liệu `.dc.html`.
 - **Danh sách kiểm tra khi viết prompt cho AI:** nêu rõ (1) runtime đích (`static-html` hay `react`), (2) chủ đề và nguyên tố Ngũ Hành (`data-theme`, `data-cs-element`), (3) cặp nội dung song ngữ (`vi` + `en` giữ nguyên dấu tiếng Việt), (4) khung chứa đáp ứng (`max-width: var(--cs-container-xl)` hoặc `.cs-cq`), và (5) căn chỉnh chữ số dạng bảng (`.cs-tabular` / `.cs-table__cell--numeric`) cho chỉ số và bảng.
+- **Tham chiếu nhanh màu sắc và token:** Màu thương hiệu chính Umber `#45210E` (`--cs-color-brand-umber`) · Màu nhấn Ochre `#F4BA17` (`--cs-color-brand-ochre`) · Nền trang `#FFFDF8` / tối `#1a1108` (`--cs-color-surface-page`) · Nền bảng `#FFFFFF` / tối `#221710` (`--cs-color-surface-panel`) · Nền nổi `#FBF4E9` / tối `#2b1e14` (`--cs-color-surface-raised`) · Viền mặc định `#E7D9C6` / tối `#4a3a2c` (`--cs-color-border-default`).
+- **Mẫu prompt dùng ngay:** (1) Dải Hero: phân đoạn `.cs-aurora` gồm `.cs-eyebrow`, `.cs-display--fluid`, đoạn dẫn `.cs-prose`, nút chính `.cs-button` + `.cs-button--secondary`; (2) Không gian làm việc SaaS: lưới `.cs-sidebar` + `main` với hàng 3 thẻ KPI `.cs-card` / `.cs-card--featured` (`.cs-stat__value.cs-tabular`) và `.cs-table-wrap` > `.cs-table` có `.cs-table__cell--numeric`; (3) Khung rà soát AI đáng tin cậy: `.cs-card.cs-surface-standard` kết hợp `.cs-chat-msg`, `.cs-ai-disclosure`, và `.cs-review-gate`.
+- **Hướng dẫn tinh chỉnh lặp và giới hạn phạm vi:** chỉnh sửa từng thành phần hoặc dải phân đoạn một bằng các thuộc tính `--cs-*` (không gán cứng mã hex); kiểm tra chế độ sáng, `[data-theme="dark"]`, dàn trang di động `360px`, và vùng chạm `pointer: coarse` `44px`; lưu ý HTML tĩnh `.cs-*` chỉ cung cấp định kiểu thị giác (điều hướng bàn phím, giữ focus và thông báo ARIA động cần thành phần React hoặc mã kịch bản của bên dùng, và tệp `.dc.html` cần `templates/_vendor/support.js`).
 
 ## Danh mục thành phần
 

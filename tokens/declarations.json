@@ -53,7 +53,7 @@
     },
     {
       "path": "base/typography.css",
-      "sha256": "24fee07f6b2256703ae20a877e3af578997a63a64f93d0f3c85ffa4dbef10f1a"
+      "sha256": "62c184f8f7c1bf0252d29a1857f28a1234ad5974bad992bb59597e81b87a697e"
     },
     {
       "path": "base/components.css",
@@ -69,7 +69,7 @@
     },
     {
       "path": "base/data.css",
-      "sha256": "62ab058ede8310b52ba7b6b9645fe36faeddace1754085cab30d67f0fbff55ff"
+      "sha256": "919f233f36b48162ce9b445346cc68fe13b3ae9200fe280c497c445caa067f21"
     },
     {
       "path": "base/navigation.css",
@@ -81,7 +81,7 @@
     },
     {
       "path": "base/controls.css",
-      "sha256": "7784408919b89da59b6f2bc2bf668df01d254356502f94847304feb348366963"
+      "sha256": "d8e5f95110b124a38cadc0d8ec7b0cbc267684132431fe78274716b4b1242cd4"
     },
     {
       "path": "base/collections.css",
@@ -89,7 +89,7 @@
     },
     {
       "path": "base/shell.css",
-      "sha256": "43693568b59494007498abd56553e3c65e136cf87c21f40805a79c38f003fbf4"
+      "sha256": "70d673477fe99cf7b6185fc3b4297503cea246c50da4b2028ed5c9e6c534dead"
     },
     {
       "path": "base/glass.css",
@@ -17112,7 +17112,7 @@
     {
       "order": 1050,
       "sourcePath": "base/typography.css",
-      "line": 23,
+      "line": 24,
       "column": 20,
       "name": "--cs-heading-family",
       "value": "var(--cs-font-family-display)",

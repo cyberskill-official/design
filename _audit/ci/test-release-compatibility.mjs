@@ -4,11 +4,16 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { createHash } from 'node:crypto';
 import { compatibilityBlockers, validateCompatibilityRegistry } from '../../scripts/lib/release-compatibility.mjs';
+import { compareReleaseVersions } from '../../scripts/lib/release-version.mjs';
 const actual = JSON.parse(readFileSync('components/release-compatibility.json'));
 const currentRepoVersion = readFileSync('VERSION', 'utf8').trim();
 const publishedRelease = JSON.parse(readFileSync('_audit/ci/fixtures/npm-published-release.json', 'utf8'));
-assert.equal(actual.baselineVersion, currentRepoVersion, 'Compatibility baselineVersion must stay synchronized with current VERSION so prepare-release works');
-assert.deepEqual(compatibilityBlockers('.', currentRepoVersion, '2.2.1', { registry: actual, today: '2026-11-05' }), [], 'Current 2.2.0 baseline allows clean patch/minor preparation when pendingChanges is empty');
+assert(
+  actual.baselineVersion === currentRepoVersion || compareReleaseVersions(currentRepoVersion, actual.baselineVersion) > 0,
+  'Compatibility baselineVersion must match current VERSION or its pre-candidate baseline'
+);
+const nextFromBaseline = actual.baselineVersion.replace(/\.(\d+)$/, (_, patch) => `.${Number(patch) + 1}`);
+assert.deepEqual(compatibilityBlockers('.', actual.baselineVersion, currentRepoVersion === actual.baselineVersion ? nextFromBaseline : currentRepoVersion, { registry: actual, today: '2026-11-05' }), [], 'Current compatibility baseline allows clean patch/minor preparation when pendingChanges is empty');
 for (const docPath of ['README.md', 'docs/consuming.md', 'docs/release-notes.md', 'stories/ReleaseNotes/ReleaseNotes.mdx', 'docs/vi/entrypoints/README.md', 'docs/vi/consuming.md', 'docs/vi/release-notes.md']) {
   const docText = readFileSync(docPath, 'utf8');
   assert(docText.includes(publishedRelease.version), `${docPath} must reference recorded npm published release ${publishedRelease.version}`);

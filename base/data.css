@@ -3,6 +3,8 @@
 /* Card */
 .cs-card { background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-lg); box-shadow: var(--cs-shadow-sm); color: var(--cs-color-text-primary); overflow: hidden; }
 .cs-card--flat { box-shadow: none; }
+.cs-card--raised { background: var(--cs-color-surface-raised); }
+.cs-card--featured { background: var(--_cs-light, var(--cs-color-surface-raised))var(--_cs-dark, color-mix(in oklab, var(--cs-accent) 12%, var(--cs-color-surface-panel))); border-color: var(--_cs-light, var(--cs-accent-strong))var(--_cs-dark, var(--cs-accent)); box-shadow: var(--cs-shadow-md); }
 .cs-card--interactive { cursor: pointer; transition: border-color var(--cs-duration-fast) var(--cs-ease-standard), transform var(--cs-duration-fast) var(--cs-ease-standard); }
 .cs-card--interactive:hover { border-color: var(--cs-accent); box-shadow: var(--cs-shadow-md); }
 .cs-card--interactive:focus-visible { box-shadow: 0 0 0 5px var(--cs-color-accent-ochre), var(--cs-shadow-sm); transition: border-color var(--cs-duration-fast) var(--cs-ease-standard), transform var(--cs-duration-fast) var(--cs-ease-standard); }

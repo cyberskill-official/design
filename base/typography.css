@@ -15,6 +15,7 @@
 .cs-eyebrow { font-family: var(--cs-font-family-ui); font-size: var(--cs-text-eyebrow); font-weight: var(--cs-font-weight-bold); text-transform: uppercase; letter-spacing: var(--cs-letter-spacing-caps); color: var(--cs-color-text-accent); }
 .cs-mono { font-family: var(--cs-font-family-mono); }
 .cs-tabular { font-variant-numeric: tabular-nums; }
+.cs-prose { max-inline-size: var(--cs-prose-measure, 45rem); line-height: var(--cs-font-lineHeight-body, 1.5); }
 /* Opt in to the display face for a subtree — retargets --cs-heading-family so
  * .cs-display/.cs-h1…h4 and bare headings follow, body copy stays on the UI
  * face. Space Grotesk tops out at 700, so --cs-heading-weight-strong (800)
