@@ -129,7 +129,7 @@
 
 /* ---- Dialog ---- */
 .cs-dialog-layer { inset: 0; position: fixed; z-index: var(--cs-depth-modal); }
-.cs-dialog__overlay { background: rgba(31, 19, 11, 0.42); inset: 0; position: absolute; }
+.cs-dialog__overlay { background: var(--cs-color-surface-scrim, var(--_cs-surface-scrim)); inset: 0; position: absolute; }
 .cs-dialog {
   background: var(--cs-color-surface-panel, #ffffff);
   border-radius: var(--cs-radius-md, 8px);
@@ -190,8 +190,13 @@
 .cs-table-wrap--status { padding: var(--cs-space-4, 16px) 0; }
 .cs-table { border-collapse: collapse; color: var(--cs-color-text-primary, #45210e); inline-size: 100%; }
 .cs-table th, .cs-table td {
-  border-block-end: 1px solid rgba(69, 33, 14, 0.18);
+  border-block-end: 1px solid var(--cs-color-border-subtle, var(--_cs-border-subtle));
   padding: 0.625rem 0.75rem; text-align: start;
+}
+.cs-table th.cs-table__cell--numeric,
+.cs-table td.cs-table__cell--numeric {
+  font-variant-numeric: tabular-nums;
+  text-align: end;
 }
 .cs-table thead th {
   font-size: var(--cs-font-size-xs, 0.75rem); text-transform: uppercase;
@@ -210,7 +215,7 @@
 .cs-ai-disclosure__panel {
   background: var(--cs-color-surface-panel, #ffffff);
   color: var(--cs-color-text-primary, #45210e);
-  border: 1px solid rgba(69, 33, 14, 0.18); border-radius: var(--cs-radius-md, 8px);
+  border: 1px solid var(--cs-color-border-subtle, var(--_cs-border-subtle)); border-radius: var(--cs-radius-md, 8px);
   box-shadow: var(--cs-shadow-xs, 0 1px 2px rgba(31, 19, 11, 0.08));
   display: grid; gap: 0.375rem; inset-block-start: calc(100% + 0.375rem); inset-inline-start: 0;
   min-inline-size: 18rem; padding: 0.75rem; position: absolute; z-index: var(--cs-depth-dropdown, 60);

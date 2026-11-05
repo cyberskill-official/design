@@ -53,6 +53,6 @@ try {
   assert.throws(()=>projectScenarioStories(next+'// BEGIN GENERATED COMPONENT SCENARIO STORIES\n',cases),/Duplicate/);negatives++;
   assert.throws(()=>projectScenarioStories(next.replace('// END GENERATED COMPONENT SCENARIO STORIES',''),cases),/Damaged/);negatives++;
   mkdirSync('test-results/component-scenarios',{recursive:true});
-  writeFileSync('test-results/component-scenarios/structural.json',JSON.stringify({status:'PASS',coverage:model.coverage,negativeControls:negatives,deterministic:true,schema:true,scope:'Exact declared finite/default/disabled/error coverage and eight explicit empty contracts; no whole keyboard or all-API behavior claim.'},null,2)+'\n');
+  writeFileSync('test-results/component-scenarios/structural.json',JSON.stringify({status:'PASS',coverage:model.coverage,negativeControls:negatives,deterministic:true,schema:true,scope:'Exact declared finite/default/disabled/error coverage and thirteen explicit empty contracts; no whole keyboard or all-API behavior claim.'},null,2)+'\n');
   console.log('PASS source-bound component scenarios/schema/determinism and '+negatives+' fail-closed controls');
 } finally {rmSync(scratch,{recursive:true,force:true});}

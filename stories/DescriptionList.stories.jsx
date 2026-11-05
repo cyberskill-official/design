@@ -21,3 +21,15 @@ export const Matrix = {
     </div>
   ),
 };
+
+// BEGIN GENERATED COMPONENT SCENARIO STORIES
+import {renderComponentScenario, playComponentScenario} from "./_scenarios/renderer.jsx";
+export const ScenarioDescriptionListEmpty = {
+  name: "DescriptionList: Empty collection",
+  args: {
+  "items": []
+},
+  render: args => renderComponentScenario("DescriptionList--empty",args),
+  play: ({canvasElement}) => playComponentScenario("DescriptionList--empty",canvasElement),
+};
+// END GENERATED COMPONENT SCENARIO STORIES

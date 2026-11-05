@@ -17,4 +17,11 @@ for(const [name,code,expected]of cases)assert.equal(lintCss(code).length>0,expec
 const files=['styles.css',...['tokens','base'].flatMap(dir=>readdirSync(dir,{withFileTypes:true}).filter(entry=>entry.isFile()&&entry.name.endsWith('.css')).map(entry=>dir+'/'+entry.name))];
 assert(files.length>1,'Real shared CSS sources must be linted');
 for(const path of files)assert.deepEqual(lintCss(readFileSync(path,'utf8'),{from:path}),[],path);
+const componentsCss=readFileSync('base/components.css','utf8'),shellCss=readFileSync('base/shell.css','utf8'),interactionCss=readFileSync('base/interaction.css','utf8'),typographyCss=readFileSync('base/typography.css','utf8'),typographyTokensCss=readFileSync('tokens/typography.css','utf8');
+assert(!componentsCss.includes('rgba(69, 33, 14, 0.18)'),'base/components.css must use theme-adaptive border subtle token/variable instead of hardcoded light-umber rgba');
+assert(!shellCss.includes('rgba(31, 19, 11, 0.42)'),'base/shell.css must use theme-adaptive surface scrim token/variable instead of hardcoded rgba');
+assert(!interactionCss.includes('rgba(69, 33, 14, 0.24)'),'base/interaction.css must use theme-adaptive hover shadow instead of hardcoded rgba');
+assert(typographyCss.includes('.cs-tabular')&&typographyCss.includes('.cs-display--fluid')&&typographyCss.includes('.cs-h1--fluid'),'base/typography.css must expose tabular and fluid display/h1 utilities');
+assert(componentsCss.includes('.cs-table__cell--numeric'),'base/components.css must expose .cs-table__cell--numeric for tabular numeric columns');
+assert(!/Expression-overridable|Expressions retune/i.test(typographyTokensCss),'tokens/typography.css must not reference the retired Expression axis');
 console.log(`PASS CSS lint: ${files.length} authored/generated stylesheets; unknown property, syntax and invalid hex mutations rejected; standard/custom/vendor/modern syntax accepted. No glob engine is used.`);

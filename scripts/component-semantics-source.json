@@ -253,6 +253,16 @@
             "assert(got&&got.getDate()===15,'onChange fired with day 15')",
             "assert(await until(()=>!document.querySelector('.cs-datepicker__pop')),'popover closes after pick')"
           ]
+        },
+        {
+          "id": "datePicker.bounded-a11y",
+          "statement": "DatePicker — exposes dialog popup trigger. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "DatePicker — exposes dialog popup trigger",
+          "assertions": [
+            "assert(NS.DatePicker,'missing')",
+            "assert(c.querySelector('button.cs-datepicker__field').getAttribute('aria-haspopup')==='dialog','datepicker trigger')"
+          ]
         }
       ],
       "semantics": {
@@ -381,6 +391,16 @@
           "assertions": [
             "assert(val===3,'3 after inc')"
           ]
+        },
+        {
+          "id": "numberField.bounded-a11y",
+          "statement": "NumberField — exposes stepper buttons and input. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "NumberField — exposes stepper buttons and input",
+          "assertions": [
+            "assert(NS.NumberField,'missing')",
+            "assert(c.querySelector('input').value==='3'&&c.querySelectorAll('button').length===2,'numberfield controls')"
+          ]
         }
       ],
       "semantics": {
@@ -471,6 +491,16 @@
             "assert(!input.checked,'expected off initially')",
             "assert(input.checked,'expected on after click')"
           ]
+        },
+        {
+          "id": "switch.bounded-a11y",
+          "statement": "Switch — exposes switch role and checked state. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Switch — exposes switch role and checked state",
+          "assertions": [
+            "assert(NS.Switch,'missing')",
+            "assert(c.querySelector('[role=\"switch\"]').checked===true,'switch checked')"
+          ]
         }
       ],
       "semantics": {
@@ -553,6 +583,16 @@
             "assert(input,'no checkbox input')",
             "assert(!input.checked,'expected unchecked')",
             "assert(input.checked,'expected checked after click')"
+          ]
+        },
+        {
+          "id": "checkbox.bounded-a11y",
+          "statement": "Checkbox — associates label with checkbox input. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Checkbox — associates label with checkbox input",
+          "assertions": [
+            "assert(NS.Checkbox,'missing')",
+            "assert(c.querySelector('input[type=\"checkbox\"]').checked===true,'checkbox checked')"
           ]
         }
       ],
@@ -640,6 +680,16 @@
             "assert(trig[1].getAttribute('aria-expanded')==='true','item1 should open on click')",
             "assert(trig[0].getAttribute('aria-expanded')==='false','item0 should close (single-open)')"
           ]
+        },
+        {
+          "id": "accordion.bounded-a11y",
+          "statement": "Accordion — exposes expanded trigger state. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Accordion — exposes expanded trigger state",
+          "assertions": [
+            "assert(NS.Accordion,'missing')",
+            "assert(c.querySelector('button.cs-accordion__trigger').getAttribute('aria-expanded')==='true','accordion expanded')"
+          ]
         }
       ],
       "semantics": {
@@ -703,7 +753,7 @@
           {
             "statement": "Owned Storybook Default fixture declares an example of Accordion through its component metadata. This is source evidence; mounting, interactions and accessibility require a matching runtime receipt.",
             "sourcePath": "stories/Accordion.stories.jsx",
-            "sourceSha256": "1630a32254a92fa261c6e4cb497630366432573541591a3d598d3e4423349d5a",
+            "sourceSha256": "a603e154ff73ae2d9e7a0967edf7310c4970c8370f106edcd11f4c47ada0d3f8",
             "sourceSnippets": [
               "export default {\n  title: 'Components/Data/Accordion',\n  component: Accordion,\n  tags: ['autodocs'],\n  argTypes: {\n  \"rootProps\": {\"control\":\"object\",\"description\":\"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.\",\"table\":{\"category\":\"DOM targets\"}},\n  \"items\": {\n    \"control\": \"object\"\n  },\n  \"defaultOpen\": {\n    \"control\": \"number\"\n  },\n  \"allowMultiple\": {\n    \"control\": \"boolean\"\n  }\n},\n  args: { items: [{ title: 'What is a wish?', content: 'A clear outcome.' }, { title: 'Languages', content: 'EN · VI.' }], defaultOpen: 0 },\n};",
               "export const Default = {};"
@@ -850,6 +900,16 @@
             "assert(btn,'button row')",
             "assert(hit,'onClick fired')"
           ]
+        },
+        {
+          "id": "item.bounded-a11y",
+          "statement": "Item — marks selected link item. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Item — marks selected link item",
+          "assertions": [
+            "assert(NS.Item,'missing')",
+            "assert(c.querySelector('a.cs-item').getAttribute('aria-current')==='true','selected item')"
+          ]
         }
       ],
       "semantics": {
@@ -936,6 +996,16 @@
             "assert(NativeSelect,'NativeSelect export missing')",
             "assert(sel,'select')",
             "assert(val==='b','onChange value')"
+          ]
+        },
+        {
+          "id": "nativeSelect.bounded-a11y",
+          "statement": "NativeSelect — associates label with native select. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "NativeSelect — associates label with native select",
+          "assertions": [
+            "assert(NS.NativeSelect,'missing')",
+            "assert(c.querySelector('select').value==='a'&&c.textContent.includes('Role'),'nativeselect value')"
           ]
         }
       ],
@@ -1031,6 +1101,16 @@
             "assert(c.querySelector('.cs-collapsible__panel'),'panel visible when open')",
             "assert(trig.getAttribute('aria-expanded')==='false','should collapse on second click')",
             "assert(!c.querySelector('.cs-collapsible__panel'),'panel hidden after collapse')"
+          ]
+        },
+        {
+          "id": "collapsible.bounded-a11y",
+          "statement": "Collapsible — exposes region when open. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Collapsible — exposes region when open",
+          "assertions": [
+            "assert(NS.Collapsible,'missing')",
+            "assert(c.querySelector('[role=\"region\"]').textContent.includes('Panel body'),'collapsible region')"
           ]
         }
       ],
@@ -1494,6 +1574,16 @@
             "assert(await until(()=>document.querySelector('.cs-popover__panel')),'popover opens on click')",
             "assert(await until(()=>!document.querySelector('.cs-popover__panel')),'Escape closes popover')"
           ]
+        },
+        {
+          "id": "popover.bounded-a11y",
+          "statement": "Popover — exposes labelled dialog panel when open. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Popover — exposes labelled dialog panel when open",
+          "assertions": [
+            "assert(NS.Popover,'missing')",
+            "assert(c.querySelector('[role=\"dialog\"]').getAttribute('aria-label')==='Details','popover dialog')"
+          ]
         }
       ],
       "semantics": {
@@ -1902,6 +1992,16 @@
             "assert(b4,'no page 4 button')",
             "assert(cur1&&cur1.textContent==='4','page 4 current after click')"
           ]
+        },
+        {
+          "id": "pagination.bounded-a11y",
+          "statement": "Pagination — marks current page button. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Pagination — marks current page button",
+          "assertions": [
+            "assert(NS.Pagination,'missing')",
+            "assert(c.querySelector('[aria-current=\"page\"]').textContent==='2','pagination current')"
+          ]
         }
       ],
       "semantics": {
@@ -2082,6 +2182,16 @@
             "assert(Toggle,'missing')",
             "assert(b.getAttribute('aria-pressed')==='false','starts off')",
             "assert(b.getAttribute('aria-pressed')==='true','on after press')"
+          ]
+        },
+        {
+          "id": "toggle.bounded-a11y",
+          "statement": "Toggle — exposes aria-pressed state. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Toggle — exposes aria-pressed state",
+          "assertions": [
+            "assert(NS.Toggle,'missing')",
+            "assert(c.querySelector('button.cs-toggle').getAttribute('aria-pressed')==='true','toggle pressed')"
           ]
         }
       ],
@@ -2274,6 +2384,16 @@
             "assert(c.querySelectorAll('.cs-tag').length===2,'2 tags after add')",
             "assert(c.querySelectorAll('.cs-tag').length===1,'1 after backspace')"
           ]
+        },
+        {
+          "id": "tagInput.bounded-a11y",
+          "statement": "TagInput — exposes tag remove button and input. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "TagInput — exposes tag remove button and input",
+          "assertions": [
+            "assert(NS.TagInput,'missing')",
+            "assert(c.querySelector('button.cs-tag__close')&&c.querySelector('input'),'taginput controls')"
+          ]
         }
       ],
       "semantics": {
@@ -2363,6 +2483,16 @@
             "assert(view,'view renders')",
             "assert(inp,'edit mode')",
             "assert(await until(()=>{const v=c.querySelector('.cs-inline-edit__view');return v&&v.textContent.includes('B');}),'committed B')"
+          ]
+        },
+        {
+          "id": "inlineEdit.bounded-a11y",
+          "statement": "InlineEdit — exposes labelled edit trigger. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "InlineEdit — exposes labelled edit trigger",
+          "assertions": [
+            "assert(NS.InlineEdit,'missing')",
+            "assert(c.querySelector('button.cs-inline-edit__view').textContent.includes('Editable title'),'inline edit trigger')"
           ]
         }
       ],
@@ -2848,6 +2978,23 @@
             "assert(got===null,'blocked by asyncRules')",
             "assert(await until(()=>got&&got.email==='ok@cyberskill.world'),'async pass submits')"
           ]
+        },
+        {
+          "id": "form.composite-a11y",
+          "statement": "FormFieldArray — add and row controls retain native semantics. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "FormFieldArray — add and row controls retain native semantics",
+          "assertions": [
+            "assert(NS.FormFieldArray&&NS.Form&&NS.TextField,'array exports missing')",
+            "assert(await until(()=>c.querySelector('.cs-form-array > button')),'add mounted')",
+            "assert(add.type==='button'&&add.textContent==='Add person','named add is non-submit button')",
+            "assert(document.activeElement===add,'native add focus')",
+            "assert(await until(()=>c.querySelector('.cs-form-array__row input')),'new row input')",
+            "assert(add.disabled,'maximum is native disabled')",
+            "assert(ids.length===1&&document.getElementById(ids[0])?.textContent==='Person name','new row input label resolves')",
+            "assert(descriptions.length===1&&document.getElementById(descriptions[0])?.textContent==='Full name','new row input help resolves')",
+            "assert(input.getAttribute('aria-labelledby')!==input.getAttribute('aria-describedby'),'label and help stay separate')"
+          ]
         }
       ],
       "semantics": {
@@ -3033,6 +3180,16 @@
             "assert(bar.getAttribute('aria-valuenow')==='50','starts at 50')",
             "assert(+bar.getAttribute('aria-valuenow')>50,'value grew after ArrowRight')"
           ]
+        },
+        {
+          "id": "splitter.bounded-a11y",
+          "statement": "Splitter — exposes separator role and value. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Splitter — exposes separator role and value",
+          "assertions": [
+            "assert(NS.Splitter,'missing')",
+            "assert(c.querySelector('[role=\"separator\"]').getAttribute('aria-valuenow')==='50','splitter separator')"
+          ]
         }
       ],
       "semantics": {
@@ -3116,6 +3273,16 @@
             "assert(sw,'no unselected swatch')",
             "assert(got&&got.toLowerCase()===sw.getAttribute('aria-label').toLowerCase(),'onChange fired with clicked swatch hex')",
             "assert(await until(()=>!document.querySelector('.cs-colorpicker__pop')),'popover closes after pick')"
+          ]
+        },
+        {
+          "id": "colorPicker.bounded-a11y",
+          "statement": "ColorPicker — exposes labelled swatch trigger. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "ColorPicker — exposes labelled swatch trigger",
+          "assertions": [
+            "assert(NS.ColorPicker,'missing')",
+            "assert(c.querySelector('button.cs-colorpicker__field').getAttribute('aria-label').includes('Accent'),'colorpicker trigger')"
           ]
         }
       ],
@@ -3670,6 +3837,16 @@
             "assert(move,'no move button')",
             "assert(await until(()=>got&&got.includes('a')),'value gained item '+JSON.stringify(got))"
           ]
+        },
+        {
+          "id": "transfer.bounded-a11y",
+          "statement": "Transfer — exposes item selection checkboxes. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Transfer — exposes item selection checkboxes",
+          "assertions": [
+            "assert(NS.Transfer,'missing')",
+            "assert(c.querySelector('input[type=\"checkbox\"]')&&c.textContent.includes('Alpha'),'transfer checkbox')"
+          ]
         }
       ],
       "semantics": {
@@ -4062,6 +4239,16 @@
             "assert(day,'no day 12')",
             "assert(got,'onChange fired')"
           ]
+        },
+        {
+          "id": "calendar.bounded-a11y",
+          "statement": "Calendar — exposes labelled month grid. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Calendar — exposes labelled month grid",
+          "assertions": [
+            "assert(NS.Calendar,'missing')",
+            "assert(c.querySelector('[role=\"grid\"]').querySelectorAll('[role=\"gridcell\"]').length>0,'calendar gridcells')"
+          ]
         }
       ],
       "semantics": {
@@ -4150,6 +4337,16 @@
             "assert(/Hint/.test(bubble.textContent||''),'label text')",
             "assert(btn,'trigger')",
             "assert(Number(op)>0.5,'bubble visible on focus-within, opacity='+op)"
+          ]
+        },
+        {
+          "id": "tooltip.bounded-a11y",
+          "statement": "Tooltip — links trigger to tooltip role. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Tooltip — links trigger to tooltip role",
+          "assertions": [
+            "assert(NS.Tooltip,'missing')",
+            "assert(c.querySelector('[role=\"tooltip\"]').textContent.includes('Helpful tip'),'tooltip bubble')"
           ]
         }
       ],
@@ -4547,6 +4744,16 @@
             "assert(inp,'range')",
             "assert(got===55,'onChange 55, got '+got)"
           ]
+        },
+        {
+          "id": "slider.bounded-a11y",
+          "statement": "Slider — exposes range input with label. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Slider — exposes range input with label",
+          "assertions": [
+            "assert(NS.Slider,'missing')",
+            "assert(c.querySelector('input[type=\"range\"]').getAttribute('aria-label')==='Volume','slider label')"
+          ]
         }
       ],
       "semantics": {
@@ -4624,6 +4831,16 @@
             "assert(Select,'Select export missing')",
             "assert(sel,'select')",
             "assert(val==='b','onChange value')"
+          ]
+        },
+        {
+          "id": "select.bounded-a11y",
+          "statement": "Select — associates label with select control. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Select — associates label with select control",
+          "assertions": [
+            "assert(NS.Select,'missing')",
+            "assert(c.querySelector('select').value==='a'&&c.textContent.includes('Project'),'select label')"
           ]
         }
       ],
@@ -4722,6 +4939,16 @@
             "assert(c.querySelectorAll('tbody tr').length===2,'child row visible')",
             "assert(/Child/.test(c.textContent||''),'child label')"
           ]
+        },
+        {
+          "id": "treeTable.bounded-a11y",
+          "statement": "TreeTable — renders table caption and cells. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "TreeTable — renders table caption and cells",
+          "assertions": [
+            "assert(NS.TreeTable,'missing')",
+            "assert(c.querySelector('table caption').textContent==='Files'&&c.textContent.includes('README.md'),'treetable caption')"
+          ]
         }
       ],
       "semantics": {
@@ -4809,6 +5036,16 @@
             "assert(c.querySelector('input').type==='text','revealed')",
             "assert(clear,'clear btn')",
             "assert(await until(()=>val===''),'cleared')"
+          ]
+        },
+        {
+          "id": "inputGroup.bounded-a11y",
+          "statement": "InputGroup — associates label with text input. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "InputGroup — associates label with text input",
+          "assertions": [
+            "assert(NS.InputGroup,'missing')",
+            "assert(c.querySelector('input').getAttribute('aria-labelledby')&&c.textContent.includes('Amount'),'inputgroup label')"
           ]
         }
       ],
@@ -5081,6 +5318,17 @@
             "assert(dlg&&toast,'both mounted')",
             "assert(zt>zd,'toast z ('+zt+') > dialog z ('+zd+')')"
           ]
+        },
+        {
+          "id": "toast.composite-a11y",
+          "statement": "Live regions — Toast/Alert/Spinner/Result role=status. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Live regions — Toast/Alert/Spinner/Result role=status",
+          "assertions": [
+            "assert(Toast&&Alert&&Spinner&&Result,'missing')",
+            "assert(c.querySelectorAll('[role=\"status\"]').length>=4,'all four are status live-regions')",
+            "assert((c.querySelector('.cs-spinner').getAttribute('aria-label')||'').length>0,'spinner labeled')"
+          ]
         }
       ],
       "semantics": {
@@ -5188,6 +5436,16 @@
             "assert(b,'radio b')",
             "assert(val==='b','value b')"
           ]
+        },
+        {
+          "id": "radioGroup.bounded-a11y",
+          "statement": "RadioGroup — groups radios in fieldset with legend. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "RadioGroup — groups radios in fieldset with legend",
+          "assertions": [
+            "assert(NS.RadioGroup,'missing')",
+            "assert(c.querySelector('fieldset legend').textContent==='Plan'&&c.querySelector('input[type=\"radio\"]').checked===true,'radiogroup legend')"
+          ]
         }
       ],
       "semantics": {
@@ -5266,6 +5524,16 @@
             "assert(SearchField,'SearchField export missing')",
             "assert(clear,'clear')",
             "assert(await until(()=>val===''&&cleared),'cleared')"
+          ]
+        },
+        {
+          "id": "searchField.bounded-a11y",
+          "statement": "SearchField — exposes searchbox role and label. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "SearchField — exposes searchbox role and label",
+          "assertions": [
+            "assert(NS.SearchField,'missing')",
+            "assert(c.querySelector('input[role=\"searchbox\"]').getAttribute('aria-label')==='Filter items','searchbox label')"
           ]
         }
       ],
@@ -5350,6 +5618,16 @@
             "assert(opt,'09:30')",
             "assert(got==='09:30','onChange')"
           ]
+        },
+        {
+          "id": "timePicker.bounded-a11y",
+          "statement": "TimePicker — exposes labelled time select. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "TimePicker — exposes labelled time select",
+          "assertions": [
+            "assert(NS.TimePicker,'missing')",
+            "assert(c.querySelector('select').value==='09:30'&&c.querySelector('select').getAttribute('aria-label')==='Reminder','timepicker select')"
+          ]
         }
       ],
       "semantics": {
@@ -5429,6 +5707,16 @@
             "assert(FileUpload,'FileUpload export missing')",
             "assert(inp,'file input')",
             "assert(await until(()=>got&&got.length===1&&got[0].name==='note.txt'),'onFiles')"
+          ]
+        },
+        {
+          "id": "fileUpload.bounded-a11y",
+          "statement": "FileUpload — associates file input with hint. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "FileUpload — associates file input with hint",
+          "assertions": [
+            "assert(NS.FileUpload,'missing')",
+            "assert(c.querySelector('input[type=\"file\"]').getAttribute('aria-describedby')&&c.textContent.includes('Upload document'),'fileupload input')"
           ]
         }
       ],
@@ -5512,6 +5800,16 @@
             "assert(top,'top')",
             "assert(await until(()=>document.querySelector('.cs-navmenu__panel')&&top.getAttribute('aria-expanded')==='true'),'panel open')",
             "assert(await until(()=>!document.querySelector('.cs-navmenu__panel')),'Esc closes')"
+          ]
+        },
+        {
+          "id": "navigationMenu.bounded-a11y",
+          "statement": "NavigationMenu — renders navigation landmark links. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "NavigationMenu — renders navigation landmark links",
+          "assertions": [
+            "assert(NS.NavigationMenu,'missing')",
+            "assert(c.querySelector('nav.cs-navmenu a').textContent.includes('Overview'),'navmenu link')"
           ]
         }
       ],
@@ -5650,6 +5948,16 @@
             "assert(item,'item')",
             "assert(hit,'onClick')"
           ]
+        },
+        {
+          "id": "navItem.bounded-a11y",
+          "statement": "NavItem — exposes aria-current on active page link. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "NavItem — exposes aria-current on active page link",
+          "assertions": [
+            "assert(NS.NavItem,'missing')",
+            "assert(c.querySelector('a.cs-nav-item').getAttribute('aria-current')==='page','active navitem')"
+          ]
         }
       ],
       "semantics": {
@@ -5732,6 +6040,16 @@
             "assert(PromptInput,'PromptInput export missing')",
             "assert(btn,'send')",
             "assert(await until(()=>got==='hi'),'onSubmit')"
+          ]
+        },
+        {
+          "id": "promptInput.bounded-a11y",
+          "statement": "PromptInput — exposes labelled prompt textarea. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "PromptInput — exposes labelled prompt textarea",
+          "assertions": [
+            "assert(NS.PromptInput,'missing')",
+            "assert(c.querySelector('textarea.cs-prompt__field').getAttribute('aria-label')==='Ask Lumi','prompt textarea')"
           ]
         }
       ],
@@ -5820,6 +6138,16 @@
             "assert(x,'close')",
             "assert(gone,'onRemove')"
           ]
+        },
+        {
+          "id": "tag.bounded-a11y",
+          "statement": "Tag — exposes labelled remove button. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Tag — exposes labelled remove button",
+          "assertions": [
+            "assert(NS.Tag,'missing')",
+            "assert(c.querySelector('button.cs-tag__close').getAttribute('aria-label')&&c.textContent.includes('Filter'),'tag remove')"
+          ]
         }
       ],
       "semantics": {
@@ -5899,6 +6227,16 @@
             "assert(b,'item')",
             "assert(hit,'onSelect')"
           ]
+        },
+        {
+          "id": "dock.bounded-a11y",
+          "statement": "Dock — exposes named toolbar role. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Dock — exposes named toolbar role",
+          "assertions": [
+            "assert(NS.Dock,'missing')",
+            "assert(c.querySelector('[role=\"toolbar\"]').getAttribute('aria-label')==='Quick launch','dock toolbar')"
+          ]
         }
       ],
       "semantics": {
@@ -5975,6 +6313,23 @@
           "assertions": [
             "assert(TextField,'TextField export missing')",
             "assert(val==='Cy','onChange')"
+          ]
+        },
+        {
+          "id": "textField.composite-a11y",
+          "statement": "FormFieldArray — add and row controls retain native semantics. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "FormFieldArray — add and row controls retain native semantics",
+          "assertions": [
+            "assert(NS.FormFieldArray&&NS.Form&&NS.TextField,'array exports missing')",
+            "assert(await until(()=>c.querySelector('.cs-form-array > button')),'add mounted')",
+            "assert(add.type==='button'&&add.textContent==='Add person','named add is non-submit button')",
+            "assert(document.activeElement===add,'native add focus')",
+            "assert(await until(()=>c.querySelector('.cs-form-array__row input')),'new row input')",
+            "assert(add.disabled,'maximum is native disabled')",
+            "assert(ids.length===1&&document.getElementById(ids[0])?.textContent==='Person name','new row input label resolves')",
+            "assert(descriptions.length===1&&document.getElementById(descriptions[0])?.textContent==='Full name','new row input help resolves')",
+            "assert(input.getAttribute('aria-labelledby')!==input.getAttribute('aria-describedby'),'label and help stay separate')"
           ]
         }
       ],
@@ -6060,6 +6415,16 @@
           "assertions": [
             "assert(Textarea,'Textarea export missing')",
             "assert(val==='ok','onChange')"
+          ]
+        },
+        {
+          "id": "textarea.bounded-a11y",
+          "statement": "Textarea — associates label with textarea control. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Textarea — associates label with textarea control",
+          "assertions": [
+            "assert(NS.Textarea,'missing')",
+            "assert(c.querySelector('textarea').value==='Hello'&&c.textContent.includes('Bio'),'textarea label')"
           ]
         }
       ],
@@ -6148,6 +6513,16 @@
             "assert(HumanReviewGate,'HumanReviewGate export missing')",
             "assert(r&&a,'both handlers')"
           ]
+        },
+        {
+          "id": "humanReviewGate.bounded-a11y",
+          "statement": "HumanReviewGate — exposes named review section and actions. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "HumanReviewGate — exposes named review section and actions",
+          "assertions": [
+            "assert(NS.HumanReviewGate,'missing')",
+            "assert(c.querySelector('section.cs-review-gate').getAttribute('aria-label')&&c.querySelectorAll('button').length===2,'review gate')"
+          ]
         }
       ],
       "semantics": {
@@ -6234,6 +6609,16 @@
             "assert(btns.length>=2,'chips')",
             "assert(got==='Beta','onSelect')"
           ]
+        },
+        {
+          "id": "promptSuggestions.bounded-a11y",
+          "statement": "PromptSuggestions — renders suggestion buttons. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "PromptSuggestions — renders suggestion buttons",
+          "assertions": [
+            "assert(NS.PromptSuggestions,'missing')",
+            "assert(c.querySelector('button').textContent.includes('Summarize'),'suggestion button')"
+          ]
         }
       ],
       "semantics": {
@@ -6291,7 +6676,7 @@
           {
             "statement": "Owned Storybook Default fixture declares an example of PromptSuggestions through its component metadata. This is source evidence; mounting, interactions and accessibility require a matching runtime receipt.",
             "sourcePath": "stories/PromptSuggestions.stories.jsx",
-            "sourceSha256": "bca40b689f7bee576a26ec7dd845168628d7d09d92010eebff9addf3bbc380bf",
+            "sourceSha256": "b5f189211e33bc0e681e5cc573cb89824078f3aa72dc965df8e492c0c6ba65ee",
             "sourceSnippets": [
               "export default {\n  title: 'Components/AI/PromptSuggestions',\n  component: PromptSuggestions,\n  tags: ['autodocs'],\n  argTypes: {\n  \"rootProps\": {\"control\":\"object\",\"description\":\"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.\",\"table\":{\"category\":\"DOM targets\"}},\n    suggestions: { control: 'object' },\n    onSelect: { control: false },\n  },\n  args: { suggestions: ['Draft a BOD memo', 'VN labor contract'] },\n};",
               "export const Default = {};"
@@ -6312,6 +6697,16 @@
             "assert(main,'main')",
             "assert(await until(()=>main.getAttribute('aria-expanded')==='true'&&document.querySelector('.cs-fab__mini')),'dial open')",
             "assert(await until(()=>hit),'onSelect')"
+          ]
+        },
+        {
+          "id": "floatingActionButton.bounded-a11y",
+          "statement": "FloatingActionButton — exposes labelled primary button. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "FloatingActionButton — exposes labelled primary button",
+          "assertions": [
+            "assert(NS.FloatingActionButton,'missing')",
+            "assert(c.querySelector('button.cs-fab__main').getAttribute('aria-label')==='Create item','fab label')"
           ]
         }
       ],
@@ -6599,6 +6994,16 @@
             "assert(b.getAttribute('aria-expanded')==='false','starts closed')",
             "assert(await until(()=>document.querySelector('.cs-ai-disclosure__panel')&&b.getAttribute('aria-expanded')==='true'),'panel')"
           ]
+        },
+        {
+          "id": "aIDisclosureBadge.bounded-a11y",
+          "statement": "AIDisclosureBadge — exposes trigger button. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "AIDisclosureBadge — exposes trigger button",
+          "assertions": [
+            "assert(NS.AIDisclosureBadge,'missing')",
+            "assert(c.querySelector('button.cs-ai-disclosure__badge').textContent.includes('AI assisted'),'disclosure trigger')"
+          ]
         }
       ],
       "semantics": {
@@ -6729,6 +7134,16 @@
             "assert(Comment,'Comment export missing')",
             "assert(hit,'onSelect')"
           ]
+        },
+        {
+          "id": "comment.bounded-a11y",
+          "statement": "Comment — renders author and reply button. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Comment — renders author and reply button",
+          "assertions": [
+            "assert(NS.Comment,'missing')",
+            "assert(c.querySelector('.cs-comment__actions button')&&c.textContent.includes('An Nguyen'),'comment action')"
+          ]
         }
       ],
       "semantics": {
@@ -6816,6 +7231,16 @@
           "assertions": [
             "assert(List&&ListItem,'List/ListItem export missing')",
             "assert(hit,'onClick')"
+          ]
+        },
+        {
+          "id": "listItem.bounded-a11y",
+          "statement": "ListItem — exposes listitem role. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "ListItem — exposes listitem role",
+          "assertions": [
+            "assert(NS.ListItem,'missing')",
+            "assert(c.querySelector('[role=\"listitem\"]').textContent.includes('Entry'),'listitem role')"
           ]
         }
       ],
@@ -6906,6 +7331,16 @@
             "assert(inp,'input')",
             "assert(await until(()=>cmd==='help'&&c.querySelector('.cs-terminal__out')),'ran')"
           ]
+        },
+        {
+          "id": "terminal.bounded-a11y",
+          "statement": "Terminal — exposes labelled command input. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Terminal — exposes labelled command input",
+          "assertions": [
+            "assert(NS.Terminal,'missing')",
+            "assert(c.querySelector('input[aria-label]')&&c.textContent.includes('Ready'),'terminal input')"
+          ]
         }
       ],
       "semantics": {
@@ -6991,6 +7426,16 @@
             "assert(Card&&CardBody,'Card export missing')",
             "assert(hit,'onClick')"
           ]
+        },
+        {
+          "id": "card.bounded-a11y",
+          "statement": "Card — renders interactive button when interactive. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Card — renders interactive button when interactive",
+          "assertions": [
+            "assert(NS.Card,'missing')",
+            "assert(c.querySelector('button.cs-card').textContent.includes('Action card'),'interactive card')"
+          ]
         }
       ],
       "semantics": {
@@ -7069,6 +7514,16 @@
             "assert(a,'link')",
             "assert(a.getAttribute('href')==='https://ex.test','href')",
             "assert(a.target==='_blank'&&(a.rel||'').includes('noopener'),'external')"
+          ]
+        },
+        {
+          "id": "link.bounded-a11y",
+          "statement": "Link — sets safe external link attributes. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Link — sets safe external link attributes",
+          "assertions": [
+            "assert(NS.Link,'missing')",
+            "assert(c.querySelector('a.cs-link').getAttribute('rel')==='noopener noreferrer','external link')"
           ]
         }
       ],
@@ -7245,6 +7700,16 @@
             "assert(btn,'copy')",
             "assert(await until(()=>wrote==='const x=1'&&/Copied/.test(btn.textContent||'')),'copied')"
           ]
+        },
+        {
+          "id": "codeBlock.bounded-a11y",
+          "statement": "CodeBlock — exposes copy action and code text. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "CodeBlock — exposes copy action and code text",
+          "assertions": [
+            "assert(NS.CodeBlock,'missing')",
+            "assert(c.querySelector('button.cs-code__copy')&&c.textContent.includes('const x = 1;'),'code copy button')"
+          ]
         }
       ],
       "semantics": {
@@ -7327,6 +7792,16 @@
             "assert(a.target==='_blank','blank')",
             "assert(c.querySelectorAll('.cs-citation').length===2,'2 rows')"
           ]
+        },
+        {
+          "id": "citationList.bounded-a11y",
+          "statement": "CitationList — renders source citation links. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "CitationList — renders source citation links",
+          "assertions": [
+            "assert(NS.CitationList,'missing')",
+            "assert(c.querySelector('a.cs-citation').textContent.includes('Source doc'),'citation link')"
+          ]
         }
       ],
       "semantics": {
@@ -7392,7 +7867,7 @@
           {
             "statement": "Owned Storybook Default fixture declares an example of CitationList through its component metadata. This is source evidence; mounting, interactions and accessibility require a matching runtime receipt.",
             "sourcePath": "stories/CitationList.stories.jsx",
-            "sourceSha256": "dfb9621b466a98f04976ebb85f8d5660badcd08b8db855dc8251ba2911ddc694",
+            "sourceSha256": "46a0d90eb742369470749be61762ef40671484d12f3558bdc178dfc095f0e8c6",
             "sourceSnippets": [
               "export default {\n  title: 'Components/AI/CitationList',\n  component: CitationList,\n  tags: ['autodocs'],\n  argTypes: {\n  \"rootProps\": {\"control\":\"object\",\"description\":\"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.\",\"table\":{\"category\":\"DOM targets\"}},\n  \"lang\": { \"control\": \"select\", \"options\": [\"vi\", \"en\"] },\n  \"label\": {\n    \"control\": \"object\"\n  },\n  \"items\": {\n    \"control\": \"object\"\n  }\n},\n  args: { items: [{ title: 'SKILL.md', href: '#' }] },\n};",
               "export const Default = {};"
@@ -7412,6 +7887,16 @@
             "assert(Breadcrumb,'Breadcrumb export missing')",
             "assert(c.querySelector('a[href=\"/\"]'),'home link')",
             "assert(c.querySelector('.cs-breadcrumb__current[aria-current=\"page\"]'),'current')"
+          ]
+        },
+        {
+          "id": "breadcrumb.bounded-a11y",
+          "statement": "Breadcrumb — marks current page item. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Breadcrumb — marks current page item",
+          "assertions": [
+            "assert(NS.Breadcrumb,'missing')",
+            "assert(c.querySelector('[aria-current=\"page\"]').textContent.includes('Current'),'breadcrumb current')"
           ]
         }
       ],
@@ -7495,6 +7980,16 @@
             "assert(await until(()=>c.querySelector('.cs-image.is-zoomable')),'loaded zoomable')",
             "assert(await until(()=>c.querySelector('.cs-image__zoom[role=\"dialog\"]')),'dialog')",
             "assert(await until(()=>!c.querySelector('.cs-image__zoom')),'Esc closes')"
+          ]
+        },
+        {
+          "id": "image.bounded-a11y",
+          "statement": "Image — preserves image alt text. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Image — preserves image alt text",
+          "assertions": [
+            "assert(NS.Image,'missing')",
+            "assert(c.querySelector('img').getAttribute('alt')==='Sample diagram','image alt')"
           ]
         }
       ],
@@ -7598,6 +8093,16 @@
             "assert(btn,'visible')",
             "assert(to&&to.top===0,'scrollTo top')"
           ]
+        },
+        {
+          "id": "backTop.bounded-a11y",
+          "statement": "BackTop — exposes accessible button label. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "BackTop — exposes accessible button label",
+          "assertions": [
+            "assert(NS.BackTop,'missing')",
+            "assert(c.querySelector('button.cs-backtop').getAttribute('aria-label')==='Back to top','backtop label')"
+          ]
         }
       ],
       "semantics": {
@@ -7677,6 +8182,16 @@
             "assert(links.length===2,'2 items')",
             "assert(links[0].getAttribute('href')==='#beh-a','href')",
             "assert(links[0].classList.contains('is-active')||links[0].getAttribute('aria-current')==='location','active')"
+          ]
+        },
+        {
+          "id": "anchor.bounded-a11y",
+          "statement": "Anchor — renders navigation links. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "Anchor — renders navigation links",
+          "assertions": [
+            "assert(NS.Anchor,'missing')",
+            "assert(c.querySelector('a.cs-anchor__item').textContent.includes('Section'),'anchor link')"
           ]
         }
       ],
@@ -7758,6 +8273,16 @@
             "assert(c.querySelectorAll('output')[0].textContent==='Before','initial scoped value')",
             "assert(c.querySelectorAll('output')[1].textContent==='label','sibling fallback')",
             "assert(c.querySelectorAll('output')[1].textContent==='label','sibling stays independent')"
+          ]
+        },
+        {
+          "id": "localeProvider.bounded-a11y",
+          "statement": "LocaleProvider — scopes translated control labels. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "LocaleProvider — scopes translated control labels",
+          "assertions": [
+            "assert(NS.LocaleProvider,'missing')",
+            "assert(c.querySelector('button[aria-label=\"Forward\"]'),'scoped locale label')"
           ]
         }
       ],
@@ -8497,6 +9022,16 @@
             "assert(NS.CardBody,'missing')",
             "assert(c.textContent.includes('Body copy'),'body text')"
           ]
+        },
+        {
+          "id": "cardBody.composite-behavior",
+          "statement": "Card interactive — click fires onClick. Maps these named assertions in the composite behavior fixture. This is not an isolated per-prop matrix.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "Card interactive — click fires onClick",
+          "assertions": [
+            "assert(Card&&CardBody,'Card export missing')",
+            "assert(hit,'onClick')"
+          ]
         }
       ],
       "semantics": {
@@ -9126,7 +9661,7 @@
           {
             "statement": "Owned Storybook Default fixture declares an example of DescriptionList through its component metadata. This is source evidence; mounting, interactions and accessibility require a matching runtime receipt.",
             "sourcePath": "stories/DescriptionList.stories.jsx",
-            "sourceSha256": "150c6cb17a105929da1d13fbd166800dbae9883bf372008f10844dfea205b8c6",
+            "sourceSha256": "b0ab9fe6080497f9712fda02cb179fa149da7555221db96f044d2787dfb01c11",
             "sourceSnippets": [
               "export default {\n  title: 'Components/Data/DescriptionList',\n  component: DescriptionList,\n  tags: ['autodocs'],\n  argTypes: {\n    items: { control: 'object' },\n  },\n  args: { items: [{ term: 'Element', value: 'Thổ · studio' }] },\n};",
               "export const Default = {};"
@@ -9310,6 +9845,20 @@
             "assert(NS.FormField,'missing')",
             "assert(c.textContent.includes('Email'),'field label')",
             "assert(c.querySelector('input').id,'input id')"
+          ]
+        },
+        {
+          "id": "formField.composite-behavior",
+          "statement": "Form — controller: rules block, values collect, errors clear. Maps these named assertions in the composite behavior fixture. This is not an isolated per-prop matrix.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "Form — controller: rules block, values collect, errors clear",
+          "assertions": [
+            "assert(Form&&FormField&&TextField&&Button,'missing')",
+            "assert(await until(()=>c.querySelector('.cs-form__summary')),'summary shows on rule fail')",
+            "assert(got===null,'onSubmit blocked while invalid')",
+            "assert(await until(()=>c.querySelector('.cs-formfield.has-error')),'field flagged via context')",
+            "assert(await until(()=>got&&got.email==='an@cyberskill.world'),'values collected, got '+JSON.stringify(got))",
+            "assert(await until(()=>!c.querySelector('.cs-form__summary')),'summary cleared after fix')"
           ]
         }
       ],
@@ -9613,6 +10162,16 @@
             "assert(await until(()=>c.querySelector('[data-command-status]').textContent==='command open'),'binding updates application state')",
             "assert(event.defaultPrevented,'matched command consumes its key')"
           ]
+        },
+        {
+          "id": "hotKeys.bounded-a11y",
+          "statement": "HotKeys — renders shortcut container. Maps these named assertions only. This is not a full prop matrix or manual assistive-technology acceptance.",
+          "testPath": "_audit/a11y-gate.html",
+          "caseName": "HotKeys — renders shortcut container",
+          "assertions": [
+            "assert(NS.HotKeys,'missing')",
+            "assert(c.querySelector('.cs-hotkeys').textContent.includes('Shortcut scope'),'hotkeys scope')"
+          ]
         }
       ],
       "semantics": {
@@ -9856,6 +10415,16 @@
           "assertions": [
             "assert(NS.List,'missing')",
             "assert(c.querySelector('[role=\"list\"]').textContent.includes('Row'),'list text')"
+          ]
+        },
+        {
+          "id": "list.composite-behavior",
+          "statement": "ListItem — click fires onClick. Maps these named assertions in the composite behavior fixture. This is not an isolated per-prop matrix.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "ListItem — click fires onClick",
+          "assertions": [
+            "assert(List&&ListItem,'List/ListItem export missing')",
+            "assert(hit,'onClick')"
           ]
         }
       ],
@@ -10166,6 +10735,18 @@
           "assertions": [
             "assert(NS.MenuItem,'missing')",
             "assert(c.querySelector('[role=\"menuitem\"]').textContent.includes('Open'),'menuitem label')"
+          ]
+        },
+        {
+          "id": "menuItem.composite-behavior",
+          "statement": "Menu — trigger opens list, Esc closes. Maps these named assertions in the composite behavior fixture. This is not an isolated per-prop matrix.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "Menu — trigger opens list, Esc closes",
+          "assertions": [
+            "assert(Menu&&MenuItem,'Menu export missing')",
+            "assert(!document.querySelector('[role=\"menu\"]'),'menu should start closed')",
+            "assert(await until(()=>document.querySelector('[role=\"menu\"]')),'menu should open on trigger click')",
+            "assert(await until(()=>!document.querySelector('[role=\"menu\"]')),'Escape should close menu')"
           ]
         }
       ],
@@ -10733,6 +11314,17 @@
             "assert(NS.Sidebar,'missing')",
             "assert(c.querySelector('nav').textContent.includes('Main'),'nav label')"
           ]
+        },
+        {
+          "id": "sidebar.composite-behavior",
+          "statement": "NavItem — click fires onClick. Maps these named assertions in the composite behavior fixture. This is not an isolated per-prop matrix.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "NavItem — click fires onClick",
+          "assertions": [
+            "assert(Sidebar&&NavItem,'Sidebar/NavItem export missing')",
+            "assert(item,'item')",
+            "assert(hit,'onClick')"
+          ]
         }
       ],
       "semantics": {
@@ -11278,7 +11870,7 @@
           {
             "statement": "Owned Storybook Default fixture declares an example of Timeline through its component metadata. This is source evidence; mounting, interactions and accessibility require a matching runtime receipt.",
             "sourcePath": "stories/Timeline.stories.jsx",
-            "sourceSha256": "751b1374999a7b619407da0abbf365ad297902f6be0d92a5f52d10a12cd74e1d",
+            "sourceSha256": "3715dffb952d9ea60ca40b108d21e5a1102c3ff731f3229965182676e37ada19",
             "sourceSnippets": [
               "export default {\n  title: 'Components/Data/Timeline',\n  component: Timeline,\n  tags: ['autodocs'],\n  argTypes: {\n  \"rootProps\": {\"control\":\"object\",\"description\":\"Optional attributes for the documented existing DOM target; owned semantics and handlers remain protected.\",\"table\":{\"category\":\"DOM targets\"}},\n  \"items\": {\n    \"control\": \"object\"\n  }\n},\n  args: { items: [{ title: 'Wish captured', time: '09:00' }, { title: 'Shipped', time: '16:00' }] },\n};",
               "export const Default = {};"
@@ -11297,6 +11889,18 @@
           "assertions": [
             "assert(NS.ToastStack,'missing')",
             "assert(c.querySelector('[role=\"region\"]').getAttribute('aria-label'),'region name')"
+          ]
+        },
+        {
+          "id": "toastStack.composite-behavior",
+          "statement": "Toast — close fires onClose. Maps these named assertions in the composite behavior fixture. This is not an isolated per-prop matrix.",
+          "testPath": "_audit/component-behavior-test.html",
+          "caseName": "Toast — close fires onClose",
+          "assertions": [
+            "assert(Toast&&ToastStack,'Toast export missing')",
+            "assert(c.querySelector('.cs-toast'),'toast mounted')",
+            "assert(btn,'close')",
+            "assert(closed,'onClose')"
           ]
         }
       ],

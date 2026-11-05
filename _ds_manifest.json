@@ -3195,7 +3195,7 @@
       "definedIn": "tokens/typography.css",
       "important": false,
       "declarationOrder": 112,
-      "sourceLine": 71
+      "sourceLine": 70
     },
     {
       "name": "--cs-heading-weight-strong",
@@ -3204,7 +3204,7 @@
       "definedIn": "tokens/typography.css",
       "important": false,
       "declarationOrder": 113,
-      "sourceLine": 72
+      "sourceLine": 71
     },
     {
       "name": "--cs-heading-weight",
@@ -3213,7 +3213,7 @@
       "definedIn": "tokens/typography.css",
       "important": false,
       "declarationOrder": 114,
-      "sourceLine": 73
+      "sourceLine": 72
     },
     {
       "name": "--cs-heading-tracking",
@@ -3222,7 +3222,7 @@
       "definedIn": "tokens/typography.css",
       "important": false,
       "declarationOrder": 115,
-      "sourceLine": 74
+      "sourceLine": 73
     },
     {
       "name": "--cs-icon-sm",
@@ -3231,7 +3231,7 @@
       "definedIn": "tokens/typography.css",
       "important": false,
       "declarationOrder": 116,
-      "sourceLine": 77
+      "sourceLine": 76
     },
     {
       "name": "--cs-icon-md",
@@ -3240,7 +3240,7 @@
       "definedIn": "tokens/typography.css",
       "important": false,
       "declarationOrder": 117,
-      "sourceLine": 78
+      "sourceLine": 77
     },
     {
       "name": "--cs-icon-lg",
@@ -3249,7 +3249,7 @@
       "definedIn": "tokens/typography.css",
       "important": false,
       "declarationOrder": 118,
-      "sourceLine": 79
+      "sourceLine": 78
     },
     {
       "name": "--cs-space-0",
@@ -5750,7 +5750,7 @@
       "scope": ".cs-display-face",
       "important": false,
       "declarationOrder": 1050,
-      "sourceLine": 20
+      "sourceLine": 23
     },
     {
       "name": "--cs-term-border",
@@ -5858,8 +5858,8 @@
       "kind": "css-expression",
       "definedIn": "base/glass.css",
       "important": false,
-      "declarationOrder": 1063,
-      "sourceLine": 12
+      "declarationOrder": 1066,
+      "sourceLine": 15
     },
     {
       "name": "--cs-glass-whisper-border",
@@ -5867,8 +5867,8 @@
       "kind": "css-expression",
       "definedIn": "base/glass.css",
       "important": false,
-      "declarationOrder": 1064,
-      "sourceLine": 13
+      "declarationOrder": 1067,
+      "sourceLine": 16
     },
     {
       "name": "--cs-glass-light-bg",
@@ -5876,8 +5876,8 @@
       "kind": "css-expression",
       "definedIn": "base/glass.css",
       "important": false,
-      "declarationOrder": 1065,
-      "sourceLine": 14
+      "declarationOrder": 1068,
+      "sourceLine": 17
     },
     {
       "name": "--cs-glass-light-border",
@@ -5885,8 +5885,8 @@
       "kind": "css-expression",
       "definedIn": "base/glass.css",
       "important": false,
-      "declarationOrder": 1066,
-      "sourceLine": 15
+      "declarationOrder": 1069,
+      "sourceLine": 18
     },
     {
       "name": "--cs-glass-standard-bg",
@@ -5894,8 +5894,8 @@
       "kind": "css-expression",
       "definedIn": "base/glass.css",
       "important": false,
-      "declarationOrder": 1067,
-      "sourceLine": 16
+      "declarationOrder": 1070,
+      "sourceLine": 19
     },
     {
       "name": "--cs-glass-standard-border",
@@ -5903,8 +5903,8 @@
       "kind": "css-expression",
       "definedIn": "base/glass.css",
       "important": false,
-      "declarationOrder": 1068,
-      "sourceLine": 17
+      "declarationOrder": 1071,
+      "sourceLine": 20
     },
     {
       "name": "--cs-glass-heavy-bg",
@@ -5912,8 +5912,8 @@
       "kind": "css-expression",
       "definedIn": "base/glass.css",
       "important": false,
-      "declarationOrder": 1069,
-      "sourceLine": 18
+      "declarationOrder": 1072,
+      "sourceLine": 21
     },
     {
       "name": "--cs-glass-heavy-border",
@@ -5921,8 +5921,8 @@
       "kind": "css-expression",
       "definedIn": "base/glass.css",
       "important": false,
-      "declarationOrder": 1070,
-      "sourceLine": 19
+      "declarationOrder": 1073,
+      "sourceLine": 22
     },
     {
       "name": "--cs-color-border-default",
@@ -5937,7 +5937,7 @@
         }
       ],
       "important": false,
-      "declarationOrder": 1071,
+      "declarationOrder": 1074,
       "sourceLine": 144
     },
     {
@@ -5953,7 +5953,7 @@
         }
       ],
       "important": false,
-      "declarationOrder": 1072,
+      "declarationOrder": 1075,
       "sourceLine": 144
     },
     {
@@ -5969,7 +5969,7 @@
         }
       ],
       "important": false,
-      "declarationOrder": 1073,
+      "declarationOrder": 1076,
       "sourceLine": 145
     },
     {
@@ -5985,7 +5985,7 @@
         }
       ],
       "important": false,
-      "declarationOrder": 1074,
+      "declarationOrder": 1077,
       "sourceLine": 145
     },
     {
@@ -6001,7 +6001,7 @@
         }
       ],
       "important": false,
-      "declarationOrder": 1075,
+      "declarationOrder": 1078,
       "sourceLine": 150
     },
     {
@@ -6017,7 +6017,7 @@
         }
       ],
       "important": false,
-      "declarationOrder": 1076,
+      "declarationOrder": 1079,
       "sourceLine": 150
     }
   ],

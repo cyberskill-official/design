@@ -4,13 +4,13 @@
   "interpretation": "Bounded actual DOM/ARIA scenarios; not Cartesian API coverage, manual AT acceptance or support approval.",
   "coverage": {
     "components": 120,
-    "cases": 242,
+    "cases": 247,
     "categories": {
       "default": 120,
       "finite": 74,
       "disabled": 24,
       "error": 16,
-      "empty": 8
+      "empty": 13
     },
     "finiteComponents": 16,
     "finiteDomains": 18
@@ -35,7 +35,7 @@
     "components/ai/PromptSuggestions.jsx": "c4c6fca2eb27fd7eb7357a75bc3df9191973eddb051bb0db4eb95a3fe9970345",
     "components/ai/TypingIndicator.d.ts": "7ec84442d341918431dcf9421910895203d7cf52bbf8b3fbfee61fa69404ceaa",
     "components/ai/TypingIndicator.jsx": "a367cad658005f314bb3e59a191c6edb5f464a65bc1f48e7e4769165ba35b39c",
-    "components/api-index.json": "8e876f2a86a03a7380c9126c252eb1190becc020b4b59d0b6bf48ca33d7806d4",
+    "components/api-index.json": "98cfba2bc03008a756666d4054e7593b9e9e704df26a5a0f8d0847a33d30f596",
     "components/brand/LumiAvatar.d.ts": "955af96a1311731719eeebdeaee88e1d1d99f4efcf14ec6e2eadbe3933957ec6",
     "components/brand/LumiAvatar.jsx": "aef2a9a8be4e4d6eb240d2a4bd6ca32b396fab995663750c812e3b38d228901c",
     "components/button/Button.d.ts": "d2de8fecaf5d8001a0293c2c40b56d915046ce49be126b955338bb8ccfba1904",
@@ -236,7 +236,7 @@
     "components/textfield/TextField.d.ts": "b4762c2a83d9de17f64c6ab61d7291a4e58a32dbd432206464ed56b8d358d54c",
     "components/textfield/TextField.jsx": "878810214bb342d85d933884b5b19984b57f7281e4560c18280b8f4c021c5f99",
     "schemas/component-scenarios.schema.json": "e92986bf453e6b21d41e00f9818213fd7fb63fc17daba1d0ffd5ed092b2d0c96",
-    "scripts/fixtures/component-scenarios.json": "0c34e80573c7f759e8d33c89aa54ecc48f09cd5b97ff31d807c992a07daf7ad6",
+    "scripts/fixtures/component-scenarios.json": "c85276cf6ef9d92a443ed8f6d5ea9a7c0b53c08f6c28ebd1d9ff635b1b5c1486",
     "scripts/fixtures/static-html-reference.json": "7077fab3557aebc62ebf2a60858ea7f37f8231870d68bde99eeb4ae885417fa2",
     "scripts/generate-component-scenario-stories.mjs": "0642cec25308d4b8c9aa16052290a6d67648d686ebddd0d36ba03943ea2aa6c8",
     "scripts/generate-component-scenarios.mjs": "d5c2106a7dbadec145bcfa2afb310ca8cc4b07f42276392f8ecc9521e4c81ab7",
@@ -260,12 +260,13 @@
     {
       "name": "Accordion",
       "caseIds": [
-        "Accordion--default"
+        "Accordion--default",
+        "Accordion--empty"
       ],
       "finiteDomains": {},
       "disabled": "no-declared-disabled-prop",
       "error": "no-declared-error-prop",
-      "empty": "not-classified-no-empty-claim",
+      "empty": "supported-and-asserted",
       "keyboard": "Canonical bounded keyboard evidence remains in components/specifications.json; these state scenes are not a whole keyboard contract."
     },
     {
@@ -596,12 +597,13 @@
     {
       "name": "CitationList",
       "caseIds": [
-        "CitationList--default"
+        "CitationList--default",
+        "CitationList--empty"
       ],
       "finiteDomains": {},
       "disabled": "no-declared-disabled-prop",
       "error": "no-declared-error-prop",
-      "empty": "not-classified-no-empty-claim",
+      "empty": "supported-and-asserted",
       "keyboard": "Canonical bounded keyboard evidence remains in components/specifications.json; these state scenes are not a whole keyboard contract."
     },
     {
@@ -747,12 +749,13 @@
     {
       "name": "DescriptionList",
       "caseIds": [
-        "DescriptionList--default"
+        "DescriptionList--default",
+        "DescriptionList--empty"
       ],
       "finiteDomains": {},
       "disabled": "no-declared-disabled-prop",
       "error": "no-declared-error-prop",
-      "empty": "not-classified-no-empty-claim",
+      "empty": "supported-and-asserted",
       "keyboard": "Canonical bounded keyboard evidence remains in components/specifications.json; these state scenes are not a whole keyboard contract."
     },
     {
@@ -1286,12 +1289,13 @@
     {
       "name": "PromptSuggestions",
       "caseIds": [
-        "PromptSuggestions--default"
+        "PromptSuggestions--default",
+        "PromptSuggestions--empty"
       ],
       "finiteDomains": {},
       "disabled": "no-declared-disabled-prop",
       "error": "no-declared-error-prop",
-      "empty": "not-classified-no-empty-claim",
+      "empty": "supported-and-asserted",
       "keyboard": "Canonical bounded keyboard evidence remains in components/specifications.json; these state scenes are not a whole keyboard contract."
     },
     {
@@ -1645,12 +1649,13 @@
     {
       "name": "Timeline",
       "caseIds": [
-        "Timeline--default"
+        "Timeline--default",
+        "Timeline--empty"
       ],
       "finiteDomains": {},
       "disabled": "no-declared-disabled-prop",
       "error": "no-declared-error-prop",
-      "empty": "not-classified-no-empty-claim",
+      "empty": "supported-and-asserted",
       "keyboard": "Canonical bounded keyboard evidence remains in components/specifications.json; these state scenes are not a whole keyboard contract."
     },
     {
@@ -1835,6 +1840,29 @@
       "expectation": {
         "kind": "mounted",
         "referenceKind": "rendered-dom-reference"
+      },
+      "sourcePath": "components/data/Accordion.jsx",
+      "declarationPath": "components/data/Accordion.d.ts"
+    },
+    {
+      "id": "Accordion--empty",
+      "component": "Accordion",
+      "category": "empty",
+      "props": {
+        "items": []
+      },
+      "expectation": {
+        "kind": "empty-collection",
+        "props": {
+          "items": []
+        },
+        "collectionProp": "items",
+        "selector": ".cs-accordion",
+        "noItems": ".cs-accordion__item",
+        "sourceEvidence": {
+          "components/data/Accordion.jsx": "2bd0ed6b7ddb3daa85f941a0260ef3f08a7a261de3336eabff49c6cade44791b",
+          "components/data/Accordion.d.ts": "0c5b1140bba3076f0642ae9c23701fbdae406e01f9a08a7beb7ddaeac8aa903f"
+        }
       },
       "sourcePath": "components/data/Accordion.jsx",
       "declarationPath": "components/data/Accordion.d.ts"
@@ -3656,6 +3684,29 @@
       "declarationPath": "components/ai/CitationList.d.ts"
     },
     {
+      "id": "CitationList--empty",
+      "component": "CitationList",
+      "category": "empty",
+      "props": {
+        "items": []
+      },
+      "expectation": {
+        "kind": "empty-collection",
+        "props": {
+          "items": []
+        },
+        "collectionProp": "items",
+        "selector": ".cs-citations",
+        "noItems": ".cs-citation",
+        "sourceEvidence": {
+          "components/ai/CitationList.jsx": "dc3f9e04b71611502234cd03a1967aeed46b6274d6f4e205a4ebd228fcceeb6a",
+          "components/ai/CitationList.d.ts": "0e8377e7ee2c37835e1bf91304cff0bf44f0447a08fbcb3f73e1cd03d96408dc"
+        }
+      },
+      "sourcePath": "components/ai/CitationList.jsx",
+      "declarationPath": "components/ai/CitationList.d.ts"
+    },
+    {
       "id": "CodeBlock--default",
       "component": "CodeBlock",
       "category": "default",
@@ -4279,6 +4330,29 @@
       "expectation": {
         "kind": "mounted",
         "referenceKind": "rendered-dom-reference"
+      },
+      "sourcePath": "components/data/DescriptionList.jsx",
+      "declarationPath": "components/data/DescriptionList.d.ts"
+    },
+    {
+      "id": "DescriptionList--empty",
+      "component": "DescriptionList",
+      "category": "empty",
+      "props": {
+        "items": []
+      },
+      "expectation": {
+        "kind": "empty-collection",
+        "props": {
+          "items": []
+        },
+        "collectionProp": "items",
+        "selector": ".cs-dl",
+        "noItems": "dt, dd",
+        "sourceEvidence": {
+          "components/data/DescriptionList.jsx": "8aed2b747130fe0b1a66428211e0893913cb0c1662c0902a4524c4f183b4d35b",
+          "components/data/DescriptionList.d.ts": "3f84a71191cad761f5bca6e6e0e7e2e2f18b052ee24640565895c346634d5b69"
+        }
       },
       "sourcePath": "components/data/DescriptionList.jsx",
       "declarationPath": "components/data/DescriptionList.d.ts"
@@ -5911,6 +5985,29 @@
       "declarationPath": "components/ai/PromptSuggestions.d.ts"
     },
     {
+      "id": "PromptSuggestions--empty",
+      "component": "PromptSuggestions",
+      "category": "empty",
+      "props": {
+        "suggestions": []
+      },
+      "expectation": {
+        "kind": "empty-collection",
+        "props": {
+          "suggestions": []
+        },
+        "collectionProp": "suggestions",
+        "selector": ".cs-suggest",
+        "noItems": "button",
+        "sourceEvidence": {
+          "components/ai/PromptSuggestions.jsx": "c4c6fca2eb27fd7eb7357a75bc3df9191973eddb051bb0db4eb95a3fe9970345",
+          "components/ai/PromptSuggestions.d.ts": "008c5a0d4bdbbb0dc586ebd1acf3e614200c4c2517fe166a427779132e3f338c"
+        }
+      },
+      "sourcePath": "components/ai/PromptSuggestions.jsx",
+      "declarationPath": "components/ai/PromptSuggestions.d.ts"
+    },
+    {
       "id": "QRCode--default",
       "component": "QRCode",
       "category": "default",
@@ -7177,6 +7274,29 @@
       "expectation": {
         "kind": "mounted",
         "referenceKind": "rendered-dom-reference"
+      },
+      "sourcePath": "components/data/Timeline.jsx",
+      "declarationPath": "components/data/Timeline.d.ts"
+    },
+    {
+      "id": "Timeline--empty",
+      "component": "Timeline",
+      "category": "empty",
+      "props": {
+        "items": []
+      },
+      "expectation": {
+        "kind": "empty-collection",
+        "props": {
+          "items": []
+        },
+        "collectionProp": "items",
+        "selector": ".cs-timeline",
+        "noItems": ".cs-timeline__item",
+        "sourceEvidence": {
+          "components/data/Timeline.jsx": "3289633a572917bb68be42e8143436d22c1d2085a73a4bb2a0f1c5860124efa0",
+          "components/data/Timeline.d.ts": "92565564d921a6df708e107de8fcf7cd491950dfdf5eda2a42242ce25c8f5acd"
+        }
       },
       "sourcePath": "components/data/Timeline.jsx",
       "declarationPath": "components/data/Timeline.d.ts"

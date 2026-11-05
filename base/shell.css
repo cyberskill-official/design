@@ -27,7 +27,7 @@
 .cs-popover__panel--end { inset-inline-start: auto; inset-inline-end: 0; }
 
 /* Drawer */
-.cs-drawer-scrim { position: fixed; inset: 0; background: rgba(31, 19, 11, 0.42); z-index: var(--cs-depth-modal); }
+.cs-drawer-scrim { position: fixed; inset: 0; background: var(--cs-color-surface-scrim, var(--_cs-surface-scrim)); z-index: var(--cs-depth-modal); }
 .cs-drawer { position: fixed; inset-block: 0; inset-inline-end: 0; inline-size: min(480px, 100%); background: var(--cs-color-surface-page); border-inline-start: 1px solid var(--cs-color-border-default); box-shadow: -18px 0 48px rgba(31, 19, 11, 0.22); z-index: calc(var(--cs-depth-modal) + 1); display: flex; flex-direction: column; animation: cs-drawer-in var(--cs-duration-base) var(--cs-ease-standard); }
 .cs-drawer--left { inset-inline: 0 auto; border-inline: none; border-inline-end: 1px solid var(--cs-color-border-default); box-shadow: 18px 0 48px rgba(31, 19, 11, 0.22); animation-name: cs-drawer-in-left; }
 .cs-drawer__header { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-block-end: 1px solid var(--cs-color-border-default); background: var(--cs-color-surface-panel); }
@@ -41,7 +41,7 @@
 @media (prefers-reduced-motion: reduce) { .cs-drawer { animation: none; } }
 
 /* CommandPalette */
-.cs-cmdk-scrim { position: fixed; inset: 0; background: rgba(31, 19, 11, 0.42); z-index: var(--cs-depth-modal); display: grid; align-items: start; justify-items: center; padding-block-start: 12vh; }
+.cs-cmdk-scrim { position: fixed; inset: 0; background: var(--cs-color-surface-scrim, var(--_cs-surface-scrim)); z-index: var(--cs-depth-modal); display: grid; align-items: start; justify-items: center; padding-block-start: 12vh; }
 .cs-cmdk { inline-size: min(560px, 92vw); background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-lg); box-shadow: var(--cs-shadow-xl); overflow: hidden; }
 .cs-cmdk__search { display: flex; align-items: center; gap: 10px; padding: 14px 18px; border-block-end: 1px solid var(--cs-color-border-default); }
 .cs-cmdk__search svg { color: var(--cs-color-text-muted); }

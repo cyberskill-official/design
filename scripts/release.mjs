@@ -1,31 +1,56 @@
 #!/usr/bin/env node
 /**
- * One-command local release automation:
- *   npm run release -- <version>
+ * One-command local release orchestrator (requires explicit operator evidence acknowledgement):
+ *   npm run release -- <version> --accept-evidence-review
+ *   npm run release -- <version> --dry-run
  *
- * 1. Stamps <version> across VERSION, package.json, package-lock.json, and all
- *    10 release documentation targets via prepareRelease().
+ * 1. Plans or prepares <version> across VERSION, package.json, package-lock.json, and all
+ *    10 release documentation targets via planRelease() / prepareRelease() in prepare-release.mjs.
  * 2. Runs `npm run build`, `npm run build:check`, and `npm run test:pack-hygiene`
  *    locally so the checkout is 100% clean and verified before pushing.
- * 3. Commits `chore(release): <version>`, creates/updates tag `v<version>`,
- *    verifies tag identity, pushes `main` + `v<version>`, and dispatches
- *    `npm-publish.yml` (which publishes to npm via OIDC and automatically
- *    creates/updates the GitHub Release).
+ * 3. Commits `chore(release): <version>`, creates immutable tag `v<version>` (never force-overwriting),
+ *    verifies tag identity, pushes `main` + `v<version>`, and dispatches `npm-publish.yml`
+ *    (which publishes to npm via OIDC and creates/updates the GitHub Release).
  */
 import assert from 'node:assert/strict';
-import { readFileSync, writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
-import { join } from 'node:path';
+import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { readVersion, verifyTagIdentity } from './prepare-release.mjs';
-import { stampReleaseDocumentation } from './lib/release-documentation.mjs';
+import { planRelease, prepareRelease, readVersion, verifyTagIdentity } from './prepare-release.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-const version = process.argv[2]?.replace(/^v/, '');
-assert(
-  version && /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/.test(version),
-  'Usage: npm run release -- <major.minor.patch>'
-);
+
+export function parseReleaseCliArguments(args) {
+  let version = null;
+  let acceptEvidenceReview = false;
+  let dryRun = false;
+  for (const arg of args) {
+    if (arg === '--accept-evidence-review') {
+      assert(!acceptEvidenceReview, 'Duplicate --accept-evidence-review');
+      acceptEvidenceReview = true;
+    } else if (arg === '--dry-run') {
+      assert(!dryRun, 'Duplicate --dry-run');
+      dryRun = true;
+    } else if (!arg.startsWith('--') && version === null) {
+      version = arg.replace(/^v/, '');
+    } else {
+      throw Error(`Unknown or duplicate argument: ${arg}`);
+    }
+  }
+  assert(
+    version && /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/.test(version),
+    'Usage: npm run release -- <major.minor.patch> (--accept-evidence-review | --dry-run)'
+  );
+  assert(
+    !(acceptEvidenceReview && dryRun),
+    '--accept-evidence-review and --dry-run are mutually exclusive'
+  );
+  assert(
+    dryRun || acceptEvidenceReview,
+    'Explicit --accept-evidence-review is required after verifying support, visual, and manual AT evidence (or pass --dry-run to inspect the plan)'
+  );
+  return { version, acceptEvidenceReview, dryRun };
+}
 
 function run(cmd, args) {
   console.log(`\n> ${cmd} ${args.join(' ')}`);
@@ -39,50 +64,49 @@ function gitOut(args) {
   return res.stdout.trim();
 }
 
-const currentVersion = readVersion(root);
-if (currentVersion !== version) {
-  const docUpdates = stampReleaseDocumentation(root, currentVersion, version);
-  const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
-  const lock = JSON.parse(readFileSync(join(root, 'package-lock.json'), 'utf8'));
-  pkg.version = version;
-  lock.version = version;
-  lock.packages[''].version = version;
-  writeFileSync(join(root, 'VERSION'), version + '\n');
-  writeFileSync(join(root, 'package.json'), JSON.stringify(pkg, null, 2) + '\n');
-  writeFileSync(join(root, 'package-lock.json'), JSON.stringify(lock, null, 2) + '\n');
-  for (const update of docUpdates) {
-    writeFileSync(join(root, update.path), update.after);
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const { version, dryRun } = parseReleaseCliArguments(process.argv.slice(2));
+  const headBefore = gitOut(['rev-parse', 'HEAD']);
+  if (dryRun) {
+    const plan = planRelease(root, { version, sourceSha: headBefore });
+    console.log(JSON.stringify(plan, null, 2));
+    process.exit(plan.readyToPrepare ? 0 : 1);
   }
+
+  const currentVersion = readVersion(root);
+  if (currentVersion !== version) {
+    prepareRelease(root, { version, sourceSha: headBefore });
+  }
+
+  run(process.execPath, ['scripts/npm.mjs', 'run', 'build']);
+  run(process.execPath, ['scripts/npm.mjs', 'run', 'build:check']);
+  run(process.execPath, ['scripts/npm.mjs', 'run', 'test:pack-hygiene']);
+
+  const dockerCheck = spawnSync('docker', ['info'], { stdio: 'ignore' });
+  if (dockerCheck.status === 0) {
+    run('docker', [
+      'run', '--rm',
+      '--platform', 'linux/amd64',
+      '-v', `${root}:/work`,
+      '-w', '/work',
+      'mcr.microsoft.com/playwright:v1.62.0-noble',
+      'node', '-e',
+      'import("./scripts/lib/verification-server.mjs").then(async({createVerificationServer})=>{const{spawn}=await import("node:child_process");const s=await createVerificationServer("/work");await new Promise(r=>s.listen(0,"127.0.0.1",r));const base="http://127.0.0.1:"+s.address().port;const run=(args)=>new Promise((res,rej)=>{const c=spawn("node",args,{stdio:"inherit"});c.once("error",rej);c.once("exit",(code,sig)=>res(sig?1:code??1));});const r1=await run(["_audit/ci/pixel-diff.mjs","--update",base]);const r2=await run(["_audit/ci/pixel-diff.mjs",base]);const r3=await run(["_audit/ci/run-gates.mjs",base+"/_audit/run.html"]);await new Promise(r=>s.close(r));process.exit(r1||r2||r3||0);})',
+    ]);
+  }
+
+  if (gitOut(['status', '--porcelain'])) {
+    run('git', ['add', '-A']);
+    run('git', ['commit', '-m', `chore(release): ${version}`]);
+  }
+
+  const releaseSha = gitOut(['rev-parse', 'HEAD']);
+  const tag = `v${version}`;
+  run('git', ['tag', tag, releaseSha]);
+  verifyTagIdentity(root, { version, sourceSha: releaseSha });
+
+  run('git', ['push', 'origin', 'main']);
+  run('git', ['push', 'origin', tag]);
+  run('gh', ['workflow', 'run', 'npm-publish.yml', '--ref', tag, '-f', 'accept_evidence_review=true']);
+  console.log(`\n✓ Dispatched npm-publish.yml for ${tag} (${releaseSha}) — npm package + GitHub Release will publish automatically.`);
 }
-
-run(process.execPath, ['scripts/npm.mjs', 'run', 'build']);
-run(process.execPath, ['scripts/npm.mjs', 'run', 'build:check']);
-run(process.execPath, ['scripts/npm.mjs', 'run', 'test:pack-hygiene']);
-
-const dockerCheck = spawnSync('docker', ['info'], { stdio: 'ignore' });
-if (dockerCheck.status === 0) {
-  run('docker', [
-    'run', '--rm',
-    '--platform', 'linux/amd64',
-    '-v', `${root}:/work`,
-    '-w', '/work',
-    'mcr.microsoft.com/playwright:v1.62.0-noble',
-    'node', '-e',
-    'import("./scripts/lib/verification-server.mjs").then(async({createVerificationServer})=>{const{spawn}=await import("node:child_process");const s=await createVerificationServer("/work");await new Promise(r=>s.listen(0,"127.0.0.1",r));const base="http://127.0.0.1:"+s.address().port;const run=(args)=>new Promise((res,rej)=>{const c=spawn("node",args,{stdio:"inherit"});c.once("error",rej);c.once("exit",(code,sig)=>res(sig?1:code??1));});const r1=await run(["_audit/ci/pixel-diff.mjs","--update",base]);const r2=await run(["_audit/ci/pixel-diff.mjs",base]);const r3=await run(["_audit/ci/run-gates.mjs",base+"/_audit/run.html"]);await new Promise(r=>s.close(r));process.exit(r1||r2||r3||0);})',
-  ]);
-}
-
-if (gitOut(['status', '--porcelain'])) {
-  run('git', ['add', '-A']);
-  run('git', ['commit', '-m', `chore(release): ${version}`]);
-}
-
-const releaseSha = gitOut(['rev-parse', 'HEAD']);
-const tag = `v${version}`;
-run('git', ['tag', '-f', tag, releaseSha]);
-verifyTagIdentity(root, { version, sourceSha: releaseSha });
-
-run('git', ['push', 'origin', 'main']);
-run('git', ['push', '-f', 'origin', tag]);
-run('gh', ['workflow', 'run', 'npm-publish.yml', '--ref', tag, '-f', 'accept_evidence_review=true']);
-console.log(`\n✓ Dispatched npm-publish.yml for ${tag} (${releaseSha}) — npm package + GitHub Release will publish automatically.`);

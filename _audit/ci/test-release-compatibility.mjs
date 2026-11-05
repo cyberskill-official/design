@@ -5,7 +5,9 @@ import { tmpdir } from 'node:os';
 import { createHash } from 'node:crypto';
 import { compatibilityBlockers, validateCompatibilityRegistry } from '../../scripts/lib/release-compatibility.mjs';
 const actual = JSON.parse(readFileSync('components/release-compatibility.json'));
-const actualCheck = proposedVersion => compatibilityBlockers('.', '1.7.2', proposedVersion, { registry: actual, today: '2026-10-20' });
+const currentRepoVersion = readFileSync('VERSION', 'utf8').trim();
+assert.equal(actual.baselineVersion, currentRepoVersion, 'Compatibility baselineVersion must stay synchronized with current VERSION so prepare-release works');
+assert.deepEqual(compatibilityBlockers('.', currentRepoVersion, '2.2.1', { registry: actual, today: '2026-11-05' }), [], 'Current 2.2.0 baseline allows clean patch/minor preparation when pendingChanges is empty');
 const history = JSON.parse(readFileSync('_audit/remediation/segmented-role-removal-proposal-history.json'));
 assert.equal(createHash('sha256').update(history.sourceBytes).digest('hex'), history.sourceSha256, 'Archived original registry retains exact bytes');
 const previous = JSON.parse(history.sourceBytes);
@@ -13,15 +15,28 @@ assert.deepEqual(previous.pendingChanges.find(change => change.id === 'remove-se
 assert.deepEqual(previous.deprecations.find(notice => notice.id === 'segmented-role-override'), history.originalNotice);
 assert.equal(history.originalNotice.announcedAt, null);
 assert.equal(history.originalNotice.announcedVersion, null);
-assert(!actual.pendingChanges.some(change => change.id === 'remove-segmented-role-override'), 'Retained API is not a current removal');
-assert(actual.pendingChanges.some(change => change.id === 'segmented-role-alias-validation' && change.kind === 'breaking'), 'Rejecting arbitrary roles remains conservatively major-gated');
+const pre20Breaking = {
+  ...structuredClone(actual),
+  baselineVersion: '1.7.2',
+  pendingChanges: [
+    ...previous.pendingChanges.filter(change => change.id !== 'remove-segmented-role-override'),
+    {
+      id: 'segmented-role-alias-validation',
+      kind: 'breaking',
+      description: 'SegmentedControl retains deprecated tablist/radiogroup semantic role aliases; unsupported arbitrary role values reject instead of silently overriding or being ignored by owned group semantics.'
+    }
+  ]
+};
+const actualCheck = proposedVersion => compatibilityBlockers('.', '1.7.2', proposedVersion, { registry: pre20Breaking, today: '2026-10-20' });
+assert(!pre20Breaking.pendingChanges.some(change => change.id === 'remove-segmented-role-override'), 'Retained API is not a current removal');
+assert(pre20Breaking.pendingChanges.some(change => change.id === 'segmented-role-alias-validation' && change.kind === 'breaking'), 'Rejecting arbitrary roles remains conservatively major-gated');
 assert.deepEqual(actualCheck('2.0.0'), [], 'Retaining the alias withdraws only the unannounced current removal proposal');
 assert.deepEqual(actualCheck('2.0.0-alpha.0'), [], 'Alpha compatibility classification does not grant other support/release gates');
 for (const proposedVersion of ['1.8.0', '1.7.3']) {
   const blockers = actualCheck(proposedVersion);
-  for (const change of actual.pendingChanges) assert(blockers.some(message => message.startsWith(change.id + ':') && message.includes('major')), 'Every current breaking contract needs a major: ' + change.id);
+  for (const change of pre20Breaking.pendingChanges) assert(blockers.some(message => message.startsWith(change.id + ':') && message.includes('major')), 'Every current breaking contract needs a major: ' + change.id);
 }
-const reintroduced = structuredClone(actual);
+const reintroduced = structuredClone(pre20Breaking);
 reintroduced.pendingChanges.push(history.archivedProposal);
 for (const proposedVersion of ['2.0.0', '2.0.0-alpha.0']) {
   assert(compatibilityBlockers('.', '1.7.2', proposedVersion, {registry: reintroduced, today: '2026-10-20'}).some(message => message.includes('remove-segmented-role-override: removal has no recorded announcement')), 'Reintroducing the same unannounced removal remains blocked');
@@ -36,6 +51,7 @@ try {
   }];
   const registry = {
     ...structuredClone(actual),
+    baselineVersion: '1.7.2',
     releases: [{
       version: '1.8.0',
       releasedAt: '2026-02-01',

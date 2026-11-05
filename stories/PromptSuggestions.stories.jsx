@@ -23,3 +23,15 @@ export const Matrix = {
     </div>
   ),
 };
+
+// BEGIN GENERATED COMPONENT SCENARIO STORIES
+import {renderComponentScenario, playComponentScenario} from "./_scenarios/renderer.jsx";
+export const ScenarioPromptSuggestionsEmpty = {
+  name: "PromptSuggestions: Empty collection",
+  args: {
+  "suggestions": []
+},
+  render: args => renderComponentScenario("PromptSuggestions--empty",args),
+  play: ({canvasElement}) => playComponentScenario("PromptSuggestions--empty",canvasElement),
+};
+// END GENERATED COMPONENT SCENARIO STORIES

@@ -17,7 +17,7 @@
     },
     {
       "path": "tokens/typography.css",
-      "sha256": "49eb6c53f8837695c41e61ca8c3c92bccf8c292dcecb9bb43d81bd7c92dbf96e"
+      "sha256": "36c081467612084afe60d11bd430e6ed979d47cb67057e4d4c922668ef02741f"
     },
     {
       "path": "tokens/spacing.css",
@@ -53,11 +53,11 @@
     },
     {
       "path": "base/typography.css",
-      "sha256": "d6a1c2ea88e458893f29bacd205995662b15b41f666a84ac8b5d8d4e2aa98fd4"
+      "sha256": "24fee07f6b2256703ae20a877e3af578997a63a64f93d0f3c85ffa4dbef10f1a"
     },
     {
       "path": "base/components.css",
-      "sha256": "2d5c749472a81727264b44897997d35fc0ecef1857e5dbf0b25b1ac5cb370248"
+      "sha256": "cd1d7c23235f60dce6d7535070fdd9dc512a72b759f4e5b0fa3c633dc8c99316"
     },
     {
       "path": "base/forms.css",
@@ -65,7 +65,7 @@
     },
     {
       "path": "base/feedback.css",
-      "sha256": "6d9217035b2d71a67aa6a99bcbf75051b6d912ece0ff5c9d4f3c52261fbbcc09"
+      "sha256": "3dde87172dd59fad2272ef5a7c92d60bcd1c93d094f48fbadd0b6bdb856bb59c"
     },
     {
       "path": "base/data.css",
@@ -73,7 +73,7 @@
     },
     {
       "path": "base/navigation.css",
-      "sha256": "687f619f37cc675866d6c9e3bfab7b9ed208f563ff78e3427c9ede68c3fc605a"
+      "sha256": "4958938bd2775bf4fa430c9eeee514242dc5931fee66113c1b94d043e0fd0964"
     },
     {
       "path": "base/ai.css",
@@ -89,15 +89,15 @@
     },
     {
       "path": "base/shell.css",
-      "sha256": "3f758d518ac51e360c77a258100446085c942da1c6e39a95def95ec42fc8365e"
+      "sha256": "43693568b59494007498abd56553e3c65e136cf87c21f40805a79c38f003fbf4"
     },
     {
       "path": "base/glass.css",
-      "sha256": "8195a8cbd960fa2ff15ceb2897864cd80bc3ca22eb9cf601c6f5e0f3a8c04a14"
+      "sha256": "0605e78c1354c9061ab69eeb680b3fc3025add12f38afc3bc9ef0ab20ca95fb4"
     },
     {
       "path": "base/interaction.css",
-      "sha256": "729ee28de7e15e9b5fe454ba2e4ed8979285fa33b371477c44618fe6d65bc2f6"
+      "sha256": "ed5c40123437842eb525e0dadfbf59a1e9be71288f022bda2443daf897ca74e1"
     },
     {
       "path": "base/a11y.css",
@@ -105,7 +105,7 @@
     },
     {
       "path": "base/responsive.css",
-      "sha256": "68e0c66ee9eccfb681e5345e0800a00869a9deec14900dcc262fed2a6ab1f918"
+      "sha256": "e3e3509509d6d495a26e582dc6c9263a9e525e16f4f8936386ee5b372e7c5947"
     }
   ],
   "declarations": [
@@ -2014,7 +2014,7 @@
     {
       "order": 112,
       "sourcePath": "tokens/typography.css",
-      "line": 71,
+      "line": 70,
       "column": 3,
       "name": "--cs-heading-family",
       "value": "var(--cs-font-family-ui)",
@@ -2030,7 +2030,7 @@
     {
       "order": 113,
       "sourcePath": "tokens/typography.css",
-      "line": 72,
+      "line": 71,
       "column": 3,
       "name": "--cs-heading-weight-strong",
       "value": "var(--cs-font-weight-extrabold)",
@@ -2046,7 +2046,7 @@
     {
       "order": 114,
       "sourcePath": "tokens/typography.css",
-      "line": 73,
+      "line": 72,
       "column": 3,
       "name": "--cs-heading-weight",
       "value": "var(--cs-font-weight-bold)",
@@ -2062,7 +2062,7 @@
     {
       "order": 115,
       "sourcePath": "tokens/typography.css",
-      "line": 74,
+      "line": 73,
       "column": 3,
       "name": "--cs-heading-tracking",
       "value": "var(--cs-letter-spacing-tight)",
@@ -2078,7 +2078,7 @@
     {
       "order": 116,
       "sourcePath": "tokens/typography.css",
-      "line": 77,
+      "line": 76,
       "column": 3,
       "name": "--cs-icon-sm",
       "value": "16px",
@@ -2094,7 +2094,7 @@
     {
       "order": 117,
       "sourcePath": "tokens/typography.css",
-      "line": 78,
+      "line": 77,
       "column": 3,
       "name": "--cs-icon-md",
       "value": "20px",
@@ -2110,7 +2110,7 @@
     {
       "order": 118,
       "sourcePath": "tokens/typography.css",
-      "line": 79,
+      "line": 78,
       "column": 3,
       "name": "--cs-icon-lg",
       "value": "24px",
@@ -17112,7 +17112,7 @@
     {
       "order": 1050,
       "sourcePath": "base/typography.css",
-      "line": 20,
+      "line": 23,
       "column": 20,
       "name": "--cs-heading-family",
       "value": "var(--cs-font-family-display)",
@@ -17337,10 +17337,10 @@
       "sourcePath": "base/glass.css",
       "line": 12,
       "column": 3,
-      "name": "--cs-glass-whisper-bg",
-      "value": "color-mix(in oklab, var(--cs-color-surface-page, #fffdf8) var(--cs-glass-whisper-opacity, 60%), transparent)",
+      "name": "--_cs-border-subtle",
+      "value": "var(--_cs-light, color-mix(in srgb, var(--cs-color-brand-umber, #45210e) 18%, transparent))var(--_cs-dark, color-mix(in oklab, var(--cs-color-border-default, #4a3a2c) 82%, transparent))",
       "important": false,
-      "visibility": "public",
+      "visibility": "private",
       "context": [
         {
           "kind": "rule",
@@ -17353,10 +17353,10 @@
       "sourcePath": "base/glass.css",
       "line": 13,
       "column": 3,
-      "name": "--cs-glass-whisper-border",
-      "value": "transparent",
+      "name": "--_cs-border-strong",
+      "value": "var(--_cs-light, color-mix(in oklab, var(--cs-color-border-default, #e7d9c6) 65%, var(--cs-color-text-primary, #45210e)))var(--_cs-dark, color-mix(in oklab, var(--cs-color-border-default, #4a3a2c) 65%, var(--cs-color-text-primary, #f5ead9)))",
       "important": false,
-      "visibility": "public",
+      "visibility": "private",
       "context": [
         {
           "kind": "rule",
@@ -17369,10 +17369,10 @@
       "sourcePath": "base/glass.css",
       "line": 14,
       "column": 3,
-      "name": "--cs-glass-light-bg",
-      "value": "color-mix(in oklab, var(--cs-color-surface-panel, #fff) var(--cs-glass-light-opacity, 70%), transparent)",
+      "name": "--_cs-surface-scrim",
+      "value": "var(--_cs-light, color-mix(in oklab, var(--cs-color-brand-umber, #45210e) 48%, transparent))var(--_cs-dark, color-mix(in oklab, var(--cs-color-surface-page, #1a1108) 72%, transparent))",
       "important": false,
-      "visibility": "public",
+      "visibility": "private",
       "context": [
         {
           "kind": "rule",
@@ -17385,8 +17385,8 @@
       "sourcePath": "base/glass.css",
       "line": 15,
       "column": 3,
-      "name": "--cs-glass-light-border",
-      "value": "color-mix(in oklab, var(--cs-color-border-default, #e7d9c6) 50%, transparent)",
+      "name": "--cs-glass-whisper-bg",
+      "value": "color-mix(in oklab, var(--cs-color-surface-page, #fffdf8) var(--cs-glass-whisper-opacity, 60%), transparent)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -17401,8 +17401,8 @@
       "sourcePath": "base/glass.css",
       "line": 16,
       "column": 3,
-      "name": "--cs-glass-standard-bg",
-      "value": "color-mix(in oklab, var(--cs-color-surface-panel, #fff) var(--cs-glass-standard-opacity, 80%), transparent)",
+      "name": "--cs-glass-whisper-border",
+      "value": "transparent",
       "important": false,
       "visibility": "public",
       "context": [
@@ -17417,8 +17417,8 @@
       "sourcePath": "base/glass.css",
       "line": 17,
       "column": 3,
-      "name": "--cs-glass-standard-border",
-      "value": "color-mix(in oklab, var(--cs-color-border-default, #e7d9c6) 60%, transparent)",
+      "name": "--cs-glass-light-bg",
+      "value": "color-mix(in oklab, var(--cs-color-surface-panel, #fff) var(--cs-glass-light-opacity, 70%), transparent)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -17433,8 +17433,8 @@
       "sourcePath": "base/glass.css",
       "line": 18,
       "column": 3,
-      "name": "--cs-glass-heavy-bg",
-      "value": "color-mix(in oklab, var(--cs-color-surface-raised, #fbf4e9) var(--cs-glass-heavy-opacity, 90%), transparent)",
+      "name": "--cs-glass-light-border",
+      "value": "color-mix(in oklab, var(--cs-color-border-default, #e7d9c6) 50%, transparent)",
       "important": false,
       "visibility": "public",
       "context": [
@@ -17449,6 +17449,54 @@
       "sourcePath": "base/glass.css",
       "line": 19,
       "column": 3,
+      "name": "--cs-glass-standard-bg",
+      "value": "color-mix(in oklab, var(--cs-color-surface-panel, #fff) var(--cs-glass-standard-opacity, 80%), transparent)",
+      "important": false,
+      "visibility": "public",
+      "context": [
+        {
+          "kind": "rule",
+          "selector": ":root"
+        }
+      ]
+    },
+    {
+      "order": 1071,
+      "sourcePath": "base/glass.css",
+      "line": 20,
+      "column": 3,
+      "name": "--cs-glass-standard-border",
+      "value": "color-mix(in oklab, var(--cs-color-border-default, #e7d9c6) 60%, transparent)",
+      "important": false,
+      "visibility": "public",
+      "context": [
+        {
+          "kind": "rule",
+          "selector": ":root"
+        }
+      ]
+    },
+    {
+      "order": 1072,
+      "sourcePath": "base/glass.css",
+      "line": 21,
+      "column": 3,
+      "name": "--cs-glass-heavy-bg",
+      "value": "color-mix(in oklab, var(--cs-color-surface-raised, #fbf4e9) var(--cs-glass-heavy-opacity, 90%), transparent)",
+      "important": false,
+      "visibility": "public",
+      "context": [
+        {
+          "kind": "rule",
+          "selector": ":root"
+        }
+      ]
+    },
+    {
+      "order": 1073,
+      "sourcePath": "base/glass.css",
+      "line": 22,
+      "column": 3,
       "name": "--cs-glass-heavy-border",
       "value": "color-mix(in oklab, var(--cs-color-border-default, #e7d9c6) 80%, transparent)",
       "important": false,
@@ -17461,7 +17509,7 @@
       ]
     },
     {
-      "order": 1071,
+      "order": 1074,
       "sourcePath": "base/a11y.css",
       "line": 144,
       "column": 54,
@@ -17482,7 +17530,7 @@
       ]
     },
     {
-      "order": 1072,
+      "order": 1075,
       "sourcePath": "base/a11y.css",
       "line": 144,
       "column": 90,
@@ -17503,7 +17551,7 @@
       ]
     },
     {
-      "order": 1073,
+      "order": 1076,
       "sourcePath": "base/a11y.css",
       "line": 145,
       "column": 101,
@@ -17524,7 +17572,7 @@
       ]
     },
     {
-      "order": 1074,
+      "order": 1077,
       "sourcePath": "base/a11y.css",
       "line": 145,
       "column": 137,
@@ -17545,7 +17593,7 @@
       ]
     },
     {
-      "order": 1075,
+      "order": 1078,
       "sourcePath": "base/a11y.css",
       "line": 150,
       "column": 103,
@@ -17566,7 +17614,7 @@
       ]
     },
     {
-      "order": 1076,
+      "order": 1079,
       "sourcePath": "base/a11y.css",
       "line": 150,
       "column": 139,

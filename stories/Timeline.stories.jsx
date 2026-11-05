@@ -24,3 +24,15 @@ export const Matrix = {
     </div>
   ),
 };
+
+// BEGIN GENERATED COMPONENT SCENARIO STORIES
+import {renderComponentScenario, playComponentScenario} from "./_scenarios/renderer.jsx";
+export const ScenarioTimelineEmpty = {
+  name: "Timeline: Empty collection",
+  args: {
+  "items": []
+},
+  render: args => renderComponentScenario("Timeline--empty",args),
+  play: ({canvasElement}) => playComponentScenario("Timeline--empty",canvasElement),
+};
+// END GENERATED COMPONENT SCENARIO STORIES

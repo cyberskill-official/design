@@ -14,7 +14,7 @@
     "scripts/catalog-source.json": "f12045fb1cccf19df8a2469dba096c582bc1885c8be464e2fc3df9aec06b89e9",
     "scripts/lib/component-support.mjs": "6626078ffaaa91cb3a43d87858577fc5d405e5bfb474e7519abf50d4797b2eb1",
     "_esm/react.d.ts": "56e221d6eb875cf7c3a4de841372ba0b70389836957d8538b1d5a276848db95d",
-    "components/lifecycle.json": "b8999f80d07a706f4555ddbe8c5690fc99631cc1fdee1728b5af52a5fd8ab2dc"
+    "components/lifecycle.json": "ddc6aebaa2f0235becb8ced25e2ad67b497aba93f9731115a7f6e7c6481fe94f"
   },
   "propDefinitions": {
     "p-0003926b4717c94d": {
@@ -18980,7 +18980,7 @@
           },
           {
             "path": "stories/Accordion.stories.jsx",
-            "sha256": "1630a32254a92fa261c6e4cb497630366432573541591a3d598d3e4423349d5a",
+            "sha256": "a603e154ff73ae2d9e7a0967edf7310c4970c8370f106edcd11f4c47ada0d3f8",
             "scope": "Authored Storybook CSF story and declared matrix mount surface; not execution or all-state acceptance",
             "checkedAt": "2026-10-21T12:08:13.113Z"
           }
@@ -37865,7 +37865,7 @@
           },
           {
             "path": "stories/CitationList.stories.jsx",
-            "sha256": "dfb9621b466a98f04976ebb85f8d5660badcd08b8db855dc8251ba2911ddc694",
+            "sha256": "46a0d90eb742369470749be61762ef40671484d12f3558bdc178dfc095f0e8c6",
             "scope": "Authored Storybook CSF story and declared matrix mount surface; not execution or all-state acceptance",
             "checkedAt": "2026-10-21T12:08:13.113Z"
           }
@@ -40945,7 +40945,7 @@
           },
           {
             "path": "stories/DescriptionList.stories.jsx",
-            "sha256": "150c6cb17a105929da1d13fbd166800dbae9883bf372008f10844dfea205b8c6",
+            "sha256": "b0ab9fe6080497f9712fda02cb179fa149da7555221db96f044d2787dfb01c11",
             "scope": "Authored Storybook CSF story and declared matrix mount surface; not execution or all-state acceptance",
             "checkedAt": "2026-10-21T12:08:13.113Z"
           }
@@ -71425,7 +71425,7 @@
           },
           {
             "path": "stories/PromptSuggestions.stories.jsx",
-            "sha256": "bca40b689f7bee576a26ec7dd845168628d7d09d92010eebff9addf3bbc380bf",
+            "sha256": "b5f189211e33bc0e681e5cc573cb89824078f3aa72dc965df8e492c0c6ba65ee",
             "scope": "Authored Storybook CSF story and declared matrix mount surface; not execution or all-state acceptance",
             "checkedAt": "2026-10-21T12:08:13.113Z"
           }
@@ -93661,7 +93661,7 @@
           },
           {
             "path": "stories/Timeline.stories.jsx",
-            "sha256": "751b1374999a7b619407da0abbf365ad297902f6be0d92a5f52d10a12cd74e1d",
+            "sha256": "3715dffb952d9ea60ca40b108d21e5a1102c3ff731f3229965182676e37ada19",
             "scope": "Authored Storybook CSF story and declared matrix mount surface; not execution or all-state acceptance",
             "checkedAt": "2026-10-21T12:08:13.113Z"
           }

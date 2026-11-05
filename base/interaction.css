@@ -12,7 +12,7 @@
 }
 .cs-button--primary:hover:not(.is-disabled),
 .cs-button--danger:hover:not(.is-disabled) {
-  box-shadow: 0 8px 20px rgba(69, 33, 14, 0.24);
+  box-shadow: var(--_cs-light, 0 8px 20px color-mix(in srgb, var(--cs-color-brand-umber, #45210e) 24%, transparent))var(--_cs-dark, var(--cs-shadow-md));
   transform: translateY(-1px);
 }
 .cs-button--primary:active:not(.is-disabled),

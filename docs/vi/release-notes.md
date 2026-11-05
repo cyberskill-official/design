@@ -28,6 +28,19 @@ Các thay đổi này thuộc working tree đang sửa đổi. Đây chưa phả
 
 Release vẫn chờ nghiệm thu thị giác của con người, kiểm tra native/công nghệ hỗ trợ thủ công bắt buộc, quyết định về nguồn gốc tài nguyên và nghiệm thu hiện vật pilot đã thay đổi. Bằng chứng hỗ trợ đã thay đổi phải được review lại trong `components/lifecycle.json`. EN/VI là phạm vi ngôn ngữ mục tiêu; tiếng Nhật vẫn là spike chưa đầy đủ. Ghi chú này không cho phép mở rộng cam kết hỗ trợ, deprecate hay loại bỏ API.
 
+## Release — `@cyberskill/design@2.0.0`
+
+Phiên bản major ổn định đã công bố được ghi nhận trong `_audit/ci/fixtures/npm-published-release.json` (quan sát lúc `2026-10-30T16:59:22.000Z`, tag `v2.0.0` tại commit `a159211acf8338cfdc4df18e9fa92c461071e00f`). Các tag kho mã tiếp theo `v2.1.0` và `v2.2.0` tiếp nối nhánh nguồn 2.x.
+
+- **Điểm vào ESM biên dịch mặc định (`compiled-default-entry`):** `@cyberskill/design` trỏ tới ESM đã biên dịch (`dist/esm/_esm/react.mjs`) dùng peer React; JSX thô vẫn truy cập được qua `@cyberskill/design/source`.
+- **Hợp đồng bàn phím Menu theo APG (`apg-menu-keyboard`):** `Menu` áp dụng điều hướng phím mũi tên và đóng khi nhấn Tab theo WAI-ARIA Authoring Practices.
+- **Floating panel dùng portal mặc định (`floating-default-portal`):** Các bảng nổi mặc định gắn vào `document.body` với tùy chọn inline rõ ràng và tự động lùi về inline trong `<form>` / `<fieldset>` gốc.
+- **SegmentedControl mặc định radio & kiểm tra bí danh (`segmented-radio-default`, `segmented-role-alias-validation`):** `SegmentedControl` mặc định dùng ngữ nghĩa `radiogroup` cho chọn giá trị (`mode="tabs"` cho bảng tab do caller render) và kiểm tra bí danh `tablist` / `radiogroup` đã deprecate, đồng thời từ chối giá trị `role` tùy ý không được hỗ trợ.
+
+```bash
+npm install @cyberskill/design@2.0.0
+```
+
 ## Release — `@cyberskill/design@1.7.2`
 
 Đính chính định danh (ngày 21 tháng 10 năm 2026): npm phát hành package này lúc **2026-08-13T08:50:39.579Z**. Annotated tag từ remote `v1.7.2` trỏ tới commit `792b503e71c115d76f26eb4721cc4b04a9b6e6c3`, khớp với `gitHead` do registry công bố. Trang GitHub release ghi thời điểm xuất bản **2026-10-19T13:32:00Z**; ngày của trang này không thay đổi nội dung package. Đây là metadata định danh được quan sát, chưa phải xác minh nguồn gốc bằng mật mã độc lập.

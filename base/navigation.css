@@ -17,7 +17,7 @@
 .cs-breadcrumb__current { color: var(--cs-color-text-primary); font-weight: 600; }
 
 /* Pagination */
-.cs-pagination { display: inline-flex; align-items: center; gap: 4px; }
+.cs-pagination { display: inline-flex; align-items: center; gap: 4px; font-variant-numeric: tabular-nums; }
 .cs-pagination button { min-inline-size: 38px; block-size: 38px; padding: 0 10px; border: 1px solid var(--cs-color-border-default); background: var(--cs-color-surface-panel); color: var(--cs-color-text-primary); border-radius: var(--cs-radius-md); font: inherit; font-family: var(--cs-font-family-ui); font-weight: 600; font-size: var(--cs-font-size-sm); cursor: pointer; display: inline-grid; place-items: center; }
 .cs-pagination button:hover:not(:disabled) { border-color: var(--cs-accent); }
 .cs-pagination button[aria-current="page"] { background: var(--_cs-light, var(--cs-component-button-primary-bg))var(--_cs-dark, var(--cs-component-button-primary-bg)); color: var(--_cs-light, var(--cs-component-button-primary-fg))var(--_cs-dark, var(--cs-component-button-primary-fg)); border-color: transparent; }

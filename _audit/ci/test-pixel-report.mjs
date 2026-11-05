@@ -331,7 +331,11 @@ try {
   malicious.results[0].error = '<img src=x onerror="window.pixelInjected=true">';
   await gate(malicious, false, "capture failure text");
   assert.equal(await page.evaluate(() => !!window.pixelInjected), false);
-  console.log("PASS real Pixel CI page: 11 receipt cases, stale served bytes and omitted member rejected, safe error rendering");
+  const darwinDrift = clone(drift);
+  darwinDrift.renderer.platform = "darwin";
+  await gate(darwinDrift, false, "non-linux drift retains hard fail and emits platform diagnostic");
+  assert.match(await page.locator(".row.warn").textContent(), /Platform renderer mismatch \(darwin vs canonical linux baselines\)/);
+  console.log("PASS real Pixel CI page: 12 receipt cases, stale served bytes and omitted member rejected, safe error rendering");
 } finally {
   await browser?.close();
   await live.close();

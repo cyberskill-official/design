@@ -53,6 +53,8 @@ const incomplete=structuredClone(matrix);incomplete.rows[0].status='passed';asse
 const missing=structuredClone(matrix);missing.rows.pop();assert.throws(()=>validateManualAT(missing));
 const refused=spawnSync(process.execPath,['scripts/require-manual-at-publication.mjs'],{encoding:'utf8'});
 assert.notEqual(refused.status,0);assert.match(refused.stderr,/AT-01=pending/);
+const refusedSummary=spawnSync(process.execPath,['scripts/require-manual-at-publication.mjs','--summary'],{encoding:'utf8'});
+assert.notEqual(refusedSummary.status,0);assert.match(refusedSummary.stdout,/Manual AT summary \(16 rows\): passed=0, pending=16, failed=0, blocked=0/);
 const accepted=structuredClone(matrix);
 for (const row of accepted.rows) {
   row.status='passed';row.reviewer='Fixture reviewer';row.reviewedAt='2026-10-30T00:00:00.000Z';row.sourceCommit='a'.repeat(40);row.environment='Fixture only';row.observations='Fixture observation. Not a manual assistive-technology result.';row.evidence=[{path:'fixture'}];

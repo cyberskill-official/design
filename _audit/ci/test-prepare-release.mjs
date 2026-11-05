@@ -10,6 +10,7 @@ import {parseReleaseVersion as parseNodeVersion,compareReleaseVersions as compar
 import {stripEntryRoute} from '../../scripts/lib/entrypoint-languages.mjs';
 import {documentationStampTargets,sourceVersionMarker,stampReleaseDocumentation} from '../../scripts/lib/release-documentation.mjs';
 import { planRelease, prepareRelease, verifyPreparedCandidate, verifyTagIdentity, parseArguments } from '../../scripts/prepare-release.mjs';
+import { parseReleaseCliArguments } from '../../scripts/release.mjs';
 const hash = value => createHash('sha256').update(value).digest('hex');
 const sourceSha = 'a'.repeat(40), otherSha = 'b'.repeat(40);
 function fixture() {
@@ -21,6 +22,7 @@ function fixture() {
   put('_ds_manifest.json', { components: [{ name: 'Fixture', kind: 'component', sourcePath: 'fixture.jsx' }] });
   put('components/maintainers.json', { schemaVersion: 1, maintainers: [{ name: 'fixture-owner', roles: ['owner'] }, { name: 'fixture-reviewer', roles: ['reviewer'] }] });
   const compatibility = JSON.parse(readFileSync('components/release-compatibility.json','utf8'));
+  compatibility.baselineVersion = '1.7.2';
   compatibility.pendingChanges = [];
   put('components/release-compatibility.json',compatibility);
   const lifecycle = { supportContractVersion: 1, components: { Fixture: { status: 'stable', kind: 'component', sourcePath: 'fixture.jsx', support: {
@@ -116,6 +118,13 @@ try {
   assert(fx.calls.filter(args => args[0] === 'tag').every(args => args[1] === '--list'), 'Never create a tag');
   for (const args of [[], ['--version', '1.7.3'], ['--version', '1.7.3', '--source-sha', sourceSha, '--publish'], ['--version', '1.7.3', '--source-sha', sourceSha, '--write', '--verify-tag']]) assert.throws(() => parseArguments(args));
   assert.equal(parseArguments(['--version', '1.7.3', '--source-sha', sourceSha]).write, false);
+  for (const args of [[], ['2.2.1'], ['2.2.1', '--accept-evidence-review', '--dry-run'], ['2.2.1', '--force'], ['v2.2.1-alpha.0', '--dry-run']]) assert.throws(() => parseReleaseCliArguments(args));
+  assert.deepEqual(parseReleaseCliArguments(['v2.2.1', '--dry-run']), { version: '2.2.1', acceptEvidenceReview: false, dryRun: true });
+  assert.deepEqual(parseReleaseCliArguments(['2.2.1', '--accept-evidence-review']), { version: '2.2.1', acceptEvidenceReview: true, dryRun: false });
+  const publishedSnapshot = JSON.parse(readFileSync('_audit/ci/fixtures/npm-published-release.json', 'utf8')).version;
+  assert.ok(readFileSync('README.md', 'utf8').includes(`@cyberskill/design@${publishedSnapshot}`), 'README must cite the recorded npm-published-release snapshot');
+  assert.ok(readFileSync('docs/consuming.md', 'utf8').includes(`published stable ${publishedSnapshot}`), 'docs/consuming.md must cite the recorded npm-published-release snapshot');
+  assert.ok(readFileSync('docs/release-notes.md', 'utf8').includes(`## Release — \`@cyberskill/design@${publishedSnapshot}\``), 'docs/release-notes.md must include a release section for the recorded npm-published-release snapshot');
 } finally { rmSync(fx.root, { recursive: true, force: true }); }
 // Validate every marker role before any machine/doc write, including a fault in the final file.
 let markerNegatives=0;

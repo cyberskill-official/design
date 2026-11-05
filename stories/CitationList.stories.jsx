@@ -32,3 +32,15 @@ export const Matrix = {
     </div>
   ),
 };
+
+// BEGIN GENERATED COMPONENT SCENARIO STORIES
+import {renderComponentScenario, playComponentScenario} from "./_scenarios/renderer.jsx";
+export const ScenarioCitationListEmpty = {
+  name: "CitationList: Empty collection",
+  args: {
+  "items": []
+},
+  render: args => renderComponentScenario("CitationList--empty",args),
+  play: ({canvasElement}) => playComponentScenario("CitationList--empty",canvasElement),
+};
+// END GENERATED COMPONENT SCENARIO STORIES

@@ -460,6 +460,13 @@ async function main() {
     reportPath,
     "· maxDiff=" + report.maxDiff + "% · drifted=[" + drifted.join(", ") + "]"
   );
+  if (!update && drifted.length && renderer.platform !== "linux") {
+    console.warn(
+      "pixel-diff: platform renderer mismatch (" +
+        renderer.platform +
+        " vs canonical linux baselines): cross-OS font subpixel hinting causes drift; run pixel-diff.mjs in a Linux Chromium container for canonical baseline comparison."
+    );
+  }
 
   if (update) process.exit(captureFails ? 1 : 0);
   if (captureFails || drifted.length || inputFailures.length) process.exit(1);

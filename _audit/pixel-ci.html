@@ -99,6 +99,12 @@
         el.textContent = (ok ? "✓ " : "✗ ") + text;
         list.appendChild(el);
       }
+      function warn(text) {
+        const el = document.createElement("div");
+        el.className = "row warn";
+        el.textContent = "⚠ " + text;
+        list.appendChild(el);
+      }
       function finish(result) {
         P.done = P.total;
         P.current = "done";
@@ -219,6 +225,16 @@
               report.renderer.version
           );
           fails.push(...receipt.failures);
+          if (
+            report.drifted.length &&
+            report.renderer.platform !== "linux"
+          ) {
+            warn(
+              "Platform renderer mismatch (" +
+                report.renderer.platform +
+                " vs canonical linux baselines): cross-OS font subpixel hinting causes drift; run pixel-diff.mjs in a Linux Chromium container for canonical baseline comparison"
+            );
+          }
           const table = document.createElement("table");
           const header = table.insertRow();
           for (const text of ["slug", "diff %", "status"]) {

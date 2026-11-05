@@ -37,10 +37,14 @@ img, svg, video, canvas { max-width: 100%; height: auto; }
 @media screen and (max-width: 768px) {
   .cs-desk { padding: 24px 10px !important; }
   .cs-sheet { padding: 40px 40px !important; }
+  .cs-display:where(:not(.cs-canvas-desk *)) { font-size: var(--cs-font-size-4xl); }
+  .cs-h1:where(:not(.cs-canvas-desk *)) { font-size: var(--cs-font-size-2xl); }
 }
 @media screen and (max-width: 640px) {
   .cs-desk { padding: 12px 6px !important; }
   .cs-sheet { padding: 26px 20px !important; border-radius: 8px !important; }
+  .cs-display:where(:not(.cs-canvas-desk *)) { font-size: var(--cs-font-size-3xl); }
+  .cs-h1:where(:not(.cs-canvas-desk *)) { font-size: var(--cs-font-size-xl); }
 }
 @media screen and (max-width: 360px) {
   .cs-sheet { padding: 20px 15px !important; }

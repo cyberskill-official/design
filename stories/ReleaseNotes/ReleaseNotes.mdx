@@ -36,6 +36,19 @@ Release remains pending human visual acceptance, required native/manual assistiv
 
 ---
 
+## Release — `@cyberskill/design@2.0.0`
+
+Published stable major release recorded in `_audit/ci/fixtures/npm-published-release.json` (observed `2026-10-30T16:59:22.000Z`, tag `v2.0.0` at commit `a159211acf8338cfdc4df18e9fa92c461071e00f`). Subsequent repository tags `v2.1.0` and `v2.2.0` advance the 2.x source line.
+
+- **Compiled ESM Default Entry (`compiled-default-entry`):** `@cyberskill/design` resolves to compiled ESM (`dist/esm/_esm/react.mjs`) with peer React; raw JSX remains available via `@cyberskill/design/source`.
+- **APG Menu Keyboard Contract (`apg-menu-keyboard`):** `Menu` enforces WAI-ARIA Authoring Practices arrow-key navigation and Tab-closes behavior.
+- **Portalled Floating Panels (`floating-default-portal`):** Floating overlays default to `document.body` portal placement with explicit inline opt-out and automatic native `<form>` / `<fieldset>` fallback.
+- **SegmentedControl Radio Default & Alias Validation (`segmented-radio-default`, `segmented-role-alias-validation`):** `SegmentedControl` defaults to `radiogroup` semantics for value selection (`mode="tabs"` for caller-rendered tab panels) and validates deprecated `tablist` / `radiogroup` role aliases while rejecting arbitrary unsupported `role` strings.
+
+```bash
+npm install @cyberskill/design@2.0.0
+```
+
 ## Release — `@cyberskill/design@1.7.2`
 
 Identity correction (21 October 2026): npm published this package on **2026-08-13T08:50:39.579Z**. The remote annotated tag `v1.7.2` resolves to commit `792b503e71c115d76f26eb4721cc4b04a9b6e6c3`, matching the registry-reported `gitHead`. The GitHub release page reports publication on **2026-10-19T13:32:00Z**; this later page date does not change the package contents. These observations are identity metadata, not independent cryptographic provenance verification.

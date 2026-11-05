@@ -709,6 +709,71 @@
         "components/navigation/CommandPalette.jsx": "4d01c61f1a034b08686456d2fec66aa51291f7e9b0e95a9d4e8a8761c0ce9f01",
         "components/navigation/CommandPalette.d.ts": "fc27fdb09a4f741142a2fa07da7beb4ddc6b7b8967cb9683124a49db5947f5f1"
       }
+    },
+    "Accordion": {
+      "kind": "empty-collection",
+      "props": {
+        "items": []
+      },
+      "collectionProp": "items",
+      "selector": ".cs-accordion",
+      "noItems": ".cs-accordion__item",
+      "sourceEvidence": {
+        "components/data/Accordion.jsx": "2bd0ed6b7ddb3daa85f941a0260ef3f08a7a261de3336eabff49c6cade44791b",
+        "components/data/Accordion.d.ts": "0c5b1140bba3076f0642ae9c23701fbdae406e01f9a08a7beb7ddaeac8aa903f"
+      }
+    },
+    "CitationList": {
+      "kind": "empty-collection",
+      "props": {
+        "items": []
+      },
+      "collectionProp": "items",
+      "selector": ".cs-citations",
+      "noItems": ".cs-citation",
+      "sourceEvidence": {
+        "components/ai/CitationList.jsx": "dc3f9e04b71611502234cd03a1967aeed46b6274d6f4e205a4ebd228fcceeb6a",
+        "components/ai/CitationList.d.ts": "0e8377e7ee2c37835e1bf91304cff0bf44f0447a08fbcb3f73e1cd03d96408dc"
+      }
+    },
+    "DescriptionList": {
+      "kind": "empty-collection",
+      "props": {
+        "items": []
+      },
+      "collectionProp": "items",
+      "selector": ".cs-dl",
+      "noItems": "dt, dd",
+      "sourceEvidence": {
+        "components/data/DescriptionList.jsx": "8aed2b747130fe0b1a66428211e0893913cb0c1662c0902a4524c4f183b4d35b",
+        "components/data/DescriptionList.d.ts": "3f84a71191cad761f5bca6e6e0e7e2e2f18b052ee24640565895c346634d5b69"
+      }
+    },
+    "PromptSuggestions": {
+      "kind": "empty-collection",
+      "props": {
+        "suggestions": []
+      },
+      "collectionProp": "suggestions",
+      "selector": ".cs-suggest",
+      "noItems": "button",
+      "sourceEvidence": {
+        "components/ai/PromptSuggestions.jsx": "c4c6fca2eb27fd7eb7357a75bc3df9191973eddb051bb0db4eb95a3fe9970345",
+        "components/ai/PromptSuggestions.d.ts": "008c5a0d4bdbbb0dc586ebd1acf3e614200c4c2517fe166a427779132e3f338c"
+      }
+    },
+    "Timeline": {
+      "kind": "empty-collection",
+      "props": {
+        "items": []
+      },
+      "collectionProp": "items",
+      "selector": ".cs-timeline",
+      "noItems": ".cs-timeline__item",
+      "sourceEvidence": {
+        "components/data/Timeline.jsx": "3289633a572917bb68be42e8143436d22c1d2085a73a4bb2a0f1c5860124efa0",
+        "components/data/Timeline.d.ts": "92565564d921a6df708e107de8fcf7cd491950dfdf5eda2a42242ce25c8f5acd"
+      }
     }
   }
 }
