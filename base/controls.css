@@ -114,7 +114,7 @@
 .cs-cal__grid button { border: 0; background: none; color: var(--cs-color-text-primary); font: 500 13px var(--cs-font-family-ui); block-size: 34px; border-radius: var(--cs-radius-sm); cursor: pointer; }
 .cs-cal__grid button:hover { background: var(--cs-color-surface-raised); }
 .cs-cal__grid button.today { box-shadow: inset 0 0 0 1px var(--cs-accent); }
-.cs-cal__grid button.sel { background: var(--cs-accent); color: var(--cs-accent-on); font-weight: 700; }
+.cs-cal__grid button.sel { background: var(--cs-accent); color: var(--_cs-light, var(--cs-accent-on))var(--_cs-dark, var(--cs-color-text-inverse)); font-weight: 700; }
 .cs-cal__grid button:focus-visible { outline: 2px solid var(--cs-color-text-primary); outline-offset: 1px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
 .cs-datepicker { position: relative; display: inline-block; max-inline-size: 100%; }
 .cs-datepicker__field { display: inline-flex; align-items: center; gap: var(--cs-space-2); min-inline-size: 220px; min-block-size: 44px; font: 500 14px var(--cs-font-family-ui); color: var(--cs-color-text-primary); background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); padding: var(--cs-space-2) var(--cs-space-3); cursor: pointer; }
@@ -137,7 +137,7 @@
 .cs-ctxmenu-zone { position: relative; }
 .cs-fab { position: fixed; inset-inline-end: 24px; inset-block-end: 24px; z-index: var(--cs-depth-overlay, 80); display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
 .cs-fab--static { position: static; align-items: flex-start; }
-.cs-fab__main { inline-size: 56px; block-size: 56px; border-radius: 999px; border: 0; background: var(--cs-accent); color: var(--cs-accent-on); display: grid; place-items: center; cursor: pointer; box-shadow: var(--cs-shadow-lg); }
+.cs-fab__main { inline-size: 56px; block-size: 56px; border-radius: 999px; border: 0; background: var(--cs-accent); color: var(--_cs-light, var(--cs-accent-on))var(--_cs-dark, var(--cs-color-text-inverse)); display: grid; place-items: center; cursor: pointer; box-shadow: var(--cs-shadow-lg); }
 .cs-fab__main:hover { filter: brightness(1.05); }
 .cs-fab__main:focus-visible { outline: 2px solid var(--cs-color-text-primary); outline-offset: 2px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre), var(--cs-shadow-md); }
 .cs-fab__dial { display: flex; flex-direction: column; gap: 8px; align-items: center; }

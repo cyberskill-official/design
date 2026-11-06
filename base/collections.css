@@ -47,7 +47,7 @@ div.cs-item.is-disabled { opacity: 1; }
 .cs-timeline__item { display: grid; grid-template-columns: 26px 1fr; gap: 14px; padding-block-end: var(--cs-space-5); position: relative; }
 .cs-timeline__item:not(:last-child)::before { content: ""; position: absolute; inset-block: 26px 0; inset-inline-start: 12px; inline-size: 2px; background: var(--cs-color-border-default); }
 .cs-timeline__marker { inline-size: 26px; block-size: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--cs-color-semantic-success); color: var(--cs-color-semantic-success-fg, #fff); font-size: var(--cs-font-size-xs); font-weight: 700; z-index: 1; }
-.cs-timeline__item--now .cs-timeline__marker { background: var(--cs-accent-bright); color: var(--cs-accent-on); }
+.cs-timeline__item--now .cs-timeline__marker { background: var(--cs-accent-bright); color: var(--_cs-light, var(--cs-accent-on))var(--_cs-dark, var(--cs-color-text-inverse)); }
 .cs-timeline__item--todo .cs-timeline__marker { background: var(--cs-color-surface-raised); color: var(--cs-color-text-muted); border: 1px solid var(--cs-color-border-default); }
 .cs-timeline__title { font-weight: 700; margin: 2px 0 2px; }
 .cs-timeline__meta { font-size: var(--cs-font-size-xs); color: var(--cs-color-text-muted); font-family: var(--cs-font-family-mono); }

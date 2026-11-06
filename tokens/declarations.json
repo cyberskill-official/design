@@ -81,15 +81,15 @@
     },
     {
       "path": "base/controls.css",
-      "sha256": "d8e5f95110b124a38cadc0d8ec7b0cbc267684132431fe78274716b4b1242cd4"
+      "sha256": "20ea0f0b0332e890844b5a85b58798428923368acfef22c3c80a5e2463e03296"
     },
     {
       "path": "base/collections.css",
-      "sha256": "72eb80330ef7414ba2dc3ee8228421181668eb9d5031e6e4c0a34978454da766"
+      "sha256": "9ce1866524e57a9d326666638c513f9b529a80d7d97eeaa70671b7491f3d77ac"
     },
     {
       "path": "base/shell.css",
-      "sha256": "70d673477fe99cf7b6185fc3b4297503cea246c50da4b2028ed5c9e6c534dead"
+      "sha256": "f67f0e5b53cccf34ee34640c96b983234a909c529109db7c292fdcc9235d26d7"
     },
     {
       "path": "base/glass.css",

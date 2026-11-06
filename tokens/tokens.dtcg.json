@@ -531,7 +531,7 @@
       "declarationGraph": {
         "path": "declarations.json",
         "schemaVersion": 1,
-        "sha256": "7d502e7e02118db2ff6485e9cea94eca05a3f3ff64c92bddef93d876c3000bd1",
+        "sha256": "39c3792b12d41f0895bc000c7082f4654cbc124c0869ae792398847f9ecbef22",
         "declarations": 1080,
         "publicDeclarations": 397,
         "publicNames": 216,
