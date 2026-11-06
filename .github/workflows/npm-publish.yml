@@ -24,6 +24,9 @@ jobs:
     timeout-minutes: 360
     permissions:
       contents: read
+      checks: read
+      actions: read
+      statuses: read
     outputs:
       published: ${{ steps.registry.outputs.published }}
       source_sha: ${{ steps.validation.outputs.source_sha }}
@@ -67,6 +70,12 @@ jobs:
         if: steps.registry.outputs.published == 'false'
         id: validation
         run: node scripts/validate-publication.mjs --run --directory "$RUNNER_TEMP/publication-candidate"
+      - name: Wait for all required CI checks on exact source commit to pass
+        if: steps.registry.outputs.published == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: ${{ steps.validation.outputs.source_sha }}
+        run: node scripts/verify-ci-checks.mjs --verify-commit --sha "$SOURCE_SHA" --repo "${{ github.repository }}" --wait
       - name: Retain immutable candidate, receipt and diagnostics
         if: always() && steps.registry.outputs.published == 'false'
         id: artifact
@@ -93,6 +102,9 @@ jobs:
     permissions:
       contents: write
       id-token: write
+      checks: read
+      actions: read
+      statuses: read
     env:
       CS_PUBLICATION_MANUAL_ACCEPTANCE: 'true'
       PUBLICATION_RECEIPT_SHA256: ${{ needs.validate.outputs.receipt_sha256 }}
@@ -120,6 +132,12 @@ jobs:
       - name: Recheck registry immediately before publication
         id: registry
         run: node scripts/validate-publication.mjs --registry
+      - name: Reverify all required CI checks on exact source commit before OIDC publish
+        if: steps.registry.outputs.published == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_SHA: ${{ needs.validate.outputs.source_sha }}
+        run: node scripts/verify-ci-checks.mjs --verify-commit --sha "$SOURCE_SHA" --repo "${{ github.repository }}"
       - name: Publish the exact validated tarball via OIDC
         if: steps.registry.outputs.published == 'false'
         env:

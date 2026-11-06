@@ -117,6 +117,10 @@ jobs:
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-chromium-firefox-webkit
       - name: Install Playwright unit-test browsers
         run: npx --no-install playwright install --with-deps chromium firefox webkit
+      - name: Check verified local act attestation for this commit and shard
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/verify-ci-checks.mjs --check-act-shard "${{ matrix.shard }}" --sha "${{ github.sha }}" --repo "${{ github.repository }}"
       - name: Run unit tests
         env:
           CS_UNIT_SHARD: ${{ matrix.shard }}

@@ -68,6 +68,35 @@ export function writeReports(results, directory, metadata = {}) {
   writeFileSync(join(directory, 'unit-results.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<testsuite name="CyberSkill unit" tests="${results.length}" failures="${results.filter(result => !result.pass).length}">${cases.join('')}</testsuite>\n`);
   return pass;
 }
+export function resultsFromVerifiedActReceipt(selected, receiptPath, {
+  cwd = root,
+  shard,
+  planSha256
+} = {}) {
+  const receipt = JSON.parse(readFileSync(receiptPath, 'utf8'));
+  const treeRes = spawnSync('git', ['rev-parse', '--verify', 'HEAD^{tree}'], {
+    cwd,
+    encoding: 'utf8'
+  });
+  if (treeRes.status !== 0) throw Error(`Cannot resolve HEAD^{tree} for act receipt: ${treeRes.stderr}`);
+  const treeSha = treeRes.stdout.trim();
+  if (receipt.schemaVersion !== 1 || receipt.pass !== true) throw Error('Invalid act shard receipt schema or pass state');
+  if (receipt.shard !== shard) throw Error(`Act shard receipt mismatch: expected ${shard}, got ${receipt.shard}`);
+  if (receipt.treeSha !== treeSha) throw Error(`Act shard receipt tree mismatch: expected ${treeSha}, got ${receipt.treeSha}`);
+  if (receipt.planSha256 !== planSha256) throw Error('Act shard receipt planSha256 mismatch');
+  const expectedIds = selected.map(suite => suite.id);
+  if (!Array.isArray(receipt.selectedSuiteIds) || receipt.selectedSuiteIds.length !== expectedIds.length || receipt.selectedSuiteIds.some((id, idx) => id !== expectedIds[idx])) {
+    throw Error('Act shard receipt selectedSuiteIds mismatch');
+  }
+  return selected.map(suite => ({
+    ...suite,
+    durationMs: 0,
+    exitCode: 0,
+    signal: null,
+    error: null,
+    pass: true
+  }));
+}
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   try {
     const registry = JSON.parse(readFileSync(join(root, '_audit/ci/unit-suites.json'), 'utf8'));
@@ -75,16 +104,22 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
     const planPath = process.env.CS_UNIT_PLAN || process.argv.find(arg => arg.startsWith('--plan='))?.slice(7);
     const planBytes = planPath ? readFileSync(planPath) : null;
     const plan = planBytes ? JSON.parse(planBytes) : null;
+    const planSha256 = planBytes ? createHash('sha256').update(planBytes).digest('hex') : null;
     const selected = selectSuites(registry, shard, plan);
-    const results = runSuites(selected);
+    const actReceiptPath = process.env.CS_ACT_SHARD_RECEIPT;
+    const results = actReceiptPath ? resultsFromVerifiedActReceipt(selected, actReceiptPath, {
+      cwd: root,
+      shard: shard || null,
+      planSha256
+    }) : runSuites(selected);
     const reportDir = process.env.CS_UNIT_REPORT_DIR || join(root, 'test-results', shard ? `unit-${shard.replace('/', '-')}` : 'unit');
     const pass = writeReports(results, reportDir, {
       shard: shard || null,
       totalSuites: registry.suites.length,
-      planSha256: planBytes ? createHash('sha256').update(planBytes).digest('hex') : null,
+      planSha256,
       selectedSuiteIds: selected.map(suite => suite.id)
     });
-    console.log(`Unit suites: ${results.filter(result => result.pass).length}/${results.length} pass; reports: ${reportDir}`);
+    console.log(`Unit suites: ${results.filter(result => result.pass).length}/${results.length} pass${actReceiptPath ? ' (verified local act attestation)' : ''}; reports: ${reportDir}`);
     process.exitCode = pass ? 0 : 1;
   } catch (error) {
     console.error(error);

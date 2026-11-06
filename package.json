@@ -131,6 +131,7 @@
     "verify:serve": "python3 -m http.server 8765 --bind 127.0.0.1",
     "verify:hint": "echo Open http://127.0.0.1:8765/_audit/run.html and wait for ALL hard gates PASS",
     "verify:local": "bash scripts/verify-local.sh",
+    "ci:act": "node scripts/run-act-ci.mjs",
     "ci:act:list": "act --container-architecture linux/amd64 --list",
     "ci:act:prechecks": "act -W .github/workflows/design-system-gates.yml -j node-prechecks -P ubuntu-24.04=-self-hosted -P ubuntu-latest=-self-hosted",
     "ci:act:smoke": "act -W .github/workflows/design-system-gates.yml -j npm-hello-smoke -P ubuntu-24.04=-self-hosted -P ubuntu-latest=-self-hosted",

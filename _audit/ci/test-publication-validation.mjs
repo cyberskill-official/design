@@ -7,6 +7,8 @@ import {createHash} from 'node:crypto';
 import {parse} from 'yaml';
 import {parsePublicationArguments} from '../../scripts/validate-publication.mjs';
 import {publicationCommands,runPublicationValidation,verifyPublicationReceipt,parseRegistryResult,executePublicationCommand} from '../../scripts/lib/publication-validation.mjs';
+import {REQUIRED_CI_CHECKS,evaluateCiChecks,formatActShardStatus,verifyActShardAttestation} from '../../scripts/lib/ci-check-gate.mjs';
+import {waitForRequiredCiChecks} from '../../scripts/verify-ci-checks.mjs';
 const hash=(bytes,algorithm='sha256',encoding='hex')=>createHash(algorithm).update(bytes).digest(encoding);
 const sandbox=realpathSync(mkdtempSync(join(tmpdir(),'cs-publication-fixture-'))),root=join(sandbox,'source');
 mkdirSync(root);
@@ -49,7 +51,19 @@ try {
  const full=JSON.parse(executePublicationCommand(root,['run','verify'],{},true).stdout);assert.deepEqual(full.args,['run','verify']);assert.equal(full.env.CS_PDF_PYTHON,'/fixture/pinned-python');assert.deepEqual(Object.keys(full.env).filter(k=>k.startsWith('CS_')),['CS_PDF_PYTHON']);assert.equal(full.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN,undefined);assert.equal(full.env.GITHUB_OUTPUT,undefined);
  for(const browser of ['chromium','firefox','webkit']){const child=JSON.parse(executePublicationCommand(root,['run','test:storybook-runtime'],{CS_TEST_BROWSER:browser},true).stdout);assert.equal(child.env.CS_TEST_BROWSER,browser);assert.equal(child.env.CS_BROWSER,undefined);assert.equal(child.env.CS_UNIT_SHARD,undefined)}}finally{for(const key of Object.keys(process.env))if(!Object.hasOwn(old,key))delete process.env[key];Object.assign(process.env,old)}
  const workflow=parse(readFileSync('.github/workflows/npm-publish.yml','utf8'));assert.deepEqual(workflow.permissions,{contents:'read'});assert.equal(workflow.jobs.validate.permissions['id-token'],undefined);assert.equal(workflow.jobs.publish.permissions['id-token'],'write');assert.match(workflow.jobs.publish.if,/workflow_dispatch/);assert.match(workflow.jobs.publish.if,/accept_evidence_review/);
- const validate=workflow.jobs.validate.steps,publish=workflow.jobs.publish.steps;assert(validate.some(s=>s.run?.includes('validate-publication.mjs --run')));assert(publish.findIndex(s=>s.run?.includes('validate-publication.mjs --check'))<publish.findIndex(s=>s.run?.startsWith('npm publish')));assert(publish.find(s=>s.run?.startsWith('npm publish')).run.includes('--ignore-scripts --provenance'));assert(!publish.some(s=>s.run?.includes('npm ci')));assert(![...validate,...publish].some(s=>s['continue-on-error']));
+ const validate=workflow.jobs.validate.steps,publish=workflow.jobs.publish.steps;assert(validate.some(s=>s.run?.includes('validate-publication.mjs --run')));assert(validate.some(s=>s.run?.includes('verify-ci-checks.mjs --verify-commit')&&s.run?.includes('--wait')));assert(publish.findIndex(s=>s.run?.includes('validate-publication.mjs --check'))<publish.findIndex(s=>s.run?.startsWith('npm publish')));assert(publish.findIndex(s=>s.run?.includes('verify-ci-checks.mjs --verify-commit'))<publish.findIndex(s=>s.run?.startsWith('npm publish')));assert(publish.find(s=>s.run?.startsWith('npm publish')).run.includes('--ignore-scripts --provenance'));assert(!publish.some(s=>s.run?.includes('npm ci')));assert(![...validate,...publish].some(s=>s['continue-on-error']));
  for(const step of [...validate,...publish].filter(s=>s.uses&&!s.uses.startsWith('./')))assert.match(step.uses,/@[a-f0-9]{40}$/);
- console.log('PASS publication fixture: real exact Git/tag/tree identity, fixture-only support, canonical complete gates, immutable receipt/tarball, forged/cross-run/dirty/unreviewed/failure/symlink/registry rejection, real child environment isolation, separate manual OIDC workflow; no publication performed');
+ const allGreenRuns=REQUIRED_CI_CHECKS.map((name,idx)=>({id:idx+1,name:`Design System Gates / ${name}`,status:'completed',conclusion:'success'}));
+ assert.equal(evaluateCiChecks({checkRuns:allGreenRuns}).pass,true);
+ assert.equal(evaluateCiChecks({checkRuns:allGreenRuns.slice(0,-1)}).state,'pending');
+ assert.equal(evaluateCiChecks({checkRuns:[...allGreenRuns.slice(0,-1),{id:99,name:'unit-tests (4/4)',status:'in_progress',conclusion:null}]}).state,'pending');
+ assert.equal(evaluateCiChecks({checkRuns:[...allGreenRuns.slice(0,-2),{id:98,name:'unit-tests (3/4)',status:'in_progress',conclusion:null},{id:99,name:'unit-tests (4/4)',status:'completed',conclusion:'failure'}]}).state,'failed');
+ let polls=0;
+ const waited=await waitForRequiredCiChecks({repo:'fixture/repo',sha:'a'.repeat(40),wait:true,pollMs:1,timeoutMs:100,sleep:async()=>{},fetchCheckRuns:async()=>(++polls<2?[...allGreenRuns.slice(0,-1),{id:11,name:'unit-tests (4/4)',status:'in_progress',conclusion:null}]:allGreenRuns)});
+ assert.equal(waited.pass,true);assert.equal(polls,2);
+ await assert.rejects(()=>waitForRequiredCiChecks({repo:'fixture/repo',sha:'a'.repeat(40),wait:true,pollMs:1,timeoutMs:100,sleep:async()=>{},fetchCheckRuns:async()=>[...allGreenRuns.slice(0,-1),{id:11,name:'unit-tests (4/4)',status:'completed',conclusion:'failure'}]}),/failed/);
+ const statusPayload=formatActShardStatus({shard:'1/4',treeSha:'b'.repeat(40),planSha256:'c'.repeat(64),suiteCount:3});
+ assert.equal(verifyActShardAttestation({statuses:[statusPayload],shard:'1/4',treeSha:'b'.repeat(40),planSha256:'c'.repeat(64),expectedSuiteIds:['s1','s2','s3']}).verified,true);
+ assert.equal(verifyActShardAttestation({statuses:[statusPayload],shard:'1/4',treeSha:'d'.repeat(40),planSha256:'c'.repeat(64),expectedSuiteIds:['s1','s2','s3']}).verified,false);
+ console.log('PASS publication fixture: real exact Git/tag/tree identity, fixture-only support, canonical complete gates, immutable receipt/tarball, CI check-run wait/fail-closed gate, local act shard attestation verification, forged/cross-run/dirty/unreviewed/failure/symlink/registry rejection, real child environment isolation, separate manual OIDC workflow; no publication performed');
 }finally{rmSync(sandbox,{recursive:true,force:true})}

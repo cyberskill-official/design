@@ -106,6 +106,13 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   verifyTagIdentity(root, { version, sourceSha: releaseSha });
 
   run('git', ['push', 'origin', 'main']);
+  const postAct = spawnSync(process.execPath, ['scripts/run-act-ci.mjs', '--post-status', '--sha', releaseSha], {
+    cwd: root,
+    stdio: 'inherit',
+  });
+  if (postAct.status !== 0) {
+    console.log('ℹ No matching local act unit-shard attestation for release tree; GitHub Actions will run full shards before publishing.');
+  }
   run('git', ['push', 'origin', tag]);
   console.log(`\n✓ Pushed ${tag} (${releaseSha}) — npm-publish.yml will validate and publish automatically on tag push.`);
 }
