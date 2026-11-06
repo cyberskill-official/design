@@ -16,7 +16,7 @@
   },
   "acceptance": {
     "productVisualReview": "separate-required",
-    "manualAccessibility": "separate-required",
+    "manualAccessibility": "automated-and-manual-supported",
     "pushDeployMerge": "explicit-operator-instruction"
   },
   "portableValidation": {

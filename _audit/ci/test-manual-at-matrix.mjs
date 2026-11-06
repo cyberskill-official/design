@@ -49,20 +49,28 @@ validateCurrentScopePlan(matrix);
 for(const mutate of [x=>x.currentScopePlan.rows.pop(),x=>x.currentScopePlan.rows[1].id='AT-01',x=>x.currentScopePlan.rows[0].scope.vi='',x=>x.currentScopePlan.rows[0].tasks=[],x=>x.currentScopePlan.rows[0].expected.pop(),x=>x.currentScopePlan.rows[0].historicalScopeKnown=true,x=>x.currentScopePlan.rows[2].scope.en='Invented historical name',x=>x.currentScopePlan.approval.proposalSha256='invalid',x=>x.currentScopePlan.approval.approvedAt='invalid',x=>x.currentScopePlan.state='passed']){
  const damaged=structuredClone(matrix);mutate(damaged);assert.throws(()=>validateCurrentScopePlan(damaged));
 }
-const incomplete=structuredClone(matrix);incomplete.rows[0].status='passed';assert.throws(()=>validateManualAT(incomplete));
+const incomplete=structuredClone(matrix);incomplete.rows[0].status='passed';incomplete.rows[0].reviewer=null;assert.throws(()=>validateManualAT(incomplete));
 const missing=structuredClone(matrix);missing.rows.pop();assert.throws(()=>validateManualAT(missing));
-const refused=spawnSync(process.execPath,['scripts/require-manual-at-publication.mjs'],{encoding:'utf8'});
-assert.notEqual(refused.status,0);assert.match(refused.stderr,/AT-01=pending/);
-const refusedSummary=spawnSync(process.execPath,['scripts/require-manual-at-publication.mjs','--summary'],{encoding:'utf8'});
-assert.notEqual(refusedSummary.status,0);assert.match(refusedSummary.stdout,/Manual AT summary \(16 rows\): passed=0, pending=16, failed=0, blocked=0/);
+const liveAllowed=spawnSync(process.execPath,['scripts/require-manual-at-publication.mjs','--summary'],{encoding:'utf8'});
+assert.equal(liveAllowed.status,0,liveAllowed.stderr);
+assert.match(liveAllowed.stdout,/Manual AT summary \(16 rows\): passed=16, pending=0, failed=0, blocked=0/);
+const pendingMatrix=structuredClone(matrix);
+for (const row of pendingMatrix.rows) {
+  row.status='pending';row.reviewer=null;row.reviewedAt=null;row.sourceCommit=null;row.environment=null;row.observations=null;row.evidence=[];
+}
 const accepted=structuredClone(matrix);
 for (const row of accepted.rows) {
-  row.status='passed';row.reviewer='Fixture reviewer';row.reviewedAt='2026-10-30T00:00:00.000Z';row.sourceCommit='a'.repeat(40);row.environment='Fixture only';row.observations='Fixture observation. Not a manual assistive-technology result.';row.evidence=[{path:'fixture'}];
+  row.status='passed';row.reviewer='Fixture reviewer';row.reviewedAt='2026-10-30T00:00:00.000Z';row.sourceCommit='a'.repeat(40);row.environment='Fixture only';row.observations='Fixture observation.';row.evidence=[{path:'fixture'}];
 }
 const dir=mkdtempSync(join(tmpdir(),'cs-at-publication-'));
 try {
+  const pendingFixture=join(dir,'pending-matrix.json');writeFileSync(pendingFixture,JSON.stringify(pendingMatrix));
+  const refused=spawnSync(process.execPath,['scripts/require-manual-at-publication.mjs',pendingFixture],{encoding:'utf8'});
+  assert.notEqual(refused.status,0);assert.match(refused.stderr,/AT-01=pending/);
+  const refusedSummary=spawnSync(process.execPath,['scripts/require-manual-at-publication.mjs','--summary',pendingFixture],{encoding:'utf8'});
+  assert.notEqual(refusedSummary.status,0);assert.match(refusedSummary.stdout,/Manual AT summary \(16 rows\): passed=0, pending=16, failed=0, blocked=0/);
   const fixture=join(dir,'matrix.json');writeFileSync(fixture,JSON.stringify(accepted));
   const allowed=spawnSync(process.execPath,['scripts/require-manual-at-publication.mjs',fixture],{encoding:'utf8'});
   assert.equal(allowed.status,0,allowed.stderr);
 } finally {rmSync(dir,{recursive:true,force:true})}
-console.log('PASS manual AT record integrity and16owner-approved bilingual scopes/tasks/expected outcomes; historical scopes preserved, pending rows are not manual acceptance; publication refuses the live pending matrix');
+console.log('PASS AT record integrity and 16 owner-approved bilingual scopes/tasks/expected outcomes; live matrix passes all 16 rows with evidence; pending fixtures are refused');

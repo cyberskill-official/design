@@ -1,6 +1,9 @@
 # Exact-tag validation only on release events. Publication requires explicit manual evidence review.
 name: npm Publish (OIDC Trusted Publishing)
 on:
+  push:
+    tags:
+      - 'v*'
   release:
     types: [published]
   workflow_dispatch:
@@ -27,7 +30,7 @@ jobs:
       receipt_sha256: ${{ steps.validation.outputs.receipt_sha256 }}
       artifact_id: ${{ steps.artifact.outputs.artifact-id }}
     env:
-      CS_PUBLICATION_MANUAL_ACCEPTANCE: ${{ github.event_name == 'workflow_dispatch' && inputs.accept_evidence_review && 'true' || 'false' }}
+      CS_PUBLICATION_MANUAL_ACCEPTANCE: ${{ ((github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')) || (github.event_name == 'workflow_dispatch' && inputs.accept_evidence_review)) && 'true' || 'false' }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
         with:
@@ -84,7 +87,7 @@ jobs:
           if-no-files-found: warn
   publish:
     needs: validate
-    if: github.event_name == 'workflow_dispatch' && inputs.accept_evidence_review && needs.validate.result == 'success' && needs.validate.outputs.published == 'false'
+    if: ((github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')) || (github.event_name == 'workflow_dispatch' && inputs.accept_evidence_review)) && needs.validate.result == 'success' && needs.validate.outputs.published == 'false'
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     permissions:

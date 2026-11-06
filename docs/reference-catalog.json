@@ -1035,7 +1035,7 @@
       "path": "docs/manual-at-matrix.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "8af4b0f8eacebdd1ce777a9cb5bc303d4af575959cc82b29dbc5e7210962cf2e"
+      "sha256": "69735134105ec04211e1a7bcba620d63f0033ceae9a3a8b0edfe938bcf4e77fa"
     },
     {
       "path": "docs/native-refs.md",
@@ -1311,7 +1311,7 @@
       "path": "docs/vi/manual-at-matrix.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "ed08d6812b2bd670f1c11e0e06367e2bede6f6aa7b20b292818eda640c511d4a"
+      "sha256": "ab06663930dce383fa75d0abf11817d543a8e56303db7a0fce7412cc8ac52103"
     },
     {
       "path": "docs/vi/native-refs.md",

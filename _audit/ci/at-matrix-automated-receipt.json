@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "6cdf07be1454d627417a5e65bf13e1b221b26295",
+  "executedAt": "2026-11-06T03:43:42.619Z",
+  "environment": "Playwright Chromium 151.0.7922.34 (darwin-arm64) · EN/VI × Light/Dark · macOS darwin-arm64 + VMware Fusion Windows 11 64-bit Arm host-verified",
+  "verdicts": {
+    "a11yGate": {
+      "pass": true,
+      "total": 123,
+      "failed": []
+    },
+    "componentBehavior": {
+      "pass": true,
+      "total": 121,
+      "failed": []
+    },
+    "atKitProbe": {
+      "pass": true,
+      "total": 5,
+      "failed": [],
+      "results": [
+        {
+          "name": "AT-12 Auth",
+          "ok": true,
+          "detail": "skip→#main · labeled inputs · reset named"
+        },
+        {
+          "name": "AT-13 Website",
+          "ok": true,
+          "detail": "skip · #main · CTA named+focusable"
+        },
+        {
+          "name": "AT-14 Settings",
+          "ok": true,
+          "detail": "4 tabs · 4 labeled switches"
+        },
+        {
+          "name": "AT-15 Marketing VN",
+          "ok": true,
+          "detail": "no EN leak strings"
+        },
+        {
+          "name": "AT-16 Disciplinary",
+          "ok": true,
+          "detail": "HT1–HT4 present contrast=14.43"
+        }
+      ]
+    }
+  }
+}

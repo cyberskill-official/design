@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "interpretation": "Generated policy/routing projection, not runtime, host-loading, human acceptance or release certification.",
   "sourceHashes": {
-    "scripts/guidance-source.json": "bc5a38c55150db896a2e93d47da1f3a8811ddedd6bed73e306f5abc21dd205eb",
+    "scripts/guidance-source.json": "1e8d71a99895dac5a42b41424a42e3b6b8b82cd421e04c553c52581d33d44b9e",
     "docs/doctrine.md": "25b5c51ba0bb38b8486b625124dcf6b90af8ac97e7518ab2cd92ff10b84eef54"
   },
   "authorities": {
@@ -21,7 +21,7 @@
   },
   "acceptance": {
     "productVisualReview": "separate-required",
-    "manualAccessibility": "separate-required",
+    "manualAccessibility": "automated-and-manual-supported",
     "pushDeployMerge": "explicit-operator-instruction"
   },
   "portableValidation": {

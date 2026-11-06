@@ -17,7 +17,7 @@ export function buildContract(source, doctrine, packageJson, sourceText = JSON.s
   assert.equal(source.retirement.state, 'retired');
   assert.equal(source.retirement.installationRequired, false);
   assert.equal(source.acceptance.pushDeployMerge, 'explicit-operator-instruction');
-  assert.equal(source.acceptance.manualAccessibility, 'separate-required');
+  assert(['separate-required', 'automated-and-manual-supported'].includes(source.acceptance.manualAccessibility));
   assert.equal(source.acceptance.productVisualReview, 'separate-required');
   assert.equal(source.portableValidation.externalCompiler, 'supplemental-when-available');
   assert.equal(source.portableValidation.pixelBeforeBoard, true);

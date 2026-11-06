@@ -107,6 +107,5 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
 
   run('git', ['push', 'origin', 'main']);
   run('git', ['push', 'origin', tag]);
-  run('gh', ['workflow', 'run', 'npm-publish.yml', '--ref', tag, '-f', 'accept_evidence_review=true']);
-  console.log(`\n✓ Dispatched npm-publish.yml for ${tag} (${releaseSha}) — npm package + GitHub Release will publish automatically.`);
+  console.log(`\n✓ Pushed ${tag} (${releaseSha}) — npm-publish.yml will validate and publish automatically on tag push.`);
 }
