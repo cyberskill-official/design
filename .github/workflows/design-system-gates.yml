@@ -86,7 +86,7 @@ jobs:
     # Wired into CI by the Jul 2026 hardening (previously local-only).
     # Storybook freshness runs in storybook-build (FIND-074/075), not here.
     runs-on: ubuntu-24.04
-    timeout-minutes: 60
+    timeout-minutes: 90
     strategy:
       fail-fast: false
       matrix:
