@@ -253,8 +253,8 @@
     {
       "path": "guidelines/documents.html",
       "kind": "inline-style",
-      "context": "(span class=sw) background:#3F4C55",
-      "hex": "#3F4C55",
+      "context": "(span class=sw) background:#26323A",
+      "hex": "#26323A",
       "count": 1,
       "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
     },

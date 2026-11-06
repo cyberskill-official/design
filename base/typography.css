@@ -3,6 +3,7 @@
  * Built on the semantic aliases in tokens/typography.css. */
 .cs-display { font-family: var(--cs-heading-family); font-size: var(--cs-text-display); line-height: var(--cs-font-lineHeight-tight); font-weight: var(--cs-heading-weight-strong); letter-spacing: var(--cs-heading-tracking); text-wrap: balance; overflow-wrap: break-word; }
 .cs-display--fluid { font-family: var(--cs-heading-family); font-size: clamp(2.25rem, 1.5rem + 3.5vw, var(--cs-text-display)); line-height: var(--cs-font-lineHeight-tight); font-weight: var(--cs-heading-weight-strong); letter-spacing: var(--cs-heading-tracking); text-wrap: balance; overflow-wrap: break-word; }
+:lang(vi) :is(.cs-display, .cs-display--fluid) { line-height: 1.22; }
 .cs-h1 { font-family: var(--cs-heading-family); font-size: var(--cs-text-h1); line-height: var(--cs-font-lineHeight-heading); font-weight: var(--cs-heading-weight-strong); letter-spacing: var(--cs-heading-tracking); text-wrap: balance; overflow-wrap: break-word; }
 .cs-h1--fluid { font-family: var(--cs-heading-family); font-size: clamp(1.75rem, 1.25rem + 2vw, var(--cs-text-h1)); line-height: var(--cs-font-lineHeight-heading); font-weight: var(--cs-heading-weight-strong); letter-spacing: var(--cs-heading-tracking); text-wrap: balance; overflow-wrap: break-word; }
 .cs-h2 { font-family: var(--cs-heading-family); font-size: var(--cs-text-h2); line-height: var(--cs-font-lineHeight-heading); font-weight: var(--cs-heading-weight); letter-spacing: var(--cs-heading-tracking); text-wrap: balance; overflow-wrap: break-word; }

@@ -5750,7 +5750,7 @@
       "scope": ".cs-display-face",
       "important": false,
       "declarationOrder": 1050,
-      "sourceLine": 24
+      "sourceLine": 25
     },
     {
       "name": "--cs-term-border",
@@ -5760,7 +5760,7 @@
       "scope": ".cs-terminal",
       "important": false,
       "declarationOrder": 1053,
-      "sourceLine": 346
+      "sourceLine": 347
     },
     {
       "name": "--cs-term-bar",
@@ -5770,7 +5770,7 @@
       "scope": ".cs-terminal",
       "important": false,
       "declarationOrder": 1054,
-      "sourceLine": 347
+      "sourceLine": 348
     },
     {
       "name": "--cs-term-dot",
@@ -5780,7 +5780,7 @@
       "scope": ".cs-terminal",
       "important": false,
       "declarationOrder": 1055,
-      "sourceLine": 348
+      "sourceLine": 349
     },
     {
       "name": "--cs-term-bg",
@@ -5790,7 +5790,7 @@
       "scope": ".cs-terminal",
       "important": false,
       "declarationOrder": 1056,
-      "sourceLine": 349
+      "sourceLine": 350
     },
     {
       "name": "--cs-term-fg",
@@ -5800,7 +5800,7 @@
       "scope": ".cs-terminal",
       "important": false,
       "declarationOrder": 1057,
-      "sourceLine": 350
+      "sourceLine": 351
     },
     {
       "name": "--cs-term-muted",
@@ -5810,7 +5810,7 @@
       "scope": ".cs-terminal",
       "important": false,
       "declarationOrder": 1058,
-      "sourceLine": 351
+      "sourceLine": 352
     },
     {
       "name": "--cs-code-bg",
@@ -5857,6 +5857,7 @@
       "value": "color-mix(in oklab, var(--cs-color-surface-page, #fffdf8) var(--cs-glass-whisper-opacity, 60%), transparent)",
       "kind": "css-expression",
       "definedIn": "base/glass.css",
+      "scope": ":root, [data-theme], [data-cs-element], [data-element], [data-cs-contrast]",
       "important": false,
       "declarationOrder": 1066,
       "sourceLine": 15
@@ -5866,6 +5867,7 @@
       "value": "transparent",
       "kind": "css-expression",
       "definedIn": "base/glass.css",
+      "scope": ":root, [data-theme], [data-cs-element], [data-element], [data-cs-contrast]",
       "important": false,
       "declarationOrder": 1067,
       "sourceLine": 16
@@ -5875,6 +5877,7 @@
       "value": "color-mix(in oklab, var(--cs-color-surface-panel, #fff) var(--cs-glass-light-opacity, 70%), transparent)",
       "kind": "css-expression",
       "definedIn": "base/glass.css",
+      "scope": ":root, [data-theme], [data-cs-element], [data-element], [data-cs-contrast]",
       "important": false,
       "declarationOrder": 1068,
       "sourceLine": 17
@@ -5884,6 +5887,7 @@
       "value": "color-mix(in oklab, var(--cs-color-border-default, #e7d9c6) 50%, transparent)",
       "kind": "css-expression",
       "definedIn": "base/glass.css",
+      "scope": ":root, [data-theme], [data-cs-element], [data-element], [data-cs-contrast]",
       "important": false,
       "declarationOrder": 1069,
       "sourceLine": 18
@@ -5893,6 +5897,7 @@
       "value": "color-mix(in oklab, var(--cs-color-surface-panel, #fff) var(--cs-glass-standard-opacity, 80%), transparent)",
       "kind": "css-expression",
       "definedIn": "base/glass.css",
+      "scope": ":root, [data-theme], [data-cs-element], [data-element], [data-cs-contrast]",
       "important": false,
       "declarationOrder": 1070,
       "sourceLine": 19
@@ -5902,6 +5907,7 @@
       "value": "color-mix(in oklab, var(--cs-color-border-default, #e7d9c6) 60%, transparent)",
       "kind": "css-expression",
       "definedIn": "base/glass.css",
+      "scope": ":root, [data-theme], [data-cs-element], [data-element], [data-cs-contrast]",
       "important": false,
       "declarationOrder": 1071,
       "sourceLine": 20
@@ -5911,6 +5917,7 @@
       "value": "color-mix(in oklab, var(--cs-color-surface-raised, #fbf4e9) var(--cs-glass-heavy-opacity, 90%), transparent)",
       "kind": "css-expression",
       "definedIn": "base/glass.css",
+      "scope": ":root, [data-theme], [data-cs-element], [data-element], [data-cs-contrast]",
       "important": false,
       "declarationOrder": 1072,
       "sourceLine": 21
@@ -5920,6 +5927,7 @@
       "value": "color-mix(in oklab, var(--cs-color-border-default, #e7d9c6) 80%, transparent)",
       "kind": "css-expression",
       "definedIn": "base/glass.css",
+      "scope": ":root, [data-theme], [data-cs-element], [data-element], [data-cs-contrast]",
       "important": false,
       "declarationOrder": 1073,
       "sourceLine": 22

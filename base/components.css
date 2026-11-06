@@ -91,8 +91,8 @@
 .cs-button--full { inline-size: 100%; }
 
 .cs-button.is-disabled,
-.cs-button.is-loading,
 .cs-field.is-disabled { opacity: 0.58; cursor: not-allowed; }
+.cs-button.is-loading { opacity: 0.88; cursor: progress; }
 
 .cs-button__spinner {
   inline-size: 1em; block-size: 1em; border-radius: 999px;
@@ -132,7 +132,7 @@
 .cs-dialog__overlay { background: var(--cs-color-surface-scrim, var(--_cs-surface-scrim)); inset: 0; position: absolute; }
 .cs-dialog {
   background: var(--cs-color-surface-panel, #ffffff);
-  border-radius: var(--cs-radius-md, 8px);
+  border-radius: var(--cs-radius-lg, 14px);
   box-shadow: var(--cs-shadow-xl, 0 24px 80px rgba(31, 19, 11, 0.26));
   color: var(--cs-color-text-primary, #45210e);
   left: 0;

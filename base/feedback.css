@@ -1,7 +1,7 @@
 /* CyberSkill — feedback + status (.cs-*). Semantic colour never the only signal. */
 
 /* Badge — compact status label */
-.cs-badge { display: inline-flex; align-items: center; gap: 5px; font-family: var(--cs-font-family-ui); font-size: var(--cs-font-size-xs); font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1; padding: 4px 9px; border-radius: var(--cs-radius-full); text-transform: uppercase; letter-spacing: 0.04em; background: var(--cs-color-surface-raised); color: var(--cs-color-text-accent); border: 1px solid var(--cs-color-border-default); }
+.cs-badge { display: inline-flex; align-items: center; gap: 5px; font-family: var(--cs-font-family-ui); font-size: var(--cs-font-size-xs); font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.2; padding: 3px 9px; border-radius: var(--cs-radius-full); text-transform: uppercase; letter-spacing: 0.04em; background: var(--cs-color-surface-raised); color: var(--cs-color-text-accent); border: 1px solid var(--cs-color-border-default); }
 .cs-badge--solid { border-color: transparent; color: #fff; /* on-brand-umber ink (allowlisted; text-inverse flips in dark) */ background: var(--cs-color-brand-umber); }
 .cs-badge--ochre { background: var(--cs-color-brand-ochre); color: var(--cs-color-brand-umber); border-color: transparent; }
 [data-cs-element]:not([data-cs-element="tho"]:not([data-cs-variant]), [data-cs-element="tho"][data-cs-variant=""]) .cs-badge--solid { background: var(--cs-accent-strong); color: var(--cs-accent-on-strong); }

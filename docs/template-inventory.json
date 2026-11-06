@@ -11371,7 +11371,7 @@
     {
       "name": "HR Suite · Quyết định bổ nhiệm / điều chuyển — Appointment & Transfer Decision",
       "path": "templates/vn-appointment-transfer/VnAppointmentTransfer.dc.html",
-      "sha256": "78c1e79582be111786a5c3bb93a70715481b01531b0c5fc71688883ea1f5fe72",
+      "sha256": "5d627cf56ad8ca1e5172e0520a5ce1616a70e0bc4fbcaad71fc9b40463382a45",
       "declaredProps": [
         {
           "element": {
@@ -15442,7 +15442,7 @@
     {
       "name": "HR Suite · Quyết định chấm dứt HĐLĐ — Decision on Termination",
       "path": "templates/vn-termination-decision/VnTerminationDecision.dc.html",
-      "sha256": "cd766f07aaab5e3de82a75d95e6aa1de69e1360c36f65770bd78bbf8834c7148",
+      "sha256": "dbe04dfcb416025b01857a9784810944108866b967a8009daebedc31b8eb0cf7",
       "declaredProps": [
         {
           "element": {
@@ -16296,13 +16296,13 @@
         },
         {
           "path": "ui_kits/deck/index.html",
-          "sha256": "27dd6904f2510c7dec61d67e55ae56da866e4538be2e1686db9c3596a6e1affc"
+          "sha256": "d9c3f8b637128d1c49a3a936f2207c832ae7c9b3e5b12361a9556dd8a8517219"
         }
       ],
       "pages": [
         {
           "path": "ui_kits/deck/index.html",
-          "sha256": "27dd6904f2510c7dec61d67e55ae56da866e4538be2e1686db9c3596a6e1affc",
+          "sha256": "d9c3f8b637128d1c49a3a936f2207c832ae7c9b3e5b12361a9556dd8a8517219",
           "declaredProps": [],
           "componentImports": [],
           "references": [

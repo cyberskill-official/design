@@ -3756,7 +3756,7 @@
     {
       "template": "vn-appointment-transfer",
       "path": "templates/vn-appointment-transfer/VnAppointmentTransfer.dc.html",
-      "baselineSha256": "379ea1aed5b6ccd070427f66cebb0151cd8f3a64d9861ae79e371296e27f2cde",
+      "baselineSha256": "312f63108ee552e89c75e216ce9d49fab00f298d1a9961e6e0ee3daf7d2845f1",
       "fields": [
         {
           "id": "headerReferenceSequence",
@@ -5181,7 +5181,7 @@
     {
       "template": "vn-termination-decision",
       "path": "templates/vn-termination-decision/VnTerminationDecision.dc.html",
-      "baselineSha256": "53bc414684cc6253e1e9e4a2c8074ff993dac4334705ce395cf3a26c08ce7988",
+      "baselineSha256": "0f8e2b11029d2e51f1e475647acc643d206412d43172fb4bbfe6f6e4411eae62",
       "fields": [
         {
           "id": "headerReferenceSequence",
