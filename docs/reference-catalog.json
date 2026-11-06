@@ -30,7 +30,7 @@
   "sourceHashes": {
     "_audit/visual-diff.html": "fd344cf31f0aa4130dddec2a99dca5ef60d9d08025b5dc2b4b729a1d388c5bb8",
     "_ds_manifest.json": "2ff3ac9bd9fd509669b188c7c249aa73e90a4a35b90acc9024f05d33f4629da5",
-    "scripts/public-site-policy.json": "ffc461f55367201365ed6c8b97e0c06eed50e139e312644da3727d76c7feea47",
+    "scripts/public-site-policy.json": "69ec241ac1a63cc5d90c5a40a3925e39ef58dfc79907bf5cb87d1024e1d0de1f",
     "templates/app-shell/AppShell.dc.html": "f71017a26f12b71d9e653dff79635ed14d5eb4a3dac9c5ce095188c537b858e3",
     "templates/article/Article.dc.html": "9b2ed3af604ac9e552f33bc922ec7dd2659b786dcb624cb491f7a437658adb2f",
     "templates/auth/Auth.dc.html": "ab6fb52740dbda804c9963cd2b63aa7d482c4b3cd2fa87b9a7f0c20ab2ef1e64",
@@ -116,7 +116,7 @@
     "templates/vn-total-rewards-appendix/VnTotalRewardsAppendix.dc.html": "ee941a6d26aa525bba779015ca01f4bdb7246571db2c3558499d7bc2fee3c2aa",
     "templates/vn-training-commitment/VnTrainingCommitment.dc.html": "49b2b4459bf2a900ddfafe679b6f3b088c78a31f611ae76dc3ac276e05a14c46",
     "templates/vn-travel-expense-policy/VnTravelExpensePolicy.dc.html": "1e585bd53ec6fb41322082bddfb7eed4ac811bfabb1ad2d639b9babba6c0e212",
-    "tokens/tokens.dtcg.json": "eab0977d36fda617b37f06b24d055f0ea8f956d757bb54058eeee875e8866565"
+    "tokens/tokens.dtcg.json": "fcbd2de57ce09370072560af7606dc1944fd7b8c57f1f087f6a758f114497a1e"
   },
   "documents": [
     {
@@ -1077,7 +1077,7 @@
       "path": "docs/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "d0e0cde3b3c131af4c266932f152f9ce9ddecce757e96291fbf66e1252d27e8e"
+      "sha256": "aada7c3d4925a122035186dbc878c31ec47a667023596afe39043d028a5d3a7f"
     },
     {
       "path": "docs/storybook.md",
@@ -1353,7 +1353,7 @@
       "path": "docs/vi/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "3dc6f99ea25e0b6a2006dc6769d68dfcae09b9ac02691c106dcdc3afc2ea5bc2"
+      "sha256": "9e7c436322a6bb46015b4e6972bdaa938e04ed0a6d0b5edb6e17b740c11453cf"
     },
     {
       "path": "docs/vi/storybook.md",

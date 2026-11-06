@@ -3,7 +3,7 @@ import {
   EDITOR_SCHEMA,
   escapeEditorText,
   sanitizeHtml
-} from "../../chunks/chunk-JJG5ENFU.mjs";
+} from "../../chunks/chunk-XDJRVUEM.mjs";
 export {
   EDITOR_SCHEMA,
   escapeEditorText,

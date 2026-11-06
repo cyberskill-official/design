@@ -69,7 +69,7 @@
     },
     {
       "path": "base/data.css",
-      "sha256": "919f233f36b48162ce9b445346cc68fe13b3ae9200fe280c497c445caa067f21"
+      "sha256": "04f8f9dee3741d1b8fb57b6b55de8fc3ba9fd8b7a6470f7e683d3cbcf635f986"
     },
     {
       "path": "base/navigation.css",
@@ -81,23 +81,23 @@
     },
     {
       "path": "base/controls.css",
-      "sha256": "20ea0f0b0332e890844b5a85b58798428923368acfef22c3c80a5e2463e03296"
+      "sha256": "cf935796bd1293e5057ada25cdc30d96a154a64b5501c14ddf0c9e57806a6735"
     },
     {
       "path": "base/collections.css",
-      "sha256": "9ce1866524e57a9d326666638c513f9b529a80d7d97eeaa70671b7491f3d77ac"
+      "sha256": "cfe74661cc7309f084d17f89920403f16d16ab6b7105eb0d6ce8dab2655e2d4a"
     },
     {
       "path": "base/shell.css",
-      "sha256": "f67f0e5b53cccf34ee34640c96b983234a909c529109db7c292fdcc9235d26d7"
+      "sha256": "a2ef14c98aca67103b62926d075dce55e6ee03ee3d64dd5fa41d4cf7b867ae8a"
     },
     {
       "path": "base/glass.css",
-      "sha256": "0605e78c1354c9061ab69eeb680b3fc3025add12f38afc3bc9ef0ab20ca95fb4"
+      "sha256": "0186871534c4dd9467328ff871631a9ce6c1cd1f0401ff3b879a4b2e2252e313"
     },
     {
       "path": "base/interaction.css",
-      "sha256": "ed5c40123437842eb525e0dadfbf59a1e9be71288f022bda2443daf897ca74e1"
+      "sha256": "cb6ffea6e63e3538f632d63a10bae3d08143b73f4618ea8d2505438e8c39b5b3"
     },
     {
       "path": "base/a11y.css",
@@ -17338,7 +17338,7 @@
       "line": 12,
       "column": 3,
       "name": "--_cs-border-subtle",
-      "value": "var(--_cs-light, color-mix(in srgb, var(--cs-color-brand-umber, #45210e) 18%, transparent))var(--_cs-dark, color-mix(in oklab, var(--cs-color-border-default, #4a3a2c) 82%, transparent))",
+      "value": "color-mix(in oklab, var(--cs-color-border-default, #e7d9c6) 76%, transparent)",
       "important": false,
       "visibility": "private",
       "context": [
@@ -17354,7 +17354,7 @@
       "line": 13,
       "column": 3,
       "name": "--_cs-border-strong",
-      "value": "var(--_cs-light, color-mix(in oklab, var(--cs-color-border-default, #e7d9c6) 65%, var(--cs-color-text-primary, #45210e)))var(--_cs-dark, color-mix(in oklab, var(--cs-color-border-default, #4a3a2c) 65%, var(--cs-color-text-primary, #f5ead9)))",
+      "value": "color-mix(in oklab, var(--cs-color-border-default, #e7d9c6) 65%, var(--cs-color-text-primary, #45210e))",
       "important": false,
       "visibility": "private",
       "context": [
@@ -17370,7 +17370,7 @@
       "line": 14,
       "column": 3,
       "name": "--_cs-surface-scrim",
-      "value": "var(--_cs-light, color-mix(in oklab, var(--cs-color-brand-umber, #45210e) 48%, transparent))var(--_cs-dark, color-mix(in oklab, var(--cs-color-surface-page, #1a1108) 72%, transparent))",
+      "value": "color-mix(in oklab, var(--cs-color-brand-umber, #45210e) 52%, transparent)",
       "important": false,
       "visibility": "private",
       "context": [

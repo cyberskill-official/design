@@ -3,7 +3,7 @@
   "interpretation": "Compiled ESM import distribution. Shared split chunks preserve root/deep module identity; React/react-dom remain external peers. No CommonJS contract.",
   "compiler": {
     "name": "esbuild",
-    "version": "0.28.1"
+    "version": "0.28.2"
   },
   "sourceHashes": {
     "scripts/build-compiled-esm.mjs": "41054b8ed44213bc58eb19fcbc8736dac6d2f1d61a3a4498a6cb2208700855ca",
@@ -100,7 +100,7 @@
     "components/forms/Toggle.jsx": "0527c953307239cbd54847c3516833f53069540bd5a9ef3135792f4638c65006",
     "components/forms/Transfer.jsx": "2a1c824ff9a0bf3afa0c4b617832c4316322a3a1885ceb5b2dbf3a67b8ce05f4",
     "components/forms/TreeSelect.jsx": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
-    "components/forms/editor-parser.js": "6b6956bd08fdc0589fad9cbf10c550f7905f7e1445bc5eb855ac23a1e7d16ee7",
+    "components/forms/editor-parser.js": "1306c442e12da6f336af52a813a94b2c91214b84db66127f9e79c3e3b1da7d98",
     "components/forms/editor-schema.js": "a996ec9b4b885c2d6b0e15b85d930d8a1270ba395c69b0238bd352986dfb2077",
     "components/i18n/LocaleProvider.jsx": "5545f338df720c75bb9cf6c421edd17d491411c60e0d6727189d184740074e96",
     "components/icon/Icon.jsx": "c1d7d63c73094053718fd92bef441ff9f13e20023a642f07ecbaf8563eda7d05",
@@ -130,7 +130,7 @@
     "components/overlays/Popover.jsx": "1ca5d2905995cc8166566625208a95e8838815d3abe1298312df71eab90b2679",
     "components/overlays/Tour.jsx": "74775e9b0740f093f18283fdab036facbf8ac1370051c950807cae197b192010",
     "components/textfield/TextField.jsx": "878810214bb342d85d933884b5b19984b57f7281e4560c18280b8f4c021c5f99",
-    "tokens/tokens.js": "b836820812798fe4b9e88f684569ab7407b4445845b7408828d71bd1549feda5"
+    "tokens/tokens.js": "939a141111363d866607bad850b151abcba306bc65df4e6439b881a9b2d85937"
   },
   "entryPoints": [
     {
@@ -577,7 +577,7 @@
   "outputs": {
     "_esm/react.mjs": {
       "bytes": 8726,
-      "sha256": "c8552863021081b8a3aa48ff3c4f13a70eddd75134178d51e872e15946c4b875"
+      "sha256": "c1a2a537cc37b783bb325980d05a104a0ef9480d1c9810952cb0a29fa299d627"
     },
     "_esm/react.mjs.map": {
       "bytes": 93,
@@ -815,14 +815,6 @@
       "bytes": 4441,
       "sha256": "2bf108b6948224ee4ce4fdc11653a1a3e768dc994094ce218d2764fa549672d9"
     },
-    "chunks/chunk-CKBL3UEA.mjs": {
-      "bytes": 7119,
-      "sha256": "d1b76b21c41c036297ee00b1e3d6b4f504b30616123850e39b718c83bd72763d"
-    },
-    "chunks/chunk-CKBL3UEA.mjs.map": {
-      "bytes": 12264,
-      "sha256": "8378fe10a0cd73940d245cdef50b27281ad037b171a71036612c24b8db949e65"
-    },
     "chunks/chunk-CQQ2JOJD.mjs": {
       "bytes": 275,
       "sha256": "48e1a184f4ea7e4805526b6655bac2f31561654c8055072c0b184097416aec92"
@@ -1007,6 +999,14 @@
       "bytes": 4364,
       "sha256": "3d005ec7f1ac70532e55a1c8bfed0d03042ab60e3dac090b588fcd33705cdf6c"
     },
+    "chunks/chunk-GQDUCHRU.mjs": {
+      "bytes": 7119,
+      "sha256": "b095499272b81fc03cd956af30fe25b9747373c7201a00b08bd4354798bc1f0c"
+    },
+    "chunks/chunk-GQDUCHRU.mjs.map": {
+      "bytes": 12264,
+      "sha256": "8378fe10a0cd73940d245cdef50b27281ad037b171a71036612c24b8db949e65"
+    },
     "chunks/chunk-H4TKHAB3.mjs": {
       "bytes": 9224,
       "sha256": "6c5ef73c9226f82f041c64da457fd1b3bdb57a65aded04b292b1ff60953ba1e7"
@@ -1078,14 +1078,6 @@
     "chunks/chunk-JIHWIDMP.mjs.map": {
       "bytes": 4232,
       "sha256": "f73101a17ced922cefc67dc42eaee763aee6a6b94aaaa5e07426064124b987ba"
-    },
-    "chunks/chunk-JJG5ENFU.mjs": {
-      "bytes": 211941,
-      "sha256": "511337e41434e6054ea92bb11c007a649f836ee8701e9e6da50a05c3787418be"
-    },
-    "chunks/chunk-JJG5ENFU.mjs.map": {
-      "bytes": 297912,
-      "sha256": "1c30a5e8ffcbbab151580f537d48550f2b9338b048c542635a7db6f8065d9669"
     },
     "chunks/chunk-JKRH25UE.mjs": {
       "bytes": 2346,
@@ -1446,6 +1438,14 @@
     "chunks/chunk-XCA6K5YZ.mjs.map": {
       "bytes": 1399,
       "sha256": "c03fe958cbdcd12bd1a7ae1ebd251fe9f179e12157a6144e60cf834f1f53877b"
+    },
+    "chunks/chunk-XDJRVUEM.mjs": {
+      "bytes": 211941,
+      "sha256": "0548da9eb413f098e22412d59b3f9e8ff8a47aea1faa213bb2861e2a47584e2e"
+    },
+    "chunks/chunk-XDJRVUEM.mjs.map": {
+      "bytes": 297912,
+      "sha256": "dc308d79b33eb45e4a2e795962d4beb99b6b6e445b8db181db85174457b6b8f2"
     },
     "chunks/chunk-XZ5NWMO7.mjs": {
       "bytes": 3520,
@@ -1993,7 +1993,7 @@
     },
     "components/forms/editor-schema.mjs": {
       "bytes": 224,
-      "sha256": "ec83b7ad656095f3df0ce7fe247d2da7d67828bab0af3d1ce26cf106f1595f2c"
+      "sha256": "fe2af97a9d6b047d4c7b5e622ba7251f4e5f43e95365f8b00fd6cab2f400a2e8"
     },
     "components/forms/editor-schema.mjs.map": {
       "bytes": 93,
@@ -2001,7 +2001,7 @@
     },
     "components/forms/Editor.mjs": {
       "bytes": 383,
-      "sha256": "6ed48775c29741fdd81f3ed5261e04b3ef788eb719de0cb40226458a82c7cfc3"
+      "sha256": "f777c9796a9cb1d291aa88693c4f92ab87132bafa8faaa66702825dafa64b018"
     },
     "components/forms/Editor.mjs.map": {
       "bytes": 93,

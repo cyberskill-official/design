@@ -9,9 +9,9 @@
 
 /* ---- 1. Composition from token scalars ---- */
 :root {
-  --_cs-border-subtle: var(--_cs-light, color-mix(in srgb, var(--cs-color-brand-umber, #45210e) 18%, transparent))var(--_cs-dark, color-mix(in oklab, var(--cs-color-border-default, #4a3a2c) 82%, transparent));
-  --_cs-border-strong: var(--_cs-light, color-mix(in oklab, var(--cs-color-border-default, #e7d9c6) 65%, var(--cs-color-text-primary, #45210e)))var(--_cs-dark, color-mix(in oklab, var(--cs-color-border-default, #4a3a2c) 65%, var(--cs-color-text-primary, #f5ead9)));
-  --_cs-surface-scrim: var(--_cs-light, color-mix(in oklab, var(--cs-color-brand-umber, #45210e) 48%, transparent))var(--_cs-dark, color-mix(in oklab, var(--cs-color-surface-page, #1a1108) 72%, transparent));
+  --_cs-border-subtle: color-mix(in oklab, var(--cs-color-border-default, #e7d9c6) 76%, transparent);
+  --_cs-border-strong: color-mix(in oklab, var(--cs-color-border-default, #e7d9c6) 65%, var(--cs-color-text-primary, #45210e));
+  --_cs-surface-scrim: color-mix(in oklab, var(--cs-color-brand-umber, #45210e) 52%, transparent);
   --cs-glass-whisper-bg: color-mix(in oklab, var(--cs-color-surface-page, #fffdf8) var(--cs-glass-whisper-opacity, 60%), transparent);
   --cs-glass-whisper-border: transparent;
   --cs-glass-light-bg: color-mix(in oklab, var(--cs-color-surface-panel, #fff) var(--cs-glass-light-opacity, 70%), transparent);

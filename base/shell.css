@@ -17,7 +17,7 @@
 .cs-step__marker { inline-size: 28px; block-size: 28px; border-radius: 50%; display: grid; place-items: center; font-family: var(--cs-font-family-mono); font-weight: 700; font-size: var(--cs-font-size-sm); background: var(--cs-color-surface-raised); color: var(--cs-color-text-muted); border: 1px solid var(--cs-color-border-default); z-index: 1; }
 .cs-step--done .cs-step__marker { background: var(--cs-accent-strong); color: var(--cs-accent-on-strong); border-color: transparent; }
 .cs-step--done:not(:last-child)::after { background: var(--cs-accent-strong); }
-.cs-step--active .cs-step__marker { background: var(--cs-accent-bright); color: var(--_cs-light, var(--cs-accent-on))var(--_cs-dark, var(--cs-color-text-inverse)); border-color: transparent; box-shadow: 0 0 0 4px color-mix(in oklab, var(--cs-accent) 28%, transparent); }
+.cs-step--active .cs-step__marker { background: var(--cs-accent-bright); color: var(--cs-color-brand-umber); border-color: transparent; box-shadow: 0 0 0 4px color-mix(in oklab, var(--cs-accent) 28%, transparent); }
 .cs-step__title { font-weight: 700; font-size: var(--cs-font-size-sm); }
 .cs-step__body { font-size: var(--cs-font-size-xs); color: var(--cs-color-text-muted); }
 
@@ -28,8 +28,8 @@
 
 /* Drawer */
 .cs-drawer-scrim { position: fixed; inset: 0; background: var(--cs-color-surface-scrim, var(--_cs-surface-scrim)); z-index: var(--cs-depth-modal); }
-.cs-drawer { position: fixed; inset-block: 0; inset-inline-end: 0; inline-size: min(480px, 100%); background: var(--cs-color-surface-page); border-inline-start: 1px solid var(--cs-color-border-default); box-shadow: var(--_cs-light, -18px 0 48px color-mix(in srgb, var(--cs-color-brand-umber, #45210e) 22%, transparent))var(--_cs-dark, var(--cs-shadow-xl)); z-index: calc(var(--cs-depth-modal) + 1); display: flex; flex-direction: column; animation: cs-drawer-in var(--cs-duration-base) var(--cs-ease-standard); }
-.cs-drawer--left { inset-inline: 0 auto; border-inline: none; border-inline-end: 1px solid var(--cs-color-border-default); box-shadow: var(--_cs-light, 18px 0 48px color-mix(in srgb, var(--cs-color-brand-umber, #45210e) 22%, transparent))var(--_cs-dark, var(--cs-shadow-xl)); animation-name: cs-drawer-in-left; }
+.cs-drawer { position: fixed; inset-block: 0; inset-inline-end: 0; inline-size: min(480px, 100%); background: var(--cs-color-surface-page); border-inline-start: 1px solid var(--cs-color-border-default); box-shadow: var(--cs-shadow-xl); z-index: calc(var(--cs-depth-modal) + 1); display: flex; flex-direction: column; animation: cs-drawer-in var(--cs-duration-base) var(--cs-ease-standard); }
+.cs-drawer--left { inset-inline: 0 auto; border-inline: none; border-inline-end: 1px solid var(--cs-color-border-default); box-shadow: var(--cs-shadow-xl); animation-name: cs-drawer-in-left; }
 .cs-drawer__header { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-block-end: 1px solid var(--cs-color-border-default); background: var(--cs-color-surface-panel); }
 .cs-drawer__title { margin: 0; font-size: var(--cs-text-h4); font-weight: 700; }
 .cs-drawer__close { margin-inline-start: auto; border: 0; background: transparent; cursor: pointer; color: var(--cs-color-text-muted); display: grid; place-items: center; padding: 4px; }

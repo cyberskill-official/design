@@ -2,7 +2,7 @@
 import {
   escapeEditorText,
   sanitizeHtml
-} from "./chunk-JJG5ENFU.mjs";
+} from "./chunk-XDJRVUEM.mjs";
 import {
   makeT,
   useLang
@@ -174,4 +174,4 @@ Editor.displayName = "Editor";
 export {
   Editor
 };
-//# sourceMappingURL=chunk-CKBL3UEA.mjs.map
+//# sourceMappingURL=chunk-GQDUCHRU.mjs.map
