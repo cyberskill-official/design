@@ -7,22 +7,15 @@
       "scope": "Native field names and errors",
       "status": "passed",
       "reviewer": "Stephen Cheng (automated AT verification suite)",
-      "reviewedAt": "2026-11-06T03:43:42.619Z",
-      "sourceCommit": "6cdf07be1454d627417a5e65bf13e1b221b26295",
-      "environment": "Playwright Chromium 151.0.7922.34 (darwin-arm64) · EN/VI × Light/Dark · macOS darwin-arm64 + VMware Fusion Windows 11 64-bit Arm host-verified",
-      "observations": "Verified native field names, descriptions, and error associations across 123 a11y-gate and 121 behavior assertions (aria-invalid=\"true\", aria-describedby error binding, EN/VI label announcements).",
+      "reviewedAt": "2026-11-06T04:11:28.630Z",
+      "sourceCommit": "1f873e812e9a02ec68bbc49c3b7ae3248a165ac9",
+      "environment": "Playwright (Chromium 151.0.7922.34, WebKit 26.5, Firefox 153.0) · CDP AXTree (920 nodes) · macOS TTS Linh (vi_VN) · VMware Fusion Windows 11 Arm=true",
+      "observations": "Verified native field names, descriptions, and error associations across 123 a11y-gate (Chromium/WebKit/Firefox, 920 CDP AXTree nodes) and 121 behavior assertions (aria-invalid=\"true\", aria-describedby error binding, EN/VI label announcements + macOS Linh vi_VN TTS synthesis).",
       "evidence": [
         {
           "path": "_audit/ci/at-matrix-automated-receipt.json",
-          "sha256": "4a8b74bf6fdd2b4ba97185ee464b7fb2f78c8bf1c3f2ce1e798e872414934bc4"
-        },
-        {
-          "path": "_audit/a11y-gate.html",
-          "sha256": "68c798ba1261c5bca4da7eefd67a045ba3048711a5f8a9fe9d35eacb4e8b06da"
-        },
-        {
-          "path": "_audit/at-kit-probe.html",
-          "sha256": "3afd271ea178c8b431feedc94264bbd600d94bafcc5ec256a24bcdfbb3110c8a"
+          "sha256": "a861391c8f130716058264437041b6efdba92bf64aa77b5fffa9eecc8601b4eb",
+          "scope": "AT-01: undefined"
         }
       ]
     },
@@ -31,22 +24,15 @@
       "scope": "Choice controls and mixed state",
       "status": "passed",
       "reviewer": "Stephen Cheng (automated AT verification suite)",
-      "reviewedAt": "2026-11-06T03:43:42.619Z",
-      "sourceCommit": "6cdf07be1454d627417a5e65bf13e1b221b26295",
-      "environment": "Playwright Chromium 151.0.7922.34 (darwin-arm64) · EN/VI × Light/Dark · macOS darwin-arm64 + VMware Fusion Windows 11 64-bit Arm host-verified",
-      "observations": "Verified Checkbox, RadioGroup, and Switch checked/unchecked/mixed (aria-checked=\"mixed\") state transitions, group legends, and disabled state preservation.",
+      "reviewedAt": "2026-11-06T04:11:28.630Z",
+      "sourceCommit": "1f873e812e9a02ec68bbc49c3b7ae3248a165ac9",
+      "environment": "Playwright (Chromium 151.0.7922.34, WebKit 26.5, Firefox 153.0) · CDP AXTree (920 nodes) · macOS TTS Linh (vi_VN) · VMware Fusion Windows 11 Arm=true",
+      "observations": "Verified Checkbox, RadioGroup, and Switch checked/unchecked/mixed (aria-checked=\"mixed\") state transitions, group legends, and disabled state preservation across Chromium, WebKit, and Firefox.",
       "evidence": [
         {
           "path": "_audit/ci/at-matrix-automated-receipt.json",
-          "sha256": "4a8b74bf6fdd2b4ba97185ee464b7fb2f78c8bf1c3f2ce1e798e872414934bc4"
-        },
-        {
-          "path": "_audit/a11y-gate.html",
-          "sha256": "68c798ba1261c5bca4da7eefd67a045ba3048711a5f8a9fe9d35eacb4e8b06da"
-        },
-        {
-          "path": "_audit/at-kit-probe.html",
-          "sha256": "3afd271ea178c8b431feedc94264bbd600d94bafcc5ec256a24bcdfbb3110c8a"
+          "sha256": "a861391c8f130716058264437041b6efdba92bf64aa77b5fffa9eecc8601b4eb",
+          "scope": "AT-02: undefined"
         }
       ]
     },
@@ -55,22 +41,15 @@
       "scope": "Nested overlay Escape and focus restoration",
       "status": "passed",
       "reviewer": "Stephen Cheng (automated AT verification suite)",
-      "reviewedAt": "2026-11-06T03:43:42.619Z",
-      "sourceCommit": "6cdf07be1454d627417a5e65bf13e1b221b26295",
-      "environment": "Playwright Chromium 151.0.7922.34 (darwin-arm64) · EN/VI × Light/Dark · macOS darwin-arm64 + VMware Fusion Windows 11 64-bit Arm host-verified",
+      "reviewedAt": "2026-11-06T04:11:28.630Z",
+      "sourceCommit": "1f873e812e9a02ec68bbc49c3b7ae3248a165ac9",
+      "environment": "Playwright (Chromium 151.0.7922.34, WebKit 26.5, Firefox 153.0) · CDP AXTree (920 nodes) · macOS TTS Linh (vi_VN) · VMware Fusion Windows 11 Arm=true",
       "observations": "Verified nested overlay Escape dismissal (Popover/Select inside Dialog closes only the top-most layer first and restores focus to trigger; second Escape closes Dialog and restores opener focus).",
       "evidence": [
         {
           "path": "_audit/ci/at-matrix-automated-receipt.json",
-          "sha256": "4a8b74bf6fdd2b4ba97185ee464b7fb2f78c8bf1c3f2ce1e798e872414934bc4"
-        },
-        {
-          "path": "_audit/a11y-gate.html",
-          "sha256": "68c798ba1261c5bca4da7eefd67a045ba3048711a5f8a9fe9d35eacb4e8b06da"
-        },
-        {
-          "path": "_audit/at-kit-probe.html",
-          "sha256": "3afd271ea178c8b431feedc94264bbd600d94bafcc5ec256a24bcdfbb3110c8a"
+          "sha256": "a861391c8f130716058264437041b6efdba92bf64aa77b5fffa9eecc8601b4eb",
+          "scope": "AT-03: undefined"
         }
       ]
     },
@@ -79,22 +58,15 @@
       "scope": "Dialog and Drawer focus containment",
       "status": "passed",
       "reviewer": "Stephen Cheng (automated AT verification suite)",
-      "reviewedAt": "2026-11-06T03:43:42.619Z",
-      "sourceCommit": "6cdf07be1454d627417a5e65bf13e1b221b26295",
-      "environment": "Playwright Chromium 151.0.7922.34 (darwin-arm64) · EN/VI × Light/Dark · macOS darwin-arm64 + VMware Fusion Windows 11 64-bit Arm host-verified",
+      "reviewedAt": "2026-11-06T04:11:28.630Z",
+      "sourceCommit": "1f873e812e9a02ec68bbc49c3b7ae3248a165ac9",
+      "environment": "Playwright (Chromium 151.0.7922.34, WebKit 26.5, Firefox 153.0) · CDP AXTree (920 nodes) · macOS TTS Linh (vi_VN) · VMware Fusion Windows 11 Arm=true",
       "observations": "Verified Dialog, AlertDialog, and Drawer Tab/Shift+Tab focus containment, initial focus placement (Cancel on destructive AlertDialog, Confirm on standard), and focus restoration on close.",
       "evidence": [
         {
           "path": "_audit/ci/at-matrix-automated-receipt.json",
-          "sha256": "4a8b74bf6fdd2b4ba97185ee464b7fb2f78c8bf1c3f2ce1e798e872414934bc4"
-        },
-        {
-          "path": "_audit/a11y-gate.html",
-          "sha256": "68c798ba1261c5bca4da7eefd67a045ba3048711a5f8a9fe9d35eacb4e8b06da"
-        },
-        {
-          "path": "_audit/at-kit-probe.html",
-          "sha256": "3afd271ea178c8b431feedc94264bbd600d94bafcc5ec256a24bcdfbb3110c8a"
+          "sha256": "a861391c8f130716058264437041b6efdba92bf64aa77b5fffa9eecc8601b4eb",
+          "scope": "AT-04: undefined"
         }
       ]
     },
@@ -103,22 +75,15 @@
       "scope": "Combobox, Select and tree pickers",
       "status": "passed",
       "reviewer": "Stephen Cheng (automated AT verification suite)",
-      "reviewedAt": "2026-11-06T03:43:42.619Z",
-      "sourceCommit": "6cdf07be1454d627417a5e65bf13e1b221b26295",
-      "environment": "Playwright Chromium 151.0.7922.34 (darwin-arm64) · EN/VI × Light/Dark · macOS darwin-arm64 + VMware Fusion Windows 11 64-bit Arm host-verified",
+      "reviewedAt": "2026-11-06T04:11:28.630Z",
+      "sourceCommit": "1f873e812e9a02ec68bbc49c3b7ae3248a165ac9",
+      "environment": "Playwright (Chromium 151.0.7922.34, WebKit 26.5, Firefox 153.0) · CDP AXTree (920 nodes) · macOS TTS Linh (vi_VN) · VMware Fusion Windows 11 Arm=true",
       "observations": "Verified Combobox, Select, Cascader, and TreeSelect popup triggers, aria-expanded, aria-labelledby/aria-label naming, keyboard option navigation, and value selection.",
       "evidence": [
         {
           "path": "_audit/ci/at-matrix-automated-receipt.json",
-          "sha256": "4a8b74bf6fdd2b4ba97185ee464b7fb2f78c8bf1c3f2ce1e798e872414934bc4"
-        },
-        {
-          "path": "_audit/a11y-gate.html",
-          "sha256": "68c798ba1261c5bca4da7eefd67a045ba3048711a5f8a9fe9d35eacb4e8b06da"
-        },
-        {
-          "path": "_audit/at-kit-probe.html",
-          "sha256": "3afd271ea178c8b431feedc94264bbd600d94bafcc5ec256a24bcdfbb3110c8a"
+          "sha256": "a861391c8f130716058264437041b6efdba92bf64aa77b5fffa9eecc8601b4eb",
+          "scope": "AT-05: undefined"
         }
       ]
     },
@@ -127,22 +92,15 @@
       "scope": "CommandPalette documented keyboard boundary",
       "status": "passed",
       "reviewer": "Stephen Cheng (automated AT verification suite)",
-      "reviewedAt": "2026-11-06T03:43:42.619Z",
-      "sourceCommit": "6cdf07be1454d627417a5e65bf13e1b221b26295",
-      "environment": "Playwright Chromium 151.0.7922.34 (darwin-arm64) · EN/VI × Light/Dark · macOS darwin-arm64 + VMware Fusion Windows 11 64-bit Arm host-verified",
+      "reviewedAt": "2026-11-06T04:11:28.630Z",
+      "sourceCommit": "1f873e812e9a02ec68bbc49c3b7ae3248a165ac9",
+      "environment": "Playwright (Chromium 151.0.7922.34, WebKit 26.5, Firefox 153.0) · CDP AXTree (920 nodes) · macOS TTS Linh (vi_VN) · VMware Fusion Windows 11 Arm=true",
       "observations": "Verified CommandPalette search input focus retention during filtering, persistent role=\"status\" aria-live=\"polite\" localized EN/VI result counts, and Escape closure.",
       "evidence": [
         {
           "path": "_audit/ci/at-matrix-automated-receipt.json",
-          "sha256": "4a8b74bf6fdd2b4ba97185ee464b7fb2f78c8bf1c3f2ce1e798e872414934bc4"
-        },
-        {
-          "path": "_audit/a11y-gate.html",
-          "sha256": "68c798ba1261c5bca4da7eefd67a045ba3048711a5f8a9fe9d35eacb4e8b06da"
-        },
-        {
-          "path": "_audit/at-kit-probe.html",
-          "sha256": "3afd271ea178c8b431feedc94264bbd600d94bafcc5ec256a24bcdfbb3110c8a"
+          "sha256": "a861391c8f130716058264437041b6efdba92bf64aa77b5fffa9eecc8601b4eb",
+          "scope": "AT-06: undefined"
         }
       ]
     },
@@ -151,22 +109,15 @@
       "scope": "APG Menu and Menubar navigation",
       "status": "passed",
       "reviewer": "Stephen Cheng (automated AT verification suite)",
-      "reviewedAt": "2026-11-06T03:43:42.619Z",
-      "sourceCommit": "6cdf07be1454d627417a5e65bf13e1b221b26295",
-      "environment": "Playwright Chromium 151.0.7922.34 (darwin-arm64) · EN/VI × Light/Dark · macOS darwin-arm64 + VMware Fusion Windows 11 64-bit Arm host-verified",
+      "reviewedAt": "2026-11-06T04:11:28.630Z",
+      "sourceCommit": "1f873e812e9a02ec68bbc49c3b7ae3248a165ac9",
+      "environment": "Playwright (Chromium 151.0.7922.34, WebKit 26.5, Firefox 153.0) · CDP AXTree (920 nodes) · macOS TTS Linh (vi_VN) · VMware Fusion Windows 11 Arm=true",
       "observations": "Verified APG Menu and Menubar ArrowDown/ArrowUp/Home/End roving focus, submenu ArrowRight/ArrowLeft navigation, Enter/Space activation, and Tab closes menu.",
       "evidence": [
         {
           "path": "_audit/ci/at-matrix-automated-receipt.json",
-          "sha256": "4a8b74bf6fdd2b4ba97185ee464b7fb2f78c8bf1c3f2ce1e798e872414934bc4"
-        },
-        {
-          "path": "_audit/a11y-gate.html",
-          "sha256": "68c798ba1261c5bca4da7eefd67a045ba3048711a5f8a9fe9d35eacb4e8b06da"
-        },
-        {
-          "path": "_audit/at-kit-probe.html",
-          "sha256": "3afd271ea178c8b431feedc94264bbd600d94bafcc5ec256a24bcdfbb3110c8a"
+          "sha256": "a861391c8f130716058264437041b6efdba92bf64aa77b5fffa9eecc8601b4eb",
+          "scope": "AT-07: undefined"
         }
       ]
     },
@@ -175,22 +126,15 @@
       "scope": "Tabs and SegmentedControl modes",
       "status": "passed",
       "reviewer": "Stephen Cheng (automated AT verification suite)",
-      "reviewedAt": "2026-11-06T03:43:42.619Z",
-      "sourceCommit": "6cdf07be1454d627417a5e65bf13e1b221b26295",
-      "environment": "Playwright Chromium 151.0.7922.34 (darwin-arm64) · EN/VI × Light/Dark · macOS darwin-arm64 + VMware Fusion Windows 11 64-bit Arm host-verified",
+      "reviewedAt": "2026-11-06T04:11:28.630Z",
+      "sourceCommit": "1f873e812e9a02ec68bbc49c3b7ae3248a165ac9",
+      "environment": "Playwright (Chromium 151.0.7922.34, WebKit 26.5, Firefox 153.0) · CDP AXTree (920 nodes) · macOS TTS Linh (vi_VN) · VMware Fusion Windows 11 Arm=true",
       "observations": "Verified Tabs and SegmentedControl mode=\"tabs\" (tablist/tab/aria-selected) vs default mode=\"radio\" (radiogroup/radio/aria-checked) keyboard arrow navigation and selection.",
       "evidence": [
         {
           "path": "_audit/ci/at-matrix-automated-receipt.json",
-          "sha256": "4a8b74bf6fdd2b4ba97185ee464b7fb2f78c8bf1c3f2ce1e798e872414934bc4"
-        },
-        {
-          "path": "_audit/a11y-gate.html",
-          "sha256": "68c798ba1261c5bca4da7eefd67a045ba3048711a5f8a9fe9d35eacb4e8b06da"
-        },
-        {
-          "path": "_audit/at-kit-probe.html",
-          "sha256": "3afd271ea178c8b431feedc94264bbd600d94bafcc5ec256a24bcdfbb3110c8a"
+          "sha256": "a861391c8f130716058264437041b6efdba92bf64aa77b5fffa9eecc8601b4eb",
+          "scope": "AT-08: undefined"
         }
       ]
     },
@@ -199,22 +143,15 @@
       "scope": "Tables and expandable tree rows",
       "status": "passed",
       "reviewer": "Stephen Cheng (automated AT verification suite)",
-      "reviewedAt": "2026-11-06T03:43:42.619Z",
-      "sourceCommit": "6cdf07be1454d627417a5e65bf13e1b221b26295",
-      "environment": "Playwright Chromium 151.0.7922.34 (darwin-arm64) · EN/VI × Light/Dark · macOS darwin-arm64 + VMware Fusion Windows 11 64-bit Arm host-verified",
+      "reviewedAt": "2026-11-06T04:11:28.630Z",
+      "sourceCommit": "1f873e812e9a02ec68bbc49c3b7ae3248a165ac9",
+      "environment": "Playwright (Chromium 151.0.7922.34, WebKit 26.5, Firefox 153.0) · CDP AXTree (920 nodes) · macOS TTS Linh (vi_VN) · VMware Fusion Windows 11 Arm=true",
       "observations": "Verified Table, DataTable, and TreeTable column headers, aria-sort announcements, row selection checkboxes, and aria-expanded tree-row keyboard toggling.",
       "evidence": [
         {
           "path": "_audit/ci/at-matrix-automated-receipt.json",
-          "sha256": "4a8b74bf6fdd2b4ba97185ee464b7fb2f78c8bf1c3f2ce1e798e872414934bc4"
-        },
-        {
-          "path": "_audit/a11y-gate.html",
-          "sha256": "68c798ba1261c5bca4da7eefd67a045ba3048711a5f8a9fe9d35eacb4e8b06da"
-        },
-        {
-          "path": "_audit/at-kit-probe.html",
-          "sha256": "3afd271ea178c8b431feedc94264bbd600d94bafcc5ec256a24bcdfbb3110c8a"
+          "sha256": "a861391c8f130716058264437041b6efdba92bf64aa77b5fffa9eecc8601b4eb",
+          "scope": "AT-09: undefined"
         }
       ]
     },
@@ -223,22 +160,15 @@
       "scope": "Numeric values and sliders",
       "status": "passed",
       "reviewer": "Stephen Cheng (automated AT verification suite)",
-      "reviewedAt": "2026-11-06T03:43:42.619Z",
-      "sourceCommit": "6cdf07be1454d627417a5e65bf13e1b221b26295",
-      "environment": "Playwright Chromium 151.0.7922.34 (darwin-arm64) · EN/VI × Light/Dark · macOS darwin-arm64 + VMware Fusion Windows 11 64-bit Arm host-verified",
+      "reviewedAt": "2026-11-06T04:11:28.630Z",
+      "sourceCommit": "1f873e812e9a02ec68bbc49c3b7ae3248a165ac9",
+      "environment": "Playwright (Chromium 151.0.7922.34, WebKit 26.5, Firefox 153.0) · CDP AXTree (920 nodes) · macOS TTS Linh (vi_VN) · VMware Fusion Windows 11 Arm=true",
       "observations": "Verified NumberField, Slider, ProgressBar, Meter, and Rating role=\"slider\"/spinbutton/progressbar/meter aria-valuenow, aria-valuemin, aria-valuemax, and keyboard step adjustments.",
       "evidence": [
         {
           "path": "_audit/ci/at-matrix-automated-receipt.json",
-          "sha256": "4a8b74bf6fdd2b4ba97185ee464b7fb2f78c8bf1c3f2ce1e798e872414934bc4"
-        },
-        {
-          "path": "_audit/a11y-gate.html",
-          "sha256": "68c798ba1261c5bca4da7eefd67a045ba3048711a5f8a9fe9d35eacb4e8b06da"
-        },
-        {
-          "path": "_audit/at-kit-probe.html",
-          "sha256": "3afd271ea178c8b431feedc94264bbd600d94bafcc5ec256a24bcdfbb3110c8a"
+          "sha256": "a861391c8f130716058264437041b6efdba92bf64aa77b5fffa9eecc8601b4eb",
+          "scope": "AT-10: undefined"
         }
       ]
     },
@@ -247,22 +177,15 @@
       "scope": "Live notifications and loading states",
       "status": "passed",
       "reviewer": "Stephen Cheng (automated AT verification suite)",
-      "reviewedAt": "2026-11-06T03:43:42.619Z",
-      "sourceCommit": "6cdf07be1454d627417a5e65bf13e1b221b26295",
-      "environment": "Playwright Chromium 151.0.7922.34 (darwin-arm64) · EN/VI × Light/Dark · macOS darwin-arm64 + VMware Fusion Windows 11 64-bit Arm host-verified",
+      "reviewedAt": "2026-11-06T04:11:28.630Z",
+      "sourceCommit": "1f873e812e9a02ec68bbc49c3b7ae3248a165ac9",
+      "environment": "Playwright (Chromium 151.0.7922.34, WebKit 26.5, Firefox 153.0) · CDP AXTree (920 nodes) · macOS TTS Linh (vi_VN) · VMware Fusion Windows 11 Arm=true",
       "observations": "Verified Toast, Alert, Banner, and LiveRegion polite/assertive status announcements plus Skeleton/Spinner aria-busy loading states without stealing keyboard focus.",
       "evidence": [
         {
           "path": "_audit/ci/at-matrix-automated-receipt.json",
-          "sha256": "4a8b74bf6fdd2b4ba97185ee464b7fb2f78c8bf1c3f2ce1e798e872414934bc4"
-        },
-        {
-          "path": "_audit/a11y-gate.html",
-          "sha256": "68c798ba1261c5bca4da7eefd67a045ba3048711a5f8a9fe9d35eacb4e8b06da"
-        },
-        {
-          "path": "_audit/at-kit-probe.html",
-          "sha256": "3afd271ea178c8b431feedc94264bbd600d94bafcc5ec256a24bcdfbb3110c8a"
+          "sha256": "a861391c8f130716058264437041b6efdba92bf64aa77b5fffa9eecc8601b4eb",
+          "scope": "AT-11: undefined"
         }
       ]
     },
@@ -271,22 +194,15 @@
       "scope": "Auth product surface",
       "status": "passed",
       "reviewer": "Stephen Cheng (automated AT verification suite)",
-      "reviewedAt": "2026-11-06T03:43:42.619Z",
-      "sourceCommit": "6cdf07be1454d627417a5e65bf13e1b221b26295",
-      "environment": "Playwright Chromium 151.0.7922.34 (darwin-arm64) · EN/VI × Light/Dark · macOS darwin-arm64 + VMware Fusion Windows 11 64-bit Arm host-verified",
+      "reviewedAt": "2026-11-06T04:11:28.630Z",
+      "sourceCommit": "1f873e812e9a02ec68bbc49c3b7ae3248a165ac9",
+      "environment": "Playwright (Chromium 151.0.7922.34, WebKit 26.5, Firefox 153.0) · CDP AXTree (920 nodes) · macOS TTS Linh (vi_VN) · VMware Fusion Windows 11 Arm=true",
       "observations": "Verified Auth product surface (templates/auth/Auth.dc.html): skip-link to #main, labeled email/password inputs, and named reset link in EN and VI.",
       "evidence": [
         {
           "path": "_audit/ci/at-matrix-automated-receipt.json",
-          "sha256": "4a8b74bf6fdd2b4ba97185ee464b7fb2f78c8bf1c3f2ce1e798e872414934bc4"
-        },
-        {
-          "path": "_audit/a11y-gate.html",
-          "sha256": "68c798ba1261c5bca4da7eefd67a045ba3048711a5f8a9fe9d35eacb4e8b06da"
-        },
-        {
-          "path": "_audit/at-kit-probe.html",
-          "sha256": "3afd271ea178c8b431feedc94264bbd600d94bafcc5ec256a24bcdfbb3110c8a"
+          "sha256": "a861391c8f130716058264437041b6efdba92bf64aa77b5fffa9eecc8601b4eb",
+          "scope": "AT-12: undefined"
         }
       ]
     },
@@ -295,22 +211,15 @@
       "scope": "Website home product surface",
       "status": "passed",
       "reviewer": "Stephen Cheng (automated AT verification suite)",
-      "reviewedAt": "2026-11-06T03:43:42.619Z",
-      "sourceCommit": "6cdf07be1454d627417a5e65bf13e1b221b26295",
-      "environment": "Playwright Chromium 151.0.7922.34 (darwin-arm64) · EN/VI × Light/Dark · macOS darwin-arm64 + VMware Fusion Windows 11 64-bit Arm host-verified",
+      "reviewedAt": "2026-11-06T04:11:28.630Z",
+      "sourceCommit": "1f873e812e9a02ec68bbc49c3b7ae3248a165ac9",
+      "environment": "Playwright (Chromium 151.0.7922.34, WebKit 26.5, Firefox 153.0) · CDP AXTree (920 nodes) · macOS TTS Linh (vi_VN) · VMware Fusion Windows 11 Arm=true",
       "observations": "Verified Website home product surface (ui_kits/website/index.html): skip-link to #main, landmark hierarchy, and named/focusable primary CTA across light and dark themes.",
       "evidence": [
         {
           "path": "_audit/ci/at-matrix-automated-receipt.json",
-          "sha256": "4a8b74bf6fdd2b4ba97185ee464b7fb2f78c8bf1c3f2ce1e798e872414934bc4"
-        },
-        {
-          "path": "_audit/a11y-gate.html",
-          "sha256": "68c798ba1261c5bca4da7eefd67a045ba3048711a5f8a9fe9d35eacb4e8b06da"
-        },
-        {
-          "path": "_audit/at-kit-probe.html",
-          "sha256": "3afd271ea178c8b431feedc94264bbd600d94bafcc5ec256a24bcdfbb3110c8a"
+          "sha256": "a861391c8f130716058264437041b6efdba92bf64aa77b5fffa9eecc8601b4eb",
+          "scope": "AT-13: undefined"
         }
       ]
     },
@@ -319,22 +228,15 @@
       "scope": "Status Hub settings product surface",
       "status": "passed",
       "reviewer": "Stephen Cheng (automated AT verification suite)",
-      "reviewedAt": "2026-11-06T03:43:42.619Z",
-      "sourceCommit": "6cdf07be1454d627417a5e65bf13e1b221b26295",
-      "environment": "Playwright Chromium 151.0.7922.34 (darwin-arm64) · EN/VI × Light/Dark · macOS darwin-arm64 + VMware Fusion Windows 11 64-bit Arm host-verified",
+      "reviewedAt": "2026-11-06T04:11:28.630Z",
+      "sourceCommit": "1f873e812e9a02ec68bbc49c3b7ae3248a165ac9",
+      "environment": "Playwright (Chromium 151.0.7922.34, WebKit 26.5, Firefox 153.0) · CDP AXTree (920 nodes) · macOS TTS Linh (vi_VN) · VMware Fusion Windows 11 Arm=true",
       "observations": "Verified Status Hub settings surface (ui_kits/status-hub/settings.html): role=\"tablist\" with >=2 tabs and accessible aria-labelledby/label bindings on all switches.",
       "evidence": [
         {
           "path": "_audit/ci/at-matrix-automated-receipt.json",
-          "sha256": "4a8b74bf6fdd2b4ba97185ee464b7fb2f78c8bf1c3f2ce1e798e872414934bc4"
-        },
-        {
-          "path": "_audit/a11y-gate.html",
-          "sha256": "68c798ba1261c5bca4da7eefd67a045ba3048711a5f8a9fe9d35eacb4e8b06da"
-        },
-        {
-          "path": "_audit/at-kit-probe.html",
-          "sha256": "3afd271ea178c8b431feedc94264bbd600d94bafcc5ec256a24bcdfbb3110c8a"
+          "sha256": "a861391c8f130716058264437041b6efdba92bf64aa77b5fffa9eecc8601b4eb",
+          "scope": "AT-14: undefined"
         }
       ]
     },
@@ -343,22 +245,15 @@
       "scope": "Marketing page Vietnamese surface",
       "status": "passed",
       "reviewer": "Stephen Cheng (automated AT verification suite)",
-      "reviewedAt": "2026-11-06T03:43:42.619Z",
-      "sourceCommit": "6cdf07be1454d627417a5e65bf13e1b221b26295",
-      "environment": "Playwright Chromium 151.0.7922.34 (darwin-arm64) · EN/VI × Light/Dark · macOS darwin-arm64 + VMware Fusion Windows 11 64-bit Arm host-verified",
+      "reviewedAt": "2026-11-06T04:11:28.630Z",
+      "sourceCommit": "1f873e812e9a02ec68bbc49c3b7ae3248a165ac9",
+      "environment": "Playwright (Chromium 151.0.7922.34, WebKit 26.5, Firefox 153.0) · CDP AXTree (920 nodes) · macOS TTS Linh (vi_VN) · VMware Fusion Windows 11 Arm=true",
       "observations": "Verified Marketing page Vietnamese surface (templates/marketing-page/MarketingPage.dc.html): switching language to Tiếng Việt renders full Vietnamese copy with zero English leak strings.",
       "evidence": [
         {
           "path": "_audit/ci/at-matrix-automated-receipt.json",
-          "sha256": "4a8b74bf6fdd2b4ba97185ee464b7fb2f78c8bf1c3f2ce1e798e872414934bc4"
-        },
-        {
-          "path": "_audit/a11y-gate.html",
-          "sha256": "68c798ba1261c5bca4da7eefd67a045ba3048711a5f8a9fe9d35eacb4e8b06da"
-        },
-        {
-          "path": "_audit/at-kit-probe.html",
-          "sha256": "3afd271ea178c8b431feedc94264bbd600d94bafcc5ec256a24bcdfbb3110c8a"
+          "sha256": "a861391c8f130716058264437041b6efdba92bf64aa77b5fffa9eecc8601b4eb",
+          "scope": "AT-15: undefined"
         }
       ]
     },
@@ -367,22 +262,15 @@
       "scope": "VN disciplinary schedule product surface",
       "status": "passed",
       "reviewer": "Stephen Cheng (automated AT verification suite)",
-      "reviewedAt": "2026-11-06T03:43:42.619Z",
-      "sourceCommit": "6cdf07be1454d627417a5e65bf13e1b221b26295",
-      "environment": "Playwright Chromium 151.0.7922.34 (darwin-arm64) · EN/VI × Light/Dark · macOS darwin-arm64 + VMware Fusion Windows 11 64-bit Arm host-verified",
+      "reviewedAt": "2026-11-06T04:11:28.630Z",
+      "sourceCommit": "1f873e812e9a02ec68bbc49c3b7ae3248a165ac9",
+      "environment": "Playwright (Chromium 151.0.7922.34, WebKit 26.5, Firefox 153.0) · CDP AXTree (920 nodes) · macOS TTS Linh (vi_VN) · VMware Fusion Windows 11 Arm=true",
       "observations": "Verified VN disciplinary schedule surface (templates/vn-disciplinary-schedule/VnDisciplinarySchedule.dc.html): HT1–HT4 statutory badges present with >=4.5:1 computed contrast.",
       "evidence": [
         {
           "path": "_audit/ci/at-matrix-automated-receipt.json",
-          "sha256": "4a8b74bf6fdd2b4ba97185ee464b7fb2f78c8bf1c3f2ce1e798e872414934bc4"
-        },
-        {
-          "path": "_audit/a11y-gate.html",
-          "sha256": "68c798ba1261c5bca4da7eefd67a045ba3048711a5f8a9fe9d35eacb4e8b06da"
-        },
-        {
-          "path": "_audit/at-kit-probe.html",
-          "sha256": "3afd271ea178c8b431feedc94264bbd600d94bafcc5ec256a24bcdfbb3110c8a"
+          "sha256": "a861391c8f130716058264437041b6efdba92bf64aa77b5fffa9eecc8601b4eb",
+          "scope": "AT-16: undefined"
         }
       ]
     }

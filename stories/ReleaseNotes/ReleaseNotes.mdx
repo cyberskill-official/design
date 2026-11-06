@@ -36,6 +36,18 @@ Release remains pending human visual acceptance, required native/manual assistiv
 
 ---
 
+## Release — `@cyberskill/design@2.3.0`
+
+Published stable minor release recorded in `_audit/ci/fixtures/npm-published-release.json` (observed `2026-11-06T03:56:00.000Z`, tag `v2.3.0` at commit `1f873e812e9a02ec68bbc49c3b7ae3248a165ac9`).
+
+- **Generated `DESIGN.md` Open-Spec v3 (`build:design-md`):** Projects both the Stitch 9-Section specification and extended analytical subsections (`Elevation Levels 0–5`, `Shapes & Photography Geometry`, `Font Substitutes`, and 10 canonical `ex-*` component recipes) in English and Vietnamese.
+- **Surface Alternation & Editorial Prose Utilities:** Adds `.cs-card--raised` and `.cs-card--featured` in `base/data.css`, `.cs-prose` (`max-inline-size: var(--cs-prose-measure, 45rem)`) in `base/typography.css`, and theme-adaptive overlay scrims/shadows in `base/shell.css` and `base/controls.css`.
+- **Automated `AT-01..AT-16` Verification Receipt (`scripts/run-automated-at-matrix.mjs`):** Verifies all 16 assistive-technology release matrix rows across `_audit/a11y-gate.html`, `_audit/component-behavior-test.html`, and `_audit/at-kit-probe.html` (`passed=16, pending=0`).
+
+```bash
+npm install @cyberskill/design@2.3.0
+```
+
 ## Release — `@cyberskill/design@2.0.0`
 
 Published stable major release recorded in `_audit/ci/fixtures/npm-published-release.json` (observed `2026-10-30T16:59:22.000Z`, tag `v2.0.0` at commit `a159211acf8338cfdc4df18e9fa92c461071e00f`). Subsequent repository tags `v2.1.0` and `v2.2.0` advance the 2.x source line.

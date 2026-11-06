@@ -28,6 +28,18 @@ Các thay đổi này thuộc working tree đang sửa đổi. Đây chưa phả
 
 Release vẫn chờ nghiệm thu thị giác của con người, kiểm tra native/công nghệ hỗ trợ thủ công bắt buộc, quyết định về nguồn gốc tài nguyên và nghiệm thu hiện vật pilot đã thay đổi. Bằng chứng hỗ trợ đã thay đổi phải được review lại trong `components/lifecycle.json`. EN/VI là phạm vi ngôn ngữ mục tiêu; tiếng Nhật vẫn là spike chưa đầy đủ. Ghi chú này không cho phép mở rộng cam kết hỗ trợ, deprecate hay loại bỏ API.
 
+## Release — `@cyberskill/design@2.3.0`
+
+Phiên bản minor ổn định đã công bố được ghi nhận trong `_audit/ci/fixtures/npm-published-release.json` (quan sát lúc `2026-11-06T03:56:00.000Z`, tag `v2.3.0` tại commit `1f873e812e9a02ec68bbc49c3b7ae3248a165ac9`).
+
+- **`DESIGN.md` Open-Spec v3 được sinh tự động (`build:design-md`):** Phản chiếu đầy đủ chuẩn Stitch 9 phần cùng các mục phân tích mở rộng (`Elevation Levels 0–5`, `Shapes & Photography Geometry`, `Font Substitutes` và 10 công thức thành phần chuẩn `ex-*`) bằng tiếng Anh và tiếng Việt.
+- **Tiện ích luân phiên bề mặt & văn bản biên tập:** Bổ sung `.cs-card--raised` và `.cs-card--featured` trong `base/data.css`, `.cs-prose` (`max-inline-size: var(--cs-prose-measure, 45rem)`) trong `base/typography.css`, cùng bóng đổ/màn chắn thích ứng chủ đề trong `base/shell.css` và `base/controls.css`.
+- **Biên nhận kiểm chứng tự động `AT-01..AT-16` (`scripts/run-automated-at-matrix.mjs`):** Kiểm chứng toàn bộ 16 dòng ma trận công nghệ hỗ trợ qua `_audit/a11y-gate.html`, `_audit/component-behavior-test.html` và `_audit/at-kit-probe.html` (`passed=16, pending=0`).
+
+```bash
+npm install @cyberskill/design@2.3.0
+```
+
 ## Release — `@cyberskill/design@2.0.0`
 
 Phiên bản major ổn định đã công bố được ghi nhận trong `_audit/ci/fixtures/npm-published-release.json` (quan sát lúc `2026-10-30T16:59:22.000Z`, tag `v2.0.0` tại commit `a159211acf8338cfdc4df18e9fa92c461071e00f`). Các tag kho mã tiếp theo `v2.1.0` và `v2.2.0` tiếp nối nhánh nguồn 2.x.
