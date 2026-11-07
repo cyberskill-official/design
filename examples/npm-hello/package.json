@@ -9,6 +9,6 @@
     "smoke": "node ./smoke.mjs"
   },
   "dependencies": {
-    "@cyberskill/design": "1.7.2"
+    "@cyberskill/design": "2.2.0"
   }
 }
