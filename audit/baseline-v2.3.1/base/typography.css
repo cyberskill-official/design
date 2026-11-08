@@ -1,0 +1,24 @@
+/* CyberSkill — typographic role utilities. Each bundles size + line-height +
+ * weight + tracking so consumers write intent (.cs-h1) not magic numbers.
+ * Built on the semantic aliases in tokens/typography.css. */
+.cs-display { font-family: var(--cs-heading-family); font-size: var(--cs-text-display); line-height: var(--cs-font-lineHeight-tight); font-weight: var(--cs-heading-weight-strong); letter-spacing: var(--cs-heading-tracking); text-wrap: balance; overflow-wrap: break-word; }
+.cs-display--fluid { font-family: var(--cs-heading-family); font-size: clamp(2.25rem, 1.5rem + 3.5vw, var(--cs-text-display)); line-height: var(--cs-font-lineHeight-tight); font-weight: var(--cs-heading-weight-strong); letter-spacing: var(--cs-heading-tracking); text-wrap: balance; overflow-wrap: break-word; }
+.cs-h1 { font-family: var(--cs-heading-family); font-size: var(--cs-text-h1); line-height: var(--cs-font-lineHeight-heading); font-weight: var(--cs-heading-weight-strong); letter-spacing: var(--cs-heading-tracking); text-wrap: balance; overflow-wrap: break-word; }
+.cs-h1--fluid { font-family: var(--cs-heading-family); font-size: clamp(1.75rem, 1.25rem + 2vw, var(--cs-text-h1)); line-height: var(--cs-font-lineHeight-heading); font-weight: var(--cs-heading-weight-strong); letter-spacing: var(--cs-heading-tracking); text-wrap: balance; overflow-wrap: break-word; }
+.cs-h2 { font-family: var(--cs-heading-family); font-size: var(--cs-text-h2); line-height: var(--cs-font-lineHeight-heading); font-weight: var(--cs-heading-weight); letter-spacing: var(--cs-heading-tracking); text-wrap: balance; overflow-wrap: break-word; }
+.cs-h3 { font-family: var(--cs-heading-family); font-size: var(--cs-text-h3); line-height: var(--cs-font-lineHeight-heading); font-weight: var(--cs-heading-weight); overflow-wrap: break-word; }
+.cs-h4 { font-family: var(--cs-heading-family); font-size: var(--cs-text-h4); line-height: var(--cs-font-lineHeight-heading); font-weight: var(--cs-font-weight-semibold); }
+.cs-body-lg { font-family: var(--cs-font-family-ui); font-size: var(--cs-text-body-lg); line-height: var(--cs-font-lineHeight-body); font-weight: var(--cs-font-weight-regular); text-wrap: pretty; }
+.cs-body { font-family: var(--cs-font-family-ui); font-size: var(--cs-text-body); line-height: var(--cs-font-lineHeight-body); font-weight: var(--cs-font-weight-regular); text-wrap: pretty; }
+.cs-secondary { font-family: var(--cs-font-family-ui); font-size: var(--cs-text-secondary); line-height: var(--cs-font-lineHeight-body); color: var(--cs-color-text-muted); }
+.cs-caption { font-family: var(--cs-font-family-ui); font-size: var(--cs-text-caption); line-height: var(--cs-font-lineHeight-body); color: var(--cs-color-text-muted); }
+.cs-eyebrow { font-family: var(--cs-font-family-ui); font-size: var(--cs-text-eyebrow); font-weight: var(--cs-font-weight-bold); text-transform: uppercase; letter-spacing: var(--cs-letter-spacing-caps); color: var(--cs-color-text-accent); }
+.cs-mono { font-family: var(--cs-font-family-mono); }
+.cs-tabular { font-variant-numeric: tabular-nums; }
+.cs-prose { max-inline-size: var(--cs-prose-measure, 45rem); line-height: var(--cs-font-lineHeight-body, 1.5); }
+/* Opt in to the display face for a subtree — retargets --cs-heading-family so
+ * .cs-display/.cs-h1…h4 and bare headings follow, body copy stays on the UI
+ * face. Space Grotesk tops out at 700, so --cs-heading-weight-strong (800)
+ * clamps to 700 within that family (CSS does not hop to Be Vietnam Pro for a
+ * missing weight). Sanctioned path for cyberskill.world / Lumi headline face. */
+.cs-display-face { --cs-heading-family: var(--cs-font-family-display); }
