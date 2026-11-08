@@ -27,7 +27,7 @@ button.cs-item--interactive { border: 1px solid transparent; background: var(--c
   .cs-item--interactive:hover { background: var(--cs-color-surface-raised); border-color: var(--cs-color-border-default); }
 }
 .cs-item--interactive:focus-visible { outline: 2px solid var(--cs-color-text-primary); outline-offset: 2px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
-.cs-item.is-selected { border-color: var(--cs-accent); background: var(--cs-accent-tint, var(--cs-color-surface-raised)); }
+.cs-item.is-selected { border-color: var(--cs-color-text-accent); background: color-mix(in oklab, var(--cs-accent) 18%, var(--cs-color-surface-panel)); }
 .cs-item.is-disabled, .cs-item[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
 /* Static Item text remains information, rather than an inactive control. */
 div.cs-item.is-disabled { opacity: 1; }

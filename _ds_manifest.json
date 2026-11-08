@@ -5760,7 +5760,7 @@
       "scope": ".cs-terminal",
       "important": false,
       "declarationOrder": 1053,
-      "sourceLine": 347
+      "sourceLine": 355
     },
     {
       "name": "--cs-term-bar",
@@ -5770,7 +5770,7 @@
       "scope": ".cs-terminal",
       "important": false,
       "declarationOrder": 1054,
-      "sourceLine": 348
+      "sourceLine": 356
     },
     {
       "name": "--cs-term-dot",
@@ -5780,7 +5780,7 @@
       "scope": ".cs-terminal",
       "important": false,
       "declarationOrder": 1055,
-      "sourceLine": 349
+      "sourceLine": 357
     },
     {
       "name": "--cs-term-bg",
@@ -5790,7 +5790,7 @@
       "scope": ".cs-terminal",
       "important": false,
       "declarationOrder": 1056,
-      "sourceLine": 350
+      "sourceLine": 358
     },
     {
       "name": "--cs-term-fg",
@@ -5800,7 +5800,7 @@
       "scope": ".cs-terminal",
       "important": false,
       "declarationOrder": 1057,
-      "sourceLine": 351
+      "sourceLine": 359
     },
     {
       "name": "--cs-term-muted",
@@ -5810,7 +5810,7 @@
       "scope": ".cs-terminal",
       "important": false,
       "declarationOrder": 1058,
-      "sourceLine": 352
+      "sourceLine": 360
     },
     {
       "name": "--cs-code-bg",

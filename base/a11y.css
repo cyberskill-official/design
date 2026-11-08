@@ -111,7 +111,7 @@
     background: radial-gradient(circle, var(--cs-color-border-default) 4.5px, transparent 5px);
   }
   .cs-carousel__dots button[aria-current="true"] {
-    background: radial-gradient(circle, var(--cs-accent) 4.5px, transparent 5px);
+    background: radial-gradient(circle, var(--cs-color-text-accent) 4.5px, transparent 5px);
   }
   .cs-carousel__dots button::before { content: none; }
   /* The container's two 1px borders must not clip a short requested divider. */

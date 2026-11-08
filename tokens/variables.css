@@ -1180,7 +1180,7 @@
 :root, [data-theme], [data-cs-element], [data-element], [data-cs-contrast] {
   --_cs-border-subtle: color-mix(in oklab, var(--cs-color-border-default, #e7d9c6) 76%, transparent);
   --_cs-border-strong: color-mix(in oklab, var(--cs-color-border-default, #e7d9c6) 65%, var(--cs-color-text-primary, #45210e));
-  --_cs-surface-scrim: color-mix(in oklab, color-mix(in oklab, var(--cs-color-brand-umber, #45210e) var(--_cs-light, 45%)var(--_cs-dark, 20%), #050403) var(--_cs-light, 58%)var(--_cs-dark, 72%), transparent);
+  --_cs-surface-scrim: color-mix(in oklab, color-mix(in oklab, var(--cs-color-surface-page, #fffdf8) 25%, #050403) 68%, transparent);
   --cs-glass-whisper-bg: color-mix(in oklab, var(--cs-color-surface-page, #fffdf8) var(--cs-glass-whisper-opacity, 60%), transparent);
   --cs-glass-whisper-border: transparent;
   --cs-glass-light-bg: color-mix(in oklab, var(--cs-color-surface-panel, #fff) var(--cs-glass-light-opacity, 70%), transparent);

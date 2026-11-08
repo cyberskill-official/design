@@ -124,7 +124,7 @@
   padding-inline: var(--cs-component-textfield-paddingX, 12px);
 }
 .cs-field__control::placeholder { color: var(--cs-color-text-muted, #3f2d21); opacity: 0.7; }
-.cs-field.is-invalid .cs-field__control { border-color: var(--cs-color-semantic-danger, #b42318); }
+.cs-field.is-invalid .cs-field__control, .cs-field__control.is-invalid, .cs-field__control[aria-invalid="true"] { border-color: var(--cs-color-semantic-danger, #b42318); }
 .cs-field__error { color: var(--cs-color-semantic-danger-text, #4b0502); font-size: 0.875rem; }
 
 /* ---- Dialog ---- */

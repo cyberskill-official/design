@@ -29,7 +29,7 @@
   },
   "sourceHashes": {
     "_audit/visual-diff.html": "fd344cf31f0aa4130dddec2a99dca5ef60d9d08025b5dc2b4b729a1d388c5bb8",
-    "_ds_manifest.json": "9b086742b366b68bb6204a620127bfce931749b56a0291dcf216679fb2296204",
+    "_ds_manifest.json": "8f7b007bfb71572e3846ba9540fce7f104ea146a476100723c62c4b7a42e8a0e",
     "scripts/public-site-policy.json": "69ec241ac1a63cc5d90c5a40a3925e39ef58dfc79907bf5cb87d1024e1d0de1f",
     "templates/app-shell/AppShell.dc.html": "f71017a26f12b71d9e653dff79635ed14d5eb4a3dac9c5ce095188c537b858e3",
     "templates/article/Article.dc.html": "9b2ed3af604ac9e552f33bc922ec7dd2659b786dcb624cb491f7a437658adb2f",
@@ -116,7 +116,7 @@
     "templates/vn-total-rewards-appendix/VnTotalRewardsAppendix.dc.html": "ee941a6d26aa525bba779015ca01f4bdb7246571db2c3558499d7bc2fee3c2aa",
     "templates/vn-training-commitment/VnTrainingCommitment.dc.html": "49b2b4459bf2a900ddfafe679b6f3b088c78a31f611ae76dc3ac276e05a14c46",
     "templates/vn-travel-expense-policy/VnTravelExpensePolicy.dc.html": "1e585bd53ec6fb41322082bddfb7eed4ac811bfabb1ad2d639b9babba6c0e212",
-    "tokens/tokens.dtcg.json": "1ffb8f720203d7126c67913bafc45661e0f1fbe67e29a9c497f323a7b3182f8c"
+    "tokens/tokens.dtcg.json": "09a5e6e92bf9fe0162d74178533820b95bb733e920c2fc6a3cb36eaa3a7d1895"
   },
   "documents": [
     {
@@ -129,7 +129,7 @@
       "path": "DESIGN.md",
       "audience": "documentation",
       "role": "generated_reference",
-      "sha256": "63ce3dcf3fa7f7aca4e5dbb9c9af5ab1481eafb9507cbb72c2f9683f7c4f681c"
+      "sha256": "0168735571796f9538c1c48dd07b97348d834a10aca63d2737ce8f293b967cf2"
     },
     {
       "path": "MAINTAINERS.md",
@@ -1077,7 +1077,7 @@
       "path": "docs/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "9416ce6c071b53c8bd963c9ebae952e0f95a73a5c0ba8ebb8f1ae2cd181d138a"
+      "sha256": "54c0ef3cfe0bbbb0a07a99ce4168960b218660d3f7e31e3819ed2638f4bd2925"
     },
     {
       "path": "docs/storybook.md",
@@ -1233,7 +1233,7 @@
       "path": "docs/vi/entrypoints/DESIGN.md",
       "audience": "documentation",
       "role": "generated_reference",
-      "sha256": "aa88f7fc36d5bbaa6ae5342aa47eebd23a29caf7e89dfb07369736f400c796da"
+      "sha256": "196cc4c0254bb395465ced92d7b650aee995a4cfcdd98a4cdc2b7a0d9f884ed6"
     },
     {
       "path": "docs/vi/entrypoints/README.md",
@@ -1353,7 +1353,7 @@
       "path": "docs/vi/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "80bd97761dc080ff58c1d3fae1cc061878c0ea1d41b49452c89f675d548c1975"
+      "sha256": "e7e65503fe9d5cbb9ee3c335931e7748ccb69a8c97e78e9148a2d8ac435bf1b3"
     },
     {
       "path": "docs/vi/storybook.md",

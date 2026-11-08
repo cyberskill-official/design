@@ -57,7 +57,7 @@
     },
     {
       "path": "base/components.css",
-      "sha256": "4d76c9b1e8b66b7d38d43449f2f2e8dd66e047def376af32dee76c2386ed7849"
+      "sha256": "568dd72532092ccc5530944772f63509a69cc4d1de89f9f9a44f5bcbefa3ccb6"
     },
     {
       "path": "base/forms.css",
@@ -65,11 +65,11 @@
     },
     {
       "path": "base/feedback.css",
-      "sha256": "8102bb577bc0dd813777844109936ff93216a453d37c7c48c05d45c084e5f586"
+      "sha256": "05eb519a7227c8b0fdfcb3219b3c00f333ba93e8818eb7211b7aa32104571f46"
     },
     {
       "path": "base/data.css",
-      "sha256": "f679ee9e463db612a407448e32d726bf8bcc0a00c3e4f35e47934246f63f50f5"
+      "sha256": "4c92290bf35d51a0f0244ca05ab70f57fe4453abb8f71ba23327606f5a2a4227"
     },
     {
       "path": "base/navigation.css",
@@ -77,23 +77,23 @@
     },
     {
       "path": "base/ai.css",
-      "sha256": "cb0371760568fd565b9363bdd5646e484e14ad74aa628faa988d3967da242691"
+      "sha256": "fe288cee4345584a0fc189c6deb356e0af078a18fb0e8ad2f6ef4dd4e1511665"
     },
     {
       "path": "base/controls.css",
-      "sha256": "e40aed14a5669400d3698e7724129443a7cd1c8c51f13aaa4e1722e4842ec27d"
+      "sha256": "d16d8e017a5c300d10d75d36f379dfad1a8c25bb7ded61fbf08740082456331b"
     },
     {
       "path": "base/collections.css",
-      "sha256": "b1816ac351b4942edf80c5128a1c5d849bf4a85cbbbd6656f045f4f0699b59a7"
+      "sha256": "307287655287da43c275c56f14bdd846cd3d4a57d0cd1ddb4305996f0c2cba3c"
     },
     {
       "path": "base/shell.css",
-      "sha256": "0139393853d700d54ad8e0cdff45072f3920ce3b9cffa0dc26f41e01131c5e37"
+      "sha256": "be013b5a593600f9a8b258f5b798861dfec5dca1c89faaf0547c1e58084d8183"
     },
     {
       "path": "base/glass.css",
-      "sha256": "57d068dcfee27a3fc3ac51068875fcafc1787c8f7846ae3c40705cc7f3ec6661"
+      "sha256": "fe27603ead71c265aa4f30deb0bc754d09f5e71d7cfc656e282a740fffb87f2f"
     },
     {
       "path": "base/interaction.css",
@@ -101,7 +101,7 @@
     },
     {
       "path": "base/a11y.css",
-      "sha256": "c0fee897f85ea638c4552ccc445e69278e3b1416a2140bfeb2b369e4821722af"
+      "sha256": "f4df6177f9514bf0babf60b7df1ef3d9f5069d2b57311c04e23d10877844291e"
     },
     {
       "path": "base/responsive.css",
@@ -17175,7 +17175,7 @@
     {
       "order": 1053,
       "sourcePath": "base/controls.css",
-      "line": 347,
+      "line": 355,
       "column": 3,
       "name": "--cs-term-border",
       "value": "#3a2a1c",
@@ -17191,7 +17191,7 @@
     {
       "order": 1054,
       "sourcePath": "base/controls.css",
-      "line": 348,
+      "line": 356,
       "column": 3,
       "name": "--cs-term-bar",
       "value": "#2a1a0d",
@@ -17207,7 +17207,7 @@
     {
       "order": 1055,
       "sourcePath": "base/controls.css",
-      "line": 349,
+      "line": 357,
       "column": 3,
       "name": "--cs-term-dot",
       "value": "#5b4331",
@@ -17223,7 +17223,7 @@
     {
       "order": 1056,
       "sourcePath": "base/controls.css",
-      "line": 350,
+      "line": 358,
       "column": 3,
       "name": "--cs-term-bg",
       "value": "#1a1108",
@@ -17239,7 +17239,7 @@
     {
       "order": 1057,
       "sourcePath": "base/controls.css",
-      "line": 351,
+      "line": 359,
       "column": 3,
       "name": "--cs-term-fg",
       "value": "#f5ead9",
@@ -17255,7 +17255,7 @@
     {
       "order": 1058,
       "sourcePath": "base/controls.css",
-      "line": 352,
+      "line": 360,
       "column": 3,
       "name": "--cs-term-muted",
       "value": "#c9b7a3",
@@ -17370,7 +17370,7 @@
       "line": 14,
       "column": 3,
       "name": "--_cs-surface-scrim",
-      "value": "color-mix(in oklab, color-mix(in oklab, var(--cs-color-brand-umber, #45210e) var(--_cs-light, 45%)var(--_cs-dark, 20%), #050403) var(--_cs-light, 58%)var(--_cs-dark, 72%), transparent)",
+      "value": "color-mix(in oklab, color-mix(in oklab, var(--cs-color-surface-page, #fffdf8) 25%, #050403) 68%, transparent)",
       "important": false,
       "visibility": "private",
       "context": [

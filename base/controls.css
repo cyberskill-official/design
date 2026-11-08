@@ -2,6 +2,7 @@
 
 /* SearchField */
 .cs-search { display: flex; align-items: center; gap: var(--cs-space-2); border: 1px solid var(--cs-component-textfield-border-default); border-radius: var(--cs-radius-full); padding: 0 14px; min-height: 44px; background: var(--cs-color-surface-panel); }
+.cs-search.is-invalid, .is-invalid .cs-search, .cs-search[aria-invalid="true"] { border-color: var(--cs-color-semantic-danger); }
 .cs-search:focus-within {
   border-color: var(--cs-color-text-primary);
   outline: 2px solid var(--cs-color-text-primary);
@@ -16,6 +17,7 @@
 
 /* NumberField / stepper */
 .cs-stepper { display: inline-flex; align-items: stretch; border: 1px solid var(--cs-component-textfield-border-default); border-radius: var(--cs-radius-md); overflow: hidden; background: var(--cs-color-surface-panel); }
+.cs-stepper.is-invalid, .is-invalid .cs-stepper, .cs-stepper[aria-invalid="true"] { border-color: var(--cs-color-semantic-danger); }
 .cs-stepper:focus-within {
   border-color: var(--cs-color-text-primary);
   outline: 2px solid var(--cs-color-text-primary);
@@ -65,11 +67,12 @@
 .cs-toggle:disabled { opacity: .5; cursor: not-allowed; }
 .cs-rating { display: inline-flex; gap: 4px; }
 .cs-rating button { background: none; border: 0; padding: 2px; cursor: pointer; color: var(--cs-color-border-default); display: grid; place-items: center; }
-.cs-rating button.on { color: var(--cs-accent); }
+.cs-rating button.on { color: var(--cs-color-text-accent); }
 .cs-rating[data-readonly="true"] button { cursor: default; }
 .cs-rating button:focus-visible { outline: 2px solid var(--cs-color-text-primary); outline-offset: 2px; border-radius: 4px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
 .cs-otp { display: inline-flex; gap: 8px; }
 .cs-otp input { inline-size: 44px; block-size: 52px; text-align: center; font: 700 22px var(--cs-font-family-mono); color: var(--cs-color-text-primary); background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); }
+.cs-otp.is-invalid input, .is-invalid .cs-otp input, .cs-otp input.is-invalid, .cs-otp input[aria-invalid="true"] { border-color: var(--cs-color-semantic-danger); }
 .cs-otp input:focus { outline: 2px solid var(--cs-color-text-primary); outline-offset: 1px; border-color: var(--cs-accent); box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
 .cs-otp input:disabled { opacity: .5; cursor: not-allowed; background: var(--cs-color-surface-raised); }
 .cs-btngroup { display: inline-flex; }
@@ -81,7 +84,7 @@
 /* ---- v3 Batch 2 part 2 (Jul 2026): Combobox · InputGroup · TagInput ---- */
 .cs-combobox { position: relative; display: inline-block; min-inline-size: 260px; }
 .cs-combobox input { inline-size: 100%; box-sizing: border-box; font: 500 14px var(--cs-font-family-ui); color: var(--cs-color-text-primary); background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); padding: 10px 34px 10px var(--cs-space-3); min-block-size: 44px; }
-.is-invalid .cs-combobox input, .cs-combobox input[aria-invalid="true"] { border-color: var(--cs-color-semantic-danger, #b42318); }
+.is-invalid .cs-combobox input, .cs-combobox.is-invalid input, .cs-combobox input.is-invalid, .cs-combobox[aria-invalid="true"] input, .cs-combobox input[aria-invalid="true"] { border-color: var(--cs-color-semantic-danger, #b42318); }
 .cs-combobox input:focus { outline: 2px solid var(--cs-color-text-primary); outline-offset: 1px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
 .cs-combobox__caret { position: absolute; inset-inline-end: 10px; inset-block-start: 50%; translate: 0 -50%; pointer-events: none; color: var(--cs-color-text-muted); }
 .cs-combobox__popup { color: var(--cs-color-text-primary); position: absolute; z-index: var(--cs-depth-dropdown, 60); inset-inline: 0; inset-block-start: calc(100% + 6px); max-block-size: 240px; overflow: auto; background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); box-shadow: var(--cs-shadow-md); padding: 6px; margin: 0; }
@@ -90,6 +93,7 @@
 .cs-combobox__opt[aria-selected="true"], .cs-combobox__opt.hl { background: var(--_cs-light, var(--cs-accent-tint))var(--_cs-dark, color-mix(in oklab, var(--cs-accent) 22%, var(--cs-color-surface-panel))); color: var(--_cs-light, var(--cs-color-text-primary))var(--_cs-dark, var(--cs-accent-bright)); }
 .cs-combobox__empty { padding: 10px; color: var(--cs-color-text-muted); font-size: var(--cs-font-size-sm); }
 .cs-igroup { display: inline-flex; align-items: stretch; min-inline-size: 260px; background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); overflow: hidden; }
+.cs-igroup.is-invalid, .is-invalid .cs-igroup, .cs-igroup[aria-invalid="true"] { border-color: var(--cs-color-semantic-danger); }
 .cs-igroup:focus-within { outline: 2px solid var(--cs-color-text-primary); outline-offset: 1px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
 .cs-igroup > input { flex: 1; min-inline-size: 0; border: 0; background: transparent; color: var(--cs-color-text-primary); font: 500 14px var(--cs-font-family-ui); padding: 10px 12px; min-block-size: 44px; box-sizing: border-box; }
 .cs-igroup > input:focus { outline: none; }
@@ -98,6 +102,7 @@
 .cs-igroup__btn { border: 0; background: none; color: var(--cs-color-text-muted); cursor: pointer; display: grid; place-items: center; padding: 0 10px; }
 .cs-igroup__btn:hover { color: var(--cs-color-text-primary); }
 .cs-taginput { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; min-inline-size: 280px; background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); padding: 6px var(--cs-space-2); min-block-size: 44px; box-sizing: border-box; }
+.cs-taginput.is-invalid, .is-invalid .cs-taginput, .cs-taginput[aria-invalid="true"] { border-color: var(--cs-color-semantic-danger); }
 .cs-taginput:focus-within { outline: 2px solid var(--cs-color-text-primary); outline-offset: 1px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
 .cs-taginput > input { flex: 1; min-inline-size: 120px; border: 0; background: transparent; color: var(--cs-color-text-primary); font: 500 14px var(--cs-font-family-ui); padding: 6px var(--cs-space-1); }
 .cs-taginput > input:focus { outline: none; }
@@ -114,16 +119,18 @@
 .cs-cal__wd span { text-align: center; font: 700 10.5px/2 var(--cs-font-family-ui); text-transform: uppercase; letter-spacing: .04em; color: var(--cs-color-text-muted); }
 .cs-cal__grid button { border: 0; background: none; color: var(--cs-color-text-primary); font: 500 13px var(--cs-font-family-ui); block-size: 34px; border-radius: var(--cs-radius-sm); cursor: pointer; }
 .cs-cal__grid button:hover { background: var(--cs-color-surface-raised); }
-.cs-cal__grid button.today { box-shadow: inset 0 0 0 1px var(--cs-accent); }
+.cs-cal__grid button.today { box-shadow: inset 0 0 0 1px var(--cs-color-text-accent); }
 .cs-cal__grid button.sel { background: var(--cs-accent-bright); color: var(--cs-color-brand-umber); font-weight: 700; box-shadow: inset 0 0 0 2px var(--cs-accent-strong); }
 .cs-cal__grid button:focus-visible { outline: 2px solid var(--cs-color-text-primary); outline-offset: 1px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
 .cs-datepicker { position: relative; display: inline-block; max-inline-size: 100%; }
 .cs-datepicker__field { display: inline-flex; align-items: center; gap: var(--cs-space-2); min-inline-size: 220px; min-block-size: 44px; font: 500 14px var(--cs-font-family-ui); color: var(--cs-color-text-primary); background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); padding: var(--cs-space-2) var(--cs-space-3); cursor: pointer; }
+.cs-datepicker.is-invalid .cs-datepicker__field, .is-invalid .cs-datepicker__field, .cs-datepicker__field.is-invalid, .cs-datepicker__field[aria-invalid="true"] { border-color: var(--cs-color-semantic-danger); }
 .cs-datepicker__field:focus-visible { outline: 2px solid var(--cs-color-text-primary); outline-offset: 1px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
 .cs-datepicker__field .ph { color: var(--cs-color-text-muted); }
 .cs-datepicker__pop { position: absolute; z-index: var(--cs-depth-dropdown, 60); inset-block-start: calc(100% + 6px); inset-inline-start: var(--_cs-panel-inline-offset, 0px); inline-size: max-content; max-inline-size: var(--_cs-panel-max-inline-size, calc(100vw - 16px)); }
 .cs-datepicker__pop .cs-cal { min-inline-size: 0; max-inline-size: 100%; box-sizing: border-box; overflow-x: auto; }
 .cs-timepicker { display: inline-flex; align-items: center; gap: 8px; background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); padding: 0 10px; min-block-size: 44px; color: var(--cs-color-text-muted); }
+.cs-timepicker.is-invalid, .is-invalid .cs-timepicker, .cs-timepicker[aria-invalid="true"] { border-color: var(--cs-color-semantic-danger); }
 .cs-timepicker:focus-within { outline: 2px solid var(--cs-color-text-primary); outline-offset: 1px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
 .cs-timepicker select { border: 0; background: transparent; color: var(--cs-color-text-primary); font: 600 14px var(--cs-font-family-mono); padding: 8px 2px; cursor: pointer; }
 .cs-timepicker select:focus { outline: none; }
@@ -145,7 +152,7 @@
 .cs-fab--static .cs-fab__dial, .cs-fab__dial--static { flex-direction: row; }
 .cs-fab__mini { inline-size: 42px; block-size: 42px; border-radius: 999px; border: 1px solid var(--cs-color-border-default); background: var(--cs-color-surface-panel); color: var(--cs-color-text-primary); display: grid; place-items: center; cursor: pointer; box-shadow: var(--cs-shadow-sm); }
 .cs-result { display: grid; justify-items: center; text-align: center; gap: 10px; padding: 44px 24px; }
-.cs-result__icon { inline-size: 64px; block-size: 64px; border-radius: 999px; display: grid; place-items: center; background: var(--cs-accent-tint); color: var(--cs-color-text-accent); }
+.cs-result__icon { inline-size: 64px; block-size: 64px; border-radius: 999px; display: grid; place-items: center; background: color-mix(in oklab, var(--cs-accent) 18%, var(--cs-color-surface-panel)); color: var(--cs-color-text-accent); }
 .cs-result--success .cs-result__icon { background: color-mix(in oklab, var(--cs-color-semantic-success) 14%, var(--cs-color-surface-panel)); color: var(--cs-color-semantic-success-text); }
 .cs-result--error .cs-result__icon { background: color-mix(in oklab, var(--cs-color-semantic-danger) 12%, var(--cs-color-surface-panel)); color: var(--cs-color-semantic-danger-text); }
 .cs-result--warning .cs-result__icon { background: color-mix(in oklab, var(--cs-color-semantic-warning) 14%, var(--cs-color-surface-panel)); color: var(--cs-color-semantic-warning-text); }
@@ -199,7 +206,7 @@
 .cs-navmenu__top:hover, .cs-navmenu__top.is-open { background: var(--cs-color-surface-raised); }
 .cs-navmenu__panel { position: absolute; z-index: var(--cs-depth-dropdown, 60); inset-inline-start: var(--_cs-panel-inline-offset, 0px); inline-size: 468px; max-inline-size: var(--_cs-panel-max-inline-size, calc(100vw - 16px)); box-sizing: border-box; inset-block-start: calc(100% + 8px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; background: var(--cs-color-surface-panel); color: var(--cs-color-text-primary); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-lg); box-shadow: var(--cs-shadow-md); padding: 10px; }
 .cs-navmenu__card { min-inline-size: 0; overflow-wrap: anywhere; display: grid; gap: 3px; padding: 10px 12px; border-radius: var(--cs-radius-md); text-decoration: none; color: var(--cs-color-text-primary); }
-.cs-navmenu__card:hover { background: var(--cs-accent-tint); }
+.cs-navmenu__card:hover { background: color-mix(in oklab, var(--cs-accent) 18%, var(--cs-color-surface-panel)); }
 .cs-navmenu__card b { font-size: var(--cs-font-size-sm); }
 .cs-navmenu__card small { color: var(--cs-color-text-muted); font-size: var(--cs-font-size-xs); line-height: 1.45; }
 .cs-carousel { display: grid; gap: 10px; }
@@ -215,7 +222,7 @@
 .cs-carousel__dots { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
 .cs-carousel__dots button { inline-size: 24px; block-size: 24px; flex: 0 0 24px; border-radius: 999px; border: 0; background: none; cursor: pointer; padding: 0; position: relative; }
 .cs-carousel__dots button::before { content: ""; position: absolute; inset: 0; margin: auto; inline-size: 9px; block-size: 9px; border-radius: inherit; background: var(--cs-color-border-default); pointer-events: none; }
-.cs-carousel__dots button[aria-current="true"]::before { background: var(--cs-accent); }
+.cs-carousel__dots button[aria-current="true"]::before { background: var(--cs-color-text-accent); }
 @media (prefers-reduced-motion: reduce) { .cs-carousel__track { transition: none; } }
 .cs-comment { display: flex; gap: 10px; }
 .cs-comment__main { flex: 1; min-inline-size: 0; }
@@ -242,7 +249,7 @@
 .cs-formfield__label em { color: var(--cs-color-semantic-danger-text); font-style: normal; }
 .cs-formfield__hint { font-size: var(--cs-font-size-xs); color: var(--cs-color-text-muted); }
 .cs-formfield__error { font-size: var(--cs-font-size-xs); color: var(--cs-color-semantic-danger-text); font-weight: 600; }
-.cs-formfield.has-error input, .cs-formfield.has-error textarea, .cs-formfield.has-error select { border-color: var(--cs-color-semantic-danger); }
+.cs-formfield.has-error input, .cs-formfield.has-error textarea, .cs-formfield.has-error select, .cs-formfield.is-invalid input, .cs-formfield.is-invalid textarea, .cs-formfield.is-invalid select, .cs-formfield input[aria-invalid="true"], .cs-formfield textarea[aria-invalid="true"], .cs-formfield select[aria-invalid="true"] { border-color: var(--cs-color-semantic-danger); }
 .cs-tree { list-style: none; margin: 0; padding: 0; font-size: var(--cs-font-size-sm); }
 .cs-tree ul { list-style: none; margin: 0; padding: 0; }
 .cs-tree__row { display: flex; align-items: center; gap: 2px; border-radius: var(--cs-radius-sm); }
@@ -257,6 +264,7 @@
 /* ---- v3 Batch 6b (Jul 2026): TreeSelect · Cascader · Transfer · Mentions ---- */
 .cs-treeselect, .cs-cascader { position: relative; display: inline-block; min-inline-size: 240px; }
 .cs-treeselect__field { display: inline-flex; align-items: center; justify-content: space-between; gap: 10px; inline-size: 100%; min-block-size: 44px; font: 500 14px var(--cs-font-family-ui); color: var(--cs-color-text-primary); background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); padding: 8px 12px; cursor: pointer; box-sizing: border-box; }
+.cs-treeselect.is-invalid .cs-treeselect__field, .cs-cascader.is-invalid .cs-treeselect__field, .is-invalid .cs-treeselect__field, .cs-treeselect__field.is-invalid, .cs-treeselect__field[aria-invalid="true"] { border-color: var(--cs-color-semantic-danger); }
 .cs-treeselect__field:focus-visible { outline: 2px solid var(--cs-color-text-primary); outline-offset: 1px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
 .cs-treeselect__field .ph { color: var(--cs-color-text-muted); }
 .cs-treeselect__pop, .cs-cascader__pop { position: absolute; z-index: var(--cs-depth-dropdown, 60); inset-block-start: calc(100% + 6px); inset-inline-start: 0; background: var(--cs-color-surface-panel); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); box-shadow: var(--cs-shadow-md); padding: 8px; min-inline-size: 100%; }
@@ -303,7 +311,7 @@
 .cs-splitter { display: flex; align-items: stretch; border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); overflow: hidden; background: var(--cs-color-surface-panel); }
 .cs-splitter__pane { overflow: auto; padding: 14px; min-inline-size: 0; }
 .cs-splitter__bar { inline-size: 8px; cursor: col-resize; background: var(--cs-color-surface-raised); border-inline: 1px solid var(--cs-color-border-default); touch-action: none; }
-.cs-splitter__bar:hover { background: var(--cs-accent-tint); }
+.cs-splitter__bar:hover { background: color-mix(in oklab, var(--cs-accent) 18%, var(--cs-color-surface-panel)); }
 .cs-splitter__bar:focus-visible { background: var(--cs-color-surface-raised); outline: 2px solid var(--cs-color-text-primary); outline-offset: -2px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
 .cs-hotkeys__sheet { position: fixed; inset: 0; z-index: var(--cs-depth-modal, 100); background: var(--cs-color-surface-scrim, var(--_cs-surface-scrim)); display: grid; place-items: center; }
 .cs-hotkeys__card { background: var(--cs-color-surface-panel); color: var(--cs-color-text-primary); border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-lg); box-shadow: var(--cs-shadow-xl); padding: 18px 20px; min-inline-size: 300px; }
@@ -312,7 +320,7 @@
 .cs-hotkeys__card li { display: flex; justify-content: space-between; gap: 20px; font-size: var(--cs-font-size-sm); color: var(--cs-color-text-primary); }
 .cs-dock { display: inline-flex; align-items: flex-end; gap: 8px; background: color-mix(in oklab, var(--cs-color-surface-panel) 82%, transparent); border: 1px solid var(--cs-color-border-default); border-radius: 18px; padding: 8px 12px; backdrop-filter: blur(10px); }
 .cs-dock__item { inline-size: 44px; block-size: 44px; border-radius: 12px; border: 1px solid var(--cs-color-border-default); background: var(--cs-color-surface-panel); color: var(--cs-color-text-primary); display: grid; place-items: center; cursor: pointer; transition: transform var(--cs-duration-fast, 120ms); position: relative; }
-.cs-dock__item.is-active::after { content: ""; position: absolute; inset-block-end: -6px; inline-size: 4px; block-size: 4px; border-radius: 999px; background: var(--cs-accent); }
+.cs-dock__item.is-active::after { content: ""; position: absolute; inset-block-end: -6px; inline-size: 4px; block-size: 4px; border-radius: 999px; background: var(--cs-color-text-accent); }
 @media (prefers-reduced-motion: reduce) { .cs-dock__item { transition: none; } }
 
 /* ---- v3 Batch 7b (Jul 2026): DataGrid · TreeTable · Sortable ---- */

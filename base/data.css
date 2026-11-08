@@ -23,6 +23,7 @@
 .cs-stat { display: grid; gap: 3px; }
 .cs-stat__label { font-size: var(--cs-font-size-xs); text-transform: uppercase; letter-spacing: var(--cs-letter-spacing-caps); color: var(--cs-color-text-muted); }
 .cs-stat__value { font-size: var(--cs-font-size-3xl); font-weight: 800; line-height: 1.1; letter-spacing: var(--cs-letter-spacing-tight); font-variant-numeric: tabular-nums; }
+.cs-stat__value:lang(vi) { line-height: 1.22; }
 .cs-stat__delta { display: inline-flex; align-items: center; gap: 4px; font-size: var(--cs-font-size-sm); font-weight: 700; }
 .cs-stat__delta--up { color: var(--cs-color-semantic-success-text); }
 .cs-stat__delta--down { color: var(--cs-color-semantic-danger-text); }

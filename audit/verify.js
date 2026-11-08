@@ -177,10 +177,7 @@
     [1, 2, 3].forEach(function (n) {
       docCheck("ĐIỀU " + n + " heading · Appointment / transfer", "VnAppointmentTransfer.dc.html", "13.5px", function (S) { return S.appt[n - 1]; }, function (L) { return L.appt[n - 1]; }, function (v) { return parseFloat(v) === 13.5; });
     });
-    var REC = {
-      "Dark root: scrim darkens the dark page by ≥ 1 JND": "The v2.4.0 scrim's inner colour (OKLab L ≈ 0.19) is almost the dark page's own lightness (≈ 0.20), so over a bare dark page it stops the v2.3.1 lightening but does not visibly dim. Separation currently comes from the dialog panel and the xl shadow. If bare-page dimming is wanted, deepen the mix under [data-theme=\"dark\"] (more #050403 or a higher alpha) and re-run.",
-      "EN .cs-display inside a VI page keeps tight 1.15": "`:lang(vi) :is(.cs-display, .cs-display--fluid)` uses a descendant combinator, so an English display heading inside a lang=\"vi\" document also gets 1.22. Writing `:is(.cs-display, .cs-display--fluid):lang(vi)` follows the element's own language and keeps EN blocks at the 1.15 tight ramp."
-    };
+    var REC = {};
     C.forEach(function (c) { c.rec = REC[c.title] || ""; });
     return C;
   }
