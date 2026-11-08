@@ -4,7 +4,7 @@
     "path": "scripts/generate-reference-catalog.mjs",
     "sha256": "be85a593b4b29f0d26e5733502f8d9e4f536e10ab015173a34f4101af11723ef"
   },
-  "version": "2.4.0",
+  "version": "2.5.0",
   "interpretation": "The document inventory covers Git-listed Markdown and llms.txt; HTML count surfaces are tracked separately. Audience follows the website publication policy, not npm membership. Source paths locate repository evidence and need not all be packaged. Roles describe source routing and audience, not approval, factual freshness of every sentence, translation quality or capability certification.",
   "countScope": "Counts describe declared inventory only. Declared language/theme/boolean controls are inventory facts, not proof of complete content, working behavior or every supported state; token declarations and typed base values are distinct counts.",
   "counts": {
@@ -116,7 +116,7 @@
     "templates/vn-total-rewards-appendix/VnTotalRewardsAppendix.dc.html": "ee941a6d26aa525bba779015ca01f4bdb7246571db2c3558499d7bc2fee3c2aa",
     "templates/vn-training-commitment/VnTrainingCommitment.dc.html": "49b2b4459bf2a900ddfafe679b6f3b088c78a31f611ae76dc3ac276e05a14c46",
     "templates/vn-travel-expense-policy/VnTravelExpensePolicy.dc.html": "1e585bd53ec6fb41322082bddfb7eed4ac811bfabb1ad2d639b9babba6c0e212",
-    "tokens/tokens.dtcg.json": "09a5e6e92bf9fe0162d74178533820b95bb733e920c2fc6a3cb36eaa3a7d1895"
+    "tokens/tokens.dtcg.json": "a662b3413a39fe6424d20e935e9a2a23ef9426648cd0b2482bd8b73b20acf676"
   },
   "documents": [
     {
@@ -129,7 +129,7 @@
       "path": "DESIGN.md",
       "audience": "documentation",
       "role": "generated_reference",
-      "sha256": "0168735571796f9538c1c48dd07b97348d834a10aca63d2737ce8f293b967cf2"
+      "sha256": "cc8ef826b5fa8a124e1e65266981c03c76f919383fdf819ffd4d2e814c7f1653"
     },
     {
       "path": "MAINTAINERS.md",
@@ -141,7 +141,7 @@
       "path": "README.md",
       "audience": "documentation",
       "role": "human_orientation",
-      "sha256": "4fff9ded70a6e7fd9295baf10046e2fab625fdba6fb2ceb53cb44224da50d4ef"
+      "sha256": "ab3cf97c894e6f1c36db6cbeffecfca1572e4261fcfe9c43d12d654df7c311c4"
     },
     {
       "path": "SECURITY.md",
@@ -909,19 +909,19 @@
       "path": "docs/consuming.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "62e07ee791ca4de4ed545ab6659476f611ad42e5aaaa1aa756044f90c4d7e6df"
+      "sha256": "1a98d56a2a311935686690dbc06a5793f6e2234825adf760e8ce00f6ad4dfb02"
     },
     {
       "path": "docs/contrast-report.md",
       "audience": "documentation",
       "role": "generated_measurement",
-      "sha256": "a9462f354c80cd2f0e9f4d1e79b104d5e61773685021e15cc03af009a347a4c0"
+      "sha256": "0c41d6f852296e248ec5ab83f3475d234f4e1b276a365d311d0a8b44374cecf5"
     },
     {
       "path": "docs/conventions.md",
       "audience": "documentation",
       "role": "normative_repository_contract",
-      "sha256": "f1ff93252f06067008c26f6302bc2c2d272735406425d8a9bc9638c7b53d3cd4"
+      "sha256": "a5245168771ba6b7e45969f78ee6597374809ab7616c358c3e5babcf9f271a07"
     },
     {
       "path": "docs/decisions.md",
@@ -1059,7 +1059,7 @@
       "path": "docs/release-notes.md",
       "audience": "documentation",
       "role": "release_history",
-      "sha256": "3769ea8ed8e16b26d9a1c344d20ee586b000825351c249f3be27b1b961af7b57"
+      "sha256": "b65896874c8757e12fa5a4b75aaf429ba03f709e9dce589c1da914fdbdf5cd11"
     },
     {
       "path": "docs/releasing.md",
@@ -1077,7 +1077,7 @@
       "path": "docs/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "54c0ef3cfe0bbbb0a07a99ce4168960b218660d3f7e31e3819ed2638f4bd2925"
+      "sha256": "255804b0ffca46eb15ec18c59e2130335cdfcedab16d90d030fab8f32b78174c"
     },
     {
       "path": "docs/storybook.md",
@@ -1185,19 +1185,19 @@
       "path": "docs/vi/consuming.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "caee0aadf6262082bd700c3c72f0c8d241b4d301407d8c905f2c3e2af6fbe9ce"
+      "sha256": "fa6afa6830ba9522f445e1f99e080db072adbd1225153d3a42d22f0db64208a9"
     },
     {
       "path": "docs/vi/contrast-report.md",
       "audience": "documentation",
       "role": "generated_measurement",
-      "sha256": "93b5cfd2b0deb45a13fa418d605e2693615b915a1874f492873a7e9c40fa9c38"
+      "sha256": "8ccf4fe711ade57c9fd0b3bae7fa00f00e14dd46ff60f506bd84e9628da695f1"
     },
     {
       "path": "docs/vi/conventions.md",
       "audience": "documentation",
       "role": "normative_repository_contract",
-      "sha256": "ab3bdb27e1fc8c093e2e214c14ca76b73dea86f6aefdd14e066566d311d7c820"
+      "sha256": "e972af056f421a1112fe152cfb20a9ebd2ea42008a44fb1ed9b13013d09ba33e"
     },
     {
       "path": "docs/vi/decisions.md",
@@ -1233,13 +1233,13 @@
       "path": "docs/vi/entrypoints/DESIGN.md",
       "audience": "documentation",
       "role": "generated_reference",
-      "sha256": "196cc4c0254bb395465ced92d7b650aee995a4cfcdd98a4cdc2b7a0d9f884ed6"
+      "sha256": "cf189c0e5c4cbe2d5170f5fecc559232171c36cb65cff1591c894538577c5150"
     },
     {
       "path": "docs/vi/entrypoints/README.md",
       "audience": "documentation",
       "role": "human_orientation",
-      "sha256": "5c68b403f0da7d01b98e6265a16a8942d1ab7ecd6ebeb7ec26e9e6f9343c812d"
+      "sha256": "5acf4f20e3d00a938280c9a8e4c8d61ba4aa5c551b8625bbeeab1fe3ebf5f9ee"
     },
     {
       "path": "docs/vi/entrypoints/SKILL.md",
@@ -1335,7 +1335,7 @@
       "path": "docs/vi/release-notes.md",
       "audience": "documentation",
       "role": "release_history",
-      "sha256": "06dad4f351f1c1afdd4c47fc22189a769137e47f4dc90dcba9ecca48b59417c0"
+      "sha256": "0e193873ad1b7041970f5b572bc1494b0b483517ece67d08bd99d78e80027b9b"
     },
     {
       "path": "docs/vi/releasing.md",
@@ -1353,7 +1353,7 @@
       "path": "docs/vi/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "e7e65503fe9d5cbb9ee3c335931e7748ccb69a8c97e78e9148a2d8ac435bf1b3"
+      "sha256": "638f51a7146f8f7d03b856d47d9b27bf668d9a38f4c5dfc1ca3e9948d88c9a5a"
     },
     {
       "path": "docs/vi/storybook.md",
