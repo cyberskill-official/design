@@ -50,3 +50,10 @@
     --cs-shadow-xl: 0 24px 80px rgba(0, 0, 0, 0.62);
   }
 }
+
+/* Modal scrim depth per theme, consumed by base/glass.css.
+ * Dark uses a near-black veil so modal backdrops dim dark surfaces. */
+:root, [data-theme], [data-cs-element], [data-element], [data-cs-contrast] {
+  --_cs-scrim-umber: var(--_cs-light, 45%)var(--_cs-dark, 20%);
+  --_cs-scrim-alpha: var(--_cs-light, 58%)var(--_cs-dark, 72%);
+}

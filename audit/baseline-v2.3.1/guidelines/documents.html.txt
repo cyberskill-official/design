@@ -1,0 +1,48 @@
+<!-- @dsCard group="Documents" viewport="1280x560" name="Document system" subtitle="3 reference docs govern every template · A4 VN-first · Ink/Slate pairs · umber table bars · yellow fill-ins · blank Party B · non-splitting signing blocks" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta name="description" content="Document system: 3 reference docs govern every template · A4 VN-first · Ink/Slate pairs · umber table bars · yellow fill-ins · blank Party B · non-splitting signing blocks" />
+<meta charset="utf-8">
+<link rel="stylesheet" href="../styles.css">
+<style>
+body{margin:0;background:var(--cs-color-surface-page);padding:26px 30px;font-family:var(--cs-font-family-ui);color:var(--cs-color-text-primary)}
+.h{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:var(--cs-color-text-muted);margin:0 0 12px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+.doc{border:1px solid var(--cs-color-border-default);border-radius:12px;background:var(--cs-color-surface-panel);color:var(--cs-color-text-primary);overflow:hidden;box-shadow:var(--cs-shadow-xs)}
+.doc .bar{background:var(--cs-color-brand-umber);color:#fff;padding:10px 14px}
+.doc .bar b{font-size:14px;font-weight:800}
+.doc .bar .vn{font-size:11px;color:var(--cs-color-brand-ochre);margin-top:1px}
+.doc .body{padding:12px 14px;font-size:12px;line-height:1.5;color:var(--cs-color-text-secondary)}
+.doc .body .no{font-family:var(--cs-font-family-mono);font-size:10.5px;color:var(--cs-color-text-muted)}
+.rules{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--cs-color-border-default);background:var(--cs-color-surface-raised);border-radius:999px;padding:5px 12px;font-size:11.5px;font-weight:600}
+.sw{width:11px;height:11px;border-radius:3px;display:inline-block}
+.arch{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.arch span{font-family:var(--cs-font-family-mono);font-size:10.5px;color:var(--cs-color-text-muted);border:1px dashed var(--cs-color-border-default);border-radius:6px;padding:3px 8px}
+a{color:var(--cs-color-link)}a:hover{color:var(--cs-color-link-hover)}
+</style><!-- @generated guideline-language:loader -->
+<script src="./guideline-language.js"></script>
+<!-- @endgenerated guideline-language:loader -->
+<title>Documents · Document system · CyberSkill</title>
+</head>
+<body>
+<div class="h">Reference documents — govern every template</div>
+<div class="grid">
+  <div class="doc"><div class="bar"><b>Style Guide</b><div class="vn" lang="vi">Cẩm nang trình bày</div></div><div class="body"><div class="no">doc-style-guide</div>Palette · type ramp · bilingual rule · tables · fill-ins · signing · header/footer (Điều 1–10) + Điều 11 archetype map.</div></div>
+  <div class="doc"><div class="bar"><b>Suite Index &amp; Usage Guide</b><div class="vn" lang="vi">Danh mục &amp; hướng dẫn</div></div><div class="body"><div class="no">doc-suite-index</div>Part I — full catalogue (HR · legal · finance · sales · product · comms). Part II — lifecycle · disciplinary force · house rules · add-a-template.</div></div>
+  <div class="doc"><div class="bar"><b>Templates</b><div class="vn" lang="vi">Mẫu tài liệu</div></div><div class="body"><div class="no">doc-templates</div>Part A — blank A4 shell (Party A filled / Party B blank). Part B — archetype map with an example per family.</div></div>
+</div>
+<div class="h">The house rules — applied on every document</div>
+<div class="rules">
+  <span class="chip"><span class="sw" style="background:#1A1614"></span>Ink VN</span>
+  <span class="chip"><span class="sw" style="background:#3F4C55"></span>Slate EN italic</span>
+  <span class="chip"><span class="sw" style="background:#45210E"></span>Umber table bars</span>
+  <span class="chip"><span class="sw" style="background:#FDE68A"></span>Yellow fill-ins</span>
+  <span class="chip">A4 · left-aligned</span>
+  <span class="chip">State-motto header</span>
+  <span class="chip">Blank Party B (PDPL)</span>
+  <span class="chip">Signing block never splits</span>
+</div>
+<div class="arch">
+  <span>A4 bilingual</span><span>Letter print</span><span>Email 600px</span><span>Product screen</span><span>Deck 16:9</span><span>Social</span>
+</div>
+</body></html>

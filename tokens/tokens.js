@@ -8,11 +8,11 @@ export const tokens = {
     "declarationGraph": {
       "path": "declarations.json",
       "schemaVersion": 1,
-      "sha256": "676b6bdeeee3c3ec26610b391935e7a5bfc6cde882ef271d13cd505ad9a76490",
-      "declarations": 1080,
+      "sha256": "00652a06c3acd3349dd11369763ffd9baa71b76a4b4a218c5269d7bf52bcaa01",
+      "declarations": 1082,
       "publicDeclarations": 397,
       "publicNames": 216,
-      "privateDeclarations": 683
+      "privateDeclarations": 685
     }
   },
   "root": {
