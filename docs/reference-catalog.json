@@ -29,7 +29,7 @@
   },
   "sourceHashes": {
     "_audit/visual-diff.html": "fd344cf31f0aa4130dddec2a99dca5ef60d9d08025b5dc2b4b729a1d388c5bb8",
-    "_ds_manifest.json": "99474efa909b201b4de55d7c9106def64d97dd7a4f245fd54e9f91b218137a6e",
+    "_ds_manifest.json": "9b086742b366b68bb6204a620127bfce931749b56a0291dcf216679fb2296204",
     "scripts/public-site-policy.json": "69ec241ac1a63cc5d90c5a40a3925e39ef58dfc79907bf5cb87d1024e1d0de1f",
     "templates/app-shell/AppShell.dc.html": "f71017a26f12b71d9e653dff79635ed14d5eb4a3dac9c5ce095188c537b858e3",
     "templates/article/Article.dc.html": "9b2ed3af604ac9e552f33bc922ec7dd2659b786dcb624cb491f7a437658adb2f",
@@ -116,7 +116,7 @@
     "templates/vn-total-rewards-appendix/VnTotalRewardsAppendix.dc.html": "ee941a6d26aa525bba779015ca01f4bdb7246571db2c3558499d7bc2fee3c2aa",
     "templates/vn-training-commitment/VnTrainingCommitment.dc.html": "49b2b4459bf2a900ddfafe679b6f3b088c78a31f611ae76dc3ac276e05a14c46",
     "templates/vn-travel-expense-policy/VnTravelExpensePolicy.dc.html": "1e585bd53ec6fb41322082bddfb7eed4ac811bfabb1ad2d639b9babba6c0e212",
-    "tokens/tokens.dtcg.json": "506f16e4877edf0345ae1357cb623870d24cf004ff9108f4752a19d148bcce90"
+    "tokens/tokens.dtcg.json": "1ffb8f720203d7126c67913bafc45661e0f1fbe67e29a9c497f323a7b3182f8c"
   },
   "documents": [
     {
@@ -1077,7 +1077,7 @@
       "path": "docs/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "24292bbfe296188c6c8f2c9b84858412133a3d4a8d74f61a3741a464d6f35345"
+      "sha256": "9416ce6c071b53c8bd963c9ebae952e0f95a73a5c0ba8ebb8f1ae2cd181d138a"
     },
     {
       "path": "docs/storybook.md",
@@ -1353,7 +1353,7 @@
       "path": "docs/vi/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "49016cb1b1508e3591c04b7752c91691435f5c7dcb6887c72181600daff24251"
+      "sha256": "80bd97761dc080ff58c1d3fae1cc061878c0ea1d41b49452c89f675d548c1975"
     },
     {
       "path": "docs/vi/storybook.md",

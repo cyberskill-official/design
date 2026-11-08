@@ -32,7 +32,7 @@
     },
     {
       "path": "tokens/elevation.css",
-      "sha256": "dfda6730abf9215e806bb4d6d43033480d76e0ff52da2b1f613a4cdc03271e28"
+      "sha256": "0c24e92a2026cc036ee53b72d6bb4ffef3e44ca12641650e8ad97c687acb7f6b"
     },
     {
       "path": "tokens/motion.css",
@@ -100,7 +100,7 @@
     },
     {
       "path": "base/glass.css",
-      "sha256": "de03f817cbca52f96fc183cde228f16f8965f730da868f97cbcbcf8dee0267e9"
+      "sha256": "57d068dcfee27a3fc3ac51068875fcafc1787c8f7846ae3c40705cc7f3ec6661"
     },
     {
       "path": "base/interaction.css",
@@ -156,5 +156,5 @@
     "fonts/spacegrotesk-var-vietnamese.woff2"
   ],
   "importantCount": 46,
-  "sha256": "afb148cbf6545a7e6e80d26e1b4078b5563c3fe57e0a18bb1951e968de1453ea"
+  "sha256": "cdf1ced699dfde8e504edd2bcf931cc77dd1cca5ae278fd528a9f36fafda3379"
 }

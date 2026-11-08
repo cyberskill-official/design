@@ -130,7 +130,7 @@
     "components/overlays/Popover.jsx": "1ca5d2905995cc8166566625208a95e8838815d3abe1298312df71eab90b2679",
     "components/overlays/Tour.jsx": "74775e9b0740f093f18283fdab036facbf8ac1370051c950807cae197b192010",
     "components/textfield/TextField.jsx": "878810214bb342d85d933884b5b19984b57f7281e4560c18280b8f4c021c5f99",
-    "tokens/tokens.js": "6737ac76e6043749e22968fc4af3747c7512ca62b03098ebabdc937a2cd89d5e"
+    "tokens/tokens.js": "47dabdff4baaeb3c0ea38a18787fafbfe0fa99aa841ada791c9d095b78b8f943"
   },
   "entryPoints": [
     {
