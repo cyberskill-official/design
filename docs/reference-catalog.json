@@ -141,13 +141,13 @@
       "path": "README.md",
       "audience": "documentation",
       "role": "human_orientation",
-      "sha256": "0f95a156a61adf15b98918576499e7c44e28eb1f11983c393398bba411452e5f"
+      "sha256": "ee4c4ea9521a82ff78a8fe68d6ef46717cf83bdc9dd3a30518910a5c1ab716a1"
     },
     {
       "path": "SECURITY.md",
       "audience": "documentation",
       "role": "security_reporting_policy",
-      "sha256": "09554b6bc02148bbc712b562f20a5f59183972d1ab891e5bc009e2f73a7a10a6"
+      "sha256": "2e23f78656659560a32152fa3604d38ba0de85d4430d3a64776373e2646c62d9"
     },
     {
       "path": "SKILL.md",
@@ -915,7 +915,7 @@
       "path": "docs/consuming.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "fca2a205aed45f8df12e836fab27d2500b99ba3dff29a17689a034cb80870244"
+      "sha256": "3c845febf6efa31a9907400555d2d7b48067859835c5617b6e5df41641506c7b"
     },
     {
       "path": "docs/contrast-report.md",
@@ -1065,7 +1065,7 @@
       "path": "docs/release-notes.md",
       "audience": "documentation",
       "role": "release_history",
-      "sha256": "f7c8eac10db5dda843505adabd90e7b37a056d7a2defd8bc6ed4e9b5c650b39b"
+      "sha256": "b979dc6a27a20321d56a9302459cbb5c4dbd65803d61907c5d9c9c96b9dd0797"
     },
     {
       "path": "docs/releasing.md",
@@ -1197,7 +1197,7 @@
       "path": "docs/vi/consuming.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "a4ba81765485753a9000f88657584ce8b19be77c2786aed89e51048d975e84e2"
+      "sha256": "06410eab4b99d0977d4da97bf7822c0ef83e56572c5f96ca9d0d4b38df091d33"
     },
     {
       "path": "docs/vi/contrast-report.md",
@@ -1251,7 +1251,7 @@
       "path": "docs/vi/entrypoints/README.md",
       "audience": "documentation",
       "role": "human_orientation",
-      "sha256": "7056357c5e3dc772b5496b8dd3d5734295d2277748cfd972b393000855169763"
+      "sha256": "9147c32afb9f43bc91d21aea8835155025ee58d6395705856c2e4ff4ab91c800"
     },
     {
       "path": "docs/vi/entrypoints/SKILL.md",
@@ -1347,7 +1347,7 @@
       "path": "docs/vi/release-notes.md",
       "audience": "documentation",
       "role": "release_history",
-      "sha256": "39becd6ad5faecfb72405f878f28ec75f4afe4256e84e186c1c502f4787c09f4"
+      "sha256": "e5a3a2e2b0260f83b1efb1a86277b18fbb2ced75799caf8ac7d29091dd5a692d"
     },
     {
       "path": "docs/vi/releasing.md",

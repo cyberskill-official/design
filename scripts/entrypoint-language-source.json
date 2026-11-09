@@ -5,8 +5,8 @@
     {
       "source": "README.md",
       "mirror": "docs/vi/entrypoints/README.md",
-      "sourceSha256": "3df7ab59dc2161165ac10b8016d6970ed860852d1c1b2d71fabe196886057fa0",
-      "mirrorSha256": "7056357c5e3dc772b5496b8dd3d5734295d2277748cfd972b393000855169763"
+      "sourceSha256": "7ac9a95e413fa3088858c3210b4b3064757f3b8fef4ba67e857edc41d0363a85",
+      "mirrorSha256": "9147c32afb9f43bc91d21aea8835155025ee58d6395705856c2e4ff4ab91c800"
     },
     {
       "source": "SKILL.md",
@@ -53,8 +53,8 @@
     {
       "source": "SECURITY.md",
       "mirror": "docs/vi/entrypoints/SECURITY.md",
-      "sourceSha256": "cb974c8d19d0ac8ac22508eb774c7aac5cb2beda007a5fc8472eb5e0dd426f47",
-      "mirrorSha256": "bf2e8c861c674760d2317447190135e022f81bb3d7ff9145b89625fe780b65b5"
+      "sourceSha256": "c3c2e2a0e879a4e1b1286e52a3702bd09f6bc700896d4237b789a39585e82703",
+      "mirrorSha256": "41d04784f10c525b26e514f45df10140d6af54631d559462ae4c8df55cb7c8fb"
     }
   ],
   "generatedEntries": [

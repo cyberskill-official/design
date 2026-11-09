@@ -28,6 +28,18 @@ Các thay đổi này thuộc working tree đang sửa đổi. Đây chưa phả
 
 Release vẫn chờ nghiệm thu thị giác của con người, kiểm tra native/công nghệ hỗ trợ thủ công bắt buộc, quyết định về nguồn gốc tài nguyên và nghiệm thu hiện vật pilot đã thay đổi. Bằng chứng hỗ trợ đã thay đổi phải được review lại trong `components/lifecycle.json`. EN/VI là phạm vi ngôn ngữ mục tiêu; tiếng Nhật vẫn là spike chưa đầy đủ. Ghi chú này không cho phép mở rộng cam kết hỗ trợ, deprecate hay loại bỏ API.
 
+## Release — `@cyberskill/design@2.6.0`
+
+Phiên bản minor ổn định đã công bố được ghi nhận trong `_audit/ci/fixtures/npm-published-release.json` (quan sát lúc `2026-11-09T17:39:34.494Z`, tag `v2.6.0` tại commit `48ed4be40e83bc6d5e2763b03111b07aa2c26df4`).
+
+- **Benchmark 10 chiều & Cổng chống thoái lui tự động trên CI (`audit/v2.5.0-verification.html`, `audit/verify-v2.5.0.js`, `audit/fixture-v2.5.0.html`, `_audit/ci/verify-audit-benchmarks-browser.mjs`):** Mở rộng bộ kiểm toán trình duyệt trực tiếp lên **10 chiều (`69/69` phép kiểm tra đạt `10.0 / 10`, `0 watch`)** với `D8` (Vùng chạm ≥ 44px, Bảo toàn vòng lấy nét, Chế độ tương phản cao), `D9` (Đầy đủ token 5 Hành × 2 Chủ đề × 3 Biến thể, Toàn vẹn trang in A4, Giảm chuyển động), và `D10` (Nhận diện thương hiệu, Đầy đủ song ngữ EN/VI, Độ thuần khiết token), được cưỡng chế trong CI và `prepublishOnly` qua `npm run test:audit-regression`.
+- **Xuất CSS phẳng một tệp & Hướng dẫn logo nội tuyến (`package.json`, `scripts/flatten-css.mjs`, `DESIGN.md`, `docs/vi/entrypoints/DESIGN.md`):** Mở `"./dist/styles.css": "./dist/styles.css"` trong `package.json#exports`, tự động đóng dấu `VERSION` vào tiêu đề `dist/styles.css`, và quy định mẫu logo `<svg viewBox="0 0 64 64">` nội tuyến cho môi trường một tệp và cloud sandbox.
+- **Xác thực nhanh shard `act` gắn với commit (`.github/workflows/design-system-gates.yml`, `scripts/run-act-ci.mjs`, `scripts/verify-ci-checks.mjs`):** Kiểm chứng biên nhận `ci/act/unit-tests (1/4..4/4)` gắn với commit trước các bước cài đặt phụ thuộc và trình duyệt nặng, rút ngắn thời gian chạy `unit-tests` trên GitHub Actions xuống ~15 giây khi đã xác minh cục bộ qua `act`.
+
+```bash
+npm install @cyberskill/design@2.6.0
+```
+
 ## Release — `@cyberskill/design@2.5.0`
 
 Phiên bản minor ổn định đã công bố được ghi nhận trong `_audit/ci/fixtures/npm-published-release.json` (quan sát lúc `2026-11-09T06:04:11.249Z`, tag `v2.5.0` tại commit `6e7fe3c158b122c8ca19b8253eb06460c7f2f919`). Các tag kho mã `v2.3.1` và `v2.4.0` đi trước `v2.5.0`.
@@ -35,7 +47,6 @@ Phiên bản minor ổn định đã công bố được ghi nhận trong `_audi
 - **Đồng bộ chủ đề lồng nhau & Liquid Glass (`base/glass.css`, `tokens/theme-dark.css`):** Tính lại các token `--_cs-light` / `--_cs-dark`, `--_cs-surface-scrim` và toàn bộ tám chất liệu `--cs-glass-*-{bg,border}` bên trong các khối `[data-theme]` lồng nhau.
 - **Tương phản 32 scope & an toàn nền Dark mặc định (`base/collections.css`, `base/controls.css`, `base/feedback.css`, `base/shell.css`, `base/ai.css`):** Thay nền `--cs-accent-tint` thiếu scope ở Dark Mode bằng `color-mix(in oklab, var(--cs-accent) 18%, var(--cs-color-surface-panel))`, nâng các chỉ báo phi văn bản lên `--cs-color-text-accent` (`WCAG 1.4.11 ≥ 3:1` trên toàn bộ 32 scope) và bổ sung viền nội tiếp cho bề mặt Umber trên nền tối.
 - **Đồng bộ trạng thái lỗi 13 form control & chiều cao dòng tiếng Việt (`base/components.css`, `base/controls.css`, `base/typography.css`, `base/data.css`):** Thống nhất viền lỗi `.is-invalid` / `[aria-invalid="true"]` trên cả 13 loại form control và áp dụng `:lang(vi) { line-height: 1.22; }` cho `.cs-display` cùng `.cs-stat__value`.
-- **Kiểm chứng & Cổng chống thoái lui (`audit/v2.5.0-verification.html`, `audit/render-health.html`, `audit/v2.5.0-verification.json`, `_audit/ci/verify-audit-benchmarks-browser.mjs`):** Toàn bộ 69 phép kiểm tra trên 10 chiều (`D1`–`D7` khắc phục + `D8`–`D10` Bất biến học thuyết) đạt **10.0 / 10** và bộ cơ sở nhúng đạt **64/64** (**62/64** cho v2.4.0, **8/64** cho v2.3.1); `audit/render-health.html` kiểm tra **146** trang với **0 bad** ở chế độ gốc, khi ép `theme=dark`, và khi kết hợp `theme=dark` + `contrast=high` trên `set=cards`. Mực nền nhuộm phạm vi mặc định tối đạt **8.42:1–10.54:1** (`.cs-result__icon` đạt **8.42:1**, `.cs-item.is-selected` đạt **10.54:1** — cả hai đều vượt chuẩn WCAG AAA `7:1` với `0 watch`).
 
 ```bash
 npm install @cyberskill/design@2.5.0

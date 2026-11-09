@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "baselineVersion": "2.5.0",
+  "baselineVersion": "2.6.0",
   "policy": {
     "versioning": "semver",
     "breakingChangesRequireMajor": true,

@@ -28,6 +28,18 @@ These changes belong to the current revision working tree. They are not a publis
 
 Release remains pending human visual acceptance, required native/manual assistive-technology checks, provenance decisions, and acceptance of changed pilot artifacts. Changed support evidence requires fresh review in `components/lifecycle.json`. EN/VI is the intended language scope; Japanese remains a partial spike. No support expansion, deprecation or removal is authorized by this note.
 
+## Release — `@cyberskill/design@2.6.0`
+
+Published stable minor release recorded in `_audit/ci/fixtures/npm-published-release.json` (observed `2026-11-09T17:39:34.494Z`, tag `v2.6.0` at commit `48ed4be40e83bc6d5e2763b03111b07aa2c26df4`).
+
+- **10-Dimension Benchmark & Automated CI Non-Regression Gate (`audit/v2.5.0-verification.html`, `audit/verify-v2.5.0.js`, `audit/fixture-v2.5.0.html`, `_audit/ci/verify-audit-benchmarks-browser.mjs`):** Expands the live browser audit to **10 dimensions (`69/69` checks at `10.0 / 10`, `0 watch` items)** adding `D8` (Touch Targets ≥ 44px, Focus Ring Integrity, High-Contrast Mode), `D9` (5-Element × 2-Theme × 3-Variant Token Completeness, Print/A4 Sheet Integrity, Reduced Motion), and `D10` (Brand Identity, Bilingual EN/VI Completeness, Token Purity), enforced in CI and `prepublishOnly` via `npm run test:audit-regression`.
+- **Single-File Flattened CSS Export & Inline Logo Guidance (`package.json`, `scripts/flatten-css.mjs`, `DESIGN.md`, `docs/vi/entrypoints/DESIGN.md`):** Exposes `"./dist/styles.css": "./dist/styles.css"` in `package.json#exports`, derives the `dist/styles.css` header banner dynamically from `VERSION`, and documents the canonical `<svg viewBox="0 0 64 64">` inline logo pattern for single-file and cloud sandbox runtimes.
+- **Fast Commit-Bound `act` Shard Attestation (`.github/workflows/design-system-gates.yml`, `scripts/run-act-ci.mjs`, `scripts/verify-ci-checks.mjs`):** Verifies commit-bound local `ci/act/unit-tests (1/4..4/4)` receipts ahead of heavy dependency and browser installation steps, cutting GitHub Actions `unit-tests` runtime to ~15 seconds when pre-verified via `act`.
+
+```bash
+npm install @cyberskill/design@2.6.0
+```
+
 ## Release — `@cyberskill/design@2.5.0`
 
 Published stable minor release recorded in `_audit/ci/fixtures/npm-published-release.json` (observed `2026-11-09T06:04:11.249Z`, tag `v2.5.0` at commit `6e7fe3c158b122c8ca19b8253eb06460c7f2f919`). Subsequent repository tags `v2.3.1` and `v2.4.0` preceded `v2.5.0`.
@@ -35,7 +47,6 @@ Published stable minor release recorded in `_audit/ci/fixtures/npm-published-rel
 - **Scoped Nested Theme & Liquid Glass Parity (`base/glass.css`, `tokens/theme-dark.css`):** Re-computes `--_cs-light` / `--_cs-dark` space-toggle tokens, `--_cs-surface-scrim`, and all eight `--cs-glass-*-{bg,border}` materials inside nested `[data-theme]` scopes.
 - **32-Scope Contrast & Dark Default Tint Safety (`base/collections.css`, `base/controls.css`, `base/feedback.css`, `base/shell.css`, `base/ai.css`):** Replaces un-scoped `--cs-accent-tint` dark backgrounds with `color-mix(in oklab, var(--cs-accent) 18%, var(--cs-color-surface-panel))`, upgrades non-text indicators to `--cs-color-text-accent` (`WCAG 1.4.11 ≥ 3:1` across all 32 scopes), and adds inset perimeter rings for dark Umber surfaces.
 - **13-Control Invalid State & Vietnamese Typography Clearance (`base/components.css`, `base/controls.css`, `base/typography.css`, `base/data.css`):** Unifies `.is-invalid` / `[aria-invalid="true"]` danger borders across all 13 form controls and applies `:lang(vi) { line-height: 1.22; }` to `.cs-display` and `.cs-stat__value`.
-- **Verification & Non-Regression Gate (`audit/v2.5.0-verification.html`, `audit/render-health.html`, `audit/v2.5.0-verification.json`, `_audit/ci/verify-audit-benchmarks-browser.mjs`):** All 69 checks across 10 dimensions (`D1`–`D7` remediation + `D8`–`D10` Doctrine Immutables) pass at **10.0 / 10** and the embedded baseline suite scores **64/64** (**62/64** for v2.4.0, **8/64** for v2.3.1); `audit/render-health.html` checks **146** pages with **0 bad** as authored, under `theme=dark`, and under `theme=dark` + `contrast=high` on `set=cards`. Dark default-scope tint ink measures **8.42:1–10.54:1** (`.cs-result__icon` **8.42:1**, `.cs-item.is-selected` **10.54:1** — both clearing WCAG AAA `7:1` with `0 watch` items).
 
 ```bash
 npm install @cyberskill/design@2.5.0
