@@ -2501,7 +2501,7 @@
           {
             "statement": "Current InlineEdit rendered return paths include overlayScopeContext.Provider; named authored parts include cs-inline-edit__view. Nested and conditional markup is bounded by these source excerpts; this does not establish stable DOM-part APIs.",
             "sourcePath": "components/forms/InlineEdit.jsx",
-            "sourceSha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
+            "sourceSha256": "9f242ef99af077e5c9b68d36cc9539fac0819e66f7995fa6a93ecb7793bf3484",
             "sourceSnippets": [
               "<overlayScopeContext.Provider value={scope}>",
               "<button type=\"button\" className=\"cs-inline-edit__view\" aria-label={t(\"edit\") + (label ? \": \" + label : \"\")} onClick={() => { cancellingRef.current = false; setDraft(val); setEdit(true); }}>"
@@ -2512,9 +2512,9 @@
           {
             "statement": "Rendered content inputs include label at the recorded child positions. Their types remain in the canonical API; the excerpts preserve conditional and render-function branches rather than promising every input is always visible.",
             "sourcePath": "components/forms/InlineEdit.jsx",
-            "sourceSha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
+            "sourceSha256": "9f242ef99af077e5c9b68d36cc9539fac0819e66f7995fa6a93ecb7793bf3484",
             "sourceSnippets": [
-              "{edit ? (\n        <input autoFocus value={draft} aria-label={label || t(\"edit\")} onChange={(e) => setDraft(e.target.value)} onBlur={commit}\n          onKeyDown={(e) => { if (!e.nativeEvent.isComposing && e.keyCode !== 229 && e.key === \"Enter\") commit(); }}  ref={mergedControlRef} />\n      ) : (\n        <button type=\"button\" className=\"cs-inline-edit__view\" aria-label={t(\"edit\") + (label ? \": \" + label : \"\")} onClick={() => { cancellingRef.current = false; setDraft(val); setEdit(true); }}>\n          <span className={val ? undefined : \"ph\"}>{val || t(\"empty\")}</span>{PEN}\n        </button>\n      )}"
+              "{edit ? (\n        <input autoFocus value={draft} aria-label={label || t(\"edit\")} onChange={(e) => setDraft(e.target.value)} onBlur={commit}\n          onKeyDown={(e) => { if (!e.nativeEvent.isComposing && e.keyCode !== 229 && e.key === \"Enter\") { e.preventDefault(); restoreFocusRef.current = true; commit(); } }}  ref={mergedControlRef} />\n      ) : (\n        <button type=\"button\" className=\"cs-inline-edit__view\" aria-label={t(\"edit\") + (label ? \": \" + label : \"\")} onClick={() => { cancellingRef.current = false; setDraft(val); setEdit(true); }}>\n          <span className={val ? undefined : \"ph\"}>{val || t(\"empty\")}</span>{PEN}\n        </button>\n      )}"
             ]
           }
         ],
@@ -2522,9 +2522,9 @@
           {
             "statement": "The authored markup uses native input, button elements. Their native semantics remain bounded by these source excerpts; caller attributes and composed descendants require their own review.",
             "sourcePath": "components/forms/InlineEdit.jsx",
-            "sourceSha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
+            "sourceSha256": "9f242ef99af077e5c9b68d36cc9539fac0819e66f7995fa6a93ecb7793bf3484",
             "sourceSnippets": [
-              "<input autoFocus value={draft} aria-label={label || t(\"edit\")} onChange={(e) => setDraft(e.target.value)} onBlur={commit}\n          onKeyDown={(e) => { if (!e.nativeEvent.isComposing && e.keyCode !== 229 && e.key === \"Enter\") commit(); }}  ref={mergedControlRef} />",
+              "<input autoFocus value={draft} aria-label={label || t(\"edit\")} onChange={(e) => setDraft(e.target.value)} onBlur={commit}\n          onKeyDown={(e) => { if (!e.nativeEvent.isComposing && e.keyCode !== 229 && e.key === \"Enter\") { e.preventDefault(); restoreFocusRef.current = true; commit(); } }}  ref={mergedControlRef} />",
               "<button type=\"button\" className=\"cs-inline-edit__view\" aria-label={t(\"edit\") + (label ? \": \" + label : \"\")} onClick={() => { cancellingRef.current = false; setDraft(val); setEdit(true); }}>"
             ]
           }
@@ -2533,11 +2533,11 @@
           {
             "statement": "Current native/ARIA state attributes and conditional modifier classes are assigned by the expressions in these InlineEdit excerpts. They document those conditions, not exhaustive transitions or all prop combinations.",
             "sourcePath": "components/forms/InlineEdit.jsx",
-            "sourceSha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
+            "sourceSha256": "9f242ef99af077e5c9b68d36cc9539fac0819e66f7995fa6a93ecb7793bf3484",
             "sourceSnippets": [
               "open: edit",
               "<overlayScopeContext.Provider value={scope}>",
-              "<input autoFocus value={draft} aria-label={label || t(\"edit\")} onChange={(e) => setDraft(e.target.value)} onBlur={commit}\n          onKeyDown={(e) => { if (!e.nativeEvent.isComposing && e.keyCode !== 229 && e.key === \"Enter\") commit(); }}  ref={mergedControlRef} />",
+              "<input autoFocus value={draft} aria-label={label || t(\"edit\")} onChange={(e) => setDraft(e.target.value)} onBlur={commit}\n          onKeyDown={(e) => { if (!e.nativeEvent.isComposing && e.keyCode !== 229 && e.key === \"Enter\") { e.preventDefault(); restoreFocusRef.current = true; commit(); } }}  ref={mergedControlRef} />",
               "<span className={val ? undefined : \"ph\"}>"
             ]
           }
@@ -2546,17 +2546,17 @@
           {
             "statement": "Authored keyboard handling is attached at these source positions and directly checks \"Enter\". The exact handler/delegation expressions bound this observation; only separately mapped runtime assertions establish tested effects.",
             "sourcePath": "components/forms/InlineEdit.jsx",
-            "sourceSha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
+            "sourceSha256": "9f242ef99af077e5c9b68d36cc9539fac0819e66f7995fa6a93ecb7793bf3484",
             "sourceSnippets": [
-              "onKeyDown={(e) => { if (!e.nativeEvent.isComposing && e.keyCode !== 229 && e.key === \"Enter\") commit(); }}"
+              "onKeyDown={(e) => { if (!e.nativeEvent.isComposing && e.keyCode !== 229 && e.key === \"Enter\") { e.preventDefault(); restoreFocusRef.current = true; commit(); } }}"
             ]
           },
           {
             "statement": "This render registers its overlay layer with these exact open/kind/trapFocus/onEscape options. The shared manager determines top-layer Escape and any opted-in modal Tab trap; native controls and separate assertions supply the remaining keyboard evidence.",
             "sourcePath": "components/forms/InlineEdit.jsx",
-            "sourceSha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
+            "sourceSha256": "9f242ef99af077e5c9b68d36cc9539fac0819e66f7995fa6a93ecb7793bf3484",
             "sourceSnippets": [
-              "useOverlayLayer({ open: edit, kind: \"popover\", panelRef: ref, restoreFocus: false, onEscape: () => {\n    cancellingRef.current = true;\n    setDraft(val); setEdit(false);\n    requestAnimationFrame(() => ref.current?.querySelector(\"button\")?.focus());\n  } })"
+              "useOverlayLayer({ open: edit, kind: \"popover\", panelRef: ref, restoreFocus: false, onEscape: () => {\n    cancellingRef.current = true;\n    restoreFocusRef.current = true;\n    setDraft(val); setEdit(false);\n  } })"
             ]
           },
           {

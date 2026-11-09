@@ -1,7 +1,7 @@
 "use client";
 import {
   InlineEdit
-} from "../../chunks/chunk-GLPQBE2J.mjs";
+} from "../../chunks/chunk-4D7SFITE.mjs";
 import "../../chunks/chunk-6AEW6SXI.mjs";
 import "../../chunks/chunk-JZYRXWPD.mjs";
 import "../../chunks/chunk-CQQ2JOJD.mjs";

@@ -9,6 +9,12 @@ and OS preferences in Chromium, Firefox and WebKit. It checks that the legibilit
 fixture preserves the gate verdict. Opaque text on its declared solid body surface
 is covered; arbitrary compositing, native and manual acceptance remain separate.
 
+## State discovery / Khám phá trạng thái
+
+[Implicit state-machine review](state-machine-review.md) records ownership, events and invariants across components, templates and host surfaces. The [source index](state-machines.md) and [JSON census](state-machines.json) locate hooks, mutations, event bindings, async boundaries, state outputs and CSS selectors, including controlled components without local state. Regenerate with `npm run build:state-inventory`; `npm run test:state-inventory` checks source freshness and scanner regressions. This is source discovery, not a complete semantic model or a runtime acceptance receipt. `npm run test:inline-edit-transitions` exercises keyboard completion, cancellation, blur and IME across EN/VI, light/dark, ownership modes and nesting in three engines.
+
+Danh mục ghi rõ nguồn, vị trí dòng và giới hạn phân tích; không suy diễn nghiệm thu hành vi hoặc quyền phê duyệt từ dữ kiện nguồn.
+
 ## Harnesses
 
 - **`responsive-harness.html`** — the user-facing **Responsive preview**: manifest-driven, lists **every** template (grouped + filterable) and renders the selected one live at **390 / 768 / 1280 px** side by side. Media queries respond to each iframe's actual width; this is a browser layout preview, not physical-device validation. Fresh iframes per selection. Reach into the same-origin frames to read computed styles (e.g. confirm a 4-col grid collapses 4→2→1).

@@ -3,7 +3,7 @@
   "interpretation": "Discovery projection: every public export and authored prop definition, with inherited prop counts. Inherited native props, full signatures, support evidence/history and compiler metadata remain in components/api-index.json. Declarations remain authoritative; this projection does not establish runtime, semantic or human acceptance.",
   "completeIndex": {
     "path": "components/api-index.json",
-    "sha256": "468afbb6e09f78a1be6fe2b2b06bbd6ea30f4fa06abb835c191eb6490082854a"
+    "sha256": "d82167fc873cb682a35ef593ad38bc88a9d88b5447bd8b3e8541143c287cf728"
   },
   "exports": [
     {
@@ -2380,7 +2380,7 @@
       "sourcePath": "components/forms/InlineEdit.jsx",
       "declarationPath": "components/forms/InlineEdit.d.ts",
       "promptPath": "components/forms/InlineEdit.prompt.md",
-      "sourceSha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
+      "sourceSha256": "9f242ef99af077e5c9b68d36cc9539fac0819e66f7995fa6a93ecb7793bf3484",
       "declarationSha256": "9fdf8c29720cd8d015ea42edfb4ee39ce74964feaafd43b044183ca5ef504b1c",
       "declaredLifecycle": "stable",
       "supportReviewState": "reviewed",

@@ -10287,7 +10287,7 @@
       "sourcePath": "components/forms/InlineEdit.jsx",
       "declarationPath": "components/forms/InlineEdit.d.ts",
       "promptPath": "components/forms/InlineEdit.prompt.md",
-      "sourceSha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
+      "sourceSha256": "9f242ef99af077e5c9b68d36cc9539fac0819e66f7995fa6a93ecb7793bf3484",
       "authoredProps": [
         "className",
         "controlRef",

@@ -14,7 +14,7 @@
     "scripts/catalog-source.json": "f12045fb1cccf19df8a2469dba096c582bc1885c8be464e2fc3df9aec06b89e9",
     "scripts/lib/component-support.mjs": "6626078ffaaa91cb3a43d87858577fc5d405e5bfb474e7519abf50d4797b2eb1",
     "_esm/react.d.ts": "56e221d6eb875cf7c3a4de841372ba0b70389836957d8538b1d5a276848db95d",
-    "components/lifecycle.json": "fdf434c3f13023b81cfcb4b491efa7b8f1ef490e7fc40c70c8cd6482924faf84"
+    "components/lifecycle.json": "0daa1db14dfe0c915c86ed39d7a4d0f339e69e98ab614e61400c82a75dc34c11"
   },
   "propDefinitions": {
     "p-0003926b4717c94d": {
@@ -51124,7 +51124,7 @@
       "sourcePath": "components/forms/InlineEdit.jsx",
       "declarationPath": "components/forms/InlineEdit.d.ts",
       "promptPath": "components/forms/InlineEdit.prompt.md",
-      "sourceSha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
+      "sourceSha256": "9f242ef99af077e5c9b68d36cc9539fac0819e66f7995fa6a93ecb7793bf3484",
       "declarationSha256": "9fdf8c29720cd8d015ea42edfb4ee39ce74964feaafd43b044183ca5ef504b1c",
       "declaredLifecycle": "stable",
       "support": {
@@ -51146,28 +51146,28 @@
             "path": "components/forms/InlineEdit.d.ts",
             "sha256": "9fdf8c29720cd8d015ea42edfb4ee39ce74964feaafd43b044183ca5ef504b1c",
             "scope": "Authored public TypeScript declaration contract",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-11-09T17:52:00.677Z"
           },
           {
             "path": "components/forms/InlineEdit.jsx",
-            "sha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
+            "sha256": "9f242ef99af077e5c9b68d36cc9539fac0819e66f7995fa6a93ecb7793bf3484",
             "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-11-09T17:52:00.677Z"
           },
           {
             "path": "components/forms/InlineEdit.prompt.md",
             "sha256": "6f60672f2c19cfe7130e1b32f9d8a422bf2ad546c84ac3dc96907415a451b930",
             "scope": "Component usage guidance with generated declared-API projection; implementation authority remains source",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-11-09T17:52:00.677Z"
           },
           {
             "path": "stories/InlineEdit.stories.jsx",
             "sha256": "6e9fdd26b7c8bbe7ffefb87fad4e271b856fc2f449ef33970cd332b8d2a81656",
             "scope": "Authored Storybook CSF story and declared matrix mount surface; not execution or all-state acceptance",
-            "checkedAt": "2026-10-21T12:08:13.113Z"
+            "checkedAt": "2026-11-09T17:52:00.677Z"
           }
         ],
-        "reviewedAt": "2026-10-21T12:03:00.000Z",
+        "reviewedAt": "2026-11-09T17:52:00.677Z",
         "reviewedBy": "Stephen Cheng",
         "limitations": [
           "This bounded source/declared-support review covers only the exact direct evidence listed below and its public declaration and implementation contracts. Automated execution is limited to separately bound receipts; this scope does not establish all-state acceptance.",
@@ -51216,6 +51216,47 @@
               "Style: default, liquid-glass"
             ],
             "sourceSha256": "db30ac35d9017a532d7159325d8eae235b109942c38649efd07b8a3d35effa14"
+          },
+          {
+            "reviewedBy": "Stephen Cheng",
+            "reviewedAt": "2026-10-21T12:03:00.000Z",
+            "evidence": [
+              {
+                "path": "components/forms/InlineEdit.d.ts",
+                "sha256": "9fdf8c29720cd8d015ea42edfb4ee39ce74964feaafd43b044183ca5ef504b1c",
+                "scope": "Authored public TypeScript declaration contract",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "components/forms/InlineEdit.jsx",
+                "sha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
+                "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "components/forms/InlineEdit.prompt.md",
+                "sha256": "6f60672f2c19cfe7130e1b32f9d8a422bf2ad546c84ac3dc96907415a451b930",
+                "scope": "Component usage guidance with generated declared-API projection; implementation authority remains source",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              },
+              {
+                "path": "stories/InlineEdit.stories.jsx",
+                "sha256": "6e9fdd26b7c8bbe7ffefb87fad4e271b856fc2f449ef33970cd332b8d2a81656",
+                "scope": "Authored Storybook CSF story and declared matrix mount surface; not execution or all-state acceptance",
+                "checkedAt": "2026-10-21T12:08:13.113Z"
+              }
+            ],
+            "environments": [
+              "Declared web target: React18/19 through compiled default @cyberskill/design and /react entry, with peer React; raw JSX requires explicit /source opt-in and a consumer JSX toolchain.",
+              "Declared browser compatibility entry: legacy _esm/cs.mjs / _ds_bundle.js; browser-only, not an SSR entry. Source and compiled module families must not be mixed.",
+              "Storybook10 authored CSF/matrix surface is a demonstration/test target. Actual engine/runtime/state coverage is listed separately in execution receipts."
+            ],
+            "axes": [
+              "Theme: light, dark, system (token/CSS contract)",
+              "Element: 5 Ngũ Hành elements / 15 packs",
+              "Language: vi, en",
+              "Style: default, liquid-glass"
+            ]
           }
         ]
       },

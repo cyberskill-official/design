@@ -30,7 +30,7 @@
   "sourceHashes": {
     "_audit/visual-diff.html": "fd344cf31f0aa4130dddec2a99dca5ef60d9d08025b5dc2b4b729a1d388c5bb8",
     "_ds_manifest.json": "c095c233237f4ddb574f8fa648c26aee699df2c16d08f7e4a3aeca076a6644e4",
-    "scripts/public-site-policy.json": "04d862985078720d1cd0aa694ef9f67ed89b9980b97d445ab2cf92a1d6dcce61",
+    "scripts/public-site-policy.json": "bb7c7fa498c6f424df49da7faab1fcb6fb9c4aa69bb5f4c88e3c8552f9601e06",
     "templates/app-shell/AppShell.dc.html": "f71017a26f12b71d9e653dff79635ed14d5eb4a3dac9c5ce095188c537b858e3",
     "templates/article/Article.dc.html": "9b2ed3af604ac9e552f33bc922ec7dd2659b786dcb624cb491f7a437658adb2f",
     "templates/auth/Auth.dc.html": "ab6fb52740dbda804c9963cd2b63aa7d482c4b3cd2fa87b9a7f0c20ab2ef1e64",
@@ -165,7 +165,7 @@
       "path": "_audit/README.md",
       "audience": "diagnostics",
       "role": "diagnostic_operator_guide",
-      "sha256": "ca5f1c15c56b8c887954cdf28f43661c7fccb8522f6542ac72b97e582e265f34"
+      "sha256": "fd79f61c852dccb164f4fb8ceceafc8aba6d1d58aaa0521786cedd07ad5f792e"
     },
     {
       "path": "_audit/baselines/README.md",
@@ -1083,7 +1083,7 @@
       "path": "docs/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "8af5cb04e9e7792f8e81e6b706d89b3cea48237843de36ca41e5af6e19199273"
+      "sha256": "3215025aae620f2cb261fd3727b2660a0b214937d060437c86c6f4bbe61e85f8"
     },
     {
       "path": "docs/storybook.md",
@@ -1365,7 +1365,7 @@
       "path": "docs/vi/static-html-reference.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "e995fd9329fed2b4ece33cd0e7fb16a5b6bad190345d8af4ae496df386d246be"
+      "sha256": "5d70f1ac0e78a8f4a296e33b6217fa2ba7cfa92b1c70e57dc4648e457b602a5a"
     },
     {
       "path": "docs/vi/storybook.md",

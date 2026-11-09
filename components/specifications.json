@@ -40,7 +40,7 @@
     "components/ai/TypingIndicator.d.ts": "7ec84442d341918431dcf9421910895203d7cf52bbf8b3fbfee61fa69404ceaa",
     "components/ai/TypingIndicator.jsx": "a367cad658005f314bb3e59a191c6edb5f464a65bc1f48e7e4769165ba35b39c",
     "components/ai/TypingIndicator.prompt.md": "275dc44f4a54db005836f04e628f4e351e0212a6bd152aaf98c30d313b26eccf",
-    "components/api-index.json": "468afbb6e09f78a1be6fe2b2b06bbd6ea30f4fa06abb835c191eb6490082854a",
+    "components/api-index.json": "d82167fc873cb682a35ef593ad38bc88a9d88b5447bd8b3e8541143c287cf728",
     "components/brand/LumiAvatar.d.ts": "955af96a1311731719eeebdeaee88e1d1d99f4efcf14ec6e2eadbe3933957ec6",
     "components/brand/LumiAvatar.jsx": "aef2a9a8be4e4d6eb240d2a4bd6ca32b396fab995663750c812e3b38d228901c",
     "components/brand/LumiAvatar.prompt.md": "802272d4c46c8d072ee112904d0fadc38a97a794a5c8a7190f8f21ae8b1756c4",
@@ -53,7 +53,7 @@
     "components/button/FloatingActionButton.d.ts": "ef227b7981571aa815ca1d874db3458feb33428a79aef949ee770d8ecc13ee00",
     "components/button/FloatingActionButton.jsx": "2c13907fa52c618377dd1aab15c46f73b2ce22c563b54bf0f5aefb16e3829943",
     "components/button/FloatingActionButton.prompt.md": "7a5ae660de398911d5bdfd736984974a62220fc6f6d0ee2e31561a3d381209ed",
-    "components/contracts.json": "e4ebe085e32dc639dea36cb032155c6aa557e61411bec7fa800691dd61a2ce03",
+    "components/contracts.json": "f7393aaef3fb320d6f3193c59033223f94ed7085695829ded8807a3443a5542f",
     "components/data/Accordion.d.ts": "0c5b1140bba3076f0642ae9c23701fbdae406e01f9a08a7beb7ddaeac8aa903f",
     "components/data/Accordion.jsx": "2bd0ed6b7ddb3daa85f941a0260ef3f08a7a261de3336eabff49c6cade44791b",
     "components/data/Accordion.prompt.md": "3e1ed56757fa588a6d1e1422710ab0734452c2f0856d1dffe816e99c34640b6b",
@@ -202,7 +202,7 @@
     "components/forms/Form.jsx": "fc33716feb9f7496abd4ab9a21af27920cf78d014bc33f8e79a7fbae5ba3ec3f",
     "components/forms/Form.prompt.md": "4324a28265664701b2590d6d415e53545c176379b3f9e6fcc6e56d0fe4d34d29",
     "components/forms/InlineEdit.d.ts": "9fdf8c29720cd8d015ea42edfb4ee39ce74964feaafd43b044183ca5ef504b1c",
-    "components/forms/InlineEdit.jsx": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
+    "components/forms/InlineEdit.jsx": "9f242ef99af077e5c9b68d36cc9539fac0819e66f7995fa6a93ecb7793bf3484",
     "components/forms/InlineEdit.prompt.md": "6f60672f2c19cfe7130e1b32f9d8a422bf2ad546c84ac3dc96907415a451b930",
     "components/forms/InputGroup.d.ts": "5e7c7b98399e2a4a9383ba0ab9ac4e71831a85e019fb7fb2598b504d2e64c6b2",
     "components/forms/InputGroup.jsx": "0bd2e8f408f1942386857b64244211049aa9c31636e881ef2e06c5eb5cc60f56",
@@ -341,7 +341,7 @@
     "components/textfield/TextField.prompt.md": "a3c47b7f0b10b52f20e77b3b08f488bb105a7f1d81d9609dec5d0b08ea499b30",
     "schemas/component-specifications.schema.json": "a9ec827d2971dbbb6c932871b3126268072ad3e4d75714e03ef1b61faab3c92b",
     "scripts/build-bundle.mjs": "92154b3753145cf0273eec48be394862b82af10e492ffdfec68dbd77d2215105",
-    "scripts/component-semantics-source.json": "667f1193b54c4c25ee060600df3f1a63418d5d45a0ddd1ab8258c2c6dd328abd",
+    "scripts/component-semantics-source.json": "63ae102843205c51d9816893b67b8a9199d7cbf9ba37c23c0081fc2cda9f0ddd",
     "scripts/generate-component-contracts.mjs": "a94d0d58b3d0b6f629bf2cdc2a53bdfc8b43b8fa1479434b770f0cd8dc53187c",
     "scripts/generate-component-specifications.mjs": "9b7c0800e6b33dae261070729008c9fa7ada762efd846b0e4ecf0e98e34f5b06",
     "scripts/generate-prompt-api.mjs": "e67709ad813a46330d2825912334244050422c16f05021890cc6b41b73acd602",
@@ -35034,7 +35034,7 @@
       "name": "InlineEdit",
       "source": {
         "path": "components/forms/InlineEdit.jsx",
-        "sha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8"
+        "sha256": "9f242ef99af077e5c9b68d36cc9539fac0819e66f7995fa6a93ecb7793bf3484"
       },
       "api": {
         "index": "components/api-index.json",
@@ -35057,20 +35057,20 @@
       "sourceFacts": {
         "analysis": "forward-ref",
         "renderSpan": {
-          "start": 703,
-          "end": 2631
+          "start": 782,
+          "end": 3110
         },
         "jsxElements": [
           {
             "tag": "overlayScopeContext.Provider",
             "kind": "intrinsic",
-            "start": 1802,
-            "end": 1846,
+            "start": 2225,
+            "end": 2269,
             "attributes": [
               {
                 "name": "value",
-                "start": 1832,
-                "end": 1845,
+                "start": 2255,
+                "end": 2268,
                 "kind": "expression",
                 "source": "{scope}"
               }
@@ -35080,21 +35080,21 @@
           {
             "tag": "span",
             "kind": "intrinsic",
-            "start": 1851,
-            "end": 1966,
+            "start": 2274,
+            "end": 2389,
             "attributes": [
               {
                 "name": "ref",
-                "start": 1857,
-                "end": 1878,
+                "start": 2280,
+                "end": 2301,
                 "kind": "expression",
                 "source": "{mergedNativeRef}"
               }
             ],
             "spreads": [
               {
-                "start": 1879,
-                "end": 1965,
+                "start": 2302,
+                "end": 2388,
                 "expression": "mergeTargetProps({ \"className\": cx(\"cs-inline-edit\", className) }, rootProps, [])",
                 "forwarding": "unverified-target-and-precedence"
               }
@@ -35103,55 +35103,55 @@
           {
             "tag": "input",
             "kind": "intrinsic",
-            "start": 1991,
-            "end": 2256,
+            "start": 2414,
+            "end": 2735,
             "attributes": [
               {
                 "name": "autoFocus",
-                "start": 1998,
-                "end": 2007,
+                "start": 2421,
+                "end": 2430,
                 "kind": "boolean-presence",
                 "source": "true"
               },
               {
                 "name": "value",
-                "start": 2008,
-                "end": 2021,
+                "start": 2431,
+                "end": 2444,
                 "kind": "expression",
                 "source": "{draft}"
               },
               {
                 "name": "aria-label",
-                "start": 2022,
-                "end": 2053,
+                "start": 2445,
+                "end": 2476,
                 "kind": "expression",
                 "source": "{label || t(\"edit\")}"
               },
               {
                 "name": "onChange",
-                "start": 2054,
-                "end": 2096,
+                "start": 2477,
+                "end": 2519,
                 "kind": "expression",
                 "source": "{(e) => setDraft(e.target.value)}"
               },
               {
                 "name": "onBlur",
-                "start": 2097,
-                "end": 2112,
+                "start": 2520,
+                "end": 2535,
                 "kind": "expression",
                 "source": "{commit}"
               },
               {
                 "name": "onKeyDown",
-                "start": 2123,
-                "end": 2229,
+                "start": 2546,
+                "end": 2708,
                 "kind": "expression",
-                "source": "{(e) => { if (!e.nativeEvent.isComposing && e.keyCode !== 229 && e.key === \"Enter\") commit(); }}"
+                "source": "{(e) => { if (!e.nativeEvent.isComposing && e.keyCode !== 229 && e.key === \"Enter\") { e.preventDefault(); restoreFocusRef.current = true; commit(); } }}"
               },
               {
                 "name": "ref",
-                "start": 2231,
-                "end": 2253,
+                "start": 2710,
+                "end": 2732,
                 "kind": "expression",
                 "source": "{mergedControlRef}"
               }
@@ -35161,34 +35161,34 @@
           {
             "tag": "button",
             "kind": "intrinsic",
-            "start": 2277,
-            "end": 2466,
+            "start": 2756,
+            "end": 2945,
             "attributes": [
               {
                 "name": "type",
-                "start": 2285,
-                "end": 2298,
+                "start": 2764,
+                "end": 2777,
                 "kind": "string-literal",
                 "source": "\"button\""
               },
               {
                 "name": "className",
-                "start": 2299,
-                "end": 2331,
+                "start": 2778,
+                "end": 2810,
                 "kind": "string-literal",
                 "source": "\"cs-inline-edit__view\""
               },
               {
                 "name": "aria-label",
-                "start": 2332,
-                "end": 2384,
+                "start": 2811,
+                "end": 2863,
                 "kind": "expression",
                 "source": "{t(\"edit\") + (label ? \": \" + label : \"\")}"
               },
               {
                 "name": "onClick",
-                "start": 2385,
-                "end": 2465,
+                "start": 2864,
+                "end": 2944,
                 "kind": "expression",
                 "source": "{() => { cancellingRef.current = false; setDraft(val); setEdit(true); }}"
               }
@@ -35198,13 +35198,13 @@
           {
             "tag": "span",
             "kind": "intrinsic",
-            "start": 2477,
-            "end": 2518,
+            "start": 2956,
+            "end": 2997,
             "attributes": [
               {
                 "name": "className",
-                "start": 2483,
-                "end": 2517,
+                "start": 2962,
+                "end": 2996,
                 "kind": "expression",
                 "source": "{val ? undefined : \"ph\"}"
               }
@@ -35214,9 +35214,9 @@
         ],
         "slotCandidates": [
           {
-            "start": 1973,
-            "end": 2576,
-            "source": "edit ? (\n        <input autoFocus value={draft} aria-label={label || t(\"edit\")} onChange={(e) => setDraft(e.target.value)} onBlur={commit}\n          onKeyDown={(e) => { if (!e.nativeEvent.isComposing && e.keyCode !== 229 && e.key === \"Enter\") commit(); }}  ref={mergedControlRef} />\n      ) : (\n        <button type=\"button\" className=\"cs-inline-edit__view\" aria-label={t(\"edit\") + (label ? \": \" + label : \"\")} onClick={() => { cancellingRef.current = false; setDraft(val); setEdit(true); }}>\n          <span className={val ? undefined : \"ph\"}>{val || t(\"empty\")}</span>{PEN}\n        </button>\n      )",
+            "start": 2396,
+            "end": 3055,
+            "source": "edit ? (\n        <input autoFocus value={draft} aria-label={label || t(\"edit\")} onChange={(e) => setDraft(e.target.value)} onBlur={commit}\n          onKeyDown={(e) => { if (!e.nativeEvent.isComposing && e.keyCode !== 229 && e.key === \"Enter\") { e.preventDefault(); restoreFocusRef.current = true; commit(); } }}  ref={mergedControlRef} />\n      ) : (\n        <button type=\"button\" className=\"cs-inline-edit__view\" aria-label={t(\"edit\") + (label ? \": \" + label : \"\")} onClick={() => { cancellingRef.current = false; setDraft(val); setEdit(true); }}>\n          <span className={val ? undefined : \"ph\"}>{val || t(\"empty\")}</span>{PEN}\n        </button>\n      )",
             "referencedParameterNames": [
               "label",
               "value"
@@ -35227,8 +35227,8 @@
         "keyboardLiterals": [
           {
             "value": "Enter",
-            "start": 2208,
-            "end": 2215,
+            "start": 2631,
+            "end": 2638,
             "interpretation": "Observed literal, not a keyboard behavior guarantee."
           }
         ]
@@ -35258,18 +35258,18 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/InlineEdit.jsx",
-                  "sourceSha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
+                  "sourceSha256": "9f242ef99af077e5c9b68d36cc9539fac0819e66f7995fa6a93ecb7793bf3484",
                   "ownership": "component-source",
-                  "start": 1802,
-                  "end": 1846,
+                  "start": 2225,
+                  "end": 2269,
                   "source": "<overlayScopeContext.Provider value={scope}>"
                 },
                 {
                   "sourcePath": "components/forms/InlineEdit.jsx",
-                  "sourceSha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
+                  "sourceSha256": "9f242ef99af077e5c9b68d36cc9539fac0819e66f7995fa6a93ecb7793bf3484",
                   "ownership": "component-source",
-                  "start": 2277,
-                  "end": 2466,
+                  "start": 2756,
+                  "end": 2945,
                   "source": "<button type=\"button\" className=\"cs-inline-edit__view\" aria-label={t(\"edit\") + (label ? \": \" + label : \"\")} onClick={() => { cancellingRef.current = false; setDraft(val); setEdit(true); }}>"
                 }
               ]
@@ -35285,11 +35285,11 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/InlineEdit.jsx",
-                  "sourceSha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
+                  "sourceSha256": "9f242ef99af077e5c9b68d36cc9539fac0819e66f7995fa6a93ecb7793bf3484",
                   "ownership": "component-source",
-                  "start": 1973,
-                  "end": 2576,
-                  "source": "{edit ? (\n        <input autoFocus value={draft} aria-label={label || t(\"edit\")} onChange={(e) => setDraft(e.target.value)} onBlur={commit}\n          onKeyDown={(e) => { if (!e.nativeEvent.isComposing && e.keyCode !== 229 && e.key === \"Enter\") commit(); }}  ref={mergedControlRef} />\n      ) : (\n        <button type=\"button\" className=\"cs-inline-edit__view\" aria-label={t(\"edit\") + (label ? \": \" + label : \"\")} onClick={() => { cancellingRef.current = false; setDraft(val); setEdit(true); }}>\n          <span className={val ? undefined : \"ph\"}>{val || t(\"empty\")}</span>{PEN}\n        </button>\n      )}"
+                  "start": 2396,
+                  "end": 3055,
+                  "source": "{edit ? (\n        <input autoFocus value={draft} aria-label={label || t(\"edit\")} onChange={(e) => setDraft(e.target.value)} onBlur={commit}\n          onKeyDown={(e) => { if (!e.nativeEvent.isComposing && e.keyCode !== 229 && e.key === \"Enter\") { e.preventDefault(); restoreFocusRef.current = true; commit(); } }}  ref={mergedControlRef} />\n      ) : (\n        <button type=\"button\" className=\"cs-inline-edit__view\" aria-label={t(\"edit\") + (label ? \": \" + label : \"\")} onClick={() => { cancellingRef.current = false; setDraft(val); setEdit(true); }}>\n          <span className={val ? undefined : \"ph\"}>{val || t(\"empty\")}</span>{PEN}\n        </button>\n      )}"
                 }
               ]
             }
@@ -35304,18 +35304,18 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/InlineEdit.jsx",
-                  "sourceSha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
+                  "sourceSha256": "9f242ef99af077e5c9b68d36cc9539fac0819e66f7995fa6a93ecb7793bf3484",
                   "ownership": "component-source",
-                  "start": 1991,
-                  "end": 2256,
-                  "source": "<input autoFocus value={draft} aria-label={label || t(\"edit\")} onChange={(e) => setDraft(e.target.value)} onBlur={commit}\n          onKeyDown={(e) => { if (!e.nativeEvent.isComposing && e.keyCode !== 229 && e.key === \"Enter\") commit(); }}  ref={mergedControlRef} />"
+                  "start": 2414,
+                  "end": 2735,
+                  "source": "<input autoFocus value={draft} aria-label={label || t(\"edit\")} onChange={(e) => setDraft(e.target.value)} onBlur={commit}\n          onKeyDown={(e) => { if (!e.nativeEvent.isComposing && e.keyCode !== 229 && e.key === \"Enter\") { e.preventDefault(); restoreFocusRef.current = true; commit(); } }}  ref={mergedControlRef} />"
                 },
                 {
                   "sourcePath": "components/forms/InlineEdit.jsx",
-                  "sourceSha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
+                  "sourceSha256": "9f242ef99af077e5c9b68d36cc9539fac0819e66f7995fa6a93ecb7793bf3484",
                   "ownership": "component-source",
-                  "start": 2277,
-                  "end": 2466,
+                  "start": 2756,
+                  "end": 2945,
                   "source": "<button type=\"button\" className=\"cs-inline-edit__view\" aria-label={t(\"edit\") + (label ? \": \" + label : \"\")} onClick={() => { cancellingRef.current = false; setDraft(val); setEdit(true); }}>"
                 }
               ]
@@ -35331,34 +35331,34 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/InlineEdit.jsx",
-                  "sourceSha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
+                  "sourceSha256": "9f242ef99af077e5c9b68d36cc9539fac0819e66f7995fa6a93ecb7793bf3484",
                   "ownership": "component-source",
-                  "start": 1547,
-                  "end": 1557,
+                  "start": 2014,
+                  "end": 2024,
                   "source": "open: edit"
                 },
                 {
                   "sourcePath": "components/forms/InlineEdit.jsx",
-                  "sourceSha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
+                  "sourceSha256": "9f242ef99af077e5c9b68d36cc9539fac0819e66f7995fa6a93ecb7793bf3484",
                   "ownership": "component-source",
-                  "start": 1802,
-                  "end": 1846,
+                  "start": 2225,
+                  "end": 2269,
                   "source": "<overlayScopeContext.Provider value={scope}>"
                 },
                 {
                   "sourcePath": "components/forms/InlineEdit.jsx",
-                  "sourceSha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
+                  "sourceSha256": "9f242ef99af077e5c9b68d36cc9539fac0819e66f7995fa6a93ecb7793bf3484",
                   "ownership": "component-source",
-                  "start": 1991,
-                  "end": 2256,
-                  "source": "<input autoFocus value={draft} aria-label={label || t(\"edit\")} onChange={(e) => setDraft(e.target.value)} onBlur={commit}\n          onKeyDown={(e) => { if (!e.nativeEvent.isComposing && e.keyCode !== 229 && e.key === \"Enter\") commit(); }}  ref={mergedControlRef} />"
+                  "start": 2414,
+                  "end": 2735,
+                  "source": "<input autoFocus value={draft} aria-label={label || t(\"edit\")} onChange={(e) => setDraft(e.target.value)} onBlur={commit}\n          onKeyDown={(e) => { if (!e.nativeEvent.isComposing && e.keyCode !== 229 && e.key === \"Enter\") { e.preventDefault(); restoreFocusRef.current = true; commit(); } }}  ref={mergedControlRef} />"
                 },
                 {
                   "sourcePath": "components/forms/InlineEdit.jsx",
-                  "sourceSha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
+                  "sourceSha256": "9f242ef99af077e5c9b68d36cc9539fac0819e66f7995fa6a93ecb7793bf3484",
                   "ownership": "component-source",
-                  "start": 2477,
-                  "end": 2518,
+                  "start": 2956,
+                  "end": 2997,
                   "source": "<span className={val ? undefined : \"ph\"}>"
                 }
               ]
@@ -35374,11 +35374,11 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/InlineEdit.jsx",
-                  "sourceSha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
+                  "sourceSha256": "9f242ef99af077e5c9b68d36cc9539fac0819e66f7995fa6a93ecb7793bf3484",
                   "ownership": "component-source",
-                  "start": 2123,
-                  "end": 2229,
-                  "source": "onKeyDown={(e) => { if (!e.nativeEvent.isComposing && e.keyCode !== 229 && e.key === \"Enter\") commit(); }}"
+                  "start": 2546,
+                  "end": 2708,
+                  "source": "onKeyDown={(e) => { if (!e.nativeEvent.isComposing && e.keyCode !== 229 && e.key === \"Enter\") { e.preventDefault(); restoreFocusRef.current = true; commit(); } }}"
                 }
               ]
             },
@@ -35387,11 +35387,11 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/InlineEdit.jsx",
-                  "sourceSha256": "45b36df70b179243e329684ce20f61ed8dd4fda75e11674d24797713c644d4f8",
+                  "sourceSha256": "9f242ef99af077e5c9b68d36cc9539fac0819e66f7995fa6a93ecb7793bf3484",
                   "ownership": "component-source",
-                  "start": 1529,
-                  "end": 1785,
-                  "source": "useOverlayLayer({ open: edit, kind: \"popover\", panelRef: ref, restoreFocus: false, onEscape: () => {\n    cancellingRef.current = true;\n    setDraft(val); setEdit(false);\n    requestAnimationFrame(() => ref.current?.querySelector(\"button\")?.focus());\n  } })"
+                  "start": 1996,
+                  "end": 2208,
+                  "source": "useOverlayLayer({ open: edit, kind: \"popover\", panelRef: ref, restoreFocus: false, onEscape: () => {\n    cancellingRef.current = true;\n    restoreFocusRef.current = true;\n    setDraft(val); setEdit(false);\n  } })"
                 }
               ]
             },

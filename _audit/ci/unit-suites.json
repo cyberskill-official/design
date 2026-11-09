@@ -1725,6 +1725,14 @@
     {
       "id": "component-state-paint",
       "command": "node _audit/ci/lib/run-browsers.mjs _audit/ci/test-component-state-paint-browser.mjs"
+    },
+    {
+      "id": "state-inventory",
+      "command": "npm run test:state-inventory"
+    },
+    {
+      "id": "inline-edit-transitions",
+      "command": "npm run test:inline-edit-transitions"
     }
   ]
 }

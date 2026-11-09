@@ -8,6 +8,9 @@ import {
   useLang
 } from "./chunk-JZYRXWPD.mjs";
 import {
+  useClientLayoutEffect
+} from "./chunk-CQQ2JOJD.mjs";
+import {
   mergeTargetProps
 } from "./chunk-RQFCRXMQ.mjs";
 import {
@@ -27,6 +30,7 @@ var InlineEdit = React.forwardRef(function InlineEdit2({ controlRef, value, defa
   const [edit, setEdit] = React.useState(false);
   const [draft, setDraft] = React.useState(val);
   const cancellingRef = React.useRef(false);
+  const restoreFocusRef = React.useRef(false);
   const commit = () => {
     if (cancellingRef.current) {
       cancellingRef.current = false;
@@ -40,12 +44,18 @@ var InlineEdit = React.forwardRef(function InlineEdit2({ controlRef, value, defa
   };
   const [ref, L, localeMessages] = useLang(lang);
   const mergedNativeRef = useComposedRefs(ref, forwardedRef);
+  useClientLayoutEffect(() => {
+    if (!edit && restoreFocusRef.current) {
+      restoreFocusRef.current = false;
+      ref.current?.querySelector("button")?.focus();
+    }
+  }, [edit]);
   const t = makeT("InlineEdit", L, localeMessages);
   const { scope } = useOverlayLayer({ open: edit, kind: "popover", panelRef: ref, restoreFocus: false, onEscape: () => {
     cancellingRef.current = true;
+    restoreFocusRef.current = true;
     setDraft(val);
     setEdit(false);
-    requestAnimationFrame(() => ref.current?.querySelector("button")?.focus());
   } });
   return /* @__PURE__ */ React.createElement(overlayScopeContext.Provider, { value: scope }, /* @__PURE__ */ React.createElement("span", { ref: mergedNativeRef, ...mergeTargetProps({ "className": cx("cs-inline-edit", className) }, rootProps, []) }, edit ? /* @__PURE__ */ React.createElement(
     "input",
@@ -56,7 +66,11 @@ var InlineEdit = React.forwardRef(function InlineEdit2({ controlRef, value, defa
       onChange: (e) => setDraft(e.target.value),
       onBlur: commit,
       onKeyDown: (e) => {
-        if (!e.nativeEvent.isComposing && e.keyCode !== 229 && e.key === "Enter") commit();
+        if (!e.nativeEvent.isComposing && e.keyCode !== 229 && e.key === "Enter") {
+          e.preventDefault();
+          restoreFocusRef.current = true;
+          commit();
+        }
       },
       ref: mergedControlRef
     }
@@ -71,4 +85,4 @@ InlineEdit.displayName = "InlineEdit";
 export {
   InlineEdit
 };
-//# sourceMappingURL=chunk-GLPQBE2J.mjs.map
+//# sourceMappingURL=chunk-4D7SFITE.mjs.map
