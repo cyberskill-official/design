@@ -400,7 +400,7 @@
         },
         {
           "path": "templates/app-shell/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/app-shell/support.js",
@@ -630,7 +630,7 @@
         },
         {
           "path": "templates/article/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/article/support.js",
@@ -935,7 +935,7 @@
         },
         {
           "path": "templates/auth/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/auth/support.js",
@@ -1237,7 +1237,7 @@
         },
         {
           "path": "templates/bod-deck/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/bod-deck/support.js",
@@ -1450,7 +1450,7 @@
         },
         {
           "path": "templates/bod-investor-update/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/bod-investor-update/support.js",
@@ -1619,7 +1619,7 @@
         },
         {
           "path": "templates/bod-memo/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/bod-memo/support.js",
@@ -1720,7 +1720,7 @@
         },
         {
           "path": "templates/bod-minutes/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/bod-minutes/support.js",
@@ -2164,7 +2164,7 @@
         },
         {
           "path": "templates/bod-report/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/bod-report/support.js",
@@ -2394,7 +2394,7 @@
         },
         {
           "path": "templates/bod-resolution/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/bod-resolution/support.js",
@@ -2518,7 +2518,7 @@
         },
         {
           "path": "templates/culture-event-invite/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/culture-event-invite/support.js",
@@ -2900,7 +2900,7 @@
         },
         {
           "path": "templates/dashboard/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/dashboard/support.js",
@@ -3177,7 +3177,7 @@
         },
         {
           "path": "templates/delivery-change-note/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/delivery-change-note/support.js",
@@ -3524,7 +3524,7 @@
         },
         {
           "path": "templates/delivery-kickoff/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/delivery-kickoff/support.js",
@@ -3823,7 +3823,7 @@
         },
         {
           "path": "templates/delivery-qbr-deck/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/delivery-qbr-deck/support.js",
@@ -4169,7 +4169,7 @@
         },
         {
           "path": "templates/delivery-runbook/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/delivery-runbook/support.js",
@@ -4368,7 +4368,7 @@
         },
         {
           "path": "templates/delivery-status-email/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/delivery-status-email/support.js",
@@ -4443,7 +4443,7 @@
         },
         {
           "path": "templates/doc-style-guide/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/doc-style-guide/support.js",
@@ -4598,7 +4598,7 @@
         },
         {
           "path": "templates/doc-suite-index/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/doc-suite-index/support.js",
@@ -4698,7 +4698,7 @@
         },
         {
           "path": "templates/doc-templates/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/doc-templates/support.js",
@@ -4839,7 +4839,7 @@
         },
         {
           "path": "templates/email/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/email/support.js",
@@ -4994,7 +4994,7 @@
         },
         {
           "path": "templates/finance-dunning-email/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/finance-dunning-email/support.js",
@@ -5336,7 +5336,7 @@
         },
         {
           "path": "templates/finance-expense-report/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/finance-expense-report/support.js",
@@ -5773,7 +5773,7 @@
         },
         {
           "path": "templates/finance-invoice/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/finance-invoice/support.js",
@@ -6115,7 +6115,7 @@
         },
         {
           "path": "templates/finance-quote/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/finance-quote/support.js",
@@ -6299,7 +6299,7 @@
         },
         {
           "path": "templates/hr-announcement/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/hr-announcement/support.js",
@@ -6400,7 +6400,7 @@
         },
         {
           "path": "templates/hr-interview-kit/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/hr-interview-kit/support.js",
@@ -6501,7 +6501,7 @@
         },
         {
           "path": "templates/hr-offboarding/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/hr-offboarding/support.js",
@@ -6608,7 +6608,7 @@
         },
         {
           "path": "templates/hr-performance-review/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/hr-performance-review/support.js",
@@ -6709,7 +6709,7 @@
         },
         {
           "path": "templates/hr-pip/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/hr-pip/support.js",
@@ -6820,7 +6820,7 @@
         },
         {
           "path": "templates/legal-msa/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/legal-msa/support.js",
@@ -7360,7 +7360,7 @@
         },
         {
           "path": "templates/legal-sow/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/legal-sow/support.js",
@@ -7683,7 +7683,7 @@
         },
         {
           "path": "templates/marketing-campaign-brief/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/marketing-campaign-brief/support.js",
@@ -7921,7 +7921,7 @@
         },
         {
           "path": "templates/marketing-case-study/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/marketing-case-study/support.js",
@@ -8062,7 +8062,7 @@
         },
         {
           "path": "templates/marketing-launch/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/marketing-launch/support.js",
@@ -8235,7 +8235,7 @@
         },
         {
           "path": "templates/marketing-newsletter/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/marketing-newsletter/support.js",
@@ -8641,7 +8641,7 @@
         },
         {
           "path": "templates/marketing-page/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/marketing-page/support.js",
@@ -8869,7 +8869,7 @@
         },
         {
           "path": "templates/marketing-press-release/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/marketing-press-release/support.js",
@@ -9060,7 +9060,7 @@
         },
         {
           "path": "templates/marketing-social-kit/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/marketing-social-kit/support.js",
@@ -9232,7 +9232,7 @@
         },
         {
           "path": "templates/sales-one-pager/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/sales-one-pager/support.js",
@@ -9656,7 +9656,7 @@
         },
         {
           "path": "templates/sales-proposal-deck/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/sales-proposal-deck/support.js",
@@ -10206,7 +10206,7 @@
         },
         {
           "path": "templates/settings/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/settings/support.js",
@@ -10438,7 +10438,7 @@
         },
         {
           "path": "templates/slide-deck/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/slide-deck/support.js",
@@ -10549,7 +10549,7 @@
         },
         {
           "path": "templates/team-meeting-agenda/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/team-meeting-agenda/support.js",
@@ -10811,7 +10811,7 @@
         },
         {
           "path": "templates/tech-incident-report/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/tech-incident-report/support.js",
@@ -10963,7 +10963,7 @@
         },
         {
           "path": "templates/tech-release-notes/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/tech-release-notes/support.js",
@@ -11064,7 +11064,7 @@
         },
         {
           "path": "templates/tech-retro/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/tech-retro/support.js",
@@ -11360,7 +11360,7 @@
         },
         {
           "path": "templates/tech-rfc/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/tech-rfc/support.js",
@@ -11468,7 +11468,7 @@
         },
         {
           "path": "templates/vn-appointment-transfer/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-appointment-transfer/support.js",
@@ -11584,7 +11584,7 @@
         },
         {
           "path": "templates/vn-certificate-of-employment/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-certificate-of-employment/support.js",
@@ -11692,7 +11692,7 @@
         },
         {
           "path": "templates/vn-code-of-conduct/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-code-of-conduct/support.js",
@@ -11792,7 +11792,7 @@
         },
         {
           "path": "templates/vn-compensation-regulation/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-compensation-regulation/support.js",
@@ -11900,7 +11900,7 @@
         },
         {
           "path": "templates/vn-contract-amendment/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-contract-amendment/support.js",
@@ -12016,7 +12016,7 @@
         },
         {
           "path": "templates/vn-contractor-agreement/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-contractor-agreement/support.js",
@@ -12116,7 +12116,7 @@
         },
         {
           "path": "templates/vn-data-protection-policy/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-data-protection-policy/support.js",
@@ -12240,7 +12240,7 @@
         },
         {
           "path": "templates/vn-disciplinary-case-file/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-disciplinary-case-file/support.js",
@@ -12390,7 +12390,7 @@
         },
         {
           "path": "templates/vn-disciplinary-schedule/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-disciplinary-schedule/support.js",
@@ -12506,7 +12506,7 @@
         },
         {
           "path": "templates/vn-employee-request/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-employee-request/support.js",
@@ -12606,7 +12606,7 @@
         },
         {
           "path": "templates/vn-exit-handover/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-exit-handover/support.js",
@@ -12823,7 +12823,7 @@
         },
         {
           "path": "templates/vn-foreign-employee-pack/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-foreign-employee-pack/support.js",
@@ -12923,7 +12923,7 @@
         },
         {
           "path": "templates/vn-framework-agreement/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-framework-agreement/support.js",
@@ -13023,7 +13023,7 @@
         },
         {
           "path": "templates/vn-grassroots-democracy/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-grassroots-democracy/support.js",
@@ -13123,7 +13123,7 @@
         },
         {
           "path": "templates/vn-infosec-policy/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-infosec-policy/support.js",
@@ -13223,7 +13223,7 @@
         },
         {
           "path": "templates/vn-internal-labor-regulations/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-internal-labor-regulations/support.js",
@@ -13331,7 +13331,7 @@
         },
         {
           "path": "templates/vn-internship-agreement/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-internship-agreement/support.js",
@@ -13463,7 +13463,7 @@
         },
         {
           "path": "templates/vn-job-description/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-job-description/support.js",
@@ -13595,7 +13595,7 @@
         },
         {
           "path": "templates/vn-labor-contract/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-labor-contract/support.js",
@@ -13727,7 +13727,7 @@
         },
         {
           "path": "templates/vn-labour-management-book/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-labour-management-book/support.js",
@@ -13843,7 +13843,7 @@
         },
         {
           "path": "templates/vn-mutual-nda/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-mutual-nda/support.js",
@@ -13951,7 +13951,7 @@
         },
         {
           "path": "templates/vn-ndnca-ip/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-ndnca-ip/support.js",
@@ -14067,7 +14067,7 @@
         },
         {
           "path": "templates/vn-offer-letter/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-offer-letter/support.js",
@@ -14216,7 +14216,7 @@
         },
         {
           "path": "templates/vn-onboarding-checklist/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-onboarding-checklist/support.js",
@@ -14332,7 +14332,7 @@
         },
         {
           "path": "templates/vn-pdpl-consent/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-pdpl-consent/support.js",
@@ -14432,7 +14432,7 @@
         },
         {
           "path": "templates/vn-performance-evaluation-regulation/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-performance-evaluation-regulation/support.js",
@@ -14556,7 +14556,7 @@
         },
         {
           "path": "templates/vn-performance-review-form/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-performance-review-form/support.js",
@@ -14749,7 +14749,7 @@
         },
         {
           "path": "templates/vn-phantom-stock/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-phantom-stock/support.js",
@@ -14873,7 +14873,7 @@
         },
         {
           "path": "templates/vn-probation-contract/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-probation-contract/support.js",
@@ -14999,7 +14999,7 @@
         },
         {
           "path": "templates/vn-receipt-acknowledgement/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-receipt-acknowledgement/support.js",
@@ -15099,7 +15099,7 @@
         },
         {
           "path": "templates/vn-remote-work-policy/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-remote-work-policy/support.js",
@@ -15207,7 +15207,7 @@
         },
         {
           "path": "templates/vn-resignation-letter/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-resignation-letter/support.js",
@@ -15339,7 +15339,7 @@
         },
         {
           "path": "templates/vn-salary-scale/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-salary-scale/support.js",
@@ -15431,7 +15431,7 @@
         },
         {
           "path": "templates/vn-sow-appendix/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-sow-appendix/support.js",
@@ -15547,7 +15547,7 @@
         },
         {
           "path": "templates/vn-termination-decision/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-termination-decision/support.js",
@@ -15647,7 +15647,7 @@
         },
         {
           "path": "templates/vn-total-rewards-appendix/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-total-rewards-appendix/support.js",
@@ -15771,7 +15771,7 @@
         },
         {
           "path": "templates/vn-training-commitment/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-training-commitment/support.js",
@@ -15871,7 +15871,7 @@
         },
         {
           "path": "templates/vn-travel-expense-policy/ds-base.js",
-          "sha256": "e6102ce2b527e2393a28653142cd11c1ece0d5c8b83a246c126b069f7769423f"
+          "sha256": "3c7ec8357c41e8939fe06d3c02e156329ad35d72558662b156d7ee7a9ba259d7"
         },
         {
           "path": "templates/vn-travel-expense-policy/support.js",
@@ -16213,7 +16213,7 @@
     },
     {
       "path": "templates/kitchen-sink.html",
-      "sha256": "85d0ba8df7ccc9615d5b4debf77235d7a62019693f6c7728dd2b7ca9a320d173",
+      "sha256": "d5ac87fd3552c4dd6a98cf49556cace99913643a063cef2e6db841902e9020fe",
       "declaredProps": [],
       "componentImports": [],
       "references": [
@@ -16246,9 +16246,9 @@
           "kind": "fragment"
         },
         {
-          "value": "../styles.css",
+          "value": "../dist/styles.css",
           "kind": "local",
-          "path": "styles.css",
+          "path": "dist/styles.css",
           "exists": true
         }
       ],
@@ -16296,13 +16296,13 @@
         },
         {
           "path": "ui_kits/deck/index.html",
-          "sha256": "d9c3f8b637128d1c49a3a936f2207c832ae7c9b3e5b12361a9556dd8a8517219"
+          "sha256": "1eec47ac5c12874bc9b8a38565f7de4a0f3a023e99dd1a753fa85379a9c4eaa9"
         }
       ],
       "pages": [
         {
           "path": "ui_kits/deck/index.html",
-          "sha256": "d9c3f8b637128d1c49a3a936f2207c832ae7c9b3e5b12361a9556dd8a8517219",
+          "sha256": "1eec47ac5c12874bc9b8a38565f7de4a0f3a023e99dd1a753fa85379a9c4eaa9",
           "declaredProps": [],
           "componentImports": [],
           "references": [
@@ -16323,9 +16323,9 @@
               "exists": true
             },
             {
-              "value": "../../styles.css",
+              "value": "../../dist/styles.css",
               "kind": "local",
-              "path": "styles.css",
+              "path": "dist/styles.css",
               "exists": true
             },
             {
@@ -16366,23 +16366,23 @@
         },
         {
           "path": "ui_kits/status-hub/index.html",
-          "sha256": "7c4e1c9352378c2f2a3e3452f0d93294c4372930beac35b0fc101a0f7d013cd6"
+          "sha256": "dfead761229ebb12ec0d2c5217e8244ee9f01253c6db1cc7309f86d782c724fd"
         },
         {
           "path": "ui_kits/status-hub/login.html",
-          "sha256": "611ab8b6e47b3fd07e6a4c2940092336ed4a3edd297fff99cef825d25b7095c1"
+          "sha256": "633642cf574f171c5b570e10a4a0df4403dcd64ad5b7a5188625e1df6bacd35d"
         },
         {
           "path": "ui_kits/status-hub/project.html",
-          "sha256": "a8dc907e2e65aacdd5a96308801ea4951b89951df8f9f45bf213195432d9bbb8"
+          "sha256": "abd4f5f7fb4fa6bb96c9550795eb64fa695fecfdfbf7fd913952c29336cc8ca1"
         },
         {
           "path": "ui_kits/status-hub/settings.html",
-          "sha256": "fde612caeee6a2be52b8d04d3235a687a45a21ba4e6e7d1a519bf7d5a38b7cbf"
+          "sha256": "cc4405af38350a0b9b71eddeadcdfb827274017d78d96f0f7b2a8ca140402780"
         },
         {
           "path": "ui_kits/status-hub/static-locale.js",
-          "sha256": "e8e5b7ca984a3b4d2b3568a5869badee4e716816a170c440f4ab251ab1ca4a06"
+          "sha256": "462474442d67f2d95aefed2edaa45e466827a8c3bc4522c70bb1ca7daf7bac4a"
         },
         {
           "path": "ui_kits/status-hub/status.css",
@@ -16392,7 +16392,7 @@
       "pages": [
         {
           "path": "ui_kits/status-hub/index.html",
-          "sha256": "7c4e1c9352378c2f2a3e3452f0d93294c4372930beac35b0fc101a0f7d013cd6",
+          "sha256": "dfead761229ebb12ec0d2c5217e8244ee9f01253c6db1cc7309f86d782c724fd",
           "declaredProps": [],
           "componentImports": [],
           "references": [
@@ -16421,9 +16421,9 @@
               "exists": true
             },
             {
-              "value": "../../styles.css",
+              "value": "../../dist/styles.css",
               "kind": "local",
-              "path": "styles.css",
+              "path": "dist/styles.css",
               "exists": true
             },
             {
@@ -16457,7 +16457,7 @@
         },
         {
           "path": "ui_kits/status-hub/login.html",
-          "sha256": "611ab8b6e47b3fd07e6a4c2940092336ed4a3edd297fff99cef825d25b7095c1",
+          "sha256": "633642cf574f171c5b570e10a4a0df4403dcd64ad5b7a5188625e1df6bacd35d",
           "declaredProps": [],
           "componentImports": [],
           "references": [
@@ -16478,9 +16478,9 @@
               "exists": true
             },
             {
-              "value": "../../styles.css",
+              "value": "../../dist/styles.css",
               "kind": "local",
-              "path": "styles.css",
+              "path": "dist/styles.css",
               "exists": true
             },
             {
@@ -16502,7 +16502,7 @@
         },
         {
           "path": "ui_kits/status-hub/project.html",
-          "sha256": "a8dc907e2e65aacdd5a96308801ea4951b89951df8f9f45bf213195432d9bbb8",
+          "sha256": "abd4f5f7fb4fa6bb96c9550795eb64fa695fecfdfbf7fd913952c29336cc8ca1",
           "declaredProps": [],
           "componentImports": [],
           "references": [
@@ -16523,9 +16523,9 @@
               "exists": true
             },
             {
-              "value": "../../styles.css",
+              "value": "../../dist/styles.css",
               "kind": "local",
-              "path": "styles.css",
+              "path": "dist/styles.css",
               "exists": true
             },
             {
@@ -16559,7 +16559,7 @@
         },
         {
           "path": "ui_kits/status-hub/settings.html",
-          "sha256": "fde612caeee6a2be52b8d04d3235a687a45a21ba4e6e7d1a519bf7d5a38b7cbf",
+          "sha256": "cc4405af38350a0b9b71eddeadcdfb827274017d78d96f0f7b2a8ca140402780",
           "declaredProps": [],
           "componentImports": [],
           "references": [
@@ -16580,9 +16580,9 @@
               "exists": true
             },
             {
-              "value": "../../styles.css",
+              "value": "../../dist/styles.css",
               "kind": "local",
-              "path": "styles.css",
+              "path": "dist/styles.css",
               "exists": true
             },
             {
@@ -16625,11 +16625,11 @@
         },
         {
           "path": "ui_kits/website/careers.html",
-          "sha256": "27e5e4a37e6c92be08dba61393962e0dee1f28cba765036386da84e5182ca84e"
+          "sha256": "81860652897199c92191df0ccf9f8df6dcca7154b4b7e96ffee16556878d5600"
         },
         {
           "path": "ui_kits/website/chat.html",
-          "sha256": "dcbab89c630204efed82890471161bc00af0becb43834cecc7badb1a628fd37e"
+          "sha256": "541914b9e553f074acba60b7afa57a1424d1c350bce6d104b1a8f521bdea596c"
         },
         {
           "path": "ui_kits/website/copy.js",
@@ -16637,7 +16637,7 @@
         },
         {
           "path": "ui_kits/website/index.html",
-          "sha256": "71916696b81093dd433fa1191fc55e3df5e85a70d44cde8528aaf4ce7b3f7efd"
+          "sha256": "04e85ccaa5a270f42f765fd2a815310dcc6a063a97c8dc3f32e21a7b4a24c4d8"
         },
         {
           "path": "ui_kits/website/site.css",
@@ -16645,13 +16645,13 @@
         },
         {
           "path": "ui_kits/website/work.html",
-          "sha256": "8bbf08467cc548e2c7c7d4040b7bfa6803207dca04b1d9345fd75f68d5569536"
+          "sha256": "305357e2c9b2c08f13c5c2b903ad62b924495b270d874d92b8169be9ffb39741"
         }
       ],
       "pages": [
         {
           "path": "ui_kits/website/careers.html",
-          "sha256": "27e5e4a37e6c92be08dba61393962e0dee1f28cba765036386da84e5182ca84e",
+          "sha256": "81860652897199c92191df0ccf9f8df6dcca7154b4b7e96ffee16556878d5600",
           "declaredProps": [],
           "componentImports": [],
           "references": [
@@ -16676,9 +16676,9 @@
               "exists": true
             },
             {
-              "value": "../../styles.css",
+              "value": "../../dist/styles.css",
               "kind": "local",
-              "path": "styles.css",
+              "path": "dist/styles.css",
               "exists": true
             },
             {
@@ -16736,7 +16736,7 @@
         },
         {
           "path": "ui_kits/website/chat.html",
-          "sha256": "dcbab89c630204efed82890471161bc00af0becb43834cecc7badb1a628fd37e",
+          "sha256": "541914b9e553f074acba60b7afa57a1424d1c350bce6d104b1a8f521bdea596c",
           "declaredProps": [],
           "componentImports": [],
           "references": [
@@ -16775,9 +16775,9 @@
               "exists": true
             },
             {
-              "value": "../../styles.css",
+              "value": "../../dist/styles.css",
               "kind": "local",
-              "path": "styles.css",
+              "path": "dist/styles.css",
               "exists": true
             },
             {
@@ -16799,7 +16799,7 @@
         },
         {
           "path": "ui_kits/website/index.html",
-          "sha256": "71916696b81093dd433fa1191fc55e3df5e85a70d44cde8528aaf4ce7b3f7efd",
+          "sha256": "04e85ccaa5a270f42f765fd2a815310dcc6a063a97c8dc3f32e21a7b4a24c4d8",
           "declaredProps": [],
           "componentImports": [],
           "references": [
@@ -16828,9 +16828,9 @@
               "exists": true
             },
             {
-              "value": "../../styles.css",
+              "value": "../../dist/styles.css",
               "kind": "local",
-              "path": "styles.css",
+              "path": "dist/styles.css",
               "exists": true
             },
             {
@@ -16864,7 +16864,7 @@
         },
         {
           "path": "ui_kits/website/work.html",
-          "sha256": "8bbf08467cc548e2c7c7d4040b7bfa6803207dca04b1d9345fd75f68d5569536",
+          "sha256": "305357e2c9b2c08f13c5c2b903ad62b924495b270d874d92b8169be9ffb39741",
           "declaredProps": [],
           "componentImports": [],
           "references": [
@@ -16889,9 +16889,9 @@
               "exists": true
             },
             {
-              "value": "../../styles.css",
+              "value": "../../dist/styles.css",
               "kind": "local",
-              "path": "styles.css",
+              "path": "dist/styles.css",
               "exists": true
             },
             {
