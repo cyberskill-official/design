@@ -184,27 +184,34 @@
 
   /* ---------- run ---------- */
   var RESULT = null;
+  var RAW240 = "https://raw.githubusercontent.com/cyberskill-official/design/v2.4.0/";
+  window.CSAudit24 = { result: function () { return RESULT; } };
   async function run() {
     var btn = $("#au-run"); btn.disabled = true; $("#au-frames").innerHTML = "";
     status("Loading fixtures · Đang tải dữ liệu kiểm thử…");
     var t0 = performance.now();
-    var fx = await Promise.all([fixture("current", "light"), fixture("current", "dark"), fixture("baseline", "light"), fixture("baseline", "dark")]);
-    var cur = { L: fx[0], D: fx[1] }, base = { L: fx[2], D: fx[3] };
+    var fx = await Promise.all([fixture("current", "light"), fixture("current", "dark"), fixture("baseline", "light"), fixture("baseline", "dark"), fixture("v240", "light"), fixture("v240", "dark")]);
+    var cur = { L: fx[0], D: fx[1] }, base = { L: fx[2], D: fx[3] }, mid = { L: fx[4], D: fx[5] };
     status("Reading documents, deck and A4 templates…");
     var files = await Promise.all(["../guidelines/documents.html", "../ui_kits/deck/index.html", "../templates/vn-termination-decision/VnTerminationDecision.dc.html", "../templates/vn-appointment-transfer/VnAppointmentTransfer.dc.html",
-      "baseline-v2.3.1/guidelines/documents.html.txt", "baseline-v2.3.1/ui_kits/deck/index.html.txt", "baseline-v2.3.1/templates/VnTerminationDecision.dc.html.txt", "baseline-v2.3.1/templates/VnAppointmentTransfer.dc.html.txt", "../DESIGN.md"].map(txt));
+      "baseline-2.3.1/guidelines/documents.html.txt", "baseline-2.3.1/ui_kits/deck/index.html.txt", "baseline-2.3.1/templates/VnTerminationDecision.dc.html.txt", "baseline-2.3.1/templates/VnAppointmentTransfer.dc.html.txt", "../DESIGN.md",
+      RAW240 + "guidelines/documents.html", RAW240 + "ui_kits/deck/index.html", RAW240 + "templates/vn-termination-decision/VnTerminationDecision.dc.html", RAW240 + "templates/vn-appointment-transfer/VnAppointmentTransfer.dc.html"].map(txt));
     cur.S = { slate: slateHex(files[0]), deck: deckLH(files[1]), term: dieuSizes(files[2]), appt: dieuSizes(files[3]) };
     base.S = { slate: slateHex(files[4]), deck: deckLH(files[5]), term: dieuSizes(files[6]), appt: dieuSizes(files[7]) };
-    status("Rendering live documents (v2.4.0)…");
+    mid.S = { slate: slateHex(files[9]), deck: deckLH(files[10]), term: dieuSizes(files[11]), appt: dieuSizes(files[12]) };
+    status("Rendering live documents (v2.5.0)…");
     try { cur.live = await liveDocs(); } catch (e) { cur.live = null; }
     if (!cur.L || !base.L) { status("Fixture failed to load — check console."); btn.disabled = false; return; }
+    if (!mid.L || !mid.D) mid = null;
     var checks = buildChecks(window.__auProps || Object.keys(cur.L.props.root), { radius: designRadius(files[8]) });
     checks.forEach(function (c) { try { c.base = c.fn(base); } catch (e) { c.base = { pass: false, value: "error: " + e.message }; } try { c.cur = c.fn(cur); } catch (e) { c.cur = { pass: false, value: "error: " + e.message }; }
+      if (mid) { try { c.mid = c.fn(mid); } catch (e) { c.mid = { pass: false, value: "error: " + e.message }; } } else c.mid = { pass: false, value: "v2.4.0 baseline unavailable", na: true };
       c.state = c.base.pass && c.cur.pass ? "holds" : (!c.base.pass && c.cur.pass ? "fixed" : (c.base.pass ? "regressed" : "open")); });
-    RESULT = { when: new Date().toISOString(), ms: Math.round(performance.now() - t0), ua: navigator.userAgent, checks: checks.map(function (c) { return { dim: c.dim, title: c.title, target: c.target, expect: c.expect, control: c.control, v231: c.base, v240: c.cur, state: c.state }; }), raw: { v240: cur, v231: base } };
+    RESULT = { when: new Date().toISOString(), ms: Math.round(performance.now() - t0), ua: navigator.userAgent, checks: checks.map(function (c) { return { dim: c.dim, title: c.title, target: c.target, expect: c.expect, control: c.control, v231: c.base, v240: c.mid, v250: c.cur, state: c.state }; }), raw: { v250: cur, v240: mid, v231: base } };
     render(checks); btn.disabled = false;
-    try { console.info("[cs-audit] " + checks.map(function (c) { return c.dim + " " + c.state.toUpperCase() + " | " + c.title + " | 2.3.1=" + c.base.value + " | 2.4.0=" + c.cur.value; }).join("\n")); } catch (e) {}
-    status("Ran " + checks.length + " checks in " + (RESULT.ms / 1000).toFixed(1) + "s · " + new Date().toLocaleString());
+    try { console.info("[cs-audit] " + checks.map(function (c) { return c.dim + " " + c.state.toUpperCase() + " | " + c.title + " | 2.3.1=" + c.base.value + " | 2.4.0=" + c.mid.value + " | 2.5.0=" + c.cur.value; }).join("\n")); } catch (e) {}
+    window.CSAudit24.run = run;
+    status("Ran " + checks.length + " checks × 3 versions in " + (RESULT.ms / 1000).toFixed(1) + "s · " + new Date().toLocaleString());
   }
   function status(t) { $("#au-status").textContent = t; }
 
@@ -214,32 +221,35 @@
   function badge(pass) { return el("span", { class: "au-pf " + (pass ? "is-pass" : "is-fail"), text: pass ? "PASS" : "FAIL" }); }
   function render(checks) {
     var sb = $("#au-score"); sb.innerHTML = "";
-    var tb = 0, tc = 0;
+    var tb = 0, tc = 0, tm = 0;
     DIMS.forEach(function (d) {
-      var b = score(checks, d.id, "base"), c = score(checks, d.id, "cur"); tb += b.s; tc += c.s;
+      var b = score(checks, d.id, "base"), m = score(checks, d.id, "mid"), c = score(checks, d.id, "cur"); tb += b.s; tc += c.s; tm += m.s;
       var delta = c.s - b.s;
       sb.appendChild(el("div", { class: "au-dim" }, [
         el("div", { class: "au-dim__name" }, [el("b", { text: d.id + " · " + d.name }), el("span", { text: d.vi + " · §" + d.sec })]),
         el("div", { class: "au-bars" }, [
           el("div", { class: "au-bar" }, [el("i", { class: "au-bar__fill is-base", style: "inline-size:" + b.s * 10 + "%" }), el("span", { text: "v2.3.1 " + f2(b.s, 1) + " · " + b.p + "/" + b.n })]),
-          el("div", { class: "au-bar" }, [el("i", { class: "au-bar__fill is-cur", style: "inline-size:" + c.s * 10 + "%" }), el("span", { text: "v2.4.0 " + f2(c.s, 1) + " · " + c.p + "/" + c.n })])
+          el("div", { class: "au-bar" }, [el("i", { class: "au-bar__fill is-mid", style: "inline-size:" + m.s * 10 + "%" }), el("span", { text: "v2.4.0 " + f2(m.s, 1) + " · " + m.p + "/" + m.n })]),
+          el("div", { class: "au-bar" }, [el("i", { class: "au-bar__fill is-cur", style: "inline-size:" + c.s * 10 + "%" }), el("span", { text: "v2.5.0 " + f2(c.s, 1) + " · " + c.p + "/" + c.n })])
         ]),
         el("div", { class: "au-delta" + (delta > 0 ? " is-up" : delta < 0 ? " is-down" : ""), text: (delta > 0 ? "+" : "") + f2(delta, 1) })
       ]));
     });
     $("#au-overall-base").textContent = f2(tb / DIMS.length, 1);
+    $("#au-overall-mid").textContent = f2(tm / DIMS.length, 1);
     $("#au-overall-cur").textContent = f2(tc / DIMS.length, 1);
     var counts = { fixed: 0, holds: 0, open: 0, regressed: 0 }; checks.forEach(function (c) { counts[c.state]++; });
     $("#au-counts").textContent = counts.fixed + " fixed · " + counts.holds + " hold · " + counts.open + " open · " + counts.regressed + " regressed · " + checks.length + " checks";
     [1, 2, 3, 4].forEach(function (sec) {
       var host = $("#au-checks-" + sec); host.innerHTML = "";
       DIMS.filter(function (d) { return d.sec === sec; }).forEach(function (d) {
-        var t = el("table", { class: "au-table" }), thead = el("thead", null, [el("tr", null, ["Check", "Expected", "v2.3.1", "v2.4.0", "Result"].map(function (h) { return el("th", { text: h }); }))]), tbody = el("tbody");
+        var t = el("table", { class: "au-table" }), thead = el("thead", null, [el("tr", null, ["Check", "Expected", "v2.3.1", "v2.4.0", "v2.5.0", "Result"].map(function (h) { return el("th", { text: h }); }))]), tbody = el("tbody");
         checks.filter(function (c) { return c.dim === d.id; }).forEach(function (c) {
           tbody.appendChild(el("tr", { "data-state": c.state }, [
             el("td", null, [el("b", { text: c.title }), el("code", { text: c.target }), c.control ? el("small", { text: "control" }) : null]),
             el("td", { class: "au-mono", text: c.expect }),
             el("td", null, [badge(c.base.pass), el("div", { class: "au-val", text: String(c.base.value) })]),
+            el("td", null, [badge(c.mid.pass), el("div", { class: "au-val", text: String(c.mid.value) })]),
             el("td", null, [badge(c.cur.pass), el("div", { class: "au-val", text: String(c.cur.value) })]),
             el("td", null, [el("span", { class: "au-state is-" + c.state, text: STATE[c.state][0] }), el("small", { text: STATE[c.state][1] })])
           ]));
@@ -252,8 +262,8 @@
     applyFilter();
     var fh = $("#au-findings"); fh.innerHTML = "";
     var issues = checks.filter(function (c) { return c.state === "open" || c.state === "regressed"; });
-    if (!issues.length) fh.appendChild(el("p", { text: "No open or regressed checks in v2.4.0." }));
-    issues.forEach(function (c) { fh.appendChild(el("div", { class: "au-finding" }, [el("span", { class: "au-state is-" + c.state, text: STATE[c.state][0] }), el("div", null, [el("b", { text: c.dim + " · " + c.title }), el("div", { class: "au-val", text: "v2.4.0: " + c.cur.value }), c.rec ? el("p", { text: c.rec }) : null])])); });
+    if (!issues.length) fh.appendChild(el("p", { text: "No open or regressed checks in v2.5.0." }));
+    issues.forEach(function (c) { fh.appendChild(el("div", { class: "au-finding" }, [el("span", { class: "au-state is-" + c.state, text: STATE[c.state][0] }), el("div", null, [el("b", { text: c.dim + " · " + c.title }), el("div", { class: "au-val", text: "v2.5.0: " + c.cur.value }), c.rec ? el("p", { text: c.rec }) : null])])); });
   }
   function applyFilter() { var f = document.querySelector('input[name="au-filter"]:checked').value; document.querySelectorAll(".au-table tbody tr").forEach(function (tr) { var s = tr.getAttribute("data-state"); tr.hidden = !(f === "all" || (f === "fixed" && s === "fixed") || (f === "issues" && (s === "open" || s === "regressed"))); }); }
 
@@ -274,7 +284,7 @@
     ["#au-sp-v", "#au-sp-t", "#au-sp-e", "#au-sp-a"].forEach(function (s) { $(s).addEventListener("change", specimen); });
     document.querySelectorAll("[data-preview]").forEach(function (b) { b.addEventListener("click", function () { preview(b.getAttribute("data-preview"), b.textContent); }); });
     $("#au-preview-close").addEventListener("click", function () { $("#au-preview").close(); $("#au-preview-frame").src = "about:blank"; });
-    $("#au-export").addEventListener("click", function () { if (!RESULT) return; var a = el("a", { href: URL.createObjectURL(new Blob([JSON.stringify(RESULT, null, 2)], { type: "application/json" })), download: "cyberskill-design-v2.4.0-verification.json" }); document.body.appendChild(a); a.click(); a.remove(); });
+    $("#au-export").addEventListener("click", function () { if (!RESULT) return; var a = el("a", { href: URL.createObjectURL(new Blob([JSON.stringify(RESULT, null, 2)], { type: "application/json" })), download: "cyberskill-design-v2.4.0-suite-on-v2.5.0.json" }); document.body.appendChild(a); a.click(); a.remove(); });
     specimen(); run();
   });
 })();

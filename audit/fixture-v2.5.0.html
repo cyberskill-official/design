@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CyberSkill · v2.5.0 audit fixture</title>
+<script>
+(function(){
+  var q=new URLSearchParams(location.search);
+  var v=q.get("v")||"250"; if(!/^(250|240|231)$/.test(v)) v="250";
+  var theme=q.get("theme")==="dark"?"dark":"light", el=q.get("el")||"", va=q.get("va")||"";
+  var href={250:"../dist/styles.css",240:"baseline-2.4.0/styles.flat.css",231:"baseline-2.3.1/styles.flat.css"}[v];
+  var h=document.documentElement; h.setAttribute("data-theme",theme); if(el){h.setAttribute("data-cs-element",el); if(va) h.setAttribute("data-cs-variant",va);}
+  window.__fx={v:v,theme:theme,el:el,va:va,label:{250:"v2.5.0",240:"v2.4.0",231:"v2.3.1"}[v]};
+  window.__fxReady=new Promise(function(res){var l=document.createElement("link");l.rel="stylesheet";l.href=href;l.onload=function(){res(true)};l.onerror=function(){res(false)};document.head.appendChild(l);});
+})();
+</script>
+<style>
+html,body{margin:0}
+*,*::before,*::after{transition:none!important;animation:none!important}
+body{background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);font-family:var(--cs-font-family-ui);padding:18px 22px 48px}
+.fx-h{font:700 12px/1.2 var(--cs-font-family-ui);text-transform:uppercase;letter-spacing:.09em;color:var(--cs-color-text-muted);margin:26px 0 10px;display:flex;gap:10px;align-items:baseline}
+.fx-h:first-child{margin-top:0}
+.fx-h span{font:500 11px var(--cs-font-family-mono);text-transform:none;letter-spacing:0;color:var(--cs-color-text-accent)}
+.sc{background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);border:1px solid var(--cs-color-border-default);border-radius:14px;padding:14px}
+.pn{background:var(--cs-color-surface-panel);border:1px solid var(--cs-color-border-default);border-radius:10px;padding:10px}
+.fx-p{position:absolute;width:1px;height:1px;overflow:hidden;pointer-events:none}
+.row{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+.g32{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.g32 .sc{padding:10px;border-radius:12px}
+.g32 .lab{font:700 11px var(--cs-font-family-mono);color:var(--cs-color-text-muted);margin-bottom:8px;display:flex;justify-content:space-between}
+.g32 .pn{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 10px;align-items:center;overflow:hidden}
+.g32 .cs-progress{grid-column:1/-1}
+.g32 .cs-cal__grid{display:inline-grid!important;grid-template-columns:34px}
+.g32 .cs-cal__grid button{inline-size:34px}
+.g32 .cs-steps{display:flex}
+.g32 .cs-step{position:relative;display:block;inline-size:60px;min-block-size:28px;flex:none}
+.g32 .cs-dock{padding:6px}
+.g32 .cs-carousel__dots{justify-content:flex-start}
+.p3 .pn{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 14px}
+.p3 .ctl{display:grid;gap:4px}
+.p3 .ctl small{font:600 10px var(--cs-font-family-mono);color:var(--cs-color-text-muted)}
+.p3 .cs-combobox,.p3 .cs-treeselect,.p3 .cs-cascader,.p3 .cs-datepicker{min-inline-size:0;inline-size:100%}
+.p3 .cs-igroup,.p3 .cs-taginput{min-inline-size:0}
+.fx-type{max-width:960px}
+.g32.spec-hl .sc[data-hl]{outline:3px solid var(--cs-color-accent-ochre);outline-offset:2px}
+@media (max-width:900px){.g32{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<div class="fx-h">P0 · Dark-mode default scope tint safety <span>data-theme="dark" · no data-cs-element</span></div>
+<div class="sc" data-theme="dark" id="p0">
+  <div class="pn row">
+    <div class="cs-item is-selected" id="p0-item" style="min-width:220px"><div class="cs-item__title">Selected item · Mục đang chọn</div><div class="cs-item__desc">.cs-item.is-selected</div></div>
+    <div class="cs-result" style="margin:0"><div class="cs-result__icon" id="p0-result" aria-hidden="true">✦</div></div>
+    <div class="cs-navmenu__card" id="p0-nav" style="padding:10px 14px;border-radius:10px"><b>.cs-navmenu__card:hover</b><br><small>declared rule → probe</small></div>
+    <div class="cs-splitter" style="min-block-size:60px;inline-size:160px"><div class="cs-splitter__bar" id="p0-split" style="inline-size:8px;block-size:60px"></div></div>
+  </div>
+</div>
+
+<div class="fx-h">P1 · Non-text contrast ≥ 3:1 across 32 Theme × Element × Variant scopes <span>WCAG 1.4.11 · progress fill + ring · rating · today · carousel dot · dock dot · done connector</span></div>
+<div class="g32" id="p1"></div>
+
+<div class="fx-h">P2 · Dark-mode Umber surface separation <span>1px inset ring · color-mix(border 32%, transparent)</span></div>
+<div class="sc" data-theme="dark" id="p2">
+  <div class="row">
+    <div class="cs-chat" style="min-width:300px"><div class="cs-chat-msg cs-chat-msg--user"><div class="cs-chat-msg__avatar" id="p2-avatar">NA</div><div class="cs-chat-msg__col"><div class="cs-chat-msg__name">You · Bạn</div><div class="cs-chat-msg__bubble" id="p2-bubble">A faster checkout for our shop.</div></div></div></div>
+    <span class="cs-badge cs-badge--solid" id="p2-badge">SOLID</span>
+    <div class="cs-progress cs-progress--umber" style="inline-size:200px"><span class="cs-progress__fill" id="p2-umber" style="inline-size:64%"></span></div>
+  </div>
+</div>
+
+<div class="fx-h">P2 · 13-control invalid state parity (+ .cs-prompt) <span>.is-invalid · [aria-invalid="true"] · light & dark</span></div>
+<div class="row p3" id="p3" style="align-items:flex-start"></div>
+
+<div class="fx-h">P2 · Vietnamese diacritic clearance <span>:lang(vi) · .cs-display · .cs-stat__value · 1.22</span></div>
+<div class="sc fx-type">
+  <div lang="vi"><div class="cs-display" id="p4-disp">Hệ thống Quản trị Nhân sự &amp; Pháp lý Doanh nghiệp — Đổi mới sáng tạo</div></div>
+  <div lang="vi" style="margin-top:14px"><div class="cs-stat"><div class="cs-stat__label">Nhân sự · Đúng hạn</div><div class="cs-stat__value" id="p4-stat">1.248 Nhân sự — 99,4% Đúng hạn</div></div></div>
+  <div lang="en" style="margin-top:14px"><div class="cs-display" id="p4-disp-en" style="font-size:40px">Turn Your Will Into Real</div></div>
+</div>
+
+<div class="fx-h">P3 · Scoped nested theme &amp; Liquid Glass re-computation <span>--_cs-border-* · --_cs-surface-scrim · --cs-glass-*-{bg,border}</span></div>
+<div class="row" style="align-items:stretch">
+  <div class="sc" id="p5-root" style="flex:1 1 320px"><div class="row"><span class="cs-surface-light" style="padding:8px 12px;border-radius:10px">document root theme</span></div>
+    <div class="sc" id="p5-nest" style="margin-top:10px"><span class="cs-surface-light" style="padding:8px 12px;border-radius:10px;display:inline-block">nested opposite theme</span></div></div>
+</div>
+
+<script>
+(function(){
+  var fx=window.__fx;
+  var ELS=[["","",""],["tho","sand","soft"],["tho","","middle"],["tho","clay","deep"],["moc","bamboo","soft"],["moc","","middle"],["moc","forest","deep"],["hoa","plasma","soft"],["hoa","","middle"],["hoa","lava","deep"],["kim","titanium","soft"],["kim","","middle"],["kim","steel","deep"],["thuy","mist","soft"],["thuy","","middle"],["thuy","ocean","deep"]];
+  var NAMES={tho:"Thổ",moc:"Mộc",hoa:"Hỏa",kim:"Kim",thuy:"Thủy"};
+  var CONTROLS=[
+    ["TextField",".cs-field",function(a){return '<label class="cs-field'+(a==="cls"?" is-invalid":"")+'"><span class="cs-field__label">Email</span><input class="cs-field__control" value="bad@" '+(a==="aria"?'aria-invalid="true"':"")+'></label>'},".cs-field__control"],
+    ["Select",".cs-select",function(a){return '<label class="cs-field'+(a==="cls"?" is-invalid":"")+'"><span class="cs-field__label">Squad</span><span class="cs-select"><select class="cs-field__control" '+(a==="aria"?'aria-invalid="true"':"")+'><option>Platform</option></select></span></label>'},"select.cs-field__control"],
+    ["Textarea",".cs-textarea",function(a){return '<label class="cs-field'+(a==="cls"?" is-invalid":"")+'"><span class="cs-field__label">Wish</span><textarea class="cs-field__control cs-textarea" rows="2" '+(a==="aria"?'aria-invalid="true"':"")+'>Ước</textarea></label>'},"textarea"],
+    ["Combobox",".cs-combobox",function(a){return '<div class="cs-combobox'+(a==="cls"?" is-invalid":"")+'"><input value="Nhóm" aria-label="Squad" '+(a==="aria"?'aria-invalid="true"':"")+'></div>'},"input"],
+    ["SearchField",".cs-search",function(a){return '<div class="cs-search'+(a==="cls"?" is-invalid":"")+'" '+(a==="aria"?'aria-invalid="true"':"")+'><input value="Tìm" aria-label="Search" style="border:0;background:transparent;min-width:0;flex:1"></div>'},null],
+    ["InputGroup",".cs-igroup (InputGroup)",function(a){return '<div class="cs-igroup'+(a==="cls"?" is-invalid":"")+'" '+(a==="aria"?'aria-invalid="true"':"")+'><input value="0" aria-label="Amount"><span class="cs-igroup__addon">₫</span></div>'},null],
+    ["NumberField",".cs-stepper",function(a){return '<div class="cs-stepper'+(a==="cls"?" is-invalid":"")+'" '+(a==="aria"?'aria-invalid="true"':"")+'><button type="button" class="cs-stepper__btn">−</button><input value="3" aria-label="Qty" style="width:44px;border:0;text-align:center"><button type="button" class="cs-stepper__btn">+</button></div>'},null],
+    ["TagInput",".cs-taginput (TagInput)",function(a){return '<div class="cs-taginput'+(a==="cls"?" is-invalid":"")+'" '+(a==="aria"?'aria-invalid="true"':"")+'><span class="cs-tag">web</span><input value="" aria-label="Tags"></div>'},null],
+    ["DatePicker",".cs-datepicker",function(a){return '<div class="cs-datepicker'+(a==="cls"?" is-invalid":"")+'"><button type="button" class="cs-datepicker__field" '+(a==="aria"?'aria-invalid="true"':"")+'>18/07/2026</button></div>'},".cs-datepicker__field"],
+    ["TimePicker",".cs-timepicker",function(a){return '<div class="cs-timepicker'+(a==="cls"?" is-invalid":"")+'" '+(a==="aria"?'aria-invalid="true"':"")+'><select aria-label="Hour"><option>09</option></select>:<select aria-label="Minute"><option>30</option></select></div>'},null],
+    ["TreeSelect",".cs-treeselect",function(a){return '<div class="cs-treeselect'+(a==="cls"?" is-invalid":"")+'"><button type="button" class="cs-treeselect__field" '+(a==="aria"?'aria-invalid="true"':"")+'>Platform / Web</button></div>'},".cs-treeselect__field"],
+    ["Cascader",".cs-cascader",function(a){return '<div class="cs-cascader'+(a==="cls"?" is-invalid":"")+'"><button type="button" class="cs-treeselect__field" '+(a==="aria"?'aria-invalid="true"':"")+'>HCM / Q1</button></div>'},".cs-treeselect__field"],
+    ["InputOTP",".cs-otp",function(a){return '<div class="cs-otp'+(a==="cls"?" is-invalid":"")+'"><input value="4" aria-label="Digit 1" '+(a==="aria"?'aria-invalid="true"':"")+'><input value="2" aria-label="Digit 2" '+(a==="aria"?'aria-invalid="true"':"")+'></div>'},"input"],
+    ["PromptInput",".cs-prompt",function(a){return '<div class="cs-prompt'+(a==="cls"?" is-invalid":"")+'" '+(a==="aria"?'aria-invalid="true"':"")+'><textarea rows="1" aria-label="Wish" style="border:0;background:transparent;resize:none">Ước một điều…</textarea></div>'},null]
+  ];
+  function scopeKey(t,e){return t+":"+(e[0]?e[0]+(e[1]?"-"+e[1]:""):"default");}
+  function scopeName(t,e){return (t==="dark"?"Dark":"Light")+" · "+(e[0]?NAMES[e[0]]+" · "+(e[1]||"middle"):"Thổ · default");}
+  document.getElementById("p5-nest").setAttribute("data-theme", fx.theme==="dark"?"light":"dark");
+  var p1=document.getElementById("p1"), hl=null;
+  ["light","dark"].forEach(function(t){ELS.forEach(function(e){
+    var d=document.createElement("div"); d.className="sc"; d.setAttribute("data-theme",t); if(e[0]){d.setAttribute("data-cs-element",e[0]); if(e[1]) d.setAttribute("data-cs-variant",e[1]);}
+    d.setAttribute("data-scope",scopeKey(t,e));
+    if(t===fx.theme&&e[0]===fx.el&&(e[1]||"")===fx.va){d.setAttribute("data-hl","");hl=d;}
+    d.innerHTML='<div class="lab"><span>'+scopeName(t,e)+'</span><span>'+(e[2]||"")+'</span></div><div class="pn">'+
+      '<div class="cs-progress"><span class="cs-progress__fill" style="inline-size:62%"></span></div>'+
+      '<div class="cs-rating" aria-label="Rating"><button type="button" class="on" aria-label="1"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.5L12 17.3 6.1 20.5l1.3-6.5L2.5 9.4l6.6-.8z"/></svg></button></div>'+
+      '<div class="cs-cal__grid"><button type="button" class="today">18</button></div>'+
+      '<div class="cs-carousel__dots"><button type="button" aria-current="true" aria-label="Slide 1"></button><button type="button" aria-label="Slide 2"></button></div>'+
+      '<div class="cs-dock"><button type="button" class="cs-dock__item is-active" aria-label="Home">⌂</button></div>'+
+      '<div class="cs-steps" style="display:flex"><div class="cs-step cs-step--done"><span class="cs-step__marker">1</span></div><div class="cs-step"><span class="cs-step__marker">2</span></div></div></div>';
+    p1.appendChild(d);
+  });});
+  if(hl){p1.classList.add("spec-hl");}
+  var p3=document.getElementById("p3");
+  ["light","dark"].forEach(function(t){
+    var d=document.createElement("div"); d.className="sc"; d.setAttribute("data-theme",t); d.setAttribute("data-scope",t); d.style.flex="1 1 440px";
+    var html='<div class="lab" style="font:700 11px var(--cs-font-family-mono);color:var(--cs-color-text-muted);margin-bottom:8px">'+t+'</div><div class="pn">';
+    CONTROLS.forEach(function(c){["cls","aria"].forEach(function(a){html+='<div class="ctl" data-ctl="'+c[0]+'" data-mode="'+a+'"><small>'+c[1]+' · '+(a==="cls"?".is-invalid":'[aria-invalid="true"]')+'</small>'+c[2](a)+'</div>';});});
+    d.innerHTML=html+"</div>"; p3.appendChild(d);
+  });
+
+  function cs(e,ps){return getComputedStyle(e,ps||null);}
+  function probe(scope,prop,value){var i=document.createElement("i");i.className="fx-p";i.style.setProperty(prop,value);scope.appendChild(i);var out=cs(i).getPropertyValue(prop);i.remove();return out;}
+  function declared(selectorPart){var out=null;Array.prototype.forEach.call(document.styleSheets,function(ss){var rules;try{rules=ss.cssRules}catch(e){return}function walk(rs){Array.prototype.forEach.call(rs,function(r){if(r.cssRules&&r.media){if(/pointer|forced|print|reduced/.test(r.conditionText||r.media.mediaText||""))return;walk(r.cssRules);return}if(r.selectorText&&r.selectorText.split(",").some(function(s){return s.trim()===selectorPart})){out={background:r.style.getPropertyValue("background")||r.style.getPropertyValue("background-color"),color:r.style.getPropertyValue("color"),boxShadow:r.style.getPropertyValue("box-shadow"),cssText:r.style.cssText};}});}walk(rules);});return out;}
+  function fontOf(s){return s.fontStyle+" "+s.fontWeight+" "+s.fontSize+" "+s.fontFamily;}
+  function ink(el){var s=cs(el),c=document.createElement("canvas").getContext("2d");c.font=fontOf(s);var m=c.measureText(el.textContent);return{ascent:m.actualBoundingBoxAscent,descent:m.actualBoundingBoxDescent,lh:s.lineHeight,fs:s.fontSize};}
+  var GLASS=["--_cs-border-subtle","--_cs-border-strong","--_cs-surface-scrim","--cs-glass-whisper-bg","--cs-glass-whisper-border","--cs-glass-light-bg","--cs-glass-light-border","--cs-glass-standard-bg","--cs-glass-standard-border","--cs-glass-heavy-bg","--cs-glass-heavy-border"];
+  function glassProps(scope){var o={};GLASS.forEach(function(p){o[p]=probe(scope,"background-color","var("+p+")");});return o;}
+  function timeout(p,ms){return Promise.race([p,new Promise(function(r){setTimeout(r,ms)})]);}
+
+  async function measure(){
+    var ok=await window.__fxReady;
+    try{await timeout(document.fonts.load('800 60px "Be Vietnam Pro"',"Hệ thống Ổ"),4000);await timeout(document.fonts.ready,4000);}catch(e){}
+    await new Promise(function(r){setTimeout(r,60)});
+    var m={v:fx.v,label:fx.label,cssLoaded:ok,ua:navigator.userAgent};
+    var p0=document.getElementById("p0");
+    function bgc(e){var s=cs(e);return{bg:s.backgroundColor,color:s.color,shadow:s.boxShadow,border:s.borderTopColor};}
+    var navD=declared(".cs-navmenu__card:hover"), splD=declared(".cs-splitter__bar:hover");
+    m.p0={textAccent:probe(p0,"color","var(--cs-color-text-accent)"),textPrimary:probe(p0,"color","var(--cs-color-text-primary)"),panel:probe(p0,"background-color","var(--cs-color-surface-panel)"),
+      expected:probe(p0,"background-color","color-mix(in oklab, var(--cs-accent) 18%, var(--cs-color-surface-panel))"),tint:probe(p0,"background-color","var(--cs-accent-tint)"),
+      item:bgc(document.getElementById("p0-item")),result:bgc(document.getElementById("p0-result")),
+      navmenu:{declared:navD,bg:navD&&navD.background?probe(p0,"background",navD.background):null},splitter:{declared:splD,bg:splD&&splD.background?probe(p0,"background",splD.background):null}};
+    m.p0.navmenu.bgColor=navD&&navD.background?probe(p0,"background-color",navD.background):null; m.p0.splitter.bgColor=splD&&splD.background?probe(p0,"background-color",splD.background):null;
+    m.p0.navmenu.color=cs(document.getElementById("p0-nav")).color; m.p0.splitter.color=cs(document.getElementById("p0-split")).color;
+    m.p1={progressDecl:declared(".cs-progress__fill"),scopes:[]};
+    Array.prototype.forEach.call(p1.querySelectorAll(".sc[data-scope]"),function(d){
+      var done=d.querySelector(".cs-step--done");
+      m.p1.scopes.push({key:d.getAttribute("data-scope"),name:d.querySelector(".lab span").textContent,panel:probe(d,"background-color","var(--cs-color-surface-panel)"),raised:probe(d,"background-color","var(--cs-color-surface-raised)"),page:probe(d,"background-color","var(--cs-color-surface-page)"),
+        accent:probe(d,"color","var(--cs-accent)"),textAccent:probe(d,"color","var(--cs-color-text-accent)"),
+        fill:bgc(d.querySelector(".cs-progress__fill")),track:cs(d.querySelector(".cs-progress")).backgroundColor,rating:cs(d.querySelector(".cs-rating button.on")).color,
+        today:bgc(d.querySelector(".cs-cal__grid button.today")),dot:cs(d.querySelector('.cs-carousel__dots button[aria-current="true"]'),"::before").backgroundColor,dotW:cs(d.querySelector('.cs-carousel__dots button[aria-current="true"]'),"::before").width,
+        dock:cs(d.querySelector(".cs-dock__item.is-active"),"::after").backgroundColor,dockBg:cs(d.querySelector(".cs-dock__item.is-active")).backgroundColor,dockW:cs(d.querySelector(".cs-dock__item.is-active"),"::after").width,
+        step:cs(done,"::after").backgroundColor,stepW:cs(done,"::after").width});
+    });
+    var p2=document.getElementById("p2");
+    m.p2={page:probe(p2,"background-color","var(--cs-color-surface-page)"),umber:probe(p2,"color","var(--cs-color-brand-umber)"),expectedRing:probe(p2,"color","color-mix(in oklab, var(--cs-color-border-default) 32%, transparent)"),
+      bubble:bgc(document.getElementById("p2-bubble")),avatar:bgc(document.getElementById("p2-avatar")),badge:bgc(document.getElementById("p2-badge")),umberFill:bgc(document.getElementById("p2-umber"))};
+    m.p3={controls:[]};
+    CONTROLS.forEach(function(c){var row={name:c[0],hook:c[1]};["light","dark"].forEach(function(t){var sc=p3.querySelector('.sc[data-scope="'+t+'"]');row[t]={danger:probe(sc,"color","var(--cs-color-semantic-danger)")};["cls","aria"].forEach(function(a){var host=sc.querySelector('.ctl[data-ctl="'+c[0]+'"][data-mode="'+a+'"]'),target=c[3]?host.querySelector(c[3]):host.children[1];row[t][a]=cs(target).borderTopColor;});});m.p3.controls.push(row);});
+    function lh(id){var e=document.getElementById(id),s=cs(e);return{lh:s.lineHeight,fs:s.fontSize,family:s.fontFamily};}
+    m.p4={disp:lh("p4-disp"),stat:lh("p4-stat"),dispEn:lh("p4-disp-en"),inkDisp:ink(document.getElementById("p4-disp")),inkStat:ink(document.getElementById("p4-stat"))};
+    m.theme=fx.theme; m.p5={props:GLASS,root:glassProps(document.getElementById("p5-root")),nest:glassProps(document.getElementById("p5-nest"))};
+    return m;
+  }
+  window.CSAudit25={measure:measure,ELS:ELS,CONTROLS:CONTROLS.map(function(c){return c[0]}),GLASS:GLASS};
+})();
+</script>
+</body>
+</html>

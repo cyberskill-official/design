@@ -1,11 +1,12 @@
+<!-- @dsCard group="Audit" viewport="1280x900" name="v2.4.0 suite · re-run on v2.5.0" subtitle="The 64 original checks, live against v2.5.0 · v2.4.0 · v2.3.1" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CyberSkill Design System · v2.4.0 verification audit</title>
+<title>CyberSkill Design System · v2.4.0 baseline suite re-run on v2.5.0</title>
 <link rel="icon" href="../assets/favicon.svg">
-<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="../dist/styles.css">
 <style>
 body{margin:0;background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);font-family:var(--cs-font-family-ui)}
 a{color:var(--cs-color-link)}a:hover{color:var(--cs-color-link-hover)}
@@ -41,6 +42,7 @@ a{color:var(--cs-color-link)}a:hover{color:var(--cs-color-link-hover)}
 .au-bar__fill{position:absolute;inset-block:0;inset-inline-start:0;border-radius:999px}
 .au-bar__fill.is-base{background:color-mix(in oklab,var(--cs-color-text-muted) 38%,transparent)}
 .au-bar__fill.is-cur{background:var(--cs-color-brand-ochre)}
+.au-bar__fill.is-mid{background:color-mix(in oklab,var(--cs-color-brand-ochre) 55%,var(--cs-color-surface-raised))}
 .au-bar span{position:relative;font:600 11px/22px var(--cs-font-family-mono);padding-inline:10px;color:var(--cs-color-text-primary)}
 .au-delta{font:800 18px var(--cs-font-family-ui);text-align:end;font-variant-numeric:tabular-nums}
 .au-delta.is-up{color:var(--cs-color-semantic-success-text)}.au-delta.is-down{color:var(--cs-color-semantic-danger-text)}
@@ -97,14 +99,14 @@ footer{padding:36px 0 48px;color:var(--cs-color-text-muted);font-size:13px}
 <header class="au-hero">
   <div class="au-wrap">
     <div>
-      <div class="au-lock"><img src="../assets/logo-mark.svg" alt="CyberSkill"><b>CyberSkill</b></div>
+      <div class="au-lock"><img src="../assets/logo-mark.svg" alt="CyberSkill"><b>CyberSkill</b><a href="v2.5.0-verification.html" style="margin-left:auto;color:var(--cs-color-brand-ochre);font-weight:700">← v2.5.0 workbench</a></div>
       <div class="au-eyebrow">Verification audit · Kiểm định phiên bản</div>
-      <h1>@cyberskill/design <em>v2.4.0</em> against the v2.3.1 baseline</h1>
-      <p>Every check below runs live in this browser: the same fixture is rendered with v2.4.0 <code>styles.css</code> and with the v2.3.1 release stylesheet, then the computed styles are compared. Mọi phép kiểm tra chạy trực tiếp trên trình duyệt này.</p>
-      <div class="au-meta"><span>v2.4.0 · 8163a39 + 2 audit fixes (working tree)</span><span>v2.3.1 · tag b514ac4</span><span>Theme × Element × Language × Style</span></div>
+      <h1>The v2.4.0 suite, re-run on <em>v2.5.0</em> against the v2.4.0 and v2.3.1 baselines</h1>
+      <p>The 64 checks of the v2.4.0 verification suite, unchanged, rendered with v2.5.0 <code>dist/styles.css</code> and with the flattened v2.4.0 and v2.3.1 tagged closures; computed styles are compared live in this browser. Mọi phép kiểm tra chạy trực tiếp trên trình duyệt này.</p>
+      <div class="au-meta"><span>v2.5.0 · this tree (dist/styles.css)</span><span>v2.4.0 · tag v2.4.0</span><span>v2.3.1 · tag v2.3.1</span><span>Theme × Element × Language × Style</span></div>
     </div>
     <div class="au-actions">
-      <div class="au-overall"><div><small>v2.3.1</small><b id="au-overall-base">–</b></div><div class="is-cur"><small>v2.4.0</small><b id="au-overall-cur">–</b></div></div>
+      <div class="au-overall"><div><small>v2.3.1</small><b id="au-overall-base">–</b></div><div><small>v2.4.0</small><b id="au-overall-mid">–</b></div><div class="is-cur"><small>v2.5.0</small><b id="au-overall-cur">–</b></div></div>
       <button class="cs-button cs-button--primary cs-button--md" id="au-run" type="button" style="background:var(--cs-color-brand-ochre);color:var(--cs-color-brand-umber)"><span class="cs-button__label">Re-run audit · Chạy lại</span></button>
       <button class="cs-button cs-button--ghost cs-button--sm" id="au-export" type="button" style="color:#fff"><span class="cs-button__label">Export JSON</span></button>
       <div class="au-status" id="au-status" role="status" aria-live="polite">Preparing…</div>
@@ -121,7 +123,7 @@ footer{padding:36px 0 48px;color:var(--cs-color-text-muted);font-size:13px}
   <div class="au-toolbar">
     <div class="au-seg" role="radiogroup" aria-label="Filter checks">
       <label><input type="radio" name="au-filter" value="all" checked><span>All</span></label>
-      <label><input type="radio" name="au-filter" value="fixed"><span>Fixed in v2.4.0</span></label>
+      <label><input type="radio" name="au-filter" value="fixed"><span>Fixed since v2.3.1</span></label>
       <label><input type="radio" name="au-filter" value="issues"><span>Open or regressed</span></label>
     </div>
     <div class="au-counts" id="au-counts"></div>
@@ -132,9 +134,9 @@ footer{padding:36px 0 48px;color:var(--cs-color-text-muted);font-size:13px}
 
 <section class="au-sec au-wrap" id="specimen" aria-labelledby="spec-h">
   <h2 id="spec-h">Live specimen<small>Mẫu trực tiếp · flip version, theme and element</small></h2>
-  <p class="au-lead">The fixture the checks measure. Compare v2.3.1 and v2.4.0 side by side: nested dark inside light, glass over aurora, rings in each Ngũ Hành scope, and Vietnamese display type.</p>
+  <p class="au-lead">The fixture the checks measure. Compare v2.3.1, v2.4.0 and v2.5.0: nested dark inside light, glass over aurora, rings in each Ngũ Hành scope, and Vietnamese display type.</p>
   <div class="au-spec-bar">
-    <label>Version<select id="au-sp-v"><option value="current">v2.4.0</option><option value="baseline">v2.3.1</option></select></label>
+    <label>Version<select id="au-sp-v"><option value="current">v2.5.0</option><option value="v240">v2.4.0</option><option value="baseline">v2.3.1</option></select></label>
     <label>Root theme<select id="au-sp-t"><option value="light">Light</option><option value="dark">Dark</option></select></label>
     <label>Glass element<select id="au-sp-e"><option value="">Thổ · default</option><option value="moc">Mộc</option><option value="hoa">Hỏa</option><option value="kim">Kim</option><option value="thuy">Thủy</option></select></label>
     <label>Jump to<select id="au-sp-a"><option value="fx-glass">1 · Nested theme &amp; glass</option><option value="fx-components">2 · Buttons &amp; combobox</option><option value="fx-rings">2 · Perimeter rings</option><option value="fx-type">3 · VN type &amp; tooltip</option></select></label>
@@ -166,7 +168,7 @@ footer{padding:36px 0 48px;color:var(--cs-color-text-muted);font-size:13px}
 <section class="au-sec au-wrap" id="s4" aria-labelledby="s4-h">
   <span class="au-num">04</span>
   <h2 id="s4-h">Guidelines, deck &amp; A4 document templates<small>tài liệu hướng dẫn · bộ slide · mẫu A4</small></h2>
-  <p class="au-lead">Values are read from each version's source; v2.4.0 is also rendered live and measured (shown as “live”).</p>
+  <p class="au-lead">Values are read from each version's source (v2.4.0 and v2.3.1 from their tags); v2.5.0 is also rendered live and measured (shown as “live”).</p>
   <div class="au-previews">
     <button class="cs-button cs-button--secondary cs-button--sm" type="button" data-preview="../guidelines/documents.html"><span class="cs-button__label">Document system card</span></button>
     <button class="cs-button cs-button--secondary cs-button--sm" type="button" data-preview="../ui_kits/deck/index.html"><span class="cs-button__label">Brand deck</span></button>
@@ -180,7 +182,7 @@ footer{padding:36px 0 48px;color:var(--cs-color-text-muted);font-size:13px}
   <h2 id="m-h">Method &amp; evidence<small>Phương pháp &amp; bằng chứng</small></h2>
   <div class="au-method" style="margin-top:16px">
     <div class="au-card">
-      <p><b>Baseline.</b> The v2.3.1 tag's flattened <code>dist/styles.min.css</code> and the tagged guideline, deck and template files are stored in <code>audit/baseline-v2.3.1/</code>. v2.4.0 uses the live source <code>styles.css</code> closure.</p>
+      <p><b>Baselines.</b> <code>audit/baseline-2.3.1/styles.flat.css</code> and <code>audit/baseline-2.4.0/styles.flat.css</code> flatten each tag's <code>styles.css</code> closure (the repository does not commit <code>dist/</code>); the tagged guideline, deck and template files for v2.3.1 are stored alongside, v2.4.0's are fetched from the tag. v2.5.0 uses this tree's <code>dist/styles.css</code>.</p>
       <ul>
         <li>Colours are compared after the browser resolves them; scrims are composited in sRGB over the scope's page colour.</li>
         <li>Non-text contrast uses WCAG relative luminance; a marker passes when its fill or its ring reaches 3:1 against the panel.</li>

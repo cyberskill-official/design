@@ -3,28 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CyberSkill · v2.4.0 audit fixture</title>
+<title>CyberSkill · v2.4.0 suite fixture (v2.5.0 · v2.4.0 · v2.3.1)</title>
 <script>
 (function () {
   var q = new URLSearchParams(location.search);
-  var v = q.get("v") === "baseline" ? "baseline" : "current";
+  var v = /^(baseline|v240)$/.test(q.get("v") || "") ? q.get("v") : "current";
   var root = q.get("root") === "dark" ? "dark" : "light";
   var el = q.get("el") || "";
   document.documentElement.setAttribute("data-theme", root);
   window.__fx = { v: v, root: root, el: el };
   window.__fxReady = new Promise(function (resolve) {
-    if (v === "current") {
-      var l = document.createElement("link");
-      l.rel = "stylesheet"; l.href = "../styles.css";
-      l.onload = function () { resolve(); }; l.onerror = function () { resolve(); };
-      document.head.appendChild(l);
-    } else {
-      var s = document.createElement("style");
-      s.id = "cs-baseline-css";
-      document.head.appendChild(s);
-      fetch("baseline-v2.3.1/dist/styles.min.css").then(function (r) { return r.text(); })
-        .then(function (t) { s.textContent = t; resolve(); }, function () { resolve(); });
-    }
+    var href = v === "current" ? "../dist/styles.css" : (v === "v240" ? "baseline-2.4.0/styles.flat.css" : "baseline-2.3.1/styles.flat.css");
+    var l = document.createElement("link");
+    l.rel = "stylesheet"; l.href = href;
+    l.onload = function () { resolve(); }; l.onerror = function () { resolve(); };
+    document.head.appendChild(l);
   });
 })();
 </script>

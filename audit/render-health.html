@@ -1,0 +1,86 @@
+<!-- @dsCard group="Audit" viewport="1280x720" name="Render health · all pages" subtitle="Every template, card and kit page in hidden frames — as authored, forced dark, high-contrast or any Ngũ Hành scope — flagging unstyled, unresolved, erroring, empty or low-contrast pages" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>CyberSkill · render health check</title>
+<style>body{margin:0;font:12px/1.4 ui-monospace,Menlo,monospace;background:#fff;color:#222;padding:10px}#frames iframe{width:1280px;height:900px;position:absolute;left:-20000px;top:0}table{border-collapse:collapse;width:100%}td,th{border-bottom:1px solid #ddd;padding:2px 6px;text-align:left;vertical-align:top}tr.bad td{background:#fde8e8}tr.warn td{background:#fff6d6}#sum{font-weight:700;margin-bottom:6px}</style></head>
+<body><h1 style="font:700 16px/1.3 ui-monospace,Menlo,monospace;margin:0 0 4px">Render health · every template, card and kit page</h1><p style="margin:0 0 10px;color:#666">Only problem rows are listed. Theme / contrast / element are forced on each page's &lt;html&gt; before probing. Columns: css = tokens resolved · ph = unresolved placeholders · err = runtime errors · cs = cs-* elements · ink = min text contrast (primary &amp; muted on page &amp; panel; floor 4.5:1, 7:1 under high contrast) · border = min hairline contrast vs page/panel.</p><form id="modes" style="display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin:0 0 10px;font:12px ui-monospace,Menlo,monospace">
+<label>set <select name="set"><option value="all">all (146)</option><option value="templates">templates</option><option value="cards">cards</option><option value="kits">kits</option></select></label>
+<label>theme <select name="theme"><option value="">as authored</option><option value="light">light</option><option value="dark">dark</option></select></label>
+<label>contrast <select name="contrast"><option value="">standard</option><option value="high">data-cs-contrast="high"</option><option value="more">emulate prefers-contrast: more</option></select></label>
+<label>element <select name="el"><option value="">none</option><option value="tho">tho</option><option value="moc">moc</option><option value="hoa">hoa</option><option value="kim">kim</option><option value="thuy">thuy</option></select></label>
+<label>variant <input name="va" size="8" placeholder="e.g. forest"></label>
+<button type="submit">Run</button>
+<a id="dl" href="#" download="render-health.json" hidden>Download JSON</a>
+</form>
+<div id="sum">starting…</div><table id="t"><thead><tr><th>#</th><th>page</th><th>css</th><th>ph</th><th>err</th><th>cs</th><th>ink</th><th>border</th><th>note</th></tr></thead><tbody></tbody></table><div id="frames"></div>
+<script>
+(async function(){
+  var T=["app-shell/AppShell","article/Article","auth/Auth","bod-deck/BodDeck","bod-investor-update/BodInvestorUpdate","bod-memo/BodMemo","bod-minutes/BodMinutes","bod-report/BodReport","bod-resolution/BodResolution","culture-event-invite/CultureEventInvite","dashboard/Dashboard","delivery-change-note/DeliveryChangeNote","delivery-kickoff/DeliveryKickoff","delivery-qbr-deck/DeliveryQbrDeck","delivery-runbook/DeliveryRunbook","delivery-status-email/DeliveryStatusEmail","doc-style-guide/DocStyleGuide","doc-suite-index/DocSuiteIndex","doc-templates/DocTemplates","email/Email","finance-dunning-email/FinanceDunningEmail","finance-expense-report/FinanceExpenseReport","finance-invoice/FinanceInvoice","finance-quote/FinanceQuote","hr-announcement/HrAnnouncement","hr-interview-kit/HrInterviewKit","hr-offboarding/HrOffboarding","hr-performance-review/HrPerformanceReview","hr-pip/HrPip","legal-msa/LegalMsa","legal-sow/LegalSow","marketing-campaign-brief/MarketingCampaignBrief","marketing-case-study/MarketingCaseStudy","marketing-launch/MarketingLaunch","marketing-newsletter/MarketingNewsletter","marketing-page/MarketingPage","marketing-press-release/MarketingPressRelease","marketing-social-kit/MarketingSocialKit","sales-one-pager/SalesOnePager","sales-proposal-deck/SalesProposalDeck","settings/Settings","slide-deck/SlideDeck","team-meeting-agenda/TeamMeetingAgenda","tech-incident-report/TechIncidentReport","tech-release-notes/TechReleaseNotes","tech-retro/TechRetro","tech-rfc/TechRfc","vn-appointment-transfer/VnAppointmentTransfer","vn-certificate-of-employment/VnCertificateOfEmployment","vn-code-of-conduct/VnCodeOfConduct","vn-compensation-regulation/VnCompensationRegulation","vn-contract-amendment/VnContractAmendment","vn-contractor-agreement/VnContractorAgreement","vn-data-protection-policy/VnDataProtectionPolicy","vn-disciplinary-case-file/VnDisciplinaryCaseFile","vn-disciplinary-schedule/VnDisciplinarySchedule","vn-employee-request/VnEmployeeRequest","vn-exit-handover/VnExitHandover","vn-foreign-employee-pack/VnForeignEmployeePack","vn-framework-agreement/VnFrameworkAgreement","vn-grassroots-democracy/VnGrassrootsDemocracy","vn-infosec-policy/VnInfosecPolicy","vn-internal-labor-regulations/VnInternalLaborRegulations","vn-internship-agreement/VnInternshipAgreement","vn-job-description/VnJobDescription","vn-labor-contract/VnLaborContract","vn-labour-management-book/VnLabourManagementBook","vn-mutual-nda/VnMutualNda","vn-ndnca-ip/VnNdncaIp","vn-offer-letter/VnOfferLetter","vn-onboarding-checklist/VnOnboardingChecklist","vn-pdpl-consent/VnPdplConsent","vn-performance-evaluation-regulation/VnPerformanceEvaluationRegulation","vn-performance-review-form/VnPerformanceReviewForm","vn-phantom-stock/VnPhantomStock","vn-probation-contract/VnProbationContract","vn-receipt-acknowledgement/VnReceiptAcknowledgement","vn-remote-work-policy/VnRemoteWorkPolicy","vn-resignation-letter/VnResignationLetter","vn-salary-scale/VnSalaryScale","vn-sow-appendix/VnSowAppendix","vn-termination-decision/VnTerminationDecision","vn-total-rewards-appendix/VnTotalRewardsAppendix","vn-training-commitment/VnTrainingCommitment","vn-travel-expense-policy/VnTravelExpensePolicy"].map(function(p){return "../templates/"+p+".dc.html"});
+  var G=["atomic-view","brand-iconography","brand-imagery","brand-interaction","brand-voice","colors-anchors","colors-semantic","colors-surfaces","colors-text","documents","elements-components","elements-concept","elements-geometry","elements-variants","motion-interaction","motion","responsive-bilingual","spacing-breakpoints","spacing-radius","spacing-scale","surfaces-aurora","surfaces-depth","surfaces-glass","surfaces-shadow","type-families","type-lineheight","type-scale","type-weights","rtl-preview"].map(function(p){return "../guidelines/"+p+".html"});
+  var C=["ai/ai-conversation.card","ai/ai-lumi.card","ai/ai.card","brand/brand.card","button/buttons.card","data/collections.card","data/data.card","datatable/datatable.card","dialog/dialog.card","feedback/feedback-2.card","feedback/feedback.card","forms/forms-2.card","forms/forms.card","i18n/i18n.card","icon/icon.card","logo/logo.card","navigation/navigation.card","navigation/shell.card","overlays/alertdialog.card","overlays/overlays.card","textfield/textfield.card"].map(function(p){return "../components/"+p+".html"});
+  var K=["../ui_kits/website/index.html","../ui_kits/website/work.html","../ui_kits/website/careers.html","../ui_kits/website/chat.html","../ui_kits/status-hub/index.html","../ui_kits/status-hub/login.html","../ui_kits/status-hub/project.html","../ui_kits/status-hub/settings.html","../ui_kits/deck/index.html","../templates/kitchen-sink.html","../thumbnail.html"];
+  var Q=new URLSearchParams(location.search.slice(1)+"&"+location.hash.replace(/^#\??/,""));var mode=Q.get("set")||"all",THEME=Q.get("theme")||"",CONTRAST=Q.get("contrast")||"",EL=Q.get("el")||"",VA=Q.get("va")||"";
+  var form=document.getElementById("modes");function fld(n){return form.querySelector('[name="'+n+'"]')}fld("set").value=mode;fld("theme").value=THEME;fld("contrast").value=CONTRAST;fld("el").value=EL;fld("va").value=VA;
+  form.addEventListener("submit",function(e){e.preventDefault();var p=new URLSearchParams();["set","theme","contrast","el","va"].forEach(function(k){if(fld(k).value)p.set(k,fld(k).value)});location.hash=p.toString();location.reload()});
+  var MODE_LABEL=[THEME&&"theme="+THEME,CONTRAST&&"contrast="+CONTRAST,EL&&"element="+EL+(VA?"/"+VA:"")].filter(Boolean).join(" · ")||"as authored";
+  var LIST=mode==="templates"?T:mode==="cards"?G.concat(C):mode==="kits"?K:T.concat(G,C,K);
+  var tb=document.querySelector("#t tbody"),sum=document.getElementById("sum"),frames=document.getElementById("frames");
+  var done=0,bad=0,warn=0,results=[];
+  function row(i,url,r){var tr=document.createElement("tr");tr.className=r.level;tr.innerHTML="<td>"+(i+1)+"</td><td>"+url.replace("../","")+"</td><td>"+r.css+"</td><td>"+r.ph+"</td><td>"+r.err+"</td><td>"+r.cs+"</td><td>"+(r.ink||"")+"</td><td>"+(r.border||"")+"</td><td>"+r.note+"</td>";if(r.level!=="ok")tb.appendChild(tr);}
+  function check(url){return new Promise(function(res){
+    var f=document.createElement("iframe");f.src=url;frames.appendChild(f);
+    var errs=[];var t0=Date.now();
+    var timer=setTimeout(function(){fin({note:"slow load (>40s)"})},40000);
+    f.onload=function(){
+      var w=f.contentWindow,d=f.contentDocument;
+      try{var h=d.documentElement;if(THEME)h.setAttribute("data-theme",THEME);if(CONTRAST==="high")h.setAttribute("data-cs-contrast","high");if(EL){h.setAttribute("data-cs-element",EL);if(VA)h.setAttribute("data-cs-variant",VA)}
+        if(CONTRAST==="more"){var st=d.createElement("style");st.textContent=":root{--_cs-standard:initial;--_cs-high: ;}";d.head.appendChild(st)}}catch(e){}
+      try{w.addEventListener("error",function(e){errs.push(String(e.message||e).slice(0,120))});w.addEventListener("unhandledrejection",function(e){errs.push("rej: "+String(e.reason&&e.reason.message||e.reason).slice(0,120))});}catch(e){}
+      var isDC=/\.dc\.html$/.test(url);
+      var waited=0;
+      (function poll(){
+        var ph=d.querySelectorAll(".sc-placeholder").length, streaming=d.querySelectorAll(".sc-streaming, .sc-streaming-html, .sc-streaming-js").length;
+        var settled=isDC?(ph===0&&streaming===0&&d.querySelector("[data-dc-root], .sc-host, x-dc > *, #root > *, body > *:not(script)")):true;
+        if((settled&&waited>=1800)||waited>=12000)return fin({});
+        waited+=300;setTimeout(poll,300);
+      })();
+    };
+    function fin(extra){
+      clearTimeout(timer);
+      var d=f.contentDocument,w=f.contentWindow,r={css:"?",ph:0,err:0,cs:0,note:extra.note||"",level:"ok"};
+      try{
+        /* re-apply the forced scope: pages with their own theme switcher (Atomic View) restore a saved theme on load */
+        var h2=d.documentElement;if(THEME)h2.setAttribute("data-theme",THEME);if(CONTRAST==="high")h2.setAttribute("data-cs-contrast","high");if(EL){h2.setAttribute("data-cs-element",EL);if(VA)h2.setAttribute("data-cs-variant",VA)}
+        var root=d.documentElement;var umber=w.getComputedStyle(root).getPropertyValue("--cs-color-brand-umber").trim();r.css=umber?"ok":"NO";
+        var phs=[].slice.call(d.querySelectorAll(".sc-placeholder"));r.ph=phs.length;
+        var phErr=[].slice.call(d.querySelectorAll(".sc-placeholder-error")).map(function(e){return e.textContent.slice(0,100)});
+        r.cs=d.querySelectorAll('[class^="cs-"],[class*=" cs-"]').length;
+        function pc(v){var i=d.createElement("i");i.style.cssText="position:absolute;width:1px;height:1px;overflow:hidden;color:"+v;d.body.appendChild(i);var c=w.getComputedStyle(i).color;i.remove();return c}
+        function lum(c){if(/^oklab\(/i.test(c)){var p=c.match(/-?[\d.]+/g).map(parseFloat),l=Math.pow(p[0]+0.3963377774*p[1]+0.2158037573*p[2],3),m2=Math.pow(p[0]-0.1055613458*p[1]-0.0638541728*p[2],3),s=Math.pow(p[0]-0.0894841775*p[1]-1.291485548*p[2],3);return Math.max(0,0.2126*(4.0767416621*l-3.3077115913*m2+0.2309699292*s)+0.7152*(-1.2684380046*l+2.6097574011*m2-0.3413193965*s)+0.0722*(-0.0041960863*l-0.7034186147*m2+1.707614701*s))}var m=c.match(/[\d.]+/g);if(!m)return 0;var ch=m.slice(0,3).map(function(x){x=parseFloat(x)/255;return x<=0.04045?x/12.92:Math.pow((x+0.055)/1.055,2.4)});return 0.2126*ch[0]+0.7152*ch[1]+0.0722*ch[2]}
+        function cr(a,b){var x=lum(a),y=lum(b);return (Math.max(x,y)+0.05)/(Math.min(x,y)+0.05)}
+        var tp=pc("var(--cs-color-text-primary)"),tm=pc("var(--cs-color-text-muted)"),pg=pc("var(--cs-color-surface-page)"),pn=pc("var(--cs-color-surface-panel)"),bd=pc("var(--cs-color-border-default)");
+        var minInk=Math.min(cr(tp,pg),cr(tp,pn),cr(tm,pg),cr(tm,pn)),border=Math.min(cr(bd,pg),cr(bd,pn));
+        r.ink=minInk.toFixed(2);r.border=border.toFixed(2);
+        var inkFloor=CONTRAST?7:4.5;var lowInk=minInk<inkFloor;var lowBorder=!!CONTRAST&&border<3;
+        r.err=errs.length;
+        var notes=[];if(lowInk)notes.push("ink contrast "+r.ink+":1 < "+inkFloor+":1");if(lowBorder)notes.push("border contrast "+r.border+":1 < 3:1 under high contrast");if(phErr.length)notes.push("placeholder errors: "+phErr.join(" | "));
+        if(phs.length)notes.push("unresolved: "+phs.map(function(p){return p.getAttribute("title")||"?"}).join(", "));
+        if(errs.length)notes.push(errs.slice(0,3).join(" | "));
+        var bodyText=(d.body&&d.body.innerText||"").trim();if(bodyText.length<10&&!/thumbnail/.test(url))notes.push("empty body text");
+        var missing=[].slice.call(d.querySelectorAll("img")).filter(function(i){return i.complete&&i.naturalWidth===0&&i.getAttribute("src")}).map(function(i){return i.getAttribute("src")});if(missing.length)notes.push("broken img: "+missing.join(", "));
+        var miss=[].slice.call(d.querySelectorAll("*")).filter(function(e){return e.children.length===0&&/^(Missing|Miss:|⚠ missing)/i.test(e.textContent.trim())}).length;if(miss)notes.push(miss+" <Miss> markers");
+        r.note+=(r.note?" · ":"")+notes.join(" · ");
+        if(r.css==="NO"||r.ph>0||phErr.length||errs.length||bodyText.length<10&&!/thumbnail/.test(url)||lowInk)r.level="bad";else if(missing.length||miss||lowBorder)r.level="warn";
+      }catch(e){r.note+=" probe error: "+e.message;r.level="bad"}
+      f.remove();res(r);
+    }
+  })}
+  var i=0,POOL=4;
+  async function worker(){while(i<LIST.length){var k=i++;var url=LIST[k];var r=await check(url);results[k]={url:url,r:r};done++;if(r.level==="bad")bad++;else if(r.level==="warn")warn++;row(k,url,r);sum.textContent=done+"/"+LIST.length+" checked · "+bad+" bad · "+warn+" warn"+(done===LIST.length?" · DONE":"");}}
+  await Promise.all([worker(),worker(),worker(),worker()]);
+  window.__batch=results;
+  var okRows=results.filter(function(x){return x.r.level==="ok"}).length;
+  var minInkAll=Math.min.apply(null,results.map(function(x){return parseFloat(x.r.ink)||99})),minBorderAll=Math.min.apply(null,results.map(function(x){return parseFloat(x.r.border)||99}));
+  sum.textContent=MODE_LABEL+" — "+sum.textContent+" · "+okRows+" ok · min ink "+minInkAll.toFixed(2)+":1 · min border "+minBorderAll.toFixed(2)+":1";
+  var dl=document.getElementById("dl");dl.href=URL.createObjectURL(new Blob([JSON.stringify({when:new Date().toISOString(),mode:{set:mode,theme:THEME,contrast:CONTRAST,element:EL,variant:VA},ua:navigator.userAgent,summary:{checked:done,ok:okRows,bad:bad,warn:warn,minInk:minInkAll,minBorder:minBorderAll},pages:results},null,2)],{type:"application/json"}));dl.hidden=false;
+})();
+</script></body></html>
