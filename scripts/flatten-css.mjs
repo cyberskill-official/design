@@ -5,11 +5,12 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const VERSION = readFileSync(join(ROOT, 'VERSION'), 'utf8').trim();
 const outPath = join(ROOT, 'dist', 'styles.css');
 const args = new Set(process.argv.slice(2));
 const checkOnly = args.has('--check');
 
-const HEADER = `/* CyberSkill Design System v2.5.0 — flattened build of ../styles.css (same closure, same order, no @import chain).
+const HEADER = `/* CyberSkill Design System v${VERSION} — flattened build of ../styles.css (same closure, same order, no @import chain).
  * Link THIS file from cards, kits and templates; keep editing the modular sources under tokens/ and base/ and
  * regenerate this file after any change. url() paths are already relative to dist/ (../fonts, ../assets). */
 

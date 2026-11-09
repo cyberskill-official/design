@@ -1,7 +1,7 @@
 # Kiểm chứng & đối soát upstream — cyberskill-official/design · v2.5.0
 
-Trạng thái: **Đã hợp nhất vào `main` (`v2.5.0`)**.
-Đã kiểm chứng trực tiếp trên trình duyệt: **50/50** phép kiểm tra `v2.5.0` (**10.0 / 10**), **64/64** phép kiểm tra cơ sở (**10.0 / 10**), và **146/146** trang hiển thị sạch qua các chế độ nguyên bản, ép tối và tương phản cao.
+Trạng thái: **Đã hợp nhất vào `main` (`v2.5.0`–`v2.6.0`)**.
+Đã kiểm chứng trực tiếp trên trình duyệt: **69/69** phép kiểm tra `D1`–`D10` (**10.0 / 10**), **64/64** phép kiểm tra cơ sở (**10.0 / 10**), và **146/146** trang hiển thị sạch qua các chế độ nguyên bản, ép tối và tương phản cao (`0 watch`).
 
 ## 1 · Các bản sửa lỗi đã triển khai
 
@@ -20,8 +20,8 @@ Trạng thái: **Đã hợp nhất vào `main` (`v2.5.0`)**.
 
 | Tệp | Mục đích |
 |---|---|
-| `audit/v2.5.0-verification.html`, `audit/verify-v2.5.0.js`, `audit/fixture-v2.5.0.html` | Bảng công cụ Kiểm chứng & Mẫu thử: 7 chiều đánh giá (`P0` an toàn nền pha sắc · `P1` tương phản WCAG 1.4.11 trên 32 phạm vi · `P2` tách lớp Umber, đồng bộ trạng thái không hợp lệ của 13 điều khiển, khoảng thoáng dấu tiếng Việt · `P3` kính lồng nhau, hợp đồng `DESIGN.md`/tài sản), 50 phép kiểm tra × `v2.5.0` / `v2.4.0` / `v2.3.1`, ma trận tương phản 32×6, báo cáo trường hợp biên, xuất JSON và bộ chuyển mẫu thử (`version × theme × element × variant`). |
-| `audit/v2.5.0-verification.json` | Biên nhận máy đọc từ lần chạy trình duyệt trực tiếp: `v2.5.0` đạt **10.0 / 10** (`50/50`, so với `v2.4.0` `3.2 / 10` `17/50` và `v2.3.1` `1.5 / 10` `6/50`); bộ cơ sở nhúng đạt **64/64** (`v2.4.0` tag đạt `62/64`, `v2.3.1` đạt `8/64`); sức khỏe hiển thị đạt **146/146**. |
+| `audit/v2.5.0-verification.html`, `audit/verify-v2.5.0.js`, `audit/fixture-v2.5.0.html` | Bảng công cụ Kiểm chứng & Mẫu thử: 10 chiều đánh giá (`P0` an toàn nền pha sắc · `P1` tương phản WCAG 1.4.11 trên 32 phạm vi · `P2` tách lớp Umber, đồng bộ trạng thái không hợp lệ của 14 điều khiển, khoảng thoáng dấu tiếng Việt · `P3` kính lồng nhau, hợp đồng `DESIGN.md`/tài sản · `D8`–`D10` Bất biến học thuyết: focus hai vòng, vùng chạm ≥ 44px & an toàn chuyển động, tương phản cao, mật độ & trạng thái ngữ nghĩa), 69 phép kiểm tra × `v2.5.0+` / `v2.4.0` / `v2.3.1`, ma trận tương phản 32×6, báo cáo trường hợp biên, xuất JSON và bộ chuyển mẫu thử (`version × theme × element × variant`). |
+| `audit/v2.5.0-verification.json`, `_audit/ci/verify-audit-benchmarks-browser.mjs` | Biên nhận máy đọc và cổng chống thoái lui tự động (`npm run test:audit-regression`): đạt **10.0 / 10** (`69/69` trên `D1`–`D10`), bộ cơ sở nhúng đạt **64/64** (`v2.4.0` tag đạt `62/64`, `v2.3.1` đạt `8/64`), sức khỏe hiển thị đạt **146/146**, và **0 watch**. |
 | `audit/render-health.html` | Nạp toàn bộ 146 mẫu tài liệu, thẻ thành phần và trang UI-kit/hướng dẫn trong các khung ẩn (theo nguyên bản / ép tối / tương phản cao / bất kỳ phạm vi Ngũ Hành nào) và xác nhận không có trang mất kiểu, chưa phân giải, lỗi runtime, trống hoặc thiếu tương phản. |
 | `audit/fixture.html`, `audit/verify.js`, `audit/v2.4.0-verification.html` | Bộ nạp ba phiên bản (`?v=current|v240|baseline`) chạy lại 64 phép kiểm tra cơ sở trên `v2.5.0`, `v2.4.0` và `v2.3.1`. |
 | `audit/baseline-2.4.0/styles.flat.css`, `audit/baseline-2.3.1/styles.flat.css` | Các bản đóng gói phẳng `styles.css` từ tag `v2.4.0` và `v2.3.1` phục vụ đối chiếu trực tiếp ba phiên bản. |

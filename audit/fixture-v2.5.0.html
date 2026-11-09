@@ -86,6 +86,43 @@ body{background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);
     <div class="sc" id="p5-nest" style="margin-top:10px"><span class="cs-surface-light" style="padding:8px 12px;border-radius:10px;display:inline-block">nested opposite theme</span></div></div>
 </div>
 
+<div class="fx-h">D8 · Focus appearance &amp; dual-ring contrast <span>:where(:focus-visible) · 2px text-primary contour + 5px ochre halo · zero bare outline:none</span></div>
+<div class="sc" id="p6">
+  <div class="pn row">
+    <button type="button" class="cs-button cs-button--primary" id="p6-btn"><span class="cs-button__label">Primary focus target</span></button>
+    <input class="cs-field__control" id="p6-inp" value="Focus field" aria-label="Focus field" style="max-inline-size:180px">
+    <div class="cs-tabs" role="tablist"><button type="button" class="cs-tab" role="tab" aria-selected="true" id="p6-tab">Tab</button></div>
+    <label class="cs-switch"><input type="checkbox" checked aria-label="Switch"><span class="cs-switch__track" id="p6-sw"></span></label>
+  </div>
+</div>
+
+<div class="fx-h">D9 · Touch target floor ≥ 44px &amp; reduced-motion safety <span>44px default &amp; coarse-pointer hit targets · prefers-reduced-motion 0.01ms clamp</span></div>
+<div class="sc" id="p7">
+  <div class="pn row">
+    <button type="button" class="cs-button" id="p7-btn"><span class="cs-button__label">Default 44px</span></button>
+    <button type="button" class="cs-button cs-button--lg" id="p7-btn-lg"><span class="cs-button__label">Large 52px</span></button>
+    <input class="cs-field__control" id="p7-inp" value="44px control" aria-label="44px control" style="max-inline-size:160px">
+    <div class="cs-datepicker"><button type="button" class="cs-datepicker__field" id="p7-dp">18/07/2026</button></div>
+    <div class="cs-dock"><button type="button" class="cs-dock__item" id="p7-dock" aria-label="Dock">⌂</button></div>
+  </div>
+</div>
+
+<div class="fx-h">D10 · High-contrast, density &amp; semantic status parity <span>[data-cs-contrast="high"] · [data-cs-density] · .cs-badge--{success,warning,danger,info}</span></div>
+<div class="sc" id="p8">
+  <div class="row" style="align-items:stretch">
+    <div class="pn" id="p8-hc" data-cs-contrast="high" style="flex:1 1 220px"><b style="font-size:12px">data-cs-contrast="high"</b><div style="color:var(--cs-color-text-muted);font-size:12px" id="p8-hc-muted">Muted text AAA floor</div></div>
+    <div class="pn" id="p8-den-compact" data-cs-density="compact" style="flex:1 1 120px"><b style="font-size:12px">compact</b></div>
+    <div class="pn" id="p8-den-default" style="flex:1 1 120px"><b style="font-size:12px">default</b></div>
+    <div class="pn" id="p8-den-comfort" data-cs-density="comfortable" style="flex:1 1 120px"><b style="font-size:12px">comfortable</b></div>
+  </div>
+  <div class="pn row" style="margin-top:10px">
+    <span class="cs-badge cs-badge--success" id="p8-b-success">Success</span>
+    <span class="cs-badge cs-badge--warning" id="p8-b-warning">Warning</span>
+    <span class="cs-badge cs-badge--danger" id="p8-b-danger">Danger</span>
+    <span class="cs-badge cs-badge--info" id="p8-b-info">Info</span>
+  </div>
+</div>
+
 <script>
 (function(){
   var fx=window.__fx;
@@ -140,6 +177,41 @@ body{background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);
   function ink(el){var s=cs(el),c=document.createElement("canvas").getContext("2d");c.font=fontOf(s);var m=c.measureText(el.textContent);return{ascent:m.actualBoundingBoxAscent,descent:m.actualBoundingBoxDescent,lh:s.lineHeight,fs:s.fontSize};}
   var GLASS=["--_cs-border-subtle","--_cs-border-strong","--_cs-surface-scrim","--cs-glass-whisper-bg","--cs-glass-whisper-border","--cs-glass-light-bg","--cs-glass-light-border","--cs-glass-standard-bg","--cs-glass-standard-border","--cs-glass-heavy-bg","--cs-glass-heavy-border"];
   function glassProps(scope){var o={};GLASS.forEach(function(p){o[p]=probe(scope,"background-color","var("+p+")");});return o;}
+  function scanCssContracts(){
+    var focusGlobal=null,focusCtls={},bareOutlineNone=[],coarseTargets={},coarseDots=false,reducedMotion=false,forcedColors={};
+    var FOCUS_CTLS=[".cs-button:focus-visible",".cs-field__control:focus-visible",".cs-tab:focus-visible",".cs-menu__item:focus-visible",".cs-switch input:focus-visible + .cs-switch__track"];
+    var COARSE_CTLS=[".cs-button--sm",".cs-button--xs",".cs-tab",".cs-menu__item",".cs-segmented button",".cs-pagination button",".cs-check",".cs-switch"];
+    var FORCED_CTLS=[".cs-switch__track",".cs-carousel__dots button[aria-current=\"true\"]",".cs-tab[aria-selected=\"true\"]",".cs-segmented button",".cs-toggle[aria-pressed=\"true\"]:not(:focus-visible)"];
+    Array.prototype.forEach.call(document.styleSheets,function(ss){
+      var rules;try{rules=ss.cssRules}catch(e){return}
+      function walk(rs,mediaCond){
+        Array.prototype.forEach.call(rs,function(r){
+          if(r.cssRules&&r.media){var mc=(r.conditionText||(r.media&&r.media.mediaText)||mediaCond||"").toLowerCase();walk(r.cssRules,mc);return}
+          if(!r.selectorText||!r.style)return;
+          var sel=r.selectorText,ct=(r.cssText||r.style.cssText||"");
+          if(!mediaCond){
+            var parts=sel.split(",").map(function(s){return s.trim()});
+            if(parts.indexOf(":where(:focus-visible)")>=0&&/text-primary/.test(ct)&&/ochre/.test(ct)){focusGlobal=ct}
+            FOCUS_CTLS.forEach(function(fc){if(parts.indexOf(fc)>=0&&/text-primary/.test(ct)&&/ochre/.test(ct))focusCtls[fc]=true});
+            if(/focus-visible/.test(sel)&&/outline(-style|-width)?\s*:\s*(none|0(px)?)\b/i.test(ct)&&!/box-shadow|border-color/i.test(ct)){bareOutlineNone.push(sel)}
+          }else if(mediaCond.indexOf("pointer: coarse")>=0){
+            var cparts=sel.split(",").map(function(s){return s.trim()});
+            COARSE_CTLS.forEach(function(cc){if(cparts.indexOf(cc)>=0&&/44px/.test(ct))coarseTargets[cc]=true});
+            if(cparts.indexOf('.cs-carousel__dots button[aria-current="true"]')>=0&&/radial-gradient/.test(ct)&&/text-accent/.test(ct))coarseDots=true;
+          }else if(mediaCond.indexOf("prefers-reduced-motion: reduce")>=0){
+            if(sel.indexOf("*")>=0&&/0\.01ms/.test(ct)&&/scroll-behavior:\s*auto/i.test(ct))reducedMotion=true;
+          }else if(mediaCond.indexOf("forced-colors: active")>=0){
+            var fparts=sel.split(",").map(function(s){return s.trim()});
+            FORCED_CTLS.forEach(function(fc){if(fparts.indexOf(fc)>=0)forcedColors[fc]=true});
+          }
+        });
+      }
+      walk(rules,"");
+    });
+    return{focusGlobal:focusGlobal,focusCtlsCount:Object.keys(focusCtls).length,focusCtlsTotal:FOCUS_CTLS.length,bareOutlineNone:bareOutlineNone,
+      coarseTargetsCount:Object.keys(coarseTargets).length,coarseTargetsTotal:COARSE_CTLS.length,coarseDots:coarseDots,
+      reducedMotion:reducedMotion,forcedColorsCount:Object.keys(forcedColors).length,forcedColorsTotal:FORCED_CTLS.length};
+  }
   function timeout(p,ms){return Promise.race([p,new Promise(function(r){setTimeout(r,ms)})]);}
 
   async function measure(){
@@ -174,6 +246,26 @@ body{background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);
     function lh(id){var e=document.getElementById(id),s=cs(e);return{lh:s.lineHeight,fs:s.fontSize,family:s.fontFamily};}
     m.p4={disp:lh("p4-disp"),stat:lh("p4-stat"),dispEn:lh("p4-disp-en"),inkDisp:ink(document.getElementById("p4-disp")),inkStat:ink(document.getElementById("p4-stat"))};
     m.theme=fx.theme; m.p5={props:GLASS,root:glassProps(document.getElementById("p5-root")),nest:glassProps(document.getElementById("p5-nest"))};
+    var cssContracts=scanCssContracts();
+    var p6=document.getElementById("p6");
+    m.p6={textPrimary:probe(p6,"color","var(--cs-color-text-primary)"),ochre:probe(p6,"color","var(--cs-color-accent-ochre)"),umber:probe(p6,"color","var(--cs-color-brand-umber)"),
+      panel:probe(p6,"background-color","var(--cs-color-surface-panel)"),page:probe(p6,"background-color","var(--cs-color-surface-page)"),css:cssContracts};
+    var rs=cs(document.documentElement);
+    m.p7={btnH:document.getElementById("p7-btn").getBoundingClientRect().height,btnLgH:document.getElementById("p7-btn-lg").getBoundingClientRect().height,
+      inpH:document.getElementById("p7-inp").getBoundingClientRect().height,dpH:document.getElementById("p7-dp").getBoundingClientRect().height,
+      dockW:document.getElementById("p7-dock").getBoundingClientRect().width,dockH:document.getElementById("p7-dock").getBoundingClientRect().height,
+      durations:["--cs-duration-instant","--cs-duration-fast","--cs-duration-base","--cs-duration-slow"].map(function(k){return parseFloat(rs.getPropertyValue(k))||0}),
+      css:cssContracts};
+    var p8=document.getElementById("p8"),hc=document.getElementById("p8-hc");
+    function denOf(id){var e=document.getElementById(id);return{space4:parseFloat(probe(e,"padding-top","var(--cs-density-space-4)")),btnPadY:parseFloat(probe(e,"padding-top","var(--cs-component-button-md-padding-y)")),btnPadX:parseFloat(probe(e,"padding-left","var(--cs-component-button-md-padding-x)")),tfPadY:parseFloat(probe(e,"padding-top","var(--cs-component-textfield-padding-y)"))};}
+    var badges={},solids={};
+    ["success","warning","danger","info"].forEach(function(k){
+      var b=document.getElementById("p8-b-"+k),bs=cs(b);badges[k]={bg:bs.backgroundColor,fg:bs.color};
+      solids[k]={bg:probe(p8,"background-color","var(--cs-color-semantic-"+k+")"),fg:probe(p8,"color","var(--cs-color-semantic-"+k+"-fg)")};
+    });
+    m.p8={hc:{muted:cs(document.getElementById("p8-hc-muted")).color,border:probe(hc,"border-top-color","var(--cs-color-border-default)"),panel:probe(hc,"background-color","var(--cs-color-surface-panel)")},
+      density:{compact:denOf("p8-den-compact"),default:denOf("p8-den-default"),comfortable:denOf("p8-den-comfort")},
+      badges:badges,solids:solids,css:cssContracts};
     return m;
   }
   window.CSAudit25={measure:measure,ELS:ELS,CONTROLS:CONTROLS.map(function(c){return c[0]}),GLASS:GLASS};

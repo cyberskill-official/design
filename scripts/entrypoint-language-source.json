@@ -5,8 +5,8 @@
     {
       "source": "README.md",
       "mirror": "docs/vi/entrypoints/README.md",
-      "sourceSha256": "de2724fc9efe4301e54043f3a0cbb7239309ee4b3f8a8b56b27ea34dbf9646a6",
-      "mirrorSha256": "f3e77e4fd56eb588b0cd2c9ccd23c2ad2875fb097cab7f38620abd146fb5eace"
+      "sourceSha256": "71d9c895a4826783f122ddd37251f5bf897040a3ef4ab8750828d76bcfedbb25",
+      "mirrorSha256": "7e3c3b0db55bec70e53dedb846452d8473c6d23c79a849d4dde5fd90bdd745c8"
     },
     {
       "source": "SKILL.md",

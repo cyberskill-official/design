@@ -1,4 +1,4 @@
-<!-- @dsCard group="Audit" viewport="1280x900" name="v2.5.0 Verification Audit & Specimen Workbench" subtitle="Live getComputedStyle() checks · 7 dimensions · v2.5.0 vs v2.4.0 vs v2.3.1 · 32-scope specimen switcher" -->
+<!-- @dsCard group="Audit" viewport="1280x900" name="v2.5.0 Verification Audit & Specimen Workbench" subtitle="Live getComputedStyle() checks · 10 dimensions · v2.5.0+ vs v2.4.0 vs v2.3.1 · 32-scope specimen switcher" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -103,11 +103,11 @@ footer{padding:36px 0 48px;color:var(--cs-color-text-muted);font-size:13px}
       <div class="au-lock"><img src="../assets/logo-mark.svg" alt="CyberSkill"><b>CyberSkill</b></div>
       <div class="au-eyebrow">Verification audit &amp; visual benchmark · Kiểm định phiên bản</div>
       <h1>@cyberskill/design <em>v2.5.0</em> against the v2.4.0 and v2.3.1 baselines</h1>
-      <p>Every check runs live in this browser: one fixture is rendered with v2.5.0 <code>dist/styles.css</code> and with the flattened v2.4.0 and v2.3.1 tagged closures, then <code>getComputedStyle()</code> values are compared across seven dimensions and 32 Theme × Element × Variant scopes. Mọi phép kiểm tra chạy trực tiếp trên trình duyệt này.</p>
-      <div class="au-meta"><span>v2.5.0 · this tree</span><span>v2.4.0 · tag v2.4.0</span><span>v2.3.1 · tag v2.3.1</span><span>Theme × Element × Language × Style</span><span>WCAG 1.4.11 · APCA doctrine</span></div>
+      <p>Every check runs live in this browser: one fixture is rendered with current <code>dist/styles.css</code> and with the flattened v2.4.0 and v2.3.1 tagged closures, then <code>getComputedStyle()</code> values are compared across ten dimensions (P0–P3 + Doctrine Immutables) and 32 Theme × Element × Variant scopes. Mọi phép kiểm tra chạy trực tiếp trên trình duyệt này.</p>
+      <div class="au-meta"><span>v2.5.0+ · this tree</span><span>v2.4.0 · tag v2.4.0</span><span>v2.3.1 · tag v2.3.1</span><span>Theme × Element × Language × Style</span><span>WCAG 1.4.11 · APCA doctrine</span></div>
     </div>
     <div class="au-actions">
-      <div class="au-overall"><div><small>v2.3.1</small><b id="au-overall-231">–</b></div><div><small>v2.4.0</small><b id="au-overall-240">–</b></div><div class="is-cur"><small>v2.5.0</small><b id="au-overall-250">–</b></div></div>
+      <div class="au-overall"><div><small>v2.3.1</small><b id="au-overall-231">–</b></div><div><small>v2.4.0</small><b id="au-overall-240">–</b></div><div class="is-cur"><small>v2.5.0+</small><b id="au-overall-250">–</b></div></div>
       <div class="au-headline" id="au-headline">Running…</div>
       <button class="cs-button cs-button--primary cs-button--md" id="au-run" type="button" style="background:var(--cs-color-brand-ochre);color:var(--cs-color-brand-umber)"><span class="cs-button__label">Re-run audit · Chạy lại</span></button>
       <button class="cs-button cs-button--ghost cs-button--sm" id="au-export" type="button" style="color:#fff"><span class="cs-button__label">Export JSON</span></button>
@@ -119,8 +119,8 @@ footer{padding:36px 0 48px;color:var(--cs-color-text-muted);font-size:13px}
 <main>
 <section class="au-sec au-wrap" id="score" aria-labelledby="score-h">
   <span class="au-num">01</span>
-  <h2 id="score-h">Scorecard — seven dimensions<small>Bảng điểm — bảy khía cạnh · 0–10, share of checks passing · delta = v2.5.0 − v2.4.0</small></h2>
-  <p class="au-lead">All three versions run identical checks; a dimension score is 10 × passed ÷ total. P0–P3 is the remediation priority each dimension carried in the v2.5.0 release notes.</p>
+  <h2 id="score-h">Scorecard — ten dimensions<small>Bảng điểm — mười khía cạnh · 0–10, share of checks passing · delta = current − v2.4.0</small></h2>
+  <p class="au-lead">All three versions run identical checks; a dimension score is 10 × passed ÷ total. D1–D7 verify the P0–P3 remediation targets; D8–D10 enforce the Doctrine Immutables (dual-ring focus, ≥ 44px touch targets &amp; motion safety, high-contrast, density &amp; semantic status contrast).</p>
   <div class="au-card" id="au-score"></div>
   <div class="au-toolbar">
     <div class="au-seg" role="radiogroup" aria-label="Filter checks">
@@ -160,7 +160,7 @@ footer{padding:36px 0 48px;color:var(--cs-color-text-muted);font-size:13px}
 
 <section class="au-sec au-wrap" id="checks" aria-labelledby="checks-h">
   <span class="au-num">04</span>
-  <h2 id="checks-h">Checks by dimension<small>D1 P0 tint safety · D2 P1 32-scope contrast · D3–D5 P2 · D6–D7 P3</small></h2>
+  <h2 id="checks-h">Checks by dimension<small>D1 P0 tint safety · D2 P1 32-scope contrast · D3–D5 P2 · D6–D7 P3 · D8–D10 Doctrine Immutables</small></h2>
   <div id="au-checks"></div>
 </section>
 
