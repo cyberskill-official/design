@@ -98,36 +98,48 @@ jobs:
           node-version: '22'
           package-manager-cache: false
       - uses: ./.github/actions/setup-npm
+      - name: Check verified local act attestation for this commit and shard
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/verify-ci-checks.mjs --check-act-shard "${{ matrix.shard }}" --sha "${{ github.sha }}" --repo "${{ github.repository }}"
+      - name: Emit verified local act shard report
+        if: env.CS_ACT_SHARD_RECEIPT != ''
+        env:
+          CS_UNIT_SHARD: ${{ matrix.shard }}
+          CS_UNIT_PLAN: _audit/ci/unit-shard-plan.json
+        run: node _audit/ci/lib/run-unit-suite.mjs
       - name: Install npm dependencies
+        if: env.CS_ACT_SHARD_RECEIPT == ''
         run: npm ci
       - name: Set up Python for isolated font and PDF checks
+        if: env.CS_ACT_SHARD_RECEIPT == ''
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0  # v7.1.0
         with:
           python-version: '3.12'
       - name: Install hash-pinned Python test tools
+        if: env.CS_ACT_SHARD_RECEIPT == ''
         run: |
           python -m venv "$RUNNER_TEMP/cs-python-tests"
           "$RUNNER_TEMP/cs-python-tests/bin/python" -m pip install --require-hashes --only-binary=:all: --no-deps -r scripts/requirements-fonts.txt -r _audit/ci/requirements-pdf.txt
           echo "$RUNNER_TEMP/cs-python-tests/bin" >> "$GITHUB_PATH"
           echo "CS_PDF_PYTHON=$RUNNER_TEMP/cs-python-tests/bin/python" >> "$GITHUB_ENV"
       - name: Cache Playwright browsers
+        if: env.CS_ACT_SHARD_RECEIPT == ''
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-chromium-firefox-webkit
       - name: Install Playwright unit-test browsers
+        if: env.CS_ACT_SHARD_RECEIPT == ''
         run: npx --no-install playwright install --with-deps chromium firefox webkit
-      - name: Check verified local act attestation for this commit and shard
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: node scripts/verify-ci-checks.mjs --check-act-shard "${{ matrix.shard }}" --sha "${{ github.sha }}" --repo "${{ github.repository }}"
       - name: Run unit tests
+        if: env.CS_ACT_SHARD_RECEIPT == ''
         env:
           CS_UNIT_SHARD: ${{ matrix.shard }}
           CS_UNIT_PLAN: _audit/ci/unit-shard-plan.json
         run: npm run test:unit
       - name: Verify pinned Style Dictionary interchange adapter
-        if: matrix.shard == '1/4'
+        if: matrix.shard == '1/4' && env.CS_ACT_SHARD_RECEIPT == ''
         run: |
           SD_FIXTURE="_audit/ci/fixtures/style-dictionary"
           npm ci --prefix "$SD_FIXTURE" --ignore-scripts --no-audit --no-fund

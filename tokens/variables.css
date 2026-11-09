@@ -392,7 +392,7 @@
   [data-theme="system"] { --_cs-light: ; --_cs-dark: initial; }
 }
 @media (prefers-contrast: more) {
-  :root { --_cs-standard: ; --_cs-high: initial; }
+  :root:where(:not([data-cs-contrast])) { --_cs-standard: ; --_cs-high: initial; }
 }
 [data-cs-contrast="standard"] { --_cs-standard: initial; --_cs-high: ; }
 [data-cs-contrast="high"] { --_cs-standard: ; --_cs-high: initial; }

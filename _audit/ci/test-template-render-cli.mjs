@@ -20,7 +20,7 @@ try {
  const receipt=await renderTemplate(options);
  assert.equal(receipt.language,'vi');
  const html=readFileSync(join(options.output,'template.html'),'utf8');
- assert(html.includes('HÓA ĐƠN'));assert(html.includes('Công ty Kiểm Chứng'));assert(html.includes('VERIFY-CONTENT-01'));assert(!html.includes('<script'));assert(html.includes('resources/dist/styles.min.css'));
+ assert(html.includes('HÓA ĐƠN'));assert(html.includes('Công ty Kiểm Chứng'));assert(html.includes('VERIFY-CONTENT-01'));assert(!html.includes('<script'));assert(html.includes('resources/dist/styles.css'));
  const browser=await chromium.launch();
  try {
   const page=await browser.newPage();const failures=[];

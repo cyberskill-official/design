@@ -45,10 +45,7 @@ export function replaceOwned(text,label,value) {
   return text.slice(0,text.indexOf(a))+a+'\n'+value+'\n'+b+text.slice(text.indexOf(b)+b.length);
 }
 export function inventoryOutputs(manifest,readme,atomic) {
-  const {groups,names}=publicInventory(manifest),aliases={Comment:'CsComment',Image:'CsImage'};
-  const binding='const {\n'+names.map(x=>'  '+(aliases[x]?`${x}: ${aliases[x]}`:x)+',').join('\n')+'\n} = NS;';
-  const nextAtomic=replaceOwned(atomic,'CATALOG COMPONENT BINDINGS',binding);
-  const index=atomicStoryIndex(nextAtomic,manifest),metadata=atomicMetadata(nextAtomic,names),tiers=new Map();
+  const {groups,names}=publicInventory(manifest),index=atomicStoryIndex(atomic,manifest),metadata=atomicMetadata(atomic,names),tiers=new Map();
   assert.equal(new Set(metadata.map(x=>x.name)).size,metadata.length,'Duplicate Atomic story name');
   for(const row of metadata){const observed=index.stories.find(x=>x.name===row.name);assert(observed&&observed.renderedTargets.length,`No actual render for ${row.name}`);if(!tiers.has(row.tier))tiers.set(row.tier,new Set());for(const name of observed.renderedTargets){assert(names.includes(name),`Unknown rendered export ${name}`);tiers.get(row.tier).add(name)}}
   const rows=[`Generated from the public source catalog and actual Atomic story AST. **${names.length} exports across ${groups.size} import groups**; kinds include components, constants and hooks. Inventory membership is not semantic or human acceptance.`, ''];
@@ -56,5 +53,8 @@ export function inventoryOutputs(manifest,readme,atomic) {
   rows.push('**Observed Atomic compositions** — these lists derive from actual JSX render targets in the authored tier stories, including reused children. A target can occur in more than one tier. Context-only providers, constants and hooks do not imply standalone visual specimens.','');
   for(const[tier,targets]of tiers)rows.push(`- **${tier}** — ${[...targets].sort().map(x=>'`'+x+'`').join(', ')}`,'');
   const nextReadme=replaceOwned(readme,'CATALOG COMPONENT INVENTORY',rows.join('\n').trim());
+  const aliases={Comment:'CsComment',Image:'CsImage'};
+  const binding='const {\n'+names.map(x=>'  '+(aliases[x]?`${x}: ${aliases[x]}`:x)+',').join('\n')+'\n} = NS;';
+  const nextAtomic=replaceOwned(atomic,'CATALOG COMPONENT BINDINGS',binding);
   return new Map([['README.md',nextReadme],['guidelines/atomic-view.html',nextAtomic]]);
 }

@@ -129,9 +129,6 @@ export async function waitForRequiredCiChecks({
 async function runCheckActShard({ repo, sha, shard }) {
   try {
     const token = process.env.GH_TOKEN || process.env.GITHUB_TOKEN;
-    const statuses = await githubApiGet(`/repos/${repo}/commits/${sha}/statuses?per_page=100`, token);
-    assert(Array.isArray(statuses), 'Malformed statuses response');
-
     const treeRes = spawnSync('git', ['rev-parse', '--verify', 'HEAD^{tree}'], {
       cwd: root,
       encoding: 'utf8',
@@ -145,13 +142,26 @@ async function runCheckActShard({ repo, sha, shard }) {
     const planSha256 = createHash('sha256').update(planBytes).digest('hex');
     const selected = selectSuites(registry, shard, plan);
 
-    const check = verifyActShardAttestation({
-      statuses,
-      shard,
-      treeSha,
-      planSha256,
-      expectedSuiteIds: selected.map(s => s.id),
-    });
+    let check = { verified: false, reason: 'uninitialized' };
+    // Poll briefly (up to 6 × 4s = 24s) so `git push` followed immediately by
+    // `npm run ci:act -- --post-status` does not race the runner's checkout step.
+    for (let attempt = 0; attempt < 6; attempt++) {
+      const statuses = await githubApiGet(`/repos/${repo}/commits/${sha}/statuses?per_page=100`, token);
+      assert(Array.isArray(statuses), 'Malformed statuses response');
+      check = verifyActShardAttestation({
+        statuses,
+        shard,
+        treeSha,
+        planSha256,
+        expectedSuiteIds: selected.map(s => s.id),
+      });
+      if (check.verified) break;
+      if (attempt < 5 && check.reason?.startsWith('No ci/act/')) {
+        await new Promise(r => setTimeout(r, 4000));
+      } else {
+        break;
+      }
+    }
 
     if (!check.verified) {
       console.log(`[act-shard] Local act fast-path not active for ${shard}: ${check.reason}`);

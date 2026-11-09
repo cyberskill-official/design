@@ -44,17 +44,17 @@ export function emitThemeResolver(root,packs,roleKeys) {
  * inherited public values. Unmarked descendants simply inherit.
  * The selector list matches the maximum existing element/variant specificity;
  * it supersedes legacy contextual declarations without !important.
- */\n:root {\n${lines(channels(light,dark))}\n  --_cs-standard: initial; /* @kind other */\n  --_cs-high: ; /* @kind other */\n}\n
-:root, [data-theme="light"], [data-theme="system"] { --_cs-light: initial; /* @kind other */ --_cs-dark: ; /* @kind other */ }
-[data-theme="dark"] { --_cs-light: ; /* @kind other */ --_cs-dark: initial; /* @kind other */ }
+ */\n:root {\n${lines(channels(light,dark))}\n  --_cs-standard: initial;\n  --_cs-high: ;\n}\n
+:root, [data-theme="light"], [data-theme="system"] { --_cs-light: initial; --_cs-dark: ; }
+[data-theme="dark"] { --_cs-light: ; --_cs-dark: initial; }
 @media (prefers-color-scheme: dark) {
-  [data-theme="system"] { --_cs-light: ; /* @kind other */ --_cs-dark: initial; /* @kind other */ }
+  [data-theme="system"] { --_cs-light: ; --_cs-dark: initial; }
 }
 @media (prefers-contrast: more) {
-  :root { --_cs-standard: ; /* @kind other */ --_cs-high: initial; /* @kind other */ }
+  :root:where(:not([data-cs-contrast])) { --_cs-standard: ; --_cs-high: initial; }
 }
-[data-cs-contrast="standard"] { --_cs-standard: initial; /* @kind other */ --_cs-high: ; /* @kind other */ }
-[data-cs-contrast="high"] { --_cs-standard: ; /* @kind other */ --_cs-high: initial; /* @kind other */ }
+[data-cs-contrast="standard"] { --_cs-standard: initial; --_cs-high: ; }
+[data-cs-contrast="high"] { --_cs-standard: ; --_cs-high: initial; }
 `;
   for(const p of packs){
     const l={},d={};

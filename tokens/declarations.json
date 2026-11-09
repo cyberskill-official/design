@@ -37,7 +37,7 @@
     },
     {
       "path": "tokens/elements.css",
-      "sha256": "6a81d93f507f9facb3f972c38c3f2e93667fcaadec4266e59796c9bd20484f88"
+      "sha256": "b6282cecc7e8b3c154530b36e62f36e9744c73c24e8ae59cbe1ea5650d3073cb"
     },
     {
       "path": "tokens/styles.css",
@@ -5899,7 +5899,7 @@
       "order": 351,
       "sourcePath": "tokens/elements.css",
       "line": 144,
-      "column": 94,
+      "column": 76,
       "name": "--_cs-dark",
       "value": " ",
       "important": false,
@@ -5931,7 +5931,7 @@
       "order": 353,
       "sourcePath": "tokens/elements.css",
       "line": 145,
-      "column": 56,
+      "column": 38,
       "name": "--_cs-dark",
       "value": "initial",
       "important": false,
@@ -5968,7 +5968,7 @@
       "order": 355,
       "sourcePath": "tokens/elements.css",
       "line": 147,
-      "column": 60,
+      "column": 42,
       "name": "--_cs-dark",
       "value": "initial",
       "important": false,
@@ -5989,7 +5989,7 @@
       "order": 356,
       "sourcePath": "tokens/elements.css",
       "line": 150,
-      "column": 11,
+      "column": 43,
       "name": "--_cs-standard",
       "value": " ",
       "important": false,
@@ -6002,7 +6002,7 @@
         },
         {
           "kind": "rule",
-          "selector": ":root"
+          "selector": ":root:where(:not([data-cs-contrast]))"
         }
       ]
     },
@@ -6010,7 +6010,7 @@
       "order": 357,
       "sourcePath": "tokens/elements.css",
       "line": 150,
-      "column": 47,
+      "column": 61,
       "name": "--_cs-high",
       "value": "initial",
       "important": false,
@@ -6023,7 +6023,7 @@
         },
         {
           "kind": "rule",
-          "selector": ":root"
+          "selector": ":root:where(:not([data-cs-contrast]))"
         }
       ]
     },
@@ -6047,7 +6047,7 @@
       "order": 359,
       "sourcePath": "tokens/elements.css",
       "line": 152,
-      "column": 76,
+      "column": 58,
       "name": "--_cs-high",
       "value": " ",
       "important": false,
@@ -6079,7 +6079,7 @@
       "order": 361,
       "sourcePath": "tokens/elements.css",
       "line": 153,
-      "column": 65,
+      "column": 47,
       "name": "--_cs-high",
       "value": "initial",
       "important": false,
