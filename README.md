@@ -8,7 +8,7 @@
 
 [![Design System Gates](https://github.com/cyberskill-official/design/actions/workflows/design-system-gates.yml/badge.svg)](https://github.com/cyberskill-official/design/actions/workflows/design-system-gates.yml)
 
-A warm, enterprise-grade, **Vietnamese-first** design system for **CyberSkill** — a Saigon software studio (est. 2020) that turns a clear *wish* into working software. Anchored on **Umber** and **Ochre**, guided by **Lumi** the golden genie, every surface resolves four independent axes: **Theme** (light · dark · system) × **Element** (Ngũ Hành product identity: Kim · Mộc · Thủy · Hỏa · Thổ, 15 variants) × **Language** (EN · VI) × **Style** (`data-cs-style` — sole pack **liquid-glass**; absent ≡ default). Consumers link one file: **`styles.css`**.
+A warm, enterprise-grade, **Vietnamese-first** design system for **CyberSkill** — a Saigon software studio (est. 2020) that turns a clear *wish* into working software. Anchored on **Umber** and **Ochre**, guided by **Lumi** the golden genie, every surface resolves four independent axes: **Theme** (light · dark · system) × **Element** (Ngũ Hành product identity: Kim · Mộc · Thủy · Hỏa · Thổ, 15 variants) × **Language** (EN · VI) × **Style** (`data-cs-style` — sole pack **liquid-glass**; absent ≡ default). Consumers link one file: **`styles.css`** (`dist/styles.css` is the same closure flattened into one file for environments that don't follow `@import` chains (card renderers, some sandboxes); regenerate with `npm run build:css` after editing `tokens/` or `base/`).
 
 ---
 
@@ -244,7 +244,7 @@ tokens/                    fonts · colors · typography · spacing · elevation
 base/                      reset · typography · components · forms · feedback · data · navigation · ai · controls · collections · shell · glass · interaction · a11y · responsive
 components/                button · textfield · dialog · datatable · forms · feedback · data · navigation · overlays · ai · logo · icon · brand
                            (each Name: Name.jsx + Name.d.ts + Name.prompt.md; one *.card.html per group)
-guidelines/                specimen cards (Colors · Type · Spacing · Surfaces · Brand · Motion · Elements · Responsive & Bilingual) · atomic-view.html
+guidelines/                specimen cards (Colors · Type · Spacing · Surfaces · Brand · Motion · Elements · Responsive & Bilingual; default to English, `?language=vi` for Vietnamese) · atomic-view.html
 templates/                 marketing-page · dashboard · slide-deck · auth · settings · app-shell · article · email (copyable .dc.html)
                            + team artifacts — tech (release/incident/rfc) · team (meeting-agenda) · hr (announcement) · board (report/deck/memo) · marketing (brief/newsletter/launch/case-study/press-release)
                            + business — legal (vn-mutual-nda / msa / sow; fictional legal-nda retired) · finance (invoice/quote) · sales (one-pager/proposal-deck) — letter print docs + client deck

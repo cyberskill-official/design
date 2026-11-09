@@ -46,3 +46,8 @@ export const Validation = {
   name: 'Validation',
   render: () => <Page path="docs/validation.md" title="Validation" />,
 };
+
+export const UpstreamPatches = {
+  name: 'Upstream patches',
+  render: () => <Page path="docs/UPSTREAM.md" title="Upstream patches" />,
+};

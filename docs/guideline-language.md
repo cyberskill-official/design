@@ -1,6 +1,6 @@
 # Vietnamese-first guideline views
 
-Authored guidelines under `guidelines/` open in Vietnamese. Every guideline also exposes its original English view through `?language=en`; `?lang=en` is an alias. The existing page path and `#fragment` bookmark remain valid. Use `?language=vi` for an explicit Vietnamese view. The Arabic `rtl-preview.html` page is an intentional bidirectional diagnostic and keeps its Arabic content and direction.
+Authored guidelines under `guidelines/` open in English by default and expose their Vietnamese view through `?language=vi`; `?lang=vi` is an alias (`?language=en` / `?lang=en` explicitly selects English). The existing page path and `#fragment` bookmark remain valid. The Arabic `rtl-preview.html` page is an intentional bidirectional diagnostic and keeps its Arabic content and direction.
 
 The Language axis updates actual guideline text and accessible image descriptions. It does not merely change the document's `lang`. Atomic View applies the same choice to its guideline chrome and embedded motion guideline. Its component examples retain their declared language behavior: examples using the language parameter follow the axis, fixed English examples have an English scope, and explicit Vietnamese labels remain Vietnamese within those examples. The Japanese component spike is retained; guideline prose itself supports Vietnamese and English.
 
@@ -22,4 +22,4 @@ The bilingual rollout also supplies missing document titles and corrects concret
 
 The focused checks validate every declared source owner in both views, accessible descriptions and subtree language, the actual source compiler/CSP, keyboard focus and native language selection, nested guideline synchronization and escaped-text behavior. Browser evidence distinguishes the desktop card canvas from touch controls and wider fixed specimens. Automated copy completeness and rendering checks do not establish linguistic quality or human visual/accessibility acceptance. Vietnamese translation acceptance remains unverified until reviewed by a human.
 
-The authored English HTML retains `lang="en"` when JavaScript is disabled or the language script cannot load. The executing runtime projects the selected copy before setting the document language; the default executing view is Vietnamese.
+The authored English HTML retains `lang="en"` when JavaScript is disabled or the language script cannot load. The executing runtime projects the selected copy before setting the document language; the default executing view is English (`?language=vi` for Vietnamese).

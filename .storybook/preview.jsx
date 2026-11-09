@@ -259,7 +259,8 @@ const preview = {
     "Sync",
     "Manual AT matrix",
     "Validation",
-    "Releasing"
+    "Releasing",
+    "Upstream patches"
   ]
 ],
           // cs-doc-sort:end

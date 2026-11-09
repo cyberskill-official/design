@@ -1,6 +1,7 @@
 {
   "generatedBy": "_audit/ci/test-docs-lang-parity.mjs",
   "tracked": [
+    "UPSTREAM.md",
     "benchmark-rubric.md",
     "browser-support.md",
     "ci-cd.md",

@@ -311,6 +311,12 @@
       "story": "Docs/Guides/Shared template layouts",
       "labelEn": "Shared template layouts",
       "labelVi": "Bố cục mẫu dùng chung"
+    },
+    {
+      "path": "docs/UPSTREAM.md",
+      "story": "Docs/Maintainers/Upstream patches",
+      "labelEn": "Upstream patch set",
+      "labelVi": "Bản vá upstream"
     }
   ]
 }

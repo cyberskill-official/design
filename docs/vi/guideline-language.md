@@ -1,6 +1,6 @@
 # Chế độ xem hướng dẫn ưu tiên tiếng Việt
 
-Hướng dẫn được biên soạn trong `guidelines/` mở bằng tiếng Việt. Mỗi hướng dẫn cũng có chế độ tiếng Anh gốc qua `?language=en`; `?lang=en` là bí danh. Đường dẫn trang và bookmark `#fragment` hiện có vẫn hợp lệ. Dùng `?language=vi` để chọn tiếng Việt rõ ràng. Trang `rtl-preview.html` tiếng Ả Rập là phép kiểm tra hai chiều có chủ ý, giữ nguyên nội dung và hướng chữ Ả Rập.
+Hướng dẫn được biên soạn trong `guidelines/` mặc định mở bằng tiếng Anh và cung cấp chế độ tiếng Việt qua `?language=vi`; `?lang=vi` là bí danh (`?language=en` / `?lang=en` chọn tiếng Anh rõ ràng). Đường dẫn trang và bookmark `#fragment` hiện có vẫn hợp lệ. Trang `rtl-preview.html` tiếng Ả Rập là phép kiểm tra hai chiều có chủ ý, giữ nguyên nội dung và hướng chữ Ả Rập.
 
 Trục Ngôn ngữ đổi văn bản hướng dẫn và mô tả ảnh hỗ trợ tiếp cận thực tế, không chỉ đổi `lang` của tài liệu. Atomic View áp dụng cùng lựa chọn cho giao diện hướng dẫn và hướng dẫn chuyển động được nhúng. Ví dụ component giữ hành vi ngôn ngữ đã khai báo: ví dụ dùng tham số ngôn ngữ theo trục, ví dụ tiếng Anh cố định có phạm vi tiếng Anh, còn nhãn tiếng Việt rõ ràng vẫn là tiếng Việt bên trong các ví dụ đó. Phép thử component tiếng Nhật được giữ lại; văn xuôi hướng dẫn chỉ hỗ trợ tiếng Việt và tiếng Anh.
 
@@ -22,4 +22,4 @@ Chính sách màu chỉ cho nguồn trong `scripts/guideline-hex-policy.json` gh
 
 Các kiểm tra tập trung xác minh mọi chủ sở hữu nguồn đã khai báo ở hai chế độ, mô tả hỗ trợ tiếp cận và ngôn ngữ cây con, compiler/CSP thực tế, tiêu điểm bàn phím và chọn ngôn ngữ bằng điều khiển native, đồng bộ hướng dẫn lồng và văn bản được escape. Bằng chứng trình duyệt phân biệt canvas thẻ trên máy tính với điều khiển chạm và mẫu có chiều rộng cố định. Kiểm tra tự động về độ đầy đủ và kết xuất không xác lập chất lượng ngôn ngữ hay nghiệm thu thị giác/hỗ trợ tiếp cận của con người. Nghiệm thu bản dịch tiếng Việt vẫn chưa được xác minh cho đến khi có người rà soát.
 
-HTML nguồn tiếng Anh giữ `lang="en"` khi JavaScript bị tắt hoặc không tải được tập lệnh ngôn ngữ. Runtime chiếu nội dung đã chọn trước khi đặt ngôn ngữ tài liệu; giao diện có thực thi mặc định là tiếng Việt.
+HTML nguồn tiếng Anh giữ `lang="en"` khi JavaScript bị tắt hoặc không tải được tập lệnh ngôn ngữ. Runtime chiếu nội dung đã chọn trước khi đặt ngôn ngữ tài liệu; giao diện có thực thi mặc định là tiếng Anh (`?language=vi` cho tiếng Việt).
