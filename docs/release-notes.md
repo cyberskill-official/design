@@ -28,6 +28,18 @@ These changes belong to the current revision working tree. They are not a publis
 
 Release remains pending human visual acceptance, required native/manual assistive-technology checks, provenance decisions, and acceptance of changed pilot artifacts. Changed support evidence requires fresh review in `components/lifecycle.json`. EN/VI is the intended language scope; Japanese remains a partial spike. No support expansion, deprecation or removal is authorized by this note.
 
+## Release — `@cyberskill/design@2.7.0`
+
+Published stable minor release recorded in `_audit/ci/fixtures/npm-published-release.json` (observed `2026-11-09T20:01:08.112Z`, tag `v2.7.0` at commit `d951d7d74077913d5d957f75c9d50d873b9dd937`).
+
+- **16-Dimension Live Browser Benchmark Suite (`audit/v2.5.0-verification.html`, `audit/verify-v2.5.0.js`, `audit/fixture-v2.5.0.html`, `_audit/ci/verify-audit-benchmarks-browser.mjs`):** Expands the automated live browser audit from 10 to **16 dimensions (`105/105` checks at `10.0 / 10`, `0 watch` items + `64/64` baseline checks = `169/169` total live browser assertions)** adding `D11` (APCA $L_c \ge 75$ body text & typographic rhythm), `D12` (7-tier `--cs-depth-*` z-index ladder & overlay scroll containment), `D13` (responsive container queries, safe areas & table reflow), `D14` (RTL logical properties, disabled/read-only hygiene & reduced-motion skeleton suppression), `D15` (`@media print`, `@media (forced-colors: active)` WHCM & brand immutables), and `D16` (5-axis `Theme × Element × Density × Contrast × Style` orthogonality & surface elevation physics).
+- **3-Engine Picker Focus Restoration & Vietnamese IME Guard Suite (`components/forms/TreeSelect.jsx`, `components/forms/Cascader.jsx`, `components/forms/ColorPicker.jsx`, `components/forms/SearchField.jsx`, `_audit/ci/test-picker-focus-ime-browser.mjs`):** Restores trigger focus across Chromium, Firefox, and WebKit when closing `DatePicker`, `TreeSelect`, `Cascader`, and `ColorPicker` via selection or `Escape` or clearing `SearchField`, and verifies `isComposing` IME Enter-key guards across `Combobox`, `TagInput`, `Mentions`, `PromptInput`, and `SearchField`.
+- **State-Machine Census & `fast-gates` Local `act` Attestation (`scripts/generate-state-inventory.mjs`, `_audit/state-machines.*`, `scripts/run-act-ci.mjs`, `scripts/verify-ci-checks.mjs`, `.github/workflows/design-system-gates.yml`):** Adds source-derived state-machine discovery with `InlineEdit` transition browser verification and extends commit/tree-bound local `act` attestation to `ci/act/fast-gates`.
+
+```bash
+npm install @cyberskill/design@2.7.0
+```
+
 ## Release — `@cyberskill/design@2.6.0`
 
 Published stable minor release recorded in `_audit/ci/fixtures/npm-published-release.json` (observed `2026-11-09T17:39:34.494Z`, tag `v2.6.0` at commit `48ed4be40e83bc6d5e2763b03111b07aa2c26df4`).

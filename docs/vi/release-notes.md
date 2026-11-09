@@ -28,6 +28,18 @@ Các thay đổi này thuộc working tree đang sửa đổi. Đây chưa phả
 
 Release vẫn chờ nghiệm thu thị giác của con người, kiểm tra native/công nghệ hỗ trợ thủ công bắt buộc, quyết định về nguồn gốc tài nguyên và nghiệm thu hiện vật pilot đã thay đổi. Bằng chứng hỗ trợ đã thay đổi phải được review lại trong `components/lifecycle.json`. EN/VI là phạm vi ngôn ngữ mục tiêu; tiếng Nhật vẫn là spike chưa đầy đủ. Ghi chú này không cho phép mở rộng cam kết hỗ trợ, deprecate hay loại bỏ API.
 
+## Release — `@cyberskill/design@2.7.0`
+
+Phiên bản minor ổn định đã công bố được ghi nhận trong `_audit/ci/fixtures/npm-published-release.json` (quan sát lúc `2026-11-09T20:01:08.112Z`, tag `v2.7.0` tại commit `d951d7d74077913d5d957f75c9d50d873b9dd937`).
+
+- **Bộ Benchmark trình duyệt trực tiếp 16 chiều (`audit/v2.5.0-verification.html`, `audit/verify-v2.5.0.js`, `audit/fixture-v2.5.0.html`, `_audit/ci/verify-audit-benchmarks-browser.mjs`):** Mở rộng bộ kiểm toán trình duyệt tự động từ 10 lên **16 chiều (`105/105` phép kiểm tra đạt `10.0 / 10`, `0 watch` + `64/64` phép kiểm tra cơ sở = `169/169` khẳng định trình duyệt trực tiếp)** với `D11` (tương phản văn bản thân bài APCA $L_c \ge 75$ & nhịp điệu chữ), `D12` (thang cao độ z-index 7 tầng `--cs-depth-*` & cô lập cuộn lớp phủ), `D13` (container query đáp ứng, vùng an toàn & bố cục lại bảng), `D14` (thuộc tính logic RTL, trạng thái vô hiệu/chỉ đọc & tắt nhấp nháy khung xương khi giảm chuyển động), `D15` (`@media print`, `@media (forced-colors: active)` WHCM & bất biến thương hiệu) và `D16` (tính trực giao 5 trục `Theme × Element × Density × Contrast × Style` & vật lý cao độ bề mặt).
+- **Bộ kiểm thử trả focus & bảo vệ bộ gõ tiếng Việt IME trên 3 engine (`components/forms/TreeSelect.jsx`, `components/forms/Cascader.jsx`, `components/forms/ColorPicker.jsx`, `components/forms/SearchField.jsx`, `_audit/ci/test-picker-focus-ime-browser.mjs`):** Đảm bảo trả focus về nút kích hoạt trên Chromium, Firefox và WebKit khi đóng `DatePicker`, `TreeSelect`, `Cascader`, `ColorPicker` hoặc xóa nhanh `SearchField`, đồng thời xác minh chốt chặn phím Enter khi đang gõ tổ hợp dấu tiếng Việt (`isComposing`) trên `Combobox`, `TagInput`, `Mentions`, `PromptInput` và `SearchField`.
+- **Kiểm kê máy trạng thái & Xác thực nhanh `fast-gates` qua `act` (`scripts/generate-state-inventory.mjs`, `_audit/state-machines.*`, `scripts/run-act-ci.mjs`, `scripts/verify-ci-checks.mjs`, `.github/workflows/design-system-gates.yml`):** Bổ sung bộ kiểm kê máy trạng thái từ mã nguồn cùng kiểm thử chuyển tiếp `InlineEdit` trên 3 trình duyệt và mở rộng biên nhận `act` gắn với commit/tree sang `ci/act/fast-gates`.
+
+```bash
+npm install @cyberskill/design@2.7.0
+```
+
 ## Release — `@cyberskill/design@2.6.0`
 
 Phiên bản minor ổn định đã công bố được ghi nhận trong `_audit/ci/fixtures/npm-published-release.json` (quan sát lúc `2026-11-09T17:39:34.494Z`, tag `v2.6.0` tại commit `48ed4be40e83bc6d5e2763b03111b07aa2c26df4`).

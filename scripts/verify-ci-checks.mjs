@@ -198,7 +198,10 @@ async function runCheckActFastGates({ repo, sha }) {
 
     const pixelBytes = readFileSync(join(root, '_audit/ci/pixel-diff-report.json'));
     const pixelReport = JSON.parse(pixelBytes);
-    assert.equal(pixelReport.failed, 0, 'pixel-diff-report.json has non-zero failed count');
+    assert(
+      Array.isArray(pixelReport.drifted) && pixelReport.drifted.length === 0 && pixelReport.captureFails === 0,
+      'pixel-diff-report.json has drifted > 0 or captureFails > 0'
+    );
     const pixelReportSha256 = createHash('sha256').update(pixelBytes).digest('hex');
 
     let check = { verified: false, reason: 'uninitialized' };

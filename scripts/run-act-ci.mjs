@@ -149,6 +149,7 @@ async function runLocalUnitShards({ shards, concurrency }) {
   mkdirSync(join(root, 'test-results'), { recursive: true });
   const pixelBytes = readFileSync(join(root, '_audit/ci/pixel-diff-report.json'));
   const pixelReport = JSON.parse(pixelBytes);
+  const pixelPass = Array.isArray(pixelReport.drifted) && pixelReport.drifted.length === 0 && pixelReport.captureFails === 0;
   const pixelReportSha256 = createHash('sha256').update(pixelBytes).digest('hex');
   const attestation = {
     schemaVersion: 1,
@@ -159,7 +160,7 @@ async function runLocalUnitShards({ shards, concurrency }) {
     shards: shardRecords,
     fastGates: {
       pixelReportSha256,
-      pass: pixelReport.failed === 0,
+      pass: pixelPass,
     },
   };
   writeFileSync(ATTESTATION_PATH, JSON.stringify(attestation, null, 2) + '\n');
@@ -261,7 +262,10 @@ export function stampCurrentAttestation() {
   }
   const pixelBytes = readFileSync(join(root, '_audit/ci/pixel-diff-report.json'));
   const pixelReport = JSON.parse(pixelBytes);
-  assert.equal(pixelReport.failed, 0, 'Cannot stamp fast-gates attestation when pixel-diff-report.json has failed > 0');
+  assert(
+    Array.isArray(pixelReport.drifted) && pixelReport.drifted.length === 0 && pixelReport.captureFails === 0,
+    'Cannot stamp fast-gates attestation when pixel-diff-report.json has drifted > 0 or captureFails > 0'
+  );
   const pixelReportSha256 = createHash('sha256').update(pixelBytes).digest('hex');
   mkdirSync(join(root, 'test-results'), { recursive: true });
   const attestation = {
