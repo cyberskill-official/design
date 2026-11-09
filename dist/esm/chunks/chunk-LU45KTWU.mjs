@@ -28,6 +28,7 @@ var SearchField = React.forwardRef(function SearchField2({ value, defaultValue =
     if (disabled || readOnly) return;
     set("");
     onClear && onClear();
+    ref.current?.querySelector("input")?.focus();
   } }, /* @__PURE__ */ React.createElement("svg", { width: "16", height: "16", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round" }, /* @__PURE__ */ React.createElement("path", { d: "M6 6l12 12M18 6L6 18" }))) : null);
 });
 SearchField.displayName = "SearchField";
@@ -35,4 +36,4 @@ SearchField.displayName = "SearchField";
 export {
   SearchField
 };
-//# sourceMappingURL=chunk-5FQGNCKS.mjs.map
+//# sourceMappingURL=chunk-LU45KTWU.mjs.map

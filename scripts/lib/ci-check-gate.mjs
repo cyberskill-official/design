@@ -184,3 +184,58 @@ export function verifyActShardAttestation({
     },
   };
 }
+
+export function formatActFastGatesStatus({ treeSha, pixelReportSha256 }) {
+  assert(HEX_40.test(treeSha), `Invalid 40-hex Git tree SHA: ${treeSha}`);
+  assert(HEX_64.test(pixelReportSha256), `Invalid 64-hex pixel report SHA-256: ${pixelReportSha256}`);
+  return {
+    context: 'ci/act/fast-gates',
+    state: 'success',
+    description: `act-v1 tree=${treeSha} pixel=${pixelReportSha256.slice(0, 16)}`,
+  };
+}
+
+/**
+ * Verifies whether a commit status list contains a valid commit- and tree-bound
+ * local `act` attestation for the `fast-gates` job.
+ */
+export function verifyActFastGatesAttestation({
+  statuses = [],
+  treeSha,
+  pixelReportSha256,
+} = {}) {
+  assert(Array.isArray(statuses), 'statuses must be an array');
+  assert(HEX_40.test(treeSha), `Invalid 40-hex Git tree SHA: ${treeSha}`);
+  assert(HEX_64.test(pixelReportSha256), `Invalid 64-hex pixel report SHA-256: ${pixelReportSha256}`);
+
+  const expectedContext = 'ci/act/fast-gates';
+  const expectedDesc = formatActFastGatesStatus({
+    treeSha,
+    pixelReportSha256,
+  }).description;
+
+  const matching = statuses.find(s => s && s.context === expectedContext);
+  if (!matching) {
+    return { verified: false, reason: `No ${expectedContext} status on commit` };
+  }
+  if (matching.state !== 'success') {
+    return { verified: false, reason: `Status ${expectedContext} state is ${matching.state}` };
+  }
+  if (matching.description !== expectedDesc) {
+    return {
+      verified: false,
+      reason: `Status ${expectedContext} description mismatch (expected "${expectedDesc}", got "${matching.description}")`,
+    };
+  }
+
+  return {
+    verified: true,
+    receipt: {
+      schemaVersion: 1,
+      job: 'fast-gates',
+      treeSha,
+      pixelReportSha256,
+      pass: true,
+    },
+  };
+}

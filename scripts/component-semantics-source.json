@@ -3291,7 +3291,7 @@
           {
             "statement": "Current ColorPicker rendered return paths include overlayScopeContext.Provider; named authored parts include cs-colorpicker__pop, cs-colorpicker__grid, cs-colorpicker__hex. Nested and conditional markup is bounded by these source excerpts; this does not establish stable DOM-part APIs.",
             "sourcePath": "components/forms/ColorPicker.jsx",
-            "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+            "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
             "sourceSnippets": [
               "<overlayScopeContext.Provider value={scope}>",
               "<span ref={floatingRef} className=\"cs-colorpicker__pop\" role=\"dialog\" aria-label={control[\"aria-labelledby\"] ? undefined : (controlProps?.[\"aria-label\"] || label || t(\"label\"))} aria-labelledby={control[\"aria-labelledby\"]}>",
@@ -3314,7 +3314,7 @@
           {
             "statement": "Rendered content inputs include description, error, label at the recorded child positions. Their types remain in the canonical API; the excerpts preserve conditional and render-function branches rather than promising every input is always visible.",
             "sourcePath": "components/forms/ColorPicker.jsx",
-            "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+            "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
             "sourceSnippets": [
               "{open ? (\n        floating.render(<span ref={floatingRef} className=\"cs-colorpicker__pop\" role=\"dialog\" aria-label={control[\"aria-labelledby\"] ? undefined : (controlProps?.[\"aria-label\"] || label || t(\"label\"))} aria-labelledby={control[\"aria-labelledby\"]}>\n          <span className=\"cs-colorpicker__grid\">\n            {swatches.map((s) => (\n              <button key={s} type=\"button\" aria-label={s} aria-pressed={s.toLowerCase() === String(value).toLowerCase()} style={{ background: s }} className={s.toLowerCase() === String(value).toLowerCase() ? \"on\" : undefined}\n                onClick={() => { onChange && onChange(s); setOpen(false); }} />\n            ))}\n          </span>\n          <span className=\"cs-colorpicker__hex\">\n            <input value={hex} aria-label={t(\"hex\")} onChange={(e) => setHex(e.target.value)}\n              onKeyDown={(e) => { if (e.nativeEvent.isComposing || e.keyCode === 229) return; if (e.key === \"Enter\") { e.preventDefault(); commit(hex); setOpen(false); } }} onBlur={() => commit(hex)} />\n          </span>\n        </span>)\n      ) : null}",
               "{fieldMessages(control, description, error, requiredDescription)}"
@@ -3325,7 +3325,7 @@
           {
             "statement": "The current source constructs or attaches these role values: dialog; native button, input elements also appear. Role/state validity and full assistive-technology behavior are separate from this source inventory.",
             "sourcePath": "components/forms/ColorPicker.jsx",
-            "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+            "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
             "sourceSnippets": [
               "<span ref={floatingRef} className=\"cs-colorpicker__pop\" role=\"dialog\" aria-label={control[\"aria-labelledby\"] ? undefined : (controlProps?.[\"aria-label\"] || label || t(\"label\"))} aria-labelledby={control[\"aria-labelledby\"]}>"
             ]
@@ -3335,7 +3335,7 @@
           {
             "statement": "Current native/ARIA state attributes and conditional modifier classes are assigned by the expressions in these ColorPicker excerpts. They document those conditions, not exhaustive transitions or all prop combinations.",
             "sourcePath": "components/forms/ColorPicker.jsx",
-            "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+            "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
             "sourceSnippets": [
               "\"aria-invalid\": controlProps?.[\"aria-invalid\"]",
               "open: open",
@@ -3351,7 +3351,7 @@
           {
             "statement": "Authored keyboard handling is attached at these source positions and directly checks \"Enter\". The exact handler/delegation expressions bound this observation; only separately mapped runtime assertions establish tested effects.",
             "sourcePath": "components/forms/ColorPicker.jsx",
-            "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+            "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
             "sourceSnippets": [
               "onKeyDown={(e) => { if (e.nativeEvent.isComposing || e.keyCode === 229) return; if (e.key === \"Enter\") { e.preventDefault(); commit(hex); setOpen(false); } }}"
             ]
@@ -3359,7 +3359,7 @@
           {
             "statement": "This render registers its overlay layer with these exact open/kind/trapFocus/onEscape options. The shared manager determines top-layer Escape and any opted-in modal Tab trap; native controls and separate assertions supply the remaining keyboard evidence.",
             "sourcePath": "components/forms/ColorPicker.jsx",
-            "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+            "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
             "sourceSnippets": [
               "useOverlayLayer({ open: (open) && floating.ready, kind: \"popover\", panelRef: floatingRef, surfaceKey: floating.surfaceKey, onEscape: () => setOpen(false) })"
             ]
@@ -3377,7 +3377,7 @@
           {
             "statement": "This anchored surface delegates logical focus ordering using these local floating-panel options; physical portal placement does not by itself define keyboard order.",
             "sourcePath": "components/forms/ColorPicker.jsx",
-            "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+            "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
             "sourceSnippets": [
               "useFloatingPanel({ open: open, anchorRef: wrap, panelRef: floatingRef, portal, placement: placement ?? \"bottom-start\", gap: 6, getAnchor: ()=>wrap.current?.querySelector(\":scope > button\"), lang })"
             ]
@@ -3438,7 +3438,7 @@
           {
             "statement": "Current TreeSelect rendered return paths include overlayScopeContext.Provider; named authored parts include cs-treeselect__pop. Nested and conditional markup is bounded by these source excerpts; this does not establish stable DOM-part APIs.",
             "sourcePath": "components/forms/TreeSelect.jsx",
-            "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+            "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
             "sourceSnippets": [
               "<overlayScopeContext.Provider value={scope}>",
               "<div ref={floatingRef} className=\"cs-treeselect__pop\">"
@@ -3459,7 +3459,7 @@
           {
             "statement": "Rendered content inputs include description, error at the recorded child positions. Their types remain in the canonical API; the excerpts preserve conditional and render-function branches rather than promising every input is always visible.",
             "sourcePath": "components/forms/TreeSelect.jsx",
-            "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+            "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
             "sourceSnippets": [
               "{fieldMessages(control, description, error, requiredDescription)}"
             ]
@@ -3469,9 +3469,9 @@
           {
             "statement": "The authored markup uses native button elements. Their native semantics remain bounded by these source excerpts; caller attributes and composed descendants require their own review.",
             "sourcePath": "components/forms/TreeSelect.jsx",
-            "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+            "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
             "sourceSnippets": [
-              "<button {...mergeTargetProps({ ...control, type: \"button\", className: \"cs-treeselect__field\", disabled, \"aria-haspopup\": \"tree\", \"aria-expanded\": open, onClick: () => setOpen(o => !o) }, controlProps, [\"id\", \"role\", \"type\", \"name\", \"value\", \"defaultValue\", \"disabled\", \"required\", \"aria-required\", \"aria-label\", \"aria-labelledby\", \"aria-describedby\", \"aria-invalid\", \"aria-haspopup\", \"aria-expanded\", \"aria-controls\", \"aria-activedescendant\"])} ref={mergedControlRef} >"
+              "<button {...mergeTargetProps({ ...control, type: \"button\", className: \"cs-treeselect__field\", disabled, \"aria-haspopup\": \"tree\", \"aria-expanded\": open, onClick: event => { if (!open) event.currentTarget.focus(); setOpen(o => !o); } }, controlProps, [\"id\", \"role\", \"type\", \"name\", \"value\", \"defaultValue\", \"disabled\", \"required\", \"aria-required\", \"aria-label\", \"aria-labelledby\", \"aria-describedby\", \"aria-invalid\", \"aria-haspopup\", \"aria-expanded\", \"aria-controls\", \"aria-activedescendant\"])} ref={mergedControlRef} >"
             ]
           }
         ],
@@ -3479,13 +3479,13 @@
           {
             "statement": "Current native/ARIA state attributes and conditional modifier classes are assigned by the expressions in these TreeSelect excerpts. They document those conditions, not exhaustive transitions or all prop combinations.",
             "sourcePath": "components/forms/TreeSelect.jsx",
-            "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+            "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
             "sourceSnippets": [
               "\"aria-invalid\": controlProps?.[\"aria-invalid\"]",
               "open: open",
               "open: (open) && floating.ready",
               "<overlayScopeContext.Provider value={scope}>",
-              "{ ...control, type: \"button\", className: \"cs-treeselect__field\", disabled, \"aria-haspopup\": \"tree\", \"aria-expanded\": open, onClick: () => setOpen(o => !o) }",
+              "{ ...control, type: \"button\", className: \"cs-treeselect__field\", disabled, \"aria-haspopup\": \"tree\", \"aria-expanded\": open, onClick: event => { if (!open) event.currentTarget.focus(); setOpen(o => !o); } }",
               "\"aria-expanded\": open",
               "<span className={sel ? undefined : \"ph\"}>",
               "<span aria-hidden=\"true\">"
@@ -3496,15 +3496,15 @@
           {
             "statement": "The current render includes native button controls. This source entry identifies those native keyboard targets; it does not add composite key bindings or infer behavior from caller handlers or descendant components.",
             "sourcePath": "components/forms/TreeSelect.jsx",
-            "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+            "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
             "sourceSnippets": [
-              "<button {...mergeTargetProps({ ...control, type: \"button\", className: \"cs-treeselect__field\", disabled, \"aria-haspopup\": \"tree\", \"aria-expanded\": open, onClick: () => setOpen(o => !o) }, controlProps, [\"id\", \"role\", \"type\", \"name\", \"value\", \"defaultValue\", \"disabled\", \"required\", \"aria-required\", \"aria-label\", \"aria-labelledby\", \"aria-describedby\", \"aria-invalid\", \"aria-haspopup\", \"aria-expanded\", \"aria-controls\", \"aria-activedescendant\"])} ref={mergedControlRef} >"
+              "<button {...mergeTargetProps({ ...control, type: \"button\", className: \"cs-treeselect__field\", disabled, \"aria-haspopup\": \"tree\", \"aria-expanded\": open, onClick: event => { if (!open) event.currentTarget.focus(); setOpen(o => !o); } }, controlProps, [\"id\", \"role\", \"type\", \"name\", \"value\", \"defaultValue\", \"disabled\", \"required\", \"aria-required\", \"aria-label\", \"aria-labelledby\", \"aria-describedby\", \"aria-invalid\", \"aria-haspopup\", \"aria-expanded\", \"aria-controls\", \"aria-activedescendant\"])} ref={mergedControlRef} >"
             ]
           },
           {
             "statement": "This render registers its overlay layer with these exact open/kind/trapFocus/onEscape options. The shared manager determines top-layer Escape and any opted-in modal Tab trap; native controls and separate assertions supply the remaining keyboard evidence.",
             "sourcePath": "components/forms/TreeSelect.jsx",
-            "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+            "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
             "sourceSnippets": [
               "useOverlayLayer({ open: (open) && floating.ready, kind: \"popover\", panelRef: floatingRef, surfaceKey: floating.surfaceKey, onEscape: () => setOpen(false) })"
             ]
@@ -3522,7 +3522,7 @@
           {
             "statement": "This anchored surface delegates logical focus ordering using these local floating-panel options; physical portal placement does not by itself define keyboard order.",
             "sourcePath": "components/forms/TreeSelect.jsx",
-            "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+            "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
             "sourceSnippets": [
               "useFloatingPanel({ open: open, anchorRef: wrap, panelRef: floatingRef, portal, placement: placement ?? \"bottom-start\", gap: 6, getAnchor: ()=>wrap.current?.querySelector(\":scope > button\"), lang })"
             ]
@@ -3708,7 +3708,7 @@
           {
             "statement": "Current Cascader rendered return paths include overlayScopeContext.Provider; named authored parts include cs-cascader__pop, cs-cascader__col. Nested and conditional markup is bounded by these source excerpts; this does not establish stable DOM-part APIs.",
             "sourcePath": "components/forms/Cascader.jsx",
-            "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+            "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
             "sourceSnippets": [
               "<overlayScopeContext.Provider value={scope}>",
               "<div ref={floatingRef} className=\"cs-cascader__pop\">",
@@ -3730,7 +3730,7 @@
           {
             "statement": "Rendered content inputs include description, error, label at the recorded child positions. Their types remain in the canonical API; the excerpts preserve conditional and render-function branches rather than promising every input is always visible.",
             "sourcePath": "components/forms/Cascader.jsx",
-            "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+            "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
             "sourceSnippets": [
               "{labels.length ? labels.map((label, index) => <React.Fragment key={index}>{index ? <React.Fragment>{\" \"}<span aria-hidden=\"true\">/</span>{\" \"}</React.Fragment> : null}{label}</React.Fragment>) : ph}",
               "{label}",
@@ -3742,7 +3742,7 @@
           {
             "statement": "The current source constructs or attaches these role values: listbox, none, option; native button elements also appear. Role/state validity and full assistive-technology behavior are separate from this source inventory.",
             "sourcePath": "components/forms/Cascader.jsx",
-            "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+            "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
             "sourceSnippets": [
               "<ul key={i} role=\"listbox\" aria-labelledby={control[\"aria-labelledby\"] || control.id} className=\"cs-cascader__col\">",
               "<li key={n.key} role=\"none\">",
@@ -3754,13 +3754,13 @@
           {
             "statement": "Current native/ARIA state attributes and conditional modifier classes are assigned by the expressions in these Cascader excerpts. They document those conditions, not exhaustive transitions or all prop combinations.",
             "sourcePath": "components/forms/Cascader.jsx",
-            "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+            "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
             "sourceSnippets": [
               "\"aria-invalid\": controlProps?.[\"aria-invalid\"]",
               "open: open",
               "open: (open) && floating.ready",
               "<overlayScopeContext.Provider value={scope}>",
-              "{ ...control, type: \"button\", className: \"cs-treeselect__field\", disabled, \"aria-haspopup\": \"listbox\", \"aria-expanded\": open, onClick: () => setOpen(o => !o), onKeyDown: (e) => {\n          if (e.defaultPrevented || e.nativeEvent.isComposing || e.nativeEvent.keyCode === 229) return;\n          // Once open, the document handler owns arrows from this trigger too.\n          if (open && e.key === \"ArrowDown\") return;\n          if (e.key === \"ArrowDown\" || e.key === \"Enter\" || e.key === \" \") {\n            e.preventDefault();\n            setOpen(true);\n          }\n        } }",
+              "{ ...control, type: \"button\", className: \"cs-treeselect__field\", disabled, \"aria-haspopup\": \"listbox\", \"aria-expanded\": open, onClick: event => { if (!open) event.currentTarget.focus(); setOpen(o => !o); }, onKeyDown: (e) => {\n          if (e.defaultPrevented || e.nativeEvent.isComposing || e.nativeEvent.keyCode === 229) return;\n          // Once open, the document handler owns arrows from this trigger too.\n          if (open && e.key === \"ArrowDown\") return;\n          if (e.key === \"ArrowDown\" || e.key === \"Enter\" || e.key === \" \") {\n            e.preventDefault();\n            setOpen(true);\n          }\n        } }",
               "\"aria-expanded\": open",
               "<span className={labels.length ? undefined : \"ph\"}>",
               "<span aria-hidden=\"true\">/</span>"
@@ -3771,7 +3771,7 @@
           {
             "statement": "Authored keyboard handling is attached at these source positions and directly checks \"ArrowDown\", \"Enter\", \" \". The exact handler/delegation expressions bound this observation; only separately mapped runtime assertions establish tested effects.",
             "sourcePath": "components/forms/Cascader.jsx",
-            "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+            "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
             "sourceSnippets": [
               "onKeyDown: (e) => {\n          if (e.defaultPrevented || e.nativeEvent.isComposing || e.nativeEvent.keyCode === 229) return;\n          // Once open, the document handler owns arrows from this trigger too.\n          if (open && e.key === \"ArrowDown\") return;\n          if (e.key === \"ArrowDown\" || e.key === \"Enter\" || e.key === \" \") {\n            e.preventDefault();\n            setOpen(true);\n          }\n        }"
             ]
@@ -3779,7 +3779,7 @@
           {
             "statement": "This render registers its overlay layer with these exact open/kind/trapFocus/onEscape options. The shared manager determines top-layer Escape and any opted-in modal Tab trap; native controls and separate assertions supply the remaining keyboard evidence.",
             "sourcePath": "components/forms/Cascader.jsx",
-            "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+            "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
             "sourceSnippets": [
               "useOverlayLayer({ open: (open) && floating.ready, kind: \"dropdown\", panelRef: floatingRef, surfaceKey: floating.surfaceKey, onEscape: () => setOpen(false) })"
             ]
@@ -3797,7 +3797,7 @@
           {
             "statement": "This anchored surface delegates logical focus ordering using these local floating-panel options; physical portal placement does not by itself define keyboard order.",
             "sourcePath": "components/forms/Cascader.jsx",
-            "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+            "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
             "sourceSnippets": [
               "useFloatingPanel({ open: open, anchorRef: wrap, panelRef: floatingRef, portal, placement: placement ?? \"bottom-start\", gap: 6, getAnchor: ()=>wrap.current?.querySelector(\":scope > button\"), lang })"
             ]
@@ -5542,10 +5542,10 @@
           {
             "statement": "Current SearchField rendered return paths include div; named authored parts include cs-search__clear. Nested and conditional markup is bounded by these source excerpts; this does not establish stable DOM-part APIs.",
             "sourcePath": "components/forms/SearchField.jsx",
-            "sourceSha256": "44a861064011a4ebf8cd1224d95b0404c44e4cb8a1685d5981f8009ff8a824de",
+            "sourceSha256": "e48eec5e6f3d65719ea4f72e833d67a6b05d2cc6fb49b53a621d0e832f33838e",
             "sourceSnippets": [
               "<div ref={ref} className={cx(\"cs-search\", className)}>",
-              "<button type=\"button\" className=\"cs-search__clear\" aria-label={t(\"clear\")} disabled={disabled || readOnly} onClick={() => { if (disabled || readOnly) return; set(\"\"); onClear && onClear(); }}>"
+              "<button type=\"button\" className=\"cs-search__clear\" aria-label={t(\"clear\")} disabled={disabled || readOnly} onClick={() => { if (disabled || readOnly) return; set(\"\"); onClear && onClear(); ref.current?.querySelector(\"input\")?.focus(); }}>"
             ]
           }
         ],
@@ -5553,9 +5553,9 @@
           {
             "statement": "SearchField owns its search glyph, native void input and optional clear button. Its inherited input children are deliberately ignored, not a content slot (native input elements cannot contain children).",
             "sourcePath": "components/forms/SearchField.jsx",
-            "sourceSha256": "44a861064011a4ebf8cd1224d95b0404c44e4cb8a1685d5981f8009ff8a824de",
+            "sourceSha256": "e48eec5e6f3d65719ea4f72e833d67a6b05d2cc6fb49b53a621d0e832f33838e",
             "sourceSnippets": [
-              "function SearchField({ value, defaultValue = \"\", onChange, onClear, disabled = false, readOnly = false, placeholder, lang, className, children, ...props }, forwardedRef) {\n  const mergedNativeRef = useComposedRefs(forwardedRef);\n  const [inner, setInner] = React.useState(() => defaultValue == null ? \"\" : String(defaultValue));\n  const val = value != null ? value : inner;\n  const set = (v) => { if (disabled || readOnly) return; if (value == null) setInner(v); onChange?.(v); };\n  const [ref, L, localeMessages] = useLang(lang);\n  const t = makeT(\"SearchField\", L, localeMessages);\n  const ph = placeholder != null ? placeholder : t(\"placeholder\");\n  return (\n    <div ref={ref} className={cx(\"cs-search\", className)}>\n      <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\" strokeLinejoin=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\" /><path d=\"M21 21l-4.3-4.3\" /></svg>\n      <input aria-label={props[\"aria-label\"] || (props[\"aria-labelledby\"] ? undefined : ph)} {...props} type=\"text\" role=\"searchbox\" value={val} disabled={disabled} readOnly={readOnly} placeholder={ph} onChange={(e) => set(e.target.value)}  ref={mergedNativeRef} />\n      {String(val).length ? (\n        <button type=\"button\" className=\"cs-search__clear\" aria-label={t(\"clear\")} disabled={disabled || readOnly} onClick={() => { if (disabled || readOnly) return; set(\"\"); onClear && onClear(); }}>\n          <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\"><path d=\"M6 6l12 12M18 6L6 18\" /></svg>\n        </button>\n      ) : null}\n    </div>\n  );\n}"
+              "function SearchField({ value, defaultValue = \"\", onChange, onClear, disabled = false, readOnly = false, placeholder, lang, className, children, ...props }, forwardedRef) {\n  const mergedNativeRef = useComposedRefs(forwardedRef);\n  const [inner, setInner] = React.useState(() => defaultValue == null ? \"\" : String(defaultValue));\n  const val = value != null ? value : inner;\n  const set = (v) => { if (disabled || readOnly) return; if (value == null) setInner(v); onChange?.(v); };\n  const [ref, L, localeMessages] = useLang(lang);\n  const t = makeT(\"SearchField\", L, localeMessages);\n  const ph = placeholder != null ? placeholder : t(\"placeholder\");\n  return (\n    <div ref={ref} className={cx(\"cs-search\", className)}>\n      <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\" strokeLinejoin=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\" /><path d=\"M21 21l-4.3-4.3\" /></svg>\n      <input aria-label={props[\"aria-label\"] || (props[\"aria-labelledby\"] ? undefined : ph)} {...props} type=\"text\" role=\"searchbox\" value={val} disabled={disabled} readOnly={readOnly} placeholder={ph} onChange={(e) => set(e.target.value)}  ref={mergedNativeRef} />\n      {String(val).length ? (\n        <button type=\"button\" className=\"cs-search__clear\" aria-label={t(\"clear\")} disabled={disabled || readOnly} onClick={() => { if (disabled || readOnly) return; set(\"\"); onClear && onClear(); ref.current?.querySelector(\"input\")?.focus(); }}>\n          <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\"><path d=\"M6 6l12 12M18 6L6 18\" /></svg>\n        </button>\n      ) : null}\n    </div>\n  );\n}"
             ]
           }
         ],
@@ -5563,7 +5563,7 @@
           {
             "statement": "The current source constructs or attaches these role values: searchbox; native input, button elements also appear. Role/state validity and full assistive-technology behavior are separate from this source inventory.",
             "sourcePath": "components/forms/SearchField.jsx",
-            "sourceSha256": "44a861064011a4ebf8cd1224d95b0404c44e4cb8a1685d5981f8009ff8a824de",
+            "sourceSha256": "e48eec5e6f3d65719ea4f72e833d67a6b05d2cc6fb49b53a621d0e832f33838e",
             "sourceSnippets": [
               "<input aria-label={props[\"aria-label\"] || (props[\"aria-labelledby\"] ? undefined : ph)} {...props} type=\"text\" role=\"searchbox\" value={val} disabled={disabled} readOnly={readOnly} placeholder={ph} onChange={(e) => set(e.target.value)}  ref={mergedNativeRef} />"
             ]
@@ -5573,11 +5573,11 @@
           {
             "statement": "Current native/ARIA state attributes and conditional modifier classes are assigned by the expressions in these SearchField excerpts. They document those conditions, not exhaustive transitions or all prop combinations.",
             "sourcePath": "components/forms/SearchField.jsx",
-            "sourceSha256": "44a861064011a4ebf8cd1224d95b0404c44e4cb8a1685d5981f8009ff8a824de",
+            "sourceSha256": "e48eec5e6f3d65719ea4f72e833d67a6b05d2cc6fb49b53a621d0e832f33838e",
             "sourceSnippets": [
               "<svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\" strokeLinejoin=\"round\" aria-hidden=\"true\">",
               "<input aria-label={props[\"aria-label\"] || (props[\"aria-labelledby\"] ? undefined : ph)} {...props} type=\"text\" role=\"searchbox\" value={val} disabled={disabled} readOnly={readOnly} placeholder={ph} onChange={(e) => set(e.target.value)}  ref={mergedNativeRef} />",
-              "<button type=\"button\" className=\"cs-search__clear\" aria-label={t(\"clear\")} disabled={disabled || readOnly} onClick={() => { if (disabled || readOnly) return; set(\"\"); onClear && onClear(); }}>"
+              "<button type=\"button\" className=\"cs-search__clear\" aria-label={t(\"clear\")} disabled={disabled || readOnly} onClick={() => { if (disabled || readOnly) return; set(\"\"); onClear && onClear(); ref.current?.querySelector(\"input\")?.focus(); }}>"
             ]
           }
         ],
@@ -5585,10 +5585,10 @@
           {
             "statement": "The current render includes native input, button controls. This source entry identifies those native keyboard targets; it does not add composite key bindings or infer behavior from caller handlers or descendant components.",
             "sourcePath": "components/forms/SearchField.jsx",
-            "sourceSha256": "44a861064011a4ebf8cd1224d95b0404c44e4cb8a1685d5981f8009ff8a824de",
+            "sourceSha256": "e48eec5e6f3d65719ea4f72e833d67a6b05d2cc6fb49b53a621d0e832f33838e",
             "sourceSnippets": [
               "<input aria-label={props[\"aria-label\"] || (props[\"aria-labelledby\"] ? undefined : ph)} {...props} type=\"text\" role=\"searchbox\" value={val} disabled={disabled} readOnly={readOnly} placeholder={ph} onChange={(e) => set(e.target.value)}  ref={mergedNativeRef} />",
-              "<button type=\"button\" className=\"cs-search__clear\" aria-label={t(\"clear\")} disabled={disabled || readOnly} onClick={() => { if (disabled || readOnly) return; set(\"\"); onClear && onClear(); }}>"
+              "<button type=\"button\" className=\"cs-search__clear\" aria-label={t(\"clear\")} disabled={disabled || readOnly} onClick={() => { if (disabled || readOnly) return; set(\"\"); onClear && onClear(); ref.current?.querySelector(\"input\")?.focus(); }}>"
             ]
           }
         ],

@@ -37,7 +37,7 @@ export const ColorPicker = React.forwardRef(function ColorPicker({ portal = true
   return (
     <overlayScopeContext.Provider value={scope}>
     <span ref={mergedNativeRef} {...mergeTargetProps({ className: cx("cs-colorpicker", className) }, rootProps)}>
-      <button {...mergeTargetProps({ ...control, type: "button", className: "cs-colorpicker__field", "aria-expanded": open, onClick: () => setOpen(o => !o) }, controlProps, ["id", "role", "type", "name", "value", "defaultValue", "disabled", "required", "aria-required", "aria-label", "aria-labelledby", "aria-describedby", "aria-invalid", "aria-haspopup", "aria-expanded", "aria-controls", "aria-activedescendant"])} ref={mergedControlRef} >
+      <button {...mergeTargetProps({ ...control, type: "button", className: "cs-colorpicker__field", "aria-expanded": open, onClick: event => { if (!open) event.currentTarget.focus(); setOpen(o => !o); } }, controlProps, ["id", "role", "type", "name", "value", "defaultValue", "disabled", "required", "aria-required", "aria-label", "aria-labelledby", "aria-describedby", "aria-invalid", "aria-haspopup", "aria-expanded", "aria-controls", "aria-activedescendant"])} ref={mergedControlRef} >
         <i style={{ background: value }} /><code>{value}</code>
       </button>
       {open ? (

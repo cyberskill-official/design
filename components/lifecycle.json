@@ -2128,7 +2128,7 @@
           },
           {
             "path": "components/forms/Cascader.jsx",
-            "sha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+            "sha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
             "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
             "checkedAt": "2026-10-21T12:08:13.113Z"
           },
@@ -2807,7 +2807,7 @@
           },
           {
             "path": "components/forms/ColorPicker.jsx",
-            "sha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+            "sha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
             "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
             "checkedAt": "2026-10-21T12:08:13.113Z"
           },
@@ -8820,7 +8820,7 @@
           },
           {
             "path": "components/forms/SearchField.jsx",
-            "sha256": "44a861064011a4ebf8cd1224d95b0404c44e4cb8a1685d5981f8009ff8a824de",
+            "sha256": "e48eec5e6f3d65719ea4f72e833d67a6b05d2cc6fb49b53a621d0e832f33838e",
             "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
             "checkedAt": "2026-10-21T12:08:13.113Z"
           },
@@ -11856,7 +11856,7 @@
           },
           {
             "path": "components/forms/TreeSelect.jsx",
-            "sha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+            "sha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
             "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
             "checkedAt": "2026-10-21T12:08:13.113Z"
           },

@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "interpretation": "Canonical definition/default-key references and generated prompt inventory, not a second type system, behavioral specification, accessibility certification or acceptance record.",
   "sourceHashes": {
-    "components/api-index.json": "d82167fc873cb682a35ef593ad38bc88a9d88b5447bd8b3e8541143c287cf728",
-    "components/contracts.json": "f7393aaef3fb320d6f3193c59033223f94ed7085695829ded8807a3443a5542f",
+    "components/api-index.json": "cdca2a8f225147e27ca8b385023ffe6ba5628b614720cd658c94f5c833f53336",
+    "components/contracts.json": "3fe12bafaf9da02f9148279601e4bc8f4af4cb87710e19703a53f80f5acbdc30",
     "_ds_manifest.json": "c095c233237f4ddb574f8fa648c26aee699df2c16d08f7e4a3aeca076a6644e4",
     "scripts/generate-component-contracts.mjs": "a94d0d58b3d0b6f629bf2cdc2a53bdfc8b43b8fa1479434b770f0cd8dc53187c",
     "scripts/lib/component-export.mjs": "9f6fd3df4a9e0366fef8c384a0926e050bd8fbcb3887bf5e6ffaed5c0622cd15",

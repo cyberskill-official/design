@@ -11,7 +11,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { spawn, spawnSync } from 'node:child_process';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { formatActShardStatus } from './lib/ci-check-gate.mjs';
+import { formatActFastGatesStatus, formatActShardStatus } from './lib/ci-check-gate.mjs';
 import { selectSuites } from '../_audit/ci/lib/run-unit-suite.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -147,6 +147,9 @@ async function runLocalUnitShards({ shards, concurrency }) {
   }
 
   mkdirSync(join(root, 'test-results'), { recursive: true });
+  const pixelBytes = readFileSync(join(root, '_audit/ci/pixel-diff-report.json'));
+  const pixelReport = JSON.parse(pixelBytes);
+  const pixelReportSha256 = createHash('sha256').update(pixelBytes).digest('hex');
   const attestation = {
     schemaVersion: 1,
     createdAt: new Date().toISOString(),
@@ -154,6 +157,10 @@ async function runLocalUnitShards({ shards, concurrency }) {
     treeSha,
     planSha256,
     shards: shardRecords,
+    fastGates: {
+      pixelReportSha256,
+      pass: pixelReport.failed === 0,
+    },
   };
   writeFileSync(ATTESTATION_PATH, JSON.stringify(attestation, null, 2) + '\n');
   console.log(`\n✓ Wrote commit/tree-bound local act attestation to ${ATTESTATION_PATH} (tree=${treeSha.slice(0, 12)})`);
@@ -205,6 +212,36 @@ export function postActShardStatuses({ sha, repo = 'cyberskill-official/design',
     assert.equal(res.status, 0, `Failed to post ${statusPayload.context} status: ${res.stderr}`);
     console.log(`✓ Posted ${statusPayload.context} (${statusPayload.description}) on ${targetSha.slice(0, 8)}`);
   }
+
+  if (attestation.fastGates?.pass === true) {
+    const pixelBytes = readFileSync(join(root, '_audit/ci/pixel-diff-report.json'));
+    const currentPixelSha256 = createHash('sha256').update(pixelBytes).digest('hex');
+    assert.equal(
+      attestation.fastGates.pixelReportSha256,
+      currentPixelSha256,
+      'Local act attestation pixelReportSha256 is stale against _audit/ci/pixel-diff-report.json'
+    );
+    const fgPayload = formatActFastGatesStatus({
+      treeSha: targetTree,
+      pixelReportSha256: currentPixelSha256,
+    });
+    const fgRes = spawnSync(
+      'gh',
+      [
+        'api',
+        `repos/${repo}/statuses/${targetSha}`,
+        '-f',
+        `state=${fgPayload.state}`,
+        '-f',
+        `context=${fgPayload.context}`,
+        '-f',
+        `description=${fgPayload.description}`,
+      ],
+      { cwd: root, encoding: 'utf8' }
+    );
+    assert.equal(fgRes.status, 0, `Failed to post ${fgPayload.context} status: ${fgRes.stderr}`);
+    console.log(`✓ Posted ${fgPayload.context} (${fgPayload.description}) on ${targetSha.slice(0, 8)}`);
+  }
 }
 
 export function stampCurrentAttestation() {
@@ -222,6 +259,10 @@ export function stampCurrentAttestation() {
       pass: true,
     };
   }
+  const pixelBytes = readFileSync(join(root, '_audit/ci/pixel-diff-report.json'));
+  const pixelReport = JSON.parse(pixelBytes);
+  assert.equal(pixelReport.failed, 0, 'Cannot stamp fast-gates attestation when pixel-diff-report.json has failed > 0');
+  const pixelReportSha256 = createHash('sha256').update(pixelBytes).digest('hex');
   mkdirSync(join(root, 'test-results'), { recursive: true });
   const attestation = {
     schemaVersion: 1,
@@ -230,6 +271,10 @@ export function stampCurrentAttestation() {
     treeSha,
     planSha256,
     shards: shardRecords,
+    fastGates: {
+      pixelReportSha256,
+      pass: true,
+    },
   };
   writeFileSync(ATTESTATION_PATH, JSON.stringify(attestation, null, 2) + '\n');
   console.log(`\n✓ Stamped commit/tree-bound local act attestation to ${ATTESTATION_PATH} (tree=${treeSha.slice(0, 12)})`);

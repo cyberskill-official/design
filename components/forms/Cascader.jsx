@@ -98,7 +98,7 @@ export const Cascader = React.forwardRef(function Cascader({ portal = true, plac
   return (
     <overlayScopeContext.Provider value={scope}>
     <div ref={mergedNativeRef} {...mergeTargetProps({ className: cx("cs-cascader", className) }, rootProps)}>
-      <button {...mergeTargetProps({ ...control, type: "button", className: "cs-treeselect__field", disabled, "aria-haspopup": "listbox", "aria-expanded": open, onClick: () => setOpen(o => !o), onKeyDown: (e) => {
+      <button {...mergeTargetProps({ ...control, type: "button", className: "cs-treeselect__field", disabled, "aria-haspopup": "listbox", "aria-expanded": open, onClick: event => { if (!open) event.currentTarget.focus(); setOpen(o => !o); }, onKeyDown: (e) => {
           if (e.defaultPrevented || e.nativeEvent.isComposing || e.nativeEvent.keyCode === 229) return;
           // Once open, the document handler owns arrows from this trigger too.
           if (open && e.key === "ArrowDown") return;

@@ -3,7 +3,7 @@
   "interpretation": "Discovery projection: every public export and authored prop definition, with inherited prop counts. Inherited native props, full signatures, support evidence/history and compiler metadata remain in components/api-index.json. Declarations remain authoritative; this projection does not establish runtime, semantic or human acceptance.",
   "completeIndex": {
     "path": "components/api-index.json",
-    "sha256": "d82167fc873cb682a35ef593ad38bc88a9d88b5447bd8b3e8541143c287cf728"
+    "sha256": "cdca2a8f225147e27ca8b385023ffe6ba5628b614720cd658c94f5c833f53336"
   },
   "exports": [
     {
@@ -659,7 +659,7 @@
       "sourcePath": "components/forms/Cascader.jsx",
       "declarationPath": "components/forms/Cascader.d.ts",
       "promptPath": "components/forms/Cascader.prompt.md",
-      "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+      "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
       "declarationSha256": "33edbc198353ed41f05867be9e1c04830d5033cf2cf4ceda3e1ba13adef27aea",
       "declaredLifecycle": "stable",
       "supportReviewState": "reviewed",
@@ -981,7 +981,7 @@
       "sourcePath": "components/forms/ColorPicker.jsx",
       "declarationPath": "components/forms/ColorPicker.d.ts",
       "promptPath": "components/forms/ColorPicker.prompt.md",
-      "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+      "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
       "declarationSha256": "a0a3d9c005fc6f8ddc4fdc85f132aedfcb10dee745ae1706eb6b924814531e2d",
       "declaredLifecycle": "stable",
       "supportReviewState": "reviewed",
@@ -3742,7 +3742,7 @@
       "sourcePath": "components/forms/SearchField.jsx",
       "declarationPath": "components/forms/SearchField.d.ts",
       "promptPath": "components/forms/SearchField.prompt.md",
-      "sourceSha256": "44a861064011a4ebf8cd1224d95b0404c44e4cb8a1685d5981f8009ff8a824de",
+      "sourceSha256": "e48eec5e6f3d65719ea4f72e833d67a6b05d2cc6fb49b53a621d0e832f33838e",
       "declarationSha256": "16b63c44bbdf6d4f9f8f05f0612cbcd8d92b6d4af5800d90fd120a5f1f60a5fa",
       "declaredLifecycle": "stable",
       "supportReviewState": "reviewed",
@@ -4826,7 +4826,7 @@
       "sourcePath": "components/forms/TreeSelect.jsx",
       "declarationPath": "components/forms/TreeSelect.d.ts",
       "promptPath": "components/forms/TreeSelect.prompt.md",
-      "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+      "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
       "declarationSha256": "3623e81530a0900556a713346f5ea7a96c02dc185a1481589d45190f5b09c33e",
       "declaredLifecycle": "stable",
       "supportReviewState": "reviewed",

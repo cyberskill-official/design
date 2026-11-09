@@ -124,7 +124,10 @@ var Cascader = React.forwardRef(function Cascader2({ portal = true, placement, c
       lv = n.children;
     }
   }
-  return /* @__PURE__ */ React.createElement(overlayScopeContext.Provider, { value: scope }, /* @__PURE__ */ React.createElement("div", { ref: mergedNativeRef, ...mergeTargetProps({ className: cx("cs-cascader", className) }, rootProps) }, /* @__PURE__ */ React.createElement("button", { ...mergeTargetProps({ ...control, type: "button", className: "cs-treeselect__field", disabled, "aria-haspopup": "listbox", "aria-expanded": open, onClick: () => setOpen((o) => !o), onKeyDown: (e) => {
+  return /* @__PURE__ */ React.createElement(overlayScopeContext.Provider, { value: scope }, /* @__PURE__ */ React.createElement("div", { ref: mergedNativeRef, ...mergeTargetProps({ className: cx("cs-cascader", className) }, rootProps) }, /* @__PURE__ */ React.createElement("button", { ...mergeTargetProps({ ...control, type: "button", className: "cs-treeselect__field", disabled, "aria-haspopup": "listbox", "aria-expanded": open, onClick: (event) => {
+    if (!open) event.currentTarget.focus();
+    setOpen((o) => !o);
+  }, onKeyDown: (e) => {
     if (e.defaultPrevented || e.nativeEvent.isComposing || e.nativeEvent.keyCode === 229) return;
     if (open && e.key === "ArrowDown") return;
     if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") {
@@ -160,4 +163,4 @@ Cascader.displayName = "Cascader";
 export {
   Cascader
 };
-//# sourceMappingURL=chunk-D7A4ZCMJ.mjs.map
+//# sourceMappingURL=chunk-RUB6XN27.mjs.map

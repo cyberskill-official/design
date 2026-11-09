@@ -29,6 +29,10 @@ jobs:
           node-version: '22'
           package-manager-cache: false
       - uses: ./.github/actions/setup-npm
+      - name: Check verified local act fast-gates attestation for this commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/verify-ci-checks.mjs --check-act-fast-gates --sha "${{ github.sha }}" --repo "${{ github.repository }}"
       - name: Install npm dependencies
         run: npm ci
       - name: Audit all dependency classes (high and critical block)
@@ -46,20 +50,26 @@ jobs:
             test-results/python-dependency-audit/
           if-no-files-found: warn
       - name: Cache Playwright browsers
+        if: env.CS_ACT_FAST_GATES_RECEIPT == ''
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6
         id: pw-cache
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-chromium
       - name: Install Playwright Chromium
+        if: env.CS_ACT_FAST_GATES_RECEIPT == ''
         run: npx --no-install playwright install --with-deps chromium
       - name: Serve the repo statically
+        if: env.CS_ACT_FAST_GATES_RECEIPT == ''
         run: node scripts/serve-verification.mjs 8080 &
       - name: Wait for server
+        if: env.CS_ACT_FAST_GATES_RECEIPT == ''
         run: node scripts/wait-verification.mjs http://127.0.0.1:8080/dashboard.html
       - name: Playwright pixel compare (hard — feeds board Pixel CI row)
+        if: env.CS_ACT_FAST_GATES_RECEIPT == ''
         run: node _audit/ci/pixel-diff.mjs http://127.0.0.1:8080
       - name: Run the fast gate board (headless)
+        if: env.CS_ACT_FAST_GATES_RECEIPT == ''
         run: node _audit/ci/run-gates.mjs http://127.0.0.1:8080/_audit/run.html
       - name: Upload import report on failure
         if: failure()

@@ -1,7 +1,7 @@
 "use client";
 import {
   ColorPicker
-} from "../../chunks/chunk-FF5D53IP.mjs";
+} from "../../chunks/chunk-SA7L22XE.mjs";
 import "../../chunks/chunk-52SZC6SY.mjs";
 import "../../chunks/chunk-6AEW6SXI.mjs";
 import "../../chunks/chunk-JZYRXWPD.mjs";

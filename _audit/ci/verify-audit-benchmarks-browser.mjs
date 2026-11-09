@@ -110,7 +110,10 @@ try {
     writeFileSync(receiptPath, JSON.stringify(result, null, 2) + '\n');
   }
 
-  const EXPECTED_DIMS = ['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9', 'D10'];
+  const EXPECTED_DIMS = [
+    'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8',
+    'D9', 'D10', 'D11', 'D12', 'D13', 'D14', 'D15', 'D16',
+  ];
   const dimSummary = {};
   for (const dim of EXPECTED_DIMS) {
     const rows = result.checks.filter((c) => c.dim === dim);
@@ -127,7 +130,7 @@ try {
     dimSummary[dim] = `${p250}/${rows.length} (10.0)`;
   }
 
-  assert.equal(result.checks.length, 69, `Expected 69 checks across D1-D10, got ${result.checks.length}`);
+  assert.equal(result.checks.length, 105, `Expected 105 checks across D1-D16, got ${result.checks.length}`);
   const failing = result.checks.filter((c) => !c.v250?.pass);
   assert.deepEqual(failing, [], `Failing checks on current tree: ${failing.map((c) => c.dim + ':' + c.title).join(', ')}`);
   const regressed = result.checks.filter((c) => c.state === 'regressed' || c.state === 'open');
@@ -149,13 +152,13 @@ try {
 
   assert(existsSync(receiptPath), 'Missing audit/v2.5.0-verification.json receipt');
   const receipt = JSON.parse(readFileSync(receiptPath, 'utf8'));
-  assert.equal(receipt.checks?.length, 69, 'audit/v2.5.0-verification.json check count stale (run with --write-receipt)');
-  assert.equal(receipt.checks.filter((c) => c.v250?.pass).length, 69, 'audit/v2.5.0-verification.json has failing checks');
+  assert.equal(receipt.checks?.length, 105, 'audit/v2.5.0-verification.json check count stale (run with --write-receipt)');
+  assert.equal(receipt.checks.filter((c) => c.v250?.pass).length, 105, 'audit/v2.5.0-verification.json has failing checks');
   assert.equal(receipt.baselineSuite?.v250, 64, 'audit/v2.5.0-verification.json baselineSuite stale');
   assert.equal((receipt.edges || []).filter((e) => e.level === 'watch').length, 0, 'audit/v2.5.0-verification.json has watch items');
 
   console.log(
-    `PASS audit benchmark non-regression: 69/69 D1-D10 checks (10.0/10), 64/64 embedded baseline checks (10.0/10), 192/192 32-scope contrast cells >= 3:1, 0 watch items`,
+    `PASS audit benchmark non-regression: 105/105 D1-D16 checks (10.0/10), 64/64 embedded baseline checks (10.0/10), 192/192 32-scope contrast cells >= 3:1, 0 watch items`,
     dimSummary,
   );
 } finally {

@@ -1,6 +1,6 @@
 {
-  "when": "2026-11-09T15:52:25.596Z",
-  "ms": 405,
+  "when": "2026-11-09T18:26:42.901Z",
+  "ms": 446,
   "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.7922.34 Safari/537.36",
   "checks": [
     {
@@ -1311,6 +1311,690 @@
       "v231": {
         "pass": true,
         "value": "5/5 forced-colors rules"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D11",
+      "title": "11-step typographic size ramp (--cs-font-size-2xs..5xl) is strictly monotonic",
+      "target": "tokens/typography.css",
+      "expect": "11 → 12 → 14 → 16 → 18 → 20 → 24 → 30 → 36 → 48 → 60px",
+      "v250": {
+        "pass": true,
+        "value": "11→12→14→16→18→20→24→30→36→48→60px"
+      },
+      "v240": {
+        "pass": true,
+        "value": "11→12→14→16→18→20→24→30→36→48→60px"
+      },
+      "v231": {
+        "pass": true,
+        "value": "11→12→14→16→18→20→24→30→36→48→60px"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D11",
+      "title": "Semantic role utilities (.cs-h1..h4, .cs-body, .cs-eyebrow) resolve exact sizes & weights",
+      "target": "base/typography.css",
+      "expect": "h1 36/800 · h2 30/700 · h3 24/700 · h4 20/600 · body 16/400 · eyebrow 12/700/uppercase",
+      "v250": {
+        "pass": true,
+        "value": "h1 36/800 · h2 30/700 · h3 24/700 · h4 20/600 · body 16/400 · eye 12/uppercase"
+      },
+      "v240": {
+        "pass": true,
+        "value": "h1 36/800 · h2 30/700 · h3 24/700 · h4 20/600 · body 16/400 · eye 12/uppercase"
+      },
+      "v231": {
+        "pass": true,
+        "value": "h1 36/800 · h2 30/700 · h3 24/700 · h4 20/600 · body 16/400 · eye 12/uppercase"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D11",
+      "title": "Editorial prose container (.cs-prose) caps measure at 45rem (720px) with 1.5 line-height",
+      "target": ".cs-prose",
+      "expect": "max-inline-size: 720px · line-height: 1.5",
+      "v250": {
+        "pass": true,
+        "value": "max-inline-size 720px · line-height 1.5"
+      },
+      "v240": {
+        "pass": true,
+        "value": "max-inline-size 720px · line-height 1.5"
+      },
+      "v231": {
+        "pass": true,
+        "value": "max-inline-size 720px · line-height 1.5"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D11",
+      "title": "Opt-in display face (.cs-display-face) retargets headings to Space Grotesk while body stays on Be Vietnam Pro",
+      "target": ".cs-display-face .cs-h2 vs .cs-body",
+      "expect": "heading Space Grotesk · body Be Vietnam Pro",
+      "v250": {
+        "pass": true,
+        "value": "h2: \"Space Grotesk\" · body: \"Be Vietnam Pro\""
+      },
+      "v240": {
+        "pass": true,
+        "value": "h2: \"Space Grotesk\" · body: \"Be Vietnam Pro\""
+      },
+      "v231": {
+        "pass": true,
+        "value": "h2: \"Space Grotesk\" · body: \"Be Vietnam Pro\""
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D11",
+      "title": "Tabular numerals (tabular-nums) enforced across stat, numeric cell, badge, pagination & .cs-tabular",
+      "target": ".cs-stat__value, .cs-table__cell--numeric, .cs-badge, .cs-pagination, .cs-tabular",
+      "expect": "5/5 resolve font-variant-numeric: tabular-nums",
+      "v250": {
+        "pass": true,
+        "value": "5/5 tabular-nums"
+      },
+      "v240": {
+        "pass": true,
+        "value": "5/5 tabular-nums"
+      },
+      "v231": {
+        "pass": true,
+        "value": "5/5 tabular-nums"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D11",
+      "title": "Primary body ink (--cs-color-text-primary) clears ≥ 10:1 (APCA Lc ≥ 75+) on page & panel",
+      "target": "light + dark --cs-color-text-primary vs page & panel",
+      "expect": "min ≥ 10.0:1 across 4 pairs",
+      "v250": {
+        "pass": true,
+        "value": "light 13.99:1 · dark 14.74:1"
+      },
+      "v240": {
+        "pass": true,
+        "value": "light 13.99:1 · dark 14.74:1"
+      },
+      "v231": {
+        "pass": true,
+        "value": "light 13.99:1 · dark 14.74:1"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D12",
+      "title": "8-tier z-index depth scale (--cs-depth-bg..toast) & .cs-skip:focus (201) are strictly monotonic",
+      "target": "tokens/elevation.css + base/reset.css",
+      "expect": "0 < 5 < 10 < 50 < 60 < 80 < 100 < 200 < skip 201",
+      "v250": {
+        "pass": true,
+        "value": "0→5→10→50→60→80→100→200 · skip 201"
+      },
+      "v240": {
+        "pass": true,
+        "value": "0→5→10→50→60→80→100→200 · skip 201"
+      },
+      "v231": {
+        "pass": true,
+        "value": "0→5→10→50→60→80→100→200 · skip 201"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D12",
+      "title": "Shadow scale (--cs-shadow-xs..xl) switches from warm Umber in light to deep black in dark",
+      "target": "light + dark --cs-shadow-{xs,sm,md,lg,xl}",
+      "expect": "5/5 shadows resolve · light warm Umber · dark rgb(0,0,0)",
+      "v250": {
+        "pass": true,
+        "value": "light Umber 5/5 ✓ · dark deep 5/5 ✓"
+      },
+      "v240": {
+        "pass": true,
+        "value": "light Umber 5/5 ✓ · dark deep 5/5 ✓"
+      },
+      "v231": {
+        "pass": true,
+        "value": "light Umber 5/5 ✓ · dark deep 5/5 ✓"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D12",
+      "title": "Card surface hierarchy (.cs-card, .cs-card--raised, .cs-card--featured) resolves distinct tiers",
+      "target": ".cs-card · .cs-card--raised · .cs-card--featured",
+      "expect": "panel · raised · 12% accent mix + --cs-accent border",
+      "v250": {
+        "pass": true,
+        "value": "light ✓ · dark ✓ · featured #FAEDD6 / #402E19"
+      },
+      "v240": {
+        "pass": true,
+        "value": "light ✓ · dark ✓ · featured #FAEDD6 / #402E19"
+      },
+      "v231": {
+        "pass": true,
+        "value": "light ✓ · dark ✓ · featured #FAEDD6 / #402E19"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D12",
+      "title": "Brand .cs-aurora wash layers 3 radial gradients over Umber with ≥ 12:1 white ink",
+      "target": ".cs-aurora",
+      "expect": "Umber #45210E bg + 3 radial-gradients + #FFFFFF ink ≥ 12:1",
+      "v250": {
+        "pass": true,
+        "value": "#45210E · 3 radial-gradients · ink 14.22:1"
+      },
+      "v240": {
+        "pass": true,
+        "value": "#45210E · 3 radial-gradients · ink 14.22:1"
+      },
+      "v231": {
+        "pass": true,
+        "value": "#45210E · 3 radial-gradients · ink 14.22:1"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D12",
+      "title": "@media (prefers-reduced-transparency: reduce) & @media print disable glass backdrop-filter",
+      "target": "base/glass.css",
+      "expect": "reduced-transparency + print rules set backdrop-filter: none",
+      "v250": {
+        "pass": true,
+        "value": "reduced-transparency ✓ · print ✓"
+      },
+      "v240": {
+        "pass": true,
+        "value": "reduced-transparency ✓ · print ✓"
+      },
+      "v231": {
+        "pass": true,
+        "value": "reduced-transparency ✓ · print ✓"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D12",
+      "title": "WCAG 2.2 scroll-padding-block (16px) & .cs-scroll-area overscroll-behavior: contain + focus ring",
+      "target": "html + .cs-scroll-area",
+      "expect": "scroll-padding 16px/16px · overscroll contain · dual-ring focus",
+      "v250": {
+        "pass": true,
+        "value": "pad 16/16px · overscroll contain · focus ✓"
+      },
+      "v240": {
+        "pass": true,
+        "value": "pad 16/16px · overscroll contain · focus ✓"
+      },
+      "v231": {
+        "pass": true,
+        "value": "pad 16/16px · overscroll contain · focus ✓"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D13",
+      "title": "ChatMessage (.cs-chat-msg--lumi vs --user) preserves AAA (≥ 7:1) avatar & bubble legibility",
+      "target": ".cs-chat-msg--lumi · .cs-chat-msg--user",
+      "expect": "Lumi avatar ≥ 7:1 · Lumi bubble ≥ 7:1 · User bubble ≥ 10:1",
+      "v250": {
+        "pass": true,
+        "value": "Lumi av 8.05:1 · Lumi bub 13.01:1 · User bub 14.22:1"
+      },
+      "v240": {
+        "pass": true,
+        "value": "Lumi av 8.05:1 · Lumi bub 13.01:1 · User bub 14.22:1"
+      },
+      "v231": {
+        "pass": true,
+        "value": "Lumi av 8.05:1 · Lumi bub 13.01:1 · User bub 14.22:1"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D13",
+      "title": "LumiAvatar (.cs-lumi--{sm,md,lg}) scales 32 → 44 → 64px with 3px Ochre ring halo",
+      "target": ".cs-lumi--{sm,md,lg} · .cs-lumi--ring",
+      "expect": "32px · 44px · 64px + 3px halo",
+      "v250": {
+        "pass": true,
+        "value": "32→44→64px · ring spread 3px"
+      },
+      "v240": {
+        "pass": true,
+        "value": "32→44→64px · ring spread 3px"
+      },
+      "v231": {
+        "pass": true,
+        "value": "32→44→64px · ring spread 3px"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D13",
+      "title": "HumanReviewGate (.cs-review-gate) pairs semantic warning border with ≥ 4.5:1 risk label",
+      "target": ".cs-review-gate · .cs-review-gate__risk",
+      "expect": "border = warning · risk ink ≥ 4.5:1 in light & dark",
+      "v250": {
+        "pass": true,
+        "value": "border ✓ · min risk contrast 11.89:1"
+      },
+      "v240": {
+        "pass": true,
+        "value": "border ✓ · min risk contrast 11.89:1"
+      },
+      "v231": {
+        "pass": true,
+        "value": "border ✓ · min risk contrast 11.89:1"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D13",
+      "title": "AIDisclosureBadge (.cs-ai-disclosure__badge) & CitationList (.cs-citation__num 20×20px) ≥ 4.5:1",
+      "target": ".cs-ai-disclosure__badge · .cs-citation__num",
+      "expect": "badge ≥ 4.5:1 · citation 20×20px & ≥ 4.5:1",
+      "v250": {
+        "pass": true,
+        "value": "AI badge 6.7:1 · citation 20×20px 9.82:1"
+      },
+      "v240": {
+        "pass": true,
+        "value": "AI badge 6.7:1 · citation 20×20px 9.82:1"
+      },
+      "v231": {
+        "pass": true,
+        "value": "AI badge 6.7:1 · citation 20×20px 9.82:1"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D13",
+      "title": "PromptSuggestions (.cs-suggest button) wish chips & TypingIndicator (.cs-typing) 7px pulse dots",
+      "target": ".cs-suggest button · .cs-typing span",
+      "expect": "pill radius 999px · ink ≥ 4.5:1 · 7×7px typing dot",
+      "v250": {
+        "pass": true,
+        "value": "chip 9.15:1 (r=999px) · dot 7×7px"
+      },
+      "v240": {
+        "pass": true,
+        "value": "chip 9.15:1 (r=999px) · dot 7×7px"
+      },
+      "v231": {
+        "pass": true,
+        "value": "chip 9.15:1 (r=999px) · dot 7×7px"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D13",
+      "title": "Always-dark developer chrome (.cs-code & .cs-terminal) keeps ≥ 10:1 body & ≥ 6:1 muted ink",
+      "target": ".cs-code · .cs-terminal",
+      "expect": "code & terminal fg ≥ 10:1 · muted bar/out ≥ 6:1 in light & dark",
+      "v250": {
+        "pass": true,
+        "value": "primary fg min 13.6:1 · muted min 8.31:1"
+      },
+      "v240": {
+        "pass": true,
+        "value": "primary fg min 13.6:1 · muted min 8.31:1"
+      },
+      "v231": {
+        "pass": true,
+        "value": "primary fg min 13.6:1 · muted min 8.31:1"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D14",
+      "title": "DataGrid (.cs-datagrid) sticky header & selected row (tr.is-selected td) ≥ 7:1 legibility",
+      "target": ".cs-datagrid thead th · tr.is-selected td",
+      "expect": "sticky top 0 z-index 1 · selected row ink ≥ 7.0:1",
+      "v250": {
+        "pass": true,
+        "value": "sticky header ✓ · selected row min 10.54:1"
+      },
+      "v240": {
+        "pass": true,
+        "value": "sticky header ✓ · selected row min 10.54:1"
+      },
+      "v231": {
+        "pass": true,
+        "value": "sticky header ✓ · selected row min 10.54:1"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D14",
+      "title": "Splitter (.cs-splitter) flex stretch layout, 8px col-resize bar & dual-ring :focus-visible",
+      "target": ".cs-splitter · .cs-splitter__bar",
+      "expect": "display: flex · 8px bar · col-resize · dual-ring focus",
+      "v250": {
+        "pass": true,
+        "value": "flex · 8px · col-resize · focus ✓"
+      },
+      "v240": {
+        "pass": true,
+        "value": "flex · 8px · col-resize · focus ✓"
+      },
+      "v231": {
+        "pass": true,
+        "value": "flex · 8px · col-resize · focus ✓"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D14",
+      "title": "Timeline (.cs-timeline) 2px connector track & 3-state markers (done / now / todo)",
+      "target": ".cs-timeline__item · .cs-timeline__marker",
+      "expect": "2px track · done=success · now=accent-bright+2px ring · todo=raised",
+      "v250": {
+        "pass": true,
+        "value": "track 2px · done #166534 · now #F4BA17 · todo #FBF4E9"
+      },
+      "v240": {
+        "pass": true,
+        "value": "track 2px · done #166534 · now #F4BA17 · todo #FBF4E9"
+      },
+      "v231": {
+        "pass": false,
+        "value": "track 2px · done #166534 · now #F4BA17 · todo #FBF4E9"
+      },
+      "state": "fixed"
+    },
+    {
+      "dim": "D14",
+      "title": "Sidebar (.cs-sidebar 248px) & active NavItem (.cs-nav-item.is-active) ≥ 4.5:1 in light & dark",
+      "target": ".cs-sidebar · .cs-nav-item.is-active",
+      "expect": "width 248px · label & icon = text-accent ≥ 4.5:1",
+      "v250": {
+        "pass": true,
+        "value": "sidebar 248px · active nav min 7.68:1"
+      },
+      "v240": {
+        "pass": true,
+        "value": "sidebar 248px · active nav min 7.68:1"
+      },
+      "v231": {
+        "pass": true,
+        "value": "sidebar 248px · active nav min 7.68:1"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D14",
+      "title": "Overlay z-index stacking (.cs-drawer 101 > scrim 100 · .cs-cmdk-scrim 100 · .cs-toast-stack 200)",
+      "target": "base/shell.css + base/feedback.css",
+      "expect": "scrim/cmdk 100 < drawer 101 < toast 200",
+      "v250": {
+        "pass": true,
+        "value": "scrim 100 · cmdk 100 · drawer 101 · toast 200"
+      },
+      "v240": {
+        "pass": true,
+        "value": "scrim 100 · cmdk 100 · drawer 101 · toast 200"
+      },
+      "v231": {
+        "pass": true,
+        "value": "scrim 100 · cmdk 100 · drawer 101 · toast 200"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D14",
+      "title": "Pagination active page ([aria-current=\"page\"]) & selected Tab ([aria-selected=\"true\"]) ≥ 4.5:1",
+      "target": ".cs-pagination button[aria-current=\"page\"] · .cs-tab[aria-selected=\"true\"]",
+      "expect": "active page ≥ 4.5:1 · tab 2px --cs-accent border & ≥ 4.5:1",
+      "v250": {
+        "pass": true,
+        "value": "pagination 10.54:1 · tab 9.15:1"
+      },
+      "v240": {
+        "pass": true,
+        "value": "pagination 10.54:1 · tab 9.15:1"
+      },
+      "v231": {
+        "pass": true,
+        "value": "pagination 10.54:1 · tab 9.15:1"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D15",
+      "title": "Container query host (.cs-cq) collapses .cs-cq-cols-{3,4} to 1fr & stacks .cs-cq-stack at 480px",
+      "target": "base/responsive.css @container cs",
+      "expect": "narrow (480px): 1 col & column · wide (840px): 3/4 cols & row",
+      "v250": {
+        "pass": true,
+        "value": "480px: 1/1 col, column · 840px: 3/4 cols, row"
+      },
+      "v240": {
+        "pass": true,
+        "value": "480px: 1/1 col, column · 840px: 3/4 cols, row"
+      },
+      "v231": {
+        "pass": true,
+        "value": "480px: 1/1 col, column · 840px: 3/4 cols, row"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D15",
+      "title": "Zero horizontal overflow inside 320px mobile & 768px tablet composition containers",
+      "target": ".cs-card + .cs-alert (320px) · .cs-dl (768px)",
+      "expect": "scrollWidth ≤ clientWidth at 320px and 768px",
+      "v250": {
+        "pass": true,
+        "value": "320px: 318/318px · 768px: 766/766px"
+      },
+      "v240": {
+        "pass": true,
+        "value": "320px: 318/318px · 768px: 766/766px"
+      },
+      "v231": {
+        "pass": true,
+        "value": "320px: 318/318px · 768px: 766/766px"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D15",
+      "title": "Pending form (.cs-form.is-pending) locks controls & .cs-form__summary danger callout ≥ 4.5:1",
+      "target": ".cs-form.is-pending · .cs-form__summary",
+      "expect": "opacity 0.72 · pointer-events none · summary ≥ 4.5:1",
+      "v250": {
+        "pass": true,
+        "value": "opacity 0.72 · pe none · summary min 11.41:1"
+      },
+      "v240": {
+        "pass": true,
+        "value": "opacity 0.72 · pe none · summary min 11.41:1"
+      },
+      "v231": {
+        "pass": true,
+        "value": "opacity 0.72 · pe none · summary min 11.41:1"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D15",
+      "title": "Popup & picker triggers (Combobox, TreeSelect, DatePicker, TimePicker, ColorPicker, InputGroup) ≥ 44px",
+      "target": "6 picker triggers + .cs-combobox__popup",
+      "expect": "all 6 heights ≥ 44px · popup z-index 60",
+      "v250": {
+        "pass": true,
+        "value": "min height 44px (44/44/44/44/44/46px) · popup z 60"
+      },
+      "v240": {
+        "pass": true,
+        "value": "min height 44px (44/44/44/44/44/46px) · popup z 60"
+      },
+      "v231": {
+        "pass": true,
+        "value": "min height 44px (44/44/44/44/44/46px) · popup z 60"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D15",
+      "title": "Segmented active option ([aria-checked=\"true\"]) & pressed Toggle ([aria-pressed=\"true\"]) ≥ 4.5:1",
+      "target": ".cs-segmented button[aria-checked=\"true\"] · .cs-toggle[aria-pressed=\"true\"]",
+      "expect": "min ≥ 4.5:1 in light and dark",
+      "v250": {
+        "pass": true,
+        "value": "segmented 10.54:1 · toggle 9.61:1"
+      },
+      "v240": {
+        "pass": true,
+        "value": "segmented 10.54:1 · toggle 9.61:1"
+      },
+      "v231": {
+        "pass": true,
+        "value": "segmented 10.54:1 · toggle 9.61:1"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D15",
+      "title": "QRCode (.cs-qrcode) 10px quiet-zone frame & InlineEdit (.cs-inline-edit__view) trigger ergonomics",
+      "target": ".cs-qrcode · .cs-inline-edit__view",
+      "expect": "padding 10px · radius 8px · pointer trigger with dashed border",
+      "v250": {
+        "pass": true,
+        "value": "qr pad 10px r=8px · inline-edit pointer/dashed"
+      },
+      "v240": {
+        "pass": true,
+        "value": "qr pad 10px r=8px · inline-edit pointer/dashed"
+      },
+      "v231": {
+        "pass": true,
+        "value": "qr pad 10px r=8px · inline-edit pointer/dashed"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D16",
+      "title": "4-axis simultaneous probe (Dark × Thủy Ocean × High-Contrast × Compact) resolves without collision",
+      "target": "[data-theme=dark][data-cs-element=thuy][data-cs-variant=ocean][data-cs-contrast=high][data-cs-density=compact]",
+      "expect": "accent #80BDD8 · muted ≥ 10:1 · density space-4 = 12px",
+      "v250": {
+        "pass": true,
+        "value": "accent #80BDD8 · muted 12.64:1 · space-4 12px"
+      },
+      "v240": {
+        "pass": true,
+        "value": "accent #80BDD8 · muted 12.64:1 · space-4 12px"
+      },
+      "v231": {
+        "pass": true,
+        "value": "accent #80BDD8 · muted 12.64:1 · space-4 12px"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D16",
+      "title": "Button 6-variant matrix (primary, secondary, tertiary, ghost, danger, danger-ghost) ≥ 4.5:1",
+      "target": ".cs-button--{primary,secondary,tertiary,ghost,danger,danger-ghost}",
+      "expect": "min ≥ 4.5:1 across all 6 × 2 (light + dark) variants",
+      "v250": {
+        "pass": true,
+        "value": "light min 6.57:1 · dark min 8.93:1"
+      },
+      "v240": {
+        "pass": true,
+        "value": "light min 6.57:1 · dark min 8.93:1"
+      },
+      "v231": {
+        "pass": true,
+        "value": "light min 6.57:1 · dark min 8.93:1"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D16",
+      "title": "Alert 4-tone hierarchy (.cs-alert--{info,success,warning,danger}) keeps 4px stripe & ≥ 4.5:1 icon",
+      "target": ".cs-alert--{info,success,warning,danger}",
+      "expect": "4px border-inline-start · icon ≥ 4.5:1 in light & dark",
+      "v250": {
+        "pass": true,
+        "value": "4px stripe ✓ · icon min 12.81:1"
+      },
+      "v240": {
+        "pass": true,
+        "value": "4px stripe ✓ · icon min 12.81:1"
+      },
+      "v231": {
+        "pass": true,
+        "value": "4px stripe ✓ · icon min 12.81:1"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D16",
+      "title": "Result 4-tone feedback icons (.cs-result, --success, --warning, --error) 64×64px & ≥ 4.5:1",
+      "target": ".cs-result__icon across 4 tones",
+      "expect": "64×64px circular badge · icon ≥ 4.5:1 in light & dark",
+      "v250": {
+        "pass": true,
+        "value": "64×64px ✓ · min contrast 8.33:1"
+      },
+      "v240": {
+        "pass": false,
+        "value": "64×64px ✓ · min contrast 1.36:1"
+      },
+      "v231": {
+        "pass": false,
+        "value": "64×64px ✓ · min contrast 1.36:1"
+      },
+      "state": "fixed"
+    },
+    {
+      "dim": "D16",
+      "title": "Spacing (--cs-space-1..24) & radius (--cs-radius-sm..full) token grids hold exact geometry",
+      "target": "tokens/spacing.css",
+      "expect": "space 4,8,12,16,24,32,48,64,96px · radius 4,8,14,999px",
+      "v250": {
+        "pass": true,
+        "value": "space 4,8,12,16,24,32,48,64,96px · radius 4,8,14,999px"
+      },
+      "v240": {
+        "pass": true,
+        "value": "space 4,8,12,16,24,32,48,64,96px · radius 4,8,14,999px"
+      },
+      "v231": {
+        "pass": true,
+        "value": "space 4,8,12,16,24,32,48,64,96px · radius 4,8,14,999px"
+      },
+      "state": "holds"
+    },
+    {
+      "dim": "D16",
+      "title": "DESIGN.md open-spec documents 5 Ngũ Hành elements, 5 Liquid Glass materials & bilingual slogan",
+      "target": "DESIGN.md",
+      "expect": "Thổ/Mộc/Hỏa/Kim/Thủy · whisper..lens · Turn Your Will Into Real",
+      "v250": {
+        "pass": true,
+        "value": "5 elements + 5 glass materials + bilingual slogan ✓"
+      },
+      "v240": {
+        "pass": true,
+        "value": "5 elements + 5 glass materials + bilingual slogan ✓"
+      },
+      "v231": {
+        "pass": true,
+        "value": "5 elements + 5 glass materials + bilingual slogan ✓"
       },
       "state": "holds"
     }
@@ -2683,6 +3367,11 @@
             "coarseTargetsTotal": 8,
             "coarseDots": true,
             "reducedMotion": true,
+            "reducedTransparency": true,
+            "printGlass": true,
+            "scrollFocus": true,
+            "splitterFocus": true,
+            "skipZ": 201,
             "forcedColorsCount": 5,
             "forcedColorsTotal": 5
           }
@@ -2702,6 +3391,11 @@
             "coarseTargetsTotal": 8,
             "coarseDots": true,
             "reducedMotion": true,
+            "reducedTransparency": true,
+            "printGlass": true,
+            "scrollFocus": true,
+            "splitterFocus": true,
+            "skipZ": 201,
             "forcedColorsCount": 5,
             "forcedColorsTotal": 5
           }
@@ -2729,6 +3423,11 @@
           "coarseTargetsTotal": 8,
           "coarseDots": true,
           "reducedMotion": true,
+          "reducedTransparency": true,
+          "printGlass": true,
+          "scrollFocus": true,
+          "splitterFocus": true,
+          "skipZ": 201,
           "forcedColorsCount": 5,
           "forcedColorsTotal": 5
         }
@@ -2805,6 +3504,11 @@
             "coarseTargetsTotal": 8,
             "coarseDots": true,
             "reducedMotion": true,
+            "reducedTransparency": true,
+            "printGlass": true,
+            "scrollFocus": true,
+            "splitterFocus": true,
+            "skipZ": 201,
             "forcedColorsCount": 5,
             "forcedColorsTotal": 5
           }
@@ -2880,9 +3584,890 @@
             "coarseTargetsTotal": 8,
             "coarseDots": true,
             "reducedMotion": true,
+            "reducedTransparency": true,
+            "printGlass": true,
+            "scrollFocus": true,
+            "splitterFocus": true,
+            "skipZ": 201,
             "forcedColorsCount": 5,
             "forcedColorsTotal": 5
           }
+        }
+      },
+      "p9": {
+        "light": {
+          "ramp": [
+            11,
+            12,
+            14,
+            16,
+            18,
+            20,
+            24,
+            30,
+            36,
+            48,
+            60
+          ],
+          "roles": {
+            "h1": {
+              "fs": 36,
+              "fw": 800,
+              "lh": 48.6,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "h2": {
+              "fs": 30,
+              "fw": 700,
+              "lh": 40.5,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "h3": {
+              "fs": 24,
+              "fw": 700,
+              "lh": 32.4,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "h4": {
+              "fs": 20,
+              "fw": 600,
+              "lh": 27,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "body": {
+              "fs": 16,
+              "fw": 400,
+              "lh": 24,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "eyebrow": {
+              "fs": 12,
+              "fw": 700,
+              "lh": 18,
+              "tt": "uppercase",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            }
+          },
+          "prose": {
+            "maxW": 720,
+            "lh": 24,
+            "fs": 16
+          },
+          "df": {
+            "h2Fam": "\"Space Grotesk\", \"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif",
+            "bodyFam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+          },
+          "tabular": [
+            "tabular-nums",
+            "tabular-nums",
+            "tabular-nums",
+            "tabular-nums",
+            "tabular-nums"
+          ],
+          "textPrimary": "rgb(69, 33, 14)",
+          "page": "rgb(255, 253, 248)",
+          "panel": "rgb(255, 255, 255)"
+        },
+        "dark": {
+          "ramp": [
+            11,
+            12,
+            14,
+            16,
+            18,
+            20,
+            24,
+            30,
+            36,
+            48,
+            60
+          ],
+          "roles": {
+            "h1": {
+              "fs": 36,
+              "fw": 800,
+              "lh": 48.6,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "h2": {
+              "fs": 30,
+              "fw": 700,
+              "lh": 40.5,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "h3": {
+              "fs": 24,
+              "fw": 700,
+              "lh": 32.4,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "h4": {
+              "fs": 20,
+              "fw": 600,
+              "lh": 27,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "body": {
+              "fs": 16,
+              "fw": 400,
+              "lh": 24,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "eyebrow": {
+              "fs": 12,
+              "fw": 700,
+              "lh": 18,
+              "tt": "uppercase",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            }
+          },
+          "prose": {
+            "maxW": 720,
+            "lh": 24,
+            "fs": 16
+          },
+          "df": {
+            "h2Fam": "\"Space Grotesk\", \"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif",
+            "bodyFam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+          },
+          "tabular": [
+            "tabular-nums",
+            "tabular-nums",
+            "tabular-nums",
+            "tabular-nums",
+            "tabular-nums"
+          ],
+          "textPrimary": "rgb(245, 234, 217)",
+          "page": "rgb(26, 17, 8)",
+          "panel": "rgb(34, 23, 16)"
+        }
+      },
+      "p10": {
+        "light": {
+          "depths": [
+            0,
+            5,
+            10,
+            50,
+            60,
+            80,
+            100,
+            200
+          ],
+          "shadows": [
+            "rgba(69, 33, 14, 0.06) 0px 1px 2px 0px",
+            "rgba(69, 33, 14, 0.04) 0px 1px 3px 0px, rgba(69, 33, 14, 0.06) 0px 8px 24px 0px",
+            "rgba(31, 19, 11, 0.18) 0px 12px 30px 0px",
+            "rgba(69, 33, 14, 0.18) 0px 20px 60px 0px",
+            "rgba(31, 19, 11, 0.26) 0px 24px 80px 0px"
+          ],
+          "panel": "rgb(255, 255, 255)",
+          "raised": "rgb(251, 244, 233)",
+          "accent": "rgb(244, 186, 23)",
+          "umber": "rgb(69, 33, 14)",
+          "featExpected": "oklab(0.951587 0.00434883 0.0338318)",
+          "card": {
+            "bg": "rgb(255, 255, 255)",
+            "color": "rgb(69, 33, 14)",
+            "shadow": "rgba(69, 33, 14, 0.04) 0px 1px 3px 0px, rgba(69, 33, 14, 0.06) 0px 8px 24px 0px",
+            "border": "rgb(231, 217, 198)"
+          },
+          "cardR": {
+            "bg": "rgb(251, 244, 233)",
+            "color": "rgb(69, 33, 14)",
+            "shadow": "rgba(69, 33, 14, 0.04) 0px 1px 3px 0px, rgba(69, 33, 14, 0.06) 0px 8px 24px 0px",
+            "border": "rgb(231, 217, 198)"
+          },
+          "cardF": {
+            "bg": "oklab(0.951587 0.00434883 0.0338318)",
+            "color": "rgb(69, 33, 14)",
+            "shadow": "rgba(31, 19, 11, 0.18) 0px 12px 30px 0px",
+            "border": "rgb(244, 186, 23)"
+          },
+          "aurora": {
+            "bg": "rgb(69, 33, 14)",
+            "img": "radial-gradient(90% 120% at 12% -10%, oklab(0.819561 0.0137079 0.163672 / 0.46), rgba(0, 0, 0, 0) 55%), radial-gradient(70% 90% at 88% 8%, oklab(0.780179 -0.00210533 0.0559015 / 0.32), rgba(0, 0, 0, 0) 60%), radial-gradient(120% 120% at 50% 120%, oklab(0.186649 0.00921398 0.0207603 / 0.6), rgba(0, 0, 0, 0) 60%)",
+            "fg": "rgb(255, 255, 255)"
+          },
+          "scroll": {
+            "padStart": 16,
+            "padEnd": 16,
+            "overscroll": "contain"
+          },
+          "css": {
+            "focusGlobal": ":where(:focus-visible) { outline: 2px solid var(--cs-color-text-primary, #45210e); outline-offset: 2px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre, #f4ba17); }",
+            "focusCtlsCount": 5,
+            "focusCtlsTotal": 5,
+            "bareOutlineNone": [],
+            "coarseTargetsCount": 8,
+            "coarseTargetsTotal": 8,
+            "coarseDots": true,
+            "reducedMotion": true,
+            "reducedTransparency": true,
+            "printGlass": true,
+            "scrollFocus": true,
+            "splitterFocus": true,
+            "skipZ": 201,
+            "forcedColorsCount": 5,
+            "forcedColorsTotal": 5
+          }
+        },
+        "dark": {
+          "depths": [
+            0,
+            5,
+            10,
+            50,
+            60,
+            80,
+            100,
+            200
+          ],
+          "shadows": [
+            "rgba(0, 0, 0, 0.4) 0px 1px 2px 0px",
+            "rgba(0, 0, 0, 0.34) 0px 1px 3px 0px, rgba(0, 0, 0, 0.42) 0px 8px 24px 0px",
+            "rgba(0, 0, 0, 0.5) 0px 12px 30px 0px",
+            "rgba(0, 0, 0, 0.55) 0px 20px 60px 0px",
+            "rgba(0, 0, 0, 0.62) 0px 24px 80px 0px"
+          ],
+          "panel": "rgb(34, 23, 16)",
+          "raised": "rgb(43, 30, 20)",
+          "accent": "rgb(244, 186, 23)",
+          "umber": "rgb(69, 33, 14)",
+          "featExpected": "oklab(0.316563 0.0140397 0.0399897)",
+          "card": {
+            "bg": "rgb(34, 23, 16)",
+            "color": "rgb(245, 234, 217)",
+            "shadow": "rgba(0, 0, 0, 0.34) 0px 1px 3px 0px, rgba(0, 0, 0, 0.42) 0px 8px 24px 0px",
+            "border": "rgb(74, 58, 44)"
+          },
+          "cardR": {
+            "bg": "rgb(43, 30, 20)",
+            "color": "rgb(245, 234, 217)",
+            "shadow": "rgba(0, 0, 0, 0.34) 0px 1px 3px 0px, rgba(0, 0, 0, 0.42) 0px 8px 24px 0px",
+            "border": "rgb(74, 58, 44)"
+          },
+          "cardF": {
+            "bg": "oklab(0.316563 0.0140397 0.0399897)",
+            "color": "rgb(245, 234, 217)",
+            "shadow": "rgba(0, 0, 0, 0.5) 0px 12px 30px 0px",
+            "border": "rgb(244, 186, 23)"
+          },
+          "aurora": {
+            "bg": "rgb(69, 33, 14)",
+            "img": "radial-gradient(90% 120% at 12% -10%, oklab(0.819561 0.0137079 0.163672 / 0.46), rgba(0, 0, 0, 0) 55%), radial-gradient(70% 90% at 88% 8%, oklab(0.780179 -0.00210533 0.0559015 / 0.32), rgba(0, 0, 0, 0) 60%), radial-gradient(120% 120% at 50% 120%, oklab(0.186649 0.00921398 0.0207603 / 0.6), rgba(0, 0, 0, 0) 60%)",
+            "fg": "rgb(255, 255, 255)"
+          },
+          "scroll": {
+            "padStart": 16,
+            "padEnd": 16,
+            "overscroll": "contain"
+          },
+          "css": {
+            "focusGlobal": ":where(:focus-visible) { outline: 2px solid var(--cs-color-text-primary, #45210e); outline-offset: 2px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre, #f4ba17); }",
+            "focusCtlsCount": 5,
+            "focusCtlsTotal": 5,
+            "bareOutlineNone": [],
+            "coarseTargetsCount": 8,
+            "coarseTargetsTotal": 8,
+            "coarseDots": true,
+            "reducedMotion": true,
+            "reducedTransparency": true,
+            "printGlass": true,
+            "scrollFocus": true,
+            "splitterFocus": true,
+            "skipZ": 201,
+            "forcedColorsCount": 5,
+            "forcedColorsTotal": 5
+          }
+        }
+      },
+      "p11": {
+        "light": {
+          "panel": "rgb(255, 255, 255)",
+          "raised": "rgb(251, 244, 233)",
+          "ochre": "rgb(244, 186, 23)",
+          "warning": "rgb(146, 64, 14)",
+          "lumiAv": {
+            "bg": "rgb(244, 186, 23)",
+            "color": "rgb(69, 33, 14)",
+            "shadow": "none",
+            "border": "rgb(69, 33, 14)"
+          },
+          "lumiBub": {
+            "bg": "rgb(251, 244, 233)",
+            "color": "rgb(69, 33, 14)",
+            "shadow": "none",
+            "border": "rgb(231, 217, 198)"
+          },
+          "userBub": {
+            "bg": "rgb(69, 33, 14)",
+            "color": "rgb(255, 255, 255)",
+            "shadow": "oklab(0.891495 0.00742289 0.0289096 / 0.32) 0px 0px 0px 1px inset",
+            "border": "rgb(255, 255, 255)"
+          },
+          "lumiSizes": [
+            32,
+            44,
+            64
+          ],
+          "lumiRing": "oklab(0.819561 0.0137079 0.163672 / 0.34) 0px 0px 0px 3px",
+          "gate": {
+            "bg": "oklab(0.973654 0.00435963 0.00451963)",
+            "color": "rgb(69, 33, 14)",
+            "shadow": "none",
+            "border": "rgb(146, 64, 14)"
+          },
+          "gateRisk": "rgb(68, 24, 1)",
+          "aid": {
+            "bg": "rgb(29, 78, 216)",
+            "color": "rgb(255, 255, 255)",
+            "shadow": "none",
+            "border": "rgb(255, 255, 255)"
+          },
+          "cit": {
+            "w": 20,
+            "h": 20,
+            "bg": "oklab(0.92834 -0.00293826 -0.0302381)",
+            "fg": "rgb(0, 10, 117)"
+          },
+          "sug": {
+            "bg": "rgb(255, 255, 255)",
+            "fg": "rgb(110, 59, 14)",
+            "r": 999
+          },
+          "typDot": {
+            "w": 7,
+            "h": 7
+          },
+          "code": {
+            "bg": "rgb(43, 30, 20)",
+            "fg": "rgb(245, 234, 217)",
+            "barFg": "rgb(201, 183, 163)"
+          },
+          "term": {
+            "bg": "rgb(26, 17, 8)",
+            "fg": "rgb(245, 234, 217)",
+            "outFg": "rgb(201, 183, 163)"
+          }
+        },
+        "dark": {
+          "panel": "rgb(34, 23, 16)",
+          "raised": "rgb(43, 30, 20)",
+          "ochre": "rgb(244, 186, 23)",
+          "warning": "rgb(251, 191, 36)",
+          "lumiAv": {
+            "bg": "rgb(244, 186, 23)",
+            "color": "rgb(69, 33, 14)",
+            "shadow": "none",
+            "border": "rgb(69, 33, 14)"
+          },
+          "lumiBub": {
+            "bg": "rgb(43, 30, 20)",
+            "color": "rgb(245, 234, 217)",
+            "shadow": "none",
+            "border": "rgb(74, 58, 44)"
+          },
+          "userBub": {
+            "bg": "rgb(69, 33, 14)",
+            "color": "rgb(255, 255, 255)",
+            "shadow": "oklab(0.361736 0.0147844 0.0286421 / 0.32) 0px 0px 0px 1px inset",
+            "border": "rgb(255, 255, 255)"
+          },
+          "lumiSizes": [
+            32,
+            44,
+            64
+          ],
+          "lumiRing": "oklab(0.819561 0.0137079 0.163672 / 0.34) 0px 0px 0px 3px",
+          "gate": {
+            "bg": "oklab(0.247393 0.0132853 0.0251626)",
+            "color": "rgb(245, 234, 217)",
+            "shadow": "none",
+            "border": "rgb(251, 191, 36)"
+          },
+          "gateRisk": "rgb(255, 216, 135)",
+          "aid": {
+            "bg": "rgb(181, 212, 253)",
+            "color": "rgb(26, 17, 8)",
+            "shadow": "none",
+            "border": "rgb(26, 17, 8)"
+          },
+          "cit": {
+            "w": 20,
+            "h": 20,
+            "bg": "oklab(0.306627 0.00898681 0.00639093)",
+            "fg": "rgb(199, 223, 255)"
+          },
+          "sug": {
+            "bg": "rgb(34, 23, 16)",
+            "fg": "rgb(254, 205, 93)",
+            "r": 999
+          },
+          "typDot": {
+            "w": 7,
+            "h": 7
+          },
+          "code": {
+            "bg": "rgb(43, 30, 20)",
+            "fg": "rgb(245, 234, 217)",
+            "barFg": "rgb(201, 183, 163)"
+          },
+          "term": {
+            "bg": "rgb(26, 17, 8)",
+            "fg": "rgb(245, 234, 217)",
+            "outFg": "rgb(201, 183, 163)"
+          }
+        }
+      },
+      "p12": {
+        "light": {
+          "panel": "rgb(255, 255, 255)",
+          "raised": "rgb(251, 244, 233)",
+          "accent": "rgb(244, 186, 23)",
+          "textAccent": "rgb(110, 59, 14)",
+          "accentBright": "rgb(244, 186, 23)",
+          "accentStrong": "rgb(145, 109, 17)",
+          "success": "rgb(22, 101, 52)",
+          "dg": {
+            "thPos": "sticky",
+            "thTop": "0px",
+            "thZ": 1,
+            "thBg": "rgb(251, 244, 233)",
+            "tdBg": "rgb(251, 244, 233)",
+            "tdFg": "rgb(69, 33, 14)"
+          },
+          "spl": {
+            "display": "flex",
+            "barW": 8,
+            "cursor": "col-resize",
+            "focusRule": true
+          },
+          "tl": {
+            "trackW": 2,
+            "done": {
+              "bg": "rgb(22, 101, 52)",
+              "color": "rgb(255, 255, 255)",
+              "shadow": "none",
+              "border": "rgb(255, 255, 255)"
+            },
+            "now": {
+              "bg": "rgb(244, 186, 23)",
+              "color": "rgb(69, 33, 14)",
+              "shadow": "rgb(145, 109, 17) 0px 0px 0px 2px inset",
+              "border": "rgb(69, 33, 14)"
+            },
+            "todo": {
+              "bg": "rgb(251, 244, 233)",
+              "color": "rgb(63, 45, 33)",
+              "shadow": "none",
+              "border": "rgb(231, 217, 198)"
+            }
+          },
+          "sb": {
+            "w": 248,
+            "actBg": "rgb(251, 244, 233)",
+            "actFg": "rgb(110, 59, 14)",
+            "icoFg": "rgb(110, 59, 14)"
+          },
+          "z": {
+            "drScrim": 100,
+            "dr": 101,
+            "cmdk": 100,
+            "toast": 200
+          },
+          "pag": {
+            "bg": "rgb(69, 33, 14)",
+            "fg": "rgb(255, 255, 255)"
+          },
+          "tab": {
+            "fg": "rgb(110, 59, 14)",
+            "borderB": "rgb(244, 186, 23)"
+          }
+        },
+        "dark": {
+          "panel": "rgb(34, 23, 16)",
+          "raised": "rgb(43, 30, 20)",
+          "accent": "rgb(244, 186, 23)",
+          "textAccent": "rgb(254, 205, 93)",
+          "accentBright": "rgb(244, 186, 23)",
+          "accentStrong": "rgb(145, 109, 17)",
+          "success": "rgb(74, 222, 128)",
+          "dg": {
+            "thPos": "sticky",
+            "thTop": "0px",
+            "thZ": 1,
+            "thBg": "rgb(43, 30, 20)",
+            "tdBg": "oklab(0.324943 0.0132441 0.0441174)",
+            "tdFg": "rgb(245, 234, 217)"
+          },
+          "spl": {
+            "display": "flex",
+            "barW": 8,
+            "cursor": "col-resize",
+            "focusRule": true
+          },
+          "tl": {
+            "trackW": 2,
+            "done": {
+              "bg": "rgb(74, 222, 128)",
+              "color": "rgb(26, 17, 8)",
+              "shadow": "none",
+              "border": "rgb(26, 17, 8)"
+            },
+            "now": {
+              "bg": "rgb(244, 186, 23)",
+              "color": "rgb(69, 33, 14)",
+              "shadow": "rgb(145, 109, 17) 0px 0px 0px 2px inset",
+              "border": "rgb(69, 33, 14)"
+            },
+            "todo": {
+              "bg": "rgb(43, 30, 20)",
+              "color": "rgb(233, 214, 194)",
+              "shadow": "none",
+              "border": "rgb(74, 58, 44)"
+            }
+          },
+          "sb": {
+            "w": 248,
+            "actBg": "oklab(0.349071 0.0132667 0.0499494)",
+            "actFg": "rgb(254, 205, 93)",
+            "icoFg": "rgb(254, 205, 93)"
+          },
+          "z": {
+            "drScrim": 100,
+            "dr": 101,
+            "cmdk": 100,
+            "toast": 200
+          },
+          "pag": {
+            "bg": "rgb(244, 186, 23)",
+            "fg": "rgb(26, 17, 8)"
+          },
+          "tab": {
+            "fg": "rgb(254, 205, 93)",
+            "borderB": "rgb(244, 186, 23)"
+          }
+        }
+      },
+      "p13": {
+        "light": {
+          "panel": "rgb(255, 255, 255)",
+          "cq": {
+            "n3": 1,
+            "n4": 1,
+            "ns": "column",
+            "w3": 3,
+            "w4": 4,
+            "ws": "row"
+          },
+          "vp": {
+            "sw320": 318,
+            "cw320": 318,
+            "sw768": 766,
+            "cw768": 766
+          },
+          "form": {
+            "opacity": 0.72,
+            "btnPe": "none",
+            "btnCur": "wait",
+            "sumBg": "oklab(0.960022 0.0127175 0.00719383)",
+            "sumFg": "rgb(69, 33, 14)",
+            "sumBFg": "rgb(75, 5, 2)"
+          },
+          "pickers": {
+            "heights": [
+              44,
+              44,
+              44,
+              44,
+              44,
+              46
+            ],
+            "popZ": 60
+          },
+          "seg": {
+            "bg": "rgb(69, 33, 14)",
+            "fg": "rgb(255, 255, 255)"
+          },
+          "tog": {
+            "bg": "rgb(251, 244, 233)",
+            "fg": "rgb(69, 33, 14)"
+          },
+          "qr": {
+            "pad": 10,
+            "r": 8,
+            "bg": "rgb(255, 255, 255)"
+          },
+          "ie": {
+            "cursor": "pointer",
+            "borderStyle": "dashed"
+          }
+        },
+        "dark": {
+          "panel": "rgb(34, 23, 16)",
+          "cq": {
+            "n3": 1,
+            "n4": 1,
+            "ns": "column",
+            "w3": 3,
+            "w4": 4,
+            "ws": "row"
+          },
+          "vp": {
+            "sw320": 318,
+            "cw320": 318,
+            "sw768": 766,
+            "cw768": 766
+          },
+          "form": {
+            "opacity": 0.72,
+            "btnPe": "none",
+            "btnCur": "wait",
+            "sumBg": "oklab(0.261643 0.0210433 0.0200659)",
+            "sumFg": "rgb(245, 234, 217)",
+            "sumBFg": "rgb(255, 210, 207)"
+          },
+          "pickers": {
+            "heights": [
+              44,
+              44,
+              44,
+              44,
+              44,
+              46
+            ],
+            "popZ": 60
+          },
+          "seg": {
+            "bg": "rgb(244, 186, 23)",
+            "fg": "rgb(26, 17, 8)"
+          },
+          "tog": {
+            "bg": "oklab(0.349071 0.0132667 0.0499494)",
+            "fg": "rgb(245, 234, 217)"
+          },
+          "qr": {
+            "pad": 10,
+            "r": 8,
+            "bg": "rgb(34, 23, 16)"
+          },
+          "ie": {
+            "cursor": "pointer",
+            "borderStyle": "dashed"
+          }
+        }
+      },
+      "p14": {
+        "light": {
+          "panel": "rgb(255, 255, 255)",
+          "axis4": {
+            "accent": "rgb(128, 189, 216)",
+            "muted": "rgb(245, 234, 217)",
+            "panel": "oklab(0.271381 0.00686482 0.0106571)",
+            "space4": 12
+          },
+          "btns": {
+            "primary": {
+              "bg": "rgb(69, 33, 14)",
+              "fg": "rgb(255, 255, 255)"
+            },
+            "secondary": {
+              "bg": "rgb(255, 255, 255)",
+              "fg": "rgb(110, 59, 14)"
+            },
+            "tertiary": {
+              "bg": "rgb(251, 244, 233)",
+              "fg": "rgb(69, 33, 14)"
+            },
+            "ghost": {
+              "bg": "rgba(0, 0, 0, 0)",
+              "fg": "rgb(69, 33, 14)"
+            },
+            "danger": {
+              "bg": "rgb(180, 35, 24)",
+              "fg": "rgb(255, 255, 255)"
+            },
+            "danger-ghost": {
+              "bg": "rgba(0, 0, 0, 0)",
+              "fg": "rgb(75, 5, 2)"
+            }
+          },
+          "alerts": {
+            "info": {
+              "bg": "rgb(255, 255, 255)",
+              "bw": 4,
+              "iconFg": "rgb(0, 10, 117)"
+            },
+            "success": {
+              "bg": "rgb(255, 255, 255)",
+              "bw": 4,
+              "iconFg": "rgb(4, 45, 19)"
+            },
+            "warning": {
+              "bg": "rgb(255, 255, 255)",
+              "bw": 4,
+              "iconFg": "rgb(68, 24, 1)"
+            },
+            "danger": {
+              "bg": "rgb(255, 255, 255)",
+              "bw": 4,
+              "iconFg": "rgb(75, 5, 2)"
+            }
+          },
+          "results": {
+            "default": {
+              "w": 64,
+              "h": 64,
+              "bg": "oklab(0.967516 0.00250479 0.0294775)",
+              "fg": "rgb(110, 59, 14)"
+            },
+            "success": {
+              "w": 64,
+              "h": 64,
+              "bg": "oklab(0.922704 -0.013263 0.00729405)",
+              "fg": "rgb(4, 45, 19)"
+            },
+            "warning": {
+              "w": 64,
+              "h": 64,
+              "bg": "oklab(0.926242 0.0121249 0.0126188)",
+              "fg": "rgb(68, 24, 1)"
+            },
+            "error": {
+              "w": 64,
+              "h": 64,
+              "bg": "oklab(0.940036 0.0190534 0.0107807)",
+              "fg": "rgb(75, 5, 2)"
+            }
+          },
+          "spaces": [
+            4,
+            8,
+            12,
+            16,
+            24,
+            32,
+            48,
+            64,
+            96
+          ],
+          "radii": [
+            4,
+            8,
+            14,
+            999
+          ]
+        },
+        "dark": {
+          "panel": "rgb(34, 23, 16)",
+          "axis4": {
+            "accent": "rgb(128, 189, 216)",
+            "muted": "rgb(245, 234, 217)",
+            "panel": "oklab(0.271381 0.00686482 0.0106571)",
+            "space4": 12
+          },
+          "btns": {
+            "primary": {
+              "bg": "rgb(244, 186, 23)",
+              "fg": "rgb(26, 17, 8)"
+            },
+            "secondary": {
+              "bg": "rgb(34, 23, 16)",
+              "fg": "rgb(254, 205, 93)"
+            },
+            "tertiary": {
+              "bg": "rgb(43, 30, 20)",
+              "fg": "rgb(245, 234, 217)"
+            },
+            "ghost": {
+              "bg": "rgba(0, 0, 0, 0)",
+              "fg": "rgb(245, 234, 217)"
+            },
+            "danger": {
+              "bg": "rgb(252, 152, 149)",
+              "fg": "rgb(26, 17, 8)"
+            },
+            "danger-ghost": {
+              "bg": "rgba(0, 0, 0, 0)",
+              "fg": "rgb(255, 210, 207)"
+            }
+          },
+          "alerts": {
+            "info": {
+              "bg": "rgb(34, 23, 16)",
+              "bw": 4,
+              "iconFg": "rgb(199, 223, 255)"
+            },
+            "success": {
+              "bg": "rgb(34, 23, 16)",
+              "bw": 4,
+              "iconFg": "rgb(104, 247, 152)"
+            },
+            "warning": {
+              "bg": "rgb(34, 23, 16)",
+              "bw": 4,
+              "iconFg": "rgb(255, 216, 135)"
+            },
+            "danger": {
+              "bg": "rgb(34, 23, 16)",
+              "bw": 4,
+              "iconFg": "rgb(255, 210, 207)"
+            }
+          },
+          "results": {
+            "default": {
+              "w": 64,
+              "h": 64,
+              "bg": "oklab(0.324943 0.0132441 0.0441174)",
+              "fg": "rgb(254, 205, 93)"
+            },
+            "success": {
+              "w": 64,
+              "h": 64,
+              "bg": "oklab(0.298124 -0.0111363 0.027452)",
+              "fg": "rgb(104, 247, 152)"
+            },
+            "warning": {
+              "w": 64,
+              "h": 64,
+              "bg": "oklab(0.303237 0.0135427 0.0382829)",
+              "fg": "rgb(255, 216, 135)"
+            },
+            "error": {
+              "w": 64,
+              "h": 64,
+              "bg": "oklab(0.28428 0.0249938 0.0211621)",
+              "fg": "rgb(255, 210, 207)"
+            }
+          },
+          "spaces": [
+            4,
+            8,
+            12,
+            16,
+            24,
+            32,
+            48,
+            64,
+            96
+          ],
+          "radii": [
+            4,
+            8,
+            14,
+            999
+          ]
         }
       },
       "cssLoaded": true
@@ -4232,6 +5817,11 @@
             "coarseTargetsTotal": 8,
             "coarseDots": false,
             "reducedMotion": true,
+            "reducedTransparency": true,
+            "printGlass": true,
+            "scrollFocus": true,
+            "splitterFocus": true,
+            "skipZ": 201,
             "forcedColorsCount": 5,
             "forcedColorsTotal": 5
           }
@@ -4251,6 +5841,11 @@
             "coarseTargetsTotal": 8,
             "coarseDots": false,
             "reducedMotion": true,
+            "reducedTransparency": true,
+            "printGlass": true,
+            "scrollFocus": true,
+            "splitterFocus": true,
+            "skipZ": 201,
             "forcedColorsCount": 5,
             "forcedColorsTotal": 5
           }
@@ -4278,6 +5873,11 @@
           "coarseTargetsTotal": 8,
           "coarseDots": false,
           "reducedMotion": true,
+          "reducedTransparency": true,
+          "printGlass": true,
+          "scrollFocus": true,
+          "splitterFocus": true,
+          "skipZ": 201,
           "forcedColorsCount": 5,
           "forcedColorsTotal": 5
         }
@@ -4354,6 +5954,11 @@
             "coarseTargetsTotal": 8,
             "coarseDots": false,
             "reducedMotion": true,
+            "reducedTransparency": true,
+            "printGlass": true,
+            "scrollFocus": true,
+            "splitterFocus": true,
+            "skipZ": 201,
             "forcedColorsCount": 5,
             "forcedColorsTotal": 5
           }
@@ -4429,9 +6034,890 @@
             "coarseTargetsTotal": 8,
             "coarseDots": false,
             "reducedMotion": true,
+            "reducedTransparency": true,
+            "printGlass": true,
+            "scrollFocus": true,
+            "splitterFocus": true,
+            "skipZ": 201,
             "forcedColorsCount": 5,
             "forcedColorsTotal": 5
           }
+        }
+      },
+      "p9": {
+        "light": {
+          "ramp": [
+            11,
+            12,
+            14,
+            16,
+            18,
+            20,
+            24,
+            30,
+            36,
+            48,
+            60
+          ],
+          "roles": {
+            "h1": {
+              "fs": 36,
+              "fw": 800,
+              "lh": 48.6,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "h2": {
+              "fs": 30,
+              "fw": 700,
+              "lh": 40.5,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "h3": {
+              "fs": 24,
+              "fw": 700,
+              "lh": 32.4,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "h4": {
+              "fs": 20,
+              "fw": 600,
+              "lh": 27,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "body": {
+              "fs": 16,
+              "fw": 400,
+              "lh": 24,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "eyebrow": {
+              "fs": 12,
+              "fw": 700,
+              "lh": 18,
+              "tt": "uppercase",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            }
+          },
+          "prose": {
+            "maxW": 720,
+            "lh": 24,
+            "fs": 16
+          },
+          "df": {
+            "h2Fam": "\"Space Grotesk\", \"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif",
+            "bodyFam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+          },
+          "tabular": [
+            "tabular-nums",
+            "tabular-nums",
+            "tabular-nums",
+            "tabular-nums",
+            "tabular-nums"
+          ],
+          "textPrimary": "rgb(69, 33, 14)",
+          "page": "rgb(255, 253, 248)",
+          "panel": "rgb(255, 255, 255)"
+        },
+        "dark": {
+          "ramp": [
+            11,
+            12,
+            14,
+            16,
+            18,
+            20,
+            24,
+            30,
+            36,
+            48,
+            60
+          ],
+          "roles": {
+            "h1": {
+              "fs": 36,
+              "fw": 800,
+              "lh": 48.6,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "h2": {
+              "fs": 30,
+              "fw": 700,
+              "lh": 40.5,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "h3": {
+              "fs": 24,
+              "fw": 700,
+              "lh": 32.4,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "h4": {
+              "fs": 20,
+              "fw": 600,
+              "lh": 27,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "body": {
+              "fs": 16,
+              "fw": 400,
+              "lh": 24,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "eyebrow": {
+              "fs": 12,
+              "fw": 700,
+              "lh": 18,
+              "tt": "uppercase",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            }
+          },
+          "prose": {
+            "maxW": 720,
+            "lh": 24,
+            "fs": 16
+          },
+          "df": {
+            "h2Fam": "\"Space Grotesk\", \"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif",
+            "bodyFam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+          },
+          "tabular": [
+            "tabular-nums",
+            "tabular-nums",
+            "tabular-nums",
+            "tabular-nums",
+            "tabular-nums"
+          ],
+          "textPrimary": "rgb(245, 234, 217)",
+          "page": "rgb(26, 17, 8)",
+          "panel": "rgb(34, 23, 16)"
+        }
+      },
+      "p10": {
+        "light": {
+          "depths": [
+            0,
+            5,
+            10,
+            50,
+            60,
+            80,
+            100,
+            200
+          ],
+          "shadows": [
+            "rgba(69, 33, 14, 0.06) 0px 1px 2px 0px",
+            "rgba(69, 33, 14, 0.04) 0px 1px 3px 0px, rgba(69, 33, 14, 0.06) 0px 8px 24px 0px",
+            "rgba(31, 19, 11, 0.18) 0px 12px 30px 0px",
+            "rgba(69, 33, 14, 0.18) 0px 20px 60px 0px",
+            "rgba(31, 19, 11, 0.26) 0px 24px 80px 0px"
+          ],
+          "panel": "rgb(255, 255, 255)",
+          "raised": "rgb(251, 244, 233)",
+          "accent": "rgb(244, 186, 23)",
+          "umber": "rgb(69, 33, 14)",
+          "featExpected": "oklab(0.951587 0.00434883 0.0338318)",
+          "card": {
+            "bg": "rgb(255, 255, 255)",
+            "color": "rgb(69, 33, 14)",
+            "shadow": "rgba(69, 33, 14, 0.04) 0px 1px 3px 0px, rgba(69, 33, 14, 0.06) 0px 8px 24px 0px",
+            "border": "rgb(231, 217, 198)"
+          },
+          "cardR": {
+            "bg": "rgb(251, 244, 233)",
+            "color": "rgb(69, 33, 14)",
+            "shadow": "rgba(69, 33, 14, 0.04) 0px 1px 3px 0px, rgba(69, 33, 14, 0.06) 0px 8px 24px 0px",
+            "border": "rgb(231, 217, 198)"
+          },
+          "cardF": {
+            "bg": "oklab(0.951587 0.00434883 0.0338318)",
+            "color": "rgb(69, 33, 14)",
+            "shadow": "rgba(31, 19, 11, 0.18) 0px 12px 30px 0px",
+            "border": "rgb(244, 186, 23)"
+          },
+          "aurora": {
+            "bg": "rgb(69, 33, 14)",
+            "img": "radial-gradient(90% 120% at 12% -10%, oklab(0.819561 0.0137079 0.163672 / 0.46), rgba(0, 0, 0, 0) 55%), radial-gradient(70% 90% at 88% 8%, oklab(0.780179 -0.00210533 0.0559015 / 0.32), rgba(0, 0, 0, 0) 60%), radial-gradient(120% 120% at 50% 120%, oklab(0.186649 0.00921398 0.0207603 / 0.6), rgba(0, 0, 0, 0) 60%)",
+            "fg": "rgb(255, 255, 255)"
+          },
+          "scroll": {
+            "padStart": 16,
+            "padEnd": 16,
+            "overscroll": "contain"
+          },
+          "css": {
+            "focusGlobal": ":where(:focus-visible) { outline: 2px solid var(--cs-color-text-primary, #45210e); outline-offset: 2px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre, #f4ba17); }",
+            "focusCtlsCount": 5,
+            "focusCtlsTotal": 5,
+            "bareOutlineNone": [],
+            "coarseTargetsCount": 8,
+            "coarseTargetsTotal": 8,
+            "coarseDots": false,
+            "reducedMotion": true,
+            "reducedTransparency": true,
+            "printGlass": true,
+            "scrollFocus": true,
+            "splitterFocus": true,
+            "skipZ": 201,
+            "forcedColorsCount": 5,
+            "forcedColorsTotal": 5
+          }
+        },
+        "dark": {
+          "depths": [
+            0,
+            5,
+            10,
+            50,
+            60,
+            80,
+            100,
+            200
+          ],
+          "shadows": [
+            "rgba(0, 0, 0, 0.4) 0px 1px 2px 0px",
+            "rgba(0, 0, 0, 0.34) 0px 1px 3px 0px, rgba(0, 0, 0, 0.42) 0px 8px 24px 0px",
+            "rgba(0, 0, 0, 0.5) 0px 12px 30px 0px",
+            "rgba(0, 0, 0, 0.55) 0px 20px 60px 0px",
+            "rgba(0, 0, 0, 0.62) 0px 24px 80px 0px"
+          ],
+          "panel": "rgb(34, 23, 16)",
+          "raised": "rgb(43, 30, 20)",
+          "accent": "rgb(244, 186, 23)",
+          "umber": "rgb(69, 33, 14)",
+          "featExpected": "oklab(0.316563 0.0140397 0.0399897)",
+          "card": {
+            "bg": "rgb(34, 23, 16)",
+            "color": "rgb(245, 234, 217)",
+            "shadow": "rgba(0, 0, 0, 0.34) 0px 1px 3px 0px, rgba(0, 0, 0, 0.42) 0px 8px 24px 0px",
+            "border": "rgb(74, 58, 44)"
+          },
+          "cardR": {
+            "bg": "rgb(43, 30, 20)",
+            "color": "rgb(245, 234, 217)",
+            "shadow": "rgba(0, 0, 0, 0.34) 0px 1px 3px 0px, rgba(0, 0, 0, 0.42) 0px 8px 24px 0px",
+            "border": "rgb(74, 58, 44)"
+          },
+          "cardF": {
+            "bg": "oklab(0.316563 0.0140397 0.0399897)",
+            "color": "rgb(245, 234, 217)",
+            "shadow": "rgba(0, 0, 0, 0.5) 0px 12px 30px 0px",
+            "border": "rgb(244, 186, 23)"
+          },
+          "aurora": {
+            "bg": "rgb(69, 33, 14)",
+            "img": "radial-gradient(90% 120% at 12% -10%, oklab(0.819561 0.0137079 0.163672 / 0.46), rgba(0, 0, 0, 0) 55%), radial-gradient(70% 90% at 88% 8%, oklab(0.780179 -0.00210533 0.0559015 / 0.32), rgba(0, 0, 0, 0) 60%), radial-gradient(120% 120% at 50% 120%, oklab(0.186649 0.00921398 0.0207603 / 0.6), rgba(0, 0, 0, 0) 60%)",
+            "fg": "rgb(255, 255, 255)"
+          },
+          "scroll": {
+            "padStart": 16,
+            "padEnd": 16,
+            "overscroll": "contain"
+          },
+          "css": {
+            "focusGlobal": ":where(:focus-visible) { outline: 2px solid var(--cs-color-text-primary, #45210e); outline-offset: 2px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre, #f4ba17); }",
+            "focusCtlsCount": 5,
+            "focusCtlsTotal": 5,
+            "bareOutlineNone": [],
+            "coarseTargetsCount": 8,
+            "coarseTargetsTotal": 8,
+            "coarseDots": false,
+            "reducedMotion": true,
+            "reducedTransparency": true,
+            "printGlass": true,
+            "scrollFocus": true,
+            "splitterFocus": true,
+            "skipZ": 201,
+            "forcedColorsCount": 5,
+            "forcedColorsTotal": 5
+          }
+        }
+      },
+      "p11": {
+        "light": {
+          "panel": "rgb(255, 255, 255)",
+          "raised": "rgb(251, 244, 233)",
+          "ochre": "rgb(244, 186, 23)",
+          "warning": "rgb(146, 64, 14)",
+          "lumiAv": {
+            "bg": "rgb(244, 186, 23)",
+            "color": "rgb(69, 33, 14)",
+            "shadow": "none",
+            "border": "rgb(69, 33, 14)"
+          },
+          "lumiBub": {
+            "bg": "rgb(251, 244, 233)",
+            "color": "rgb(69, 33, 14)",
+            "shadow": "none",
+            "border": "rgb(231, 217, 198)"
+          },
+          "userBub": {
+            "bg": "rgb(69, 33, 14)",
+            "color": "rgb(255, 255, 255)",
+            "shadow": "none",
+            "border": "rgb(255, 255, 255)"
+          },
+          "lumiSizes": [
+            32,
+            44,
+            64
+          ],
+          "lumiRing": "oklab(0.819561 0.0137079 0.163672 / 0.34) 0px 0px 0px 3px",
+          "gate": {
+            "bg": "oklab(0.973654 0.00435963 0.00451963)",
+            "color": "rgb(69, 33, 14)",
+            "shadow": "none",
+            "border": "rgb(146, 64, 14)"
+          },
+          "gateRisk": "rgb(68, 24, 1)",
+          "aid": {
+            "bg": "rgb(29, 78, 216)",
+            "color": "rgb(255, 255, 255)",
+            "shadow": "none",
+            "border": "rgb(255, 255, 255)"
+          },
+          "cit": {
+            "w": 20,
+            "h": 20,
+            "bg": "oklab(0.92834 -0.00293826 -0.0302381)",
+            "fg": "rgb(0, 10, 117)"
+          },
+          "sug": {
+            "bg": "rgb(255, 255, 255)",
+            "fg": "rgb(110, 59, 14)",
+            "r": 999
+          },
+          "typDot": {
+            "w": 7,
+            "h": 7
+          },
+          "code": {
+            "bg": "rgb(43, 30, 20)",
+            "fg": "rgb(245, 234, 217)",
+            "barFg": "rgb(201, 183, 163)"
+          },
+          "term": {
+            "bg": "rgb(26, 17, 8)",
+            "fg": "rgb(245, 234, 217)",
+            "outFg": "rgb(201, 183, 163)"
+          }
+        },
+        "dark": {
+          "panel": "rgb(34, 23, 16)",
+          "raised": "rgb(43, 30, 20)",
+          "ochre": "rgb(244, 186, 23)",
+          "warning": "rgb(251, 191, 36)",
+          "lumiAv": {
+            "bg": "rgb(244, 186, 23)",
+            "color": "rgb(69, 33, 14)",
+            "shadow": "none",
+            "border": "rgb(69, 33, 14)"
+          },
+          "lumiBub": {
+            "bg": "rgb(43, 30, 20)",
+            "color": "rgb(245, 234, 217)",
+            "shadow": "none",
+            "border": "rgb(74, 58, 44)"
+          },
+          "userBub": {
+            "bg": "rgb(69, 33, 14)",
+            "color": "rgb(255, 255, 255)",
+            "shadow": "none",
+            "border": "rgb(255, 255, 255)"
+          },
+          "lumiSizes": [
+            32,
+            44,
+            64
+          ],
+          "lumiRing": "oklab(0.819561 0.0137079 0.163672 / 0.34) 0px 0px 0px 3px",
+          "gate": {
+            "bg": "oklab(0.247393 0.0132853 0.0251626)",
+            "color": "rgb(245, 234, 217)",
+            "shadow": "none",
+            "border": "rgb(251, 191, 36)"
+          },
+          "gateRisk": "rgb(255, 216, 135)",
+          "aid": {
+            "bg": "rgb(181, 212, 253)",
+            "color": "rgb(26, 17, 8)",
+            "shadow": "none",
+            "border": "rgb(26, 17, 8)"
+          },
+          "cit": {
+            "w": 20,
+            "h": 20,
+            "bg": "oklab(0.306627 0.00898681 0.00639093)",
+            "fg": "rgb(199, 223, 255)"
+          },
+          "sug": {
+            "bg": "rgb(34, 23, 16)",
+            "fg": "rgb(254, 205, 93)",
+            "r": 999
+          },
+          "typDot": {
+            "w": 7,
+            "h": 7
+          },
+          "code": {
+            "bg": "rgb(43, 30, 20)",
+            "fg": "rgb(245, 234, 217)",
+            "barFg": "rgb(201, 183, 163)"
+          },
+          "term": {
+            "bg": "rgb(26, 17, 8)",
+            "fg": "rgb(245, 234, 217)",
+            "outFg": "rgb(201, 183, 163)"
+          }
+        }
+      },
+      "p12": {
+        "light": {
+          "panel": "rgb(255, 255, 255)",
+          "raised": "rgb(251, 244, 233)",
+          "accent": "rgb(244, 186, 23)",
+          "textAccent": "rgb(110, 59, 14)",
+          "accentBright": "rgb(244, 186, 23)",
+          "accentStrong": "rgb(145, 109, 17)",
+          "success": "rgb(22, 101, 52)",
+          "dg": {
+            "thPos": "sticky",
+            "thTop": "0px",
+            "thZ": 1,
+            "thBg": "rgb(251, 244, 233)",
+            "tdBg": "rgb(251, 244, 233)",
+            "tdFg": "rgb(69, 33, 14)"
+          },
+          "spl": {
+            "display": "flex",
+            "barW": 8,
+            "cursor": "col-resize",
+            "focusRule": true
+          },
+          "tl": {
+            "trackW": 2,
+            "done": {
+              "bg": "rgb(22, 101, 52)",
+              "color": "rgb(255, 255, 255)",
+              "shadow": "none",
+              "border": "rgb(255, 255, 255)"
+            },
+            "now": {
+              "bg": "rgb(244, 186, 23)",
+              "color": "rgb(69, 33, 14)",
+              "shadow": "rgb(145, 109, 17) 0px 0px 0px 2px inset",
+              "border": "rgb(69, 33, 14)"
+            },
+            "todo": {
+              "bg": "rgb(251, 244, 233)",
+              "color": "rgb(63, 45, 33)",
+              "shadow": "none",
+              "border": "rgb(231, 217, 198)"
+            }
+          },
+          "sb": {
+            "w": 248,
+            "actBg": "rgb(251, 244, 233)",
+            "actFg": "rgb(110, 59, 14)",
+            "icoFg": "rgb(110, 59, 14)"
+          },
+          "z": {
+            "drScrim": 100,
+            "dr": 101,
+            "cmdk": 100,
+            "toast": 200
+          },
+          "pag": {
+            "bg": "rgb(69, 33, 14)",
+            "fg": "rgb(255, 255, 255)"
+          },
+          "tab": {
+            "fg": "rgb(110, 59, 14)",
+            "borderB": "rgb(244, 186, 23)"
+          }
+        },
+        "dark": {
+          "panel": "rgb(34, 23, 16)",
+          "raised": "rgb(43, 30, 20)",
+          "accent": "rgb(244, 186, 23)",
+          "textAccent": "rgb(254, 205, 93)",
+          "accentBright": "rgb(244, 186, 23)",
+          "accentStrong": "rgb(145, 109, 17)",
+          "success": "rgb(74, 222, 128)",
+          "dg": {
+            "thPos": "sticky",
+            "thTop": "0px",
+            "thZ": 1,
+            "thBg": "rgb(43, 30, 20)",
+            "tdBg": "oklab(0.324943 0.0132441 0.0441174)",
+            "tdFg": "rgb(245, 234, 217)"
+          },
+          "spl": {
+            "display": "flex",
+            "barW": 8,
+            "cursor": "col-resize",
+            "focusRule": true
+          },
+          "tl": {
+            "trackW": 2,
+            "done": {
+              "bg": "rgb(74, 222, 128)",
+              "color": "rgb(26, 17, 8)",
+              "shadow": "none",
+              "border": "rgb(26, 17, 8)"
+            },
+            "now": {
+              "bg": "rgb(244, 186, 23)",
+              "color": "rgb(69, 33, 14)",
+              "shadow": "rgb(145, 109, 17) 0px 0px 0px 2px inset",
+              "border": "rgb(69, 33, 14)"
+            },
+            "todo": {
+              "bg": "rgb(43, 30, 20)",
+              "color": "rgb(233, 214, 194)",
+              "shadow": "none",
+              "border": "rgb(74, 58, 44)"
+            }
+          },
+          "sb": {
+            "w": 248,
+            "actBg": "oklab(0.349071 0.0132667 0.0499494)",
+            "actFg": "rgb(254, 205, 93)",
+            "icoFg": "rgb(254, 205, 93)"
+          },
+          "z": {
+            "drScrim": 100,
+            "dr": 101,
+            "cmdk": 100,
+            "toast": 200
+          },
+          "pag": {
+            "bg": "rgb(244, 186, 23)",
+            "fg": "rgb(26, 17, 8)"
+          },
+          "tab": {
+            "fg": "rgb(254, 205, 93)",
+            "borderB": "rgb(244, 186, 23)"
+          }
+        }
+      },
+      "p13": {
+        "light": {
+          "panel": "rgb(255, 255, 255)",
+          "cq": {
+            "n3": 1,
+            "n4": 1,
+            "ns": "column",
+            "w3": 3,
+            "w4": 4,
+            "ws": "row"
+          },
+          "vp": {
+            "sw320": 318,
+            "cw320": 318,
+            "sw768": 766,
+            "cw768": 766
+          },
+          "form": {
+            "opacity": 0.72,
+            "btnPe": "none",
+            "btnCur": "wait",
+            "sumBg": "oklab(0.960022 0.0127175 0.00719383)",
+            "sumFg": "rgb(69, 33, 14)",
+            "sumBFg": "rgb(75, 5, 2)"
+          },
+          "pickers": {
+            "heights": [
+              44,
+              44,
+              44,
+              44,
+              44,
+              46
+            ],
+            "popZ": 60
+          },
+          "seg": {
+            "bg": "rgb(69, 33, 14)",
+            "fg": "rgb(255, 255, 255)"
+          },
+          "tog": {
+            "bg": "rgb(251, 244, 233)",
+            "fg": "rgb(69, 33, 14)"
+          },
+          "qr": {
+            "pad": 10,
+            "r": 8,
+            "bg": "rgb(255, 255, 255)"
+          },
+          "ie": {
+            "cursor": "pointer",
+            "borderStyle": "dashed"
+          }
+        },
+        "dark": {
+          "panel": "rgb(34, 23, 16)",
+          "cq": {
+            "n3": 1,
+            "n4": 1,
+            "ns": "column",
+            "w3": 3,
+            "w4": 4,
+            "ws": "row"
+          },
+          "vp": {
+            "sw320": 318,
+            "cw320": 318,
+            "sw768": 766,
+            "cw768": 766
+          },
+          "form": {
+            "opacity": 0.72,
+            "btnPe": "none",
+            "btnCur": "wait",
+            "sumBg": "oklab(0.261643 0.0210433 0.0200659)",
+            "sumFg": "rgb(245, 234, 217)",
+            "sumBFg": "rgb(255, 210, 207)"
+          },
+          "pickers": {
+            "heights": [
+              44,
+              44,
+              44,
+              44,
+              44,
+              46
+            ],
+            "popZ": 60
+          },
+          "seg": {
+            "bg": "rgb(244, 186, 23)",
+            "fg": "rgb(26, 17, 8)"
+          },
+          "tog": {
+            "bg": "oklab(0.349071 0.0132667 0.0499494)",
+            "fg": "rgb(245, 234, 217)"
+          },
+          "qr": {
+            "pad": 10,
+            "r": 8,
+            "bg": "rgb(34, 23, 16)"
+          },
+          "ie": {
+            "cursor": "pointer",
+            "borderStyle": "dashed"
+          }
+        }
+      },
+      "p14": {
+        "light": {
+          "panel": "rgb(255, 255, 255)",
+          "axis4": {
+            "accent": "rgb(128, 189, 216)",
+            "muted": "rgb(245, 234, 217)",
+            "panel": "oklab(0.271381 0.00686482 0.0106571)",
+            "space4": 12
+          },
+          "btns": {
+            "primary": {
+              "bg": "rgb(69, 33, 14)",
+              "fg": "rgb(255, 255, 255)"
+            },
+            "secondary": {
+              "bg": "rgb(255, 255, 255)",
+              "fg": "rgb(110, 59, 14)"
+            },
+            "tertiary": {
+              "bg": "rgb(251, 244, 233)",
+              "fg": "rgb(69, 33, 14)"
+            },
+            "ghost": {
+              "bg": "rgba(0, 0, 0, 0)",
+              "fg": "rgb(69, 33, 14)"
+            },
+            "danger": {
+              "bg": "rgb(180, 35, 24)",
+              "fg": "rgb(255, 255, 255)"
+            },
+            "danger-ghost": {
+              "bg": "rgba(0, 0, 0, 0)",
+              "fg": "rgb(75, 5, 2)"
+            }
+          },
+          "alerts": {
+            "info": {
+              "bg": "rgb(255, 255, 255)",
+              "bw": 4,
+              "iconFg": "rgb(0, 10, 117)"
+            },
+            "success": {
+              "bg": "rgb(255, 255, 255)",
+              "bw": 4,
+              "iconFg": "rgb(4, 45, 19)"
+            },
+            "warning": {
+              "bg": "rgb(255, 255, 255)",
+              "bw": 4,
+              "iconFg": "rgb(68, 24, 1)"
+            },
+            "danger": {
+              "bg": "rgb(255, 255, 255)",
+              "bw": 4,
+              "iconFg": "rgb(75, 5, 2)"
+            }
+          },
+          "results": {
+            "default": {
+              "w": 64,
+              "h": 64,
+              "bg": "rgb(251, 244, 233)",
+              "fg": "rgb(110, 59, 14)"
+            },
+            "success": {
+              "w": 64,
+              "h": 64,
+              "bg": "oklab(0.922704 -0.013263 0.00729405)",
+              "fg": "rgb(4, 45, 19)"
+            },
+            "warning": {
+              "w": 64,
+              "h": 64,
+              "bg": "oklab(0.926242 0.0121249 0.0126188)",
+              "fg": "rgb(68, 24, 1)"
+            },
+            "error": {
+              "w": 64,
+              "h": 64,
+              "bg": "oklab(0.940036 0.0190534 0.0107807)",
+              "fg": "rgb(75, 5, 2)"
+            }
+          },
+          "spaces": [
+            4,
+            8,
+            12,
+            16,
+            24,
+            32,
+            48,
+            64,
+            96
+          ],
+          "radii": [
+            4,
+            8,
+            14,
+            999
+          ]
+        },
+        "dark": {
+          "panel": "rgb(34, 23, 16)",
+          "axis4": {
+            "accent": "rgb(128, 189, 216)",
+            "muted": "rgb(245, 234, 217)",
+            "panel": "oklab(0.271381 0.00686482 0.0106571)",
+            "space4": 12
+          },
+          "btns": {
+            "primary": {
+              "bg": "rgb(244, 186, 23)",
+              "fg": "rgb(26, 17, 8)"
+            },
+            "secondary": {
+              "bg": "rgb(34, 23, 16)",
+              "fg": "rgb(254, 205, 93)"
+            },
+            "tertiary": {
+              "bg": "rgb(43, 30, 20)",
+              "fg": "rgb(245, 234, 217)"
+            },
+            "ghost": {
+              "bg": "rgba(0, 0, 0, 0)",
+              "fg": "rgb(245, 234, 217)"
+            },
+            "danger": {
+              "bg": "rgb(252, 152, 149)",
+              "fg": "rgb(26, 17, 8)"
+            },
+            "danger-ghost": {
+              "bg": "rgba(0, 0, 0, 0)",
+              "fg": "rgb(255, 210, 207)"
+            }
+          },
+          "alerts": {
+            "info": {
+              "bg": "rgb(34, 23, 16)",
+              "bw": 4,
+              "iconFg": "rgb(199, 223, 255)"
+            },
+            "success": {
+              "bg": "rgb(34, 23, 16)",
+              "bw": 4,
+              "iconFg": "rgb(104, 247, 152)"
+            },
+            "warning": {
+              "bg": "rgb(34, 23, 16)",
+              "bw": 4,
+              "iconFg": "rgb(255, 216, 135)"
+            },
+            "danger": {
+              "bg": "rgb(34, 23, 16)",
+              "bw": 4,
+              "iconFg": "rgb(255, 210, 207)"
+            }
+          },
+          "results": {
+            "default": {
+              "w": 64,
+              "h": 64,
+              "bg": "rgb(251, 244, 233)",
+              "fg": "rgb(254, 205, 93)"
+            },
+            "success": {
+              "w": 64,
+              "h": 64,
+              "bg": "oklab(0.298124 -0.0111363 0.027452)",
+              "fg": "rgb(104, 247, 152)"
+            },
+            "warning": {
+              "w": 64,
+              "h": 64,
+              "bg": "oklab(0.303237 0.0135427 0.0382829)",
+              "fg": "rgb(255, 216, 135)"
+            },
+            "error": {
+              "w": 64,
+              "h": 64,
+              "bg": "oklab(0.28428 0.0249938 0.0211621)",
+              "fg": "rgb(255, 210, 207)"
+            }
+          },
+          "spaces": [
+            4,
+            8,
+            12,
+            16,
+            24,
+            32,
+            48,
+            64,
+            96
+          ],
+          "radii": [
+            4,
+            8,
+            14,
+            999
+          ]
         }
       },
       "cssLoaded": true
@@ -5781,6 +8267,11 @@
             "coarseTargetsTotal": 8,
             "coarseDots": false,
             "reducedMotion": true,
+            "reducedTransparency": true,
+            "printGlass": true,
+            "scrollFocus": true,
+            "splitterFocus": true,
+            "skipZ": 201,
             "forcedColorsCount": 5,
             "forcedColorsTotal": 5
           }
@@ -5800,6 +8291,11 @@
             "coarseTargetsTotal": 8,
             "coarseDots": false,
             "reducedMotion": true,
+            "reducedTransparency": true,
+            "printGlass": true,
+            "scrollFocus": true,
+            "splitterFocus": true,
+            "skipZ": 201,
             "forcedColorsCount": 5,
             "forcedColorsTotal": 5
           }
@@ -5827,6 +8323,11 @@
           "coarseTargetsTotal": 8,
           "coarseDots": false,
           "reducedMotion": true,
+          "reducedTransparency": true,
+          "printGlass": true,
+          "scrollFocus": true,
+          "splitterFocus": true,
+          "skipZ": 201,
           "forcedColorsCount": 5,
           "forcedColorsTotal": 5
         }
@@ -5903,6 +8404,11 @@
             "coarseTargetsTotal": 8,
             "coarseDots": false,
             "reducedMotion": true,
+            "reducedTransparency": true,
+            "printGlass": true,
+            "scrollFocus": true,
+            "splitterFocus": true,
+            "skipZ": 201,
             "forcedColorsCount": 5,
             "forcedColorsTotal": 5
           }
@@ -5978,9 +8484,890 @@
             "coarseTargetsTotal": 8,
             "coarseDots": false,
             "reducedMotion": true,
+            "reducedTransparency": true,
+            "printGlass": true,
+            "scrollFocus": true,
+            "splitterFocus": true,
+            "skipZ": 201,
             "forcedColorsCount": 5,
             "forcedColorsTotal": 5
           }
+        }
+      },
+      "p9": {
+        "light": {
+          "ramp": [
+            11,
+            12,
+            14,
+            16,
+            18,
+            20,
+            24,
+            30,
+            36,
+            48,
+            60
+          ],
+          "roles": {
+            "h1": {
+              "fs": 36,
+              "fw": 800,
+              "lh": 48.6,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "h2": {
+              "fs": 30,
+              "fw": 700,
+              "lh": 40.5,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "h3": {
+              "fs": 24,
+              "fw": 700,
+              "lh": 32.4,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "h4": {
+              "fs": 20,
+              "fw": 600,
+              "lh": 27,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "body": {
+              "fs": 16,
+              "fw": 400,
+              "lh": 24,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "eyebrow": {
+              "fs": 12,
+              "fw": 700,
+              "lh": 18,
+              "tt": "uppercase",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            }
+          },
+          "prose": {
+            "maxW": 720,
+            "lh": 24,
+            "fs": 16
+          },
+          "df": {
+            "h2Fam": "\"Space Grotesk\", \"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif",
+            "bodyFam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+          },
+          "tabular": [
+            "tabular-nums",
+            "tabular-nums",
+            "tabular-nums",
+            "tabular-nums",
+            "tabular-nums"
+          ],
+          "textPrimary": "rgb(69, 33, 14)",
+          "page": "rgb(255, 253, 248)",
+          "panel": "rgb(255, 255, 255)"
+        },
+        "dark": {
+          "ramp": [
+            11,
+            12,
+            14,
+            16,
+            18,
+            20,
+            24,
+            30,
+            36,
+            48,
+            60
+          ],
+          "roles": {
+            "h1": {
+              "fs": 36,
+              "fw": 800,
+              "lh": 48.6,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "h2": {
+              "fs": 30,
+              "fw": 700,
+              "lh": 40.5,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "h3": {
+              "fs": 24,
+              "fw": 700,
+              "lh": 32.4,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "h4": {
+              "fs": 20,
+              "fw": 600,
+              "lh": 27,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "body": {
+              "fs": 16,
+              "fw": 400,
+              "lh": 24,
+              "tt": "none",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            },
+            "eyebrow": {
+              "fs": 12,
+              "fw": 700,
+              "lh": 18,
+              "tt": "uppercase",
+              "fam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+            }
+          },
+          "prose": {
+            "maxW": 720,
+            "lh": 24,
+            "fs": 16
+          },
+          "df": {
+            "h2Fam": "\"Space Grotesk\", \"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif",
+            "bodyFam": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif"
+          },
+          "tabular": [
+            "tabular-nums",
+            "tabular-nums",
+            "tabular-nums",
+            "tabular-nums",
+            "tabular-nums"
+          ],
+          "textPrimary": "rgb(245, 234, 217)",
+          "page": "rgb(26, 17, 8)",
+          "panel": "rgb(34, 23, 16)"
+        }
+      },
+      "p10": {
+        "light": {
+          "depths": [
+            0,
+            5,
+            10,
+            50,
+            60,
+            80,
+            100,
+            200
+          ],
+          "shadows": [
+            "rgba(69, 33, 14, 0.06) 0px 1px 2px 0px",
+            "rgba(69, 33, 14, 0.04) 0px 1px 3px 0px, rgba(69, 33, 14, 0.06) 0px 8px 24px 0px",
+            "rgba(31, 19, 11, 0.18) 0px 12px 30px 0px",
+            "rgba(69, 33, 14, 0.18) 0px 20px 60px 0px",
+            "rgba(31, 19, 11, 0.26) 0px 24px 80px 0px"
+          ],
+          "panel": "rgb(255, 255, 255)",
+          "raised": "rgb(251, 244, 233)",
+          "accent": "rgb(244, 186, 23)",
+          "umber": "rgb(69, 33, 14)",
+          "featExpected": "oklab(0.951587 0.00434883 0.0338318)",
+          "card": {
+            "bg": "rgb(255, 255, 255)",
+            "color": "rgb(69, 33, 14)",
+            "shadow": "rgba(69, 33, 14, 0.04) 0px 1px 3px 0px, rgba(69, 33, 14, 0.06) 0px 8px 24px 0px",
+            "border": "rgb(231, 217, 198)"
+          },
+          "cardR": {
+            "bg": "rgb(251, 244, 233)",
+            "color": "rgb(69, 33, 14)",
+            "shadow": "rgba(69, 33, 14, 0.04) 0px 1px 3px 0px, rgba(69, 33, 14, 0.06) 0px 8px 24px 0px",
+            "border": "rgb(231, 217, 198)"
+          },
+          "cardF": {
+            "bg": "oklab(0.951587 0.00434883 0.0338318)",
+            "color": "rgb(69, 33, 14)",
+            "shadow": "rgba(31, 19, 11, 0.18) 0px 12px 30px 0px",
+            "border": "rgb(244, 186, 23)"
+          },
+          "aurora": {
+            "bg": "rgb(69, 33, 14)",
+            "img": "radial-gradient(90% 120% at 12% -10%, oklab(0.819561 0.0137079 0.163672 / 0.46), rgba(0, 0, 0, 0) 55%), radial-gradient(70% 90% at 88% 8%, oklab(0.780179 -0.00210533 0.0559015 / 0.32), rgba(0, 0, 0, 0) 60%), radial-gradient(120% 120% at 50% 120%, oklab(0.186649 0.00921398 0.0207603 / 0.6), rgba(0, 0, 0, 0) 60%)",
+            "fg": "rgb(255, 255, 255)"
+          },
+          "scroll": {
+            "padStart": 16,
+            "padEnd": 16,
+            "overscroll": "contain"
+          },
+          "css": {
+            "focusGlobal": ":where(:focus-visible) { outline: 2px solid var(--cs-color-text-primary, #45210e); outline-offset: 2px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre, #f4ba17); }",
+            "focusCtlsCount": 5,
+            "focusCtlsTotal": 5,
+            "bareOutlineNone": [],
+            "coarseTargetsCount": 8,
+            "coarseTargetsTotal": 8,
+            "coarseDots": false,
+            "reducedMotion": true,
+            "reducedTransparency": true,
+            "printGlass": true,
+            "scrollFocus": true,
+            "splitterFocus": true,
+            "skipZ": 201,
+            "forcedColorsCount": 5,
+            "forcedColorsTotal": 5
+          }
+        },
+        "dark": {
+          "depths": [
+            0,
+            5,
+            10,
+            50,
+            60,
+            80,
+            100,
+            200
+          ],
+          "shadows": [
+            "rgba(0, 0, 0, 0.4) 0px 1px 2px 0px",
+            "rgba(0, 0, 0, 0.34) 0px 1px 3px 0px, rgba(0, 0, 0, 0.42) 0px 8px 24px 0px",
+            "rgba(0, 0, 0, 0.5) 0px 12px 30px 0px",
+            "rgba(0, 0, 0, 0.55) 0px 20px 60px 0px",
+            "rgba(0, 0, 0, 0.62) 0px 24px 80px 0px"
+          ],
+          "panel": "rgb(34, 23, 16)",
+          "raised": "rgb(43, 30, 20)",
+          "accent": "rgb(244, 186, 23)",
+          "umber": "rgb(69, 33, 14)",
+          "featExpected": "oklab(0.316563 0.0140397 0.0399897)",
+          "card": {
+            "bg": "rgb(34, 23, 16)",
+            "color": "rgb(245, 234, 217)",
+            "shadow": "rgba(0, 0, 0, 0.34) 0px 1px 3px 0px, rgba(0, 0, 0, 0.42) 0px 8px 24px 0px",
+            "border": "rgb(74, 58, 44)"
+          },
+          "cardR": {
+            "bg": "rgb(43, 30, 20)",
+            "color": "rgb(245, 234, 217)",
+            "shadow": "rgba(0, 0, 0, 0.34) 0px 1px 3px 0px, rgba(0, 0, 0, 0.42) 0px 8px 24px 0px",
+            "border": "rgb(74, 58, 44)"
+          },
+          "cardF": {
+            "bg": "oklab(0.316563 0.0140397 0.0399897)",
+            "color": "rgb(245, 234, 217)",
+            "shadow": "rgba(0, 0, 0, 0.5) 0px 12px 30px 0px",
+            "border": "rgb(244, 186, 23)"
+          },
+          "aurora": {
+            "bg": "rgb(69, 33, 14)",
+            "img": "radial-gradient(90% 120% at 12% -10%, oklab(0.819561 0.0137079 0.163672 / 0.46), rgba(0, 0, 0, 0) 55%), radial-gradient(70% 90% at 88% 8%, oklab(0.780179 -0.00210533 0.0559015 / 0.32), rgba(0, 0, 0, 0) 60%), radial-gradient(120% 120% at 50% 120%, oklab(0.186649 0.00921398 0.0207603 / 0.6), rgba(0, 0, 0, 0) 60%)",
+            "fg": "rgb(255, 255, 255)"
+          },
+          "scroll": {
+            "padStart": 16,
+            "padEnd": 16,
+            "overscroll": "contain"
+          },
+          "css": {
+            "focusGlobal": ":where(:focus-visible) { outline: 2px solid var(--cs-color-text-primary, #45210e); outline-offset: 2px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre, #f4ba17); }",
+            "focusCtlsCount": 5,
+            "focusCtlsTotal": 5,
+            "bareOutlineNone": [],
+            "coarseTargetsCount": 8,
+            "coarseTargetsTotal": 8,
+            "coarseDots": false,
+            "reducedMotion": true,
+            "reducedTransparency": true,
+            "printGlass": true,
+            "scrollFocus": true,
+            "splitterFocus": true,
+            "skipZ": 201,
+            "forcedColorsCount": 5,
+            "forcedColorsTotal": 5
+          }
+        }
+      },
+      "p11": {
+        "light": {
+          "panel": "rgb(255, 255, 255)",
+          "raised": "rgb(251, 244, 233)",
+          "ochre": "rgb(244, 186, 23)",
+          "warning": "rgb(146, 64, 14)",
+          "lumiAv": {
+            "bg": "rgb(244, 186, 23)",
+            "color": "rgb(69, 33, 14)",
+            "shadow": "none",
+            "border": "rgb(69, 33, 14)"
+          },
+          "lumiBub": {
+            "bg": "rgb(251, 244, 233)",
+            "color": "rgb(69, 33, 14)",
+            "shadow": "none",
+            "border": "rgb(231, 217, 198)"
+          },
+          "userBub": {
+            "bg": "rgb(69, 33, 14)",
+            "color": "rgb(255, 255, 255)",
+            "shadow": "none",
+            "border": "rgb(255, 255, 255)"
+          },
+          "lumiSizes": [
+            32,
+            44,
+            64
+          ],
+          "lumiRing": "oklab(0.819561 0.0137079 0.163672 / 0.34) 0px 0px 0px 3px",
+          "gate": {
+            "bg": "oklab(0.973654 0.00435963 0.00451963)",
+            "color": "rgb(69, 33, 14)",
+            "shadow": "none",
+            "border": "rgb(146, 64, 14)"
+          },
+          "gateRisk": "rgb(68, 24, 1)",
+          "aid": {
+            "bg": "rgb(29, 78, 216)",
+            "color": "rgb(255, 255, 255)",
+            "shadow": "none",
+            "border": "rgb(255, 255, 255)"
+          },
+          "cit": {
+            "w": 20,
+            "h": 20,
+            "bg": "oklab(0.92834 -0.00293826 -0.0302381)",
+            "fg": "rgb(0, 10, 117)"
+          },
+          "sug": {
+            "bg": "rgb(255, 255, 255)",
+            "fg": "rgb(110, 59, 14)",
+            "r": 999
+          },
+          "typDot": {
+            "w": 7,
+            "h": 7
+          },
+          "code": {
+            "bg": "rgb(43, 30, 20)",
+            "fg": "rgb(245, 234, 217)",
+            "barFg": "rgb(201, 183, 163)"
+          },
+          "term": {
+            "bg": "rgb(26, 17, 8)",
+            "fg": "rgb(245, 234, 217)",
+            "outFg": "rgb(201, 183, 163)"
+          }
+        },
+        "dark": {
+          "panel": "rgb(34, 23, 16)",
+          "raised": "rgb(43, 30, 20)",
+          "ochre": "rgb(244, 186, 23)",
+          "warning": "rgb(251, 191, 36)",
+          "lumiAv": {
+            "bg": "rgb(244, 186, 23)",
+            "color": "rgb(69, 33, 14)",
+            "shadow": "none",
+            "border": "rgb(69, 33, 14)"
+          },
+          "lumiBub": {
+            "bg": "rgb(43, 30, 20)",
+            "color": "rgb(245, 234, 217)",
+            "shadow": "none",
+            "border": "rgb(74, 58, 44)"
+          },
+          "userBub": {
+            "bg": "rgb(69, 33, 14)",
+            "color": "rgb(255, 255, 255)",
+            "shadow": "none",
+            "border": "rgb(255, 255, 255)"
+          },
+          "lumiSizes": [
+            32,
+            44,
+            64
+          ],
+          "lumiRing": "oklab(0.819561 0.0137079 0.163672 / 0.34) 0px 0px 0px 3px",
+          "gate": {
+            "bg": "oklab(0.247393 0.0132853 0.0251626)",
+            "color": "rgb(245, 234, 217)",
+            "shadow": "none",
+            "border": "rgb(251, 191, 36)"
+          },
+          "gateRisk": "rgb(255, 216, 135)",
+          "aid": {
+            "bg": "rgb(181, 212, 253)",
+            "color": "rgb(26, 17, 8)",
+            "shadow": "none",
+            "border": "rgb(26, 17, 8)"
+          },
+          "cit": {
+            "w": 20,
+            "h": 20,
+            "bg": "oklab(0.306627 0.00898681 0.00639093)",
+            "fg": "rgb(199, 223, 255)"
+          },
+          "sug": {
+            "bg": "rgb(34, 23, 16)",
+            "fg": "rgb(254, 205, 93)",
+            "r": 999
+          },
+          "typDot": {
+            "w": 7,
+            "h": 7
+          },
+          "code": {
+            "bg": "rgb(43, 30, 20)",
+            "fg": "rgb(245, 234, 217)",
+            "barFg": "rgb(201, 183, 163)"
+          },
+          "term": {
+            "bg": "rgb(26, 17, 8)",
+            "fg": "rgb(245, 234, 217)",
+            "outFg": "rgb(201, 183, 163)"
+          }
+        }
+      },
+      "p12": {
+        "light": {
+          "panel": "rgb(255, 255, 255)",
+          "raised": "rgb(251, 244, 233)",
+          "accent": "rgb(244, 186, 23)",
+          "textAccent": "rgb(110, 59, 14)",
+          "accentBright": "rgb(244, 186, 23)",
+          "accentStrong": "rgb(145, 109, 17)",
+          "success": "rgb(22, 101, 52)",
+          "dg": {
+            "thPos": "sticky",
+            "thTop": "0px",
+            "thZ": 1,
+            "thBg": "rgb(251, 244, 233)",
+            "tdBg": "rgb(251, 244, 233)",
+            "tdFg": "rgb(69, 33, 14)"
+          },
+          "spl": {
+            "display": "flex",
+            "barW": 8,
+            "cursor": "col-resize",
+            "focusRule": true
+          },
+          "tl": {
+            "trackW": 2,
+            "done": {
+              "bg": "rgb(22, 101, 52)",
+              "color": "rgb(255, 255, 255)",
+              "shadow": "none",
+              "border": "rgb(255, 255, 255)"
+            },
+            "now": {
+              "bg": "rgb(244, 186, 23)",
+              "color": "rgb(69, 33, 14)",
+              "shadow": "none",
+              "border": "rgb(69, 33, 14)"
+            },
+            "todo": {
+              "bg": "rgb(251, 244, 233)",
+              "color": "rgb(63, 45, 33)",
+              "shadow": "none",
+              "border": "rgb(231, 217, 198)"
+            }
+          },
+          "sb": {
+            "w": 248,
+            "actBg": "rgb(251, 244, 233)",
+            "actFg": "rgb(110, 59, 14)",
+            "icoFg": "rgb(110, 59, 14)"
+          },
+          "z": {
+            "drScrim": 100,
+            "dr": 101,
+            "cmdk": 100,
+            "toast": 200
+          },
+          "pag": {
+            "bg": "rgb(69, 33, 14)",
+            "fg": "rgb(255, 255, 255)"
+          },
+          "tab": {
+            "fg": "rgb(110, 59, 14)",
+            "borderB": "rgb(244, 186, 23)"
+          }
+        },
+        "dark": {
+          "panel": "rgb(34, 23, 16)",
+          "raised": "rgb(43, 30, 20)",
+          "accent": "rgb(244, 186, 23)",
+          "textAccent": "rgb(254, 205, 93)",
+          "accentBright": "rgb(244, 186, 23)",
+          "accentStrong": "rgb(145, 109, 17)",
+          "success": "rgb(74, 222, 128)",
+          "dg": {
+            "thPos": "sticky",
+            "thTop": "0px",
+            "thZ": 1,
+            "thBg": "rgb(43, 30, 20)",
+            "tdBg": "oklab(0.324943 0.0132441 0.0441174)",
+            "tdFg": "rgb(245, 234, 217)"
+          },
+          "spl": {
+            "display": "flex",
+            "barW": 8,
+            "cursor": "col-resize",
+            "focusRule": true
+          },
+          "tl": {
+            "trackW": 2,
+            "done": {
+              "bg": "rgb(74, 222, 128)",
+              "color": "rgb(26, 17, 8)",
+              "shadow": "none",
+              "border": "rgb(26, 17, 8)"
+            },
+            "now": {
+              "bg": "rgb(244, 186, 23)",
+              "color": "rgb(69, 33, 14)",
+              "shadow": "none",
+              "border": "rgb(69, 33, 14)"
+            },
+            "todo": {
+              "bg": "rgb(43, 30, 20)",
+              "color": "rgb(233, 214, 194)",
+              "shadow": "none",
+              "border": "rgb(74, 58, 44)"
+            }
+          },
+          "sb": {
+            "w": 248,
+            "actBg": "oklab(0.349071 0.0132667 0.0499494)",
+            "actFg": "rgb(254, 205, 93)",
+            "icoFg": "rgb(254, 205, 93)"
+          },
+          "z": {
+            "drScrim": 100,
+            "dr": 101,
+            "cmdk": 100,
+            "toast": 200
+          },
+          "pag": {
+            "bg": "rgb(244, 186, 23)",
+            "fg": "rgb(26, 17, 8)"
+          },
+          "tab": {
+            "fg": "rgb(254, 205, 93)",
+            "borderB": "rgb(244, 186, 23)"
+          }
+        }
+      },
+      "p13": {
+        "light": {
+          "panel": "rgb(255, 255, 255)",
+          "cq": {
+            "n3": 1,
+            "n4": 1,
+            "ns": "column",
+            "w3": 3,
+            "w4": 4,
+            "ws": "row"
+          },
+          "vp": {
+            "sw320": 318,
+            "cw320": 318,
+            "sw768": 766,
+            "cw768": 766
+          },
+          "form": {
+            "opacity": 0.72,
+            "btnPe": "none",
+            "btnCur": "wait",
+            "sumBg": "oklab(0.960022 0.0127175 0.00719383)",
+            "sumFg": "rgb(69, 33, 14)",
+            "sumBFg": "rgb(75, 5, 2)"
+          },
+          "pickers": {
+            "heights": [
+              44,
+              44,
+              44,
+              44,
+              44,
+              46
+            ],
+            "popZ": 60
+          },
+          "seg": {
+            "bg": "rgb(69, 33, 14)",
+            "fg": "rgb(255, 255, 255)"
+          },
+          "tog": {
+            "bg": "rgb(251, 244, 233)",
+            "fg": "rgb(69, 33, 14)"
+          },
+          "qr": {
+            "pad": 10,
+            "r": 8,
+            "bg": "rgb(255, 255, 255)"
+          },
+          "ie": {
+            "cursor": "pointer",
+            "borderStyle": "dashed"
+          }
+        },
+        "dark": {
+          "panel": "rgb(34, 23, 16)",
+          "cq": {
+            "n3": 1,
+            "n4": 1,
+            "ns": "column",
+            "w3": 3,
+            "w4": 4,
+            "ws": "row"
+          },
+          "vp": {
+            "sw320": 318,
+            "cw320": 318,
+            "sw768": 766,
+            "cw768": 766
+          },
+          "form": {
+            "opacity": 0.72,
+            "btnPe": "none",
+            "btnCur": "wait",
+            "sumBg": "oklab(0.261643 0.0210433 0.0200659)",
+            "sumFg": "rgb(245, 234, 217)",
+            "sumBFg": "rgb(255, 210, 207)"
+          },
+          "pickers": {
+            "heights": [
+              44,
+              44,
+              44,
+              44,
+              44,
+              46
+            ],
+            "popZ": 60
+          },
+          "seg": {
+            "bg": "rgb(244, 186, 23)",
+            "fg": "rgb(26, 17, 8)"
+          },
+          "tog": {
+            "bg": "oklab(0.349071 0.0132667 0.0499494)",
+            "fg": "rgb(245, 234, 217)"
+          },
+          "qr": {
+            "pad": 10,
+            "r": 8,
+            "bg": "rgb(34, 23, 16)"
+          },
+          "ie": {
+            "cursor": "pointer",
+            "borderStyle": "dashed"
+          }
+        }
+      },
+      "p14": {
+        "light": {
+          "panel": "rgb(255, 255, 255)",
+          "axis4": {
+            "accent": "rgb(128, 189, 216)",
+            "muted": "rgb(245, 234, 217)",
+            "panel": "oklab(0.271381 0.00686482 0.0106571)",
+            "space4": 12
+          },
+          "btns": {
+            "primary": {
+              "bg": "rgb(69, 33, 14)",
+              "fg": "rgb(255, 255, 255)"
+            },
+            "secondary": {
+              "bg": "rgb(255, 255, 255)",
+              "fg": "rgb(110, 59, 14)"
+            },
+            "tertiary": {
+              "bg": "rgb(251, 244, 233)",
+              "fg": "rgb(69, 33, 14)"
+            },
+            "ghost": {
+              "bg": "rgba(0, 0, 0, 0)",
+              "fg": "rgb(69, 33, 14)"
+            },
+            "danger": {
+              "bg": "rgb(180, 35, 24)",
+              "fg": "rgb(255, 255, 255)"
+            },
+            "danger-ghost": {
+              "bg": "rgba(0, 0, 0, 0)",
+              "fg": "rgb(75, 5, 2)"
+            }
+          },
+          "alerts": {
+            "info": {
+              "bg": "rgb(255, 255, 255)",
+              "bw": 4,
+              "iconFg": "rgb(0, 10, 117)"
+            },
+            "success": {
+              "bg": "rgb(255, 255, 255)",
+              "bw": 4,
+              "iconFg": "rgb(4, 45, 19)"
+            },
+            "warning": {
+              "bg": "rgb(255, 255, 255)",
+              "bw": 4,
+              "iconFg": "rgb(68, 24, 1)"
+            },
+            "danger": {
+              "bg": "rgb(255, 255, 255)",
+              "bw": 4,
+              "iconFg": "rgb(75, 5, 2)"
+            }
+          },
+          "results": {
+            "default": {
+              "w": 64,
+              "h": 64,
+              "bg": "rgb(251, 244, 233)",
+              "fg": "rgb(110, 59, 14)"
+            },
+            "success": {
+              "w": 64,
+              "h": 64,
+              "bg": "oklab(0.922704 -0.013263 0.00729405)",
+              "fg": "rgb(4, 45, 19)"
+            },
+            "warning": {
+              "w": 64,
+              "h": 64,
+              "bg": "oklab(0.926242 0.0121249 0.0126188)",
+              "fg": "rgb(68, 24, 1)"
+            },
+            "error": {
+              "w": 64,
+              "h": 64,
+              "bg": "oklab(0.940036 0.0190534 0.0107807)",
+              "fg": "rgb(75, 5, 2)"
+            }
+          },
+          "spaces": [
+            4,
+            8,
+            12,
+            16,
+            24,
+            32,
+            48,
+            64,
+            96
+          ],
+          "radii": [
+            4,
+            8,
+            14,
+            999
+          ]
+        },
+        "dark": {
+          "panel": "rgb(34, 23, 16)",
+          "axis4": {
+            "accent": "rgb(128, 189, 216)",
+            "muted": "rgb(245, 234, 217)",
+            "panel": "oklab(0.271381 0.00686482 0.0106571)",
+            "space4": 12
+          },
+          "btns": {
+            "primary": {
+              "bg": "rgb(244, 186, 23)",
+              "fg": "rgb(26, 17, 8)"
+            },
+            "secondary": {
+              "bg": "rgb(34, 23, 16)",
+              "fg": "rgb(254, 205, 93)"
+            },
+            "tertiary": {
+              "bg": "rgb(43, 30, 20)",
+              "fg": "rgb(245, 234, 217)"
+            },
+            "ghost": {
+              "bg": "rgba(0, 0, 0, 0)",
+              "fg": "rgb(245, 234, 217)"
+            },
+            "danger": {
+              "bg": "rgb(252, 152, 149)",
+              "fg": "rgb(26, 17, 8)"
+            },
+            "danger-ghost": {
+              "bg": "rgba(0, 0, 0, 0)",
+              "fg": "rgb(255, 210, 207)"
+            }
+          },
+          "alerts": {
+            "info": {
+              "bg": "rgb(34, 23, 16)",
+              "bw": 4,
+              "iconFg": "rgb(199, 223, 255)"
+            },
+            "success": {
+              "bg": "rgb(34, 23, 16)",
+              "bw": 4,
+              "iconFg": "rgb(104, 247, 152)"
+            },
+            "warning": {
+              "bg": "rgb(34, 23, 16)",
+              "bw": 4,
+              "iconFg": "rgb(255, 216, 135)"
+            },
+            "danger": {
+              "bg": "rgb(34, 23, 16)",
+              "bw": 4,
+              "iconFg": "rgb(255, 210, 207)"
+            }
+          },
+          "results": {
+            "default": {
+              "w": 64,
+              "h": 64,
+              "bg": "rgb(251, 244, 233)",
+              "fg": "rgb(254, 205, 93)"
+            },
+            "success": {
+              "w": 64,
+              "h": 64,
+              "bg": "oklab(0.298124 -0.0111363 0.027452)",
+              "fg": "rgb(104, 247, 152)"
+            },
+            "warning": {
+              "w": 64,
+              "h": 64,
+              "bg": "oklab(0.303237 0.0135427 0.0382829)",
+              "fg": "rgb(255, 216, 135)"
+            },
+            "error": {
+              "w": 64,
+              "h": 64,
+              "bg": "oklab(0.28428 0.0249938 0.0211621)",
+              "fg": "rgb(255, 210, 207)"
+            }
+          },
+          "spaces": [
+            4,
+            8,
+            12,
+            16,
+            24,
+            32,
+            48,
+            64,
+            96
+          ],
+          "radii": [
+            4,
+            8,
+            14,
+            999
+          ]
         }
       },
       "cssLoaded": true

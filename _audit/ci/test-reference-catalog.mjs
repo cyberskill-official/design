@@ -20,6 +20,8 @@ const reviewedDocumentRoles = {
   '_audit/remediation/assessment-remediation.md': 'remediation_report',
   '_audit/remediation/decision-template.md': 'decision_template',
     '_audit/remediation/release-v1.7.2-notes-proposal.md': 'private_owner_review_release_metadata_proposal',
+  '_audit/state-machine-review.md': 'state_machine_review',
+  '_audit/state-machines.md': 'generated_state_census',
   'scripts/lib/compiler-and-story-domains.md': 'source_maintenance_guide',
   'scripts/template-hex-policy.md': 'source_maintenance_guide',
 };
@@ -83,6 +85,7 @@ try {
 } finally { rmSync(root, { recursive: true, force: true }); }
 const actual = buildReferenceCatalog();
 for (const [path, text] of actual.updates) assert.equal(readFileSync(path, 'utf8'), text, 'Stale projection: ' + path);
+assert(actual.authority.documents.every(item => item.role !== 'unclassified_requires_review'), 'All tracked repository documents must have a reviewed role');
 const current = JSON.parse(readFileSync('docs/reference-catalog.json', 'utf8'));
 assert(current.documents.every(item => item.audience !== 'repository_only' && item.role !== 'unclassified_requires_review'));
 assert.equal(current.counts.components + current.counts.constants + current.counts.hooks, current.counts.publicExports);

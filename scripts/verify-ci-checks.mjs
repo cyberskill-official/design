@@ -9,6 +9,7 @@ import { fileURLToPath } from 'node:url';
 import {
   REQUIRED_CI_CHECKS,
   evaluateCiChecks,
+  verifyActFastGatesAttestation,
   verifyActShardAttestation,
 } from './lib/ci-check-gate.mjs';
 import { selectSuites } from '../_audit/ci/lib/run-unit-suite.mjs';
@@ -35,6 +36,9 @@ export function parseVerifyCiArgs(args) {
       out.mode = 'check-act-shard';
       out.shard = args[++i];
       assert(out.shard && /^[1-9]\d*\/[1-9]\d*$/.test(out.shard), 'Invalid --check-act-shard value');
+    } else if (arg === '--check-act-fast-gates') {
+      assert(!out.mode, 'Choose one mode');
+      out.mode = 'check-act-fast-gates';
     } else if (arg === '--sha') {
       out.sha = args[++i];
       assert(out.sha && /^[a-f0-9]{40}$/.test(out.sha), 'Invalid 40-hex --sha');
@@ -53,7 +57,7 @@ export function parseVerifyCiArgs(args) {
       throw Error(`Unknown argument: ${arg}`);
     }
   }
-  assert(out.mode, 'Specify --verify-commit or --check-act-shard <N/M>');
+  assert(out.mode, 'Specify --verify-commit, --check-act-shard <N/M>, or --check-act-fast-gates');
   assert(out.sha, '--sha <40-hex> is required');
   assert(out.repo, '--repo <owner/name> is required');
   return out;
@@ -182,6 +186,57 @@ async function runCheckActShard({ repo, sha, shard }) {
   }
 }
 
+async function runCheckActFastGates({ repo, sha }) {
+  try {
+    const token = process.env.GH_TOKEN || process.env.GITHUB_TOKEN;
+    const treeRes = spawnSync('git', ['rev-parse', '--verify', 'HEAD^{tree}'], {
+      cwd: root,
+      encoding: 'utf8',
+    });
+    assert.equal(treeRes.status, 0, treeRes.stderr);
+    const treeSha = treeRes.stdout.trim();
+
+    const pixelBytes = readFileSync(join(root, '_audit/ci/pixel-diff-report.json'));
+    const pixelReport = JSON.parse(pixelBytes);
+    assert.equal(pixelReport.failed, 0, 'pixel-diff-report.json has non-zero failed count');
+    const pixelReportSha256 = createHash('sha256').update(pixelBytes).digest('hex');
+
+    let check = { verified: false, reason: 'uninitialized' };
+    for (let attempt = 0; attempt < 6; attempt++) {
+      const statuses = await githubApiGet(`/repos/${repo}/commits/${sha}/statuses?per_page=100`, token);
+      assert(Array.isArray(statuses), 'Malformed statuses response');
+      check = verifyActFastGatesAttestation({
+        statuses,
+        treeSha,
+        pixelReportSha256,
+      });
+      if (check.verified) break;
+      if (attempt < 5 && check.reason?.startsWith('No ci/act/')) {
+        await new Promise(r => setTimeout(r, 4000));
+      } else {
+        break;
+      }
+    }
+
+    if (!check.verified) {
+      console.log(`[act-fast-gates] Local act fast-path not active: ${check.reason}`);
+      return;
+    }
+
+    const tempDir = process.env.RUNNER_TEMP || tmpdir();
+    const receiptPath = join(tempDir, 'act-fast-gates-receipt.json');
+    writeFileSync(receiptPath, JSON.stringify(check.receipt, null, 2) + '\n', { mode: 0o600 });
+    if (process.env.GITHUB_ENV) {
+      appendFileSync(process.env.GITHUB_ENV, `CS_ACT_FAST_GATES_RECEIPT=${receiptPath}\n`);
+    }
+    console.log(
+      `[act-fast-gates] Verified commit-bound local act attestation for fast-gates (tree=${treeSha.slice(0, 12)}, pixel=${pixelReportSha256.slice(0, 12)})`
+    );
+  } catch (err) {
+    console.log(`[act-fast-gates] Falling back to full fast-gates execution (${err.message})`);
+  }
+}
+
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
     const opts = parseVerifyCiArgs(process.argv.slice(2));
@@ -198,6 +253,8 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
       );
     } else if (opts.mode === 'check-act-shard') {
       await runCheckActShard(opts);
+    } else if (opts.mode === 'check-act-fast-gates') {
+      await runCheckActFastGates(opts);
     }
   } catch (err) {
     console.error(err.message);

@@ -41,7 +41,7 @@
       "possible-transition-call": 735,
       "mutation": 2555,
       "mutable-binding": 502,
-      "lifecycle-or-dom-call": 582,
+      "lifecycle-or-dom-call": 586,
       "state-output": 1407,
       "async-boundary": 65,
       "css-state-selector": 289,
@@ -7599,7 +7599,7 @@
     },
     {
       "path": "components/forms/Cascader.jsx",
-      "sha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+      "sha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
       "observations": [
         {
           "kind": "event-binding",
@@ -7873,7 +7873,7 @@
           "line": 101,
           "owner": "Cascader",
           "name": "onClick",
-          "expression": "onClick: () => setOpen(o => !o)"
+          "expression": "onClick: event => { if (!open) event.currentTarget.focus(); setOpen(o => !o); }"
         },
         {
           "kind": "event-binding",
@@ -7881,6 +7881,13 @@
           "owner": "Cascader",
           "name": "onKeyDown",
           "expression": "onKeyDown: (e) => {\n          if (e.defaultPrevented || e.nativeEvent.isComposing || e.nativeEvent.keyCode === 229) return;\n          // Once open, the document handler owns arrows from this trigger too.\n          if (open && e.key === \"ArrowDown\") return;\n          if (e.key === \"ArrowDown\" || e.key === \"Enter\" || e.key === \" \") {\n            e.preventDefault();\n            setOpen(true);\n          }\n        }"
+        },
+        {
+          "kind": "lifecycle-or-dom-call",
+          "line": 101,
+          "owner": "Cascader / <callback>",
+          "name": "focus",
+          "expression": "event.currentTarget.focus()"
         },
         {
           "kind": "possible-transition-call",
@@ -7995,7 +8002,7 @@
     },
     {
       "path": "components/forms/ColorPicker.jsx",
-      "sha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+      "sha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
       "observations": [
         {
           "kind": "event-binding",
@@ -8127,7 +8134,14 @@
           "line": 40,
           "owner": "ColorPicker",
           "name": "onClick",
-          "expression": "onClick: () => setOpen(o => !o)"
+          "expression": "onClick: event => { if (!open) event.currentTarget.focus(); setOpen(o => !o); }"
+        },
+        {
+          "kind": "lifecycle-or-dom-call",
+          "line": 40,
+          "owner": "ColorPicker / <callback>",
+          "name": "focus",
+          "expression": "event.currentTarget.focus()"
         },
         {
           "kind": "possible-transition-call",
@@ -11179,7 +11193,7 @@
     },
     {
       "path": "components/forms/SearchField.jsx",
-      "sha256": "44a861064011a4ebf8cd1224d95b0404c44e4cb8a1685d5981f8009ff8a824de",
+      "sha256": "e48eec5e6f3d65719ea4f72e833d67a6b05d2cc6fb49b53a621d0e832f33838e",
       "observations": [
         {
           "kind": "event-binding",
@@ -11271,7 +11285,14 @@
           "line": 21,
           "owner": "SearchField",
           "name": "onClick",
-          "expression": "onClick={() => { if (disabled || readOnly) return; set(\"\"); onClear && onClear(); }}"
+          "expression": "onClick={() => { if (disabled || readOnly) return; set(\"\"); onClear && onClear(); ref.current?.querySelector(\"input\")?.focus(); }}"
+        },
+        {
+          "kind": "lifecycle-or-dom-call",
+          "line": 21,
+          "owner": "SearchField / <callback>",
+          "name": "focus",
+          "expression": "ref.current?.querySelector(\"input\")?.focus()"
         },
         {
           "kind": "possible-transition-call",
@@ -11996,7 +12017,7 @@
     },
     {
       "path": "components/forms/TreeSelect.jsx",
-      "sha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+      "sha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
       "observations": [
         {
           "kind": "event-binding",
@@ -12127,7 +12148,14 @@
           "line": 43,
           "owner": "TreeSelect",
           "name": "onClick",
-          "expression": "onClick: () => setOpen(o => !o)"
+          "expression": "onClick: event => { if (!open) event.currentTarget.focus(); setOpen(o => !o); }"
+        },
+        {
+          "kind": "lifecycle-or-dom-call",
+          "line": 43,
+          "owner": "TreeSelect / <callback>",
+          "name": "focus",
+          "expression": "event.currentTarget.focus()"
         },
         {
           "kind": "possible-transition-call",

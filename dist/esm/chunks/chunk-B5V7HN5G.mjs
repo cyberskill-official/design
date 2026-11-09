@@ -72,7 +72,10 @@ var TreeSelect = React.forwardRef(function TreeSelect2({ portal = true, placemen
       document.removeEventListener("mousedown", d);
     };
   }, [open]);
-  return /* @__PURE__ */ React.createElement(overlayScopeContext.Provider, { value: scope }, /* @__PURE__ */ React.createElement("div", { ref: mergedNativeRef, ...mergeTargetProps({ className: cx("cs-treeselect", className) }, rootProps) }, /* @__PURE__ */ React.createElement("button", { ...mergeTargetProps({ ...control, type: "button", className: "cs-treeselect__field", disabled, "aria-haspopup": "tree", "aria-expanded": open, onClick: () => setOpen((o) => !o) }, controlProps, ["id", "role", "type", "name", "value", "defaultValue", "disabled", "required", "aria-required", "aria-label", "aria-labelledby", "aria-describedby", "aria-invalid", "aria-haspopup", "aria-expanded", "aria-controls", "aria-activedescendant"]), ref: mergedControlRef }, /* @__PURE__ */ React.createElement("span", { className: sel ? void 0 : "ph" }, sel ? sel.label : ph), /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, "▾")), open ? floating.render(/* @__PURE__ */ React.createElement("div", { ref: floatingRef, className: "cs-treeselect__pop" }, /* @__PURE__ */ React.createElement(Tree, { "aria-label": control["aria-label"] || (control["aria-labelledby"] ? void 0 : ph), "aria-labelledby": control["aria-labelledby"], nodes, selected: value, defaultOpen: true, lang: L, onSelect: (k, n) => {
+  return /* @__PURE__ */ React.createElement(overlayScopeContext.Provider, { value: scope }, /* @__PURE__ */ React.createElement("div", { ref: mergedNativeRef, ...mergeTargetProps({ className: cx("cs-treeselect", className) }, rootProps) }, /* @__PURE__ */ React.createElement("button", { ...mergeTargetProps({ ...control, type: "button", className: "cs-treeselect__field", disabled, "aria-haspopup": "tree", "aria-expanded": open, onClick: (event) => {
+    if (!open) event.currentTarget.focus();
+    setOpen((o) => !o);
+  } }, controlProps, ["id", "role", "type", "name", "value", "defaultValue", "disabled", "required", "aria-required", "aria-label", "aria-labelledby", "aria-describedby", "aria-invalid", "aria-haspopup", "aria-expanded", "aria-controls", "aria-activedescendant"]), ref: mergedControlRef }, /* @__PURE__ */ React.createElement("span", { className: sel ? void 0 : "ph" }, sel ? sel.label : ph), /* @__PURE__ */ React.createElement("span", { "aria-hidden": "true" }, "▾")), open ? floating.render(/* @__PURE__ */ React.createElement("div", { ref: floatingRef, className: "cs-treeselect__pop" }, /* @__PURE__ */ React.createElement(Tree, { "aria-label": control["aria-label"] || (control["aria-labelledby"] ? void 0 : ph), "aria-labelledby": control["aria-labelledby"], nodes, selected: value, defaultOpen: true, lang: L, onSelect: (k, n) => {
     if (!(n.children && n.children.length)) {
       onChange && onChange(k, n);
       setOpen(false);
@@ -84,4 +87,4 @@ TreeSelect.displayName = "TreeSelect";
 export {
   TreeSelect
 };
-//# sourceMappingURL=chunk-MRXEJSQQ.mjs.map
+//# sourceMappingURL=chunk-B5V7HN5G.mjs.map

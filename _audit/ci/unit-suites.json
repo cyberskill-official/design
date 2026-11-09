@@ -1733,6 +1733,10 @@
     {
       "id": "inline-edit-transitions",
       "command": "npm run test:inline-edit-transitions"
+    },
+    {
+      "id": "picker-focus-ime",
+      "command": "npm run test:picker-focus-ime"
     }
   ]
 }

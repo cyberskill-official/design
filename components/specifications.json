@@ -40,7 +40,7 @@
     "components/ai/TypingIndicator.d.ts": "7ec84442d341918431dcf9421910895203d7cf52bbf8b3fbfee61fa69404ceaa",
     "components/ai/TypingIndicator.jsx": "a367cad658005f314bb3e59a191c6edb5f464a65bc1f48e7e4769165ba35b39c",
     "components/ai/TypingIndicator.prompt.md": "275dc44f4a54db005836f04e628f4e351e0212a6bd152aaf98c30d313b26eccf",
-    "components/api-index.json": "d82167fc873cb682a35ef593ad38bc88a9d88b5447bd8b3e8541143c287cf728",
+    "components/api-index.json": "cdca2a8f225147e27ca8b385023ffe6ba5628b614720cd658c94f5c833f53336",
     "components/brand/LumiAvatar.d.ts": "955af96a1311731719eeebdeaee88e1d1d99f4efcf14ec6e2eadbe3933957ec6",
     "components/brand/LumiAvatar.jsx": "aef2a9a8be4e4d6eb240d2a4bd6ca32b396fab995663750c812e3b38d228901c",
     "components/brand/LumiAvatar.prompt.md": "802272d4c46c8d072ee112904d0fadc38a97a794a5c8a7190f8f21ae8b1756c4",
@@ -53,7 +53,7 @@
     "components/button/FloatingActionButton.d.ts": "ef227b7981571aa815ca1d874db3458feb33428a79aef949ee770d8ecc13ee00",
     "components/button/FloatingActionButton.jsx": "2c13907fa52c618377dd1aab15c46f73b2ce22c563b54bf0f5aefb16e3829943",
     "components/button/FloatingActionButton.prompt.md": "7a5ae660de398911d5bdfd736984974a62220fc6f6d0ee2e31561a3d381209ed",
-    "components/contracts.json": "f7393aaef3fb320d6f3193c59033223f94ed7085695829ded8807a3443a5542f",
+    "components/contracts.json": "3fe12bafaf9da02f9148279601e4bc8f4af4cb87710e19703a53f80f5acbdc30",
     "components/data/Accordion.d.ts": "0c5b1140bba3076f0642ae9c23701fbdae406e01f9a08a7beb7ddaeac8aa903f",
     "components/data/Accordion.jsx": "2bd0ed6b7ddb3daa85f941a0260ef3f08a7a261de3336eabff49c6cade44791b",
     "components/data/Accordion.prompt.md": "3e1ed56757fa588a6d1e1422710ab0734452c2f0856d1dffe816e99c34640b6b",
@@ -178,13 +178,13 @@
     "components/forms/Calendar.jsx": "9300c818b4a4de7425600d8b54f8be62e3ca3e7a7e2c0f25fc3cff1b12dad2ce",
     "components/forms/Calendar.prompt.md": "dc4dae9dd90ea86969b92f78aec87f760bde92ffabbb34277135f6e76347aba8",
     "components/forms/Cascader.d.ts": "33edbc198353ed41f05867be9e1c04830d5033cf2cf4ceda3e1ba13adef27aea",
-    "components/forms/Cascader.jsx": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+    "components/forms/Cascader.jsx": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
     "components/forms/Cascader.prompt.md": "f8e65a9e572122e786a81216113665a3b29d48be459979393a9695e2716262a6",
     "components/forms/Checkbox.d.ts": "733214d012dc9dfea6066211d2fcc9bf6c0e76f897c6d38f7505849754c2fcbf",
     "components/forms/Checkbox.jsx": "19491fd53a0a7c5a4fa3c9d449ee3c0b7f39af18565413a012a7a8f5e25425ee",
     "components/forms/Checkbox.prompt.md": "532d0ff82337ca01c3f1dd5a677bae3111c3dd4b94689bec401d08eeb9043d6e",
     "components/forms/ColorPicker.d.ts": "a0a3d9c005fc6f8ddc4fdc85f132aedfcb10dee745ae1706eb6b924814531e2d",
-    "components/forms/ColorPicker.jsx": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+    "components/forms/ColorPicker.jsx": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
     "components/forms/ColorPicker.prompt.md": "b3b2036fbb9fbd84a58cdd8e6abeccbd3711b713c13272cbfc19215691c417bc",
     "components/forms/Combobox.d.ts": "21e214b53ce8edeb9210a6ea375233d11ddecdad906c90248dfd3d456375761a",
     "components/forms/Combobox.jsx": "bae42bd629700dcdb3173636184df3aa0181a4e4d5f0ae7447a630f6404e84d3",
@@ -226,7 +226,7 @@
     "components/forms/Rating.jsx": "3d545ce0192b31427088bfa3f5d8f29ff49e6eec2e5369cc8e72ef87645abdd3",
     "components/forms/Rating.prompt.md": "724f825ea0333df11a22bb21f4d8160c516746e77b0c9e2afdd66616445034fa",
     "components/forms/SearchField.d.ts": "16b63c44bbdf6d4f9f8f05f0612cbcd8d92b6d4af5800d90fd120a5f1f60a5fa",
-    "components/forms/SearchField.jsx": "44a861064011a4ebf8cd1224d95b0404c44e4cb8a1685d5981f8009ff8a824de",
+    "components/forms/SearchField.jsx": "e48eec5e6f3d65719ea4f72e833d67a6b05d2cc6fb49b53a621d0e832f33838e",
     "components/forms/SearchField.prompt.md": "016ba14fd0d2f8a52a6ff85db93f33b1d78b908a6aad0367a68d22974fd9d47f",
     "components/forms/SegmentedControl.d.ts": "ec1f9a05ce0dc920a6aed7a6a7d2e3d25e8331343dac7d8522234284193a288f",
     "components/forms/SegmentedControl.jsx": "acf7e576e1680065c505039b2599f0a8f1b49584d112efa3f4dc892f4cb5cd93",
@@ -256,7 +256,7 @@
     "components/forms/Transfer.jsx": "2a1c824ff9a0bf3afa0c4b617832c4316322a3a1885ceb5b2dbf3a67b8ce05f4",
     "components/forms/Transfer.prompt.md": "2807e26c2a228823e721f134c11b5fbb7d7ce0c960a6728e1ce79438ddf21f7e",
     "components/forms/TreeSelect.d.ts": "3623e81530a0900556a713346f5ea7a96c02dc185a1481589d45190f5b09c33e",
-    "components/forms/TreeSelect.jsx": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+    "components/forms/TreeSelect.jsx": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
     "components/forms/TreeSelect.prompt.md": "c809d3c0d5d7934d971ff31a153665c2f2a1276dbb1513808561c6f6049e7122",
     "components/i18n/LocaleProvider.d.ts": "2bdd8d12b161bc893522c59be5d810d8eaeb5f89c2527c9984d2ff60d2faf54e",
     "components/i18n/LocaleProvider.jsx": "5545f338df720c75bb9cf6c421edd17d491411c60e0d6727189d184740074e96",
@@ -341,7 +341,7 @@
     "components/textfield/TextField.prompt.md": "a3c47b7f0b10b52f20e77b3b08f488bb105a7f1d81d9609dec5d0b08ea499b30",
     "schemas/component-specifications.schema.json": "a9ec827d2971dbbb6c932871b3126268072ad3e4d75714e03ef1b61faab3c92b",
     "scripts/build-bundle.mjs": "92154b3753145cf0273eec48be394862b82af10e492ffdfec68dbd77d2215105",
-    "scripts/component-semantics-source.json": "63ae102843205c51d9816893b67b8a9199d7cbf9ba37c23c0081fc2cda9f0ddd",
+    "scripts/component-semantics-source.json": "794cf606dee8721a7d78ff90aec35c3f72d73119e4bfe73c96b082e76de79e36",
     "scripts/generate-component-contracts.mjs": "a94d0d58b3d0b6f629bf2cdc2a53bdfc8b43b8fa1479434b770f0cd8dc53187c",
     "scripts/generate-component-specifications.mjs": "9b7c0800e6b33dae261070729008c9fa7ada762efd846b0e4ecf0e98e34f5b06",
     "scripts/generate-prompt-api.mjs": "e67709ad813a46330d2825912334244050422c16f05021890cc6b41b73acd602",
@@ -10493,7 +10493,7 @@
       "name": "Cascader",
       "source": {
         "path": "components/forms/Cascader.jsx",
-        "sha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf"
+        "sha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde"
       },
       "api": {
         "index": "components/api-index.json",
@@ -10531,7 +10531,7 @@
         "analysis": "forward-ref",
         "renderSpan": {
           "start": 588,
-          "end": 8270
+          "end": 8318
         },
         "jsxElements": [
           {
@@ -10577,12 +10577,12 @@
             "tag": "button",
             "kind": "intrinsic",
             "start": 5637,
-            "end": 6525,
+            "end": 6573,
             "attributes": [
               {
                 "name": "ref",
-                "start": 6501,
-                "end": 6523,
+                "start": 6549,
+                "end": 6571,
                 "kind": "expression",
                 "source": "{mergedControlRef}"
               }
@@ -10590,8 +10590,8 @@
             "spreads": [
               {
                 "start": 5645,
-                "end": 6500,
-                "expression": "mergeTargetProps({ ...control, type: \"button\", className: \"cs-treeselect__field\", disabled, \"aria-haspopup\": \"listbox\", \"aria-expanded\": open, onClick: () => setOpen(o => !o), onKeyDown: (e) => {\n          if (e.defaultPrevented || e.nativeEvent.isComposing || e.nativeEvent.keyCode === 229) return;\n          // Once open, the document handler owns arrows from this trigger too.\n          if (open && e.key === \"ArrowDown\") return;\n          if (e.key === \"ArrowDown\" || e.key === \"Enter\" || e.key === \" \") {\n            e.preventDefault();\n            setOpen(true);\n          }\n        } }, controlProps, [\"id\", \"role\", \"type\", \"name\", \"value\", \"defaultValue\", \"disabled\", \"required\", \"aria-required\", \"aria-label\", \"aria-labelledby\", \"aria-describedby\", \"aria-invalid\", \"aria-haspopup\", \"aria-expanded\", \"aria-controls\", \"aria-activedescendant\"])",
+                "end": 6548,
+                "expression": "mergeTargetProps({ ...control, type: \"button\", className: \"cs-treeselect__field\", disabled, \"aria-haspopup\": \"listbox\", \"aria-expanded\": open, onClick: event => { if (!open) event.currentTarget.focus(); setOpen(o => !o); }, onKeyDown: (e) => {\n          if (e.defaultPrevented || e.nativeEvent.isComposing || e.nativeEvent.keyCode === 229) return;\n          // Once open, the document handler owns arrows from this trigger too.\n          if (open && e.key === \"ArrowDown\") return;\n          if (e.key === \"ArrowDown\" || e.key === \"Enter\" || e.key === \" \") {\n            e.preventDefault();\n            setOpen(true);\n          }\n        } }, controlProps, [\"id\", \"role\", \"type\", \"name\", \"value\", \"defaultValue\", \"disabled\", \"required\", \"aria-required\", \"aria-label\", \"aria-labelledby\", \"aria-describedby\", \"aria-invalid\", \"aria-haspopup\", \"aria-expanded\", \"aria-controls\", \"aria-activedescendant\"])",
                 "forwarding": "unverified-target-and-precedence"
               }
             ]
@@ -10599,13 +10599,13 @@
           {
             "tag": "span",
             "kind": "intrinsic",
-            "start": 6534,
-            "end": 6585,
+            "start": 6582,
+            "end": 6633,
             "attributes": [
               {
                 "name": "className",
-                "start": 6540,
-                "end": 6584,
+                "start": 6588,
+                "end": 6632,
                 "kind": "expression",
                 "source": "{labels.length ? undefined : \"ph\"}"
               }
@@ -10615,13 +10615,13 @@
           {
             "tag": "React.Fragment",
             "kind": "member-expression",
-            "start": 6631,
-            "end": 6659,
+            "start": 6679,
+            "end": 6707,
             "attributes": [
               {
                 "name": "key",
-                "start": 6647,
-                "end": 6658,
+                "start": 6695,
+                "end": 6706,
                 "kind": "expression",
                 "source": "{index}"
               }
@@ -10631,21 +10631,21 @@
           {
             "tag": "React.Fragment",
             "kind": "member-expression",
-            "start": 6668,
-            "end": 6684,
+            "start": 6716,
+            "end": 6732,
             "attributes": [],
             "spreads": []
           },
           {
             "tag": "span",
             "kind": "intrinsic",
-            "start": 6689,
-            "end": 6714,
+            "start": 6737,
+            "end": 6762,
             "attributes": [
               {
                 "name": "aria-hidden",
-                "start": 6695,
-                "end": 6713,
+                "start": 6743,
+                "end": 6761,
                 "kind": "string-literal",
                 "source": "\"true\""
               }
@@ -10655,13 +10655,13 @@
           {
             "tag": "span",
             "kind": "intrinsic",
-            "start": 6790,
-            "end": 6815,
+            "start": 6838,
+            "end": 6863,
             "attributes": [
               {
                 "name": "aria-hidden",
-                "start": 6796,
-                "end": 6814,
+                "start": 6844,
+                "end": 6862,
                 "kind": "string-literal",
                 "source": "\"true\""
               }
@@ -10671,20 +10671,20 @@
           {
             "tag": "div",
             "kind": "intrinsic",
-            "start": 6880,
-            "end": 6932,
+            "start": 6928,
+            "end": 6980,
             "attributes": [
               {
                 "name": "ref",
-                "start": 6885,
-                "end": 6902,
+                "start": 6933,
+                "end": 6950,
                 "kind": "expression",
                 "source": "{floatingRef}"
               },
               {
                 "name": "className",
-                "start": 6903,
-                "end": 6931,
+                "start": 6951,
+                "end": 6979,
                 "kind": "string-literal",
                 "source": "\"cs-cascader__pop\""
               }
@@ -10694,34 +10694,34 @@
           {
             "tag": "ul",
             "kind": "intrinsic",
-            "start": 6979,
-            "end": 7094,
+            "start": 7027,
+            "end": 7142,
             "attributes": [
               {
                 "name": "key",
-                "start": 6983,
-                "end": 6990,
+                "start": 7031,
+                "end": 7038,
                 "kind": "expression",
                 "source": "{i}"
               },
               {
                 "name": "role",
-                "start": 6991,
-                "end": 7005,
+                "start": 7039,
+                "end": 7053,
                 "kind": "string-literal",
                 "source": "\"listbox\""
               },
               {
                 "name": "aria-labelledby",
-                "start": 7006,
-                "end": 7064,
+                "start": 7054,
+                "end": 7112,
                 "kind": "expression",
                 "source": "{control[\"aria-labelledby\"] || control.id}"
               },
               {
                 "name": "className",
-                "start": 7065,
-                "end": 7093,
+                "start": 7113,
+                "end": 7141,
                 "kind": "string-literal",
                 "source": "\"cs-cascader__col\""
               }
@@ -10731,20 +10731,20 @@
           {
             "tag": "li",
             "kind": "intrinsic",
-            "start": 7234,
-            "end": 7262,
+            "start": 7282,
+            "end": 7310,
             "attributes": [
               {
                 "name": "key",
-                "start": 7238,
-                "end": 7249,
+                "start": 7286,
+                "end": 7297,
                 "kind": "expression",
                 "source": "{n.key}"
               },
               {
                 "name": "role",
-                "start": 7250,
-                "end": 7261,
+                "start": 7298,
+                "end": 7309,
                 "kind": "string-literal",
                 "source": "\"none\""
               }
@@ -10754,48 +10754,48 @@
           {
             "tag": "button",
             "kind": "intrinsic",
-            "start": 7281,
-            "end": 7905,
+            "start": 7329,
+            "end": 7953,
             "attributes": [
               {
                 "name": "type",
-                "start": 7309,
-                "end": 7322,
+                "start": 7357,
+                "end": 7370,
                 "kind": "string-literal",
                 "source": "\"button\""
               },
               {
                 "name": "role",
-                "start": 7343,
-                "end": 7356,
+                "start": 7391,
+                "end": 7404,
                 "kind": "string-literal",
                 "source": "\"option\""
               },
               {
                 "name": "aria-selected",
-                "start": 7377,
-                "end": 7410,
+                "start": 7425,
+                "end": 7458,
                 "kind": "expression",
                 "source": "{path[i] === n.key}"
               },
               {
                 "name": "className",
-                "start": 7431,
-                "end": 7492,
+                "start": 7479,
+                "end": 7540,
                 "kind": "expression",
                 "source": "{cx(\"cs-cascader__opt\", path[i] === n.key && \"on\")}"
               },
               {
                 "name": "data-cs-focusable",
-                "start": 7593,
-                "end": 7613,
+                "start": 7641,
+                "end": 7661,
                 "kind": "string-literal",
                 "source": "\"\""
               },
               {
                 "name": "onClick",
-                "start": 7634,
-                "end": 7885,
+                "start": 7682,
+                "end": 7933,
                 "kind": "expression",
                 "source": "{() => {\n                      const next = [...path.slice(0, i), n.key];\n                      setPath(next);\n                      if (!(n.children && n.children.length)) { onChange && onChange(next); setOpen(false); }\n                    }}"
               }
@@ -10805,13 +10805,13 @@
           {
             "tag": "span",
             "kind": "intrinsic",
-            "start": 7970,
-            "end": 7995,
+            "start": 8018,
+            "end": 8043,
             "attributes": [
               {
                 "name": "aria-hidden",
-                "start": 7976,
-                "end": 7994,
+                "start": 8024,
+                "end": 8042,
                 "kind": "string-literal",
                 "source": "\"true\""
               }
@@ -10821,8 +10821,8 @@
         ],
         "slotCandidates": [
           {
-            "start": 6585,
-            "end": 6783,
+            "start": 6633,
+            "end": 6831,
             "source": "labels.length ? labels.map((label, index) => <React.Fragment key={index}>{index ? <React.Fragment>{\" \"}<span aria-hidden=\"true\">/</span>{\" \"}</React.Fragment> : null}{label}</React.Fragment>) : ph",
             "referencedParameterNames": [
               "label"
@@ -10830,8 +10830,8 @@
             "interpretation": "Expression references parameter names; lexical shadowing, conditional rendering and semantic slot ownership require manual review."
           },
           {
-            "start": 6752,
-            "end": 6759,
+            "start": 6800,
+            "end": 6807,
             "source": "label",
             "referencedParameterNames": [
               "label"
@@ -10839,8 +10839,8 @@
             "interpretation": "Expression references parameter names; lexical shadowing, conditional rendering and semantic slot ownership require manual review."
           },
           {
-            "start": 6846,
-            "end": 8144,
+            "start": 6894,
+            "end": 8192,
             "source": "open ? (\n        floating.render(<div ref={floatingRef} className=\"cs-cascader__pop\">\n          {cols.map((col, i) => (\n            <ul key={i} role=\"listbox\" aria-labelledby={control[\"aria-labelledby\"] || control.id} className=\"cs-cascader__col\">\n              {col.map((n) => (\n                // role=\"none\" — the <li> wrapper must not sit between listbox and option.\n                <li key={n.key} role=\"none\">\n                  <button\n                    type=\"button\"\n                    role=\"option\"\n                    aria-selected={path[i] === n.key}\n                    className={cx(\"cs-cascader__opt\", path[i] === n.key && \"on\")}\n                    // Keep options in the focusable set for arrow models (E3).\n                    data-cs-focusable=\"\"\n                    onClick={() => {\n                      const next = [...path.slice(0, i), n.key];\n                      setPath(next);\n                      if (!(n.children && n.children.length)) { onChange && onChange(next); setOpen(false); }\n                    }}\n                  >\n                    {n.label}{n.children && n.children.length ? <span aria-hidden=\"true\"> ›</span> : null}\n                  </button>\n                </li>\n              ))}\n            </ul>\n          ))}\n        </div>)\n      ) : null",
             "referencedParameterNames": [
               "id",
@@ -10850,8 +10850,8 @@
             "interpretation": "Expression references parameter names; lexical shadowing, conditional rendering and semantic slot ownership require manual review."
           },
           {
-            "start": 6943,
-            "end": 8112,
+            "start": 6991,
+            "end": 8160,
             "source": "cols.map((col, i) => (\n            <ul key={i} role=\"listbox\" aria-labelledby={control[\"aria-labelledby\"] || control.id} className=\"cs-cascader__col\">\n              {col.map((n) => (\n                // role=\"none\" — the <li> wrapper must not sit between listbox and option.\n                <li key={n.key} role=\"none\">\n                  <button\n                    type=\"button\"\n                    role=\"option\"\n                    aria-selected={path[i] === n.key}\n                    className={cx(\"cs-cascader__opt\", path[i] === n.key && \"on\")}\n                    // Keep options in the focusable set for arrow models (E3).\n                    data-cs-focusable=\"\"\n                    onClick={() => {\n                      const next = [...path.slice(0, i), n.key];\n                      setPath(next);\n                      if (!(n.children && n.children.length)) { onChange && onChange(next); setOpen(false); }\n                    }}\n                  >\n                    {n.label}{n.children && n.children.length ? <span aria-hidden=\"true\"> ›</span> : null}\n                  </button>\n                </li>\n              ))}\n            </ul>\n          ))",
             "referencedParameterNames": [
               "id",
@@ -10861,8 +10861,8 @@
             "interpretation": "Expression references parameter names; lexical shadowing, conditional rendering and semantic slot ownership require manual review."
           },
           {
-            "start": 7109,
-            "end": 8080,
+            "start": 7157,
+            "end": 8128,
             "source": "col.map((n) => (\n                // role=\"none\" — the <li> wrapper must not sit between listbox and option.\n                <li key={n.key} role=\"none\">\n                  <button\n                    type=\"button\"\n                    role=\"option\"\n                    aria-selected={path[i] === n.key}\n                    className={cx(\"cs-cascader__opt\", path[i] === n.key && \"on\")}\n                    // Keep options in the focusable set for arrow models (E3).\n                    data-cs-focusable=\"\"\n                    onClick={() => {\n                      const next = [...path.slice(0, i), n.key];\n                      setPath(next);\n                      if (!(n.children && n.children.length)) { onChange && onChange(next); setOpen(false); }\n                    }}\n                  >\n                    {n.label}{n.children && n.children.length ? <span aria-hidden=\"true\"> ›</span> : null}\n                  </button>\n                </li>\n              ))",
             "referencedParameterNames": [
               "label",
@@ -10871,8 +10871,8 @@
             "interpretation": "Expression references parameter names; lexical shadowing, conditional rendering and semantic slot ownership require manual review."
           },
           {
-            "start": 7926,
-            "end": 7935,
+            "start": 7974,
+            "end": 7983,
             "source": "n.label",
             "referencedParameterNames": [
               "label"
@@ -10880,8 +10880,8 @@
             "interpretation": "Expression references parameter names; lexical shadowing, conditional rendering and semantic slot ownership require manual review."
           },
           {
-            "start": 8151,
-            "end": 8216,
+            "start": 8199,
+            "end": 8264,
             "source": "fieldMessages(control, description, error, requiredDescription)",
             "referencedParameterNames": [
               "description",
@@ -10929,38 +10929,38 @@
           },
           {
             "value": "ArrowDown",
-            "start": 6061,
-            "end": 6072,
+            "start": 6109,
+            "end": 6120,
             "interpretation": "Observed literal, not a keyboard behavior guarantee."
           },
           {
             "value": "ArrowDown",
-            "start": 6106,
-            "end": 6117,
+            "start": 6154,
+            "end": 6165,
             "interpretation": "Observed literal, not a keyboard behavior guarantee."
           },
           {
             "value": "Enter",
-            "start": 6131,
-            "end": 6138,
+            "start": 6179,
+            "end": 6186,
             "interpretation": "Observed literal, not a keyboard behavior guarantee."
           },
           {
             "value": " ",
-            "start": 6152,
-            "end": 6155,
+            "start": 6200,
+            "end": 6203,
             "interpretation": "Observed literal, not a keyboard behavior guarantee."
           },
           {
             "value": " ",
-            "start": 6685,
-            "end": 6688,
+            "start": 6733,
+            "end": 6736,
             "interpretation": "Observed literal, not a keyboard behavior guarantee."
           },
           {
             "value": " ",
-            "start": 6723,
-            "end": 6726,
+            "start": 6771,
+            "end": 6774,
             "interpretation": "Observed literal, not a keyboard behavior guarantee."
           }
         ]
@@ -11011,7 +11011,7 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/Cascader.jsx",
-                  "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+                  "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
                   "ownership": "component-source",
                   "start": 5476,
                   "end": 5520,
@@ -11019,18 +11019,18 @@
                 },
                 {
                   "sourcePath": "components/forms/Cascader.jsx",
-                  "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+                  "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
                   "ownership": "component-source",
-                  "start": 6880,
-                  "end": 6932,
+                  "start": 6928,
+                  "end": 6980,
                   "source": "<div ref={floatingRef} className=\"cs-cascader__pop\">"
                 },
                 {
                   "sourcePath": "components/forms/Cascader.jsx",
-                  "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+                  "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
                   "ownership": "component-source",
-                  "start": 6979,
-                  "end": 7094,
+                  "start": 7027,
+                  "end": 7142,
                   "source": "<ul key={i} role=\"listbox\" aria-labelledby={control[\"aria-labelledby\"] || control.id} className=\"cs-cascader__col\">"
                 }
               ]
@@ -11075,26 +11075,26 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/Cascader.jsx",
-                  "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+                  "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
                   "ownership": "component-source",
-                  "start": 6585,
-                  "end": 6783,
+                  "start": 6633,
+                  "end": 6831,
                   "source": "{labels.length ? labels.map((label, index) => <React.Fragment key={index}>{index ? <React.Fragment>{\" \"}<span aria-hidden=\"true\">/</span>{\" \"}</React.Fragment> : null}{label}</React.Fragment>) : ph}"
                 },
                 {
                   "sourcePath": "components/forms/Cascader.jsx",
-                  "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+                  "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
                   "ownership": "component-source",
-                  "start": 6752,
-                  "end": 6759,
+                  "start": 6800,
+                  "end": 6807,
                   "source": "{label}"
                 },
                 {
                   "sourcePath": "components/forms/Cascader.jsx",
-                  "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+                  "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
                   "ownership": "component-source",
-                  "start": 8151,
-                  "end": 8216,
+                  "start": 8199,
+                  "end": 8264,
                   "source": "{fieldMessages(control, description, error, requiredDescription)}"
                 }
               ]
@@ -11110,26 +11110,26 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/Cascader.jsx",
-                  "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+                  "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
                   "ownership": "component-source",
-                  "start": 6979,
-                  "end": 7094,
+                  "start": 7027,
+                  "end": 7142,
                   "source": "<ul key={i} role=\"listbox\" aria-labelledby={control[\"aria-labelledby\"] || control.id} className=\"cs-cascader__col\">"
                 },
                 {
                   "sourcePath": "components/forms/Cascader.jsx",
-                  "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+                  "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
                   "ownership": "component-source",
-                  "start": 7234,
-                  "end": 7262,
+                  "start": 7282,
+                  "end": 7310,
                   "source": "<li key={n.key} role=\"none\">"
                 },
                 {
                   "sourcePath": "components/forms/Cascader.jsx",
-                  "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+                  "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
                   "ownership": "component-source",
-                  "start": 7281,
-                  "end": 7905,
+                  "start": 7329,
+                  "end": 7953,
                   "source": "<button\n                    type=\"button\"\n                    role=\"option\"\n                    aria-selected={path[i] === n.key}\n                    className={cx(\"cs-cascader__opt\", path[i] === n.key && \"on\")}\n                    // Keep options in the focusable set for arrow models (E3).\n                    data-cs-focusable=\"\"\n                    onClick={() => {\n                      const next = [...path.slice(0, i), n.key];\n                      setPath(next);\n                      if (!(n.children && n.children.length)) { onChange && onChange(next); setOpen(false); }\n                    }}\n                  >"
                 }
               ]
@@ -11145,7 +11145,7 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/Cascader.jsx",
-                  "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+                  "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
                   "ownership": "component-source",
                   "start": 1963,
                   "end": 2009,
@@ -11153,7 +11153,7 @@
                 },
                 {
                   "sourcePath": "components/forms/Cascader.jsx",
-                  "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+                  "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
                   "ownership": "component-source",
                   "start": 2441,
                   "end": 2451,
@@ -11161,7 +11161,7 @@
                 },
                 {
                   "sourcePath": "components/forms/Cascader.jsx",
-                  "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+                  "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
                   "ownership": "component-source",
                   "start": 2668,
                   "end": 2698,
@@ -11169,7 +11169,7 @@
                 },
                 {
                   "sourcePath": "components/forms/Cascader.jsx",
-                  "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+                  "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
                   "ownership": "component-source",
                   "start": 5476,
                   "end": 5520,
@@ -11177,15 +11177,15 @@
                 },
                 {
                   "sourcePath": "components/forms/Cascader.jsx",
-                  "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+                  "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
                   "ownership": "component-source",
                   "start": 5666,
-                  "end": 6241,
-                  "source": "{ ...control, type: \"button\", className: \"cs-treeselect__field\", disabled, \"aria-haspopup\": \"listbox\", \"aria-expanded\": open, onClick: () => setOpen(o => !o), onKeyDown: (e) => {\n          if (e.defaultPrevented || e.nativeEvent.isComposing || e.nativeEvent.keyCode === 229) return;\n          // Once open, the document handler owns arrows from this trigger too.\n          if (open && e.key === \"ArrowDown\") return;\n          if (e.key === \"ArrowDown\" || e.key === \"Enter\" || e.key === \" \") {\n            e.preventDefault();\n            setOpen(true);\n          }\n        } }"
+                  "end": 6289,
+                  "source": "{ ...control, type: \"button\", className: \"cs-treeselect__field\", disabled, \"aria-haspopup\": \"listbox\", \"aria-expanded\": open, onClick: event => { if (!open) event.currentTarget.focus(); setOpen(o => !o); }, onKeyDown: (e) => {\n          if (e.defaultPrevented || e.nativeEvent.isComposing || e.nativeEvent.keyCode === 229) return;\n          // Once open, the document handler owns arrows from this trigger too.\n          if (open && e.key === \"ArrowDown\") return;\n          if (e.key === \"ArrowDown\" || e.key === \"Enter\" || e.key === \" \") {\n            e.preventDefault();\n            setOpen(true);\n          }\n        } }"
                 },
                 {
                   "sourcePath": "components/forms/Cascader.jsx",
-                  "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+                  "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
                   "ownership": "component-source",
                   "start": 5769,
                   "end": 5790,
@@ -11193,18 +11193,18 @@
                 },
                 {
                   "sourcePath": "components/forms/Cascader.jsx",
-                  "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+                  "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
                   "ownership": "component-source",
-                  "start": 6534,
-                  "end": 6585,
+                  "start": 6582,
+                  "end": 6633,
                   "source": "<span className={labels.length ? undefined : \"ph\"}>"
                 },
                 {
                   "sourcePath": "components/forms/Cascader.jsx",
-                  "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+                  "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
                   "ownership": "component-source",
-                  "start": 6689,
-                  "end": 6722,
+                  "start": 6737,
+                  "end": 6770,
                   "source": "<span aria-hidden=\"true\">/</span>"
                 }
               ]
@@ -11220,10 +11220,10 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/Cascader.jsx",
-                  "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+                  "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
                   "ownership": "component-source",
-                  "start": 5825,
-                  "end": 6239,
+                  "start": 5873,
+                  "end": 6287,
                   "source": "onKeyDown: (e) => {\n          if (e.defaultPrevented || e.nativeEvent.isComposing || e.nativeEvent.keyCode === 229) return;\n          // Once open, the document handler owns arrows from this trigger too.\n          if (open && e.key === \"ArrowDown\") return;\n          if (e.key === \"ArrowDown\" || e.key === \"Enter\" || e.key === \" \") {\n            e.preventDefault();\n            setOpen(true);\n          }\n        }"
                 }
               ]
@@ -11233,7 +11233,7 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/Cascader.jsx",
-                  "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+                  "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
                   "ownership": "component-source",
                   "start": 2650,
                   "end": 2807,
@@ -11275,7 +11275,7 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/Cascader.jsx",
-                  "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+                  "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
                   "ownership": "component-source",
                   "start": 2422,
                   "end": 2619,
@@ -15235,7 +15235,7 @@
       "name": "ColorPicker",
       "source": {
         "path": "components/forms/ColorPicker.jsx",
-        "sha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f"
+        "sha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695"
       },
       "api": {
         "index": "components/api-index.json",
@@ -15270,7 +15270,7 @@
         "analysis": "forward-ref",
         "renderSpan": {
           "start": 673,
-          "end": 4645
+          "end": 4693
         },
         "jsxElements": [
           {
@@ -15316,12 +15316,12 @@
             "tag": "button",
             "kind": "intrinsic",
             "start": 2916,
-            "end": 3351,
+            "end": 3399,
             "attributes": [
               {
                 "name": "ref",
-                "start": 3327,
-                "end": 3349,
+                "start": 3375,
+                "end": 3397,
                 "kind": "expression",
                 "source": "{mergedControlRef}"
               }
@@ -15329,8 +15329,8 @@
             "spreads": [
               {
                 "start": 2924,
-                "end": 3326,
-                "expression": "mergeTargetProps({ ...control, type: \"button\", className: \"cs-colorpicker__field\", \"aria-expanded\": open, onClick: () => setOpen(o => !o) }, controlProps, [\"id\", \"role\", \"type\", \"name\", \"value\", \"defaultValue\", \"disabled\", \"required\", \"aria-required\", \"aria-label\", \"aria-labelledby\", \"aria-describedby\", \"aria-invalid\", \"aria-haspopup\", \"aria-expanded\", \"aria-controls\", \"aria-activedescendant\"])",
+                "end": 3374,
+                "expression": "mergeTargetProps({ ...control, type: \"button\", className: \"cs-colorpicker__field\", \"aria-expanded\": open, onClick: event => { if (!open) event.currentTarget.focus(); setOpen(o => !o); } }, controlProps, [\"id\", \"role\", \"type\", \"name\", \"value\", \"defaultValue\", \"disabled\", \"required\", \"aria-required\", \"aria-label\", \"aria-labelledby\", \"aria-describedby\", \"aria-invalid\", \"aria-haspopup\", \"aria-expanded\", \"aria-controls\", \"aria-activedescendant\"])",
                 "forwarding": "unverified-target-and-precedence"
               }
             ]
@@ -15338,13 +15338,13 @@
           {
             "tag": "i",
             "kind": "intrinsic",
-            "start": 3360,
-            "end": 3395,
+            "start": 3408,
+            "end": 3443,
             "attributes": [
               {
                 "name": "style",
-                "start": 3363,
-                "end": 3392,
+                "start": 3411,
+                "end": 3440,
                 "kind": "expression",
                 "source": "{{ background: value }}"
               }
@@ -15354,49 +15354,49 @@
           {
             "tag": "code",
             "kind": "intrinsic",
-            "start": 3395,
-            "end": 3401,
+            "start": 3443,
+            "end": 3449,
             "attributes": [],
             "spreads": []
           },
           {
             "tag": "span",
             "kind": "intrinsic",
-            "start": 3472,
-            "end": 3695,
+            "start": 3520,
+            "end": 3743,
             "attributes": [
               {
                 "name": "ref",
-                "start": 3478,
-                "end": 3495,
+                "start": 3526,
+                "end": 3543,
                 "kind": "expression",
                 "source": "{floatingRef}"
               },
               {
                 "name": "className",
-                "start": 3496,
-                "end": 3527,
+                "start": 3544,
+                "end": 3575,
                 "kind": "string-literal",
                 "source": "\"cs-colorpicker__pop\""
               },
               {
                 "name": "role",
-                "start": 3528,
-                "end": 3541,
+                "start": 3576,
+                "end": 3589,
                 "kind": "string-literal",
                 "source": "\"dialog\""
               },
               {
                 "name": "aria-label",
-                "start": 3542,
-                "end": 3649,
+                "start": 3590,
+                "end": 3697,
                 "kind": "expression",
                 "source": "{control[\"aria-labelledby\"] ? undefined : (controlProps?.[\"aria-label\"] || label || t(\"label\"))}"
               },
               {
                 "name": "aria-labelledby",
-                "start": 3650,
-                "end": 3694,
+                "start": 3698,
+                "end": 3742,
                 "kind": "expression",
                 "source": "{control[\"aria-labelledby\"]}"
               }
@@ -15406,13 +15406,13 @@
           {
             "tag": "span",
             "kind": "intrinsic",
-            "start": 3706,
-            "end": 3745,
+            "start": 3754,
+            "end": 3793,
             "attributes": [
               {
                 "name": "className",
-                "start": 3712,
-                "end": 3744,
+                "start": 3760,
+                "end": 3792,
                 "kind": "string-literal",
                 "source": "\"cs-colorpicker__grid\""
               }
@@ -15422,55 +15422,55 @@
           {
             "tag": "button",
             "kind": "intrinsic",
-            "start": 3795,
-            "end": 4087,
+            "start": 3843,
+            "end": 4135,
             "attributes": [
               {
                 "name": "key",
-                "start": 3803,
-                "end": 3810,
+                "start": 3851,
+                "end": 3858,
                 "kind": "expression",
                 "source": "{s}"
               },
               {
                 "name": "type",
-                "start": 3811,
-                "end": 3824,
+                "start": 3859,
+                "end": 3872,
                 "kind": "string-literal",
                 "source": "\"button\""
               },
               {
                 "name": "aria-label",
-                "start": 3825,
-                "end": 3839,
+                "start": 3873,
+                "end": 3887,
                 "kind": "expression",
                 "source": "{s}"
               },
               {
                 "name": "aria-pressed",
-                "start": 3840,
-                "end": 3902,
+                "start": 3888,
+                "end": 3950,
                 "kind": "expression",
                 "source": "{s.toLowerCase() === String(value).toLowerCase()}"
               },
               {
                 "name": "style",
-                "start": 3903,
-                "end": 3928,
+                "start": 3951,
+                "end": 3976,
                 "kind": "expression",
                 "source": "{{ background: s }}"
               },
               {
                 "name": "className",
-                "start": 3929,
-                "end": 4007,
+                "start": 3977,
+                "end": 4055,
                 "kind": "expression",
                 "source": "{s.toLowerCase() === String(value).toLowerCase() ? \"on\" : undefined}"
               },
               {
                 "name": "onClick",
-                "start": 4024,
-                "end": 4084,
+                "start": 4072,
+                "end": 4132,
                 "kind": "expression",
                 "source": "{() => { onChange && onChange(s); setOpen(false); }}"
               }
@@ -15480,13 +15480,13 @@
           {
             "tag": "span",
             "kind": "intrinsic",
-            "start": 4132,
-            "end": 4170,
+            "start": 4180,
+            "end": 4218,
             "attributes": [
               {
                 "name": "className",
-                "start": 4138,
-                "end": 4169,
+                "start": 4186,
+                "end": 4217,
                 "kind": "string-literal",
                 "source": "\"cs-colorpicker__hex\""
               }
@@ -15496,41 +15496,41 @@
           {
             "tag": "input",
             "kind": "intrinsic",
-            "start": 4183,
-            "end": 4467,
+            "start": 4231,
+            "end": 4515,
             "attributes": [
               {
                 "name": "value",
-                "start": 4190,
-                "end": 4201,
+                "start": 4238,
+                "end": 4249,
                 "kind": "expression",
                 "source": "{hex}"
               },
               {
                 "name": "aria-label",
-                "start": 4202,
-                "end": 4223,
+                "start": 4250,
+                "end": 4271,
                 "kind": "expression",
                 "source": "{t(\"hex\")}"
               },
               {
                 "name": "onChange",
-                "start": 4224,
-                "end": 4264,
+                "start": 4272,
+                "end": 4312,
                 "kind": "expression",
                 "source": "{(e) => setHex(e.target.value)}"
               },
               {
                 "name": "onKeyDown",
-                "start": 4279,
-                "end": 4437,
+                "start": 4327,
+                "end": 4485,
                 "kind": "expression",
                 "source": "{(e) => { if (e.nativeEvent.isComposing || e.keyCode === 229) return; if (e.key === \"Enter\") { e.preventDefault(); commit(hex); setOpen(false); } }}"
               },
               {
                 "name": "onBlur",
-                "start": 4438,
-                "end": 4464,
+                "start": 4486,
+                "end": 4512,
                 "kind": "expression",
                 "source": "{() => commit(hex)}"
               }
@@ -15540,8 +15540,8 @@
         ],
         "slotCandidates": [
           {
-            "start": 3401,
-            "end": 3408,
+            "start": 3449,
+            "end": 3456,
             "source": "value",
             "referencedParameterNames": [
               "value"
@@ -15549,8 +15549,8 @@
             "interpretation": "Expression references parameter names; lexical shadowing, conditional rendering and semantic slot ownership require manual review."
           },
           {
-            "start": 3438,
-            "end": 4518,
+            "start": 3486,
+            "end": 4566,
             "source": "open ? (\n        floating.render(<span ref={floatingRef} className=\"cs-colorpicker__pop\" role=\"dialog\" aria-label={control[\"aria-labelledby\"] ? undefined : (controlProps?.[\"aria-label\"] || label || t(\"label\"))} aria-labelledby={control[\"aria-labelledby\"]}>\n          <span className=\"cs-colorpicker__grid\">\n            {swatches.map((s) => (\n              <button key={s} type=\"button\" aria-label={s} aria-pressed={s.toLowerCase() === String(value).toLowerCase()} style={{ background: s }} className={s.toLowerCase() === String(value).toLowerCase() ? \"on\" : undefined}\n                onClick={() => { onChange && onChange(s); setOpen(false); }} />\n            ))}\n          </span>\n          <span className=\"cs-colorpicker__hex\">\n            <input value={hex} aria-label={t(\"hex\")} onChange={(e) => setHex(e.target.value)}\n              onKeyDown={(e) => { if (e.nativeEvent.isComposing || e.keyCode === 229) return; if (e.key === \"Enter\") { e.preventDefault(); commit(hex); setOpen(false); } }} onBlur={() => commit(hex)} />\n          </span>\n        </span>)\n      ) : null",
             "referencedParameterNames": [
               "controlProps",
@@ -15562,8 +15562,8 @@
             "interpretation": "Expression references parameter names; lexical shadowing, conditional rendering and semantic slot ownership require manual review."
           },
           {
-            "start": 3758,
-            "end": 4103,
+            "start": 3806,
+            "end": 4151,
             "source": "swatches.map((s) => (\n              <button key={s} type=\"button\" aria-label={s} aria-pressed={s.toLowerCase() === String(value).toLowerCase()} style={{ background: s }} className={s.toLowerCase() === String(value).toLowerCase() ? \"on\" : undefined}\n                onClick={() => { onChange && onChange(s); setOpen(false); }} />\n            ))",
             "referencedParameterNames": [
               "onChange",
@@ -15573,8 +15573,8 @@
             "interpretation": "Expression references parameter names; lexical shadowing, conditional rendering and semantic slot ownership require manual review."
           },
           {
-            "start": 4525,
-            "end": 4590,
+            "start": 4573,
+            "end": 4638,
             "source": "fieldMessages(control, description, error, requiredDescription)",
             "referencedParameterNames": [
               "description",
@@ -15586,8 +15586,8 @@
         "keyboardLiterals": [
           {
             "value": "Enter",
-            "start": 4373,
-            "end": 4380,
+            "start": 4421,
+            "end": 4428,
             "interpretation": "Observed literal, not a keyboard behavior guarantee."
           }
         ]
@@ -15635,7 +15635,7 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/ColorPicker.jsx",
-                  "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+                  "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
                   "ownership": "component-source",
                   "start": 2751,
                   "end": 2795,
@@ -15643,26 +15643,26 @@
                 },
                 {
                   "sourcePath": "components/forms/ColorPicker.jsx",
-                  "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+                  "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
                   "ownership": "component-source",
-                  "start": 3472,
-                  "end": 3695,
+                  "start": 3520,
+                  "end": 3743,
                   "source": "<span ref={floatingRef} className=\"cs-colorpicker__pop\" role=\"dialog\" aria-label={control[\"aria-labelledby\"] ? undefined : (controlProps?.[\"aria-label\"] || label || t(\"label\"))} aria-labelledby={control[\"aria-labelledby\"]}>"
                 },
                 {
                   "sourcePath": "components/forms/ColorPicker.jsx",
-                  "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+                  "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
                   "ownership": "component-source",
-                  "start": 3706,
-                  "end": 3745,
+                  "start": 3754,
+                  "end": 3793,
                   "source": "<span className=\"cs-colorpicker__grid\">"
                 },
                 {
                   "sourcePath": "components/forms/ColorPicker.jsx",
-                  "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+                  "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
                   "ownership": "component-source",
-                  "start": 4132,
-                  "end": 4170,
+                  "start": 4180,
+                  "end": 4218,
                   "source": "<span className=\"cs-colorpicker__hex\">"
                 }
               ]
@@ -15707,18 +15707,18 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/ColorPicker.jsx",
-                  "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+                  "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
                   "ownership": "component-source",
-                  "start": 3438,
-                  "end": 4518,
+                  "start": 3486,
+                  "end": 4566,
                   "source": "{open ? (\n        floating.render(<span ref={floatingRef} className=\"cs-colorpicker__pop\" role=\"dialog\" aria-label={control[\"aria-labelledby\"] ? undefined : (controlProps?.[\"aria-label\"] || label || t(\"label\"))} aria-labelledby={control[\"aria-labelledby\"]}>\n          <span className=\"cs-colorpicker__grid\">\n            {swatches.map((s) => (\n              <button key={s} type=\"button\" aria-label={s} aria-pressed={s.toLowerCase() === String(value).toLowerCase()} style={{ background: s }} className={s.toLowerCase() === String(value).toLowerCase() ? \"on\" : undefined}\n                onClick={() => { onChange && onChange(s); setOpen(false); }} />\n            ))}\n          </span>\n          <span className=\"cs-colorpicker__hex\">\n            <input value={hex} aria-label={t(\"hex\")} onChange={(e) => setHex(e.target.value)}\n              onKeyDown={(e) => { if (e.nativeEvent.isComposing || e.keyCode === 229) return; if (e.key === \"Enter\") { e.preventDefault(); commit(hex); setOpen(false); } }} onBlur={() => commit(hex)} />\n          </span>\n        </span>)\n      ) : null}"
                 },
                 {
                   "sourcePath": "components/forms/ColorPicker.jsx",
-                  "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+                  "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
                   "ownership": "component-source",
-                  "start": 4525,
-                  "end": 4590,
+                  "start": 4573,
+                  "end": 4638,
                   "source": "{fieldMessages(control, description, error, requiredDescription)}"
                 }
               ]
@@ -15734,10 +15734,10 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/ColorPicker.jsx",
-                  "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+                  "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
                   "ownership": "component-source",
-                  "start": 3472,
-                  "end": 3695,
+                  "start": 3520,
+                  "end": 3743,
                   "source": "<span ref={floatingRef} className=\"cs-colorpicker__pop\" role=\"dialog\" aria-label={control[\"aria-labelledby\"] ? undefined : (controlProps?.[\"aria-label\"] || label || t(\"label\"))} aria-labelledby={control[\"aria-labelledby\"]}>"
                 }
               ]
@@ -15753,7 +15753,7 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/ColorPicker.jsx",
-                  "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+                  "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
                   "ownership": "component-source",
                   "start": 1793,
                   "end": 1839,
@@ -15761,7 +15761,7 @@
                 },
                 {
                   "sourcePath": "components/forms/ColorPicker.jsx",
-                  "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+                  "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
                   "ownership": "component-source",
                   "start": 2033,
                   "end": 2043,
@@ -15769,7 +15769,7 @@
                 },
                 {
                   "sourcePath": "components/forms/ColorPicker.jsx",
-                  "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+                  "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
                   "ownership": "component-source",
                   "start": 2251,
                   "end": 2281,
@@ -15777,7 +15777,7 @@
                 },
                 {
                   "sourcePath": "components/forms/ColorPicker.jsx",
-                  "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+                  "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
                   "ownership": "component-source",
                   "start": 2751,
                   "end": 2795,
@@ -15785,7 +15785,7 @@
                 },
                 {
                   "sourcePath": "components/forms/ColorPicker.jsx",
-                  "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+                  "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
                   "ownership": "component-source",
                   "start": 3011,
                   "end": 3032,
@@ -15793,18 +15793,18 @@
                 },
                 {
                   "sourcePath": "components/forms/ColorPicker.jsx",
-                  "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+                  "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
                   "ownership": "component-source",
-                  "start": 3795,
-                  "end": 4087,
+                  "start": 3843,
+                  "end": 4135,
                   "source": "<button key={s} type=\"button\" aria-label={s} aria-pressed={s.toLowerCase() === String(value).toLowerCase()} style={{ background: s }} className={s.toLowerCase() === String(value).toLowerCase() ? \"on\" : undefined}\n                onClick={() => { onChange && onChange(s); setOpen(false); }} />"
                 },
                 {
                   "sourcePath": "components/forms/ColorPicker.jsx",
-                  "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+                  "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
                   "ownership": "component-source",
-                  "start": 4183,
-                  "end": 4467,
+                  "start": 4231,
+                  "end": 4515,
                   "source": "<input value={hex} aria-label={t(\"hex\")} onChange={(e) => setHex(e.target.value)}\n              onKeyDown={(e) => { if (e.nativeEvent.isComposing || e.keyCode === 229) return; if (e.key === \"Enter\") { e.preventDefault(); commit(hex); setOpen(false); } }} onBlur={() => commit(hex)} />"
                 }
               ]
@@ -15820,10 +15820,10 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/ColorPicker.jsx",
-                  "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+                  "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
                   "ownership": "component-source",
-                  "start": 4279,
-                  "end": 4437,
+                  "start": 4327,
+                  "end": 4485,
                   "source": "onKeyDown={(e) => { if (e.nativeEvent.isComposing || e.keyCode === 229) return; if (e.key === \"Enter\") { e.preventDefault(); commit(hex); setOpen(false); } }}"
                 }
               ]
@@ -15833,7 +15833,7 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/ColorPicker.jsx",
-                  "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+                  "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
                   "ownership": "component-source",
                   "start": 2233,
                   "end": 2389,
@@ -15875,7 +15875,7 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/ColorPicker.jsx",
-                  "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+                  "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
                   "ownership": "component-source",
                   "start": 2014,
                   "end": 2211,
@@ -53554,7 +53554,7 @@
       "name": "SearchField",
       "source": {
         "path": "components/forms/SearchField.jsx",
-        "sha256": "44a861064011a4ebf8cd1224d95b0404c44e4cb8a1685d5981f8009ff8a824de"
+        "sha256": "e48eec5e6f3d65719ea4f72e833d67a6b05d2cc6fb49b53a621d0e832f33838e"
       },
       "api": {
         "index": "components/api-index.json",
@@ -53576,7 +53576,7 @@
         "analysis": "forward-ref",
         "renderSpan": {
           "start": 427,
-          "end": 2101
+          "end": 2147
         },
         "jsxElements": [
           {
@@ -53803,7 +53803,7 @@
             "tag": "button",
             "kind": "intrinsic",
             "start": 1687,
-            "end": 1879,
+            "end": 1925,
             "attributes": [
               {
                 "name": "type",
@@ -53836,9 +53836,9 @@
               {
                 "name": "onClick",
                 "start": 1794,
-                "end": 1878,
+                "end": 1924,
                 "kind": "expression",
-                "source": "{() => { if (disabled || readOnly) return; set(\"\"); onClear && onClear(); }}"
+                "source": "{() => { if (disabled || readOnly) return; set(\"\"); onClear && onClear(); ref.current?.querySelector(\"input\")?.focus(); }}"
               }
             ],
             "spreads": []
@@ -53846,55 +53846,55 @@
           {
             "tag": "svg",
             "kind": "intrinsic",
-            "start": 1890,
-            "end": 2010,
+            "start": 1936,
+            "end": 2056,
             "attributes": [
               {
                 "name": "width",
-                "start": 1895,
-                "end": 1905,
+                "start": 1941,
+                "end": 1951,
                 "kind": "string-literal",
                 "source": "\"16\""
               },
               {
                 "name": "height",
-                "start": 1906,
-                "end": 1917,
+                "start": 1952,
+                "end": 1963,
                 "kind": "string-literal",
                 "source": "\"16\""
               },
               {
                 "name": "viewBox",
-                "start": 1918,
-                "end": 1937,
+                "start": 1964,
+                "end": 1983,
                 "kind": "string-literal",
                 "source": "\"0 0 24 24\""
               },
               {
                 "name": "fill",
-                "start": 1938,
-                "end": 1949,
+                "start": 1984,
+                "end": 1995,
                 "kind": "string-literal",
                 "source": "\"none\""
               },
               {
                 "name": "stroke",
-                "start": 1950,
-                "end": 1971,
+                "start": 1996,
+                "end": 2017,
                 "kind": "string-literal",
                 "source": "\"currentColor\""
               },
               {
                 "name": "strokeWidth",
-                "start": 1972,
-                "end": 1987,
+                "start": 2018,
+                "end": 2033,
                 "kind": "string-literal",
                 "source": "\"2\""
               },
               {
                 "name": "strokeLinecap",
-                "start": 1988,
-                "end": 2009,
+                "start": 2034,
+                "end": 2055,
                 "kind": "string-literal",
                 "source": "\"round\""
               }
@@ -53904,13 +53904,13 @@
           {
             "tag": "path",
             "kind": "intrinsic",
-            "start": 2010,
-            "end": 2043,
+            "start": 2056,
+            "end": 2089,
             "attributes": [
               {
                 "name": "d",
-                "start": 2016,
-                "end": 2040,
+                "start": 2062,
+                "end": 2086,
                 "kind": "string-literal",
                 "source": "\"M6 6l12 12M18 6L6 18\""
               }
@@ -53921,8 +53921,8 @@
         "slotCandidates": [
           {
             "start": 1655,
-            "end": 2083,
-            "source": "String(val).length ? (\n        <button type=\"button\" className=\"cs-search__clear\" aria-label={t(\"clear\")} disabled={disabled || readOnly} onClick={() => { if (disabled || readOnly) return; set(\"\"); onClear && onClear(); }}>\n          <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\"><path d=\"M6 6l12 12M18 6L6 18\" /></svg>\n        </button>\n      ) : null",
+            "end": 2129,
+            "source": "String(val).length ? (\n        <button type=\"button\" className=\"cs-search__clear\" aria-label={t(\"clear\")} disabled={disabled || readOnly} onClick={() => { if (disabled || readOnly) return; set(\"\"); onClear && onClear(); ref.current?.querySelector(\"input\")?.focus(); }}>\n          <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\"><path d=\"M6 6l12 12M18 6L6 18\" /></svg>\n        </button>\n      ) : null",
             "referencedParameterNames": [
               "disabled",
               "onClear",
@@ -53960,7 +53960,7 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/SearchField.jsx",
-                  "sourceSha256": "44a861064011a4ebf8cd1224d95b0404c44e4cb8a1685d5981f8009ff8a824de",
+                  "sourceSha256": "e48eec5e6f3d65719ea4f72e833d67a6b05d2cc6fb49b53a621d0e832f33838e",
                   "ownership": "component-source",
                   "start": 1093,
                   "end": 1147,
@@ -53968,11 +53968,11 @@
                 },
                 {
                   "sourcePath": "components/forms/SearchField.jsx",
-                  "sourceSha256": "44a861064011a4ebf8cd1224d95b0404c44e4cb8a1685d5981f8009ff8a824de",
+                  "sourceSha256": "e48eec5e6f3d65719ea4f72e833d67a6b05d2cc6fb49b53a621d0e832f33838e",
                   "ownership": "component-source",
                   "start": 1687,
-                  "end": 1879,
-                  "source": "<button type=\"button\" className=\"cs-search__clear\" aria-label={t(\"clear\")} disabled={disabled || readOnly} onClick={() => { if (disabled || readOnly) return; set(\"\"); onClear && onClear(); }}>"
+                  "end": 1925,
+                  "source": "<button type=\"button\" className=\"cs-search__clear\" aria-label={t(\"clear\")} disabled={disabled || readOnly} onClick={() => { if (disabled || readOnly) return; set(\"\"); onClear && onClear(); ref.current?.querySelector(\"input\")?.focus(); }}>"
                 }
               ]
             }
@@ -53987,11 +53987,11 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/SearchField.jsx",
-                  "sourceSha256": "44a861064011a4ebf8cd1224d95b0404c44e4cb8a1685d5981f8009ff8a824de",
+                  "sourceSha256": "e48eec5e6f3d65719ea4f72e833d67a6b05d2cc6fb49b53a621d0e832f33838e",
                   "ownership": "component-source",
                   "start": 427,
-                  "end": 2101,
-                  "source": "function SearchField({ value, defaultValue = \"\", onChange, onClear, disabled = false, readOnly = false, placeholder, lang, className, children, ...props }, forwardedRef) {\n  const mergedNativeRef = useComposedRefs(forwardedRef);\n  const [inner, setInner] = React.useState(() => defaultValue == null ? \"\" : String(defaultValue));\n  const val = value != null ? value : inner;\n  const set = (v) => { if (disabled || readOnly) return; if (value == null) setInner(v); onChange?.(v); };\n  const [ref, L, localeMessages] = useLang(lang);\n  const t = makeT(\"SearchField\", L, localeMessages);\n  const ph = placeholder != null ? placeholder : t(\"placeholder\");\n  return (\n    <div ref={ref} className={cx(\"cs-search\", className)}>\n      <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\" strokeLinejoin=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\" /><path d=\"M21 21l-4.3-4.3\" /></svg>\n      <input aria-label={props[\"aria-label\"] || (props[\"aria-labelledby\"] ? undefined : ph)} {...props} type=\"text\" role=\"searchbox\" value={val} disabled={disabled} readOnly={readOnly} placeholder={ph} onChange={(e) => set(e.target.value)}  ref={mergedNativeRef} />\n      {String(val).length ? (\n        <button type=\"button\" className=\"cs-search__clear\" aria-label={t(\"clear\")} disabled={disabled || readOnly} onClick={() => { if (disabled || readOnly) return; set(\"\"); onClear && onClear(); }}>\n          <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\"><path d=\"M6 6l12 12M18 6L6 18\" /></svg>\n        </button>\n      ) : null}\n    </div>\n  );\n}"
+                  "end": 2147,
+                  "source": "function SearchField({ value, defaultValue = \"\", onChange, onClear, disabled = false, readOnly = false, placeholder, lang, className, children, ...props }, forwardedRef) {\n  const mergedNativeRef = useComposedRefs(forwardedRef);\n  const [inner, setInner] = React.useState(() => defaultValue == null ? \"\" : String(defaultValue));\n  const val = value != null ? value : inner;\n  const set = (v) => { if (disabled || readOnly) return; if (value == null) setInner(v); onChange?.(v); };\n  const [ref, L, localeMessages] = useLang(lang);\n  const t = makeT(\"SearchField\", L, localeMessages);\n  const ph = placeholder != null ? placeholder : t(\"placeholder\");\n  return (\n    <div ref={ref} className={cx(\"cs-search\", className)}>\n      <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\" strokeLinejoin=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\" /><path d=\"M21 21l-4.3-4.3\" /></svg>\n      <input aria-label={props[\"aria-label\"] || (props[\"aria-labelledby\"] ? undefined : ph)} {...props} type=\"text\" role=\"searchbox\" value={val} disabled={disabled} readOnly={readOnly} placeholder={ph} onChange={(e) => set(e.target.value)}  ref={mergedNativeRef} />\n      {String(val).length ? (\n        <button type=\"button\" className=\"cs-search__clear\" aria-label={t(\"clear\")} disabled={disabled || readOnly} onClick={() => { if (disabled || readOnly) return; set(\"\"); onClear && onClear(); ref.current?.querySelector(\"input\")?.focus(); }}>\n          <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\"><path d=\"M6 6l12 12M18 6L6 18\" /></svg>\n        </button>\n      ) : null}\n    </div>\n  );\n}"
                 }
               ]
             }
@@ -54006,7 +54006,7 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/SearchField.jsx",
-                  "sourceSha256": "44a861064011a4ebf8cd1224d95b0404c44e4cb8a1685d5981f8009ff8a824de",
+                  "sourceSha256": "e48eec5e6f3d65719ea4f72e833d67a6b05d2cc6fb49b53a621d0e832f33838e",
                   "ownership": "component-source",
                   "start": 1389,
                   "end": 1648,
@@ -54025,7 +54025,7 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/SearchField.jsx",
-                  "sourceSha256": "44a861064011a4ebf8cd1224d95b0404c44e4cb8a1685d5981f8009ff8a824de",
+                  "sourceSha256": "e48eec5e6f3d65719ea4f72e833d67a6b05d2cc6fb49b53a621d0e832f33838e",
                   "ownership": "component-source",
                   "start": 1154,
                   "end": 1316,
@@ -54033,7 +54033,7 @@
                 },
                 {
                   "sourcePath": "components/forms/SearchField.jsx",
-                  "sourceSha256": "44a861064011a4ebf8cd1224d95b0404c44e4cb8a1685d5981f8009ff8a824de",
+                  "sourceSha256": "e48eec5e6f3d65719ea4f72e833d67a6b05d2cc6fb49b53a621d0e832f33838e",
                   "ownership": "component-source",
                   "start": 1389,
                   "end": 1648,
@@ -54041,11 +54041,11 @@
                 },
                 {
                   "sourcePath": "components/forms/SearchField.jsx",
-                  "sourceSha256": "44a861064011a4ebf8cd1224d95b0404c44e4cb8a1685d5981f8009ff8a824de",
+                  "sourceSha256": "e48eec5e6f3d65719ea4f72e833d67a6b05d2cc6fb49b53a621d0e832f33838e",
                   "ownership": "component-source",
                   "start": 1687,
-                  "end": 1879,
-                  "source": "<button type=\"button\" className=\"cs-search__clear\" aria-label={t(\"clear\")} disabled={disabled || readOnly} onClick={() => { if (disabled || readOnly) return; set(\"\"); onClear && onClear(); }}>"
+                  "end": 1925,
+                  "source": "<button type=\"button\" className=\"cs-search__clear\" aria-label={t(\"clear\")} disabled={disabled || readOnly} onClick={() => { if (disabled || readOnly) return; set(\"\"); onClear && onClear(); ref.current?.querySelector(\"input\")?.focus(); }}>"
                 }
               ]
             }
@@ -54060,7 +54060,7 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/SearchField.jsx",
-                  "sourceSha256": "44a861064011a4ebf8cd1224d95b0404c44e4cb8a1685d5981f8009ff8a824de",
+                  "sourceSha256": "e48eec5e6f3d65719ea4f72e833d67a6b05d2cc6fb49b53a621d0e832f33838e",
                   "ownership": "component-source",
                   "start": 1389,
                   "end": 1648,
@@ -54068,11 +54068,11 @@
                 },
                 {
                   "sourcePath": "components/forms/SearchField.jsx",
-                  "sourceSha256": "44a861064011a4ebf8cd1224d95b0404c44e4cb8a1685d5981f8009ff8a824de",
+                  "sourceSha256": "e48eec5e6f3d65719ea4f72e833d67a6b05d2cc6fb49b53a621d0e832f33838e",
                   "ownership": "component-source",
                   "start": 1687,
-                  "end": 1879,
-                  "source": "<button type=\"button\" className=\"cs-search__clear\" aria-label={t(\"clear\")} disabled={disabled || readOnly} onClick={() => { if (disabled || readOnly) return; set(\"\"); onClear && onClear(); }}>"
+                  "end": 1925,
+                  "source": "<button type=\"button\" className=\"cs-search__clear\" aria-label={t(\"clear\")} disabled={disabled || readOnly} onClick={() => { if (disabled || readOnly) return; set(\"\"); onClear && onClear(); ref.current?.querySelector(\"input\")?.focus(); }}>"
                 }
               ]
             }
@@ -71046,7 +71046,7 @@
       "name": "TreeSelect",
       "source": {
         "path": "components/forms/TreeSelect.jsx",
-        "sha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f"
+        "sha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3"
       },
       "api": {
         "index": "components/api-index.json",
@@ -71083,7 +71083,7 @@
         "analysis": "forward-ref",
         "renderSpan": {
           "start": 593,
-          "end": 4205
+          "end": 4253
         },
         "jsxElements": [
           {
@@ -71129,12 +71129,12 @@
             "tag": "button",
             "kind": "intrinsic",
             "start": 3042,
-            "end": 3511,
+            "end": 3559,
             "attributes": [
               {
                 "name": "ref",
-                "start": 3487,
-                "end": 3509,
+                "start": 3535,
+                "end": 3557,
                 "kind": "expression",
                 "source": "{mergedControlRef}"
               }
@@ -71142,8 +71142,8 @@
             "spreads": [
               {
                 "start": 3050,
-                "end": 3486,
-                "expression": "mergeTargetProps({ ...control, type: \"button\", className: \"cs-treeselect__field\", disabled, \"aria-haspopup\": \"tree\", \"aria-expanded\": open, onClick: () => setOpen(o => !o) }, controlProps, [\"id\", \"role\", \"type\", \"name\", \"value\", \"defaultValue\", \"disabled\", \"required\", \"aria-required\", \"aria-label\", \"aria-labelledby\", \"aria-describedby\", \"aria-invalid\", \"aria-haspopup\", \"aria-expanded\", \"aria-controls\", \"aria-activedescendant\"])",
+                "end": 3534,
+                "expression": "mergeTargetProps({ ...control, type: \"button\", className: \"cs-treeselect__field\", disabled, \"aria-haspopup\": \"tree\", \"aria-expanded\": open, onClick: event => { if (!open) event.currentTarget.focus(); setOpen(o => !o); } }, controlProps, [\"id\", \"role\", \"type\", \"name\", \"value\", \"defaultValue\", \"disabled\", \"required\", \"aria-required\", \"aria-label\", \"aria-labelledby\", \"aria-describedby\", \"aria-invalid\", \"aria-haspopup\", \"aria-expanded\", \"aria-controls\", \"aria-activedescendant\"])",
                 "forwarding": "unverified-target-and-precedence"
               }
             ]
@@ -71151,13 +71151,13 @@
           {
             "tag": "span",
             "kind": "intrinsic",
-            "start": 3520,
-            "end": 3561,
+            "start": 3568,
+            "end": 3609,
             "attributes": [
               {
                 "name": "className",
-                "start": 3526,
-                "end": 3560,
+                "start": 3574,
+                "end": 3608,
                 "kind": "expression",
                 "source": "{sel ? undefined : \"ph\"}"
               }
@@ -71167,13 +71167,13 @@
           {
             "tag": "span",
             "kind": "intrinsic",
-            "start": 3590,
-            "end": 3615,
+            "start": 3638,
+            "end": 3663,
             "attributes": [
               {
                 "name": "aria-hidden",
-                "start": 3596,
-                "end": 3614,
+                "start": 3644,
+                "end": 3662,
                 "kind": "string-literal",
                 "source": "\"true\""
               }
@@ -71183,20 +71183,20 @@
           {
             "tag": "div",
             "kind": "intrinsic",
-            "start": 3680,
-            "end": 3734,
+            "start": 3728,
+            "end": 3782,
             "attributes": [
               {
                 "name": "ref",
-                "start": 3685,
-                "end": 3702,
+                "start": 3733,
+                "end": 3750,
                 "kind": "expression",
                 "source": "{floatingRef}"
               },
               {
                 "name": "className",
-                "start": 3703,
-                "end": 3733,
+                "start": 3751,
+                "end": 3781,
                 "kind": "string-literal",
                 "source": "\"cs-treeselect__pop\""
               }
@@ -71206,55 +71206,55 @@
           {
             "tag": "Tree",
             "kind": "component-or-dynamic",
-            "start": 3745,
-            "end": 4047,
+            "start": 3793,
+            "end": 4095,
             "attributes": [
               {
                 "name": "aria-label",
-                "start": 3751,
-                "end": 3834,
+                "start": 3799,
+                "end": 3882,
                 "kind": "expression",
                 "source": "{control[\"aria-label\"] || (control[\"aria-labelledby\"] ? undefined : ph)}"
               },
               {
                 "name": "aria-labelledby",
-                "start": 3835,
-                "end": 3879,
+                "start": 3883,
+                "end": 3927,
                 "kind": "expression",
                 "source": "{control[\"aria-labelledby\"]}"
               },
               {
                 "name": "nodes",
-                "start": 3880,
-                "end": 3893,
+                "start": 3928,
+                "end": 3941,
                 "kind": "expression",
                 "source": "{nodes}"
               },
               {
                 "name": "selected",
-                "start": 3894,
-                "end": 3910,
+                "start": 3942,
+                "end": 3958,
                 "kind": "expression",
                 "source": "{value}"
               },
               {
                 "name": "defaultOpen",
-                "start": 3911,
-                "end": 3922,
+                "start": 3959,
+                "end": 3970,
                 "kind": "boolean-presence",
                 "source": "true"
               },
               {
                 "name": "lang",
-                "start": 3923,
-                "end": 3931,
+                "start": 3971,
+                "end": 3979,
                 "kind": "expression",
                 "source": "{L}"
               },
               {
                 "name": "onSelect",
-                "start": 3932,
-                "end": 4044,
+                "start": 3980,
+                "end": 4092,
                 "kind": "expression",
                 "source": "{(k, n) => { if (!(n.children && n.children.length)) { onChange && onChange(k, n); setOpen(false); } }}"
               }
@@ -71264,8 +71264,8 @@
         ],
         "slotCandidates": [
           {
-            "start": 3561,
-            "end": 3583,
+            "start": 3609,
+            "end": 3631,
             "source": "sel ? sel.label : ph",
             "referencedParameterNames": [
               "label"
@@ -71273,8 +71273,8 @@
             "interpretation": "Expression references parameter names; lexical shadowing, conditional rendering and semantic slot ownership require manual review."
           },
           {
-            "start": 3646,
-            "end": 4079,
+            "start": 3694,
+            "end": 4127,
             "source": "open ? (\n        floating.render(<div ref={floatingRef} className=\"cs-treeselect__pop\">\n          <Tree aria-label={control[\"aria-label\"] || (control[\"aria-labelledby\"] ? undefined : ph)} aria-labelledby={control[\"aria-labelledby\"]} nodes={nodes} selected={value} defaultOpen lang={L} onSelect={(k, n) => { if (!(n.children && n.children.length)) { onChange && onChange(k, n); setOpen(false); } }} />\n        </div>)\n      ) : null",
             "referencedParameterNames": [
               "nodes",
@@ -71284,8 +71284,8 @@
             "interpretation": "Expression references parameter names; lexical shadowing, conditional rendering and semantic slot ownership require manual review."
           },
           {
-            "start": 4086,
-            "end": 4151,
+            "start": 4134,
+            "end": 4199,
             "source": "fieldMessages(control, description, error, requiredDescription)",
             "referencedParameterNames": [
               "description",
@@ -71325,7 +71325,7 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/TreeSelect.jsx",
-                  "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+                  "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
                   "ownership": "component-source",
                   "start": 2879,
                   "end": 2923,
@@ -71333,10 +71333,10 @@
                 },
                 {
                   "sourcePath": "components/forms/TreeSelect.jsx",
-                  "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+                  "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
                   "ownership": "component-source",
-                  "start": 3680,
-                  "end": 3734,
+                  "start": 3728,
+                  "end": 3782,
                   "source": "<div ref={floatingRef} className=\"cs-treeselect__pop\">"
                 }
               ]
@@ -71381,10 +71381,10 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/TreeSelect.jsx",
-                  "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+                  "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
                   "ownership": "component-source",
-                  "start": 4086,
-                  "end": 4151,
+                  "start": 4134,
+                  "end": 4199,
                   "source": "{fieldMessages(control, description, error, requiredDescription)}"
                 }
               ]
@@ -71400,11 +71400,11 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/TreeSelect.jsx",
-                  "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+                  "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
                   "ownership": "component-source",
                   "start": 3042,
-                  "end": 3511,
-                  "source": "<button {...mergeTargetProps({ ...control, type: \"button\", className: \"cs-treeselect__field\", disabled, \"aria-haspopup\": \"tree\", \"aria-expanded\": open, onClick: () => setOpen(o => !o) }, controlProps, [\"id\", \"role\", \"type\", \"name\", \"value\", \"defaultValue\", \"disabled\", \"required\", \"aria-required\", \"aria-label\", \"aria-labelledby\", \"aria-describedby\", \"aria-invalid\", \"aria-haspopup\", \"aria-expanded\", \"aria-controls\", \"aria-activedescendant\"])} ref={mergedControlRef} >"
+                  "end": 3559,
+                  "source": "<button {...mergeTargetProps({ ...control, type: \"button\", className: \"cs-treeselect__field\", disabled, \"aria-haspopup\": \"tree\", \"aria-expanded\": open, onClick: event => { if (!open) event.currentTarget.focus(); setOpen(o => !o); } }, controlProps, [\"id\", \"role\", \"type\", \"name\", \"value\", \"defaultValue\", \"disabled\", \"required\", \"aria-required\", \"aria-label\", \"aria-labelledby\", \"aria-describedby\", \"aria-invalid\", \"aria-haspopup\", \"aria-expanded\", \"aria-controls\", \"aria-activedescendant\"])} ref={mergedControlRef} >"
                 }
               ]
             }
@@ -71419,7 +71419,7 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/TreeSelect.jsx",
-                  "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+                  "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
                   "ownership": "component-source",
                   "start": 1910,
                   "end": 1956,
@@ -71427,7 +71427,7 @@
                 },
                 {
                   "sourcePath": "components/forms/TreeSelect.jsx",
-                  "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+                  "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
                   "ownership": "component-source",
                   "start": 2252,
                   "end": 2262,
@@ -71435,7 +71435,7 @@
                 },
                 {
                   "sourcePath": "components/forms/TreeSelect.jsx",
-                  "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+                  "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
                   "ownership": "component-source",
                   "start": 2470,
                   "end": 2500,
@@ -71443,7 +71443,7 @@
                 },
                 {
                   "sourcePath": "components/forms/TreeSelect.jsx",
-                  "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+                  "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
                   "ownership": "component-source",
                   "start": 2879,
                   "end": 2923,
@@ -71451,15 +71451,15 @@
                 },
                 {
                   "sourcePath": "components/forms/TreeSelect.jsx",
-                  "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+                  "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
                   "ownership": "component-source",
                   "start": 3071,
-                  "end": 3227,
-                  "source": "{ ...control, type: \"button\", className: \"cs-treeselect__field\", disabled, \"aria-haspopup\": \"tree\", \"aria-expanded\": open, onClick: () => setOpen(o => !o) }"
+                  "end": 3275,
+                  "source": "{ ...control, type: \"button\", className: \"cs-treeselect__field\", disabled, \"aria-haspopup\": \"tree\", \"aria-expanded\": open, onClick: event => { if (!open) event.currentTarget.focus(); setOpen(o => !o); } }"
                 },
                 {
                   "sourcePath": "components/forms/TreeSelect.jsx",
-                  "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+                  "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
                   "ownership": "component-source",
                   "start": 3171,
                   "end": 3192,
@@ -71467,18 +71467,18 @@
                 },
                 {
                   "sourcePath": "components/forms/TreeSelect.jsx",
-                  "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+                  "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
                   "ownership": "component-source",
-                  "start": 3520,
-                  "end": 3561,
+                  "start": 3568,
+                  "end": 3609,
                   "source": "<span className={sel ? undefined : \"ph\"}>"
                 },
                 {
                   "sourcePath": "components/forms/TreeSelect.jsx",
-                  "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+                  "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
                   "ownership": "component-source",
-                  "start": 3590,
-                  "end": 3615,
+                  "start": 3638,
+                  "end": 3663,
                   "source": "<span aria-hidden=\"true\">"
                 }
               ]
@@ -71494,11 +71494,11 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/TreeSelect.jsx",
-                  "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+                  "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
                   "ownership": "component-source",
                   "start": 3042,
-                  "end": 3511,
-                  "source": "<button {...mergeTargetProps({ ...control, type: \"button\", className: \"cs-treeselect__field\", disabled, \"aria-haspopup\": \"tree\", \"aria-expanded\": open, onClick: () => setOpen(o => !o) }, controlProps, [\"id\", \"role\", \"type\", \"name\", \"value\", \"defaultValue\", \"disabled\", \"required\", \"aria-required\", \"aria-label\", \"aria-labelledby\", \"aria-describedby\", \"aria-invalid\", \"aria-haspopup\", \"aria-expanded\", \"aria-controls\", \"aria-activedescendant\"])} ref={mergedControlRef} >"
+                  "end": 3559,
+                  "source": "<button {...mergeTargetProps({ ...control, type: \"button\", className: \"cs-treeselect__field\", disabled, \"aria-haspopup\": \"tree\", \"aria-expanded\": open, onClick: event => { if (!open) event.currentTarget.focus(); setOpen(o => !o); } }, controlProps, [\"id\", \"role\", \"type\", \"name\", \"value\", \"defaultValue\", \"disabled\", \"required\", \"aria-required\", \"aria-label\", \"aria-labelledby\", \"aria-describedby\", \"aria-invalid\", \"aria-haspopup\", \"aria-expanded\", \"aria-controls\", \"aria-activedescendant\"])} ref={mergedControlRef} >"
                 }
               ]
             },
@@ -71507,7 +71507,7 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/TreeSelect.jsx",
-                  "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+                  "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
                   "ownership": "component-source",
                   "start": 2452,
                   "end": 2608,
@@ -71549,7 +71549,7 @@
               "evidence": [
                 {
                   "sourcePath": "components/forms/TreeSelect.jsx",
-                  "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+                  "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
                   "ownership": "component-source",
                   "start": 2233,
                   "end": 2430,

@@ -79,11 +79,13 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   }
 
   run(process.execPath, ['scripts/npm.mjs', 'run', 'build']);
+  run(process.execPath, ['scripts/npm.mjs', 'run', 'build:state-inventory']);
   run(process.execPath, ['scripts/npm.mjs', 'run', 'build:check']);
   run(process.execPath, ['scripts/npm.mjs', 'run', 'test:pack-hygiene']);
 
   const dockerCheck = spawnSync('docker', ['info'], { stdio: 'ignore' });
   if (dockerCheck.status === 0) {
+    run('git', ['add', '-A']);
     run('docker', [
       'run', '--rm',
       '--platform', 'linux/amd64',
@@ -106,7 +108,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   verifyTagIdentity(root, { version, sourceSha: releaseSha });
 
   run('git', ['push', 'origin', 'main']);
-  const postAct = spawnSync(process.execPath, ['scripts/run-act-ci.mjs', '--post-status', '--sha', releaseSha], {
+  const postAct = spawnSync(process.execPath, ['scripts/run-act-ci.mjs', '--stamp-current', '--with-status', '--sha', releaseSha], {
     cwd: root,
     stdio: 'inherit',
   });

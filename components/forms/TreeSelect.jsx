@@ -40,7 +40,7 @@ export const TreeSelect = React.forwardRef(function TreeSelect({ portal = true, 
   return (
     <overlayScopeContext.Provider value={scope}>
     <div ref={mergedNativeRef} {...mergeTargetProps({ className: cx("cs-treeselect", className) }, rootProps)}>
-      <button {...mergeTargetProps({ ...control, type: "button", className: "cs-treeselect__field", disabled, "aria-haspopup": "tree", "aria-expanded": open, onClick: () => setOpen(o => !o) }, controlProps, ["id", "role", "type", "name", "value", "defaultValue", "disabled", "required", "aria-required", "aria-label", "aria-labelledby", "aria-describedby", "aria-invalid", "aria-haspopup", "aria-expanded", "aria-controls", "aria-activedescendant"])} ref={mergedControlRef} >
+      <button {...mergeTargetProps({ ...control, type: "button", className: "cs-treeselect__field", disabled, "aria-haspopup": "tree", "aria-expanded": open, onClick: event => { if (!open) event.currentTarget.focus(); setOpen(o => !o); } }, controlProps, ["id", "role", "type", "name", "value", "defaultValue", "disabled", "required", "aria-required", "aria-label", "aria-labelledby", "aria-describedby", "aria-invalid", "aria-haspopup", "aria-expanded", "aria-controls", "aria-activedescendant"])} ref={mergedControlRef} >
         <span className={sel ? undefined : "ph"}>{sel ? sel.label : ph}</span><span aria-hidden="true">▾</span>
       </button>
       {open ? (

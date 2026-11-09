@@ -63,7 +63,10 @@ var ColorPicker = React.forwardRef(function ColorPicker2({ portal = true, placem
       onChange && onChange(v);
     }
   };
-  return /* @__PURE__ */ React.createElement(overlayScopeContext.Provider, { value: scope }, /* @__PURE__ */ React.createElement("span", { ref: mergedNativeRef, ...mergeTargetProps({ className: cx("cs-colorpicker", className) }, rootProps) }, /* @__PURE__ */ React.createElement("button", { ...mergeTargetProps({ ...control, type: "button", className: "cs-colorpicker__field", "aria-expanded": open, onClick: () => setOpen((o) => !o) }, controlProps, ["id", "role", "type", "name", "value", "defaultValue", "disabled", "required", "aria-required", "aria-label", "aria-labelledby", "aria-describedby", "aria-invalid", "aria-haspopup", "aria-expanded", "aria-controls", "aria-activedescendant"]), ref: mergedControlRef }, /* @__PURE__ */ React.createElement("i", { style: { background: value } }), /* @__PURE__ */ React.createElement("code", null, value)), open ? floating.render(/* @__PURE__ */ React.createElement("span", { ref: floatingRef, className: "cs-colorpicker__pop", role: "dialog", "aria-label": control["aria-labelledby"] ? void 0 : controlProps?.["aria-label"] || label || t("label"), "aria-labelledby": control["aria-labelledby"] }, /* @__PURE__ */ React.createElement("span", { className: "cs-colorpicker__grid" }, swatches.map((s) => /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement(overlayScopeContext.Provider, { value: scope }, /* @__PURE__ */ React.createElement("span", { ref: mergedNativeRef, ...mergeTargetProps({ className: cx("cs-colorpicker", className) }, rootProps) }, /* @__PURE__ */ React.createElement("button", { ...mergeTargetProps({ ...control, type: "button", className: "cs-colorpicker__field", "aria-expanded": open, onClick: (event) => {
+    if (!open) event.currentTarget.focus();
+    setOpen((o) => !o);
+  } }, controlProps, ["id", "role", "type", "name", "value", "defaultValue", "disabled", "required", "aria-required", "aria-label", "aria-labelledby", "aria-describedby", "aria-invalid", "aria-haspopup", "aria-expanded", "aria-controls", "aria-activedescendant"]), ref: mergedControlRef }, /* @__PURE__ */ React.createElement("i", { style: { background: value } }), /* @__PURE__ */ React.createElement("code", null, value)), open ? floating.render(/* @__PURE__ */ React.createElement("span", { ref: floatingRef, className: "cs-colorpicker__pop", role: "dialog", "aria-label": control["aria-labelledby"] ? void 0 : controlProps?.["aria-label"] || label || t("label"), "aria-labelledby": control["aria-labelledby"] }, /* @__PURE__ */ React.createElement("span", { className: "cs-colorpicker__grid" }, swatches.map((s) => /* @__PURE__ */ React.createElement(
     "button",
     {
       key: s,
@@ -100,4 +103,4 @@ ColorPicker.displayName = "ColorPicker";
 export {
   ColorPicker
 };
-//# sourceMappingURL=chunk-FF5D53IP.mjs.map
+//# sourceMappingURL=chunk-SA7L22XE.mjs.map

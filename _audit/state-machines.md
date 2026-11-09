@@ -97,9 +97,9 @@ No semantic completeness is claimed. See JSON `scope` for exclusions and limitat
 | [components/feedback/Toast.jsx](../components/feedback/Toast.jsx) | 0 | 2 | 3 | 0 | 4 |
 | [components/feedback/feedback.card.html](../components/feedback/feedback.card.html) | 0 | 0 | 2 | 0 | 1 |
 | [components/forms/Calendar.jsx](../components/forms/Calendar.jsx) | 5 | 27 | 6 | 1 | 4 |
-| [components/forms/Cascader.jsx](../components/forms/Cascader.jsx) | 7 | 19 | 5 | 10 | 11 |
+| [components/forms/Cascader.jsx](../components/forms/Cascader.jsx) | 7 | 19 | 5 | 11 | 11 |
 | [components/forms/Checkbox.jsx](../components/forms/Checkbox.jsx) | 0 | 1 | 0 | 0 | 2 |
-| [components/forms/ColorPicker.jsx](../components/forms/ColorPicker.jsx) | 6 | 8 | 7 | 2 | 7 |
+| [components/forms/ColorPicker.jsx](../components/forms/ColorPicker.jsx) | 6 | 8 | 7 | 3 | 7 |
 | [components/forms/Combobox.jsx](../components/forms/Combobox.jsx) | 7 | 17 | 9 | 2 | 11 |
 | [components/forms/DatePicker.jsx](../components/forms/DatePicker.jsx) | 5 | 6 | 4 | 4 | 9 |
 | [components/forms/Editor.jsx](../components/forms/Editor.jsx) | 7 | 18 | 13 | 3 | 2 |
@@ -113,7 +113,7 @@ No semantic completeness is claimed. See JSON `scope` for exclusions and limitat
 | [components/forms/NumberField.jsx](../components/forms/NumberField.jsx) | 2 | 9 | 5 | 0 | 7 |
 | [components/forms/RadioGroup.jsx](../components/forms/RadioGroup.jsx) | 0 | 2 | 2 | 0 | 6 |
 | [components/forms/Rating.jsx](../components/forms/Rating.jsx) | 2 | 4 | 3 | 1 | 4 |
-| [components/forms/SearchField.jsx](../components/forms/SearchField.jsx) | 1 | 4 | 4 | 0 | 7 |
+| [components/forms/SearchField.jsx](../components/forms/SearchField.jsx) | 1 | 4 | 4 | 1 | 7 |
 | [components/forms/SegmentedControl.jsx](../components/forms/SegmentedControl.jsx) | 1 | 7 | 3 | 1 | 4 |
 | [components/forms/Select.jsx](../components/forms/Select.jsx) | 0 | 1 | 0 | 0 | 7 |
 | [components/forms/Slider.jsx](../components/forms/Slider.jsx) | 0 | 1 | 0 | 0 | 0 |
@@ -123,7 +123,7 @@ No semantic completeness is claimed. See JSON `scope` for exclusions and limitat
 | [components/forms/TimePicker.jsx](../components/forms/TimePicker.jsx) | 0 | 4 | 2 | 0 | 6 |
 | [components/forms/Toggle.jsx](../components/forms/Toggle.jsx) | 1 | 2 | 3 | 0 | 4 |
 | [components/forms/Transfer.jsx](../components/forms/Transfer.jsx) | 2 | 4 | 4 | 0 | 2 |
-| [components/forms/TreeSelect.jsx](../components/forms/TreeSelect.jsx) | 5 | 6 | 4 | 2 | 9 |
+| [components/forms/TreeSelect.jsx](../components/forms/TreeSelect.jsx) | 5 | 6 | 4 | 3 | 9 |
 | [components/forms/editor-parser.js](../components/forms/editor-parser.js) | 0 | 1936 | 1 | 0 | 5 |
 | [components/forms/editor-schema.js](../components/forms/editor-schema.js) | 0 | 8 | 0 | 0 | 0 |
 | [components/forms/forms-2.card.html](../components/forms/forms-2.card.html) | 4 | 1 | 4 | 0 | 7 |

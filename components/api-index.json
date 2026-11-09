@@ -14,7 +14,7 @@
     "scripts/catalog-source.json": "f12045fb1cccf19df8a2469dba096c582bc1885c8be464e2fc3df9aec06b89e9",
     "scripts/lib/component-support.mjs": "6626078ffaaa91cb3a43d87858577fc5d405e5bfb474e7519abf50d4797b2eb1",
     "_esm/react.d.ts": "56e221d6eb875cf7c3a4de841372ba0b70389836957d8538b1d5a276848db95d",
-    "components/lifecycle.json": "0daa1db14dfe0c915c86ed39d7a4d0f339e69e98ab614e61400c82a75dc34c11"
+    "components/lifecycle.json": "28574314e19271305cc280baed7c24248bd8a5e699202df137331c848d851539"
   },
   "propDefinitions": {
     "p-0003926b4717c94d": {
@@ -35995,7 +35995,7 @@
       "sourcePath": "components/forms/Cascader.jsx",
       "declarationPath": "components/forms/Cascader.d.ts",
       "promptPath": "components/forms/Cascader.prompt.md",
-      "sourceSha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+      "sourceSha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
       "declarationSha256": "33edbc198353ed41f05867be9e1c04830d5033cf2cf4ceda3e1ba13adef27aea",
       "declaredLifecycle": "stable",
       "support": {
@@ -36021,7 +36021,7 @@
           },
           {
             "path": "components/forms/Cascader.jsx",
-            "sha256": "60217f041dd78ad4809a787920c0f0d56a6a383ae125ad2e691757b2af22abbf",
+            "sha256": "09380cc01ef61a3cc0fb0d4f065345f4e31a6cd197cd4a9d837ffdc144b22bde",
             "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
             "checkedAt": "2026-10-21T12:08:13.113Z"
           },
@@ -39349,7 +39349,7 @@
       "sourcePath": "components/forms/ColorPicker.jsx",
       "declarationPath": "components/forms/ColorPicker.d.ts",
       "promptPath": "components/forms/ColorPicker.prompt.md",
-      "sourceSha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+      "sourceSha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
       "declarationSha256": "a0a3d9c005fc6f8ddc4fdc85f132aedfcb10dee745ae1706eb6b924814531e2d",
       "declaredLifecycle": "stable",
       "support": {
@@ -39375,7 +39375,7 @@
           },
           {
             "path": "components/forms/ColorPicker.jsx",
-            "sha256": "64da95eccfc3637b640edcb4271ae914a81f4e05cf7b528467ab5850a651ed4f",
+            "sha256": "90d7990c0e97ca31592bb7a48153d85944016b4424c0ac58837c8295c33d8695",
             "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
             "checkedAt": "2026-10-21T12:08:13.113Z"
           },
@@ -74734,7 +74734,7 @@
       "sourcePath": "components/forms/SearchField.jsx",
       "declarationPath": "components/forms/SearchField.d.ts",
       "promptPath": "components/forms/SearchField.prompt.md",
-      "sourceSha256": "44a861064011a4ebf8cd1224d95b0404c44e4cb8a1685d5981f8009ff8a824de",
+      "sourceSha256": "e48eec5e6f3d65719ea4f72e833d67a6b05d2cc6fb49b53a621d0e832f33838e",
       "declarationSha256": "16b63c44bbdf6d4f9f8f05f0612cbcd8d92b6d4af5800d90fd120a5f1f60a5fa",
       "declaredLifecycle": "stable",
       "support": {
@@ -74760,7 +74760,7 @@
           },
           {
             "path": "components/forms/SearchField.jsx",
-            "sha256": "44a861064011a4ebf8cd1224d95b0404c44e4cb8a1685d5981f8009ff8a824de",
+            "sha256": "e48eec5e6f3d65719ea4f72e833d67a6b05d2cc6fb49b53a621d0e832f33838e",
             "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
             "checkedAt": "2026-10-21T12:08:13.113Z"
           },
@@ -97284,7 +97284,7 @@
       "sourcePath": "components/forms/TreeSelect.jsx",
       "declarationPath": "components/forms/TreeSelect.d.ts",
       "promptPath": "components/forms/TreeSelect.prompt.md",
-      "sourceSha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+      "sourceSha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
       "declarationSha256": "3623e81530a0900556a713346f5ea7a96c02dc185a1481589d45190f5b09c33e",
       "declaredLifecycle": "stable",
       "support": {
@@ -97310,7 +97310,7 @@
           },
           {
             "path": "components/forms/TreeSelect.jsx",
-            "sha256": "3d5d1ef69f6e24a4322ed1bf52c47c3430eaad1ab3fe5ac51b5b40ec5a09044f",
+            "sha256": "ab5bc70e1cb1ab10df72a39456e4f4ac88e7907c25cd1dde8ded1d9c5c8b31e3",
             "scope": "Authoritative React implementation source for this declared export; shared source may define companion exports",
             "checkedAt": "2026-10-21T12:08:13.113Z"
           },
