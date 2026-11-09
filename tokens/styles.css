@@ -11,5 +11,5 @@
 }
 
 [data-cs-style="liquid-glass"] {
-  --cs-style-pack: liquid-glass;
+  --cs-style-pack: liquid-glass; /* @kind other */
 }

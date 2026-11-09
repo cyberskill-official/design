@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceSha256": "bd8da30f6a51d4e1621f93db462df3b1adc18d9e90347e2bb2cb91a003483a3a",
+  "sourceSha256": "fd0f0f317a204664606de545da11b862190b83d7148982231458056481566c28",
   "exports": [
     "AIDisclosureBadge",
     "Accordion",
@@ -187,8 +187,8 @@
     {
       "name": "Button",
       "span": {
-        "start": 12217,
-        "end": 13415
+        "start": 12237,
+        "end": 13435
       },
       "renderedTargets": [
         "Button",
@@ -204,8 +204,8 @@
     {
       "name": "Toggle",
       "span": {
-        "start": 13419,
-        "end": 13897
+        "start": 13439,
+        "end": 13917
       },
       "renderedTargets": [
         "Icon",
@@ -221,8 +221,8 @@
     {
       "name": "Link",
       "span": {
-        "start": 13901,
-        "end": 14410
+        "start": 13921,
+        "end": 14430
       },
       "renderedTargets": [
         "Link"
@@ -234,8 +234,8 @@
     {
       "name": "Icon",
       "span": {
-        "start": 14414,
-        "end": 14914
+        "start": 14434,
+        "end": 14934
       },
       "renderedTargets": [
         "Icon"
@@ -249,8 +249,8 @@
     {
       "name": "Badge & Tag",
       "span": {
-        "start": 14918,
-        "end": 15584
+        "start": 14938,
+        "end": 15604
       },
       "renderedTargets": [
         "Badge",
@@ -265,8 +265,8 @@
     {
       "name": "StatusIndicator",
       "span": {
-        "start": 15588,
-        "end": 16410
+        "start": 15608,
+        "end": 16430
       },
       "renderedTargets": [
         "StatusIndicator"
@@ -280,8 +280,8 @@
     {
       "name": "Spinner · ProgressBar · Skeleton",
       "span": {
-        "start": 16414,
-        "end": 17013
+        "start": 16434,
+        "end": 17033
       },
       "renderedTargets": [
         "ProgressBar",
@@ -297,8 +297,8 @@
     {
       "name": "Avatar",
       "span": {
-        "start": 17017,
-        "end": 17566
+        "start": 17037,
+        "end": 17586
       },
       "renderedTargets": [
         "Avatar",
@@ -313,8 +313,8 @@
     {
       "name": "Divider",
       "span": {
-        "start": 17570,
-        "end": 17727
+        "start": 17590,
+        "end": 17747
       },
       "renderedTargets": [
         "Divider"
@@ -326,8 +326,8 @@
     {
       "name": "AspectRatio",
       "span": {
-        "start": 17731,
-        "end": 18267
+        "start": 17751,
+        "end": 18287
       },
       "renderedTargets": [
         "AspectRatio"
@@ -341,8 +341,8 @@
     {
       "name": "Item",
       "span": {
-        "start": 18271,
-        "end": 19058
+        "start": 18291,
+        "end": 19078
       },
       "renderedTargets": [
         "Item",
@@ -358,8 +358,8 @@
     {
       "name": "Kbd",
       "span": {
-        "start": 19062,
-        "end": 19194
+        "start": 19082,
+        "end": 19214
       },
       "renderedTargets": [
         "Kbd"
@@ -371,8 +371,8 @@
     {
       "name": "Logo",
       "span": {
-        "start": 19198,
-        "end": 19557
+        "start": 19218,
+        "end": 19577
       },
       "renderedTargets": [
         "Logo"
@@ -384,8 +384,8 @@
     {
       "name": "LumiAvatar",
       "span": {
-        "start": 19561,
-        "end": 20103
+        "start": 19581,
+        "end": 20123
       },
       "renderedTargets": [
         "LumiAvatar"
@@ -399,8 +399,8 @@
     {
       "name": "TextField",
       "span": {
-        "start": 20149,
-        "end": 20910
+        "start": 20169,
+        "end": 20930
       },
       "renderedTargets": [
         "TextField"
@@ -414,8 +414,8 @@
     {
       "name": "Select · NativeSelect · Radio · Checkbox · Switch · Textarea",
       "span": {
-        "start": 20914,
-        "end": 22556
+        "start": 20934,
+        "end": 22576
       },
       "renderedTargets": [
         "Checkbox",
@@ -437,8 +437,8 @@
     {
       "name": "Search · Number · Slider · Segmented · FileUpload",
       "span": {
-        "start": 22560,
-        "end": 23577
+        "start": 22580,
+        "end": 23597
       },
       "renderedTargets": [
         "FileUpload",
@@ -460,8 +460,8 @@
     {
       "name": "Rating",
       "span": {
-        "start": 23581,
-        "end": 23968
+        "start": 23601,
+        "end": 23988
       },
       "renderedTargets": [
         "Rating"
@@ -475,8 +475,8 @@
     {
       "name": "InputOTP",
       "span": {
-        "start": 23972,
-        "end": 24112
+        "start": 23992,
+        "end": 24132
       },
       "renderedTargets": [
         "InputOTP"
@@ -488,8 +488,8 @@
     {
       "name": "ButtonGroup",
       "span": {
-        "start": 24116,
-        "end": 24513
+        "start": 24136,
+        "end": 24533
       },
       "renderedTargets": [
         "Button",
@@ -502,8 +502,8 @@
     {
       "name": "Combobox",
       "span": {
-        "start": 24517,
-        "end": 24966
+        "start": 24537,
+        "end": 24986
       },
       "renderedTargets": [
         "Combobox"
@@ -517,8 +517,8 @@
     {
       "name": "InputGroup",
       "span": {
-        "start": 24970,
-        "end": 25372
+        "start": 24990,
+        "end": 25392
       },
       "renderedTargets": [
         "InputGroup"
@@ -530,8 +530,8 @@
     {
       "name": "TagInput",
       "span": {
-        "start": 25376,
-        "end": 25627
+        "start": 25396,
+        "end": 25647
       },
       "renderedTargets": [
         "TagInput"
@@ -543,8 +543,8 @@
     {
       "name": "HoverCard",
       "span": {
-        "start": 25631,
-        "end": 26294
+        "start": 25651,
+        "end": 26314
       },
       "renderedTargets": [
         "HoverCard"
@@ -558,8 +558,8 @@
     {
       "name": "Popconfirm",
       "span": {
-        "start": 26298,
-        "end": 26624
+        "start": 26318,
+        "end": 26644
       },
       "renderedTargets": [
         "Button",
@@ -572,8 +572,8 @@
     {
       "name": "ContextMenu",
       "span": {
-        "start": 26628,
-        "end": 27177
+        "start": 26648,
+        "end": 27197
       },
       "renderedTargets": [
         "ContextMenu"
@@ -585,8 +585,8 @@
     {
       "name": "FloatingActionButton",
       "span": {
-        "start": 27181,
-        "end": 27616
+        "start": 27201,
+        "end": 27636
       },
       "renderedTargets": [
         "FloatingActionButton",
@@ -599,8 +599,8 @@
     {
       "name": "InlineEdit",
       "span": {
-        "start": 27620,
-        "end": 27816
+        "start": 27640,
+        "end": 27836
       },
       "renderedTargets": [
         "InlineEdit"
@@ -612,8 +612,8 @@
     {
       "name": "Toolbar",
       "span": {
-        "start": 27820,
-        "end": 28383
+        "start": 27840,
+        "end": 28403
       },
       "renderedTargets": [
         "Icon",
@@ -626,8 +626,8 @@
     {
       "name": "Image",
       "span": {
-        "start": 28387,
-        "end": 28682
+        "start": 28407,
+        "end": 28708
       },
       "renderedTargets": [
         "Image"
@@ -639,8 +639,8 @@
     {
       "name": "ScrollArea",
       "span": {
-        "start": 28686,
-        "end": 29786
+        "start": 28712,
+        "end": 29812
       },
       "renderedTargets": [
         "ScrollArea"
@@ -654,8 +654,8 @@
     {
       "name": "Collapsible",
       "span": {
-        "start": 29790,
-        "end": 30466
+        "start": 29816,
+        "end": 30492
       },
       "renderedTargets": [
         "Collapsible"
@@ -669,8 +669,8 @@
     {
       "name": "Anchor",
       "span": {
-        "start": 30470,
-        "end": 30841
+        "start": 30496,
+        "end": 30867
       },
       "renderedTargets": [
         "Anchor"
@@ -682,8 +682,8 @@
     {
       "name": "Tabs",
       "span": {
-        "start": 30845,
-        "end": 31172
+        "start": 30871,
+        "end": 31198
       },
       "renderedTargets": [
         "Tabs"
@@ -697,8 +697,8 @@
     {
       "name": "Breadcrumb",
       "span": {
-        "start": 31176,
-        "end": 31493
+        "start": 31202,
+        "end": 31519
       },
       "renderedTargets": [
         "Breadcrumb"
@@ -710,8 +710,8 @@
     {
       "name": "Pagination",
       "span": {
-        "start": 31497,
-        "end": 31757
+        "start": 31523,
+        "end": 31783
       },
       "renderedTargets": [
         "Pagination"
@@ -725,8 +725,8 @@
     {
       "name": "Menu",
       "span": {
-        "start": 31761,
-        "end": 32197
+        "start": 31787,
+        "end": 32223
       },
       "renderedTargets": [
         "Menu",
@@ -739,8 +739,8 @@
     {
       "name": "Stat",
       "span": {
-        "start": 32201,
-        "end": 32860
+        "start": 32227,
+        "end": 32886
       },
       "renderedTargets": [
         "Stat"
@@ -754,8 +754,8 @@
     {
       "name": "Card",
       "span": {
-        "start": 32864,
-        "end": 33850
+        "start": 32890,
+        "end": 33876
       },
       "renderedTargets": [
         "Avatar",
@@ -777,8 +777,8 @@
     {
       "name": "Tooltip",
       "span": {
-        "start": 33854,
-        "end": 34251
+        "start": 33880,
+        "end": 34277
       },
       "renderedTargets": [
         "Tooltip"
@@ -792,8 +792,8 @@
     {
       "name": "DescriptionList",
       "span": {
-        "start": 34255,
-        "end": 34701
+        "start": 34281,
+        "end": 34727
       },
       "renderedTargets": [
         "DescriptionList"
@@ -805,8 +805,8 @@
     {
       "name": "List",
       "span": {
-        "start": 34705,
-        "end": 35116
+        "start": 34731,
+        "end": 35142
       },
       "renderedTargets": [
         "Avatar",
@@ -821,8 +821,8 @@
     {
       "name": "CodeBlock",
       "span": {
-        "start": 35120,
-        "end": 35579
+        "start": 35146,
+        "end": 35605
       },
       "renderedTargets": [
         "CodeBlock"
@@ -836,8 +836,8 @@
     {
       "name": "Alert",
       "span": {
-        "start": 35583,
-        "end": 36351
+        "start": 35609,
+        "end": 36377
       },
       "renderedTargets": [
         "Alert"
@@ -851,8 +851,8 @@
     {
       "name": "Toast",
       "span": {
-        "start": 36355,
-        "end": 36964
+        "start": 36381,
+        "end": 36990
       },
       "renderedTargets": [
         "Toast",
@@ -867,8 +867,8 @@
     {
       "name": "Steps",
       "span": {
-        "start": 36968,
-        "end": 37533
+        "start": 36994,
+        "end": 37559
       },
       "renderedTargets": [
         "Steps"
@@ -882,8 +882,8 @@
     {
       "name": "ConfidenceMeter",
       "span": {
-        "start": 37537,
-        "end": 38054
+        "start": 37563,
+        "end": 38080
       },
       "renderedTargets": [
         "ConfidenceMeter"
@@ -897,8 +897,8 @@
     {
       "name": "AIDisclosureBadge",
       "span": {
-        "start": 38058,
-        "end": 38627
+        "start": 38084,
+        "end": 38653
       },
       "renderedTargets": [
         "AIDisclosureBadge"
@@ -912,8 +912,8 @@
     {
       "name": "PromptSuggestions",
       "span": {
-        "start": 38631,
-        "end": 38863
+        "start": 38657,
+        "end": 38889
       },
       "renderedTargets": [
         "PromptSuggestions"
@@ -925,8 +925,8 @@
     {
       "name": "TypingIndicator",
       "span": {
-        "start": 38867,
-        "end": 39116
+        "start": 38893,
+        "end": 39142
       },
       "renderedTargets": [
         "ChatMessage",
@@ -939,8 +939,8 @@
     {
       "name": "CitationList",
       "span": {
-        "start": 39120,
-        "end": 39424
+        "start": 39146,
+        "end": 39450
       },
       "renderedTargets": [
         "CitationList"
@@ -952,8 +952,8 @@
     {
       "name": "Form",
       "span": {
-        "start": 39470,
-        "end": 39544
+        "start": 39496,
+        "end": 39570
       },
       "renderedTargets": [
         "Button",
@@ -968,8 +968,8 @@
     {
       "name": "FormFieldArray",
       "span": {
-        "start": 39548,
-        "end": 40454
+        "start": 39574,
+        "end": 40480
       },
       "renderedTargets": [
         "Button",
@@ -985,8 +985,8 @@
     {
       "name": "FormWizard",
       "span": {
-        "start": 40458,
-        "end": 41130
+        "start": 40484,
+        "end": 41156
       },
       "renderedTargets": [
         "FormField",
@@ -1000,8 +1000,8 @@
     {
       "name": "Calendar",
       "span": {
-        "start": 41134,
-        "end": 41211
+        "start": 41160,
+        "end": 41237
       },
       "renderedTargets": [
         "Calendar"
@@ -1013,8 +1013,8 @@
     {
       "name": "DatePicker + TimePicker",
       "span": {
-        "start": 41215,
-        "end": 41308
+        "start": 41241,
+        "end": 41334
       },
       "renderedTargets": [
         "DatePicker",
@@ -1027,8 +1027,8 @@
     {
       "name": "Result",
       "span": {
-        "start": 41312,
-        "end": 41786
+        "start": 41338,
+        "end": 41812
       },
       "renderedTargets": [
         "Button",
@@ -1041,8 +1041,8 @@
     {
       "name": "ColorPicker",
       "span": {
-        "start": 41790,
-        "end": 41872
+        "start": 41816,
+        "end": 41898
       },
       "renderedTargets": [
         "ColorPicker"
@@ -1054,8 +1054,8 @@
     {
       "name": "Tour",
       "span": {
-        "start": 41876,
-        "end": 41953
+        "start": 41902,
+        "end": 41979
       },
       "renderedTargets": [
         "Button",
@@ -1068,8 +1068,8 @@
     {
       "name": "QRCode",
       "span": {
-        "start": 41957,
-        "end": 42241
+        "start": 41983,
+        "end": 42267
       },
       "renderedTargets": [
         "QRCode"
@@ -1081,8 +1081,8 @@
     {
       "name": "Chart",
       "span": {
-        "start": 42245,
-        "end": 42856
+        "start": 42271,
+        "end": 42882
       },
       "renderedTargets": [
         "Chart"
@@ -1094,8 +1094,8 @@
     {
       "name": "Editor",
       "span": {
-        "start": 42860,
-        "end": 43054
+        "start": 42886,
+        "end": 43080
       },
       "renderedTargets": [
         "Editor"
@@ -1107,8 +1107,8 @@
     {
       "name": "Terminal",
       "span": {
-        "start": 43058,
-        "end": 43350
+        "start": 43084,
+        "end": 43376
       },
       "renderedTargets": [
         "Terminal"
@@ -1120,8 +1120,8 @@
     {
       "name": "DataGrid",
       "span": {
-        "start": 43354,
-        "end": 43431
+        "start": 43380,
+        "end": 43457
       },
       "renderedTargets": [
         "DataGrid"
@@ -1133,8 +1133,8 @@
     {
       "name": "TreeTable",
       "span": {
-        "start": 43435,
-        "end": 43926
+        "start": 43461,
+        "end": 43952
       },
       "renderedTargets": [
         "TreeTable"
@@ -1146,8 +1146,8 @@
     {
       "name": "Sortable",
       "span": {
-        "start": 43930,
-        "end": 44007
+        "start": 43956,
+        "end": 44033
       },
       "renderedTargets": [
         "Sortable"
@@ -1159,8 +1159,8 @@
     {
       "name": "Masonry",
       "span": {
-        "start": 44011,
-        "end": 44455
+        "start": 44037,
+        "end": 44481
       },
       "renderedTargets": [
         "Masonry"
@@ -1172,8 +1172,8 @@
     {
       "name": "Splitter",
       "span": {
-        "start": 44459,
-        "end": 44857
+        "start": 44485,
+        "end": 44883
       },
       "renderedTargets": [
         "Splitter"
@@ -1185,8 +1185,8 @@
     {
       "name": "HotKeys",
       "span": {
-        "start": 44861,
-        "end": 45279
+        "start": 44887,
+        "end": 45305
       },
       "renderedTargets": [
         "HotKeys",
@@ -1199,8 +1199,8 @@
     {
       "name": "Dock",
       "span": {
-        "start": 45283,
-        "end": 45656
+        "start": 45309,
+        "end": 45682
       },
       "renderedTargets": [
         "Dock",
@@ -1213,8 +1213,8 @@
     {
       "name": "TreeSelect",
       "span": {
-        "start": 45660,
-        "end": 45778
+        "start": 45686,
+        "end": 45804
       },
       "renderedTargets": [
         "TreeSelect"
@@ -1226,8 +1226,8 @@
     {
       "name": "Cascader",
       "span": {
-        "start": 45782,
-        "end": 46229
+        "start": 45808,
+        "end": 46255
       },
       "renderedTargets": [
         "Cascader"
@@ -1241,8 +1241,8 @@
     {
       "name": "Transfer",
       "span": {
-        "start": 46233,
-        "end": 46312
+        "start": 46259,
+        "end": 46338
       },
       "renderedTargets": [
         "Transfer"
@@ -1254,8 +1254,8 @@
     {
       "name": "Mentions",
       "span": {
-        "start": 46316,
-        "end": 46522
+        "start": 46342,
+        "end": 46548
       },
       "renderedTargets": [
         "Mentions"
@@ -1267,8 +1267,8 @@
     {
       "name": "Form + FormField",
       "span": {
-        "start": 46526,
-        "end": 47218
+        "start": 46552,
+        "end": 47244
       },
       "renderedTargets": [
         "Button",
@@ -1282,8 +1282,8 @@
     {
       "name": "Tree",
       "span": {
-        "start": 47222,
-        "end": 47724
+        "start": 47248,
+        "end": 47750
       },
       "renderedTargets": [
         "Tree"
@@ -1295,8 +1295,8 @@
     {
       "name": "Watermark",
       "span": {
-        "start": 47728,
-        "end": 48118
+        "start": 47754,
+        "end": 48144
       },
       "renderedTargets": [
         "Watermark"
@@ -1308,8 +1308,8 @@
     {
       "name": "BackTop",
       "span": {
-        "start": 48122,
-        "end": 48422
+        "start": 48148,
+        "end": 48448
       },
       "renderedTargets": [
         "BackTop"
@@ -1321,8 +1321,8 @@
     {
       "name": "Menubar",
       "span": {
-        "start": 48426,
-        "end": 49151
+        "start": 48452,
+        "end": 49177
       },
       "renderedTargets": [
         "Menubar"
@@ -1336,8 +1336,8 @@
     {
       "name": "NavigationMenu",
       "span": {
-        "start": 49155,
-        "end": 49809
+        "start": 49181,
+        "end": 49835
       },
       "renderedTargets": [
         "NavigationMenu"
@@ -1349,8 +1349,8 @@
     {
       "name": "Carousel",
       "span": {
-        "start": 49813,
-        "end": 50132
+        "start": 49839,
+        "end": 50158
       },
       "renderedTargets": [
         "Carousel"
@@ -1362,8 +1362,8 @@
     {
       "name": "Comment",
       "span": {
-        "start": 50136,
-        "end": 50643
+        "start": 50162,
+        "end": 50679
       },
       "renderedTargets": [
         "Avatar",
@@ -1376,8 +1376,8 @@
     {
       "name": "Sidebar + NavItem",
       "span": {
-        "start": 50647,
-        "end": 51210
+        "start": 50683,
+        "end": 51246
       },
       "renderedTargets": [
         "Badge",
@@ -1391,8 +1391,8 @@
     {
       "name": "CommandPalette",
       "span": {
-        "start": 51214,
-        "end": 51790
+        "start": 51250,
+        "end": 51826
       },
       "renderedTargets": [
         "Button",
@@ -1405,8 +1405,8 @@
     {
       "name": "DataTable",
       "span": {
-        "start": 51794,
-        "end": 52688
+        "start": 51830,
+        "end": 52724
       },
       "renderedTargets": [
         "DataTable"
@@ -1418,8 +1418,8 @@
     {
       "name": "Accordion",
       "span": {
-        "start": 52692,
-        "end": 53728
+        "start": 52728,
+        "end": 53764
       },
       "renderedTargets": [
         "Accordion"
@@ -1433,8 +1433,8 @@
     {
       "name": "Timeline",
       "span": {
-        "start": 53732,
-        "end": 54277
+        "start": 53768,
+        "end": 54313
       },
       "renderedTargets": [
         "Timeline"
@@ -1446,8 +1446,8 @@
     {
       "name": "EmptyState",
       "span": {
-        "start": 54281,
-        "end": 55132
+        "start": 54317,
+        "end": 55168
       },
       "renderedTargets": [
         "Button",
@@ -1462,8 +1462,8 @@
     {
       "name": "Dialog",
       "span": {
-        "start": 55136,
-        "end": 55674
+        "start": 55172,
+        "end": 55710
       },
       "renderedTargets": [
         "Button",
@@ -1479,8 +1479,8 @@
     {
       "name": "AlertDialog",
       "span": {
-        "start": 55678,
-        "end": 56185
+        "start": 55714,
+        "end": 56221
       },
       "renderedTargets": [
         "AlertDialog",
@@ -1495,8 +1495,8 @@
     {
       "name": "Drawer",
       "span": {
-        "start": 56189,
-        "end": 56778
+        "start": 56225,
+        "end": 56814
       },
       "renderedTargets": [
         "Badge",
@@ -1513,8 +1513,8 @@
     {
       "name": "LocaleProvider",
       "span": {
-        "start": 56782,
-        "end": 57291
+        "start": 56818,
+        "end": 57327
       },
       "renderedTargets": [
         "LocaleProvider",
@@ -1530,8 +1530,8 @@
     {
       "name": "OverlayProvider",
       "span": {
-        "start": 57296,
-        "end": 57828
+        "start": 57332,
+        "end": 57864
       },
       "renderedTargets": [
         "Button",
@@ -1545,8 +1545,8 @@
     {
       "name": "Popover",
       "span": {
-        "start": 57833,
-        "end": 58835
+        "start": 57869,
+        "end": 58871
       },
       "renderedTargets": [
         "Button",
@@ -1564,8 +1564,8 @@
     {
       "name": "Conversation (PromptInput + ChatMessage)",
       "span": {
-        "start": 58839,
-        "end": 59595
+        "start": 58875,
+        "end": 59631
       },
       "renderedTargets": [
         "ChatMessage",
@@ -1578,8 +1578,8 @@
     {
       "name": "HumanReviewGate",
       "span": {
-        "start": 59599,
-        "end": 60287
+        "start": 59635,
+        "end": 60323
       },
       "renderedTargets": [
         "HumanReviewGate"

@@ -44,11 +44,11 @@
     },
     {
       "path": "tokens/elements.css",
-      "sha256": "b6282cecc7e8b3c154530b36e62f36e9744c73c24e8ae59cbe1ea5650d3073cb"
+      "sha256": "6a81d93f507f9facb3f972c38c3f2e93667fcaadec4266e59796c9bd20484f88"
     },
     {
       "path": "tokens/styles.css",
-      "sha256": "b53c447d63ecdea95426260c203ca58163176aee97e282bc0ffc09e03f1d2ee6"
+      "sha256": "4b677b90823a026f96e295ea5b6537a3c125b04bb93d3f67c09a7dcf341a6630"
     },
     {
       "path": "tokens/theme-attributes.css",
@@ -108,7 +108,7 @@
     },
     {
       "path": "base/a11y.css",
-      "sha256": "f4df6177f9514bf0babf60b7df1ef3d9f5069d2b57311c04e23d10877844291e"
+      "sha256": "07ea769359d4eefe6fc820b9fc13fef2790cc278c1289f0f1cc493ca5c288bd4"
     },
     {
       "path": "base/responsive.css",
@@ -156,5 +156,5 @@
     "fonts/spacegrotesk-var-vietnamese.woff2"
   ],
   "importantCount": 46,
-  "sha256": "7676b2263a441cc351da9f00e98528472863fa62faf58fac3af227f800244b87"
+  "sha256": "1b6b4ea12804989dc970e1b3a51ef8f3d863b70d956863127640d93efb398b10"
 }

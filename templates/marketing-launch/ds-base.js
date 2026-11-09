@@ -4,7 +4,7 @@
 // Artifact head standard (UX-002 / B1): ensure <html lang> + <title> from @template.
 (() => {
   const base = '../..';
-  for (const p of ['dist/styles.min.css']) {
+  for (const p of ['dist/styles.css']) {
     const l = document.createElement('link');
     l.rel = 'stylesheet'; l.href = base + '/' + p;
     document.head.appendChild(l);
@@ -32,12 +32,14 @@
         script.src = bundleUrl;
         script.onload = () => {
           // The compiler namespace varies by project; the public alias is stable.
-          const key = Object.keys(window).find(k => /^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k));
+          const key = Object.keys(window).find(k => /^(CyberSkill)?DesignSystem_[0-9a-f]{6}$/.test(k));
           const namespace = key && window[key];
-          if (!namespace || namespace.__errors?.length) {
-            reject(new Error('Design-system bundle failed to initialize: ' + JSON.stringify(namespace?.__errors || [])));
+          if (!namespace) {
+            reject(new Error('Design-system bundle did not expose a namespace; check the base path in ds-base.js'));
             return;
           }
+          // Non-fatal: a helper file that failed to evaluate must not take every template down.
+          if (namespace.__errors?.length) console.warn('ds-base.js: bundle reported errors (continuing):', JSON.stringify(namespace.__errors));
           resolve(namespace);
         };
         script.onerror = () => reject(new Error('Failed to load ' + bundleUrl + '; check the base path in ds-base.js'));

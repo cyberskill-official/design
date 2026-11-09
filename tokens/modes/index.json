@@ -2,11 +2,11 @@
   "schemaVersion": 1,
   "format": "https://www.designtokens.org/tr/2025.10/format/",
   "interpretation": "Each referenced file is an independent typed DTCG document. This versioned manifest is a CyberSkill selection/provenance contract, not a DTCG modes extension. It covers one co-located root scope; arbitrary nested scopes, component states, platform font metrics and CSS material composition remain canonical CSS.",
-  "sourceHash": "94b513021068e8d7786e118479a8d994f267f192d0348f99ccd0ab157a9500fd",
+  "sourceHash": "4a93581ada427f0449c3b6fed5af6759d7a07d3622c095be53ebf0816941dbb4",
   "sources": {
     "_audit/lib/apca.mjs": "801eac56a1c6910c75b30fc34ee46d4c3e42e5c95c5673acfc7405cce6d73e01",
     "_audit/lib/dtcg-profile.mjs": "7e6000de36d625c29628174192c0e81172d754b7c1616748bcede42425a4bbc6",
-    "base/a11y.css": "f4df6177f9514bf0babf60b7df1ef3d9f5069d2b57311c04e23d10877844291e",
+    "base/a11y.css": "07ea769359d4eefe6fc820b9fc13fef2790cc278c1289f0f1cc493ca5c288bd4",
     "base/ai.css": "fe288cee4345584a0fc189c6deb356e0af078a18fb0e8ad2f6ef4dd4e1511665",
     "base/collections.css": "307287655287da43c275c56f14bdd846cd3d4a57d0cd1ddb4305996f0c2cba3c",
     "base/components.css": "568dd72532092ccc5530944772f63509a69cc4d1de89f9f9a44f5bcbefa3ccb6",
@@ -35,12 +35,12 @@
     "tokens/colors.css": "40914e9efbdde8c8b9f81a49881d4c5c98646ccf8b53397d4fbf7fc8ce0b54f4",
     "tokens/component-tokens.css": "d32c09ca6b12719e4064af6d097050f68f9feca8d4dc0fc4660bc0ecfca6db64",
     "tokens/element-seeds.json": "fbe6f893c8143b0bc9493fcb102bdb3a367277b47592d6dbbcfeaaddaa905af8",
-    "tokens/elements.css": "b6282cecc7e8b3c154530b36e62f36e9744c73c24e8ae59cbe1ea5650d3073cb",
+    "tokens/elements.css": "6a81d93f507f9facb3f972c38c3f2e93667fcaadec4266e59796c9bd20484f88",
     "tokens/elevation.css": "0c24e92a2026cc036ee53b72d6bb4ffef3e44ca12641650e8ad97c687acb7f6b",
     "tokens/fonts.css": "5a9618d951d93c906ebb6db87a2df200c98669b95e1871f4fa92dda1c5a84a56",
     "tokens/motion.css": "4575fcae7e779e2b35144624a76e91f99fd06b11ee7a3cd104c64f46515cb027",
     "tokens/spacing.css": "88e98e4473e88716df4b6f0a721f1f5923bdec3bb761f3e59fe90864ccde1587",
-    "tokens/styles.css": "b53c447d63ecdea95426260c203ca58163176aee97e282bc0ffc09e03f1d2ee6",
+    "tokens/styles.css": "4b677b90823a026f96e295ea5b6537a3c125b04bb93d3f67c09a7dcf341a6630",
     "tokens/theme-attributes.css": "fdbbfd3607c0bfec09bfa230071c092a6ced91f5ce9da6b4a4313bf1b5fdd277",
     "tokens/theme-palette-source.json": "8194f20461ecbe8c6acb3d97777a629a1eeb5a4b8f1da39982b42580b2c3dac2",
     "tokens/typography.css": "36c081467612084afe60d11bd430e6ed979d47cb67057e4d4c922668ef02741f"
@@ -98,7 +98,7 @@
         "style": "liquid-glass"
       },
       "file": "light__default__comfortable__standard.dtcg.json",
-      "sha256": "3db04d4da1b598820355ce2a704c970474a8cb4b595760e54a5f2387cc56e3dd",
+      "sha256": "0fd3d35fcaa2921764e4858d5eb49cbab3c68b6d55c54f4b57532c8506f6670b",
       "tokenCount": 194,
       "omissions": [
         {
@@ -175,7 +175,7 @@
         "style": "liquid-glass"
       },
       "file": "light__default__comfortable__high.dtcg.json",
-      "sha256": "65bcb1b68c52a15067a9c0fd589f25e05bae5baa0f2b9af589649b7b69ab2e10",
+      "sha256": "71936f0240340af11d1507e31459eae0759ce1ddb853ec1df45e82ff7641351e",
       "tokenCount": 194,
       "omissions": [
         {
@@ -252,7 +252,7 @@
         "style": "liquid-glass"
       },
       "file": "light__default__compact__standard.dtcg.json",
-      "sha256": "e9d13b67918035895f6ad6a727ed33068cb899e17c03fa3ba8b1c5115b1c4bec",
+      "sha256": "6daba196540f83f5583f4723d876c955023da2d9bc0f9f685ac8f647720848fa",
       "tokenCount": 194,
       "omissions": [
         {
@@ -329,7 +329,7 @@
         "style": "liquid-glass"
       },
       "file": "light__default__compact__high.dtcg.json",
-      "sha256": "b9c7eaf2d2db7061113d4a1d1f07e2d531c411d935f36faf3d78f2c8fb39e955",
+      "sha256": "fe0f82278532a8aa10a7b9b4848b0fbe8b07ccfff7fceae371a5c7a5b8952021",
       "tokenCount": 194,
       "omissions": [
         {
@@ -406,7 +406,7 @@
         "style": "liquid-glass"
       },
       "file": "light__tho-sand__comfortable__standard.dtcg.json",
-      "sha256": "bc5a128aa906d6917a08029a02427b738004aa3d240038f33b60e71e68affd7b",
+      "sha256": "77b26430ca78d7aaf0612db63a551e87be96989bef0bda5d85b132b3271bfd54",
       "tokenCount": 194,
       "omissions": [
         {
@@ -483,7 +483,7 @@
         "style": "liquid-glass"
       },
       "file": "light__tho-sand__comfortable__high.dtcg.json",
-      "sha256": "f355e96169b7deda3cd60f4dc24e3963366a8c4b5182b9b392476f202797ec70",
+      "sha256": "54ed880e573fb8265c33c24c8c1a72627a552157c45e9256e7cfcbfd081c2e1e",
       "tokenCount": 194,
       "omissions": [
         {
@@ -560,7 +560,7 @@
         "style": "liquid-glass"
       },
       "file": "light__tho-sand__compact__standard.dtcg.json",
-      "sha256": "8a4dc60093b1d80336e94958cec42a96adc51097c89ce76b800659bc0a1c91b8",
+      "sha256": "80937540e461af395a19e598b4fa65e9847a27089977e1be1808821fcd195082",
       "tokenCount": 194,
       "omissions": [
         {
@@ -637,7 +637,7 @@
         "style": "liquid-glass"
       },
       "file": "light__tho-sand__compact__high.dtcg.json",
-      "sha256": "0ac6023ea3af6bc0724681d9ecf75d9b47f742e73e1c54716e37e596a1aa4b75",
+      "sha256": "cae54499204ab06b3acc7746ebb56cdc2f7b02417a761aad7b0e0dc6147e6b19",
       "tokenCount": 194,
       "omissions": [
         {
@@ -714,7 +714,7 @@
         "style": "liquid-glass"
       },
       "file": "light__tho__comfortable__standard.dtcg.json",
-      "sha256": "6206c26ab9e9164f0315849dcb8ca91880838a492d97eec95215be7a32cd1f2f",
+      "sha256": "5bed0129ce29d42bd067fe042727fb24ba1bb5693173789422b6a7a76388df7f",
       "tokenCount": 194,
       "omissions": [
         {
@@ -791,7 +791,7 @@
         "style": "liquid-glass"
       },
       "file": "light__tho__comfortable__high.dtcg.json",
-      "sha256": "6f82887039bdafb0a0f27079c78cc51916796fc68aeab43579b7e96d4fe01c88",
+      "sha256": "87443989db121635916854240913df2c1a1e795666ac7cbe21c749f8d0d1b99f",
       "tokenCount": 194,
       "omissions": [
         {
@@ -868,7 +868,7 @@
         "style": "liquid-glass"
       },
       "file": "light__tho__compact__standard.dtcg.json",
-      "sha256": "13c0a6b7994067a19a5b25f667f93500ad4a082e95b4e775a8e0822dff3e156b",
+      "sha256": "f8e6aa5e3a36ddbf83c950585e3f20da9ad810252df08b4f835364b4c1ec7d59",
       "tokenCount": 194,
       "omissions": [
         {
@@ -945,7 +945,7 @@
         "style": "liquid-glass"
       },
       "file": "light__tho__compact__high.dtcg.json",
-      "sha256": "a50f1bb80391414baa169bf2a8c75920daa26f313b06c6be70dda75a5ca9e85e",
+      "sha256": "a0afefbd1d70e740c5fd3780e4e426b4b2ff802bbf69da9ae5cb42686fa1dc50",
       "tokenCount": 194,
       "omissions": [
         {
@@ -1022,7 +1022,7 @@
         "style": "liquid-glass"
       },
       "file": "light__tho-clay__comfortable__standard.dtcg.json",
-      "sha256": "c3f65bdbac7a28161abdc469425895ef6a0fd8ed18331b2566e21179dd972e84",
+      "sha256": "eb5d6b74576d041f40052b52590861664a5123e7b5a482dbec0afeaebe253907",
       "tokenCount": 194,
       "omissions": [
         {
@@ -1099,7 +1099,7 @@
         "style": "liquid-glass"
       },
       "file": "light__tho-clay__comfortable__high.dtcg.json",
-      "sha256": "3913c2ecd17a75e92b7fe2cd58f59504bcf5119f1392d3756c094866a334461f",
+      "sha256": "60a21112e74a10e97c6a8cc533430bd5db2798c9a1940f5ebebf9c453cc8bceb",
       "tokenCount": 194,
       "omissions": [
         {
@@ -1176,7 +1176,7 @@
         "style": "liquid-glass"
       },
       "file": "light__tho-clay__compact__standard.dtcg.json",
-      "sha256": "a1e3ba42b14ff9fe3029ebd1724002afe1d2882ae06d59dfa5faeb939f702fff",
+      "sha256": "041e7a58945474de51d33d4eed195fc0ca41934836e12928fa596a596264e29c",
       "tokenCount": 194,
       "omissions": [
         {
@@ -1253,7 +1253,7 @@
         "style": "liquid-glass"
       },
       "file": "light__tho-clay__compact__high.dtcg.json",
-      "sha256": "09f148bf34796d036b005412cbc1d8e869e03bc988508ed3d38583b3b3f20028",
+      "sha256": "d6410a197db3f3a474e7f206bda7ed9da1aedc1ba8fa8c0f9b4032ec038ceea5",
       "tokenCount": 194,
       "omissions": [
         {
@@ -1330,7 +1330,7 @@
         "style": "liquid-glass"
       },
       "file": "light__hoa-plasma__comfortable__standard.dtcg.json",
-      "sha256": "751f8672ddffdab01c2df8c2f0496bf4f04611bcd3605edcc2698decbcccca20",
+      "sha256": "816171fc7331adc24af5bb7f1be1e47777e0129dc94dca3b10d2367c9819a791",
       "tokenCount": 194,
       "omissions": [
         {
@@ -1407,7 +1407,7 @@
         "style": "liquid-glass"
       },
       "file": "light__hoa-plasma__comfortable__high.dtcg.json",
-      "sha256": "c0a98027a067b2e2b0f182411c16ef9437e51a9d7d73b59f00022c37a5121628",
+      "sha256": "f83095ce9101ca2a894796a50667b2171c0bf5f08982b2d77fd90d59dd5c621d",
       "tokenCount": 194,
       "omissions": [
         {
@@ -1484,7 +1484,7 @@
         "style": "liquid-glass"
       },
       "file": "light__hoa-plasma__compact__standard.dtcg.json",
-      "sha256": "7ba385211c06c4b0014514213b57542faa4033d93a4370e9da48a18bd82495c3",
+      "sha256": "d1cf1fdc9fa4ec83c05fdbbd6a069a2280fe22f0fe158635b9a0e8a13477be3f",
       "tokenCount": 194,
       "omissions": [
         {
@@ -1561,7 +1561,7 @@
         "style": "liquid-glass"
       },
       "file": "light__hoa-plasma__compact__high.dtcg.json",
-      "sha256": "a1ad4dcebdcf0bdb529e9527eb251f001cdd8f298f740b90c0653613a5ced7a2",
+      "sha256": "c12e3dc5d26da85f2967866015e96a7c6373a6847805faf557af46307e90235c",
       "tokenCount": 194,
       "omissions": [
         {
@@ -1638,7 +1638,7 @@
         "style": "liquid-glass"
       },
       "file": "light__hoa__comfortable__standard.dtcg.json",
-      "sha256": "18716d636b7992d42cc81eb3330cff6f4a171495680091a6d09432f32881eb9a",
+      "sha256": "7f4ad5413499f890213e37490a5685792f82d10ab33cb9aaa587686e79282a52",
       "tokenCount": 194,
       "omissions": [
         {
@@ -1715,7 +1715,7 @@
         "style": "liquid-glass"
       },
       "file": "light__hoa__comfortable__high.dtcg.json",
-      "sha256": "f61ac9f563085b03b99becf1832b50f4978538129138a40ce1f1392f9ffd7b1a",
+      "sha256": "eda3a0851a05e572654660306a7eaa0dedb0c6b706e9e6fe88943469b00e75eb",
       "tokenCount": 194,
       "omissions": [
         {
@@ -1792,7 +1792,7 @@
         "style": "liquid-glass"
       },
       "file": "light__hoa__compact__standard.dtcg.json",
-      "sha256": "6a007931136079cc25509870d5597360e59325a765daae2d8e89abbac161c61f",
+      "sha256": "0e971694f78e657f305737a19efe9ed64dcaa417287f38bf423f1bbb3057373e",
       "tokenCount": 194,
       "omissions": [
         {
@@ -1869,7 +1869,7 @@
         "style": "liquid-glass"
       },
       "file": "light__hoa__compact__high.dtcg.json",
-      "sha256": "43154aa151249bd9c4eae3616f8f696409bde50e8d53636f1442fdabfdf9033f",
+      "sha256": "fdb5e4681d3cbdea779c158a77e4a9acfc2be7c0e1dba850beebc90e24c46f28",
       "tokenCount": 194,
       "omissions": [
         {
@@ -1946,7 +1946,7 @@
         "style": "liquid-glass"
       },
       "file": "light__hoa-lava__comfortable__standard.dtcg.json",
-      "sha256": "32cec61d688a669e80e79ef07c259ecace80d04c3aa48c30e2d77acab567cec1",
+      "sha256": "13df96e9b4a02639908e3ec65d547c3637a4d79fcec8a83ebdee0623afff47f3",
       "tokenCount": 194,
       "omissions": [
         {
@@ -2023,7 +2023,7 @@
         "style": "liquid-glass"
       },
       "file": "light__hoa-lava__comfortable__high.dtcg.json",
-      "sha256": "888ca9da80c1ec44124e90615ba015d553f827d346b6402f2bf3bd69f249af74",
+      "sha256": "a2ae32b397038c4da8b78c60d53f214b03ac6d2d319be65e9457bffa12f2d3e7",
       "tokenCount": 194,
       "omissions": [
         {
@@ -2100,7 +2100,7 @@
         "style": "liquid-glass"
       },
       "file": "light__hoa-lava__compact__standard.dtcg.json",
-      "sha256": "c20212a5869f14a7cc6f7f325c68b3c718e5d182d65006924db24eb5cb20dc39",
+      "sha256": "12b2f628cd078f7b8fd5db72e30aa51c3ec83e1bd3325a1620dff019217dc724",
       "tokenCount": 194,
       "omissions": [
         {
@@ -2177,7 +2177,7 @@
         "style": "liquid-glass"
       },
       "file": "light__hoa-lava__compact__high.dtcg.json",
-      "sha256": "bcadf58b7dafcdf1be318d4dc0249a21086a6e78f9d90bdced942d3bd1d034d1",
+      "sha256": "8b875ce0bc09a0a8ec941e219c3ede3c948d46da54a74b5a8ea3e3afd8e7c59a",
       "tokenCount": 194,
       "omissions": [
         {
@@ -2254,7 +2254,7 @@
         "style": "liquid-glass"
       },
       "file": "light__thuy-mist__comfortable__standard.dtcg.json",
-      "sha256": "ba5e652b3defa1db66a9e60a664bb751fdb3afe1d6700f6a58161c160a3cab3a",
+      "sha256": "ba75afe28cd47a9b52fd5b8ef788ece81b378c85186d534391a5345cb25cfe5a",
       "tokenCount": 194,
       "omissions": [
         {
@@ -2331,7 +2331,7 @@
         "style": "liquid-glass"
       },
       "file": "light__thuy-mist__comfortable__high.dtcg.json",
-      "sha256": "852c6f554a822116e3732a15c426528d132f22065185a595157fbcebb18fde57",
+      "sha256": "b0ca196c9c5b3ae350268d0d6b59111202e853c4350b5f1c7032c727a165bccb",
       "tokenCount": 194,
       "omissions": [
         {
@@ -2408,7 +2408,7 @@
         "style": "liquid-glass"
       },
       "file": "light__thuy-mist__compact__standard.dtcg.json",
-      "sha256": "5e059665a43d92814686bbe8e9ffff9e9b8a909d0080fa2b6875a362decba44f",
+      "sha256": "73d2da3ab72754c0df603c52ace8a125c1846ea53967d6092cc453fe5af5729e",
       "tokenCount": 194,
       "omissions": [
         {
@@ -2485,7 +2485,7 @@
         "style": "liquid-glass"
       },
       "file": "light__thuy-mist__compact__high.dtcg.json",
-      "sha256": "3462f952cd2ff49166eba8d5f0ae0bba9d32f13da4f83fe8b6f609ab901be4b2",
+      "sha256": "d730e7d1ef1f5462484cafe76c378fbf9308f9314850c175d2fa70ec25414ab7",
       "tokenCount": 194,
       "omissions": [
         {
@@ -2562,7 +2562,7 @@
         "style": "liquid-glass"
       },
       "file": "light__thuy__comfortable__standard.dtcg.json",
-      "sha256": "1b48b3f5702a0bda1115713765ed46b638951f585b41f93386367836dc1b7d81",
+      "sha256": "db1098984f680c307366ad08352791ac2e94a0b0afa35aa80177cc5466b096ba",
       "tokenCount": 194,
       "omissions": [
         {
@@ -2639,7 +2639,7 @@
         "style": "liquid-glass"
       },
       "file": "light__thuy__comfortable__high.dtcg.json",
-      "sha256": "55aff77ae6083c6e925b7f51c679ad6bd9150507693b813c24b234b90a182672",
+      "sha256": "81f9750a1db6d4ea070f1ce74b8ec9918c350f3ae633491fb129221b0d4ee8a1",
       "tokenCount": 194,
       "omissions": [
         {
@@ -2716,7 +2716,7 @@
         "style": "liquid-glass"
       },
       "file": "light__thuy__compact__standard.dtcg.json",
-      "sha256": "f21c3785abfbe652be3f037f3bde77af2c54a7474ba4e32e63d9109fc7930973",
+      "sha256": "4cd3139847f687af96b3e7851d27fe7fd3603531906d5fac1e5fdc17dc0d3b95",
       "tokenCount": 194,
       "omissions": [
         {
@@ -2793,7 +2793,7 @@
         "style": "liquid-glass"
       },
       "file": "light__thuy__compact__high.dtcg.json",
-      "sha256": "684fa94848bd6d2bebde03b796e031a5c39213ecdaf9ac88a9cd326a16804587",
+      "sha256": "165ae21675dd4808d36d05781505b5112e02df2156306cd00b291a99a48e50d1",
       "tokenCount": 194,
       "omissions": [
         {
@@ -2870,7 +2870,7 @@
         "style": "liquid-glass"
       },
       "file": "light__thuy-ocean__comfortable__standard.dtcg.json",
-      "sha256": "2809b45d7b064e12486d618921ffbda0cf0ec4da4e6b13e9bfd4e993c08bda77",
+      "sha256": "0b2cbe1dd1578483455d7b4cbf6c12dfa1401cee0cdbba0f77247d3aad65912e",
       "tokenCount": 194,
       "omissions": [
         {
@@ -2947,7 +2947,7 @@
         "style": "liquid-glass"
       },
       "file": "light__thuy-ocean__comfortable__high.dtcg.json",
-      "sha256": "c56b9b654c3f5c51d3a862c286f89594c2c7b9c4930ec7f06dd521548b12e0a8",
+      "sha256": "42903719c8f2a8e7041ce56092121567976b33ef5d6cd276ee86d8a27cb1e9f8",
       "tokenCount": 194,
       "omissions": [
         {
@@ -3024,7 +3024,7 @@
         "style": "liquid-glass"
       },
       "file": "light__thuy-ocean__compact__standard.dtcg.json",
-      "sha256": "983db6c1c33c3d572e1f9f491773eaeb010b4caa28c71a2829788d891db825c7",
+      "sha256": "9b34bd880d551c29bd5f2f9890f6385c0d3d68ba2eb0228139503c6d8c5be12e",
       "tokenCount": 194,
       "omissions": [
         {
@@ -3101,7 +3101,7 @@
         "style": "liquid-glass"
       },
       "file": "light__thuy-ocean__compact__high.dtcg.json",
-      "sha256": "72a64a7b258ed97025ed8fae8ae54ef239fee033bc2c591ce2d1cbb0e347548a",
+      "sha256": "d04c91bd92fdd1583ff1bf427f0cb53859b37da8b75a084fe4cb1d20a492b934",
       "tokenCount": 194,
       "omissions": [
         {
@@ -3178,7 +3178,7 @@
         "style": "liquid-glass"
       },
       "file": "light__moc-bamboo__comfortable__standard.dtcg.json",
-      "sha256": "8efac52012fb5cf2871b16c49d58a0f9449d162e0fcab696dba2cf90e8851c23",
+      "sha256": "00250ee42db72dfaebad1ba9cb94baf43927ee34e19a799a55e6473952b8d2ff",
       "tokenCount": 194,
       "omissions": [
         {
@@ -3255,7 +3255,7 @@
         "style": "liquid-glass"
       },
       "file": "light__moc-bamboo__comfortable__high.dtcg.json",
-      "sha256": "c59baea3a1fb8f3403ffa3d726237ac40d7b9375aaca7f5f1fd51c4b35fb39f8",
+      "sha256": "d160a1d67d6b6d34e7a3ba3f3f9b4b469f45f8e7277020b788ab1a7334752d2e",
       "tokenCount": 194,
       "omissions": [
         {
@@ -3332,7 +3332,7 @@
         "style": "liquid-glass"
       },
       "file": "light__moc-bamboo__compact__standard.dtcg.json",
-      "sha256": "9b7b43ae234ff8ff32f399e9bc3e49246069c73870f8da5b1d251f30d6e7a2aa",
+      "sha256": "987fe3008b6a3b9ac71017afffb934025903ff269f9124ef37ac934163bdb924",
       "tokenCount": 194,
       "omissions": [
         {
@@ -3409,7 +3409,7 @@
         "style": "liquid-glass"
       },
       "file": "light__moc-bamboo__compact__high.dtcg.json",
-      "sha256": "197dc34956a7e35911917b55eb9e2a0f04ec70c1d735b756a2f12cd61621776b",
+      "sha256": "fbab0e965ee3f8d634617622af11e26fbccb4c19645f68bad9c6cc567ee5112c",
       "tokenCount": 194,
       "omissions": [
         {
@@ -3486,7 +3486,7 @@
         "style": "liquid-glass"
       },
       "file": "light__moc__comfortable__standard.dtcg.json",
-      "sha256": "8c606cd621d2f4d8336451d8362b9030cb377fa3ee6caac840fafb67dcb5c4a8",
+      "sha256": "77f2ba746b4a1e452ef633965739e672fbe92aa75816db7c3e15e906fcf4da2b",
       "tokenCount": 194,
       "omissions": [
         {
@@ -3563,7 +3563,7 @@
         "style": "liquid-glass"
       },
       "file": "light__moc__comfortable__high.dtcg.json",
-      "sha256": "8d9d0d3e500d5e40c62c80aacc54593674cf6ce4f8f8120159f701e8c4e062fa",
+      "sha256": "113d5e02a47464dc2b305b4b9571b3a1069770a4c0b0e48995ff3f2c9e7daa6c",
       "tokenCount": 194,
       "omissions": [
         {
@@ -3640,7 +3640,7 @@
         "style": "liquid-glass"
       },
       "file": "light__moc__compact__standard.dtcg.json",
-      "sha256": "cf4018ecd11ee256c3d3c744ab288f52355d7b5e205979a7bb1da9f1ae53ad78",
+      "sha256": "d4a19cd890a5189be5466386ae1fa91423d12ad4b84afd8c8971db8430e003c4",
       "tokenCount": 194,
       "omissions": [
         {
@@ -3717,7 +3717,7 @@
         "style": "liquid-glass"
       },
       "file": "light__moc__compact__high.dtcg.json",
-      "sha256": "764a62a174df3238c5c111fcd17baaf8dabe31035c87a4549f908896f6f67f61",
+      "sha256": "f6825244576acd6fbb83e4018ad55cd20698fd18c39732ca4674a8aa30da86e2",
       "tokenCount": 194,
       "omissions": [
         {
@@ -3794,7 +3794,7 @@
         "style": "liquid-glass"
       },
       "file": "light__moc-forest__comfortable__standard.dtcg.json",
-      "sha256": "66cf8c3aa5abe5c77f0c504a2352943723ea8588bc727caa453506c78be8ae1b",
+      "sha256": "45221b2df593708c819c2b01d3446f3ce08cba8dc792bd5121deff0dfe2c3870",
       "tokenCount": 194,
       "omissions": [
         {
@@ -3871,7 +3871,7 @@
         "style": "liquid-glass"
       },
       "file": "light__moc-forest__comfortable__high.dtcg.json",
-      "sha256": "c7b5ff47edb0b8819cdc1c4430e4509b6c1022ac27d2c141eb45a58598a682fe",
+      "sha256": "67a0f2f4eb66c5b667c8fbaec63639909ca0d125af9710aaf9818fb0fb262680",
       "tokenCount": 194,
       "omissions": [
         {
@@ -3948,7 +3948,7 @@
         "style": "liquid-glass"
       },
       "file": "light__moc-forest__compact__standard.dtcg.json",
-      "sha256": "1647f20a0ee50450bd76a10a3674a135cf018595f007213ac929a62f5d4dd99a",
+      "sha256": "7c297b886eda0ae02877d57391feed505f7e1ccb1d952b4f90df1f42c178c875",
       "tokenCount": 194,
       "omissions": [
         {
@@ -4025,7 +4025,7 @@
         "style": "liquid-glass"
       },
       "file": "light__moc-forest__compact__high.dtcg.json",
-      "sha256": "114d7047dce65947d997d8021845936f1731b57c6cf5a2dc9cfbdafc9772a0f8",
+      "sha256": "94ebac3fc2e35407d9a812e6d51214d9e1f33746cfb4f6097bf87f1af4c32e21",
       "tokenCount": 194,
       "omissions": [
         {
@@ -4102,7 +4102,7 @@
         "style": "liquid-glass"
       },
       "file": "light__kim-titanium__comfortable__standard.dtcg.json",
-      "sha256": "d94db222f82e8d33efd0c611cc970b1f25ff2d0c739cd1f309dc16df46759a69",
+      "sha256": "eaf299a11130f5545f95fcb75d2bc8529dbf29ed4ac85203934c6b443716ad5e",
       "tokenCount": 194,
       "omissions": [
         {
@@ -4179,7 +4179,7 @@
         "style": "liquid-glass"
       },
       "file": "light__kim-titanium__comfortable__high.dtcg.json",
-      "sha256": "3b41537ad725824b96967f1bb36c84b5dfd2ae623cc522487c0815df7c82165c",
+      "sha256": "d82ff749b61e12746eb1ac1ed950caae734ec40b59dde579250c086a11d30c7f",
       "tokenCount": 194,
       "omissions": [
         {
@@ -4256,7 +4256,7 @@
         "style": "liquid-glass"
       },
       "file": "light__kim-titanium__compact__standard.dtcg.json",
-      "sha256": "4f996620f4aaff8af5e14aed4825c8fc0b7d4e3c7c88eb454085f7dd00af7028",
+      "sha256": "3fb42709d0a25636e231afb59422aeaaf5d437637e6c843433d18d610ca5a6bd",
       "tokenCount": 194,
       "omissions": [
         {
@@ -4333,7 +4333,7 @@
         "style": "liquid-glass"
       },
       "file": "light__kim-titanium__compact__high.dtcg.json",
-      "sha256": "4ac213847ae654ebc730fecddfd15244e3ba79b7f0942964bd517e548b597b56",
+      "sha256": "303b5f4a7a7d29080f0885de0ffd8f076d6239253f2ed7e8043f8793262b3a16",
       "tokenCount": 194,
       "omissions": [
         {
@@ -4410,7 +4410,7 @@
         "style": "liquid-glass"
       },
       "file": "light__kim__comfortable__standard.dtcg.json",
-      "sha256": "c7d97f929e5fb8e906d1c704d8765eaeb47332a50cced8cf8530fc06589c4321",
+      "sha256": "3eacdb4d9a0fa9920475adeee792a5deada79c04b5028c0b6c8b7f305a49054f",
       "tokenCount": 194,
       "omissions": [
         {
@@ -4487,7 +4487,7 @@
         "style": "liquid-glass"
       },
       "file": "light__kim__comfortable__high.dtcg.json",
-      "sha256": "93616a2aaa131e5d13137ab8c5b86b849eabeacd48b1db2fc714e6faa4879ca4",
+      "sha256": "991593ae2943db7c13f7f22dfadc473f29e1c4093f9ff739067b0d907b0cb373",
       "tokenCount": 194,
       "omissions": [
         {
@@ -4564,7 +4564,7 @@
         "style": "liquid-glass"
       },
       "file": "light__kim__compact__standard.dtcg.json",
-      "sha256": "7c4e7803f0f0bdbfa17687f261641f63ccb05d49dfb3aa25d507f8742414593b",
+      "sha256": "8622ccdb2d451d3b757c8dc9b19330b71f6abfbe7ed335f638e4a6c03dc192a6",
       "tokenCount": 194,
       "omissions": [
         {
@@ -4641,7 +4641,7 @@
         "style": "liquid-glass"
       },
       "file": "light__kim__compact__high.dtcg.json",
-      "sha256": "ad386c4bf9e6ff90db6dcf0b23a57da0a783779e12b73c8b99f4944456bc6adb",
+      "sha256": "21dee92319ecd787504c61e71536b808ea0b3c2d4e4acad440941e5230468c9e",
       "tokenCount": 194,
       "omissions": [
         {
@@ -4718,7 +4718,7 @@
         "style": "liquid-glass"
       },
       "file": "light__kim-steel__comfortable__standard.dtcg.json",
-      "sha256": "0e4ba44c6851686aca7f344ceb81b6be05d242b1d71f25930f0866881aa58913",
+      "sha256": "dccb17eddf971a08b27c4d12ce6cbaa571c1a51b928ac7ff185cc23d6e807a6b",
       "tokenCount": 194,
       "omissions": [
         {
@@ -4795,7 +4795,7 @@
         "style": "liquid-glass"
       },
       "file": "light__kim-steel__comfortable__high.dtcg.json",
-      "sha256": "06fd44238fa52587c32cd3b68e22b0c78f477550a54e686650b8cf5886e7325f",
+      "sha256": "0de876cb151a14a2e6f58fc953c0ebb9213b78463a61414c8950b0c7d4d78d8e",
       "tokenCount": 194,
       "omissions": [
         {
@@ -4872,7 +4872,7 @@
         "style": "liquid-glass"
       },
       "file": "light__kim-steel__compact__standard.dtcg.json",
-      "sha256": "cf8fbc4138536b8897340163341394fbcc26f002c9707947a4de5adf039a8161",
+      "sha256": "5c047a5f55695360a55405582d030b37c9e0ba2884b7b4e238de2ee0e0bc6342",
       "tokenCount": 194,
       "omissions": [
         {
@@ -4949,7 +4949,7 @@
         "style": "liquid-glass"
       },
       "file": "light__kim-steel__compact__high.dtcg.json",
-      "sha256": "5347fcaccab62d50e75d8cf17e6ba036ab63eb5b7e5f8f5e123b4be9f98831ce",
+      "sha256": "265cf2140b10ccd25ae7b2fe136ccaca1b4f09bd8d7aaad90914228894844485",
       "tokenCount": 194,
       "omissions": [
         {
@@ -5026,7 +5026,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__default__comfortable__standard.dtcg.json",
-      "sha256": "cb895c14bd35c6b8da52c9dd49e03100ec5b145ae41b003ebfad09a5e7fb97f0",
+      "sha256": "c4e4ae556e69d1eb05f6c1276ec57af47ac6baa419e22eb06c57ed6111ab3923",
       "tokenCount": 194,
       "omissions": [
         {
@@ -5103,7 +5103,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__default__comfortable__high.dtcg.json",
-      "sha256": "0ea262a62f83f95dff13d0d993c045eb4f2a75dfbe6a5f319b421d6b310dca23",
+      "sha256": "4129fc8942ee6fb783aaa336643179897e611ca6117e72546d53309a44f6e51e",
       "tokenCount": 194,
       "omissions": [
         {
@@ -5180,7 +5180,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__default__compact__standard.dtcg.json",
-      "sha256": "6575809fce19971fc593bb9542aa9c4d19438b5421f4a1c86c7fa9dac287b473",
+      "sha256": "b4a5c7c477548723cd6551bca7c7f636c4defe279040783df679ed689b3f2c0d",
       "tokenCount": 194,
       "omissions": [
         {
@@ -5257,7 +5257,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__default__compact__high.dtcg.json",
-      "sha256": "f35eebe9792ebb7fa426e49a8791ea26307a4f40a7804b62a0100fdced8aabb6",
+      "sha256": "116d32e66f3c9d225f000fc28a92d0cd188d876af2a186533008b749929e1fec",
       "tokenCount": 194,
       "omissions": [
         {
@@ -5334,7 +5334,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__tho-sand__comfortable__standard.dtcg.json",
-      "sha256": "c344b7dc147068872ce8b765e7845b6e080e3bab7d867a6afb3f4ee10169f5a1",
+      "sha256": "c57b7edebf1c804a32743daa8945fb6cc3f56ff99b91b1398df07a53726b2936",
       "tokenCount": 194,
       "omissions": [
         {
@@ -5411,7 +5411,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__tho-sand__comfortable__high.dtcg.json",
-      "sha256": "7f2d215c0367fb67539b44d60923767e23f28d05ad0eea3981a4114c5ae506a8",
+      "sha256": "e3626bdd79994fe4f4cec55d03c1b35a24654eb62ab768b9591a1d85009a640b",
       "tokenCount": 194,
       "omissions": [
         {
@@ -5488,7 +5488,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__tho-sand__compact__standard.dtcg.json",
-      "sha256": "cf816e7f99af8a81009e0ad1ba62f67301c28eae5c7f4cf1ceb83393c856bf6f",
+      "sha256": "741004e3b3a4030773ef356c4b48e79dfb912151c7c8d886ca237d3780963834",
       "tokenCount": 194,
       "omissions": [
         {
@@ -5565,7 +5565,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__tho-sand__compact__high.dtcg.json",
-      "sha256": "e993783bff3230a6400c5439aba92be6a5399a3f63b7f22467aca014e46a2815",
+      "sha256": "230858f51bc8d570cfd7c97a658e306021210ddb54f0a5b6f7af02b0b1aeac1d",
       "tokenCount": 194,
       "omissions": [
         {
@@ -5642,7 +5642,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__tho__comfortable__standard.dtcg.json",
-      "sha256": "8454dba54acc5ba79aa553cc6f867cca822a2a8c56fcf9acb59460d26be7fab4",
+      "sha256": "50f3f45a658b99a3b26d54028532734816132652e763498586c499b7e180366d",
       "tokenCount": 194,
       "omissions": [
         {
@@ -5719,7 +5719,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__tho__comfortable__high.dtcg.json",
-      "sha256": "0d86b57396f46e27c974bcb4639e496056b63cd750ea26a7161179681bd82275",
+      "sha256": "083c29a6107ba10c69bce4c16b691d389e46e548630b76019856f59568c28e72",
       "tokenCount": 194,
       "omissions": [
         {
@@ -5796,7 +5796,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__tho__compact__standard.dtcg.json",
-      "sha256": "5fba2c9ddbb45d0fe5349b8c5af865d7a5989db2719cd8e94904ae045bcbedbf",
+      "sha256": "97846f03ffb9361c6057511ec85c52011f846ac78d98ab9fcfc3b3782d856a12",
       "tokenCount": 194,
       "omissions": [
         {
@@ -5873,7 +5873,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__tho__compact__high.dtcg.json",
-      "sha256": "c89c045124525e136d8458505e0fca3cc0d539401c377b9543b3c7dfc2bf5dc6",
+      "sha256": "87b9c7a98cbb8620e7c395661921a03c266dc08a0cdc60fbe32107b4784c0826",
       "tokenCount": 194,
       "omissions": [
         {
@@ -5950,7 +5950,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__tho-clay__comfortable__standard.dtcg.json",
-      "sha256": "6bab19c2c2b06ac34b50be646e4840f517dfb193eb87cd6484ce0c26f8663d90",
+      "sha256": "c541f8a5f4a8ad9f29260ddf4777bf57c6ad167fce5ad8e8ff64d953dcf0a06a",
       "tokenCount": 194,
       "omissions": [
         {
@@ -6027,7 +6027,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__tho-clay__comfortable__high.dtcg.json",
-      "sha256": "539607f8278541be1dcbb201eb24f8e46247736c91f0cdf77c7b1a6b4ed52e78",
+      "sha256": "0abc63b8baa9ea8456519e16e1504f2f791463f912b92e0ca2598b104d75ef46",
       "tokenCount": 194,
       "omissions": [
         {
@@ -6104,7 +6104,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__tho-clay__compact__standard.dtcg.json",
-      "sha256": "c1b605db0b858e13f2b50c14bf43ce694a4fa30bdd7d310a94380a74c146a3a0",
+      "sha256": "044d9c6f2fa5b0ec54596255a1142b96fa1eba28002ee82502c7fdb37d8ce6b6",
       "tokenCount": 194,
       "omissions": [
         {
@@ -6181,7 +6181,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__tho-clay__compact__high.dtcg.json",
-      "sha256": "05c60bbe7a1912e3c096f4630c7f7c791d18bff4831a4e2bc812d880516c31b3",
+      "sha256": "c0a8cd5e47311fe8ec6a82317d59ccc37bfe4841f0afc6e4dc8800b4bb04c109",
       "tokenCount": 194,
       "omissions": [
         {
@@ -6258,7 +6258,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__hoa-plasma__comfortable__standard.dtcg.json",
-      "sha256": "c5d78120d0107cbd833534ebdb46e2bca2eedee886f1d93a377338c24e2029c8",
+      "sha256": "0c2af7930de0ec8e5fddb2e3f17546284f3de86f015099307322e512d7659f93",
       "tokenCount": 194,
       "omissions": [
         {
@@ -6335,7 +6335,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__hoa-plasma__comfortable__high.dtcg.json",
-      "sha256": "591923a1837a1672f320227490dc374250b0114004c50280e4184cdfa2ad0b5b",
+      "sha256": "6654a945820124ba3c8c263347fb43b60dbcf497598ce04563320ee7b7a19a98",
       "tokenCount": 194,
       "omissions": [
         {
@@ -6412,7 +6412,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__hoa-plasma__compact__standard.dtcg.json",
-      "sha256": "837c9318eb1ad7d1643fb7f6d810fa40ed01dc9e8380f4e1067b94bbf0436774",
+      "sha256": "30176b207db107bc41d2ba1469fa164aa986e85a5ab9ad26491372c2c3102703",
       "tokenCount": 194,
       "omissions": [
         {
@@ -6489,7 +6489,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__hoa-plasma__compact__high.dtcg.json",
-      "sha256": "8a5522b23c75b5474cf637386f7310d95af0aec53ac2aecad956b2b0875da4ad",
+      "sha256": "e85d6d6c934b85f118622d3a52ff7febe3baabef1b287f4500e38b8fe372816c",
       "tokenCount": 194,
       "omissions": [
         {
@@ -6566,7 +6566,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__hoa__comfortable__standard.dtcg.json",
-      "sha256": "039c15e77e81c4d2506407a93baf34c01ef0bd293633ec7b91df8f0fc2987b49",
+      "sha256": "9d185d32d563c7ca5a6c7ebd721f7516ad9d6fce39db466e2835536a0a6cd3cf",
       "tokenCount": 194,
       "omissions": [
         {
@@ -6643,7 +6643,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__hoa__comfortable__high.dtcg.json",
-      "sha256": "f39449ed07bdb6a5c00d60c7667b411d64fe19587bf6e13d8bb04bd2d941cebf",
+      "sha256": "64924c51ca3f3c432d55a80c2f42454f3bfb00ce707eff04280a2f06b55c2162",
       "tokenCount": 194,
       "omissions": [
         {
@@ -6720,7 +6720,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__hoa__compact__standard.dtcg.json",
-      "sha256": "f55e8bcc7f10485e59c97fd1fc497f9d561e5ea2769bd6fe9c5eb423d745b7dc",
+      "sha256": "1bc17833f865f0632d19195295f4ceaa60faceab910be22fdb4f7f31f79e4454",
       "tokenCount": 194,
       "omissions": [
         {
@@ -6797,7 +6797,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__hoa__compact__high.dtcg.json",
-      "sha256": "cd96551f8e2b3e90516ff4ced9e6b57626bae72634c5c45c0fb25fde215a4f42",
+      "sha256": "9325a9c1bd66310378eef640254e71febb4f4c0286918bc0342266718f0bab6f",
       "tokenCount": 194,
       "omissions": [
         {
@@ -6874,7 +6874,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__hoa-lava__comfortable__standard.dtcg.json",
-      "sha256": "c53343d8f08f4c1883fe3b0ebb0e4d428474a42763c7fcd999130dca7303fef0",
+      "sha256": "93dc6dac51321108addbb5fa112f29603a7d79b3a48b86a2042a5a99578934bc",
       "tokenCount": 194,
       "omissions": [
         {
@@ -6951,7 +6951,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__hoa-lava__comfortable__high.dtcg.json",
-      "sha256": "68b8f5506e0ca3e67185ea39b9586915274239fd1e5bc3d96619967b9b9380d4",
+      "sha256": "9386433846e3d6979f8e2ba3e6aaa3db14923c18637fea97af5498ea85e39a4c",
       "tokenCount": 194,
       "omissions": [
         {
@@ -7028,7 +7028,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__hoa-lava__compact__standard.dtcg.json",
-      "sha256": "356d7c5aa3a603b824c01ce3df56688a250671fe6a2977fd767512a7b933dd2f",
+      "sha256": "7d981aa70e6e8fec8877bd24b948153e0fb03df2db3a4e18f5c29a20e4726047",
       "tokenCount": 194,
       "omissions": [
         {
@@ -7105,7 +7105,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__hoa-lava__compact__high.dtcg.json",
-      "sha256": "626f49e24516aca79ed5c082e059f4613f589fc89edf83db3be3894cb52b970d",
+      "sha256": "03d88a2862e348e919504ff17bfaa6af34b3b152cf163a83854156a0106e2b96",
       "tokenCount": 194,
       "omissions": [
         {
@@ -7182,7 +7182,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__thuy-mist__comfortable__standard.dtcg.json",
-      "sha256": "d603b55d230fe283e5f8d97af736dd939e3f622c4315affa75a30589549112dc",
+      "sha256": "4c51c5bad00dd8ceed29e8e65908ebba1ae80bde9d798be52481e0dc4ac05afd",
       "tokenCount": 194,
       "omissions": [
         {
@@ -7259,7 +7259,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__thuy-mist__comfortable__high.dtcg.json",
-      "sha256": "3e080e404ec6fceae5a66cbb34e8396ef854aa5d437ee9783c1844b7674fe94f",
+      "sha256": "d6ff053d0928ca13f44a348a058645b25b5723b2a67548fb41068a5f66816339",
       "tokenCount": 194,
       "omissions": [
         {
@@ -7336,7 +7336,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__thuy-mist__compact__standard.dtcg.json",
-      "sha256": "569e0225cbf001efa6bcaf3fd41b719a51aacb078360885bdc3c9070610437c4",
+      "sha256": "7c73801a32b068300bc3c439f775bc74b38e644cdd04fe03fa1f4a983537e3eb",
       "tokenCount": 194,
       "omissions": [
         {
@@ -7413,7 +7413,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__thuy-mist__compact__high.dtcg.json",
-      "sha256": "abeb7efead3b7c9459df368f814961802d90732788586b77d9274e3bf9bce8f5",
+      "sha256": "804113f0430b06d243b2bdbbbffcdcd34afb96e4f053dd3ad724bf16a5d496f7",
       "tokenCount": 194,
       "omissions": [
         {
@@ -7490,7 +7490,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__thuy__comfortable__standard.dtcg.json",
-      "sha256": "48735baeabfc3960121b6116547c6af537141770f608f363279ef0b1c133e9cd",
+      "sha256": "663d450049e8338d3fb141ab59fb8ccc79f06f556694d607dd541d6a6c956b1e",
       "tokenCount": 194,
       "omissions": [
         {
@@ -7567,7 +7567,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__thuy__comfortable__high.dtcg.json",
-      "sha256": "0322c8b6feaf19d9ec6e72585cd56a38a01d044be616d8884c39c19e91031396",
+      "sha256": "50c200ceb6b36eb5c3309fc1e15475c2429152f4ca5703c244a9795ed3319bba",
       "tokenCount": 194,
       "omissions": [
         {
@@ -7644,7 +7644,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__thuy__compact__standard.dtcg.json",
-      "sha256": "34951ced4ffc08c8c50bfe42c01b56a5c66738e73728c3cd8ab394d27f48cc66",
+      "sha256": "4c4ac51318ef1dab3985670cce7881aa7096088b21de52f1893980db835c4f9a",
       "tokenCount": 194,
       "omissions": [
         {
@@ -7721,7 +7721,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__thuy__compact__high.dtcg.json",
-      "sha256": "4c32a0b9185d9327901f7f9e2671e94d0c77f36aad790a2a33fc0505f5cfa083",
+      "sha256": "b81673b0efeee5e34535c65b09ed520581d89ac2267944d561e2df1c3e813b64",
       "tokenCount": 194,
       "omissions": [
         {
@@ -7798,7 +7798,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__thuy-ocean__comfortable__standard.dtcg.json",
-      "sha256": "80d2731d75ed2a34eb27f505910bbd39ced8ce0c0ac5a7115cfe5a7655f7a7c1",
+      "sha256": "d1ab4bf53ca7ff7f1173de7e0ba3a96530f3fef08a9b92309c3f6ed805604888",
       "tokenCount": 194,
       "omissions": [
         {
@@ -7875,7 +7875,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__thuy-ocean__comfortable__high.dtcg.json",
-      "sha256": "20bde00fe75c85ee2a588d402c13cdb57a2737b92be73ab8470636ea91389064",
+      "sha256": "d7b67060d16cb4e128efaedabf85f99ef3f7dc63a90681374578c0dea1661dcb",
       "tokenCount": 194,
       "omissions": [
         {
@@ -7952,7 +7952,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__thuy-ocean__compact__standard.dtcg.json",
-      "sha256": "45924e4c4b17ae391be3c3d16a30e6c0b999fd0387e020b54ac75eb2c6025999",
+      "sha256": "267ad7e4f5d073d5cf35d4d3f58849de4ba8e5648584db1d20bfd322765cc0b9",
       "tokenCount": 194,
       "omissions": [
         {
@@ -8029,7 +8029,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__thuy-ocean__compact__high.dtcg.json",
-      "sha256": "582abd3242055b86581922549aacaca845ba6de941e07d458e347a3f1ba01e13",
+      "sha256": "44d44659f9acfe427b8482fbdba7f28e948b802bf4cb587fa8e613bb05033872",
       "tokenCount": 194,
       "omissions": [
         {
@@ -8106,7 +8106,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__moc-bamboo__comfortable__standard.dtcg.json",
-      "sha256": "2630aaaff6eb4157f93b49699e0d166f7f72207a0d3fe9c6ddc0f5f9878530f1",
+      "sha256": "6b2b600324a96c29209b98b24e1f523827a220e0c133ae0b5f0cd75f1526d429",
       "tokenCount": 194,
       "omissions": [
         {
@@ -8183,7 +8183,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__moc-bamboo__comfortable__high.dtcg.json",
-      "sha256": "63907ad587c39b8baba7b3cb281f82e4917b7481ad8084983fafcbee98bdbcdf",
+      "sha256": "06c5526a944b0c6bbee45e45bc6625e938c1795fe5cb488bd4695fd254d4282b",
       "tokenCount": 194,
       "omissions": [
         {
@@ -8260,7 +8260,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__moc-bamboo__compact__standard.dtcg.json",
-      "sha256": "6b38513c637d814444c561d939861f54402731d963e1f8a2f1a2bf72a1c7cf41",
+      "sha256": "7eef0d2823b8948deb46d74a3a14fd0e5e5d79a29dfe0e16c1708865af489068",
       "tokenCount": 194,
       "omissions": [
         {
@@ -8337,7 +8337,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__moc-bamboo__compact__high.dtcg.json",
-      "sha256": "f351a1f444f774cc60e5d4479fdd48a3a1e4e79a95adc6b2a6e8131c8813044e",
+      "sha256": "87bb41f7bdbc27ff62edd4f4cf85186da631634d43ba33dc0da83f01d2a211e1",
       "tokenCount": 194,
       "omissions": [
         {
@@ -8414,7 +8414,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__moc__comfortable__standard.dtcg.json",
-      "sha256": "94ea3ca1e6ca086375200261674bc78e3dbd35a8795ba1d8dc587f779095efe5",
+      "sha256": "36104e78ead61cfab94eeb1badf270927014893bcefc4d46d964c9c86d8ddcf8",
       "tokenCount": 194,
       "omissions": [
         {
@@ -8491,7 +8491,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__moc__comfortable__high.dtcg.json",
-      "sha256": "cf6157afbad00091a3cff5dda560f57229061c42c8a6e6a3fba1aec70e259fae",
+      "sha256": "f5178e1e3ddf1f4ad987df4fcb0afc1be51e6e285f285877b27d09f3417c4c4e",
       "tokenCount": 194,
       "omissions": [
         {
@@ -8568,7 +8568,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__moc__compact__standard.dtcg.json",
-      "sha256": "0b719d233a81009ba049d643c1c4d70a0c43f55105ec2b259a11dc939f6a0088",
+      "sha256": "5d6c4d3a7cb7e4f4154eca1d2ec54661eae3e557dc4dafd164b0616c120b2d5f",
       "tokenCount": 194,
       "omissions": [
         {
@@ -8645,7 +8645,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__moc__compact__high.dtcg.json",
-      "sha256": "069f6cbd6e3acd2975956840f87c63240b8091073f6f7f43b281b29baabf0833",
+      "sha256": "394ebd99c395b590c47478ac28d965f04cf3bf6f41b2bedde44cf34944ce98cc",
       "tokenCount": 194,
       "omissions": [
         {
@@ -8722,7 +8722,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__moc-forest__comfortable__standard.dtcg.json",
-      "sha256": "0f214fd8d0c743042362f5c263d71c2c55b4ccd4b69cd522b70ca8ddaf02b9e2",
+      "sha256": "e3c33eeaee118f98290587ac1a2bbc552d85cf96cb7fd58a726ab26e0cbe953e",
       "tokenCount": 194,
       "omissions": [
         {
@@ -8799,7 +8799,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__moc-forest__comfortable__high.dtcg.json",
-      "sha256": "40887d1f7033ca43b7d209a9f68cc143b8433ac5e8f1c8f4f4e21a85e5f46842",
+      "sha256": "12a59fa5fc7ca65ba2cfb2dd951b95394badc0d38a81bbf7683696f66b0a1a64",
       "tokenCount": 194,
       "omissions": [
         {
@@ -8876,7 +8876,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__moc-forest__compact__standard.dtcg.json",
-      "sha256": "81f632cc723c05702ac7edddbce3dae1449ababcf37c872ed8a84e0d202cfd26",
+      "sha256": "417af212e1ab10ee10136fb43d29021afa66d3cb49fb0951f1f17301d9bdbcbc",
       "tokenCount": 194,
       "omissions": [
         {
@@ -8953,7 +8953,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__moc-forest__compact__high.dtcg.json",
-      "sha256": "dd7b075c04e80ae8cc204aea96bef23f12c7f17841aa8bb750a2e0c99cfe7772",
+      "sha256": "d5179dce79ba128ad928ccd0c383b7b53cdb474402073a1265bd6c813e9f9136",
       "tokenCount": 194,
       "omissions": [
         {
@@ -9030,7 +9030,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__kim-titanium__comfortable__standard.dtcg.json",
-      "sha256": "197322152ba91889f973109c6bc99a4874310a00fe17bdd49d33a4fb439ee7c4",
+      "sha256": "b7a9250e50ea487284166c93357fbe5d53bab7e41fb2844f939e2789e3900314",
       "tokenCount": 194,
       "omissions": [
         {
@@ -9107,7 +9107,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__kim-titanium__comfortable__high.dtcg.json",
-      "sha256": "a966dd580a6daac80a09981265832959e687e98ecc4201c992522b79e001d6b6",
+      "sha256": "e2e7bcafb98517213114ac80680d42e8c0aab6522dafa8bdeaeb78ebbfa305e0",
       "tokenCount": 194,
       "omissions": [
         {
@@ -9184,7 +9184,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__kim-titanium__compact__standard.dtcg.json",
-      "sha256": "c78a9f2a6e439da4a78527dd4afc85086ac9a33cfb5447d187ccc926ea1e8f04",
+      "sha256": "69d01fb8f683746c9b77947c2c6a8bdec24dc9c417acb405eb1d49857d285a7f",
       "tokenCount": 194,
       "omissions": [
         {
@@ -9261,7 +9261,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__kim-titanium__compact__high.dtcg.json",
-      "sha256": "694cb86063d645aff151fc608cc28ab8e099a9d6e3b1a30afbcf9b46d6b44580",
+      "sha256": "bb7ab827f27fd0d5a0e366cc827922ebf87a857eeded2b69e48e00b2936d69aa",
       "tokenCount": 194,
       "omissions": [
         {
@@ -9338,7 +9338,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__kim__comfortable__standard.dtcg.json",
-      "sha256": "552e5c134a42775e658bc27554141f02c094d09bc4d511d0f31e6bd4ffab1207",
+      "sha256": "c58447f1b0befbcc2ed8e4a6351dd7c293ed58a7b204b42ed4d432a3d6d5fa21",
       "tokenCount": 194,
       "omissions": [
         {
@@ -9415,7 +9415,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__kim__comfortable__high.dtcg.json",
-      "sha256": "c85263e0c2a6e938640151cdad97a17ba7cfa7f0199fc6dcacea35c38f88f838",
+      "sha256": "84ddd58f5765bfe22faf63053b4a89f9e646cce061a35ab524edf408b83f8c9f",
       "tokenCount": 194,
       "omissions": [
         {
@@ -9492,7 +9492,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__kim__compact__standard.dtcg.json",
-      "sha256": "4dc440376ac8c8e9bd6bdd811b76e1a8fc6871af329240b779196aecabe6a36c",
+      "sha256": "344011a9bee725a3f9d4d718102eb55ae0b7d36d0cc800598516a23cac97e268",
       "tokenCount": 194,
       "omissions": [
         {
@@ -9569,7 +9569,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__kim__compact__high.dtcg.json",
-      "sha256": "ca9cdd861e1489a4a59cdca31279a4b12da7f47df24ddab6d0b4779970803687",
+      "sha256": "11659ee9ffb8ffb6f99486c3087ddae376b9be28c06cfc0d9c9a135f3febeca8",
       "tokenCount": 194,
       "omissions": [
         {
@@ -9646,7 +9646,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__kim-steel__comfortable__standard.dtcg.json",
-      "sha256": "30e42e147d93d73f2c9873acee18ee311a733a9da75f2163afc36a4e6d4637be",
+      "sha256": "5efad173db391dcb0cb62651bc0709662a941ea1a95ae871b7924800af914be0",
       "tokenCount": 194,
       "omissions": [
         {
@@ -9723,7 +9723,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__kim-steel__comfortable__high.dtcg.json",
-      "sha256": "9c06d5cc0e8c802783677aef49324b7f910f3eb0a62cf38be1f62ac5c263add8",
+      "sha256": "ac6e94bcead75c2dbe48d6a7f57898405dc0e1d7c955fb620d92dae43732e93b",
       "tokenCount": 194,
       "omissions": [
         {
@@ -9800,7 +9800,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__kim-steel__compact__standard.dtcg.json",
-      "sha256": "ae6c270b4ccc1d9b2683936e17cc34515f4838d8476faee06c198b8e8b8d6b12",
+      "sha256": "1da9eab9c56395d8eecf85b2ec740897f1b5e2ad534a9945cbc8c56e9cfd522d",
       "tokenCount": 194,
       "omissions": [
         {
@@ -9877,7 +9877,7 @@
         "style": "liquid-glass"
       },
       "file": "dark__kim-steel__compact__high.dtcg.json",
-      "sha256": "0cb08f6b20eafad5b88c3c49741b48f747825dc2cb65564acc3c2bbe52472248",
+      "sha256": "6abbf5ef8228203786ba1abe1a8e9a92dd9efb80d90dc2640311411280ff781e",
       "tokenCount": 194,
       "omissions": [
         {
@@ -9954,7 +9954,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__default__comfortable__standard.dtcg.json",
-      "sha256": "9a7fd9158db0049c251171206a928e838cfc36cc82fe2d286f4978a018ff45fb",
+      "sha256": "3b201a6959faa6400a80da415690045af3956c8e954ec559aeb373deac32cc26",
       "tokenCount": 194,
       "omissions": [
         {
@@ -10031,7 +10031,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__default__comfortable__high.dtcg.json",
-      "sha256": "540e6f2bb42c51674d07e2d0d0f2ccf9b7e92ad14c674e22520b4e2f76f20f0f",
+      "sha256": "0f8125f1573ae47e40ee84a1d7aa9985fba83818d2e668d483f107621a40fd31",
       "tokenCount": 194,
       "omissions": [
         {
@@ -10108,7 +10108,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__default__compact__standard.dtcg.json",
-      "sha256": "e731b7d5453b1d6f08661bd76407c8e349e5435ded9f547f90a194cb77f62cee",
+      "sha256": "b2b4cc5df23adc93d721a617c72e1a79043ddf2a8e08d4cfcf1fb571b429370f",
       "tokenCount": 194,
       "omissions": [
         {
@@ -10185,7 +10185,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__default__compact__high.dtcg.json",
-      "sha256": "27e250a9542bca6f22e59607bc3758ef0a00bc038b2b226858fd43a39661c6e2",
+      "sha256": "dd227876d9af2ddef4143668ab3c7740c8429612b946e6d2c9550f24f1035b05",
       "tokenCount": 194,
       "omissions": [
         {
@@ -10262,7 +10262,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__tho-sand__comfortable__standard.dtcg.json",
-      "sha256": "15eab528e6f83a6073e08d7481cbdb7f7bb943fcdfe78eddd463cef15fa5a810",
+      "sha256": "d95fcce999420159a533083bc60ea9a357402b1a86665396d11e76a9fd1db916",
       "tokenCount": 194,
       "omissions": [
         {
@@ -10339,7 +10339,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__tho-sand__comfortable__high.dtcg.json",
-      "sha256": "b4612c20d179320ae1f5e93dd6403aa340f2851486526319ab5874f39b351334",
+      "sha256": "fefc65a5092dcaaf1cd0bb9598434d8a1ceb3fb2e5739faa760c6bbcf304bb61",
       "tokenCount": 194,
       "omissions": [
         {
@@ -10416,7 +10416,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__tho-sand__compact__standard.dtcg.json",
-      "sha256": "182cda5dcb49c9a54ca42c5d0df9bd48b0d71e51d480af259fd00e8ba7e82ffc",
+      "sha256": "e888c58a884c19ea9b73ff5d83dcc08d863935ed0a522ad96bb0ce06d940d9e1",
       "tokenCount": 194,
       "omissions": [
         {
@@ -10493,7 +10493,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__tho-sand__compact__high.dtcg.json",
-      "sha256": "ac425d7fa8a471a6b48aef6a83725ddc7bd0371074b5284b09fab9cec76323a6",
+      "sha256": "3faf2b4fe75191fe465d4007d1e4529caac6a43b76a6c11f553b371e9340cd8f",
       "tokenCount": 194,
       "omissions": [
         {
@@ -10570,7 +10570,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__tho__comfortable__standard.dtcg.json",
-      "sha256": "91476eba835984effc86c98f13c3451c132a5f04086a086dfb41b4f842f0689a",
+      "sha256": "3ec564a00e40c27c36509d4563ed8192ab32fd8127141875cec0a129acc3f165",
       "tokenCount": 194,
       "omissions": [
         {
@@ -10647,7 +10647,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__tho__comfortable__high.dtcg.json",
-      "sha256": "da7670a6e6e49959321af29266003fa8228060887522e4e2849fea95169eff58",
+      "sha256": "382c17cd7b69a487ec40f9725fb7465b20e6a4ede71ca9d88f9748ec30adb9f7",
       "tokenCount": 194,
       "omissions": [
         {
@@ -10724,7 +10724,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__tho__compact__standard.dtcg.json",
-      "sha256": "14ae6e3e107aa4fc402b78ed131cd51002ed67e7b38723b47c73c0860fe4cd25",
+      "sha256": "2c4a84f16836633cc631cc75bec455c5c9bf2744a2c81694a8ad3dc85d54f335",
       "tokenCount": 194,
       "omissions": [
         {
@@ -10801,7 +10801,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__tho__compact__high.dtcg.json",
-      "sha256": "68a4dba9cda26451b6590b6f1c7f74749e83a0ed20761b417a465d461f9e54fa",
+      "sha256": "24b5450aabc404aa16c9e01db4094e840e2a7419dad078e6c7131afc0c46be5c",
       "tokenCount": 194,
       "omissions": [
         {
@@ -10878,7 +10878,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__tho-clay__comfortable__standard.dtcg.json",
-      "sha256": "9f43628a0b6f662934cdd27ba7c29aa93b1f3f06b25212877981d33305c04fd7",
+      "sha256": "fc78a77136c64af73dbc67c304fececc744df4819974435aedf5efdc1b9fd78e",
       "tokenCount": 194,
       "omissions": [
         {
@@ -10955,7 +10955,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__tho-clay__comfortable__high.dtcg.json",
-      "sha256": "812fad60268c809434c2173fbf8dadc8862bb978f628e60c3e87fbbaacc3f810",
+      "sha256": "4d57008457ca8b05b43a56682aa1d002b8645f8a009861cba9682d1da5f6b2a3",
       "tokenCount": 194,
       "omissions": [
         {
@@ -11032,7 +11032,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__tho-clay__compact__standard.dtcg.json",
-      "sha256": "056420f92e64746ba81a435fe6eae6a81a10964db208c241d0aca8c4ed62e704",
+      "sha256": "7293191fa30c9ed7637f30492b64abacb18ad0ed236b505a45a151c78eaebc64",
       "tokenCount": 194,
       "omissions": [
         {
@@ -11109,7 +11109,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__tho-clay__compact__high.dtcg.json",
-      "sha256": "8204a5fb3e8cb373868b0833268f6a755a8cf9b36c4ee24d56f370be8268d76e",
+      "sha256": "5ebe4c6ead0cf22582be845c76cc4f85a7fd6689254baca7cf962611e8f37934",
       "tokenCount": 194,
       "omissions": [
         {
@@ -11186,7 +11186,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__hoa-plasma__comfortable__standard.dtcg.json",
-      "sha256": "754a0d94fcaad030205eee2360d8282fb91ee6f04e293eafd74d5708b1f402fc",
+      "sha256": "0221d6dd7ff652b42c4c69ddddcd1f663481ef1f0114c1a1bdc43db7a60dbd22",
       "tokenCount": 194,
       "omissions": [
         {
@@ -11263,7 +11263,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__hoa-plasma__comfortable__high.dtcg.json",
-      "sha256": "07d42e8a7144666b79b6ca50f6866d3637d71540ec66d57f4edce39f43bd6ab7",
+      "sha256": "96a94386b70a87b867a271ed23cd06b76dd3a86c5ccc40f89dbfda9232550597",
       "tokenCount": 194,
       "omissions": [
         {
@@ -11340,7 +11340,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__hoa-plasma__compact__standard.dtcg.json",
-      "sha256": "fb802008963585e5e8bf4aa5a77fdceaf187674ffb0159a76d27df81ab391700",
+      "sha256": "f23e150fb09f4b7dfe4de255c01f8e7435ff1a6a0017997529f7e231994e6c15",
       "tokenCount": 194,
       "omissions": [
         {
@@ -11417,7 +11417,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__hoa-plasma__compact__high.dtcg.json",
-      "sha256": "6f01c9521c6c04e50519324fb8b2b966549211f8ec296c4d672a859d06377afa",
+      "sha256": "31988aa35ece91a15560340bd6e251e4dfa8927523c27a95ee3bd0f8815a74b0",
       "tokenCount": 194,
       "omissions": [
         {
@@ -11494,7 +11494,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__hoa__comfortable__standard.dtcg.json",
-      "sha256": "f418427e1589b4cb3f6f1859364d9c25c73f1ebbb641414d235f5d5e722971e7",
+      "sha256": "ede70ce6758ed700db2bf2505383c6bf97252b0d18da5418027ab0f480306792",
       "tokenCount": 194,
       "omissions": [
         {
@@ -11571,7 +11571,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__hoa__comfortable__high.dtcg.json",
-      "sha256": "066470320ceac572119e0fd7565383c50d57276a73b8467c57c6fcef8c1f5acd",
+      "sha256": "aa1b76978df7240c51adb8926a244fefdbde8e9f364b36f56e4e4d2e883e1d17",
       "tokenCount": 194,
       "omissions": [
         {
@@ -11648,7 +11648,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__hoa__compact__standard.dtcg.json",
-      "sha256": "1532e2f225b0ff83185e4be5db6c4129ae95850735da99f6fcd89837f4464a3d",
+      "sha256": "f9d4ff9adf0d76be6e314a33f29f3d817140ca2b8198fa4c2d7fce9408ee05cd",
       "tokenCount": 194,
       "omissions": [
         {
@@ -11725,7 +11725,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__hoa__compact__high.dtcg.json",
-      "sha256": "7bf80abf9786b13664d1a8bdc9e93c8afcbea102532c9b9dd4ec9fd7e939f0d2",
+      "sha256": "fa912f89c4e47650cb7d39afacb25914cc9b05ed92ba0726960bd17aff6c4f9e",
       "tokenCount": 194,
       "omissions": [
         {
@@ -11802,7 +11802,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__hoa-lava__comfortable__standard.dtcg.json",
-      "sha256": "8a155221f9b5baae48f211a5b88f06c83e82dd83fe3f4f4365d7a9f97d2a05a0",
+      "sha256": "046efced364cc6916c4350d20d76b8a0175e61549bd8d67e4fc0ab35015d6cf2",
       "tokenCount": 194,
       "omissions": [
         {
@@ -11879,7 +11879,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__hoa-lava__comfortable__high.dtcg.json",
-      "sha256": "50d0715e75f34612ebe4033f659d347a2747b0b2bf6031aca728d21f2339e858",
+      "sha256": "fbbf9f3e072b2ec55fd068a90204a03298ba29ebcc0df18f84441b4fe7c15d05",
       "tokenCount": 194,
       "omissions": [
         {
@@ -11956,7 +11956,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__hoa-lava__compact__standard.dtcg.json",
-      "sha256": "32ddc36a739be12982b3e75ccee156c6b4803e4d71a93183a9939e02b6600460",
+      "sha256": "324815557bf93058bdfcb8e78f190885afe8a9b2f7ab7047714bca1c411754b0",
       "tokenCount": 194,
       "omissions": [
         {
@@ -12033,7 +12033,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__hoa-lava__compact__high.dtcg.json",
-      "sha256": "c63b82da92a40d0f772213a5a65103fb2aca998464194aa7f564b8525e5a0d24",
+      "sha256": "10156f6df9d9128dd7d9f264ed35c3591bf06c1d0c8d1158afbec950ba5f5923",
       "tokenCount": 194,
       "omissions": [
         {
@@ -12110,7 +12110,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__thuy-mist__comfortable__standard.dtcg.json",
-      "sha256": "95fb11d9672fc38a312e71eaac66e54b73ed11610119cb81d1a807a04e87f215",
+      "sha256": "7a0db5c1c88310470cf6c4d419dcf6163fbe6bb00bcafb60092090200a8b68ff",
       "tokenCount": 194,
       "omissions": [
         {
@@ -12187,7 +12187,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__thuy-mist__comfortable__high.dtcg.json",
-      "sha256": "45f77dfb29bfa1d73f10a0b3a3ba261ccdfb0dad49b09caa34149e1b225a32af",
+      "sha256": "4420f1a768af35a6bbb1b14c9e7e78cc5d64fffb60948e10819f628d68d3b65e",
       "tokenCount": 194,
       "omissions": [
         {
@@ -12264,7 +12264,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__thuy-mist__compact__standard.dtcg.json",
-      "sha256": "608761af2da4eb13ce5e24ee9879773ac3b9c4211d37d4adbc479008d789965a",
+      "sha256": "8976b815e5972e232676fed6ef44511a61bd960c59d429065f7596cb18098fe6",
       "tokenCount": 194,
       "omissions": [
         {
@@ -12341,7 +12341,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__thuy-mist__compact__high.dtcg.json",
-      "sha256": "04c4a681ee6db7d0084de804ad23d95daf3095be9c2a70265505744a44922509",
+      "sha256": "5732b0e14de222bec606c6f8c2b5d59450bb9e9ce131f11bca3be05f4419a614",
       "tokenCount": 194,
       "omissions": [
         {
@@ -12418,7 +12418,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__thuy__comfortable__standard.dtcg.json",
-      "sha256": "86edff33ef7043e125366452bd731ca674cc45105613220c577ee61f503a4093",
+      "sha256": "31504d3be746ef33f4ea81ba68fc0081f2fc09f7e02721437175c7906401581b",
       "tokenCount": 194,
       "omissions": [
         {
@@ -12495,7 +12495,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__thuy__comfortable__high.dtcg.json",
-      "sha256": "b7a5505878aa4715e1173efa57b9411c622ec49fa0addf58e5e550cdb8e4c5c8",
+      "sha256": "46120687da67836df1772523936d3f1cfa5a85799a36a50a1954c7742c185ab2",
       "tokenCount": 194,
       "omissions": [
         {
@@ -12572,7 +12572,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__thuy__compact__standard.dtcg.json",
-      "sha256": "6aa943414eac6217e1daf0e1db70d210bbbba6def25e265876402d9a2e0f2672",
+      "sha256": "aa0e47f5152cd4f5e2129da8c3dbe1c82bb0ad9a33e3908eb0bc522afe8cfe2f",
       "tokenCount": 194,
       "omissions": [
         {
@@ -12649,7 +12649,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__thuy__compact__high.dtcg.json",
-      "sha256": "6397664b49e338f10fb93c741ab3bc00d02df2fec683c4f793fcf32291543d53",
+      "sha256": "b7c6cdc226256a731ae2cf35822f617479f0c92f0b57dd3edaa720ea7dd09793",
       "tokenCount": 194,
       "omissions": [
         {
@@ -12726,7 +12726,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__thuy-ocean__comfortable__standard.dtcg.json",
-      "sha256": "81dd275f14540ed721dce29b0e1ce9910c3bd2cdf1bf539b22119f4527d17b9c",
+      "sha256": "01535ab7f50c831c3dbcd794a7f73c3d1d50e6e4fc51da756ecb4fbf9e86c837",
       "tokenCount": 194,
       "omissions": [
         {
@@ -12803,7 +12803,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__thuy-ocean__comfortable__high.dtcg.json",
-      "sha256": "278a256171cdfe7b82a707b9864df745990b9db733337758e3c3b51db41d9b5b",
+      "sha256": "c1b7971595e37b1409238042792ab94b7dd921e0b983601811e8185f8dc5e957",
       "tokenCount": 194,
       "omissions": [
         {
@@ -12880,7 +12880,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__thuy-ocean__compact__standard.dtcg.json",
-      "sha256": "808e7beaadf83e8d72ba44eab939b843465938787d76c53c0b8b30e7bf7ee7b1",
+      "sha256": "63711ead3f7eb5e4aa5814e7046877026796f2e26293901601a440e9b4a59c84",
       "tokenCount": 194,
       "omissions": [
         {
@@ -12957,7 +12957,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__thuy-ocean__compact__high.dtcg.json",
-      "sha256": "84f256d9c9ffa8496ebb8b5363c6afccdebae11fc8f9849300bc2735942b8121",
+      "sha256": "67f1bed3f040785a08c867425ea558b48d79b808191322b3222df06bf5f10bb3",
       "tokenCount": 194,
       "omissions": [
         {
@@ -13034,7 +13034,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__moc-bamboo__comfortable__standard.dtcg.json",
-      "sha256": "74acba0033844e03dd5096f1dd7400f744e821f374c0bd8bf479f1faa83bd7ba",
+      "sha256": "ae02aaff1b06bcdda571e36e750a50166160471011b199be504b7ee0c1d6e2a3",
       "tokenCount": 194,
       "omissions": [
         {
@@ -13111,7 +13111,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__moc-bamboo__comfortable__high.dtcg.json",
-      "sha256": "720c832f8a20307575e5ea86af0a00d79a70185acd6960784ba898ea88ee7c33",
+      "sha256": "3f112beb7801568258d38324665d80a7f792fb47c9b7f4479630d92b95364c80",
       "tokenCount": 194,
       "omissions": [
         {
@@ -13188,7 +13188,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__moc-bamboo__compact__standard.dtcg.json",
-      "sha256": "de83c8cd5069e37093e77ff2e4236f17622c0d52015eede6938af200fea162fb",
+      "sha256": "8ee071663df6033f3d821fc5dd191881e8c0ad7ccdcba2f3f6180478a16c2e5b",
       "tokenCount": 194,
       "omissions": [
         {
@@ -13265,7 +13265,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__moc-bamboo__compact__high.dtcg.json",
-      "sha256": "2ada54a5ba1c4ad34693fd81ffd7eafc092a3c16cbce03710465e9071ea2dd10",
+      "sha256": "457e9e7071ab65ce6588ee2726298504fc2cd35a656753b13893bb2a9d12a087",
       "tokenCount": 194,
       "omissions": [
         {
@@ -13342,7 +13342,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__moc__comfortable__standard.dtcg.json",
-      "sha256": "73b51c2980fcf41d93db2348eb03ceae52005a485da73342e7261f03cb915804",
+      "sha256": "1259b1fa3ca5657860b8ece3cd1525e6360204d670461ecb14ae2e715f8f2622",
       "tokenCount": 194,
       "omissions": [
         {
@@ -13419,7 +13419,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__moc__comfortable__high.dtcg.json",
-      "sha256": "bd84ee0b77b14aeaaaa9e22cab529092d5714c90bf2efbb5399de9f51e64bfd8",
+      "sha256": "df55a3ec4e1fe8cd136d7af8227388751cf506251445e7a48801ccb854651182",
       "tokenCount": 194,
       "omissions": [
         {
@@ -13496,7 +13496,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__moc__compact__standard.dtcg.json",
-      "sha256": "d2e35716a25bd6cea5d748caecfa17cfd3426490e3c691c9c18058f15d03e3e6",
+      "sha256": "e529e9b2915e5abf17d013dd16ab2b6b8d6901de46b072fd6d0e478b367fc6c3",
       "tokenCount": 194,
       "omissions": [
         {
@@ -13573,7 +13573,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__moc__compact__high.dtcg.json",
-      "sha256": "1f66e9381755756db757ffdf386b333faf06569e6dfef56ffbb46489c3fca753",
+      "sha256": "c3455bdcb51794475c0c145389a72015bc9bbb7f99e3cb100f145882c2ae3e32",
       "tokenCount": 194,
       "omissions": [
         {
@@ -13650,7 +13650,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__moc-forest__comfortable__standard.dtcg.json",
-      "sha256": "7ab447447cba75c4c96783377d6a40bc25e055e85bf6185b8f7e52269d2e329c",
+      "sha256": "9297a8731c0871205d3761c0c972239f5311e8e493c1f0c2d54043f52c244a0d",
       "tokenCount": 194,
       "omissions": [
         {
@@ -13727,7 +13727,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__moc-forest__comfortable__high.dtcg.json",
-      "sha256": "fa02d694907e3bd3b5d9f24a7edbcb5a8da838ea78f42f6de9da4a1eb7047b9c",
+      "sha256": "582d0ef26a10b90f9f2d33e1147cb9dc4086d0277aa986de6a9470099341e493",
       "tokenCount": 194,
       "omissions": [
         {
@@ -13804,7 +13804,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__moc-forest__compact__standard.dtcg.json",
-      "sha256": "abc8397145786dc36241447dd984e7e10077efc4a927ba88aa7b3aeb2fe894d5",
+      "sha256": "915d5cc764d4a10631ff8a3b484d13b235439e139a0e1408b56a776eb86e7aba",
       "tokenCount": 194,
       "omissions": [
         {
@@ -13881,7 +13881,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__moc-forest__compact__high.dtcg.json",
-      "sha256": "ffc178297c9ffb08956c30ca34be18d4a8ff62933b86ccc01e213c324df2f067",
+      "sha256": "4f001af07ded10ad41951c7b632537fdc5cfbef1dbd185cb0ea5b458adc96725",
       "tokenCount": 194,
       "omissions": [
         {
@@ -13958,7 +13958,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__kim-titanium__comfortable__standard.dtcg.json",
-      "sha256": "ef93712386e24ffbe8249ad5eb00286a8874e4fc2711b70b48e81b604db5f97a",
+      "sha256": "5971c7ce247c8f1660b559113f1126051b1dc0e49a30b49b818da45c6eb8c866",
       "tokenCount": 194,
       "omissions": [
         {
@@ -14035,7 +14035,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__kim-titanium__comfortable__high.dtcg.json",
-      "sha256": "c1b55e647ac36a39f88e7f0a389ee2f41d371ec29fe2c2722fedd2a560f3c7cc",
+      "sha256": "ae25e1d9ba52b3cc0030c4b67ce666fa05d41bc1806aeed0679971ed7c33aff2",
       "tokenCount": 194,
       "omissions": [
         {
@@ -14112,7 +14112,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__kim-titanium__compact__standard.dtcg.json",
-      "sha256": "6724619d8470238c8f0a884cfa2b9ec8cb8fe430ba82f041ef9649d36888f717",
+      "sha256": "29a7737cd68d0411b29c513349efabad495bb99ddfbc9aac3caffe92376affbe",
       "tokenCount": 194,
       "omissions": [
         {
@@ -14189,7 +14189,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__kim-titanium__compact__high.dtcg.json",
-      "sha256": "d92c3f253719efd6f2099b9abff370634155a994673c90d04c1f2d54d17b699d",
+      "sha256": "85895cbda25269c95f15d717795221e0a0e3d2acfb0322c66d2d6bda06084cb9",
       "tokenCount": 194,
       "omissions": [
         {
@@ -14266,7 +14266,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__kim__comfortable__standard.dtcg.json",
-      "sha256": "e4c5fd934f06c12de9d5a2f56ee38d40df1301b913a37a4eb4a0defdbf0e35d7",
+      "sha256": "a17f5eb28741847643a1a4003bb77ffbbdf71b7d0fc44a3be209038c3c21fb86",
       "tokenCount": 194,
       "omissions": [
         {
@@ -14343,7 +14343,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__kim__comfortable__high.dtcg.json",
-      "sha256": "c238eb409bfecf4c037010efef5ad513393f38c2a6dc5f2701d2c803667fe828",
+      "sha256": "3395855407450fc14c380658e09cacba9ac5d20595a05a129d18ae9a2ca5e3ea",
       "tokenCount": 194,
       "omissions": [
         {
@@ -14420,7 +14420,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__kim__compact__standard.dtcg.json",
-      "sha256": "77fef381df17905ccc7e37025d58ffc8f37833aba90330f798967d093fd61dc1",
+      "sha256": "365315510226731167d14f00b119d527c340f9a8ef5edb42378fcbe7ada19a05",
       "tokenCount": 194,
       "omissions": [
         {
@@ -14497,7 +14497,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__kim__compact__high.dtcg.json",
-      "sha256": "8b6b889192dc80a0a052269a84bb1d7749ff56e61179641ba5b382b722ef20ae",
+      "sha256": "ad43b7b5c3b6d407a1a7a56d3000bd9d6ca80fc8ca0458e4cd571d0bd7c42301",
       "tokenCount": 194,
       "omissions": [
         {
@@ -14574,7 +14574,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__kim-steel__comfortable__standard.dtcg.json",
-      "sha256": "a767c28c180c81b40f96060315f3c82895d79e0cc9aab82e17ebf6f8bd129ec4",
+      "sha256": "4d6cd358f020464f994dd0d7283059639a41444ba6cf8ef0a23bc65303f55aff",
       "tokenCount": 194,
       "omissions": [
         {
@@ -14651,7 +14651,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__kim-steel__comfortable__high.dtcg.json",
-      "sha256": "ebca4b5b8fc1691acf5df3053e9935be07e7264e766f3668e6afb2da6bf8b747",
+      "sha256": "c5ba56310b137436c44949a14fc2a10977a0a39da19651402c92b0788edfd225",
       "tokenCount": 194,
       "omissions": [
         {
@@ -14728,7 +14728,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__kim-steel__compact__standard.dtcg.json",
-      "sha256": "8bcdd0db09489211db16dbf5cfe8ee12898f3210f847d78f01fb257abc4a375e",
+      "sha256": "489ad88dc838fd2298ac76171e321e4c4a730e633d17c637f51b90400c88996e",
       "tokenCount": 194,
       "omissions": [
         {
@@ -14805,7 +14805,7 @@
         "style": "liquid-glass"
       },
       "file": "system-light__kim-steel__compact__high.dtcg.json",
-      "sha256": "0bd535666bb3de7eceaf409724082e8996677ab6748724df04c5218eadf8e7ac",
+      "sha256": "c9f108839570c663a5f11e9aa1db45be5b2c2ac50174cc8c38b50cb0fd77a16f",
       "tokenCount": 194,
       "omissions": [
         {
@@ -14882,7 +14882,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__default__comfortable__standard.dtcg.json",
-      "sha256": "f45580dce72793f7ad265c25bc4bd291e9113d960826861b06bccf745029ae04",
+      "sha256": "158f1e023b4df34f3b2c7eb775b4536adea9dfb1c8c2989e2e540eb238ee0515",
       "tokenCount": 194,
       "omissions": [
         {
@@ -14959,7 +14959,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__default__comfortable__high.dtcg.json",
-      "sha256": "09e3375106dc60b737a8bb649c171055dd32adca6939b46c1dfe26617ec8b40d",
+      "sha256": "d1c508f1d5e2236ec3c6c98ed29d9d7d7938a0b79057035579e5c05ca83f3381",
       "tokenCount": 194,
       "omissions": [
         {
@@ -15036,7 +15036,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__default__compact__standard.dtcg.json",
-      "sha256": "2ba2dc948bf3eb70dafb6efd132312376cd4cd26820a6d3935545ec1b6af7650",
+      "sha256": "8d477048a22f70ae375e8f5e96fa54a2954e049a88ffa5b7718bc8fc160626f6",
       "tokenCount": 194,
       "omissions": [
         {
@@ -15113,7 +15113,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__default__compact__high.dtcg.json",
-      "sha256": "82cea410ac7a3d505ae6aec0dc26a55c6db0bca03b981844bca3b57ecbc20f4b",
+      "sha256": "b61eb813f731fb61a622028594d8a573bc05f43da7fc7092c432f53400a4d84c",
       "tokenCount": 194,
       "omissions": [
         {
@@ -15190,7 +15190,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__tho-sand__comfortable__standard.dtcg.json",
-      "sha256": "c8b8f021ff5dd26b4fe21e42d463701e38532a494f9e919a3aced1cfd143ff34",
+      "sha256": "6d0b6ab32fe8e2a213cfe1c8dbf81c355777572b10c82aaab35b9a7194174929",
       "tokenCount": 194,
       "omissions": [
         {
@@ -15267,7 +15267,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__tho-sand__comfortable__high.dtcg.json",
-      "sha256": "ef55cf94ea0798fe0fe67076815e913231f0878a84fd3417e53cae248b47a2f8",
+      "sha256": "25e701ed9b3c0067781c461260aa76c325e0b949be7ed1653df6ed957fb07c5c",
       "tokenCount": 194,
       "omissions": [
         {
@@ -15344,7 +15344,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__tho-sand__compact__standard.dtcg.json",
-      "sha256": "5e1c27132e6e8c5911816419f0631ccb62f13cdce7eb1f4a5875f4a3fb806443",
+      "sha256": "7b402b8544a1bcc8de01d0a5acb7ce65a03632b3cac7e4d5685e4775929b1f3b",
       "tokenCount": 194,
       "omissions": [
         {
@@ -15421,7 +15421,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__tho-sand__compact__high.dtcg.json",
-      "sha256": "efd580a3a618efba1560cb7fc07c1bedfe2a8d9be06e9035b1eeef085b0a66e5",
+      "sha256": "5f08c480fa4e70ddbacdaf7a8b4f91688fa5ef0f55f8af23e0406767a0378a48",
       "tokenCount": 194,
       "omissions": [
         {
@@ -15498,7 +15498,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__tho__comfortable__standard.dtcg.json",
-      "sha256": "62dbed37944553dc4a30252660f803e1506ebe2cea2dcc5e2262a6281d582917",
+      "sha256": "f9e56221c7a54e7321991f5d626159248a515b7edcd53a77e6cf16f01d0ffce7",
       "tokenCount": 194,
       "omissions": [
         {
@@ -15575,7 +15575,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__tho__comfortable__high.dtcg.json",
-      "sha256": "2e5ef4919875315e15088be1a895f7b7732f890fbe92d2e03ab0ca8d436a15b0",
+      "sha256": "7a5604c05cfc81f30cf6a633f053f2c5e87eda9edb320b11c9616bed5bcdd047",
       "tokenCount": 194,
       "omissions": [
         {
@@ -15652,7 +15652,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__tho__compact__standard.dtcg.json",
-      "sha256": "ccdbf188ba19b429685b8d1748ecc697e2d2e2a3927dbf52f97254a06bacd025",
+      "sha256": "e592f05e950c4531cb42a7d748fe4e0e9434bb7e232c44b2f35b7997288747ff",
       "tokenCount": 194,
       "omissions": [
         {
@@ -15729,7 +15729,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__tho__compact__high.dtcg.json",
-      "sha256": "1d6042b29f0f00b33ac17eb9d283ab59c1d64680eaec3a33abed0b7b5f2204d9",
+      "sha256": "c163736d22e0c85ee64863d44cb0892f733e7b394356c2cc2b85ca255c8a44eb",
       "tokenCount": 194,
       "omissions": [
         {
@@ -15806,7 +15806,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__tho-clay__comfortable__standard.dtcg.json",
-      "sha256": "d6268acb7bb4b81ba740a8dc387f698dfc246bfbe46b97e78c509b1505fe4f97",
+      "sha256": "e0ce8cfea48d67692a918393d45af24bfeec022072a05ee1acce7408aa7e8956",
       "tokenCount": 194,
       "omissions": [
         {
@@ -15883,7 +15883,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__tho-clay__comfortable__high.dtcg.json",
-      "sha256": "ab3df542eb2aa19ca3afabd9bb40a6ecb202354dfe7568b9c4fda9831f5a8043",
+      "sha256": "ea16db8c0e777323963d22ee854cd70b273d63658fe89279f11fa7ee9020bc27",
       "tokenCount": 194,
       "omissions": [
         {
@@ -15960,7 +15960,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__tho-clay__compact__standard.dtcg.json",
-      "sha256": "06444ab32dc5714adc1f07defa8d73953ec870ee42ca93adc86d2443f1585c99",
+      "sha256": "b5a74db551e1a944279956038ce292ba5db4e3d40b2dd08bb6af9c84503babc0",
       "tokenCount": 194,
       "omissions": [
         {
@@ -16037,7 +16037,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__tho-clay__compact__high.dtcg.json",
-      "sha256": "87c04975ad66eb2e8200cdeeff2dac0d38b65412a613b31054bd2b59731b3120",
+      "sha256": "fa04f2ef6da02dcb7f81fd40ff21cc36fadaaa873397f415ee03f257597f636d",
       "tokenCount": 194,
       "omissions": [
         {
@@ -16114,7 +16114,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__hoa-plasma__comfortable__standard.dtcg.json",
-      "sha256": "9ee002179c49fe8d2a86da5ebb4514c022687bbdb28d7c4f3710f98c3c597a23",
+      "sha256": "7b21e346f6ac79b3696906887da52dc974d47f7e0ed9e9f00ce30ed7856965f7",
       "tokenCount": 194,
       "omissions": [
         {
@@ -16191,7 +16191,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__hoa-plasma__comfortable__high.dtcg.json",
-      "sha256": "2a5e3380699cf2c5223e6ad8384d68aa787449e0464685b1bfc8505350076bb5",
+      "sha256": "9e436e64aba0c5703018d646383284dc2034b8209f72b1b5b04d7fc0300c5e7e",
       "tokenCount": 194,
       "omissions": [
         {
@@ -16268,7 +16268,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__hoa-plasma__compact__standard.dtcg.json",
-      "sha256": "643b3841166b156b2e3cc2b88391be79972cd9ad628ff79923945cfcee5bb5a4",
+      "sha256": "1f339788d1630feecaee27ec55d5eb174034af870732960b91282ad63ca75fa2",
       "tokenCount": 194,
       "omissions": [
         {
@@ -16345,7 +16345,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__hoa-plasma__compact__high.dtcg.json",
-      "sha256": "bd64c5f5704843df64f4c898093a632f77efb7ae5da3a43987344c7d8b8c7c1c",
+      "sha256": "a3139c84acc9fe731f30ad9b32f0e1cfb9ca1318aa72c0b5268337b66c2b3deb",
       "tokenCount": 194,
       "omissions": [
         {
@@ -16422,7 +16422,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__hoa__comfortable__standard.dtcg.json",
-      "sha256": "0c453e43b8d2294f32ad3234fbf883fbb634d8cee9173ae77027009e2571b2ab",
+      "sha256": "7e2ecfae1e3ed6abe5d1cf0bc253c5c3a161d65e272469aee0c2b4653c55fbf6",
       "tokenCount": 194,
       "omissions": [
         {
@@ -16499,7 +16499,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__hoa__comfortable__high.dtcg.json",
-      "sha256": "c10aefd9b7d6d41f97b10cdfccf4d50ec44af0962b666a2ce445f63b560f0ebd",
+      "sha256": "54965d99c09855a698e876f5d6734bd75d39bd29093d6909d8db6696f8015602",
       "tokenCount": 194,
       "omissions": [
         {
@@ -16576,7 +16576,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__hoa__compact__standard.dtcg.json",
-      "sha256": "94904e371d51f9f4d0032c4b6e4c05ed064e7874a0a9c32048a1c766711a6a5e",
+      "sha256": "a378a24a0db60b5d5641b2969964c29c5e5c14cc755b3b4b3d257ea80c3f85a8",
       "tokenCount": 194,
       "omissions": [
         {
@@ -16653,7 +16653,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__hoa__compact__high.dtcg.json",
-      "sha256": "3a250c52fdd5f3593af0723aff595a1ed211bebedc5c6c30de9f5f8ef17eaf25",
+      "sha256": "8b19a0b6c33fd9ad870c3a945442016ee943c3bc781c201ce648004b2e378bd2",
       "tokenCount": 194,
       "omissions": [
         {
@@ -16730,7 +16730,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__hoa-lava__comfortable__standard.dtcg.json",
-      "sha256": "b79c65909c2279ad877723a7d687de7ff8f8184059114c8c13d7baa165d252bd",
+      "sha256": "dec011e2ebd6c3889c7520d6647a7565d1df08bbff3d00027acbba89c9a52b64",
       "tokenCount": 194,
       "omissions": [
         {
@@ -16807,7 +16807,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__hoa-lava__comfortable__high.dtcg.json",
-      "sha256": "d4c4ac2d968fb06881d023155986152d53331226f8d04928300f70998c9105b2",
+      "sha256": "2a8bfe0513f2e11189b9da570f04f704de345fcde3ee750b340a8ba1ac631a08",
       "tokenCount": 194,
       "omissions": [
         {
@@ -16884,7 +16884,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__hoa-lava__compact__standard.dtcg.json",
-      "sha256": "70326341416a5277f908e62d30bc02741ffe6dee82adb7d26e677496212c1464",
+      "sha256": "c5bcfab19405fb0f0b1221b1486f6449c43aab1feff2ba2a2358dfd6394d8406",
       "tokenCount": 194,
       "omissions": [
         {
@@ -16961,7 +16961,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__hoa-lava__compact__high.dtcg.json",
-      "sha256": "d2bc2efcc9e3bf9801e9088f987c6cf950edd015e9e67a21ca64db262f22b283",
+      "sha256": "0f41d1d6ebb85c8af714b6521cf6b291149d130cd7d281f29f6d4b7dc6415657",
       "tokenCount": 194,
       "omissions": [
         {
@@ -17038,7 +17038,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__thuy-mist__comfortable__standard.dtcg.json",
-      "sha256": "3e06c78eb6bf66063cde6106d04adfd86a0f8cad6932c7cfe0feca3ae0b07443",
+      "sha256": "75bb2a4a98e847ba9aa9cbd2b4e3ababdb0482355d1b7c7bc26303eab31404dc",
       "tokenCount": 194,
       "omissions": [
         {
@@ -17115,7 +17115,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__thuy-mist__comfortable__high.dtcg.json",
-      "sha256": "94da42021e319cea45a52f87fe9749dae57e38eabcaa15f743a6015da2776a02",
+      "sha256": "e072738f74f45cf6ed7d0b617bb89548b90bb1a398ff3753f2616099dbe16f38",
       "tokenCount": 194,
       "omissions": [
         {
@@ -17192,7 +17192,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__thuy-mist__compact__standard.dtcg.json",
-      "sha256": "d9bebf2db0bf2da6ccd09d64ed12d20a926785a0fb1afc9adf669fcbf60b6764",
+      "sha256": "16455b337f2c4197254dbe635e697e6665babc03aae01d3a06eac122f0671e2a",
       "tokenCount": 194,
       "omissions": [
         {
@@ -17269,7 +17269,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__thuy-mist__compact__high.dtcg.json",
-      "sha256": "6ee4fe6b8abf132a1479d99fda83e226edabea3c24aa6ceae60a2a3bb3f1cec1",
+      "sha256": "4e6fcf3699a13e1a9cbcee62d2c2ef566503fa39c42107810e92e876b1d87359",
       "tokenCount": 194,
       "omissions": [
         {
@@ -17346,7 +17346,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__thuy__comfortable__standard.dtcg.json",
-      "sha256": "62d7b8e2f0222cb51c1c1bb9c04c21032eb0bcc261c78716bd50b0c65f9e19b5",
+      "sha256": "5f857956cba1ee26136030e9afd2165ff4f926f99271107ad42283fcb873823c",
       "tokenCount": 194,
       "omissions": [
         {
@@ -17423,7 +17423,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__thuy__comfortable__high.dtcg.json",
-      "sha256": "bed9c76d3018c566c61afb33d410811c089a215b674b61463b9db3eefc187a8c",
+      "sha256": "0f42a02f736728941380fd3b025008e1467d0e8e76d14991e790c7a7e8e23428",
       "tokenCount": 194,
       "omissions": [
         {
@@ -17500,7 +17500,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__thuy__compact__standard.dtcg.json",
-      "sha256": "69c4716d523aea8040176111d63eb82edd5b270108109edccf174412cbf2e514",
+      "sha256": "041ddcd8035704eedbeb4f80e421455e85a2359b6f7f80e777691eb801d84823",
       "tokenCount": 194,
       "omissions": [
         {
@@ -17577,7 +17577,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__thuy__compact__high.dtcg.json",
-      "sha256": "e659b64b6c24f0e004ee6252344ccb7414d09f65fa8fee7e10866a6cd3245c71",
+      "sha256": "7598f3ae9365ae583379f82713136235aaae9aba8b65c37b00f372e4c1922abe",
       "tokenCount": 194,
       "omissions": [
         {
@@ -17654,7 +17654,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__thuy-ocean__comfortable__standard.dtcg.json",
-      "sha256": "8202ccb63c1dbeffc6f8ab81d2772bc854732fbe09109614b168a340bc637a77",
+      "sha256": "895c745716fdf2e08986e64edf87713edc0b2e23dbee71001cfc63afc7c022dc",
       "tokenCount": 194,
       "omissions": [
         {
@@ -17731,7 +17731,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__thuy-ocean__comfortable__high.dtcg.json",
-      "sha256": "968ebafa4f5da9641841e25df3324cc397e24185f014acb39320f9c2fbe11823",
+      "sha256": "87276694011ce4c0ed75ff58b168d8450df28fd8e122d007f410e1077a1e4674",
       "tokenCount": 194,
       "omissions": [
         {
@@ -17808,7 +17808,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__thuy-ocean__compact__standard.dtcg.json",
-      "sha256": "c26c14aa9e68edaa12a369ab69838189ca535edd088c6db291e6042d2aaaf0ac",
+      "sha256": "31e0679830fc473cc0af6d21ef766b0440714f53cc2c2710567bcca98d01ba1f",
       "tokenCount": 194,
       "omissions": [
         {
@@ -17885,7 +17885,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__thuy-ocean__compact__high.dtcg.json",
-      "sha256": "bb3f6acd4e677d591701e03ff2fca3e412cd46d5e973dbb94c6adb8f00478d70",
+      "sha256": "04ee177c50a350834075e2ac6da09a7cbb2f988fa696aeb3e2a67756254dff81",
       "tokenCount": 194,
       "omissions": [
         {
@@ -17962,7 +17962,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__moc-bamboo__comfortable__standard.dtcg.json",
-      "sha256": "fe750114fa18b841252b80311431cec8a11ed48c703975e7591de16e443c0410",
+      "sha256": "ec3f4eb4bd4097e4217a44ae1d35a86da85284cf195cc7f29efd48bd74460bc8",
       "tokenCount": 194,
       "omissions": [
         {
@@ -18039,7 +18039,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__moc-bamboo__comfortable__high.dtcg.json",
-      "sha256": "22b8d79cd0c7a0c7bd9b9de24367c72a072e5496deaf2ba1754ec4a6ed47fd67",
+      "sha256": "fbde1d12d7f0f20287fb66ce1bbcbadcba76774514209fb2cb8bac7716b4ed5e",
       "tokenCount": 194,
       "omissions": [
         {
@@ -18116,7 +18116,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__moc-bamboo__compact__standard.dtcg.json",
-      "sha256": "1ee0ef3ab282851af256642731bbbfdea42c46ea7cfe44f3b83a170b7d23ee07",
+      "sha256": "7eb12e89944cd65e4246f18ff3eb61fe86b8a5b6ea943cbaebf540a197a68384",
       "tokenCount": 194,
       "omissions": [
         {
@@ -18193,7 +18193,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__moc-bamboo__compact__high.dtcg.json",
-      "sha256": "6ef45044f61a766cfd348a295545000a086331d51ec09f676d97673599d5f75e",
+      "sha256": "51340927e45641512f0f4f09cc84518417a51c53eb43f07eb41144a04a9d8874",
       "tokenCount": 194,
       "omissions": [
         {
@@ -18270,7 +18270,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__moc__comfortable__standard.dtcg.json",
-      "sha256": "8db297d407ce3617c42499f5c031e8945420e9334bebf940652a38894e451960",
+      "sha256": "f794d0be5750b3efa0a3c2aa085012ce2c2cbf46e97eee10f484608a71378a6d",
       "tokenCount": 194,
       "omissions": [
         {
@@ -18347,7 +18347,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__moc__comfortable__high.dtcg.json",
-      "sha256": "2de0e3aa423737b8b79c6dd29ea7f4c54b29e38dc7575883fa78c113ec244ab7",
+      "sha256": "1f25de7528b5aa4d6112ecb5ab5a0ae018f227c0c3b59d48118ba4f74b33a903",
       "tokenCount": 194,
       "omissions": [
         {
@@ -18424,7 +18424,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__moc__compact__standard.dtcg.json",
-      "sha256": "47ae44da0bdc21f30cb9a39bab1c230ac3371e0a83bd2efb5a5d9f7471305798",
+      "sha256": "6e6ccfc68e4851001dd02fd2df620684211e23f718cb5ab4c1cf73bedf3387c7",
       "tokenCount": 194,
       "omissions": [
         {
@@ -18501,7 +18501,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__moc__compact__high.dtcg.json",
-      "sha256": "ebb0bfd78996f9bec5812dbb62ca53d13428a7f0350ba3f2da61c94cecf65f82",
+      "sha256": "7d7c92deb275b6b2899507e4a29fdbd825b17f585715e359d5cd11029cee4f52",
       "tokenCount": 194,
       "omissions": [
         {
@@ -18578,7 +18578,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__moc-forest__comfortable__standard.dtcg.json",
-      "sha256": "144af5ccf55eafa9173c1b256b5dc88f9526efa3b6d203c4731db494811f950a",
+      "sha256": "b409e0ca98136d829c91e0b1db609155cb73b459ea7eef4c83af470cb9e87347",
       "tokenCount": 194,
       "omissions": [
         {
@@ -18655,7 +18655,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__moc-forest__comfortable__high.dtcg.json",
-      "sha256": "9a038d587a07a8d2852164df4cae798775f3cd0f8ff3ea85c38ac99f079073ee",
+      "sha256": "a65853d61bc2bc511752553a2a08a4a8552b097eb109abfbe7557c27961cda9f",
       "tokenCount": 194,
       "omissions": [
         {
@@ -18732,7 +18732,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__moc-forest__compact__standard.dtcg.json",
-      "sha256": "7c947e42b6c6e944a5d525c88a422d59d04cd07b1cd6538fc601149a5207cdc8",
+      "sha256": "fc1e7d512511bee9faccf83d9f123ca7df9e2c8eb3c3b4ae29594eb3744eb186",
       "tokenCount": 194,
       "omissions": [
         {
@@ -18809,7 +18809,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__moc-forest__compact__high.dtcg.json",
-      "sha256": "262fff3af5ef069c5de5053bfd95897579f532c43dfff591fe4d18c9807edd64",
+      "sha256": "4ecef31f368866cc64a6c8d569d35f426ac34d3a23f45f5e3b7a869824d2474a",
       "tokenCount": 194,
       "omissions": [
         {
@@ -18886,7 +18886,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__kim-titanium__comfortable__standard.dtcg.json",
-      "sha256": "8800e58c893ad700739ba70ded8e1dedb512e19ef9d33c9f441406176fa6304f",
+      "sha256": "cc624d229f170fdd702e1c53c821f6b5014762be14ec0615d4bb01da77707485",
       "tokenCount": 194,
       "omissions": [
         {
@@ -18963,7 +18963,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__kim-titanium__comfortable__high.dtcg.json",
-      "sha256": "7e931d0bdb8680bc0d86cb8cbf2465a09fc10b86159caf631624e00353dcd207",
+      "sha256": "514389e835cdada822a2053cb3cee0872d37b77c742eb766c42f0b87fdb01c25",
       "tokenCount": 194,
       "omissions": [
         {
@@ -19040,7 +19040,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__kim-titanium__compact__standard.dtcg.json",
-      "sha256": "7e987e006dd1d2c7310a5f01b37c9d2565d3ccb5bd262cf4f7d14893d2b507d7",
+      "sha256": "e1cdb142849c7de915355ecae7f5db2fd27339f00f361819baee828894be498c",
       "tokenCount": 194,
       "omissions": [
         {
@@ -19117,7 +19117,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__kim-titanium__compact__high.dtcg.json",
-      "sha256": "acf584d23f0353faed80c926cded1d024f9aecf16fc50166b3f06923add2d363",
+      "sha256": "26e9c57fefae062d504300a216ea3c95abe445c08d9d5e5d1cc0cd0e8ec1e60e",
       "tokenCount": 194,
       "omissions": [
         {
@@ -19194,7 +19194,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__kim__comfortable__standard.dtcg.json",
-      "sha256": "0279ebc5ee989cf941c21d5186fc86f8215321a7af7a78b48bc7c328333a9c7f",
+      "sha256": "1eaa34da11589c7118858f44a8fcf61604d9d72d825395bf5600ccd1b8926e9d",
       "tokenCount": 194,
       "omissions": [
         {
@@ -19271,7 +19271,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__kim__comfortable__high.dtcg.json",
-      "sha256": "4e6a95461d12e48003fed007b0691a786d967bb72f49e02464ae1ad6359b6ca7",
+      "sha256": "565195c5de5493690cc13e85bb1b540de6211240cd9c335cfe2363d15eb489d4",
       "tokenCount": 194,
       "omissions": [
         {
@@ -19348,7 +19348,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__kim__compact__standard.dtcg.json",
-      "sha256": "60b476031f3fb4c1a4230d3350eaa6239fe43b8fc0ad972b36c12e1b4349f6ca",
+      "sha256": "cc68a6e28c5880b55cb196f51f57336831940155bb40d9c8abb1a224373ddc70",
       "tokenCount": 194,
       "omissions": [
         {
@@ -19425,7 +19425,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__kim__compact__high.dtcg.json",
-      "sha256": "0f3e963f247799b8c13438d7a9d94829f26a1399599364913bc87617066feaa9",
+      "sha256": "ebc8628521b7e082819d5618de446e1b9ada29c46cd057d99b3a8a087bddd015",
       "tokenCount": 194,
       "omissions": [
         {
@@ -19502,7 +19502,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__kim-steel__comfortable__standard.dtcg.json",
-      "sha256": "004039cd109e70d55d9eda1a6bdaf1c0f6513791c8147594cde1395352da555d",
+      "sha256": "e7372a18c80809dcb4cb78114e40d35819b52266bc66031c83cb31ace1eba08d",
       "tokenCount": 194,
       "omissions": [
         {
@@ -19579,7 +19579,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__kim-steel__comfortable__high.dtcg.json",
-      "sha256": "edcd7e71138718ebab09979fc789efa5844cf0d1d4a98aa0f70615db7cf1d99d",
+      "sha256": "f6b0dc2771afa4df608c743581a8049c748fe5f3c859bc3db7a2a2b01cee3221",
       "tokenCount": 194,
       "omissions": [
         {
@@ -19656,7 +19656,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__kim-steel__compact__standard.dtcg.json",
-      "sha256": "83dba6e16a12869d71e0bc6c5a4fbb4a091e9064aeecc0be46240dc2c66ada0d",
+      "sha256": "4480528f62362150d26587d414732d3fd82b1f675a0749d97f909b8003037bba",
       "tokenCount": 194,
       "omissions": [
         {
@@ -19733,7 +19733,7 @@
         "style": "liquid-glass"
       },
       "file": "system-dark__kim-steel__compact__high.dtcg.json",
-      "sha256": "56e1f903072443d4641ce61580db5e1cc845d9540ae6280a0343ad6c962a1940",
+      "sha256": "19b199e0b460f824efd9e057c882c8e180c279923abde51745a70815e8d2b7c1",
       "tokenCount": 194,
       "omissions": [
         {

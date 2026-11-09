@@ -6,13 +6,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>CyberSkill — Feedback & status</title>
 <meta name="description" content="Feedback & status: Badge, Tag, Alert, Toast, Spinner, Progress, Skeleton" />
-<link rel="stylesheet" href="../../styles.css" />
+<link rel="stylesheet" href="../../dist/styles.css" />
 <style>
   body { margin: 0; background: var(--cs-color-surface-page); padding: 22px 24px; }
   .stack { display: grid; gap: 18px; max-width: 620px; }
   .row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
   .lbl { width: 100%; font: 600 11px/1 var(--cs-font-family-ui); text-transform: uppercase; letter-spacing: .09em; color: var(--cs-color-text-muted); }
-  .frame { position: relative; height: 96px; border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); background: var(--cs-color-surface-raised); }
+  .frame { position: relative; flex: 1 1 100%; min-width: 0; height: 96px; border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-md); background: var(--cs-color-surface-raised); }
   .frame .cs-toast-stack { position: absolute; inset-block-end: 12px; inset-inline-end: 12px; }
 </style>
 <script src="../../_vendor/react/react.production.min.js"></script>

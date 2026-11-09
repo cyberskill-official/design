@@ -164,11 +164,12 @@ window.addEventListener('load',()=>setTimeout(async()=>{
     return 'universal reduced-motion override present';
   });
   await atest('prefers-contrast:more strengthens border/muted text, light + dark',async()=>{
-    const css=await (await fetch('../base/a11y.css')).text();
-    const m=/@media\s*\(prefers-contrast:\s*more\)\s*\{([\s\S]*?)\n\}\s*$/.exec(css.trim()) || /@media\s*\(prefers-contrast:\s*more\)\s*\{([\s\S]*)\}/.exec(css);
+    const css=await (await fetch('../tokens/elements.css')).text();
+    const m=/@media\s*\(prefers-contrast:\s*more\)\s*\{([\s\S]*?)\n\}/.exec(css);
     assert(m,'prefers-contrast:more block missing');
-    assert(/--cs-color-border-default/.test(m[1])&&/--cs-color-text-muted/.test(m[1]),'missing border/muted overrides');
-    assert(/\[data-theme="dark"\]/.test(m[1]),'no dark-theme companion override');
+    assert(/--_cs-standard:\s*;[\s\S]*--_cs-high:\s*initial/.test(m[1]),'missing high-contrast channel switch');
+    assert(/--cs-color-border-default:\s*var\(--_cs-standard[\s\S]*var\(--_cs-high/.test(css)&&/--cs-color-text-muted:\s*var\(--_cs-standard[\s\S]*var\(--_cs-high/.test(css),'missing border/muted high-contrast bindings');
+    assert(/var\(--_cs-dark/.test(css),'no dark-theme companion binding');
     return 'light + dark high-contrast overrides present';
   });
   // Presence of a label element or an aria-labelledby string is insufficient.

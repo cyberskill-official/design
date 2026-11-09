@@ -22,9 +22,9 @@ export function atomicMetadata(html, publicNames) {
   for(const text of scripts.filter(x=>x.trim())) {
     const ast=parse(text,{sourceType:'script',plugins:['jsx']});
     if(publicNames){
-      const bindings=new Set();
-      for(const node of ast.program.body)if(node.type==='VariableDeclaration')for(const decl of node.declarations)if(decl.id.type==='ObjectPattern'&&decl.init?.name==='NS')for(const prop of decl.id.properties)bindings.add(prop.value.name);
-      const visit=node=>{if(!node||typeof node!=='object')return;if(node.type==='JSXOpeningElement'&&node.name.type==='JSXIdentifier'&&bindings.has(node.name.name))assert(publicNames.includes(node.name.name),`Rendered export missing from catalog: ${node.name.name}`);for(const[key,value]of Object.entries(node)){if(['loc','extra','comments'].includes(key))continue;if(Array.isArray(value))value.forEach(visit);else if(value&&typeof value==='object')visit(value)}};visit(ast);
+      const bindings=new Map();
+      for(const node of ast.program.body)if(node.type==='VariableDeclaration')for(const decl of node.declarations)if(decl.id.type==='ObjectPattern'&&decl.init?.name==='NS')for(const prop of decl.id.properties)bindings.set(prop.value.name,prop.key.name);
+      const visit=node=>{if(!node||typeof node!=='object')return;if(node.type==='JSXOpeningElement'&&node.name.type==='JSXIdentifier'&&bindings.has(node.name.name))assert(publicNames.includes(bindings.get(node.name.name)),`Rendered export missing from catalog: ${bindings.get(node.name.name)}`);for(const[key,value]of Object.entries(node)){if(['loc','extra','comments'].includes(key))continue;if(Array.isArray(value))value.forEach(visit);else if(value&&typeof value==='object')visit(value)}};visit(ast);
     }
     for(const n of ast.program.body)if(n.type==='VariableDeclaration')for(const item of n.declarations)if(item.id.name==='STORIES') {
     assert(!entries&&item.init.type==='ArrayExpression','One actual Atomic story array required');
@@ -45,7 +45,10 @@ export function replaceOwned(text,label,value) {
   return text.slice(0,text.indexOf(a))+a+'\n'+value+'\n'+b+text.slice(text.indexOf(b)+b.length);
 }
 export function inventoryOutputs(manifest,readme,atomic) {
-  const {groups,names}=publicInventory(manifest),index=atomicStoryIndex(atomic,manifest),metadata=atomicMetadata(atomic,names),tiers=new Map();
+  const {groups,names}=publicInventory(manifest),aliases={Comment:'CsComment',Image:'CsImage'};
+  const binding='const {\n'+names.map(x=>'  '+(aliases[x]?`${x}: ${aliases[x]}`:x)+',').join('\n')+'\n} = NS;';
+  const nextAtomic=replaceOwned(atomic,'CATALOG COMPONENT BINDINGS',binding);
+  const index=atomicStoryIndex(nextAtomic,manifest),metadata=atomicMetadata(nextAtomic,names),tiers=new Map();
   assert.equal(new Set(metadata.map(x=>x.name)).size,metadata.length,'Duplicate Atomic story name');
   for(const row of metadata){const observed=index.stories.find(x=>x.name===row.name);assert(observed&&observed.renderedTargets.length,`No actual render for ${row.name}`);if(!tiers.has(row.tier))tiers.set(row.tier,new Set());for(const name of observed.renderedTargets){assert(names.includes(name),`Unknown rendered export ${name}`);tiers.get(row.tier).add(name)}}
   const rows=[`Generated from the public source catalog and actual Atomic story AST. **${names.length} exports across ${groups.size} import groups**; kinds include components, constants and hooks. Inventory membership is not semantic or human acceptance.`, ''];
@@ -53,7 +56,5 @@ export function inventoryOutputs(manifest,readme,atomic) {
   rows.push('**Observed Atomic compositions** — these lists derive from actual JSX render targets in the authored tier stories, including reused children. A target can occur in more than one tier. Context-only providers, constants and hooks do not imply standalone visual specimens.','');
   for(const[tier,targets]of tiers)rows.push(`- **${tier}** — ${[...targets].sort().map(x=>'`'+x+'`').join(', ')}`,'');
   const nextReadme=replaceOwned(readme,'CATALOG COMPONENT INVENTORY',rows.join('\n').trim());
-  const binding='const {\n'+names.map(x=>'  '+x+',').join('\n')+'\n} = NS;';
-  const nextAtomic=replaceOwned(atomic,'CATALOG COMPONENT BINDINGS',binding);
   return new Map([['README.md',nextReadme],['guidelines/atomic-view.html',nextAtomic]]);
 }

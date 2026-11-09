@@ -138,17 +138,12 @@
  * warm hairline border and muted text (both are intentionally soft by default).
  * Only activates on user request; anchors (Umber/Ochre) and focus rings are
  * already high-contrast and untouched. ---- */
-@media (prefers-contrast: more) {
-  [data-theme="light"]:where(:not([data-cs-contrast="standard"], [data-cs-contrast="standard"] *)),
-  [data-theme="system"]:where(:not([data-cs-contrast="standard"], [data-cs-contrast="standard"] *)),
-  :root:where(:not([data-cs-contrast="standard"])) { --cs-color-border-default: #9a8060; --cs-color-text-muted: #45210e; }
-  [data-theme="dark"]:where(:not([data-cs-contrast="standard"], [data-cs-contrast="standard"] *)) { --cs-color-border-default: #7a6450; --cs-color-text-muted: #f5ead9; }
-}
-
-/* System dark gets stronger contrast only when the user requests it, just like explicit dark. */
-@media (prefers-color-scheme: dark) and (prefers-contrast: more) {
-  [data-theme="system"]:where(:not([data-cs-contrast="standard"], [data-cs-contrast="standard"] *)) { --cs-color-border-default: #7a6450; --cs-color-text-muted: #f5ead9; }
-}
+/* The values live in tokens/elements.css: the scope resolver derives
+ * --cs-color-border-default / --cs-color-text-muted from the --_cs-standard /
+ * --_cs-high channel toggles, which flip to high under prefers-contrast: more
+ * (light #9a8060 / #45210e · dark #7a6450 / #f5ead9) unless a scope sets
+ * data-cs-contrast explicitly. The former contextual overrides here were
+ * already superseded by that resolver's higher specificity. */
 
 /* Forced colors removes authored backgrounds and shadows. State must survive
  * that substitution using real borders, system colors and knob position. */

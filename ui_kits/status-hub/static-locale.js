@@ -1,9 +1,11 @@
 /* EN/VI copy for the three static Status Hub previews. Native form values,
  * caller data and theme are independent; language is local and not persisted. */
 (function () {
+  if (typeof document === 'undefined') return;
   var root = document.documentElement;
   var toggle = document.querySelector('[data-preview-language-toggle]');
   var select = document.querySelector('[data-preview-language-select]');
+  if (!toggle && !select) return; // only the static Status Hub previews own this language switch
   function apply(lang) {
     var vi = lang === 'vi';
     root.lang = vi ? 'vi' : 'en';

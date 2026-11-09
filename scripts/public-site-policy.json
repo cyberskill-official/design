@@ -871,6 +871,7 @@
         "dist/esm/components/overlays/Tour.mjs.map",
         "dist/esm/components/textfield/TextField.mjs",
         "dist/esm/components/textfield/TextField.mjs.map",
+        "dist/styles.css",
         "dist/styles.min.css",
         "fonts/OFL.txt",
         "fonts/bevietnampro-300-latin-ext.woff2",

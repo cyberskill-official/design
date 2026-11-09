@@ -392,7 +392,7 @@
   [data-theme="system"] { --_cs-light: ; --_cs-dark: initial; }
 }
 @media (prefers-contrast: more) {
-  :root:where(:not([data-cs-contrast])) { --_cs-standard: ; --_cs-high: initial; }
+  :root { --_cs-standard: ; --_cs-high: initial; }
 }
 [data-cs-contrast="standard"] { --_cs-standard: initial; --_cs-high: ; }
 [data-cs-contrast="high"] { --_cs-standard: ; --_cs-high: initial; }
@@ -1192,13 +1192,4 @@
 }
 /* Source: base/interaction.css */
 /* Source: base/a11y.css */
-@media (prefers-contrast: more) {
-  [data-theme="light"]:where(:not([data-cs-contrast="standard"], [data-cs-contrast="standard"] *)),
-  [data-theme="system"]:where(:not([data-cs-contrast="standard"], [data-cs-contrast="standard"] *)),
-  :root:where(:not([data-cs-contrast="standard"])) { --cs-color-border-default: #9a8060; --cs-color-text-muted: #45210e; }
-  [data-theme="dark"]:where(:not([data-cs-contrast="standard"], [data-cs-contrast="standard"] *)) { --cs-color-border-default: #7a6450; --cs-color-text-muted: #f5ead9; }
-}
-@media (prefers-color-scheme: dark) and (prefers-contrast: more) {
-  [data-theme="system"]:where(:not([data-cs-contrast="standard"], [data-cs-contrast="standard"] *)) { --cs-color-border-default: #7a6450; --cs-color-text-muted: #f5ead9; }
-}
 /* Source: base/responsive.css */

@@ -137,20 +137,20 @@
   --_cs-dark-accent-grad-a: #F4BA17;
   --_cs-light-accent-grad-b: #C4B78F;
   --_cs-dark-accent-grad-b: #C4B78F;
-  --_cs-standard: initial;
-  --_cs-high: ;
+  --_cs-standard: initial; /* @kind other */
+  --_cs-high: ; /* @kind other */
 }
 
-:root, [data-theme="light"], [data-theme="system"] { --_cs-light: initial; --_cs-dark: ; }
-[data-theme="dark"] { --_cs-light: ; --_cs-dark: initial; }
+:root, [data-theme="light"], [data-theme="system"] { --_cs-light: initial; /* @kind other */ --_cs-dark: ; /* @kind other */ }
+[data-theme="dark"] { --_cs-light: ; /* @kind other */ --_cs-dark: initial; /* @kind other */ }
 @media (prefers-color-scheme: dark) {
-  [data-theme="system"] { --_cs-light: ; --_cs-dark: initial; }
+  [data-theme="system"] { --_cs-light: ; /* @kind other */ --_cs-dark: initial; /* @kind other */ }
 }
 @media (prefers-contrast: more) {
-  :root:where(:not([data-cs-contrast])) { --_cs-standard: ; --_cs-high: initial; }
+  :root { --_cs-standard: ; /* @kind other */ --_cs-high: initial; /* @kind other */ }
 }
-[data-cs-contrast="standard"] { --_cs-standard: initial; --_cs-high: ; }
-[data-cs-contrast="high"] { --_cs-standard: ; --_cs-high: initial; }
+[data-cs-contrast="standard"] { --_cs-standard: initial; /* @kind other */ --_cs-high: ; /* @kind other */ }
+[data-cs-contrast="high"] { --_cs-standard: ; /* @kind other */ --_cs-high: initial; /* @kind other */ }
 
 [data-cs-element="tho"][data-cs-variant="sand"] {
   --_cs-light-accent: #F9E3A7;
