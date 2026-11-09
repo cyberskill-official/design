@@ -28,6 +28,18 @@ Các thay đổi này thuộc working tree đang sửa đổi. Đây chưa phả
 
 Release vẫn chờ nghiệm thu thị giác của con người, kiểm tra native/công nghệ hỗ trợ thủ công bắt buộc, quyết định về nguồn gốc tài nguyên và nghiệm thu hiện vật pilot đã thay đổi. Bằng chứng hỗ trợ đã thay đổi phải được review lại trong `components/lifecycle.json`. EN/VI là phạm vi ngôn ngữ mục tiêu; tiếng Nhật vẫn là spike chưa đầy đủ. Ghi chú này không cho phép mở rộng cam kết hỗ trợ, deprecate hay loại bỏ API.
 
+## Release — `@cyberskill/design@2.5.0`
+
+Phiên bản minor ổn định đã công bố được ghi nhận trong `_audit/ci/fixtures/npm-published-release.json` (quan sát lúc `2026-11-09T06:04:11.249Z`, tag `v2.5.0` tại commit `6e7fe3c158b122c8ca19b8253eb06460c7f2f919`). Các tag kho mã `v2.3.1` và `v2.4.0` đi trước `v2.5.0`.
+
+- **Đồng bộ chủ đề lồng nhau & Liquid Glass (`base/glass.css`, `tokens/theme-dark.css`):** Tính lại các token `--_cs-light` / `--_cs-dark`, `--_cs-surface-scrim` và toàn bộ tám chất liệu `--cs-glass-*-{bg,border}` bên trong các khối `[data-theme]` lồng nhau.
+- **Tương phản 32 scope & an toàn nền Dark mặc định (`base/collections.css`, `base/controls.css`, `base/feedback.css`, `base/shell.css`, `base/ai.css`):** Thay nền `--cs-accent-tint` thiếu scope ở Dark Mode bằng `color-mix(in oklab, var(--cs-accent) 18%, var(--cs-color-surface-panel))`, nâng các chỉ báo phi văn bản lên `--cs-color-text-accent` (`WCAG 1.4.11 ≥ 3:1` trên toàn bộ 32 scope) và bổ sung viền nội tiếp cho bề mặt Umber trên nền tối.
+- **Đồng bộ trạng thái lỗi 13 form control & chiều cao dòng tiếng Việt (`base/components.css`, `base/controls.css`, `base/typography.css`, `base/data.css`):** Thống nhất viền lỗi `.is-invalid` / `[aria-invalid="true"]` trên cả 13 loại form control và áp dụng `:lang(vi) { line-height: 1.22; }` cho `.cs-display` cùng `.cs-stat__value`.
+
+```bash
+npm install @cyberskill/design@2.5.0
+```
+
 ## Release — `@cyberskill/design@2.3.0`
 
 Phiên bản minor ổn định đã công bố được ghi nhận trong `_audit/ci/fixtures/npm-published-release.json` (quan sát lúc `2026-11-06T03:56:00.000Z`, tag `v2.3.0` tại commit `1f873e812e9a02ec68bbc49c3b7ae3248a165ac9`).

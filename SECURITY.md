@@ -17,13 +17,13 @@ Please disclose privately via **GitHub Security Advisories** for [`cyberskill-of
 
 | Release line | Security maintenance |
 |---|---|
-| Latest published stable minor, currently **2.3.x** | Security triage and fixes target this line. |
+| Latest published stable minor, currently **2.5.x** | Security triage and fixes target this line. |
 | Earlier stable minor/major lines | Upgrade guidance; no backport commitment. |
 | Unreleased working tree and prereleases | Development evidence; not a supported published release. |
 
-The latest-published snapshot is **2.3.0**, observed at
-`2026-11-06T03:56:00.000Z` from the official npm registry. Snapshot SHA-256:
-`fa7104b11267e27203b0f7fa5e86faa1ff9bdb925f27af194efd375203ed76b3`. This is a recorded publication identity, not a live registry query.
+The latest-published snapshot is **2.5.0**, observed at
+`2026-11-09T06:04:11.249Z` from the official npm registry. Snapshot SHA-256:
+`b29421c4e236ce4d4a06aaabce46d3cd8fb2b176c0f38a11bfe08e3d1fd8f9eb`. This is a recorded publication identity, not a live registry query.
 Refresh the snapshot and this generated block after a separately authorized
 publication; a local VERSION change does not establish publication or support.
 
