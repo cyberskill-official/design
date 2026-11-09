@@ -855,7 +855,7 @@
       "path": "docs/UPSTREAM.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "6cd42c6e9ab05e3a13c4f66a4654469bd1550769479f9bc038851f4f3abaaa0d"
+      "sha256": "3a90594858bb1e6ef2069db5c7cca00dead2e4606bed1c51fcf89c2a23636eb0"
     },
     {
       "path": "docs/benchmark-rubric.md",
@@ -1137,7 +1137,7 @@
       "path": "docs/vi/UPSTREAM.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "a3b7fe977e353cc38f732f90d7040f21625f16bce1440e9bed47d52ad8a4d2c5"
+      "sha256": "c755805e5f6136dc5a7c9ec49356dbce34bed97646156c312d89ec2d6b24c9af"
     },
     {
       "path": "docs/vi/benchmark-rubric.md",
