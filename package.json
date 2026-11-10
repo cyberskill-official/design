@@ -593,7 +593,7 @@
     "test:state-machine-async-overlays": "node _audit/ci/lib/run-browsers.mjs _audit/ci/test-state-machine-async-overlays-browser.mjs"
   },
   "devDependencies": {
-    "@babel/parser": "7.29.7",
+    "@babel/parser": "8.1.0",
     "@csstools/css-syntax-patches-for-csstree": "1.1.16",
     "@jridgewell/trace-mapping": "0.3.31",
     "@storybook/addon-a11y": "10.6.5",
