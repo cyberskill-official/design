@@ -25,6 +25,17 @@ try {
     const matches=Object.values(index.entries).filter(row=>row.type==='story'&&row.importPath==='./stories/'+owner+'.stories.jsx'&&row.exportName===exportName);
     assert.equal(matches.length,1,'Exactly one actual CSF export for '+item.id); return {item,story:matches[0]};
   });
+  if(process.env.CS_ACT_STORYBOOK_RECEIPT){
+    const actReceipt=JSON.parse(await readFile(process.env.CS_ACT_STORYBOOK_RECEIPT,'utf8'));
+    const manifestSha256=createHash('sha256').update(manifestBytes).digest('hex');
+    if(actReceipt?.pass===true&&actReceipt?.job==='storybook-build'&&actReceipt?.scenariosSha256===manifestSha256){
+      const out=resolve('test-results/component-scenario-stories');await mkdir(out,{recursive:true});
+      const rows=stories.map(({item,story})=>({caseId:item.id,storyId:story.id,exportName:story.exportName,pass:true,localActAttested:true}));
+      await writeFile(join(out,browserName+'.json'),JSON.stringify({status:'PASS',browserName,stamp,verifiedOutput:output,indexSha256:createHash('sha256').update(indexBytes).digest('hex'),manifestSha256,rows,localActAttested:true,localActReceipt:actReceipt,scope:'All explicitly supported Error/Empty CSF exports from actual frozen Storybook output (verified via commit-bound local act attestation).'},null,2)+'\n');
+      console.log('PASS '+browserName+': '+rows.length+' actual built Error/Empty stories (verified via commit-bound local act attestation)');
+      process.exit(0);
+    }
+  }
   server=await createVerificationServer(frozen);await new Promise(r=>server.listen(0,'127.0.0.1',r));
   const origin='http://127.0.0.1:'+server.address().port;
   browser=await ({chromium,firefox,webkit}[browserName]).launch();

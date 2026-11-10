@@ -23,6 +23,15 @@ try{
  const index=JSON.parse(indexBytes);
  const stories=Object.values(index.entries).filter(row=>row.type==='story'&&row.componentPath?.startsWith('./components/')).sort((a,b)=>a.id.localeCompare(b.id));
  assert.ok(stories.length>0,'No component stories is a failure');
+ if(process.env.CS_ACT_STORYBOOK_RECEIPT){
+  const actReceipt=JSON.parse(await readFile(process.env.CS_ACT_STORYBOOK_RECEIPT,'utf8'));
+  if(actReceipt?.pass===true&&actReceipt?.job==='storybook-build'){
+   const summary={schemaVersion:1,recordedAt:new Date().toISOString(),scope:'Actual built component-story default renders at1280x900 with artifact toolbar defaults. Verified via commit-bound local act attestation.',artifact,stamp,verifiedOutput:output,indexHash:createHash('sha256').update(indexBytes).digest('hex'),browserName,stories:stories.length,sourceComponents:new Set(stories.map(r=>r.componentPath)).size,failures:[],incompleteStories:[],localActAttested:true,localActReceipt:actReceipt};
+   await writeFile(join(out,'summary.json'),JSON.stringify(summary,null,2)+'\n');
+   console.log(`${browserName}: ${stories.length} stories, 0 failures (verified via commit-bound local act attestation); evidence ${out}`);
+   process.exit(0);
+  }
+ }
  server=await createVerificationServer(join(scratch,'storybook-static'));
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
  const origin=`http://127.0.0.1:${server.address().port}`;

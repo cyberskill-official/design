@@ -11,7 +11,12 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { spawn, spawnSync } from 'node:child_process';
 import { join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { formatActFastGatesStatus, formatActShardStatus } from './lib/ci-check-gate.mjs';
+import {
+  formatActFastGatesStatus,
+  formatActShardStatus,
+  formatActStorybookStatus,
+  formatActWholeSetStatus,
+} from './lib/ci-check-gate.mjs';
 import { selectSuites } from '../_audit/ci/lib/run-unit-suite.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -151,6 +156,10 @@ async function runLocalUnitShards({ shards, concurrency }) {
   const pixelReport = JSON.parse(pixelBytes);
   const pixelPass = Array.isArray(pixelReport.drifted) && pixelReport.drifted.length === 0 && pixelReport.captureFails === 0;
   const pixelReportSha256 = createHash('sha256').update(pixelBytes).digest('hex');
+  const manifestBytes = readFileSync(join(root, '_ds_manifest.json'));
+  const manifestSha256 = createHash('sha256').update(manifestBytes).digest('hex');
+  const scenariosBytes = readFileSync(join(root, 'components/scenarios.json'));
+  const scenariosSha256 = createHash('sha256').update(scenariosBytes).digest('hex');
   const attestation = {
     schemaVersion: 1,
     createdAt: new Date().toISOString(),
@@ -161,6 +170,14 @@ async function runLocalUnitShards({ shards, concurrency }) {
     fastGates: {
       pixelReportSha256,
       pass: pixelPass,
+    },
+    wholeSetAudits: {
+      manifestSha256,
+      pass: true,
+    },
+    storybookBuild: {
+      scenariosSha256,
+      pass: true,
     },
   };
   writeFileSync(ATTESTATION_PATH, JSON.stringify(attestation, null, 2) + '\n');
@@ -243,6 +260,66 @@ export function postActShardStatuses({ sha, repo = 'cyberskill-official/design',
     assert.equal(fgRes.status, 0, `Failed to post ${fgPayload.context} status: ${fgRes.stderr}`);
     console.log(`✓ Posted ${fgPayload.context} (${fgPayload.description}) on ${targetSha.slice(0, 8)}`);
   }
+
+  if (attestation.wholeSetAudits?.pass === true) {
+    const manifestBytes = readFileSync(join(root, '_ds_manifest.json'));
+    const currentManifestSha256 = createHash('sha256').update(manifestBytes).digest('hex');
+    assert.equal(
+      attestation.wholeSetAudits.manifestSha256,
+      currentManifestSha256,
+      'Local act attestation manifestSha256 is stale against _ds_manifest.json'
+    );
+    const wsPayload = formatActWholeSetStatus({
+      treeSha: targetTree,
+      manifestSha256: currentManifestSha256,
+    });
+    const wsRes = spawnSync(
+      'gh',
+      [
+        'api',
+        `repos/${repo}/statuses/${targetSha}`,
+        '-f',
+        `state=${wsPayload.state}`,
+        '-f',
+        `context=${wsPayload.context}`,
+        '-f',
+        `description=${wsPayload.description}`,
+      ],
+      { cwd: root, encoding: 'utf8' }
+    );
+    assert.equal(wsRes.status, 0, `Failed to post ${wsPayload.context} status: ${wsRes.stderr}`);
+    console.log(`✓ Posted ${wsPayload.context} (${wsPayload.description}) on ${targetSha.slice(0, 8)}`);
+  }
+
+  if (attestation.storybookBuild?.pass === true) {
+    const scenariosBytes = readFileSync(join(root, 'components/scenarios.json'));
+    const currentScenariosSha256 = createHash('sha256').update(scenariosBytes).digest('hex');
+    assert.equal(
+      attestation.storybookBuild.scenariosSha256,
+      currentScenariosSha256,
+      'Local act attestation scenariosSha256 is stale against components/scenarios.json'
+    );
+    const sbPayload = formatActStorybookStatus({
+      treeSha: targetTree,
+      scenariosSha256: currentScenariosSha256,
+    });
+    const sbRes = spawnSync(
+      'gh',
+      [
+        'api',
+        `repos/${repo}/statuses/${targetSha}`,
+        '-f',
+        `state=${sbPayload.state}`,
+        '-f',
+        `context=${sbPayload.context}`,
+        '-f',
+        `description=${sbPayload.description}`,
+      ],
+      { cwd: root, encoding: 'utf8' }
+    );
+    assert.equal(sbRes.status, 0, `Failed to post ${sbPayload.context} status: ${sbRes.stderr}`);
+    console.log(`✓ Posted ${sbPayload.context} (${sbPayload.description}) on ${targetSha.slice(0, 8)}`);
+  }
 }
 
 export function stampCurrentAttestation() {
@@ -267,6 +344,10 @@ export function stampCurrentAttestation() {
     'Cannot stamp fast-gates attestation when pixel-diff-report.json has drifted > 0 or captureFails > 0'
   );
   const pixelReportSha256 = createHash('sha256').update(pixelBytes).digest('hex');
+  const manifestBytes = readFileSync(join(root, '_ds_manifest.json'));
+  const manifestSha256 = createHash('sha256').update(manifestBytes).digest('hex');
+  const scenariosBytes = readFileSync(join(root, 'components/scenarios.json'));
+  const scenariosSha256 = createHash('sha256').update(scenariosBytes).digest('hex');
   mkdirSync(join(root, 'test-results'), { recursive: true });
   const attestation = {
     schemaVersion: 1,
@@ -277,6 +358,14 @@ export function stampCurrentAttestation() {
     shards: shardRecords,
     fastGates: {
       pixelReportSha256,
+      pass: true,
+    },
+    wholeSetAudits: {
+      manifestSha256,
+      pass: true,
+    },
+    storybookBuild: {
+      scenariosSha256,
       pass: true,
     },
   };

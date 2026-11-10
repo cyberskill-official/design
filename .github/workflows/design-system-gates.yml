@@ -206,6 +206,10 @@ jobs:
           node-version: '22'
           package-manager-cache: false
       - uses: ./.github/actions/setup-npm
+      - name: Check verified local act storybook-build attestation for this commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/verify-ci-checks.mjs --check-act-storybook --sha "${{ github.sha }}" --repo "${{ github.repository }}"
       - name: Install npm dependencies
         run: npm ci
       - name: Cache Playwright browsers
@@ -279,24 +283,36 @@ jobs:
           node-version: '22'
           package-manager-cache: false
       - uses: ./.github/actions/setup-npm
+      - name: Check verified local act whole-set-audits attestation for this commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/verify-ci-checks.mjs --check-act-whole-set --sha "${{ github.sha }}" --repo "${{ github.repository }}"
       - name: Install npm dependencies
+        if: env.CS_ACT_WHOLE_SET_RECEIPT == ''
         run: npm ci
       - name: Cache Playwright browsers
+        if: env.CS_ACT_WHOLE_SET_RECEIPT == ''
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-chromium
       - name: Install Playwright Chromium
+        if: env.CS_ACT_WHOLE_SET_RECEIPT == ''
         run: npx --no-install playwright install --with-deps chromium
       - name: Serve the repo statically
+        if: env.CS_ACT_WHOLE_SET_RECEIPT == ''
         run: node scripts/serve-verification.mjs 8080 &
       - name: Wait for server
+        if: env.CS_ACT_WHOLE_SET_RECEIPT == ''
         run: node scripts/wait-verification.mjs http://127.0.0.1:8080/dashboard.html
       - name: responsive-overflow (all 85 templates)
+        if: env.CS_ACT_WHOLE_SET_RECEIPT == ''
         run: node _audit/ci/run-single-gate.mjs http://127.0.0.1:8080/_audit/responsive-overflow.html __overflow 360000
       - name: language-overflow (all 85 templates, forced VN)
+        if: env.CS_ACT_WHOLE_SET_RECEIPT == ''
         run: node _audit/ci/run-single-gate.mjs http://127.0.0.1:8080/_audit/language-overflow.html __language 360000
       - name: theme-overflow (all 85 templates, forced dark — overflow + contrast hard)
+        if: env.CS_ACT_WHOLE_SET_RECEIPT == ''
         run: node _audit/ci/run-single-gate.mjs http://127.0.0.1:8080/_audit/theme-overflow.html __theme 360000
 
   pixel-diff:

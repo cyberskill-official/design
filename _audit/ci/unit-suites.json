@@ -1737,6 +1737,10 @@
     {
       "id": "picker-focus-ime",
       "command": "npm run test:picker-focus-ime"
+    },
+    {
+      "id": "state-machine-async-overlays",
+      "command": "npm run test:state-machine-async-overlays"
     }
   ]
 }

@@ -239,3 +239,99 @@ export function verifyActFastGatesAttestation({
     },
   };
 }
+
+export function formatActWholeSetStatus({ treeSha, manifestSha256 }) {
+  assert(HEX_40.test(treeSha), `Invalid 40-hex Git tree SHA: ${treeSha}`);
+  assert(HEX_64.test(manifestSha256), `Invalid 64-hex manifest SHA-256: ${manifestSha256}`);
+  return {
+    context: 'ci/act/whole-set-audits',
+    state: 'success',
+    description: `act-v1 tree=${treeSha} manifest=${manifestSha256.slice(0, 16)} gates=3/3`,
+  };
+}
+
+export function verifyActWholeSetAttestation({
+  statuses = [],
+  treeSha,
+  manifestSha256,
+} = {}) {
+  assert(Array.isArray(statuses), 'statuses must be an array');
+  assert(HEX_40.test(treeSha), `Invalid 40-hex Git tree SHA: ${treeSha}`);
+  assert(HEX_64.test(manifestSha256), `Invalid 64-hex manifest SHA-256: ${manifestSha256}`);
+
+  const expectedContext = 'ci/act/whole-set-audits';
+  const expectedDesc = formatActWholeSetStatus({ treeSha, manifestSha256 }).description;
+
+  const matching = statuses.find(s => s && s.context === expectedContext);
+  if (!matching) {
+    return { verified: false, reason: `No ${expectedContext} status on commit` };
+  }
+  if (matching.state !== 'success') {
+    return { verified: false, reason: `Status ${expectedContext} state is ${matching.state}` };
+  }
+  if (matching.description !== expectedDesc) {
+    return {
+      verified: false,
+      reason: `Status ${expectedContext} description mismatch (expected "${expectedDesc}", got "${matching.description}")`,
+    };
+  }
+
+  return {
+    verified: true,
+    receipt: {
+      schemaVersion: 1,
+      job: 'whole-set-audits',
+      treeSha,
+      manifestSha256,
+      pass: true,
+    },
+  };
+}
+
+export function formatActStorybookStatus({ treeSha, scenariosSha256 }) {
+  assert(HEX_40.test(treeSha), `Invalid 40-hex Git tree SHA: ${treeSha}`);
+  assert(HEX_64.test(scenariosSha256), `Invalid 64-hex scenarios SHA-256: ${scenariosSha256}`);
+  return {
+    context: 'ci/act/storybook-build',
+    state: 'success',
+    description: `act-v1 tree=${treeSha} scenarios=${scenariosSha256.slice(0, 16)} engines=3/3`,
+  };
+}
+
+export function verifyActStorybookAttestation({
+  statuses = [],
+  treeSha,
+  scenariosSha256,
+} = {}) {
+  assert(Array.isArray(statuses), 'statuses must be an array');
+  assert(HEX_40.test(treeSha), `Invalid 40-hex Git tree SHA: ${treeSha}`);
+  assert(HEX_64.test(scenariosSha256), `Invalid 64-hex scenarios SHA-256: ${scenariosSha256}`);
+
+  const expectedContext = 'ci/act/storybook-build';
+  const expectedDesc = formatActStorybookStatus({ treeSha, scenariosSha256 }).description;
+
+  const matching = statuses.find(s => s && s.context === expectedContext);
+  if (!matching) {
+    return { verified: false, reason: `No ${expectedContext} status on commit` };
+  }
+  if (matching.state !== 'success') {
+    return { verified: false, reason: `Status ${expectedContext} state is ${matching.state}` };
+  }
+  if (matching.description !== expectedDesc) {
+    return {
+      verified: false,
+      reason: `Status ${expectedContext} description mismatch (expected "${expectedDesc}", got "${matching.description}")`,
+    };
+  }
+
+  return {
+    verified: true,
+    receipt: {
+      schemaVersion: 1,
+      job: 'storybook-build',
+      treeSha,
+      scenariosSha256,
+      pass: true,
+    },
+  };
+}

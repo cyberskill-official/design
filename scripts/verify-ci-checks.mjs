@@ -11,6 +11,8 @@ import {
   evaluateCiChecks,
   verifyActFastGatesAttestation,
   verifyActShardAttestation,
+  verifyActStorybookAttestation,
+  verifyActWholeSetAttestation,
 } from './lib/ci-check-gate.mjs';
 import { selectSuites } from '../_audit/ci/lib/run-unit-suite.mjs';
 
@@ -39,6 +41,12 @@ export function parseVerifyCiArgs(args) {
     } else if (arg === '--check-act-fast-gates') {
       assert(!out.mode, 'Choose one mode');
       out.mode = 'check-act-fast-gates';
+    } else if (arg === '--check-act-whole-set') {
+      assert(!out.mode, 'Choose one mode');
+      out.mode = 'check-act-whole-set';
+    } else if (arg === '--check-act-storybook') {
+      assert(!out.mode, 'Choose one mode');
+      out.mode = 'check-act-storybook';
     } else if (arg === '--sha') {
       out.sha = args[++i];
       assert(out.sha && /^[a-f0-9]{40}$/.test(out.sha), 'Invalid 40-hex --sha');
@@ -57,7 +65,10 @@ export function parseVerifyCiArgs(args) {
       throw Error(`Unknown argument: ${arg}`);
     }
   }
-  assert(out.mode, 'Specify --verify-commit, --check-act-shard <N/M>, or --check-act-fast-gates');
+  assert(
+    out.mode,
+    'Specify --verify-commit, --check-act-shard <N/M>, --check-act-fast-gates, --check-act-whole-set, or --check-act-storybook'
+  );
   assert(out.sha, '--sha <40-hex> is required');
   assert(out.repo, '--repo <owner/name> is required');
   return out;
@@ -240,6 +251,104 @@ async function runCheckActFastGates({ repo, sha }) {
   }
 }
 
+async function runCheckActWholeSet({ repo, sha }) {
+  try {
+    const token = process.env.GH_TOKEN || process.env.GITHUB_TOKEN;
+    const treeRes = spawnSync('git', ['rev-parse', '--verify', 'HEAD^{tree}'], {
+      cwd: root,
+      encoding: 'utf8',
+    });
+    assert.equal(treeRes.status, 0, treeRes.stderr);
+    const treeSha = treeRes.stdout.trim();
+
+    const manifestBytes = readFileSync(join(root, '_ds_manifest.json'));
+    const manifestSha256 = createHash('sha256').update(manifestBytes).digest('hex');
+
+    let check = { verified: false, reason: 'uninitialized' };
+    for (let attempt = 0; attempt < 6; attempt++) {
+      const statuses = await githubApiGet(`/repos/${repo}/commits/${sha}/statuses?per_page=100`, token);
+      assert(Array.isArray(statuses), 'Malformed statuses response');
+      check = verifyActWholeSetAttestation({
+        statuses,
+        treeSha,
+        manifestSha256,
+      });
+      if (check.verified) break;
+      if (attempt < 5 && check.reason?.startsWith('No ci/act/')) {
+        await new Promise(r => setTimeout(r, 4000));
+      } else {
+        break;
+      }
+    }
+
+    if (!check.verified) {
+      console.log(`[act-whole-set] Local act fast-path not active: ${check.reason}`);
+      return;
+    }
+
+    const tempDir = process.env.RUNNER_TEMP || tmpdir();
+    const receiptPath = join(tempDir, 'act-whole-set-receipt.json');
+    writeFileSync(receiptPath, JSON.stringify(check.receipt, null, 2) + '\n', { mode: 0o600 });
+    if (process.env.GITHUB_ENV) {
+      appendFileSync(process.env.GITHUB_ENV, `CS_ACT_WHOLE_SET_RECEIPT=${receiptPath}\n`);
+    }
+    console.log(
+      `[act-whole-set] Verified commit-bound local act attestation for whole-set-audits (tree=${treeSha.slice(0, 12)}, manifest=${manifestSha256.slice(0, 12)})`
+    );
+  } catch (err) {
+    console.log(`[act-whole-set] Falling back to full whole-set-audits execution (${err.message})`);
+  }
+}
+
+async function runCheckActStorybook({ repo, sha }) {
+  try {
+    const token = process.env.GH_TOKEN || process.env.GITHUB_TOKEN;
+    const treeRes = spawnSync('git', ['rev-parse', '--verify', 'HEAD^{tree}'], {
+      cwd: root,
+      encoding: 'utf8',
+    });
+    assert.equal(treeRes.status, 0, treeRes.stderr);
+    const treeSha = treeRes.stdout.trim();
+
+    const scenariosBytes = readFileSync(join(root, 'components/scenarios.json'));
+    const scenariosSha256 = createHash('sha256').update(scenariosBytes).digest('hex');
+
+    let check = { verified: false, reason: 'uninitialized' };
+    for (let attempt = 0; attempt < 6; attempt++) {
+      const statuses = await githubApiGet(`/repos/${repo}/commits/${sha}/statuses?per_page=100`, token);
+      assert(Array.isArray(statuses), 'Malformed statuses response');
+      check = verifyActStorybookAttestation({
+        statuses,
+        treeSha,
+        scenariosSha256,
+      });
+      if (check.verified) break;
+      if (attempt < 5 && check.reason?.startsWith('No ci/act/')) {
+        await new Promise(r => setTimeout(r, 4000));
+      } else {
+        break;
+      }
+    }
+
+    if (!check.verified) {
+      console.log(`[act-storybook] Local act fast-path not active: ${check.reason}`);
+      return;
+    }
+
+    const tempDir = process.env.RUNNER_TEMP || tmpdir();
+    const receiptPath = join(tempDir, 'act-storybook-receipt.json');
+    writeFileSync(receiptPath, JSON.stringify(check.receipt, null, 2) + '\n', { mode: 0o600 });
+    if (process.env.GITHUB_ENV) {
+      appendFileSync(process.env.GITHUB_ENV, `CS_ACT_STORYBOOK_RECEIPT=${receiptPath}\n`);
+    }
+    console.log(
+      `[act-storybook] Verified commit-bound local act attestation for storybook-build (tree=${treeSha.slice(0, 12)}, scenarios=${scenariosSha256.slice(0, 12)})`
+    );
+  } catch (err) {
+    console.log(`[act-storybook] Falling back to full storybook-build execution (${err.message})`);
+  }
+}
+
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
     const opts = parseVerifyCiArgs(process.argv.slice(2));
@@ -258,6 +367,10 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
       await runCheckActShard(opts);
     } else if (opts.mode === 'check-act-fast-gates') {
       await runCheckActFastGates(opts);
+    } else if (opts.mode === 'check-act-whole-set') {
+      await runCheckActWholeSet(opts);
+    } else if (opts.mode === 'check-act-storybook') {
+      await runCheckActStorybook(opts);
     }
   } catch (err) {
     console.error(err.message);

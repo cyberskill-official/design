@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CyberSkill Design v2.7.0 — Generation-2 Complex Product Stress-Test Suite</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    body {
+      margin: 0;
+      background: var(--cs-color-surface-page);
+      color: var(--cs-color-text-primary);
+      font-family: var(--cs-font-family-ui);
+    }
+    .gen2-suite {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      padding: 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .gen2-screen {
+      border: 1px solid var(--cs-color-border-default);
+      border-radius: var(--cs-radius-lg);
+      padding: 24px;
+      background: var(--cs-color-surface-page);
+      color: var(--cs-color-text-primary);
+    }
+    .gen2-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+      margin: 16px 0;
+    }
+    .gen2-main-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(320px, 1fr);
+      gap: 16px;
+      align-items: start;
+    }
+    .gen2-studio-grid {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr) 320px;
+      gap: 16px;
+      align-items: stretch;
+    }
+    .gen2-mobile-viewport {
+      width: 390px;
+      max-width: 100%;
+      box-sizing: border-box;
+      border: 1px solid var(--cs-color-border-default);
+      border-radius: var(--cs-radius-xl);
+      padding: 16px;
+      background: var(--cs-color-surface-page);
+      color: var(--cs-color-text-primary);
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body>
+  <main class="gen2-suite">
+    <!-- =========================================================================
+         SCREEN 1: Multi-Axis Enterprise Treasury & Risk Command Center
+         Axes: Dark · Kim · Titanium · Compact · High-Contrast
+         ========================================================================= -->
+    <section
+      id="gen2-screen-1"
+      class="gen2-screen"
+      lang="vi"
+      data-theme="dark"
+      data-cs-element="kim"
+      data-cs-variant="titanium"
+      data-cs-density="compact"
+      data-cs-contrast="high"
+      aria-label="Trung Tâm Quản Trị Ngân Quỹ & Rủi Ro"
+    >
+      <header class="cs-navbar" style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 16px;border-radius:var(--cs-radius-md);">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <svg class="cs-navbar__logo" viewBox="0 0 64 64" width="32" height="32" aria-label="CyberSkill">
+            <rect width="64" height="64" rx="14" fill="#45210E" />
+            <path d="M18 32L30 20L46 36L34 48Z" fill="#F4BA17" />
+          </svg>
+          <div>
+            <strong style="display:block;font-size:0.95rem;">Trung Tâm Quản Trị Ngân Quỹ &amp; Rủi Ro</strong>
+            <span style="font-size:0.75rem;color:var(--cs-color-text-secondary);">Dark · Kim · Titanium · Compact · High-Contrast</span>
+          </div>
+        </div>
+        <div class="cs-segmented" role="tablist" aria-label="Chu kỳ báo cáo" style="display:inline-flex;gap:4px;">
+          <button type="button" class="cs-segmented__item is-active" role="tab" aria-selected="true">Thực tế Q4</button>
+          <button type="button" class="cs-segmented__item" role="tab" aria-selected="false">Dự phóng 2027</button>
+          <button type="button" class="cs-segmented__item" role="tab" aria-selected="false">Kịch bản căng thẳng</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <button type="button" class="cs-button cs-button--secondary">Tìm lệnh nhanh (⌘K)</button>
+          <span class="cs-badge cs-badge--warning">02 Cảnh báo</span>
+        </div>
+      </header>
+
+      <div class="gen2-kpi-grid">
+        <article class="cs-card cs-stat">
+          <div class="cs-stat__label">TỔNG THANH KHOẢN RÒNG</div>
+          <div class="cs-stat__value" style="font-variant-numeric:tabular-nums;">142,8 TỶ ₫</div>
+          <div class="cs-stat__delta cs-stat__delta--up">+4,2% so với kỳ trước</div>
+        </article>
+        <article class="cs-card cs-stat">
+          <div class="cs-stat__label">ĐỘ PHỦ DỰ TRỮ NGOẠI HỐI</div>
+          <div class="cs-stat__value" style="font-variant-numeric:tabular-nums;">98,4%</div>
+          <div class="cs-stat__delta cs-stat__delta--up">Đạt chuẩn ủy ban</div>
+        </article>
+        <article class="cs-card cs-stat">
+          <div class="cs-stat__label">BIÊN AN TOÀN VỐN</div>
+          <div class="cs-stat__value" style="font-variant-numeric:tabular-nums;">+18,6%</div>
+          <div class="cs-stat__delta cs-stat__delta--up">Vượt ngưỡng tối thiểu</div>
+        </article>
+        <article class="cs-card cs-stat">
+          <div class="cs-stat__label">CẢNH BÁO RỦI RO TỶ GIÁ</div>
+          <div class="cs-stat__value" style="font-variant-numeric:tabular-nums;">02 MỤC</div>
+          <div class="cs-stat__delta cs-stat__delta--down">Cần phê duyệt hôm nay</div>
+        </article>
+      </div>
+
+      <div class="gen2-main-split">
+        <div class="cs-card" style="padding:16px;">
+          <h2 style="margin:0 0 12px;font-size:1rem;">Danh mục tài khoản ngân quỹ trọng yếu</h2>
+          <div class="cs-table-wrap" style="max-height:280px;overflow:auto;">
+            <table class="cs-table cs-table--numeric" style="width:100%;">
+              <thead>
+                <tr>
+                  <th style="position:sticky;top:0;z-index:2;background:var(--cs-color-surface-raised);">Mã TK</th>
+                  <th style="position:sticky;top:0;z-index:2;background:var(--cs-color-surface-raised);">Đơn vị thụ hưởng</th>
+                  <th style="position:sticky;top:0;z-index:2;background:var(--cs-color-surface-raised);">Số dư khả dụng</th>
+                  <th style="position:sticky;top:0;z-index:2;background:var(--cs-color-surface-raised);">Tỷ lệ sử dụng</th>
+                  <th style="position:sticky;top:0;z-index:2;background:var(--cs-color-surface-raised);">Trạng thái</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="font-family:var(--cs-font-family-mono);">VN-TR-001</td>
+                  <td>Quỹ Dự Trữ Chiến Lược Miền Bắc</td>
+                  <td>64,20 TỶ ₫</td>
+                  <td><div class="cs-progress" role="progressbar" aria-label="Tỷ lệ sử dụng VN-TR-001" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"><div class="cs-progress__bar" style="width:78%;"></div></div></td>
+                  <td><span class="cs-badge cs-badge--success">An toàn</span></td>
+                </tr>
+                <tr>
+                  <td style="font-family:var(--cs-font-family-mono);">VN-TR-002</td>
+                  <td>Tài Khoản Thanh Toán Quốc Tế USD</td>
+                  <td>41,50 TỶ ₫</td>
+                  <td><div class="cs-progress" role="progressbar" aria-label="Tỷ lệ sử dụng VN-TR-002" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100"><div class="cs-progress__bar" style="width:92%;"></div></div></td>
+                  <td><span class="cs-badge cs-badge--warning">Sát trần</span></td>
+                </tr>
+                <tr>
+                  <td style="font-family:var(--cs-font-family-mono);">VN-TR-003</td>
+                  <td>Ngân Quỹ Vận Hành Hạ Tầng Cloud</td>
+                  <td>37,10 TỶ ₫</td>
+                  <td><div class="cs-progress" role="progressbar" aria-label="Tỷ lệ sử dụng VN-TR-003" aria-valuenow="54" aria-valuemin="0" aria-valuemax="100"><div class="cs-progress__bar" style="width:54%;"></div></div></td>
+                  <td><span class="cs-badge cs-badge--info">Ổn định</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="cs-card" aria-label="Ngăn kiểm tra &amp; Phiếu in lồng nhau" style="display:flex;flex-direction:column;gap:12px;">
+          <h3 style="margin:0;font-size:0.95rem;">Kiểm tra cấu trúc &amp; Bản xem trước in</h3>
+          <div class="cs-formfield">
+            <label class="cs-formfield__label" for="gen2-treeselect">Cấu trúc tài khoản</label>
+            <div class="cs-treeselect is-invalid">
+              <button id="gen2-treeselect" type="button" class="cs-treeselect__field is-invalid" aria-invalid="true" style="width:100%;text-align:left;">
+                Chưa chọn nhánh ngân quỹ bắt buộc
+              </button>
+            </div>
+            <span class="cs-formfield__error" role="alert">Vui lòng chọn nhánh tài khoản ngân quỹ hợp lệ.</span>
+          </div>
+          <div class="cs-formfield">
+            <label class="cs-formfield__label" for="gen2-cascader">Khu vực / Chi nhánh</label>
+            <div class="cs-cascader is-invalid">
+              <button id="gen2-cascader" type="button" class="cs-treeselect__field is-invalid" aria-invalid="true" style="width:100%;text-align:left;">
+                Miền Bắc / Hà Nội (Cần xác nhận hạn mức)
+              </button>
+            </div>
+          </div>
+          <section id="gen2-nested-light-receipt" data-theme="light" class="cs-card" style="padding:12px;background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);">
+            <strong style="display:block;font-size:0.85rem;margin-bottom:4px;">Bản in đối chiếu kho bạc (Light Scope)</strong>
+            <p style="margin:0;font-size:0.8rem;color:var(--cs-color-text-secondary);">
+              Mã chứng từ: <code style="font-family:var(--cs-font-family-mono);">KB-2026-1109</code> · Đã ký số bởi Kiểm soát viên trưởng.
+            </p>
+          </section>
+        </aside>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SCREEN 2: Lumi AI Multi-Agent Workflow Studio
+         Axes: Dark · Thủy · Ocean · Liquid Glass
+         ========================================================================= -->
+    <section
+      id="gen2-screen-2"
+      class="gen2-screen"
+      lang="vi"
+      data-theme="dark"
+      data-cs-element="thuy"
+      data-cs-variant="ocean"
+      data-cs-style="liquid-glass"
+      aria-label="Trạm Điều Phối Tác Tử Tự Hành Lumi AI"
+    >
+      <div class="gen2-studio-grid">
+        <nav class="cs-card" aria-label="Danh sách quy trình tác tử" style="display:flex;flex-direction:column;gap:6px;">
+          <strong style="font-size:0.85rem;margin-bottom:4px;">Luồng Tác Tử Đang Chạy</strong>
+          <div class="cs-item is-selected" id="gen2-selected-agent" style="padding:10px 12px;border-radius:var(--cs-radius-md);">
+            Tác tử Kiểm toán Ngân quỹ #01
+          </div>
+          <div class="cs-item" style="padding:10px 12px;border-radius:var(--cs-radius-md);">
+            Tác tử Đối chiếu Chứng từ #02
+          </div>
+          <div class="cs-item" style="padding:10px 12px;border-radius:var(--cs-radius-md);">
+            Tác tử Tổng hợp Báo cáo #03
+          </div>
+        </nav>
+
+        <div class="cs-card" style="display:flex;flex-direction:column;gap:12px;">
+          <div
+            id="gen2-umber-user-bubble"
+            class="cs-chat-bubble cs-chat-bubble--user"
+            style="align-self:flex-end;background:var(--cs-color-brand-umber, #45210E);color:#FAF6F0;border:1px solid color-mix(in oklab, var(--cs-color-border-default) 32%, transparent);padding:12px 16px;border-radius:var(--cs-radius-lg);max-width:80%;"
+          >
+            Kiểm tra chênh lệch tỷ giá USD/VND của 3 tài khoản ngân quỹ chiến lược và xuất bảng tổng hợp.
+          </div>
+          <div
+            class="cs-chat-bubble cs-chat-bubble--lumi"
+            style="align-self:flex-start;background:var(--cs-color-surface-raised);border:1px solid var(--cs-color-border-default);padding:12px 16px;border-radius:var(--cs-radius-lg);max-width:88%;"
+          >
+            <strong style="display:block;margin-bottom:6px;">Lumi AI · Tác tử Phân tích</strong>
+            <pre style="margin:0;padding:10px;border-radius:var(--cs-radius-sm);background:var(--cs-color-surface-page);font-family:var(--cs-font-family-mono);font-size:0.8rem;overflow-x:auto;"><code>SELECT account_id, delta_bps FROM treasury_fx_audit WHERE variance_bps &gt; 25;</code></pre>
+          </div>
+          <div class="cs-prompt is-invalid" aria-invalid="true" style="padding:10px;border-radius:var(--cs-radius-md);">
+            <input type="text" class="cs-input is-invalid" aria-invalid="true" aria-label="Nhập lệnh cho Lumi AI" value="@TácTửPhânTích #ƯuTiênCao Đang tổng hợp dữ liệu..." />
+          </div>
+        </div>
+
+        <aside class="cs-card cs-glass-card" aria-label="Thông số телеметрия &amp; Bộ lọc" style="display:flex;flex-direction:column;gap:12px;">
+          <strong style="font-size:0.9rem;">Bộ lọc Thời gian &amp; Nhãn màu</strong>
+          <div class="cs-formfield">
+            <label class="cs-formfield__label" for="gen2-datepicker">Ngày chốt sổ</label>
+            <div class="cs-datepicker is-invalid">
+              <button id="gen2-datepicker" type="button" class="cs-datepicker__field is-invalid" aria-invalid="true" style="width:100%;text-align:left;">
+                2026-11-10 (Ngoài khung giờ phiên)
+              </button>
+            </div>
+          </div>
+          <div class="cs-formfield">
+            <label class="cs-formfield__label" for="gen2-colorpicker">Màu đánh dấu luồng</label>
+            <div class="cs-colorpicker">
+              <button id="gen2-colorpicker" type="button" class="cs-colorpicker__trigger" style="min-height:44px;padding:8px 12px;">
+                #F4BA17 · Ochre
+              </button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SCREEN 3: Mobile Field Inspection & Offline Sync Companion (390x844)
+         Axes: Light · Mộc · Bamboo + Nested Dark Liquid-Glass Camera HUD
+         ========================================================================= -->
+    <section
+      id="gen2-screen-3"
+      class="gen2-mobile-viewport"
+      lang="vi"
+      data-theme="light"
+      data-cs-element="moc"
+      data-cs-variant="bamboo"
+      aria-label="Ứng dụng Kiểm Định Hiện Trường Di Động"
+    >
+      <header style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <svg viewBox="0 0 64 64" width="28" height="28" aria-label="CyberSkill Mobile">
+            <rect width="64" height="64" rx="14" fill="#45210E" />
+            <circle cx="32" cy="32" r="14" fill="#F4BA17" />
+          </svg>
+          <strong style="font-size:0.9rem;">Kiểm Định Hiện Trường</strong>
+        </div>
+        <span class="cs-badge cs-badge--success">Đã đồng bộ · 14/14</span>
+      </header>
+
+      <div class="cs-search" style="display:flex;align-items:center;gap:6px;margin-bottom:12px;">
+        <input type="search" class="cs-input cs-search__input" aria-label="Tìm hạng mục kiểm định" value="Trạm biến áp B2" style="flex:1;min-width:0;" />
+        <button type="button" class="cs-button cs-button--secondary cs-search__clear" aria-label="Xóa tìm kiếm" style="min-width:44px;min-height:44px;">✕</button>
+      </div>
+
+      <div
+        id="gen2-nested-hud"
+        data-theme="dark"
+        data-cs-style="liquid-glass"
+        class="cs-card"
+        style="padding:12px;margin-bottom:12px;background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);"
+      >
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <span style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;">HUD Camera Hiện Trường</span>
+          <code style="font-family:var(--cs-font-family-mono);font-size:0.75rem;">21.0285° N, 105.8542° E</code>
+        </div>
+        <button type="button" class="cs-button cs-button--lg" style="width:100%;min-height:48px;">
+          Chụp ảnh bằng chứng định vị
+        </button>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:12px;">
+        <div class="cs-formfield">
+          <label class="cs-formfield__label" for="gen2-mobile-invalid-input">Chỉ số điện trở đất (Ω) *</label>
+          <input
+            id="gen2-mobile-invalid-input"
+            type="text"
+            class="cs-field__control is-invalid"
+            aria-invalid="true"
+            value="Vượt ngưỡng 12.4 Ω"
+          />
+          <span class="cs-formfield__error" role="alert">Chỉ số vượt ngưỡng an toàn cho phép (≤ 4.0 Ω).</span>
+        </div>
+        <div class="cs-formfield">
+          <label class="cs-formfield__label" for="gen2-mobile-readonly-input">Mã thiết bị chuẩn đối chiếu</label>
+          <input
+            id="gen2-mobile-readonly-input"
+            type="text"
+            class="cs-field__control"
+            readonly
+            value="CS-CAL-2026-VN09"
+          />
+        </div>
+      </div>
+
+      <nav class="cs-dock" aria-label="Thanh công cụ hiện trường" style="display:flex;justify-content:space-around;gap:8px;padding:8px;">
+        <button type="button" class="cs-dock__item cs-button cs-button--secondary" style="min-height:48px;flex:1;">Hạng mục</button>
+        <button type="button" class="cs-dock__item cs-button cs-button--primary" style="min-height:48px;flex:1;">Gửi biên bản</button>
+      </nav>
+    </section>
+  </main>
+</body>
+</html>

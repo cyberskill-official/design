@@ -7,7 +7,7 @@ import {createHash} from 'node:crypto';
 import {parse} from 'yaml';
 import {parsePublicationArguments} from '../../scripts/validate-publication.mjs';
 import {publicationCommands,runPublicationValidation,verifyPublicationReceipt,parseRegistryResult,executePublicationCommand} from '../../scripts/lib/publication-validation.mjs';
-import {REQUIRED_CI_CHECKS,evaluateCiChecks,formatActFastGatesStatus,formatActShardStatus,verifyActFastGatesAttestation,verifyActShardAttestation} from '../../scripts/lib/ci-check-gate.mjs';
+import {REQUIRED_CI_CHECKS,evaluateCiChecks,formatActFastGatesStatus,formatActShardStatus,formatActStorybookStatus,formatActWholeSetStatus,verifyActFastGatesAttestation,verifyActShardAttestation,verifyActStorybookAttestation,verifyActWholeSetAttestation} from '../../scripts/lib/ci-check-gate.mjs';
 import {waitForRequiredCiChecks} from '../../scripts/verify-ci-checks.mjs';
 const hash=(bytes,algorithm='sha256',encoding='hex')=>createHash(algorithm).update(bytes).digest(encoding);
 const sandbox=realpathSync(mkdtempSync(join(tmpdir(),'cs-publication-fixture-'))),root=join(sandbox,'source');
@@ -69,5 +69,13 @@ try {
  assert.equal(verifyActFastGatesAttestation({statuses:[fgPayload],treeSha:'b'.repeat(40),pixelReportSha256:'e'.repeat(64)}).verified,true);
  assert.equal(verifyActFastGatesAttestation({statuses:[fgPayload],treeSha:'d'.repeat(40),pixelReportSha256:'e'.repeat(64)}).verified,false);
  assert.equal(verifyActFastGatesAttestation({statuses:[fgPayload],treeSha:'b'.repeat(40),pixelReportSha256:'f'.repeat(64)}).verified,false);
+ const wsPayload=formatActWholeSetStatus({treeSha:'b'.repeat(40),manifestSha256:'1'.repeat(64)});
+ assert.equal(verifyActWholeSetAttestation({statuses:[wsPayload],treeSha:'b'.repeat(40),manifestSha256:'1'.repeat(64)}).verified,true);
+ assert.equal(verifyActWholeSetAttestation({statuses:[wsPayload],treeSha:'d'.repeat(40),manifestSha256:'1'.repeat(64)}).verified,false);
+ assert.equal(verifyActWholeSetAttestation({statuses:[wsPayload],treeSha:'b'.repeat(40),manifestSha256:'2'.repeat(64)}).verified,false);
+ const sbPayload=formatActStorybookStatus({treeSha:'b'.repeat(40),scenariosSha256:'3'.repeat(64)});
+ assert.equal(verifyActStorybookAttestation({statuses:[sbPayload],treeSha:'b'.repeat(40),scenariosSha256:'3'.repeat(64)}).verified,true);
+ assert.equal(verifyActStorybookAttestation({statuses:[sbPayload],treeSha:'d'.repeat(40),scenariosSha256:'3'.repeat(64)}).verified,false);
+ assert.equal(verifyActStorybookAttestation({statuses:[sbPayload],treeSha:'b'.repeat(40),scenariosSha256:'4'.repeat(64)}).verified,false);
  console.log('PASS publication fixture: real exact Git/tag/tree identity, fixture-only support, canonical complete gates, immutable receipt/tarball, CI check-run wait/fail-closed gate, local act shard attestation verification, forged/cross-run/dirty/unreviewed/failure/symlink/registry rejection, real child environment isolation, separate manual OIDC workflow; no publication performed');
 }finally{rmSync(sandbox,{recursive:true,force:true})}

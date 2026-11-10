@@ -589,7 +589,8 @@
     "build:state-inventory": "node scripts/generate-state-inventory.mjs",
     "test:state-inventory": "node _audit/ci/test-state-inventory.mjs",
     "test:inline-edit-transitions": "node _audit/ci/lib/run-browsers.mjs _audit/ci/test-inline-edit-transitions-browser.mjs",
-    "test:picker-focus-ime": "node _audit/ci/lib/run-browsers.mjs _audit/ci/test-picker-focus-ime-browser.mjs"
+    "test:picker-focus-ime": "node _audit/ci/lib/run-browsers.mjs _audit/ci/test-picker-focus-ime-browser.mjs",
+    "test:state-machine-async-overlays": "node _audit/ci/lib/run-browsers.mjs _audit/ci/test-state-machine-async-overlays-browser.mjs"
   },
   "devDependencies": {
     "@babel/parser": "7.29.7",
