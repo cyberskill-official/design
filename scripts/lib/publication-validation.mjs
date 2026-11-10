@@ -11,6 +11,7 @@ export const publicationCommands=Object.freeze([
  {name:'build',args:['run','build'],env:{}},
  {name:'verify',args:['run','build:check'],env:{}},
  {name:'linux-browser',args:['run','verify:browser'],env:{}},
+ {name:'audit-regression',args:['run','test:audit-regression'],env:{}},
  {name:'pack-hygiene',args:['run','test:pack-hygiene'],env:{}},
 ].map(command=>Object.freeze({...command,args:Object.freeze(command.args),env:Object.freeze(command.env)})));
 const plain=(object,keys)=>{assert(object&&Object.getPrototypeOf(object)===Object.prototype&&!Array.isArray(object),'Plain receipt record required');assert.deepEqual(Reflect.ownKeys(object).sort(),[...keys].sort(),'Unexpected receipt fields');for(const key of keys)assert(Object.hasOwn(Object.getOwnPropertyDescriptor(object,key),'value'),'Receipt accessor forbidden')};

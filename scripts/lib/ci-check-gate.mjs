@@ -8,6 +8,7 @@ export const REQUIRED_CI_CHECKS = Object.freeze([
   'pixel-diff',
   'storybook-build',
   'docs-consistency-blocker',
+  'benchmark-baselines',
   'unit-tests (1/4)',
   'unit-tests (2/4)',
   'unit-tests (3/4)',

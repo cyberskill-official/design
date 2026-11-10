@@ -19,6 +19,28 @@ concurrency:
 # Jobs below copy the same steps so each job stays self-contained.
 
 jobs:
+  benchmark-baselines:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - uses: ./.github/actions/setup-npm
+      - name: Install npm dependencies
+        run: npm ci
+      - name: Cache Playwright browsers
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-chromium
+      - name: Install Playwright Chromium
+        run: npx --no-install playwright install --with-deps chromium
+      - name: Run audit benchmark non-regression suite
+        run: npm run test:audit-regression
+
   fast-gates:
     runs-on: ubuntu-24.04
     timeout-minutes: 25
