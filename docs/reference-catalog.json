@@ -123,7 +123,7 @@
       "path": "CONTRIBUTING.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "e27a589f7a7d33523ee0673632dbe51911633f31889d395d6180548fd43988bb"
+      "sha256": "eb8dbb720804bca5383880f1ee37bfdda316b10e3fc5b99aac2c6183fb93223b"
     },
     {
       "path": "DESIGN.md",
@@ -141,7 +141,7 @@
       "path": "README.md",
       "audience": "documentation",
       "role": "human_orientation",
-      "sha256": "1e3c6e34d71256fef619d766f780acff575a427ba1e330a07f10367550d05646"
+      "sha256": "cfcbf9e60724b96360823c4cfd5a7db75e416af89dc952ac1708244e75c386f8"
     },
     {
       "path": "SECURITY.md",
@@ -165,7 +165,7 @@
       "path": "_audit/README.md",
       "audience": "diagnostics",
       "role": "diagnostic_operator_guide",
-      "sha256": "fd79f61c852dccb164f4fb8ceceafc8aba6d1d58aaa0521786cedd07ad5f792e"
+      "sha256": "117af57fd3a85c3cabf6936635d9a84b1b7841a0668896951e3f1c3763276965"
     },
     {
       "path": "_audit/baselines/README.md",
@@ -969,7 +969,7 @@
       "path": "docs/deploy.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "021cb650c6bb10aa7e701361fa21d8b2743ee5c1a36680ace32cc8936f6a11df"
+      "sha256": "649bfb5a6ed9b90ef4eff95484b3cc276bc0d93f974b8dd46ec089fb544b5ce5"
     },
     {
       "path": "docs/design-styles.md",
@@ -1059,7 +1059,7 @@
       "path": "docs/quality-gates.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "20c5828e15f22238cbb458c6d5de6ce4fff978082259159dc5bc43cef8204159"
+      "sha256": "7cc02e044e5f3b399ea4dd8428c86b40ca806b79e748c87337a0c020a694f85f"
     },
     {
       "path": "docs/release-notes.md",
@@ -1221,7 +1221,7 @@
       "path": "docs/vi/deploy.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "a881f1604d01eac8f9d72068f1b330f68262ef7ffb924f2650a92da159ce71ed"
+      "sha256": "a112c4d68deb617e931aef4562ec9ba9fe92ef02e647febec89c1c5361622a0d"
     },
     {
       "path": "docs/vi/design-styles.md",
@@ -1239,7 +1239,7 @@
       "path": "docs/vi/entrypoints/CONTRIBUTING.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "cf7020e45ea9e947a57c836c7ebb1fbf670110753cfd9e9d360652b0bec80e23"
+      "sha256": "493389f2f6bcab636c9e3e40373a0f2cb42c98142e9ff88e93f45927a19bcef1"
     },
     {
       "path": "docs/vi/entrypoints/DESIGN.md",
@@ -1251,7 +1251,7 @@
       "path": "docs/vi/entrypoints/README.md",
       "audience": "documentation",
       "role": "human_orientation",
-      "sha256": "5c9da27d013e1cf21bbef3f348d3effb4e9e9c74e9012276d12f192cadd5b8e9"
+      "sha256": "1a2e9cb2b4c82f92ba7f6dedbd8d51c13bd2f79c2a091e6317fb286c30597baa"
     },
     {
       "path": "docs/vi/entrypoints/SKILL.md",
@@ -1341,7 +1341,7 @@
       "path": "docs/vi/quality-gates.md",
       "audience": "documentation",
       "role": "operator_guide",
-      "sha256": "35dfa41f38d4317c130b56ce730d27b7b6fb6b37d07a4dd1cec9e90224b5ab0b"
+      "sha256": "b1c62082270fc0e19d7bcf1263545c5299f689f252cf9b7c8e2f8e2e4ffaa2a8"
     },
     {
       "path": "docs/vi/release-notes.md",

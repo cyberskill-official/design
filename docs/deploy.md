@@ -5,7 +5,7 @@ Published on Storybook **Docs** at `design.cyberskill.world`.
 Two tracks:
 
 1. **Portable design system (consumers)** — HTML consumers can link the reviewed `styles.css` and optional `_ds_bundle.js`, or use the browser legacy entry `_esm/cs.mjs`, without a bundler. The default npm import (`dist/esm/_esm/react.mjs`) is compiled ESM with React peers; React apps need a compatible module resolver. Source JSX remains available through the explicit source export. Storybook is host tooling. The npm portable payload follows `package.json` → `files`; public hosting uses the reviewed allowlist in `scripts/public-site-policy.json`.
-2. **Host site (`design.cyberskill.world`)** — static output packaged for Vercel. Packaging **does** run Node once at deploy time so Storybook ships as the product surface at `/`. There is still no long-running app server.
+2. **Host site (`design.cyberskill.world`)** — static output packaged for GitHub Pages (`.github/workflows/pages.yml` publishing `.vercel-static/` with `.nojekyll` and `CNAME`) or any static host. Packaging **does** run Node once at deploy time so Storybook ships as the product surface at `/`. There is still no long-running app server.
 
 Production **`/`** is the Storybook static build. Legacy `/dashboard`, `/dashboard/`, `/dashboard.html`, `/dashboard/:path*`, `/playground`, `/playground/`, and `/playground/:path*` redirect to `/`.
 

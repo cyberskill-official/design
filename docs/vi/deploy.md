@@ -5,7 +5,7 @@ Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 Hai track:
 
 1. **Design system portable (consumers)** — consumer HTML có thể link `styles.css` đã review và `_ds_bundle.js` tùy chọn, hoặc dùng entry legacy cho trình duyệt `_esm/cs.mjs`, mà không cần bundler. Import npm mặc định (`dist/esm/_esm/react.mjs`) là ESM đã biên dịch với React peer; app React cần bộ phân giải module tương thích. JSX nguồn vẫn có qua export nguồn tường minh. Storybook là công cụ của host. Payload npm portable theo `package.json` → `files`; hosting public dùng allowlist đã review trong `scripts/public-site-policy.json`.
-2. **Host site (`design.cyberskill.world`)** — output tĩnh đóng gói cho Vercel. Packaging **có** chạy Node một lần lúc deploy để Storybook ship làm bề mặt sản phẩm tại `/`. Vẫn không có app server chạy dài.
+2. **Host site (`design.cyberskill.world`)** — output tĩnh đóng gói cho GitHub Pages (`.github/workflows/pages.yml` xuất bản `.vercel-static/` kèm `.nojekyll` và `CNAME`) hoặc mọi static host. Packaging **có** chạy Node một lần lúc deploy để Storybook ship làm bề mặt sản phẩm tại `/`. Vẫn không có app server chạy dài.
 
 Production **`/`** là build tĩnh Storybook. Legacy `/dashboard`, `/dashboard/`, `/dashboard.html`, `/dashboard/:path*`, `/playground`, `/playground/`, và `/playground/:path*` redirect về `/`.
 

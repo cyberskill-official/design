@@ -5,8 +5,9 @@
     {
       "source": "README.md",
       "mirror": "docs/vi/entrypoints/README.md",
-      "sourceSha256": "274ad86141ba485f2b424a0f674bc819c84fa9555ae7bdc261e5c65da5a45f03",
-      "mirrorSha256": "5c9da27d013e1cf21bbef3f348d3effb4e9e9c74e9012276d12f192cadd5b8e9"
+      "sourceSha256": "1bc14c6d7d74d3791b9cb213493dad0e5f9c2f45dbfa2b8911f5cf35ca8c926a",
+      "mirrorSha256": "1a2e9cb2b4c82f92ba7f6dedbd8d51c13bd2f79c2a091e6317fb286c30597baa",
+      "reviewedAt": "2026-11-10"
     },
     {
       "source": "SKILL.md",
@@ -35,8 +36,9 @@
     {
       "source": "CONTRIBUTING.md",
       "mirror": "docs/vi/entrypoints/CONTRIBUTING.md",
-      "sourceSha256": "851ba16b59e5b3c1ee2235ad7400a08b6339cc0c25db049026cbaf6d0d5dd398",
-      "mirrorSha256": "cf7020e45ea9e947a57c836c7ebb1fbf670110753cfd9e9d360652b0bec80e23"
+      "sourceSha256": "1380079a1112c2afcc286e4b0c29a6785589ab499dea6e309a59f82a87c2b16e",
+      "mirrorSha256": "493389f2f6bcab636c9e3e40373a0f2cb42c98142e9ff88e93f45927a19bcef1",
+      "reviewedAt": "2026-11-10"
     },
     {
       "source": "llms.txt",
