@@ -5,7 +5,8 @@ const root = new URL('../../',import.meta.url), read = path => readFileSync(new 
 const pkg = JSON.parse(read('package.json'));
 assert.equal(pkg.engines.node,'>=22.12.0');
 assert.equal(read('.nvmrc').trim(),'22');
-assert.equal(JSON.parse(read('vercel.json')).installCommand,'node scripts/bootstrap-toolchain.mjs && node scripts/npm.mjs ci');
+const pages = parse(read('.github/workflows/pages.yml'));
+assert(pages.jobs.build.steps.some(step => step.uses === './.github/actions/setup-npm') && pages.jobs.build.steps.some(step => step.run === 'npm run build:site'));
 assert(!/npm run build:|(?<![\w-])node scripts\/build-bundle/.test(pkg.scripts.prepublishOnly),'Publish preflight must not rebuild files');
 for (const entry of ['./base/*','./assets/*','./package.json']) assert(pkg.exports[entry]);
 assert(pkg.files.includes('package.json'),'Package metadata export must remain explicitly covered by the browser exports gate');

@@ -111,13 +111,14 @@ assert(localVerify.indexOf('node scripts/bootstrap-toolchain.mjs')<localVerify.i
 assert(localVerify.includes('node scripts/npm.mjs run verify:browser'));
 assert(localVerify.includes('test "$(tr -d'), 'Local verification retains package/version equality');
 
-function assertPinnedDeployment(config){
- assert.equal(config.installCommand,'node scripts/bootstrap-toolchain.mjs && node scripts/npm.mjs ci','Deployment installation must bootstrap before guarded ci');
- assert.equal(config.buildCommand,'node scripts/npm.mjs run build:site','Deployment build and nested npm commands must use pinned wrapper');
+function assertPinnedDeployment(workflow){
+ const steps=workflow.jobs?.build?.steps||[];
+ assert(steps.some(step=>step.uses==='./.github/actions/setup-npm'),'Deployment installation must bootstrap before guarded ci');
+ assert(steps.some(step=>step.run==='npm run build:site'),'Deployment build must run build:site');
 }
-const deployment=JSON.parse(read('vercel.json'));assertPinnedDeployment(deployment);
-assert.throws(()=>assertPinnedDeployment({...deployment,installCommand:'npm ci'}),/bootstrap before guarded ci/);
-assert.throws(()=>assertPinnedDeployment({...deployment,buildCommand:'npm run build:site'}),/pinned wrapper/);
+const deployment=parse(read('.github/workflows/pages.yml'));assertPinnedDeployment(deployment);
+assert.throws(()=>assertPinnedDeployment({jobs:{build:{steps:[{run:'npm ci'},{run:'npm run build:site'}]}}}),/bootstrap before guarded ci/);
+assert.throws(()=>assertPinnedDeployment({jobs:{build:{steps:[{uses:'./.github/actions/setup-npm'}]}}}),/build:site/);
 
 assert.equal(assertNpmVersion(pkg,expected+'\n'),expected);
 for(const version of ['0.0.0','11.19.0','unknown'])assert.throws(()=>assertNpmVersion(pkg,version),/pinned npm/);

@@ -25,7 +25,7 @@ export const storybookBuildInputs = [
   ...publicSources,
   ...Object.values(storybookRootFiles), ...storybookStaticDirs,
   'stories', '.storybook', 'components', '_vendor', '_esm',
-  'package.json', 'package-lock.json', 'vercel.json',
+  'package.json', 'package-lock.json', '.github/workflows/pages.yml',
   'scripts/lib/site-jsx.mjs', 'scripts/lib/site-jsx.d.mts', 'scripts/site-csp-manifest.schema.json', 'scripts/site-deployment-policy.json', 'scripts/lib/site-csp.mjs', 'scripts/lib/site-csp.d.mts', 'scripts/lib/site-routes.mjs', 'scripts/lib/site-routes.d.mts',
   'scripts/template-runtime/dc-logic-source.mjs', 'scripts/template-runtime/dc-logic-source.d.mts', 'scripts/template-runtime/primitives/support.js', 'scripts/build-template-primitives.mjs',
   'scripts/vercel-static-output.mjs', 'scripts/public-site.mjs', 'scripts/public-site-policy.json',

@@ -1,5 +1,0 @@
-{
-  "framework": null,
-  "installCommand": "node scripts/bootstrap-toolchain.mjs && node scripts/npm.mjs ci",
-  "buildCommand": "node scripts/npm.mjs run build:site"
-}

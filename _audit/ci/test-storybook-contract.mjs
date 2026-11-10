@@ -106,8 +106,8 @@ assert(/^[\^~]?10\./.test(sbVer), 'storybook package is v10, got ' + sbVer);
 assert(pkg.devDependencies?.['@storybook/addon-docs'], '@storybook/addon-docs present');
 assert(!pkg.devDependencies?.['@storybook/addon-essentials'], 'addon-essentials removed');
 
-const vercel = JSON.parse(readFileSync(join(root, 'vercel.json'), 'utf8'));
-assert(vercel.buildCommand.includes('build:site'), 'vercel builds site with storybook');
+const pagesWf = readFileSync(join(root, '.github/workflows/pages.yml'), 'utf8');
+assert(pagesWf.includes('build:site'), 'GitHub Pages workflow builds site with storybook');
 const deploymentPolicy=JSON.parse(readFileSync(join(root,'scripts/site-deployment-policy.json'),'utf8'));
 assert(Array.isArray(deploymentPolicy.legacyRedirects),'authored deployment redirects configured');
 for(const path of ['/dashboard','/dashboard.html','/dashboard/','/dashboard/nested','/playground','/playground/nested']){
