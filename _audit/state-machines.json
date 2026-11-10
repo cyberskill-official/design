@@ -44,7 +44,7 @@
       "lifecycle-or-dom-call": 586,
       "state-output": 1407,
       "async-boundary": 65,
-      "css-state-selector": 289,
+      "css-state-selector": 290,
       "hook": 383,
       "event-binding": 580,
       "template-props": 85
@@ -570,7 +570,7 @@
     },
     {
       "path": "_esm/cs.mjs",
-      "sha256": "e49bb1d4b5cb74930b55d2288eb1ce97d3eadfce527f45109a03f37edb80330e",
+      "sha256": "c706f69469bef7131dd351a41abf684bbe32b836972e83b5342be2775e2792d1",
       "observations": [
         {
           "kind": "async-boundary",
@@ -738,7 +738,7 @@
     },
     {
       "path": "base/collections.css",
-      "sha256": "307287655287da43c275c56f14bdd846cd3d4a57d0cd1ddb4305996f0c2cba3c",
+      "sha256": "9d55ef7c05f38a9ac789014868b15e1495e4fb46f9fc30d729cc0ef6dc6794ee",
       "observations": [
         {
           "kind": "css-state-selector",
@@ -768,47 +768,53 @@
           "kind": "css-state-selector",
           "line": 31,
           "owner": "<css>",
+          "expression": ".cs-item.is-selected .cs-item__description"
+        },
+        {
+          "kind": "css-state-selector",
+          "line": 32,
+          "owner": "<css>",
           "expression": ".cs-item.is-disabled, .cs-item[aria-disabled=\"true\"]"
         },
         {
           "kind": "css-state-selector",
-          "line": 33,
+          "line": 34,
           "owner": "<css>",
           "expression": "div.cs-item.is-disabled"
         },
         {
           "kind": "css-state-selector",
-          "line": 61,
+          "line": 62,
           "owner": "<css>",
           "expression": ".cs-accordion__trigger:hover"
         },
         {
           "kind": "css-state-selector",
-          "line": 64,
+          "line": 65,
           "owner": "<css>",
           "expression": ".cs-accordion__trigger[aria-expanded=\"true\"] .cs-accordion__chevron"
         },
         {
           "kind": "css-state-selector",
-          "line": 70,
+          "line": 71,
           "owner": "<css>",
           "expression": ".cs-collapsible__trigger:hover"
         },
         {
           "kind": "css-state-selector",
-          "line": 73,
+          "line": 74,
           "owner": "<css>",
           "expression": ".cs-collapsible__trigger[aria-expanded=\"true\"] .cs-collapsible__chevron"
         },
         {
           "kind": "css-state-selector",
-          "line": 88,
+          "line": 89,
           "owner": "<css>",
           "expression": ".cs-code__copy:hover"
         },
         {
           "kind": "css-state-selector",
-          "line": 89,
+          "line": 90,
           "owner": "<css>",
           "expression": ".cs-code__copy:focus-visible"
         }
@@ -882,7 +888,7 @@
     },
     {
       "path": "base/controls.css",
-      "sha256": "d16d8e017a5c300d10d75d36f379dfad1a8c25bb7ded61fbf08740082456331b",
+      "sha256": "1f983026bbc0e5f5962fad7c7188729c74530cd8983fd29e00d6304854231e28",
       "observations": [
         {
           "kind": "css-state-selector",
@@ -1086,13 +1092,13 @@
           "kind": "css-state-selector",
           "line": 127,
           "owner": "<css>",
-          "expression": ".cs-datepicker.is-invalid .cs-datepicker__field, .is-invalid .cs-datepicker__field, .cs-datepicker__field.is-invalid, .cs-datepicker__field[aria-invalid=\"true\"]"
+          "expression": ".cs-datepicker.is-invalid .cs-datepicker__field, .cs-datepicker.is-invalid .cs-datepicker__trigger, .is-invalid .cs-datepicker__field, .is-invalid .cs-datepicker__trigger, .cs-datepicker__field.is-invalid, .cs-datepicker__trigger.is-invalid, .cs-datepicker__field[aria-invalid=\"true\"], .cs-datepicker__trigger[aria-invalid=\"true\"]"
         },
         {
           "kind": "css-state-selector",
           "line": 128,
           "owner": "<css>",
-          "expression": ".cs-datepicker__field:focus-visible"
+          "expression": ".cs-datepicker__field:focus-visible, .cs-datepicker__trigger:focus-visible"
         },
         {
           "kind": "css-state-selector",
@@ -1254,13 +1260,13 @@
           "kind": "css-state-selector",
           "line": 267,
           "owner": "<css>",
-          "expression": ".cs-treeselect.is-invalid .cs-treeselect__field, .cs-cascader.is-invalid .cs-treeselect__field, .is-invalid .cs-treeselect__field, .cs-treeselect__field.is-invalid, .cs-treeselect__field[aria-invalid=\"true\"]"
+          "expression": ".cs-treeselect.is-invalid :is(.cs-treeselect__field, .cs-treeselect__trigger), .cs-cascader.is-invalid :is(.cs-treeselect__field, .cs-cascader__field, .cs-cascader__trigger), .is-invalid :is(.cs-treeselect__field, .cs-treeselect__trigger, .cs-cascader__field, .cs-cascader__trigger), :is(.cs-treeselect__field, .cs-treeselect__trigger, .cs-cascader__field, .cs-cascader__trigger).is-invalid, :is(.cs-treeselect__field, .cs-treeselect__trigger, .cs-cascader__field, .cs-cascader__trigger)[aria-invalid=\"true\"]"
         },
         {
           "kind": "css-state-selector",
           "line": 268,
           "owner": "<css>",
-          "expression": ".cs-treeselect__field:focus-visible"
+          "expression": ".cs-treeselect__field:focus-visible, .cs-treeselect__trigger:focus-visible, .cs-cascader__field:focus-visible, .cs-cascader__trigger:focus-visible"
         },
         {
           "kind": "css-state-selector",

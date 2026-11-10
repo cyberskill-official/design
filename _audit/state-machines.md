@@ -18,7 +18,7 @@ No semantic completeness is claimed. See JSON `scope` for exclusions and limitat
 | [_esm/cs.mjs](../_esm/cs.mjs) | 0 | 5 | 0 | 7 | 0 |
 | [base/a11y.css](../base/a11y.css) | 0 | 0 | 0 | 0 | 9 |
 | [base/ai.css](../base/ai.css) | 0 | 0 | 0 | 0 | 4 |
-| [base/collections.css](../base/collections.css) | 0 | 0 | 0 | 0 | 12 |
+| [base/collections.css](../base/collections.css) | 0 | 0 | 0 | 0 | 13 |
 | [base/components.css](../base/components.css) | 0 | 0 | 0 | 0 | 10 |
 | [base/controls.css](../base/controls.css) | 0 | 0 | 0 | 0 | 76 |
 | [base/data.css](../base/data.css) | 0 | 0 | 0 | 0 | 17 |
