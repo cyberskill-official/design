@@ -347,6 +347,7 @@ assert(pass === templates.length, 'not all templates passed');
 // Framework agreement human-style check: PDF pages ≥ 1 and DOCX on disk
 assert(existsSync(join(outDir, 'VnFrameworkAgreement.pdf')), 'framework PDF missing');
 assert(existsSync(join(outDir, 'VnFrameworkAgreement.docx')), 'framework DOCX missing');
+rmSync(outDir, { recursive: true, force: true });
 
 console.log('PASS test-doc-export', {
   templates: templates.length,

@@ -9,7 +9,7 @@
   var q=new URLSearchParams(location.search);
   var v=q.get("v")||"250"; if(!/^(250|240|231)$/.test(v)) v="250";
   var theme=q.get("theme")==="dark"?"dark":"light", el=q.get("el")||"", va=q.get("va")||"";
-  var href={250:"../dist/styles.css",240:"baseline-2.4.0/styles.flat.css",231:"baseline-2.3.1/styles.flat.css"}[v];
+  var href="/dist/styles.css";
   var h=document.documentElement; h.setAttribute("data-theme",theme); if(el){h.setAttribute("data-cs-element",el); if(va) h.setAttribute("data-cs-variant",va);}
   window.__fx={v:v,theme:theme,el:el,va:va,label:{250:"v2.5.0",240:"v2.4.0",231:"v2.3.1"}[v]};
   window.__fxReady=new Promise(function(res){var l=document.createElement("link");l.rel="stylesheet";l.href=href;l.onload=function(){res(true)};l.onerror=function(){res(false)};document.head.appendChild(l);});
@@ -253,6 +253,106 @@ body{background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);
   </div>
 </div>
 
+<div class="fx-h">D17 · Container queries &amp; intrinsic split-pane responsiveness <span>.cs-cq container-type · .cs-cq-cols-2 · .cs-cq-hide-narrow · .cs-splitter__pane CQ · .cs-dl auto-fill · .cs-transfer long tokens</span></div>
+<div class="sc" id="p15">
+  <div class="row" style="align-items:flex-start">
+    <div class="cs-cq pn" id="p15-cq-host-n" style="inline-size:480px;box-sizing:border-box">
+      <div class="cs-cq-cols-2" id="p15-cq2-n" style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px"><span>1</span><span>2</span></div>
+      <span class="cs-cq-hide-narrow" id="p15-cqh-n">Aux</span>
+    </div>
+    <div class="cs-cq pn" id="p15-cq-host-w" style="inline-size:840px;box-sizing:border-box">
+      <div class="cs-cq-cols-2" id="p15-cq2-w" style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px"><span>1</span><span>2</span></div>
+      <span class="cs-cq-hide-narrow" id="p15-cqh-w">Aux</span>
+    </div>
+  </div>
+  <div class="row" style="margin-top:10px;align-items:flex-start">
+    <div class="cs-splitter" style="inline-size:520px;box-sizing:border-box">
+      <div class="cs-splitter__pane cs-cq" id="p15-spl-pane" style="inline-size:340px;box-sizing:border-box">
+        <div class="cs-cq-cols-3" id="p15-spl-cq3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px"><span>KPI 1</span><span>KPI 2</span><span>KPI 3</span></div>
+        <div class="cs-cq-stack" id="p15-spl-cqs" style="display:flex;gap:6px"><span>Filter A</span><span>Filter B</span></div>
+      </div>
+      <div class="cs-splitter__bar" role="separator" aria-label="Split"></div>
+      <div class="cs-splitter__pane" style="flex:1">Detail</div>
+    </div>
+    <div style="inline-size:280px;box-sizing:border-box"><dl class="cs-dl" id="p15-dl-n"><div><dt>A</dt><dd>1</dd></div><div><dt>B</dt><dd>2</dd></div><div><dt>C</dt><dd>3</dd></div></dl></div>
+    <div style="inline-size:640px;box-sizing:border-box"><dl class="cs-dl" id="p15-dl-w"><div><dt>A</dt><dd>1</dd></div><div><dt>B</dt><dd>2</dd></div><div><dt>C</dt><dd>3</dd></div></dl></div>
+    <div id="p15-tr-host" style="inline-size:360px;box-sizing:border-box">
+      <div class="cs-transfer" id="p15-tr">
+        <div class="cs-transfer__list" id="p15-tr-l"><div class="cs-transfer__title">Nguồn</div><ul><li><label><input type="checkbox">QUYET_DINH_KIEM_TOAN_NOI_BO_2026_KHOI_VAN_HANH</label></li></ul></div>
+        <div class="cs-transfer__ops"><button type="button" class="cs-button cs-button--xs">→</button></div>
+        <div class="cs-transfer__list"><div class="cs-transfer__title">Đích</div><ul><li><label><input type="checkbox">PHONG_PHAP_CHE_DOANH_NGHIEP_CAP_CAO</label></li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="fx-h">D18 · Print / @page, masonry &amp; document canvas fidelity <span>.cs-masonry__item break-inside · .cs-canvas-desk scroll &amp; column lock · .cs-table__cell--numeric · .cs-aspect-ratio</span></div>
+<div class="sc" id="p16">
+  <div class="pn row" style="align-items:flex-start">
+    <div class="cs-masonry__item" id="p16-masonry">Clause block</div>
+    <div class="cs-canvas-desk" id="p16-desk" style="inline-size:480px">
+      <div style="inline-size:640px">
+        <div id="p16-desk-g3" style="display:grid;grid-template-columns:repeat(3, 1fr);gap:8px"><span>1</span><span>2</span><span>3</span></div>
+        <div id="p16-desk-g4" style="display:grid;grid-template-columns:repeat(4, 1fr);gap:8px"><span>1</span><span>2</span><span>3</span><span>4</span></div>
+      </div>
+    </div>
+    <div class="cs-table-wrap" style="inline-size:320px">
+      <table class="cs-table"><thead><tr><th>Hạng mục</th><th class="cs-table__cell--numeric" id="p16-th-num">Số tiền</th></tr></thead><tbody><tr><td>Ngân sách</td><td class="cs-table__cell--numeric" id="p16-td-num">128.450.000 ₫</td></tr></tbody></table>
+    </div>
+    <div class="cs-aspect-ratio" id="p16-ar" style="inline-size:160px;aspect-ratio:16/9"><div id="p16-ar-child">16:9</div></div>
+    <div class="cs-surface-whisper" id="p16-gw" style="padding:4px">W</div>
+    <div class="cs-surface-heavy" id="p16-gh" style="padding:4px">H</div>
+  </div>
+</div>
+
+<div class="fx-h">D19 · Interactive feedback, AI confidence &amp; micro-interaction geometry <span>.cs-confidence · .cs-status 4-state · .cs-switch checked knob · .cs-tour z-stack · .cs-fab / .cs-backtop · .cs-toast 3-tone</span></div>
+<div class="sc" id="p17">
+  <div class="pn row" style="align-items:center">
+    <div class="cs-confidence" style="inline-size:180px">
+      <div class="cs-confidence__head" id="p17-conf-head"><span>Độ tin cậy</span><span class="cs-confidence__level">94%</span></div>
+      <div class="cs-confidence__track" id="p17-conf-track"><span class="cs-confidence__seg" id="p17-conf-seg"></span><span class="cs-confidence__seg"></span><span class="cs-confidence__seg"></span></div>
+    </div>
+    <span class="cs-status cs-status--online"><i class="cs-status__dot" id="p17-st-on"></i>Online</span>
+    <span class="cs-status cs-status--busy"><i class="cs-status__dot" id="p17-st-busy"></i>Busy</span>
+    <span class="cs-status cs-status--offline"><i class="cs-status__dot" id="p17-st-off"></i>Offline</span>
+    <span class="cs-status cs-status--error"><i class="cs-status__dot" id="p17-st-err"></i>Error</span>
+    <label class="cs-switch"><input type="checkbox" checked id="p17-sw-in"><span class="cs-switch__track" id="p17-sw-tr"></span><span>Bật</span></label>
+    <div class="cs-tour__scrim" id="p17-tour-scrim" style="display:none"></div>
+    <div class="cs-tour__hole" id="p17-tour-hole" style="display:none"></div>
+    <div class="cs-tour__pop" id="p17-tour-pop" style="position:static"><b> Bước 1</b><p>Hướng dẫn</p></div>
+    <div class="cs-fab cs-fab--static" id="p17-fab"><button type="button" class="cs-fab__main" id="p17-fab-main" aria-label="Action">+</button><button type="button" class="cs-fab__mini" id="p17-fab-mini" aria-label="Sub">•</button></div>
+    <button type="button" class="cs-backtop" id="p17-backtop" style="position:static" aria-label="Top">↑</button>
+  </div>
+  <div class="pn row" style="margin-top:10px">
+    <div class="cs-toast cs-toast--default" id="p17-tst-default"><span class="cs-toast__icon" id="p17-tsti-default">ℹ</span><div><div class="cs-toast__title">Info</div></div></div>
+    <div class="cs-toast cs-toast--success" id="p17-tst-success"><span class="cs-toast__icon" id="p17-tsti-success">✓</span><div><div class="cs-toast__title">Done</div></div></div>
+    <div class="cs-toast cs-toast--danger" id="p17-tst-danger"><span class="cs-toast__icon" id="p17-tsti-danger">✕</span><div><div class="cs-toast__title">Fail</div></div></div>
+  </div>
+</div>
+
+<div class="fx-h">D20 · Cross-locale layout resilience (vi ↔ en) &amp; long-token containment <span>.cs-display--fluid :lang(vi/en) · .cs-body pretty wrap · .cs-navmenu__card &amp; .cs-tooltip__bubble anywhere wrap · 320px bilingual rows · .cs-btngroup · .cs-accordion chevron</span></div>
+<div class="sc" id="p18">
+  <div class="pn row" style="align-items:flex-start">
+    <div lang="vi"><h1 class="cs-display--fluid" id="p18-df-vi" style="font-size:36px;margin:0"> Quản trị Doanh nghiệp</h1></div>
+    <div lang="en"><h1 class="cs-display--fluid" id="p18-df-en" style="font-size:36px;margin:0">Enterprise Governance</h1></div>
+    <p class="cs-body" id="p18-body" style="margin:0;max-inline-size:280px">Song ngữ Việt — Anh giữ nhịp dòng 1.5 và ngắt dòng thẩm mỹ.</p>
+    <p class="cs-body-lg" id="p18-body-lg" style="margin:0;max-inline-size:280px">Bản tin điều hành hệ thống.</p>
+    <div style="inline-size:220px"><a class="cs-navmenu__card" id="p18-navcard" href="#p18"><b>PHAN_HE_QUAN_TRI_RUI_RO_NGAN_QUY_2026</b><small>Chi tiết</small></a></div>
+    <span class="cs-tooltip" data-open="true" style="position:relative"><button type="button" class="cs-button cs-button--xs">Tip</button><span class="cs-tooltip__bubble" id="p18-tip" data-cs-placement="top" style="position:static;opacity:1;transform:none">MA_CHUNG_TU_KIEM_TOAN_NOI_BO_LIEN_PHONG_BAN_2026</span></span>
+    <div id="p18-bi320" style="inline-size:320px;box-sizing:border-box;display:grid;gap:6px">
+      <div class="cs-item" id="p18-item"><span class="cs-item__leading">●</span><div class="cs-item__main" id="p18-item-main"><div class="cs-item__title">Phê duyệt tờ trình ngân sách quý IV năm tài chính 2026</div><div class="cs-item__description">Bilingual subtitle — Governance &amp; Treasury Approval</div></div><span class="cs-item__trailing">→</span></div>
+      <div class="cs-list"><div class="cs-list__item"><span class="cs-list__lead">✓</span><div class="cs-list__main" id="p18-list-main"><div class="cs-list__title">Biên bản đối soát liên ngân hàng thương mại</div></div><span class="cs-list__trail">99%</span></div></div>
+    </div>
+    <div class="cs-btngroup" role="group" aria-label="Actions">
+      <button type="button" class="cs-button cs-button--secondary cs-button--sm" id="p18-bg-1"> Tiếng Việt</button>
+      <button type="button" class="cs-button cs-button--secondary cs-button--sm" id="p18-bg-2">Giữa</button>
+      <button type="button" class="cs-button cs-button--secondary cs-button--sm" id="p18-bg-3">English</button>
+    </div>
+    <div class="cs-accordion" style="inline-size:260px"><div class="cs-accordion__item"><button type="button" class="cs-accordion__trigger" aria-expanded="true" id="p18-acc-tr"><span>Điều khoản bảo mật dữ liệu cá nhân</span><span class="cs-accordion__chevron" id="p18-acc-ch">▾</span></button></div></div>
+    <div class="cs-collapsible" style="inline-size:260px"><button type="button" class="cs-collapsible__trigger" aria-expanded="true" id="p18-col-tr"><span class="cs-collapsible__label">Phụ lục hợp đồng lao động</span><span class="cs-collapsible__chevron" id="p18-col-ch">▾</span></button></div>
+  </div>
+</div>
+
 <script>
 (function(){
   var fx=window.__fx;
@@ -476,6 +576,46 @@ body{background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);
       btns:btns,alerts:alerts,results:results,
       spaces:["1","2","3","4","6","8","12","16","24"].map(function(k){return parseFloat(probe(p14,"padding-top","var(--cs-space-"+k+")"))||0}),
       radii:["sm","md","lg","full"].map(function(k){return parseFloat(probe(p14,"border-top-left-radius","var(--cs-radius-"+k+")"))||0})};
+    var p15=document.getElementById("p15"),cqHostS=cs(document.getElementById("p15-cq-host-n")),splPane=document.getElementById("p15-spl-pane"),trHost=document.getElementById("p15-tr-host"),trListS=cs(document.getElementById("p15-tr-l"));
+    m.p15={cqHost:{type:cqHostS.containerType,name:cqHostS.containerName},
+      cq2:{n:cols("p15-cq2-n"),w:cols("p15-cq2-w")},
+      cqHide:{n:cs(document.getElementById("p15-cqh-n")).display,w:cs(document.getElementById("p15-cqh-w")).display},
+      spl:{sw:splPane.scrollWidth,cw:splPane.clientWidth,cols:cols("p15-spl-cq3"),dir:cs(document.getElementById("p15-spl-cqs")).flexDirection},
+      dl:{n:cols("p15-dl-n"),w:cols("p15-dl-w")},
+      tr:{sw:trHost.scrollWidth,cw:trHost.clientWidth,wrap:trListS.overflowWrap,minW:parseFloat(trListS.minInlineSize||trListS.minWidth)||0}};
+    var p16=document.getElementById("p16"),masS=cs(document.getElementById("p16-masonry")),deskEl=document.getElementById("p16-desk"),deskS=cs(deskEl);
+    var tdNumS=cs(document.getElementById("p16-td-num")),arEl=document.getElementById("p16-ar"),arS=cs(arEl),arRect=arEl.getBoundingClientRect(),arChildS=cs(document.getElementById("p16-ar-child"));
+    var gwS=cs(document.getElementById("p16-gw")),ghS=cs(document.getElementById("p16-gh"));
+    m.p16={panel:probe(p16,"background-color","var(--cs-color-surface-panel)"),
+      masonry:{breakInside:masS.breakInside||masS.pageBreakInside||""},
+      desk:{ox:deskS.overflowX,sw:deskEl.scrollWidth,cw:deskEl.clientWidth,g3:cols("p16-desk-g3"),g4:cols("p16-desk-g4")},
+      glass:{printRule:cssContracts.printGlass,reducedRule:cssContracts.reducedTransparency,whisperBf:gwS.backdropFilter||gwS.webkitBackdropFilter||"",heavyBf:ghS.backdropFilter||ghS.webkitBackdropFilter||""},
+      numCell:{align:tdNumS.textAlign,fvn:tdNumS.fontVariantNumeric,bw:parseFloat(tdNumS.borderBottomWidth)||0},
+      ar:{w:Math.round(arRect.width),h:Math.round(arRect.height),ov:arS.overflow,childPos:arChildS.position,childW:Math.round(document.getElementById("p16-ar-child").getBoundingClientRect().width)}};
+    var p17=document.getElementById("p17"),confHeadS=cs(document.getElementById("p17-conf-head")),confTrackS=cs(document.getElementById("p17-conf-track")),confSegEl=document.getElementById("p17-conf-seg"),confSegS=cs(confSegEl);
+    var swTrEl=document.getElementById("p17-sw-tr"),swTrS=cs(swTrEl),swKnobS=cs(swTrEl,"::after");
+    var tScrimS=cs(document.getElementById("p17-tour-scrim")),tHoleS=cs(document.getElementById("p17-tour-hole")),tPopEl=document.getElementById("p17-tour-pop"),tPopS=cs(tPopEl);
+    var fabMainEl=document.getElementById("p17-fab-main"),fabMainS=cs(fabMainEl),fabMiniEl=document.getElementById("p17-fab-mini"),btEl=document.getElementById("p17-backtop"),btS=cs(btEl);
+    var toasts={};["default","success","danger"].forEach(function(k){var ts=cs(document.getElementById("p17-tst-"+k)),ti=cs(document.getElementById("p17-tsti-"+k));toasts[k]={bg:ts.backgroundColor,bw:parseFloat(ts.borderInlineStartWidth)||0,iconFg:ti.color};});
+    m.p17={panel:probe(p17,"background-color","var(--cs-color-surface-panel)"),
+      success:probe(p17,"background-color","var(--cs-color-semantic-success)"),ochre:probe(p17,"background-color","var(--cs-color-brand-ochre)"),muted:probe(p17,"background-color","var(--cs-color-text-muted)"),danger:probe(p17,"background-color","var(--cs-color-semantic-danger)"),
+      accent:probe(p17,"background-color","var(--cs-accent)"),accentStrong:probe(p17,"background-color","var(--cs-accent-strong)"),
+      conf:{tt:confHeadS.textTransform,display:confTrackS.display,gap:parseFloat(confTrackS.gap||confTrackS.columnGap)||0,segH:Math.round(confSegEl.getBoundingClientRect().height),segR:parseFloat(confSegS.borderTopLeftRadius)||0},
+      status:{on:bgc(document.getElementById("p17-st-on")).bg,busy:bgc(document.getElementById("p17-st-busy")).bg,off:bgc(document.getElementById("p17-st-off")).bg,err:bgc(document.getElementById("p17-st-err")).bg,dotW:Math.round(document.getElementById("p17-st-on").getBoundingClientRect().width)},
+      sw:{w:Math.round(swTrEl.getBoundingClientRect().width),h:Math.round(swTrEl.getBoundingClientRect().height),bg:swTrS.backgroundColor,knobW:parseFloat(swKnobS.width)||0,knobTf:swKnobS.transform},
+      tour:{zScrim:parseInt(tScrimS.zIndex,10)||0,zHole:parseInt(tHoleS.zIndex,10)||0,zPop:parseInt(tPopS.zIndex,10)||0,holeOutW:parseFloat(tHoleS.outlineWidth)||0,popW:Math.round(tPopEl.getBoundingClientRect().width)},
+      fab:{mainW:Math.round(fabMainEl.getBoundingClientRect().width),mainH:Math.round(fabMainEl.getBoundingClientRect().height),mainBg:fabMainS.backgroundColor,mainFg:fabMainS.color,miniW:Math.round(fabMiniEl.getBoundingClientRect().width),btW:Math.round(btEl.getBoundingClientRect().width),btBg:btS.backgroundColor,btFg:btS.color},
+      toasts:toasts};
+    var p18=document.getElementById("p18"),dfViS=cs(document.getElementById("p18-df-vi")),dfEnS=cs(document.getElementById("p18-df-en")),bS=cs(document.getElementById("p18-body")),bLgS=cs(document.getElementById("p18-body-lg"));
+    var navCS=cs(document.getElementById("p18-navcard")),tipEl=document.getElementById("p18-tip"),tipS=cs(tipEl),bi320=document.getElementById("p18-bi320");
+    var bg1S=cs(document.getElementById("p18-bg-1")),bg2S=cs(document.getElementById("p18-bg-2")),bg3S=cs(document.getElementById("p18-bg-3"));
+    var accTrS=cs(document.getElementById("p18-acc-tr")),accChS=cs(document.getElementById("p18-acc-ch")),colTrS=cs(document.getElementById("p18-col-tr")),colChS=cs(document.getElementById("p18-col-ch"));
+    m.p18={df:{viLh:parseFloat(dfViS.lineHeight)/parseFloat(dfViS.fontSize),enLh:parseFloat(dfEnS.lineHeight)/parseFloat(dfEnS.fontSize),tw:dfViS.textWrap||"",ow:dfViS.overflowWrap},
+      body:{tw:bS.textWrap||"",lh:parseFloat(bS.lineHeight)/parseFloat(bS.fontSize),lgLh:parseFloat(bLgS.lineHeight)/parseFloat(bLgS.fontSize)},
+      wrap:{navOw:navCS.overflowWrap,navMinW:parseFloat(navCS.minInlineSize||navCS.minWidth)||0,tipOw:tipS.overflowWrap,tipMaxW:parseFloat(tipS.maxInlineSize||tipS.maxWidth)||0,tipW:Math.round(tipEl.getBoundingClientRect().width)},
+      bi320:{sw:bi320.scrollWidth,cw:bi320.clientWidth,itemMinW:parseFloat(cs(document.getElementById("p18-item-main")).minInlineSize||cs(document.getElementById("p18-item-main")).minWidth)||0,listMinW:parseFloat(cs(document.getElementById("p18-list-main")).minInlineSize||cs(document.getElementById("p18-list-main")).minWidth)||0},
+      btngroup:{r1Start:parseFloat(bg1S.borderTopLeftRadius)||0,r1End:parseFloat(bg1S.borderTopRightRadius)||0,r2:parseFloat(bg2S.borderTopLeftRadius)||0,r3Start:parseFloat(bg3S.borderTopLeftRadius)||0,r3End:parseFloat(bg3S.borderTopRightRadius)||0,m2:parseFloat(bg2S.marginInlineStart||bg2S.marginLeft)||0},
+      acc:{jc:accTrS.justifyContent,accTf:accChS.transform,colJc:colTrS.justifyContent,colTf:colChS.transform}};
     return m;
   }
   window.CSAudit25={measure:measure,ELS:ELS,CONTROLS:CONTROLS.map(function(c){return c[0]}),GLASS:GLASS};

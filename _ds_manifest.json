@@ -5820,7 +5820,7 @@
       "scope": ".cs-code",
       "important": false,
       "declarationOrder": 1059,
-      "sourceLine": 80
+      "sourceLine": 81
     },
     {
       "name": "--cs-code-fg",
@@ -5830,7 +5830,7 @@
       "scope": ".cs-code",
       "important": false,
       "declarationOrder": 1060,
-      "sourceLine": 81
+      "sourceLine": 82
     },
     {
       "name": "--cs-code-border",
@@ -5840,7 +5840,7 @@
       "scope": ".cs-code",
       "important": false,
       "declarationOrder": 1061,
-      "sourceLine": 82
+      "sourceLine": 83
     },
     {
       "name": "--cs-code-muted",
@@ -5850,7 +5850,7 @@
       "scope": ".cs-code",
       "important": false,
       "declarationOrder": 1062,
-      "sourceLine": 83
+      "sourceLine": 84
     },
     {
       "name": "--cs-glass-whisper-bg",

@@ -16,15 +16,12 @@ Verified live in browser: **69/69** `D1`–`D10` checks (`10.0 / 10`), **64/64**
 | `components/feedback/feedback.card.html` | `.frame { flex: 1 1 100%; min-width: 0 }` | Prevents the toast demo frame from collapsing to zero width inside the flex row. |
 | `components/logo/logo.card.html` | Lockup wordmark `color: var(--cs-color-text-primary)`. | Ensures the wordmark remains visible in dark mode. |
 
-## 2 · Shipped verification suite (`audit/`)
+## 2 · Automated verification suite (`_audit/ci/`)
 
 | File | Purpose |
 |---|---|
-| `audit/v2.5.0-verification.html`, `audit/verify-v2.5.0.js`, `audit/fixture-v2.5.0.html` | Verification Audit & Specimen Workbench: 10 dimensions (`P0` tint safety · `P1` 32-scope WCAG 1.4.11 · `P2` Umber separation, 14-control invalid parity, VI diacritics · `P3` nested glass, `DESIGN.md`/asset contract · `D8`–`D10` Doctrine Immutables: dual-ring focus, ≥ 44px touch targets & motion safety, high-contrast, density & semantic status contrast), 69 checks × `v2.5.0+` / `v2.4.0` / `v2.3.1`, 32×6 contrast matrix, edge-case report, JSON export, and specimen switcher (`version × theme × element × variant`). |
-| `audit/v2.5.0-verification.json`, `_audit/ci/verify-audit-benchmarks-browser.mjs` | Machine-readable receipt and automated CI/prepublish non-regression gate (`npm run test:audit-regression`): **10.0 / 10** (`69/69` across `D1`–`D10`), embedded baseline suite **64/64** (`v2.4.0` tag `62/64`, `v2.3.1` `8/64`), render health **146/146**, and **0 watch** items. |
-| `audit/render-health.html` | Loads all 146 templates, component cards, and UI-kit/guideline pages in hidden frames (as authored / forced dark / high-contrast / any Ngũ Hành scope) and verifies zero unstyled, unresolved, erroring, empty, or low-contrast pages. |
-| `audit/fixture.html`, `audit/verify.js`, `audit/v2.4.0-verification.html` | Three-version loader (`?v=current|v240|baseline`) re-running the 64 baseline checks across `v2.5.0`, `v2.4.0`, and `v2.3.1`. |
-| `audit/baseline-2.4.0/styles.flat.css`, `audit/baseline-2.3.1/styles.flat.css` | Flattened `styles.css` closures from tags `v2.4.0` and `v2.3.1` for live three-version comparison. |
+| `_audit/ci/verify-audit-benchmarks-browser.mjs`, `_audit/ci/lib/benchmark-checks.mjs` | Automated CI/prepublish live-browser benchmark gate (`npm run test:audit-regression`): scores **10.0 / 10** (`129/129` across 20 dimensions `D1`–`D20`), core baseline suite **64/64** (`10.0 / 10`), 192/192 cells in the 32×6 non-text contrast matrix (`≥ 3.0:1`), 3/3 Generation-2 complex stress-test screens, and **0 watch** items. |
+| `_audit/ci/fixtures/benchmark-20d.html`, `_audit/ci/fixtures/benchmark-baseline.html`, `_audit/ci/fixtures/benchmark-gen2.html` | Current-tree DOM fixtures exercising 32 Theme × Element × Variant scopes, 14 form controls, Vietnamese diacritic metrics, container queries, print/glass rules, and complex multi-scope enterprise/AI/mobile screens against `/dist/styles.css` and `/styles.css`. |
 
 ## 3 · Host-specific items excluded from upstream
 

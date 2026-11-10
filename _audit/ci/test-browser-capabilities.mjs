@@ -12,7 +12,7 @@ assert.deepEqual(queries.map(query=>query.trim().toLowerCase()).sort(),expected.
 assert.equal(inspectBrowserCapabilities({}).pass,false);
 assert.throws(()=>requireBrowserCapabilities({}),/colorMixOklab.*containerInlineSize.*relationalHas.*textWrapBalance.*inert/);
 assert.throws(()=>requireBrowserCapabilities({CSS:{supports:()=>true},HTMLElement:{prototype:{}}}),/inert/);
-const compatibility=JSON.parse(readFileSync('_audit/remediation/browser-compatibility-source.json','utf8'));
+const compatibility=JSON.parse(readFileSync('_audit/ci/fixtures/browser-compatibility-source.json','utf8'));
 assert.match(compatibility.commit,/^[a-f0-9]{40}$/);
 const compareVersions=(a,b)=>{const left=a.split('.').map(Number),right=b.split('.').map(Number);for(let i=0;i<Math.max(left.length,right.length);i++){const delta=(left[i]||0)-(right[i]||0);if(delta)return delta;}return 0;};
 for(const [name,feature]of Object.entries(compatibility.features))for(const [browser,releases]of Object.entries(compatibility.latestTwoReleasedVersionsInSnapshot)) {

@@ -15,7 +15,7 @@ Các mục có số bên dưới giữ quyết định có ngày và ID trích d
 | Phạm vi phiên bản bảo mật và mục tiêu xác nhận | `SECURITY.md` |
 | Chấp nhận hỗ trợ và phê duyệt được lưu | `components/lifecycle.json`, `docs/vi/conventions.md` |
 | Chuẩn bị phát hành và ủy quyền riêng | `docs/vi/release-notes.md`, `.github/workflows/release.yml` |
-| Kiểm tra và disposition hiện tại | `_audit/remediation/assessment-remediation.md`, `test-results/final-validation.json` |
+| Kiểm tra và disposition hiện tại | `_audit/ci/unit-suites.json`, `test-results/final-validation.json` |
 
 Release notes đã phát hành vẫn là hồ sơ lịch sử. Build cục bộ, candidate đã chuẩn bị, hồ sơ hỗ trợ đã duyệt và bản phát hành công khai là các trạng thái riêng biệt.
 

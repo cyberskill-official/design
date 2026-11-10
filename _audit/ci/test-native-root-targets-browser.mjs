@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { withBrowserFixture } from './lib/browser-fixture.mjs';
-const inventory = JSON.parse(readFileSync('_audit/remediation/native-root-targets.json', 'utf8'));
+const inventory = JSON.parse(readFileSync('_audit/ci/fixtures/native-root-targets.json', 'utf8'));
 await withBrowserFixture(async page => {
   for (const target of inventory.remediatedTargets) {
     const result = await page.evaluate(async ({ name, protected: protectedKeys }) => {

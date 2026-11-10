@@ -755,7 +755,7 @@
       "proposalSha256": "bea830d226ceae09474b6e1e48e868880bf085926c6e344ba5decb234f472441",
       "decision": "Adopt the proposed 16-row scope plan",
       "scope": "Current scope definitions, tasks and expected outcomes only; no manual execution or result approval.",
-      "proposalPath": "_audit/remediation/manual-at-scope-proposal.json"
+      "proposalPath": "_audit/ci/fixtures/manual-at-scope-proposal.json"
     }
   }
 }

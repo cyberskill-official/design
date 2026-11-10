@@ -81,11 +81,11 @@
     },
     {
       "path": "base/controls.css",
-      "sha256": "d16d8e017a5c300d10d75d36f379dfad1a8c25bb7ded61fbf08740082456331b"
+      "sha256": "1f983026bbc0e5f5962fad7c7188729c74530cd8983fd29e00d6304854231e28"
     },
     {
       "path": "base/collections.css",
-      "sha256": "307287655287da43c275c56f14bdd846cd3d4a57d0cd1ddb4305996f0c2cba3c"
+      "sha256": "9d55ef7c05f38a9ac789014868b15e1495e4fb46f9fc30d729cc0ef6dc6794ee"
     },
     {
       "path": "base/shell.css",
@@ -17271,7 +17271,7 @@
     {
       "order": 1059,
       "sourcePath": "base/collections.css",
-      "line": 80,
+      "line": 81,
       "column": 3,
       "name": "--cs-code-bg",
       "value": "#2b1e14",
@@ -17287,7 +17287,7 @@
     {
       "order": 1060,
       "sourcePath": "base/collections.css",
-      "line": 81,
+      "line": 82,
       "column": 3,
       "name": "--cs-code-fg",
       "value": "#f5ead9",
@@ -17303,7 +17303,7 @@
     {
       "order": 1061,
       "sourcePath": "base/collections.css",
-      "line": 82,
+      "line": 83,
       "column": 3,
       "name": "--cs-code-border",
       "value": "#4a3a2c",
@@ -17319,7 +17319,7 @@
     {
       "order": 1062,
       "sourcePath": "base/collections.css",
-      "line": 83,
+      "line": 84,
       "column": 3,
       "name": "--cs-code-muted",
       "value": "#c9b7a3",

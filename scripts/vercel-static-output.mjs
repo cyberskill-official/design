@@ -36,6 +36,12 @@ const cspManifest=buildCspManifest([...byPath.values()].filter(entry=>entry.path
 const cspBytes=JSON.stringify(cspManifest,null,2)+'\n';
 writeFileSync(join(outDir,'public-site-csp.json'),cspBytes);
 byPath.set('public-site-csp.json',{path:'public-site-csp.json',audience:'host',purpose:'Exact derived per-output script permissions; not deployment or security approval.',bytes:Buffer.byteLength(cspBytes),sha256:createHash('sha256').update(cspBytes).digest('hex')});
+const nojekyllBytes='';
+writeFileSync(join(outDir,'.nojekyll'),nojekyllBytes);
+byPath.set('.nojekyll',{path:'.nojekyll',audience:'host',purpose:'Disable Jekyll processing on GitHub Pages so underscore-prefixed design-system assets (_ds_bundle.js, _esm/, _vendor/, _audit/) are served.',bytes:Buffer.byteLength(nojekyllBytes),sha256:createHash('sha256').update(nojekyllBytes).digest('hex')});
+const cnameBytes='design.cyberskill.world\n';
+writeFileSync(join(outDir,'CNAME'),cnameBytes);
+byPath.set('CNAME',{path:'CNAME',audience:'host',purpose:'Custom domain binding for GitHub Pages (design.cyberskill.world).',bytes:Buffer.byteLength(cnameBytes),sha256:createHash('sha256').update(cnameBytes).digest('hex')});
 const generatedDirectoryIndexes=[...byPath.keys()].filter(path=>path.endsWith('/index.html')&&!policy.has(path)&&!legacyRedirectFiles.includes(path));
 const deployment=buildSiteRoutes(cspManifest,{generatedDirectoryIndexes});
 const deduplicated = [...byPath.values()].sort((a,b)=>a.path.localeCompare(b.path));

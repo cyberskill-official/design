@@ -3,7 +3,7 @@ import { readFileSync, writeFileSync, mkdtempSync, rmSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
-const inventory = JSON.parse(readFileSync('_audit/remediation/native-root-targets.json', 'utf8'));
+const inventory = JSON.parse(readFileSync('_audit/ci/fixtures/native-root-targets.json', 'utf8'));
 const temp = mkdtempSync(join(tmpdir(), 'cs-native-root-types-'));
 try {
   const lines = ['import type * as React from "react";'];

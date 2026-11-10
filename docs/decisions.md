@@ -15,7 +15,7 @@ The numbered sections below preserve dated decisions and stable citation IDs; th
 | Security release window and acknowledgement target | `SECURITY.md` |
 | Support acceptance and retained approvals | `components/lifecycle.json`, `docs/conventions.md` |
 | Release preparation and separate authorization | `docs/release-notes.md`, `.github/workflows/release.yml` |
-| Validation and current finding dispositions | `_audit/remediation/assessment-remediation.md`, `test-results/final-validation.json` |
+| Validation and current finding dispositions | `_audit/ci/unit-suites.json`, `test-results/final-validation.json` |
 
 Published release notes remain historical records. A local build, a prepared candidate, an approved support record and a published release are distinct states.
 

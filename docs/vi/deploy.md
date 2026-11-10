@@ -48,7 +48,7 @@ Nếu host dưới **domain khác**, đổi absolute URL trong các meta tag cho
 
 **Không Storybook:** sau review nguồn gốc và phê duyệt triển khai rõ ràng, serve danh sách portable đã duyệt làm webroot.
 
-**Có Storybook tại `/`:** `npm run build:site` ghi mirror portable vào `.vercel-static/` và artifact triển khai Vercel vào `.vercel/output/`. Vercel dùng `config.json` của artifact sau; không giữ override Output Directory cũ và không sửa `vercel.json` trong lúc build để dự đoán hash chưa tồn tại.
+**Có Storybook tại `/`:** `npm run build:site` ghi mirror portable vào `.vercel-static/` (kèm `.nojekyll` và `CNAME` để triển khai lên GitHub Pages qua `.github/workflows/pages.yml`) và artifact triển khai Vercel vào `.vercel/output/`. Vercel dùng `config.json` của artifact sau; không giữ override Output Directory cũ và không sửa `vercel.json` trong lúc build để dự đoán hash chưa tồn tại.
 
 Host tĩnh khác cần adapter ánh xạ từng path HTML cuối cùng và alias tới CSP trong `public-site-csp.json`, giữ security header/redirect tại `scripts/site-deployment-policy.json`, và cấm inline script trên path không biết. Hash phải lấy từ byte cuối cùng, gồm wrapper logic template xác định. Một chuỗi CSP chép tay không thể đại diện quyền riêng của từng trang.
 

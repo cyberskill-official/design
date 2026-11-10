@@ -48,7 +48,7 @@ If you host under a **different** domain, change the absolute URLs in those meta
 
 **Without Storybook:** after provenance review and explicit deployment approval, serve the reviewed portable inventory as the webroot.
 
-**With Storybook at `/`:** `npm run build:site` writes a reviewed portable mirror to `.vercel-static/` and the Vercel deployment artifact to `.vercel/output/`. Vercel uses the latter's `config.json`; do not supply an old Output Directory override or rewrite `vercel.json` during a build to predict hashes that do not exist yet.
+**With Storybook at `/`:** `npm run build:site` writes a reviewed portable mirror to `.vercel-static/` (including `.nojekyll` and `CNAME` for GitHub Pages deployment via `.github/workflows/pages.yml`) and the Vercel deployment artifact to `.vercel/output/`. Vercel uses the latter's `config.json`; do not supply an old Output Directory override or rewrite `vercel.json` during a build to predict hashes that do not exist yet.
 
 Other static hosts need an adapter that maps each final HTML path and its aliases to the exact CSP in `public-site-csp.json`, retains the security headers and legacy redirects from `scripts/site-deployment-policy.json`, and denies inline scripts on unknown paths. Hashes must come from the final emitted bytes, including the deterministic template logic wrapper. A single copied CSP string cannot represent these page-specific permissions.
 

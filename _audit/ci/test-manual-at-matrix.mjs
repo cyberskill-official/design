@@ -22,7 +22,7 @@ export function validateCurrentScopePlan(matrix){
  assert(typeof plan.approval.reviewedBy==='string'&&plan.approval.reviewedBy.trim());
  assert(Number.isFinite(Date.parse(plan.approval.approvedAt)));
  assert.match(plan.approval.proposalSha256,/^[a-f0-9]{64}$/);
- assert.equal(plan.approval.proposalPath,'_audit/remediation/manual-at-scope-proposal.json');
+ assert.equal(plan.approval.proposalPath,'_audit/ci/fixtures/manual-at-scope-proposal.json');
  const proposedBytes=readFileSync(plan.approval.proposalPath);
  assert.equal(createHash('sha256').update(proposedBytes).digest('hex'),plan.approval.proposalSha256,'Approved proposal bytes must remain available and unchanged');
  const proposed=JSON.parse(proposedBytes);

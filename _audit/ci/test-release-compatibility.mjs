@@ -19,7 +19,7 @@ for (const docPath of ['README.md', 'docs/consuming.md', 'docs/release-notes.md'
   assert(docText.includes(publishedRelease.version), `${docPath} must reference recorded npm published release ${publishedRelease.version}`);
   assert(!/latest published npm release \(`1\.7\.2`\)|2\.0\.0-alpha\.0 \(unpublished\)|2\.0\.0-alpha\.0 \(chưa phát hành\)/.test(docText), `${docPath} must not regress to pre-2.0.0 unpublished prose`);
 }
-const history = JSON.parse(readFileSync('_audit/remediation/segmented-role-removal-proposal-history.json'));
+const history = JSON.parse(readFileSync('_audit/ci/fixtures/segmented-role-removal-proposal-history.json'));
 assert.equal(createHash('sha256').update(history.sourceBytes).digest('hex'), history.sourceSha256, 'Archived original registry retains exact bytes');
 const previous = JSON.parse(history.sourceBytes);
 assert.deepEqual(previous.pendingChanges.find(change => change.id === 'remove-segmented-role-override'), history.archivedProposal);

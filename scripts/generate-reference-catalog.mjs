@@ -41,10 +41,6 @@ export function documentRole(path) {
   if (['base/README.md','tokens/README.md','tokens/modes.md'].includes(path)) return 'source_maintenance_guide';
   const reviewedRoles = {
     '.github/pull_request_template.md': 'contribution_template',
-    '_audit/remediation/assessment-source.md': 'retained_assessment_source',
-    '_audit/remediation/assessment-remediation.md': 'remediation_report',
-    '_audit/remediation/decision-template.md': 'decision_template',
-    '_audit/remediation/release-v1.7.2-notes-proposal.md': 'private_owner_review_release_metadata_proposal',
     '_audit/state-machine-review.md': 'state_machine_review',
     '_audit/state-machines.md': 'generated_state_census',
     'scripts/lib/compiler-and-story-domains.md': 'source_maintenance_guide',

@@ -1,11 +1,4 @@
-/* CyberSkill Design System — v2.5.0 verification runner.
- * Renders audit/fixture-v2.5.0.html with v2.5.0 (dist/styles.css), v2.4.0 and v2.3.1 (flattened tagged closures),
- * reads getComputedStyle() values, scores seven dimensions and embeds the v2.4.0 baseline suite (64 checks). */
-(function(){
-  "use strict";
-  var $=function(s,r){return (r||document).querySelector(s)};
-  function el(tag,attrs,kids){var e=document.createElement(tag);if(attrs)for(var k in attrs){if(k==="text")e.textContent=attrs[k];else if(k==="html")e.innerHTML=attrs[k];else e.setAttribute(k,attrs[k]);}(kids||[]).forEach(function(c){if(c!=null)e.appendChild(typeof c==="string"?document.createTextNode(c):c)});return e;}
-  /* ---- colour maths (sRGB / oklab / oklch parsing, WCAG contrast) ---- */
+// Pure current-tree benchmark evaluators (129 D1-D20 checks + 64 baseline checks)
   function num(x){x=String(x).trim();return x.endsWith("%")?parseFloat(x)/100:parseFloat(x)}
   function oklabToRgb(L,a,b){var l_=L+0.3963377774*a+0.2158037573*b,m_=L-0.1055613458*a-0.0638541728*b,s_=L-0.0894841775*a-1.291485548*b;var l=l_*l_*l_,m=m_*m_*m_,s=s_*s_*s_;var r=4.0767416621*l-3.3077115913*m+0.2309699292*s,g=-1.2684380046*l+2.6097574011*m-0.3413193965*s,bb=-0.0041960863*l-0.7034186147*m+1.707614701*s;function enc(x){x=Math.max(0,Math.min(1,x));return x<=0.0031308?12.92*x:1.055*Math.pow(x,1/2.4)-0.055}return{r:enc(r),g:enc(g),b:enc(bb)}}
   function parseColor(s){s=(s||"").trim();if(!s||s==="transparent"||s==="none")return{r:0,g:0,b:0,a:0};var m,p;
@@ -28,32 +21,16 @@
   function norm(s){return(s||"").replace(/\s+/g," ").replace(/\s*,\s*/g,", ").trim().toLowerCase()}
   var MIX="color-mix(in oklab, var(--cs-accent) 18%, var(--cs-color-surface-panel))";
 
-  /* ---- loaders ---- */
-  var VERSIONS=[{id:"250",label:"v2.5.0",tag:null},{id:"240",label:"v2.4.0",tag:"v2.4.0"},{id:"231",label:"v2.3.1",tag:"v2.3.1"}];
-  var RAW="https://raw.githubusercontent.com/cyberskill-official/design/";
-  var LOGO_OK=["assets/logo-mark.svg","assets/logo-mark.png","assets/favicon.svg","components/logo/logo-data.js"];
-  function frame(src){return new Promise(function(res){var f=el("iframe",{class:"au-hidden",title:"audit probe",tabindex:"-1","aria-hidden":"true"});f.style.width="1280px";f.style.height="900px";f.onload=function(){res(f)};f.src=src;$("#au-frames").appendChild(f)})}
-  function wait(fn,ms){var t0=Date.now();return new Promise(function(res){(function tick(){var v=null;try{v=fn()}catch(e){}if(v||Date.now()-t0>(ms||12000))return res(v||null);setTimeout(tick,120)})()})}
-  function timeout(p,ms,fb){return Promise.race([p,new Promise(function(r){setTimeout(function(){r(fb)},ms)})])}
-  function txt(u){return fetch(u,{cache:"no-store"}).then(function(r){return r.ok?r.text():null}).catch(function(){return null})}
-  function exists(u){return fetch(u,{cache:"no-store"}).then(function(r){return r.ok}).catch(function(){return false})}
-  async function fixture(id,theme){var f=await timeout(frame("fixture-v2.5.0.html?v="+id+"&theme="+theme),20000,null);if(!f)return null;var api=await wait(function(){return f.contentWindow.CSAudit25});return api?timeout(api.measure(),20000,null):null}
-  async function load(v){
-    var both=await Promise.all([fixture(v.id,"light"),fixture(v.id,"dark")]); if(!both[0]||!both[1])return null;
-    var base=v.tag?RAW+v.tag+"/":"../";
-    var design=await txt(base+"DESIGN.md");
-    var assets={}; for(var i=0;i<LOGO_OK.length;i++)assets[LOGO_OK[i]]=await exists(base+LOGO_OK[i]);
-    /* light-root document for light scopes + type; dark-root document for the dark default scope and dark scopes */
-    var fx={label:v.label,p0:both[1].p0,p2:both[1].p2,p4:both[0].p4,p1:{progressDecl:both[0].p1.progressDecl,scopes:both[0].p1.scopes.filter(function(s){return s.key.indexOf("light:")===0}).concat(both[1].p1.scopes.filter(function(s){return s.key.indexOf("dark:")===0}))},
-      p3:{controls:both[0].p3.controls.map(function(row,i){return{name:row.name,hook:row.hook,light:row.light,dark:both[1].p3.controls[i].dark}})},
-      p5:{light:{root:both[0].p5.root,nest:both[0].p5.nest},dark:{root:both[1].p5.root,nest:both[1].p5.nest}},
-      p6:{light:both[0].p6,dark:both[1].p6},p7:both[0].p7,p8:{light:both[0].p8,dark:both[1].p8},
-      p9:{light:both[0].p9,dark:both[1].p9},p10:{light:both[0].p10,dark:both[1].p10},
-      p11:{light:both[0].p11,dark:both[1].p11},p12:{light:both[0].p12,dark:both[1].p12},
-      p13:{light:both[0].p13,dark:both[1].p13},p14:{light:both[0].p14,dark:both[1].p14},
-      cssLoaded:both[0].cssLoaded&&both[1].cssLoaded};
-    return{fx:fx,design:design,assets:assets,label:v.label};
-  }
+function okL(c) {
+  c = typeof c === "string" ? parseColor(c) : c;
+  var r = lin(c.r), g = lin(c.g), b = lin(c.b);
+  var l = Math.cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b),
+      m = Math.cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b),
+      s = Math.cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b);
+  return 0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s;
+}
+function ratio(o) { return px(o.lh) / px(o.fs); }
+var LOGO_OK = ["assets/logo-mark.svg", "assets/logo-mark.png", "assets/favicon.svg", "components/logo/logo-data.js"];
 
   /* ---- checks ---- */
   var DIMS=[
@@ -72,7 +49,11 @@
     {id:"D13",pri:"AI Surface",name:"AI & agentic UI surface contract (Lumi & chrome)",vi:"Hợp đồng bề mặt AI (Lumi, cổng duyệt & terminal)"},
     {id:"D14",pri:"Enterprise",name:"Enterprise data, navigation & overlay stack",vi:"Dữ liệu doanh nghiệp, điều hướng & lớp phủ"},
     {id:"D15",pri:"Ergonomics",name:"Responsive reflow, container queries & pickers",vi:"Co giãn 320/768px, container query & bộ chọn"},
-    {id:"D16",pri:"Orthogonality",name:"Cross-runtime open-spec & 4-axis orthogonality",vi:"Đặc tả mở đa môi trường & trực giao 4 trục"}
+    {id:"D16",pri:"Orthogonality",name:"Cross-runtime open-spec & 4-axis orthogonality",vi:"Đặc tả mở đa môi trường & trực giao 4 trục"},
+    {id:"D17",pri:"Ergonomics",name:"Container queries & intrinsic split-pane reflow",vi:"Container query & tự thích ứng trong khung chia"},
+    {id:"D18",pri:"Architecture",name:"Print / @page, masonry & document canvas fidelity",vi:"In ấn / phân trang, masonry & khung trình chiếu"},
+    {id:"D19",pri:"AI Surface",name:"Interactive feedback, AI confidence & micro-interactions",vi:"Phản hồi tương tác, độ tin cậy AI & vi tương tác"},
+    {id:"D20",pri:"Orthogonality",name:"Cross-locale layout resilience (vi ↔ en) & long tokens",vi:"Độ bền bố cục đa ngôn ngữ (Việt ↔ Anh) & chuỗi dài"}
   ];
   function ind(scope,key){
     var s=scope;
@@ -171,116 +152,173 @@
     add("D16","Result 4-tone feedback icons (.cs-result, --success, --warning, --error) 64×64px & ≥ 4.5:1",".cs-result__icon across 4 tones","64×64px circular badge · icon ≥ 4.5:1 in light & dark",function(X){var szOk=true,minC=Infinity;["default","success","warning","error"].forEach(function(k){["light","dark"].forEach(function(t){var p=X.fx.p14[t],r=p.results[k];szOk=szOk&&r.w===64&&r.h===64;minC=Math.min(minC,contrast(r.fg,over(r.bg,p.panel)))})});return{pass:szOk&&minC>=4.5,value:"64×64px "+(szOk?"✓":"✗")+" · min contrast "+f2(minC)+":1"}});
     add("D16","Spacing (--cs-space-1..24) & radius (--cs-radius-sm..full) token grids hold exact geometry","tokens/spacing.css","space 4,8,12,16,24,32,48,64,96px · radius 4,8,14,999px",function(X){var p=X.fx.p14.light,es=[4,8,12,16,24,32,48,64,96],er=[4,8,14,999],ok=es.every(function(v,i){return p.spaces[i]===v})&&er.every(function(v,i){return p.radii[i]===v});return{pass:ok,value:"space "+p.spaces.join(",")+"px · radius "+p.radii.join(",")+"px"}});
     add("D16","DESIGN.md open-spec documents 5 Ngũ Hành elements, 5 Liquid Glass materials & bilingual slogan","DESIGN.md","Thổ/Mộc/Hỏa/Kim/Thủy · whisper..lens · Turn Your Will Into Real",function(X){var t=X.design||"",ok=/Thổ/.test(t)&&/Mộc/.test(t)&&/Hỏa/.test(t)&&/Kim/.test(t)&&/Thủy/.test(t)&&/cs-surface-whisper/.test(t)&&/cs-surface-heavy/.test(t)&&/Turn Your Will Into Real/.test(t)&&/Hiện Thực Hoá Ý Chí/i.test(t);return{pass:ok,value:ok?"5 elements + 5 glass materials + bilingual slogan ✓":"incomplete DESIGN.md spec"}});
+    /* D17 — Container queries & intrinsic split-pane responsiveness */
+    add("D17","Container query host (.cs-cq) declares inline-size containment named cs","base/responsive.css .cs-cq","container-type: inline-size · container-name: cs",function(X){var h=X.fx.p15.light.cqHost,ok=h.type==="inline-size"&&h.name==="cs";return{pass:ok,value:"type "+h.type+" · name "+h.name}});
+    add("D17",".cs-cq-cols-2 collapses to 1 column at 480px and expands to 2 columns at 840px","@container cs (max-width: 768px) .cs-cq-cols-2","480px → 1 col · 840px → 2 cols",function(X){var c=X.fx.p15.light.cq2,ok=c.n===1&&c.w===2;return{pass:ok,value:"480px: "+c.n+" col · 840px: "+c.w+" cols"}});
+    add("D17",".cs-cq-hide-narrow hides auxiliary chrome at 480px while preserving it at 840px","@container cs (max-width: 768px) .cs-cq-hide-narrow","480px → display: none · 840px → visible",function(X){var h=X.fx.p15.light.cqHide,ok=h.n==="none"&&h.w!=="none";return{pass:ok,value:"480px: "+h.n+" · 840px: "+h.w}});
+    add("D17","Splitter pane (.cs-splitter__pane.cs-cq) reflows 3-col KPI grid & toolbar with zero overflow",".cs-splitter__pane.cs-cq (340px)","1 col · column stack · scrollWidth ≤ clientWidth",function(X){var s=X.fx.p15.light.spl,ok=s.cols===1&&s.dir==="column"&&s.sw<=s.cw+1;return{pass:ok,value:"cols "+s.cols+" · "+s.dir+" · "+s.sw+"/"+s.cw+"px"}});
+    add("D17","DescriptionList (.cs-dl auto-fill minmax(160px, 1fr)) adapts intrinsically from 280px to 640px",".cs-dl (280px vs 640px)","280px → 1 col · 640px → ≥ 3 cols",function(X){var d=X.fx.p15.light.dl,ok=d.n===1&&d.w>=3;return{pass:ok,value:"280px: "+d.n+" col · 640px: "+d.w+" cols"}});
+    add("D17","Transfer (.cs-transfer) & .cs-transfer__list contain long compound tokens without overflow at 360px",".cs-transfer · .cs-transfer__list","min-inline-size: 0 · overflow-wrap: anywhere · scrollWidth ≤ clientWidth",function(X){var tr=X.fx.p15.light.tr,ok=tr.minW===0&&tr.wrap==="anywhere"&&tr.sw<=tr.cw+1;return{pass:ok,value:"wrap "+tr.wrap+" · "+tr.sw+"/"+tr.cw+"px"}});
+    /* D18 — Print / @page, masonry & document canvas fidelity */
+    add("D18","Masonry item (.cs-masonry__item) enforces break-inside: avoid for pagination safety",".cs-masonry__item","break-inside: avoid",function(X){var b=X.fx.p16.light.masonry.breakInside,ok=b==="avoid";return{pass:ok,value:"break-inside: "+b}});
+    add("D18","Export canvas desk (.cs-canvas-desk) isolates wide slides inside an overflow-x: auto viewport",".cs-canvas-desk","overflow-x: auto · scrollWidth > clientWidth contained",function(X){var d=X.fx.p16.light.desk,ok=d.ox==="auto"&&d.sw>d.cw;return{pass:ok,value:"overflow-x "+d.ox+" · track "+d.sw+"px in "+d.cw+"px desk"}});
+    add("D18","Export canvas desk (.cs-canvas-desk) preserves authored 3-col & 4-col slide grids",".cs-canvas-desk [style*=\"grid-template-columns\"]","repeat(3, 1fr) → 3 cols · repeat(4, 1fr) → 4 cols",function(X){var d=X.fx.p16.light.desk,ok=d.g3===3&&d.g4===4;return{pass:ok,value:"3-col slide: "+d.g3+" · 4-col slide: "+d.g4}});
+    add("D18","Liquid Glass tiers (.cs-surface-whisper..heavy) blur on screen and disable blur for print/reduced-transparency","base/glass.css","screen blur active · @media print & reduced-transparency disable backdrop-filter",function(X){var g=X.fx.p16.light.glass,ok=g.printRule&&g.reducedRule&&/blur/.test(g.whisperBf)&&/blur/.test(g.heavyBf);return{pass:ok,value:"whisper "+g.whisperBf+" · heavy "+g.heavyBf+" · print/reduced ✓"}});
+    add("D18","Numeric table cells (.cs-table__cell--numeric) right-align with tabular-nums & 1px bottom border",".cs-table td.cs-table__cell--numeric","text-align: end · tabular-nums · 1px border-block-end",function(X){var n=X.fx.p16.light.numCell,ok=(n.align==="end"||n.align==="right")&&/tabular-nums/i.test(n.fvn)&&n.bw===1;return{pass:ok,value:"align "+n.align+" · "+n.fvn+" · border "+n.bw+"px"}});
+    add("D18","AspectRatio (.cs-aspect-ratio) locks 16:9 media frame (160×90px) with absolute child fill",".cs-aspect-ratio (16/9 at 160px)","160×90px · overflow: hidden · child position: absolute (160px)",function(X){var a=X.fx.p16.light.ar,ok=a.w===160&&Math.abs(a.h-90)<=1&&a.ov==="hidden"&&a.childPos==="absolute"&&a.childW===160;return{pass:ok,value:a.w+"×"+a.h+"px · "+a.ov+" · child "+a.childPos+" ("+a.childW+"px)"}});
+    /* D19 — Interactive feedback, AI confidence & micro-interaction geometry */
+    add("D19","ConfidenceMeter (.cs-confidence) renders uppercase header & 8px flex segments with 3px gap",".cs-confidence__head · .cs-confidence__track · .cs-confidence__seg","uppercase · flex gap 3px · segment height 8px & radius 2px",function(X){var c=X.fx.p17.light.conf,ok=c.tt==="uppercase"&&c.display==="flex"&&c.gap===3&&c.segH===8&&c.segR===2;return{pass:ok,value:c.tt+" · "+c.display+" gap "+c.gap+"px · seg "+c.segH+"px (r="+c.segR+"px)"}});
+    add("D19","StatusIndicator (.cs-status--{online,busy,offline,error}) resolves 9×9px semantic dots",".cs-status__dot across 4 states","9×9px dot · online=success · busy=ochre · offline=muted · error=danger",function(X){var ok=true;["light","dark"].forEach(function(t){var p=X.fx.p17[t],s=p.status;ok=ok&&s.dotW===9&&eq(s.on,p.success)&&eq(s.busy,p.ochre)&&eq(s.off,p.muted)&&eq(s.err,p.danger)});return{pass:ok,value:"dot "+X.fx.p17.light.status.dotW+"px · online "+hex(X.fx.p17.light.status.on)+" · busy "+hex(X.fx.p17.light.status.busy)+" · error "+hex(X.fx.p17.light.status.err)}});
+    add("D19","Checked Switch (.cs-switch input:checked + .cs-switch__track) translates 20px knob +18px on accent track",".cs-switch__track (44×26px) · ::after (20px)","44×26px track · knob 20px translateX(18px) · track ≥ 3:1 vs panel",function(X){var ok=true,minC=Infinity;["light","dark"].forEach(function(t){var p=X.fx.p17[t],sw=p.sw,expBg=t==="light"?p.accentStrong:p.accent;ok=ok&&sw.w===44&&sw.h===26&&sw.knobW===20&&/18/.test(sw.knobTf)&&eq(sw.bg,expBg);minC=Math.min(minC,contrast(sw.bg,p.panel))});return{pass:ok&&minC>=3,value:X.fx.p17.light.sw.w+"×"+X.fx.p17.light.sw.h+"px · knob "+X.fx.p17.light.sw.knobW+"px · track min "+f2(minC)+":1"}});
+    add("D19","Tour spotlight stack (.cs-tour__scrim 100 < __hole 101 < __pop 102) & 3px Ochre ring",".cs-tour__{scrim,hole,pop}","z-index 100 < 101 < 102 · 3px outline · 280px popover",function(X){var tr=X.fx.p17.light.tour,ok=tr.zScrim===100&&tr.zHole===101&&tr.zPop===102&&tr.holeOutW===3&&tr.popW===280;return{pass:ok,value:"z "+tr.zScrim+"→"+tr.zHole+"→"+tr.zPop+" · outline "+tr.holeOutW+"px · pop "+tr.popW+"px"}});
+    add("D19","FloatingActionButton (.cs-fab__main 56px, __mini 42px) & BackTop (.cs-backtop 44px) ≥ 4.5:1",".cs-fab__main · .cs-fab__mini · .cs-backtop","main 56×56px · mini 42px · backtop 44px · ink ≥ 4.5:1",function(X){var fL=X.fx.p17.light.fab,szOk=fL.mainW===56&&fL.mainH===56&&fL.miniW===42&&fL.btW===44,minC=Infinity;["light","dark"].forEach(function(t){var f=X.fx.p17[t].fab;minC=Math.min(minC,contrast(f.mainFg,f.mainBg),contrast(f.btFg,f.btBg))});return{pass:szOk&&minC>=4.5,value:"fab "+fL.mainW+"px/"+fL.miniW+"px · backtop "+fL.btW+"px · min "+f2(minC)+":1"}});
+    add("D19","Toast 3-tone stack (.cs-toast--{default,success,danger}) keeps 4px stripe & ≥ 4.5:1 icon",".cs-toast--{default,success,danger}","4px border-inline-start · icon ≥ 4.5:1 in light & dark",function(X){var bwOk=true,minC=Infinity;["default","success","danger"].forEach(function(k){["light","dark"].forEach(function(t){var p=X.fx.p17[t],ts=p.toasts[k];bwOk=bwOk&&ts.bw===4;minC=Math.min(minC,contrast(ts.iconFg,over(ts.bg,p.panel)))})});return{pass:bwOk&&minC>=4.5,value:"4px stripe "+(bwOk?"✓":"✗")+" · icon min "+f2(minC)+":1"}});
+    /* D20 — Cross-locale layout resilience (vi ↔ en) & long-token containment */
+    add("D20","Fluid display (.cs-display--fluid) switches line-height 1.22 (:lang(vi)) vs 1.15 (:lang(en)) with balanced wrap",".cs-display--fluid:lang(vi) vs :lang(en)","vi 1.22 · en 1.15 · text-wrap: balance · overflow-wrap: break-word",function(X){var d=X.fx.p18.light.df,ok=Math.abs(d.viLh-1.22)<0.01&&Math.abs(d.enLh-1.15)<0.01&&d.tw==="balance"&&d.ow==="break-word";return{pass:ok,value:"vi "+f2(d.viLh,2)+" · en "+f2(d.enLh,2)+" · "+d.tw+"/"+d.ow}});
+    add("D20","Body prose (.cs-body & .cs-body-lg) enforces text-wrap: pretty & 1.5 line-height for bilingual copy",".cs-body · .cs-body-lg","text-wrap: pretty · line-height 1.5",function(X){var b=X.fx.p18.light.body,ok=b.tw==="pretty"&&Math.abs(b.lh-1.5)<0.01&&Math.abs(b.lgLh-1.5)<0.01;return{pass:ok,value:"text-wrap "+b.tw+" · body "+f2(b.lh,2)+" · body-lg "+f2(b.lgLh,2)}});
+    add("D20","NavigationMenu card (.cs-navmenu__card) & Tooltip bubble (.cs-tooltip__bubble) contain long tokens via overflow-wrap: anywhere",".cs-navmenu__card · .cs-tooltip__bubble[data-cs-placement]","min-inline-size: 0 · overflow-wrap: anywhere · tooltip ≤ 240px",function(X){var w=X.fx.p18.light.wrap,ok=w.navMinW===0&&w.navOw==="anywhere"&&w.tipOw==="anywhere"&&w.tipMaxW===240&&w.tipW<=240;return{pass:ok,value:"nav "+w.navOw+" · tooltip "+w.tipOw+" ("+w.tipW+"/"+w.tipMaxW+"px)"}});
+    add("D20","Bilingual Item (.cs-item__main) & List (.cs-list__main) rows wrap inside 320px without horizontal overflow",".cs-item__main · .cs-list__main (320px host)","min-inline-size: 0 · scrollWidth ≤ clientWidth at 320px",function(X){var b=X.fx.p18.light.bi320,ok=b.itemMinW===0&&b.listMinW===0&&b.sw<=b.cw+1;return{pass:ok,value:"min-inline-size "+b.itemMinW+"/"+b.listMinW+"px · 320px host "+b.sw+"/"+b.cw+"px"}});
+    add("D20","ButtonGroup (.cs-btngroup) collapses interior radii to 0px and overlaps borders (-1px) across locales",".cs-btngroup .cs-button:first-child / middle / :last-child","first 8/0px · middle 0px & margin -1px · last 0/8px",function(X){var bg=X.fx.p18.light.btngroup,ok=bg.r1Start===8&&bg.r1End===0&&bg.r2===0&&bg.r3Start===0&&bg.r3End===8&&bg.m2===-1;return{pass:ok,value:"radii "+bg.r1Start+"/"+bg.r1End+" · "+bg.r2+" · "+bg.r3Start+"/"+bg.r3End+"px · margin "+bg.m2+"px"}});
+    add("D20","Expanded Accordion & Collapsible triggers rotate chevrons 180deg with space-between alignment",".cs-accordion__trigger[aria-expanded=\"true\"] · .cs-collapsible__trigger[aria-expanded=\"true\"]","justify-content: space-between · chevron rotate(180deg)",function(X){var a=X.fx.p18.light.acc,ok=a.jc==="space-between"&&a.colJc==="space-between"&&/-1/.test(a.accTf)&&/-1/.test(a.colTf);return{pass:ok,value:"align "+a.jc+" · accordion & collapsible chevrons rotated 180° ✓"}});
     return C;
   }
   var X_CONTROLS=["TextField","Select","Textarea","Combobox","SearchField","InputGroup","NumberField","TagInput","DatePicker","TimePicker","TreeSelect","Cascader","InputOTP","PromptInput"];
   var X_GLASS=["--_cs-border-subtle","--_cs-border-strong","--_cs-surface-scrim","--cs-glass-whisper-bg","--cs-glass-whisper-border","--cs-glass-light-bg","--cs-glass-light-border","--cs-glass-standard-bg","--cs-glass-standard-border","--cs-glass-heavy-bg","--cs-glass-heavy-border"];
 
-  /* ---- run ---- */
-  var RESULT=null;
-  async function run(){
-    var btn=$("#au-run");btn.disabled=true;$("#au-frames").innerHTML="";status("Rendering the fixture with v2.5.0, v2.4.0 and v2.3.1 · Đang dựng mẫu kiểm thử…");
-    var t0=performance.now();
-    var data=await Promise.all(VERSIONS.map(load));
-    var V={250:data[0],240:data[1],231:data[2]};
-    if(!V[250]){status("v2.5.0 fixture failed to load — check the console.");btn.disabled=false;return}
-    var checks=buildChecks();
-    checks.forEach(function(c){["250","240","231"].forEach(function(k){if(!V[k]){c[k]={pass:false,value:"baseline unavailable",na:true};return}try{c[k]=c.fn(V[k])}catch(e){c[k]={pass:false,value:"error: "+e.message}}});
-      var b=c["231"].pass,cur=c["250"].pass;c.state=b&&cur?"holds":(!b&&cur?"fixed":(b?"regressed":"open"))});
-    var edges=edgeCases(checks,V);
-    RESULT={when:new Date().toISOString(),ms:Math.round(performance.now()-t0),ua:navigator.userAgent,checks:checks.map(function(c){return{dim:c.dim,title:c.title,target:c.target,expect:c.expect,v250:c["250"],v240:c["240"],v231:c["231"],state:c.state}}),edges:edges,raw:{v250:V[250]&&V[250].fx,v240:V[240]&&V[240].fx,v231:V[231]&&V[231].fx}};
-    render(checks,V);btn.disabled=false;
-    status("Ran "+checks.length+" checks × 3 versions in "+(RESULT.ms/1000).toFixed(1)+"s · "+new Date().toLocaleString());
-    embedBaselineSuite();
-  }
-  function status(t){$("#au-status").textContent=t}
-  function score(checks,dim,k){var a=checks.filter(function(c){return c.dim===dim});var p=a.filter(function(c){return c[k].pass}).length;return{p:p,n:a.length,s:a.length?10*p/a.length:0}}
-  var STATE={fixed:["Fixed","Đã khắc phục"],holds:["Holds","Giữ vững"],open:["Open","Còn mở"],regressed:["Regressed","Thoái lui"]};
-  function badge(r){return el("span",{class:"au-pf "+(r.na?"is-na":r.pass?"is-pass":"is-fail"),text:r.na?"N/A":r.pass?"PASS":"FAIL"})}
-  function render(checks,V){
-    var sb=$("#au-score");sb.innerHTML="";var tot={250:0,240:0,231:0};
-    DIMS.forEach(function(d){
-      var s={};["231","240","250"].forEach(function(k){s[k]=score(checks,d.id,k);tot[k]+=s[k].s});
-      var delta=s["250"].s-s["240"].s;
-      sb.appendChild(el("div",{class:"au-dim"},[
-        el("div",{class:"au-dim__name"},[el("b",{text:d.id+" · "+d.name}),el("span",{text:d.pri+" · "+d.vi})]),
-        el("div",{class:"au-bars"},[["231","is-base","v2.3.1"],["240","is-mid","v2.4.0"],["250","is-cur","v2.5.0"]].map(function(r){return el("div",{class:"au-bar"},[el("i",{class:"au-bar__fill "+r[1],style:"inline-size:"+s[r[0]].s*10+"%"}),el("span",{text:r[2]+" "+f2(s[r[0]].s,1)+" · "+s[r[0]].p+"/"+s[r[0]].n})])})),
-        el("div",{class:"au-delta"+(delta>0?" is-up":delta<0?" is-down":""),text:(delta>0?"+":"")+f2(delta,1)})]));
-    });
-    ["231","240","250"].forEach(function(k){$("#au-overall-"+k).textContent=f2(tot[k]/DIMS.length,1)});
-    var pass250=checks.filter(function(c){return c["250"].pass}).length;
-    $("#au-headline").textContent=pass250===checks.length?"All "+checks.length+" v2.5.0 checks pass · 10.0 / 10":pass250+" of "+checks.length+" v2.5.0 checks pass";
-    var counts={fixed:0,holds:0,open:0,regressed:0};checks.forEach(function(c){counts[c.state]++});
-    $("#au-counts").textContent=counts.fixed+" fixed since v2.3.1 · "+counts.holds+" hold · "+counts.open+" open · "+counts.regressed+" regressed · "+checks.length+" checks";
-    var host=$("#au-checks");host.innerHTML="";
-    DIMS.forEach(function(d){
-      var t=el("table",{class:"au-table"}),thead=el("thead",null,[el("tr",null,["Check","Expected","v2.3.1","v2.4.0","v2.5.0","Result"].map(function(h){return el("th",{text:h})}))]),tbody=el("tbody");
-      checks.filter(function(c){return c.dim===d.id}).forEach(function(c){tbody.appendChild(el("tr",{"data-state":c.state},[
-        el("td",null,[el("b",{text:c.title}),el("code",{text:c.target})]),el("td",{class:"au-mono",text:c.expect}),
-        el("td",null,[badge(c["231"]),el("div",{class:"au-val",text:String(c["231"].value)})]),el("td",null,[badge(c["240"]),el("div",{class:"au-val",text:String(c["240"].value)})]),el("td",null,[badge(c["250"]),el("div",{class:"au-val",text:String(c["250"].value)})]),
-        el("td",null,[el("span",{class:"au-state is-"+c.state,text:STATE[c.state][0]}),el("small",{text:STATE[c.state][1]})])]))});
-      t.appendChild(thead);t.appendChild(tbody);
-      host.appendChild(el("h4",{class:"au-dimhead",id:"dim-"+d.id,text:d.id+" · "+d.pri+" · "+d.name}));host.appendChild(el("div",{class:"au-tablewrap"},[t]));
-    });
-    applyFilter();
-    var fh=$("#au-findings");fh.innerHTML="";
-    var issues=checks.filter(function(c){return !c["250"].pass});
-    if(!issues.length)fh.appendChild(el("p",{text:"No failing checks in v2.5.0 · Không có phép kiểm tra nào thất bại."}));
-    issues.forEach(function(c){fh.appendChild(el("div",{class:"au-finding"},[el("span",{class:"au-state is-"+c.state,text:STATE[c.state][0]}),el("div",null,[el("b",{text:c.dim+" · "+c.title}),el("div",{class:"au-val",text:"v2.5.0: "+c["250"].value})])]))});
-    var eh=$("#au-edges");eh.innerHTML="";edgeCases(checks,V).forEach(function(e){eh.appendChild(el("div",{class:"au-finding"},[el("span",{class:"au-state "+(e.level==="watch"?"is-fixed":"is-holds"),text:e.level==="watch"?"Watch":"Note"}),el("div",null,[el("b",{text:e.title}),el("p",{text:e.body})])]))});
-    scopeTable(V[250].fx.p1.scopes);
-  }
-  function edgeCases(checks,V){
-    var out=[],fx=V[250].fx,p0=fx.p0;
-    var ci=contrast(p0.item.color,p0.item.bg),cr=contrast(p0.result.color,p0.result.bg);
-    out.push({level:Math.min(ci,cr)<7?"watch":"note",title:"Tinted dark-scope ink: selected item "+f2(ci)+":1 · result icon "+f2(cr)+":1 (clearing WCAG AAA 7:1; v2.4.0 measured "+(V[240]?f2(contrast(V[240].fx.p0.item.color,V[240].fx.p0.item.bg)):"n/a")+":1)",body:"Item ink is text-primary "+hex(p0.item.color)+" on "+hex(p0.item.bg)+" ("+f2(ci)+":1); the result icon paints text-accent "+hex(p0.result.color)+" on the same mix ("+f2(cr)+":1). Both clear WCAG AA 4.5:1, WCAG AAA 7:1 and the APCA body floor."});
-    var near=[];fx.p1.scopes.forEach(function(s){INDS.forEach(function(k){var v=ind(s,k[0]);if(v>=3&&v<3.5)near.push(k[0]+" · "+s.name+" ("+f2(v)+":1)")})});
-    if(near.length)out.push({level:"watch",title:near.length+" indicator/scope pairs sit within 0.5 of the 3:1 floor",body:near.slice(0,8).join(" · ")+(near.length>8?" · …":"")});
-    out.push({level:"note",title:"Carousel dots are measured for fine pointers only",body:"Under (pointer: coarse) base/a11y.css replaces the ::before dot with a 44px radial-gradient target painted in --cs-color-text-accent; that branch is not exercised by this desktop run."});
-    out.push({level:"note",title:"Hover rules are read from the CSSOM, then composited through a probe",body:".cs-navmenu__card:hover and .cs-splitter__bar:hover cannot be triggered synthetically; their declared background is applied to a probe inside the dark default scope and compared with the expected color-mix result."});
-    out.push({level:"note",title:"Baselines are flattened from the tagged styles.css closures",body:"audit/baseline-2.4.0 and audit/baseline-2.3.1 concatenate the 25 tagged token + base sheets (the repository does not commit dist/styles.min.css). Fonts and aurora assets resolve to this project's copies."});
-    if(!V[240]||!V[231])out.push({level:"watch",title:"A baseline failed to load",body:"Check that audit/baseline-2.4.0/styles.flat.css and audit/baseline-2.3.1/styles.flat.css are present."});
-    return out;
-  }
-  function scopeTable(scopes){
-    var host=$("#au-scopes");host.innerHTML="";
-    var t=el("table",{class:"au-table au-evid"}),thead=el("thead",null,[el("tr",null,["Scope","accent"].concat(INDS.map(function(k){return k[0]})).map(function(h){return el("th",{text:h})}))]),tb=el("tbody");
-    scopes.forEach(function(s){tb.appendChild(el("tr",null,[el("td",{text:s.name}),el("td",null,[el("i",{class:"au-sw",style:"background:"+s.accent}),document.createTextNode(hex(s.accent))])].concat(INDS.map(function(k){var v=ind(s,k[0]);return el("td",{class:v<3?"is-low":"",text:f2(v,1)+":1"})}))))});
-    t.appendChild(thead);t.appendChild(tb);host.appendChild(t);
-  }
-  function applyFilter(){var f=document.querySelector('input[name="au-filter"]:checked').value;document.querySelectorAll("#au-checks .au-table tbody tr").forEach(function(tr){var s=tr.getAttribute("data-state");tr.hidden=!(f==="all"||(f==="fixed"&&s==="fixed")||(f==="issues"&&(s==="open"||s==="regressed")))})}
 
-  /* ---- embedded v2.4.0 baseline suite (64 checks, re-run against v2.5.0) ---- */
-  async function embedBaselineSuite(){
-    var host=$("#au-suite");host.innerHTML="";host.appendChild(el("p",{class:"au-val",text:"Running the v2.4.0 suite (fixture.html · verify.js) in a hidden frame…"}));
-    var f=await timeout(frame("v2.4.0-verification.html?embed=1"),30000,null);
-    var r=f?await wait(function(){return f.contentWindow.CSAudit24&&f.contentWindow.CSAudit24.result()},90000):null;
-    host.innerHTML="";
-    if(!r){host.appendChild(el("p",{class:"au-val",text:"The baseline suite did not report within 90s — open it directly below."}));return}
-    var n=r.checks.length,p250=r.checks.filter(function(c){return c.v250&&c.v250.pass}).length,p240=r.checks.filter(function(c){return c.v240&&c.v240.pass}).length,p231=r.checks.filter(function(c){return c.v231&&c.v231.pass}).length;
-    $("#au-suite-headline").textContent=p250===n?"All "+n+" baseline checks pass on v2.5.0 · 10.0 / 10":p250+" of "+n+" baseline checks pass on v2.5.0";
-    var dims={};r.checks.forEach(function(c){dims[c.dim]=dims[c.dim]||{n:0,p250:0,p240:0,p231:0};dims[c.dim].n++;if(c.v250&&c.v250.pass)dims[c.dim].p250++;if(c.v240&&c.v240.pass)dims[c.dim].p240++;if(c.v231&&c.v231.pass)dims[c.dim].p231++});
-    var t=el("table",{class:"au-table au-evid"}),tb=el("tbody");
-    Object.keys(dims).forEach(function(k){var d=dims[k];tb.appendChild(el("tr",null,[el("td",{text:k}),el("td",{text:d.p231+"/"+d.n}),el("td",{text:d.p240+"/"+d.n}),el("td",{text:d.p250+"/"+d.n+" · "+f2(10*d.p250/d.n,1)})]))});
-    tb.appendChild(el("tr",null,[el("td",null,[el("b",{text:"Total"})]),el("td",{text:p231+"/"+n}),el("td",{text:p240+"/"+n}),el("td",null,[el("b",{text:p250+"/"+n+" · "+f2(10*p250/n,1)})])]));
-    t.appendChild(el("thead",null,[el("tr",null,["Suite dimension","v2.3.1","v2.4.0","v2.5.0"].map(function(h){return el("th",{text:h})}))]));t.appendChild(tb);host.appendChild(t);
-    var fails=r.checks.filter(function(c){return !(c.v250&&c.v250.pass)});
-    if(fails.length){host.appendChild(el("h4",{class:"au-dimhead",text:"Failing on v2.5.0"}));fails.forEach(function(c){host.appendChild(el("div",{class:"au-finding"},[el("span",{class:"au-state is-open",text:"Open"}),el("div",null,[el("b",{text:c.dim+" · "+c.title}),el("div",{class:"au-val",text:String(c.v250&&c.v250.value)})])]))})}
-    if(RESULT)RESULT.baselineSuite={total:n,v250:p250,v240:p240,v231:p231,checks:r.checks};
-  }
-
-  /* ---- specimen ---- */
-  var VARIANTS={"":[["","default"]],tho:[["sand","sand · soft"],["","ochre · middle"],["clay","clay · deep"]],moc:[["bamboo","bamboo · soft"],["","leaf · middle"],["forest","forest · deep"]],hoa:[["plasma","plasma · soft"],["","ember · middle"],["lava","lava · deep"]],kim:[["titanium","titanium · soft"],["","champagne · middle"],["steel","steel · deep"]],thuy:[["mist","mist · soft"],["","river · middle"],["ocean","ocean · deep"]]};
-  function fillVariants(){var e=$("#au-sp-e").value,s=$("#au-sp-va");s.innerHTML="";VARIANTS[e].forEach(function(v){s.appendChild(el("option",{value:v[0],text:v[1]}))});if(e)s.value="";s.disabled=!e}
-  var lastSrc="";
-  function specimen(){var f=$("#au-specimen"),v=$("#au-sp-v").value,t=$("#au-sp-t").value,e=$("#au-sp-e").value,va=$("#au-sp-va").value;var src="fixture-v2.5.0.html?v="+v+"&theme="+t+(e?"&el="+e:"")+(va?"&va="+va:"");if(src===lastSrc)return;lastSrc=src;f.src=src;$("#au-sp-open").href=src}
-  document.addEventListener("DOMContentLoaded",function(){
-    $("#au-run").addEventListener("click",run);
-    document.querySelectorAll('input[name="au-filter"]').forEach(function(i){i.addEventListener("change",applyFilter)});
-    $("#au-sp-e").addEventListener("change",function(){fillVariants();specimen()});
-    ["#au-sp-v","#au-sp-t","#au-sp-va"].forEach(function(s){$(s).addEventListener("change",specimen)});
-    $("#au-export").addEventListener("click",function(){if(!RESULT)return;var a=el("a",{href:URL.createObjectURL(new Blob([JSON.stringify(RESULT,null,2)],{type:"application/json"})),download:"cyberskill-design-v2.5.0-verification.json"});document.body.appendChild(a);a.click();a.remove()});
-    fillVariants();specimen();run();
+export function evaluate20D(V250) {
+  var checks = buildChecks().map(function (c) {
+    var r;
+    try { r = c.fn(V250); } catch (e) { r = { pass: false, value: "error: " + e.message }; }
+    return { dim: c.dim, title: c.title, target: c.target, expect: c.expect, v250: r };
   });
-  window.CSAudit25Runner={run:run,result:function(){return RESULT}};
-})();
+  var fx = V250.fx, p0 = fx.p0;
+  var ci = contrast(p0.item.color, p0.item.bg), cr = contrast(p0.result.color, p0.result.bg);
+  var edges = [];
+  edges.push({
+    level: Math.min(ci, cr) < 7 ? "watch" : "note",
+    title: "Tinted dark-scope ink: selected item " + f2(ci) + ":1 · result icon " + f2(cr) + ":1"
+  });
+  var near = [], lowCells = 0;
+  fx.p1.scopes.forEach(function (s) {
+    INDS.forEach(function (k) {
+      var v = ind(s, k[0]);
+      if (v < 3) lowCells++;
+      else if (v < 3.5) near.push(k[0] + " · " + s.name + " (" + f2(v) + ":1)");
+    });
+  });
+  if (near.length) {
+    edges.push({ level: "watch", title: near.length + " indicator/scope pairs sit within 0.5 of the 3:1 floor" });
+  }
+  return { checks: checks, edges: edges, lowCells: lowCells, scopesCount: fx.p1.scopes.length };
+}
+
+  function slateHex(t) { var m = t && t.match(/class="sw" style="background:(#[0-9A-Fa-f]{6})"><\/span>Slate EN italic/); return m ? m[1].toUpperCase() : null; }
+  function deckLH(t) { var m = t && t.match(/\.display\s*\{[^}]*line-height:\s*([\d.]+)/); return m ? parseFloat(m[1]) : null; }
+  function dieuSizes(t) {
+    return [1, 2, 3].map(function (n) {
+      if (!t) return null; var m = new RegExp(">ĐIỀU " + n + "(?![0-9])").exec(t); if (!m) return null;
+      var pre = t.slice(0, m.index), s = pre.lastIndexOf('style="'); if (s < 0) return null;
+      var style = pre.slice(s + 7, pre.indexOf('"', s + 7)), fm = style.match(/font-size:\s*([\d.]+)px/); return fm ? parseFloat(fm[1]) : null;
+    });
+  }
+  function designRadius(t) { var m = t && t.match(/`--cs-radius-lg` \(`(\d+(?:\.\d+)?)px`\) for [^;]*`\.cs-dialog`/); return m ? parseFloat(m[1]) : 14; }
+
+function buildBaselineChecks(PROPS, spec) {
+  var MARKERS = [["cal", ".cs-cal__grid button.sel"], ["fab", ".cs-fab__main"], ["timeline", ".cs-timeline__item--now .cs-timeline__marker"], ["step", ".cs-step--active .cs-step__marker"]];
+  var SCOPE_NAMES = { default: "Thổ · default", tho: "Thổ", moc: "Mộc", hoa: "Hỏa", kim: "Kim", thuy: "Thủy" };
+
+  
+    var C = [];
+    function add(dim, title, target, expect, fn, control) { C.push({ dim: dim, title: title, target: target, expect: expect, fn: fn, control: !!control }); }
+    PROPS.forEach(function (p) {
+      add("D1", "Nested scopes recompute " + p, "base/glass.css", "nested dark = dark root · nested light = light root",
+        function (X) { var L = X.L.props, D = X.D.props; var ok = eq(L.nest[p], D.root[p]) && eq(D.nest[p], L.root[p]) && eq(L.back[p], L.root[p]); return { pass: ok, value: "nested dark " + hex(L.nest[p]) + " · dark root " + hex(D.root[p]) }; });
+    });
+    function dL(page, scrim) { var c = over(scrim, page); return { c: c, d: okL(c) - okL(page) }; }
+    function sv(page, scrim) { var r = dL(page, scrim); return "page " + hex(page) + " → " + hex(r.c) + " · ΔL " + (r.d >= 0 ? "+" : "") + f2(r.d, 3); }
+    add("D2", "Dark root: scrim never lightens the dark page", "--_cs-surface-scrim", "OKLab ΔL ≤ +0.01", function (X) { var s = X.D.scrim; return { pass: dL(s.rootPage, s.rootScrim).d <= 0.01, value: sv(s.rootPage, s.rootScrim) }; });
+    add("D2", "Dark root: scrimmed backdrop sits below the dialog panel", "--_cs-surface-scrim vs --cs-color-surface-panel", "backdrop luminance < panel", function (X) { var s = X.D.scrim, c = over(s.rootScrim, s.rootPage); return { pass: lum(c) < lum(s.rootPanel), value: "backdrop " + hex(c) + " · panel " + hex(s.rootPanel) + " · " + f2(contrast(c, s.rootPanel)) + ":1" }; });
+    add("D2", "Dark root: scrim darkens the dark page by ≥ 1 JND", "--_cs-surface-scrim", "OKLab ΔL ≤ −0.02", function (X) { var s = X.D.scrim; return { pass: dL(s.rootPage, s.rootScrim).d <= -0.02, value: sv(s.rootPage, s.rootScrim) }; });
+    add("D2", "Nested dark in light page: scrim never lightens the dark surface", "--_cs-surface-scrim (nested)", "OKLab ΔL ≤ +0.01", function (X) { var s = X.L.scrim; return { pass: dL(s.nestPage, s.nestScrim).d <= 0.01, value: sv(s.nestPage, s.nestScrim) }; });
+    add("D2", "Nested dark in light page: backdrop sits below the dialog panel", "--_cs-surface-scrim (nested)", "backdrop luminance < panel", function (X) { var s = X.L.scrim, c = over(s.nestScrim, s.nestPage); return { pass: lum(c) < lum(s.nestPanel), value: "backdrop " + hex(c) + " · panel " + hex(s.nestPanel) }; });
+    add("D2", "Light root: scrim darkens the paper page", "--_cs-surface-scrim", "OKLab ΔL ≤ −0.02", function (X) { var s = X.L.scrim; return { pass: dL(s.rootPage, s.rootScrim).d <= -0.02, value: sv(s.rootPage, s.rootScrim) }; }, true);
+    add("D2", "Dialog overlay paints the scoped scrim", ".cs-dialog__overlay", "overlay = scope scrim", function (X) { return { pass: eq(X.L.scrim.nestOverlay, X.L.scrim.nestScrim), value: hex(X.L.scrim.nestOverlay) }; }, true);
+    add("D3", "Loading button opacity", ".cs-button.is-loading (with .is-disabled, as rendered)", "0.88", function (X) { var o = X.L.buttons.loading.opacity; return { pass: Math.abs(o - 0.88) < 0.005, value: o }; });
+    add("D3", "Loading button cursor", ".cs-button.is-loading", "progress", function (X) { var c = X.L.buttons.loading.cursor; return { pass: c === "progress", value: c }; });
+    add("D3", "Disabled button opacity", ".cs-button.is-disabled", "0.58", function (X) { var o = X.L.buttons.disabled.opacity; return { pass: Math.abs(o - 0.58) < 0.005, value: o }; });
+    add("D3", "Disabled button cursor", ".cs-button.is-disabled", "not-allowed", function (X) { var c = X.L.buttons.disabled.cursor; return { pass: c === "not-allowed", value: c }; });
+    add("D3", "Dialog radius matches DESIGN.md", ".cs-dialog", spec.radius + "px (--cs-radius-lg)", function (X) { var r = px(X.L.dialog.radius); return { pass: Math.abs(r - spec.radius) < 0.01, value: X.L.dialog.radius }; });
+    add("D3", "Dialog radius resolves through --cs-radius-lg", ".cs-dialog", "= var(--cs-radius-lg)", function (X) { return { pass: X.L.dialog.radius === X.L.dialog.radiusLg, value: X.L.dialog.radius + " vs " + X.L.dialog.radiusLg }; });
+    [["L", "light"], ["D", "dark"]].forEach(function (t) {
+      add("D3", "Invalid combobox (.is-invalid) border · " + t[1], ".is-invalid .cs-combobox input", "--cs-color-semantic-danger", function (X) { var m = X[t[0]].combo; return { pass: eq(m.cls, m.danger), value: hex(m.cls) + " (danger " + hex(m.danger) + ")" }; });
+      add("D3", "Invalid combobox (aria-invalid) border · " + t[1], '.cs-combobox input[aria-invalid="true"]', "--cs-color-semantic-danger", function (X) { var m = X[t[0]].combo; return { pass: eq(m.aria, m.danger), value: hex(m.aria) }; });
+    });
+    MARKERS.forEach(function (mk) {
+      add("D4", "Marker boundary ≥ 3:1 against panel — " + mk[0], mk[1], "min ≥ 3:1 across 12 scopes (WCAG 1.4.11)", function (X) {
+        var worst = Infinity, where = "";
+        [["L", "light"], ["D", "dark"]].forEach(function (t) { var R = X[t[0]].rings; Object.keys(R).forEach(function (s) {
+          var r = R[s], ring = insetRing(r[mk[0]].boxShadow, 2), c = Math.max(contrast(over(r[mk[0]].bg, r.panel), r.panel), ring ? contrast(over(ring.color, r.panel), r.panel) : 1);
+          if (c < worst) { worst = c; where = SCOPE_NAMES[s] + " " + t[1]; } }); });
+        return { pass: worst >= 3, value: "min " + f2(worst) + ":1 · " + where };
+      });
+    });
+    [["L", "light"], ["D", "dark"]].forEach(function (t) {
+      add("D4", "Invalid border ≥ 3:1 against panel · " + t[1], '.cs-combobox input[aria-invalid="true"]', "≥ 3:1", function (X) { var m = X[t[0]].combo, c = contrast(over(m.aria, m.panel), m.panel); return { pass: c >= 3, value: f2(c) + ":1" }; });
+    });
+    [["L", "light"], ["D", "dark"]].forEach(function (t) {
+      ["default", "tho", "moc", "hoa", "kim", "thuy"].forEach(function (s) {
+        add("D5", "2px accent-strong rings · " + SCOPE_NAMES[s] + " · " + t[1], s === "default" ? "no data-cs-element" : 'data-cs-element="' + s + '"', "4/4 markers: inset 0 0 0 2px var(--cs-accent-strong)", function (X) {
+          var r = X[t[0]].rings[s], ok = 0; MARKERS.forEach(function (mk) { var ring = insetRing(r[mk[0]].boxShadow, 2); if (ring && eq(ring.color, r.strong)) ok++; });
+          return { pass: ok === 4, value: ok + "/4 · strong " + hex(r.strong) };
+        });
+      });
+    });
+    add("D6", "VI .cs-display line-height", ':lang(vi) .cs-display', "1.22", function (X) { var v = ratio(X.L.type.dispVi); return { pass: Math.abs(v - 1.22) < 0.006, value: f2(v, 3) }; });
+    add("D6", "VI .cs-display--fluid line-height", ':lang(vi) .cs-display--fluid', "1.22", function (X) { var v = ratio(X.L.type.dispFluidVi); return { pass: Math.abs(v - 1.22) < 0.006, value: f2(v, 3) }; });
+    add("D6", "EN .cs-display inside a VI page keeps tight 1.15", '<html lang="vi"> … <div lang="en"> .cs-display', "1.15", function (X) { var v = ratio(X.L.type.dispEn); return { pass: Math.abs(v - 1.15) < 0.006, value: f2(v, 3) }; });
+    add("D6", "Stacked-diacritic clearance at display size", ".cs-display · “Hệ thống … Đổi mới sáng tạo”", "line-height ≥ ink ascent + descent", function (X) { var t = X.L.type, lh = px(t.dispVi.lh), inkH = t.ink.ascent + t.ink.descent, g = lh - inkH; return { pass: g >= 0, value: (g >= 0 ? "+" : "") + f2(g, 1) + "px (lh " + f2(lh, 1) + " · ink " + f2(inkH, 1) + ")" }; });
+    add("D6", "Badge line-height", ".cs-badge", "1.2", function (X) { var v = ratio(X.L.type.badge); return { pass: Math.abs(v - 1.2) < 0.01, value: f2(v, 3) }; });
+    add("D6", "Badge padding", ".cs-badge", "3px 9px", function (X) { var b = X.L.type.badge; return { pass: px(b.pt) === 3 && px(b.pb) === 3 && px(b.pl) === 9 && px(b.pr) === 9, value: b.pt + " " + b.pr }; });
+    add("D6", "Tooltip white-space", ".cs-tooltip__bubble", "normal", function (X) { return { pass: X.L.type.tip.ws === "normal", value: X.L.type.tip.ws }; });
+    add("D6", "Tooltip max-inline-size", ".cs-tooltip__bubble", "240px", function (X) { return { pass: X.L.type.tip.maxw === "240px", value: X.L.type.tip.maxw }; });
+    add("D6", "Tooltip 1px inset border", ".cs-tooltip__bubble", "inset 0 0 0 1px", function (X) { return { pass: !!insetRing(X.L.type.tip.shadow, 1), value: insetRing(X.L.type.tip.shadow, 1) ? "present" : "absent" }; });
+    add("D6", "VI tooltip wraps within 240px", ".cs-tooltip__bubble", "width ≤ 240px · ≥ 2 lines", function (X) { var t = X.L.type.tip, lines = Math.round((t.h - px(t.pt) - px(t.pb)) / px(t.lh)); return { pass: t.w <= 240.5 && lines >= 2, value: f2(t.w, 0) + "px · " + lines + " line" + (lines === 1 ? "" : "s") }; });
+    function docCheck(title, target, expect, sv, lv, ok) { add("D7", title, target, expect, function (X) { var s = sv(X.S), l = X.live ? lv(X.live) : undefined, pass = ok(s) && (l === undefined || l === null || ok(l)); return { pass: pass, value: String(s) + (l !== undefined ? " · live " + (l === null ? "n/a" : (typeof l === "number" ? f2(l, 3) : l)) : "") }; }); }
+    docCheck("Slate EN italic swatch", "guidelines/documents.html", "#26323A", function (S) { return S.slate; }, function (L) { return L.slate ? hex(L.slate) : null; }, function (v) { return String(v).toUpperCase() === "#26323A"; });
+    docCheck("Deck .display line-height", "ui_kits/deck/index.html", "1.12", function (S) { return S.deck; }, function (L) { return L.deck; }, function (v) { return Math.abs(parseFloat(v) - 1.12) < 0.006; });
+    [1, 2, 3].forEach(function (n) {
+      docCheck("ĐIỀU " + n + " heading · Termination decision", "VnTerminationDecision.dc.html", "13.5px", function (S) { return S.term[n - 1]; }, function (L) { return L.term[n - 1]; }, function (v) { return parseFloat(v) === 13.5; });
+    });
+    [1, 2, 3].forEach(function (n) {
+      docCheck("ĐIỀU " + n + " heading · Appointment / transfer", "VnAppointmentTransfer.dc.html", "13.5px", function (S) { return S.appt[n - 1]; }, function (L) { return L.appt[n - 1]; }, function (v) { return parseFloat(v) === 13.5; });
+    });
+    var REC = {};
+    C.forEach(function (c) { c.rec = REC[c.title] || ""; });
+    return C;
+  }
+
+export function parseStaticDocs(files) {
+  return {
+    slate: slateHex(files.documentsHtml),
+    deck: deckLH(files.deckHtml),
+    term: dieuSizes(files.termHtml),
+    appt: dieuSizes(files.apptHtml),
+    radius: designRadius(files.designMd)
+  };
+}
+
+export function evaluateBaseline64(cur, radius) {
+  var props = Object.keys(cur.L.props.root);
+  var checks = buildBaselineChecks(props, { radius: radius }).map(function (c) {
+    var r;
+    try { r = c.fn(cur); } catch (e) { r = { pass: false, value: "error: " + e.message }; }
+    return { dim: c.dim, title: c.title, target: c.target, expect: c.expect, pass: !!r.pass, value: r.value };
+  });
+  return {
+    total: checks.length,
+    passed: checks.filter(function (c) { return c.pass; }).length,
+    failing: checks.filter(function (c) { return !c.pass; }),
+    checks: checks
+  };
+}

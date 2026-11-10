@@ -1,22 +1,20 @@
 #!/usr/bin/env node
 /**
- * Benchmark Non-Regression Gate (v2.3.1 -> v2.4.0 -> v2.5.0+).
- * Executes the live browser verification suites (`audit/v2.5.0-verification.html` 10-dimension
- * 68-check suite + embedded `audit/v2.4.0-verification.html` 64-check baseline suite = 132 checks)
- * and fails closed if any dimension drops below 10.0/10, any historical check regresses,
- * any `watch` item appears, or any cell in the 32x6 non-text contrast matrix drops below 3.0:1.
+ * Live Browser Benchmark Gate (20 Dimensions · 129 checks + 64 core baseline checks + 3 Gen-2 screens).
+ * Evaluates the current CSS & component contract in headless Chromium across:
+ *   - `_audit/ci/fixtures/benchmark-20d.html` (`D1`-`D20`, 129 checks + 32x6 non-text contrast matrix)
+ *   - `_audit/ci/fixtures/benchmark-baseline.html` (64 core baseline & document checks)
+ *   - `_audit/ci/fixtures/benchmark-gen2.html` (3 Generation-2 complex product stress-test screens)
  */
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
-import { readFileSync, writeFileSync, existsSync, statSync } from 'node:fs';
-import { execFileSync } from 'node:child_process';
-import { extname, join, resolve, sep } from 'node:path';
+import { readFileSync, existsSync, statSync } from 'node:fs';
+import { extname, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
+import { evaluate20D, evaluateBaseline64, parseStaticDocs } from './lib/benchmark-checks.mjs';
 
 const root = resolve(fileURLToPath(new URL('../..', import.meta.url)));
-const writeReceipt = process.argv.includes('--write-receipt');
-const receiptPath = join(root, 'audit', 'v2.5.0-verification.json');
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -31,17 +29,7 @@ const MIME = {
   '.txt': 'text/plain; charset=utf-8',
 };
 
-function readGitTagFile(tag, relPath) {
-  try {
-    return execFileSync('git', ['show', `${tag}:${relPath}`], {
-      cwd: root,
-      stdio: ['ignore', 'pipe', 'ignore'],
-      maxBuffer: 16 * 1024 * 1024,
-    });
-  } catch {
-    return null;
-  }
-}
+const LOGO_OK = ['assets/logo-mark.svg', 'assets/logo-mark.png', 'assets/favicon.svg', 'components/logo/logo-data.js'];
 
 let server;
 let browser;
@@ -61,104 +49,131 @@ try {
   });
   await new Promise((r) => server.listen(0, '127.0.0.1', r));
   const { port } = server.address();
+  const baseUrl = `http://127.0.0.1:${port}`;
 
   browser = await chromium.launch();
   const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
 
-  // Serve tagged baseline files deterministically from local git tags when available.
-  await context.route('https://raw.githubusercontent.com/cyberskill-official/design/**', async (route) => {
-    const url = new URL(route.request().url());
-    const parts = url.pathname.replace(/^\/cyberskill-official\/design\//, '').split('/');
-    const tag = parts.shift();
-    const relPath = parts.join('/');
-    const buf = tag && relPath ? readGitTagFile(tag, relPath) : null;
-    if (buf) {
-      await route.fulfill({
-        status: 200,
-        contentType: MIME[extname(relPath)] || 'text/plain; charset=utf-8',
-        body: buf,
-      });
-      return;
+  // 1. Measure 20-Dimension Benchmark Fixture (light + dark)
+  const measure20D = async (theme) => {
+    const p = await context.newPage();
+    try {
+      await p.goto(`${baseUrl}/_audit/ci/fixtures/benchmark-20d.html?theme=${theme}`, { waitUntil: 'load' });
+      return await p.evaluate(() => window.CSAudit25.measure());
+    } finally {
+      await p.close();
     }
-    const fallbackFile = resolve(root, relPath);
-    if (fallbackFile.startsWith(root + sep) && existsSync(fallbackFile) && statSync(fallbackFile).isFile()) {
-      await route.fulfill({
-        status: 200,
-        contentType: MIME[extname(relPath)] || 'text/plain; charset=utf-8',
-        body: readFileSync(fallbackFile),
-      });
-      return;
-    }
-    await route.continue();
-  });
+  };
+  const [fxLight, fxDark] = await Promise.all([measure20D('light'), measure20D('dark')]);
+  const designMd = readFileSync(resolve(root, 'DESIGN.md'), 'utf8');
+  const assets = Object.fromEntries(LOGO_OK.map((rel) => [rel, existsSync(resolve(root, rel))]));
 
-  const page = await context.newPage();
-  await page.goto(`http://127.0.0.1:${port}/audit/v2.5.0-verification.html`, { waitUntil: 'domcontentloaded' });
-  await page.waitForFunction(
-    () => {
-      const r = window.CSAudit25Runner && window.CSAudit25Runner.result && window.CSAudit25Runner.result();
-      return r && r.baselineSuite && Array.isArray(r.checks) && r.checks.length > 0;
+  const fx = {
+    label: 'current',
+    p0: fxDark.p0,
+    p2: fxDark.p2,
+    p4: fxLight.p4,
+    p1: {
+      progressDecl: fxLight.p1.progressDecl,
+      scopes: fxLight.p1.scopes
+        .filter((s) => s.key.indexOf('light:') === 0)
+        .concat(fxDark.p1.scopes.filter((s) => s.key.indexOf('dark:') === 0)),
     },
-    null,
-    { timeout: 90000 },
-  );
+    p3: {
+      controls: fxLight.p3.controls.map((row, i) => ({
+        name: row.name,
+        hook: row.hook,
+        light: row.light,
+        dark: fxDark.p3.controls[i].dark,
+      })),
+    },
+    p5: {
+      light: { root: fxLight.p5.root, nest: fxLight.p5.nest },
+      dark: { root: fxDark.p5.root, nest: fxDark.p5.nest },
+    },
+    p6: { light: fxLight.p6, dark: fxDark.p6 },
+    p7: fxLight.p7,
+    p8: { light: fxLight.p8, dark: fxDark.p8 },
+    p9: { light: fxLight.p9, dark: fxDark.p9 },
+    p10: { light: fxLight.p10, dark: fxDark.p10 },
+    p11: { light: fxLight.p11, dark: fxDark.p11 },
+    p12: { light: fxLight.p12, dark: fxDark.p12 },
+    p13: { light: fxLight.p13, dark: fxDark.p13 },
+    p14: { light: fxLight.p14, dark: fxDark.p14 },
+    p15: { light: fxLight.p15, dark: fxDark.p15 },
+    p16: { light: fxLight.p16, dark: fxDark.p16 },
+    p17: { light: fxLight.p17, dark: fxDark.p17 },
+    p18: { light: fxLight.p18, dark: fxDark.p18 },
+    cssLoaded: fxLight.cssLoaded && fxDark.cssLoaded,
+  };
 
-  const result = await page.evaluate(() => window.CSAudit25Runner.result());
-  const lowCells = await page.locator('#au-scopes td.is-low').count();
-
-  if (writeReceipt) {
-    writeFileSync(receiptPath, JSON.stringify(result, null, 2) + '\n');
-  }
+  const result = evaluate20D({ fx, design: designMd, assets, label: 'current' });
 
   const EXPECTED_DIMS = [
     'D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8',
     'D9', 'D10', 'D11', 'D12', 'D13', 'D14', 'D15', 'D16',
+    'D17', 'D18', 'D19', 'D20',
   ];
   const dimSummary = {};
   for (const dim of EXPECTED_DIMS) {
     const rows = result.checks.filter((c) => c.dim === dim);
     assert(rows.length > 0, `Missing benchmark dimension ${dim}`);
-    const p231 = rows.filter((c) => c.v231?.pass).length;
-    const p240 = rows.filter((c) => c.v240?.pass).length;
-    const p250 = rows.filter((c) => c.v250?.pass).length;
-    const s231 = +(10 * p231 / rows.length).toFixed(2);
-    const s240 = +(10 * p240 / rows.length).toFixed(2);
-    const s250 = +(10 * p250 / rows.length).toFixed(2);
-    assert.equal(p250, rows.length, `Dimension ${dim} failed on current tree: ${p250}/${rows.length}`);
-    assert(s250 >= s240, `Dimension ${dim} regressed vs v2.4.0 (${s250} < ${s240})`);
-    assert(s240 >= s231, `Dimension ${dim} historical order violated (${s240} < ${s231})`);
-    dimSummary[dim] = `${p250}/${rows.length} (10.0)`;
+    const passed = rows.filter((c) => c.v250?.pass).length;
+    assert.equal(passed, rows.length, `Dimension ${dim} failed on current tree: ${passed}/${rows.length}`);
+    dimSummary[dim] = `${passed}/${rows.length} (10.0)`;
   }
 
-  assert.equal(result.checks.length, 105, `Expected 105 checks across D1-D16, got ${result.checks.length}`);
+  assert.equal(result.checks.length, 129, `Expected 129 checks across D1-D20, got ${result.checks.length}`);
   const failing = result.checks.filter((c) => !c.v250?.pass);
   assert.deepEqual(failing, [], `Failing checks on current tree: ${failing.map((c) => c.dim + ':' + c.title).join(', ')}`);
-  const regressed = result.checks.filter((c) => c.state === 'regressed' || c.state === 'open');
-  assert.deepEqual(regressed, [], `Open or regressed checks found: ${regressed.map((c) => c.title).join(', ')}`);
 
   const watches = (result.edges || []).filter((e) => e.level === 'watch');
   assert.deepEqual(watches, [], `Unexpected Watch items in edgeCases: ${watches.map((w) => w.title).join('; ')}`);
 
-  assert.equal(lowCells, 0, `Expected 0 cells below 3.0:1 in the 32x6 non-text contrast matrix, found ${lowCells}`);
-  assert.equal(result.raw?.v250?.p1?.scopes?.length, 32, 'Expected 32 Theme x Element x Variant scopes');
+  assert.equal(result.lowCells, 0, `Expected 0 cells below 3.0:1 in the 32x6 non-text contrast matrix, found ${result.lowCells}`);
+  assert.equal(result.scopesCount, 32, 'Expected 32 Theme x Element x Variant scopes');
 
-  assert(result.baselineSuite, 'Missing embedded v2.4.0 baselineSuite result');
-  assert.equal(result.baselineSuite.total, 64, 'Expected 64 checks in embedded v2.4.0 baseline suite');
-  assert.equal(result.baselineSuite.v250, 64, `Embedded v2.4.0 baseline suite regressed: ${result.baselineSuite.v250}/64`);
-  assert(
-    result.baselineSuite.v250 >= result.baselineSuite.v240 && result.baselineSuite.v240 >= result.baselineSuite.v231,
-    'Embedded baseline suite violated monotonic non-regression',
+  // 2. Measure 64-Check Core Baseline Suite (light + dark + static/live docs)
+  const measureBaseline = async (theme) => {
+    const p = await context.newPage();
+    try {
+      await p.goto(`${baseUrl}/_audit/ci/fixtures/benchmark-baseline.html?root=${theme}`, { waitUntil: 'load' });
+      return await p.evaluate(() => window.CSAudit.measure());
+    } finally {
+      await p.close();
+    }
+  };
+  const [baseLight, baseDark] = await Promise.all([measureBaseline('light'), measureBaseline('dark')]);
+  const staticParsed = parseStaticDocs({
+    documentsHtml: readFileSync(resolve(root, 'guidelines/documents.html'), 'utf8'),
+    deckHtml: readFileSync(resolve(root, 'ui_kits/deck/index.html'), 'utf8'),
+    termHtml: readFileSync(resolve(root, 'templates/vn-termination-decision/VnTerminationDecision.dc.html'), 'utf8'),
+    apptHtml: readFileSync(resolve(root, 'templates/vn-appointment-transfer/VnAppointmentTransfer.dc.html'), 'utf8'),
+    designMd,
+  });
+  const baselineSuite = evaluateBaseline64(
+    {
+      L: baseLight,
+      D: baseDark,
+      S: {
+        slate: staticParsed.slate,
+        deck: staticParsed.deck,
+        term: staticParsed.term,
+        appt: staticParsed.appt,
+      },
+    },
+    staticParsed.radius,
+  );
+  assert.equal(baselineSuite.total, 64, 'Expected 64 checks in core baseline suite');
+  assert.equal(
+    baselineSuite.passed,
+    64,
+    `Core baseline suite failed: ${baselineSuite.passed}/64 (${baselineSuite.failing.map((c) => c.title).join(', ')})`,
   );
 
-  assert(existsSync(receiptPath), 'Missing audit/v2.5.0-verification.json receipt');
-  const receipt = JSON.parse(readFileSync(receiptPath, 'utf8'));
-  assert.equal(receipt.checks?.length, 105, 'audit/v2.5.0-verification.json check count stale (run with --write-receipt)');
-  assert.equal(receipt.checks.filter((c) => c.v250?.pass).length, 105, 'audit/v2.5.0-verification.json has failing checks');
-  assert.equal(receipt.baselineSuite?.v250, 64, 'audit/v2.5.0-verification.json baselineSuite stale');
-  assert.equal((receipt.edges || []).filter((e) => e.level === 'watch').length, 0, 'audit/v2.5.0-verification.json has watch items');
-
-  // Verify the 3 Generation-2 Complex Product Stress-Test Screens (`audit/gen2-stress-test.html`)
-  await page.goto(`http://127.0.0.1:${port}/audit/gen2-stress-test.html`, { waitUntil: 'load' });
+  // 3. Verify the 3 Generation-2 Complex Product Stress-Test Screens
+  const page = await context.newPage();
+  await page.goto(`${baseUrl}/_audit/ci/fixtures/benchmark-gen2.html`, { waitUntil: 'load' });
   const gen2 = await page.evaluate(() => {
     const num = (x) => {
       const s = String(x).trim();
@@ -211,7 +226,6 @@ try {
     };
 
     const s1 = document.getElementById('gen2-screen-1');
-    const s2 = document.getElementById('gen2-screen-2');
     const s3 = document.getElementById('gen2-screen-3');
     const statVal = s1.querySelector('.cs-stat__value');
     const statStyle = getComputedStyle(statVal);
@@ -290,7 +304,7 @@ try {
   }
 
   console.log(
-    `PASS audit benchmark non-regression: 105/105 D1-D16 checks (10.0/10), 64/64 embedded baseline checks (10.0/10), 192/192 32-scope contrast cells >= 3:1, 3/3 Gen-2 complex stress-test screens verified, 0 watch items`,
+    `PASS audit benchmark non-regression: 129/129 D1-D20 checks (10.0/10), 64/64 core baseline checks (10.0/10), 192/192 32-scope contrast cells >= 3:1, 3/3 Gen-2 complex stress-test screens verified, 0 watch items`,
     dimSummary,
   );
 } finally {

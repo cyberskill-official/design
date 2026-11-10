@@ -16,10 +16,6 @@ for (const name of ['README.md','SKILL.md','AGENTS.md','CLAUDE.md','GEMINI.md','
 assert.equal(documentRole('docs/vi/entrypoints/unreviewed.md'),'unclassified_requires_review');
 const reviewedDocumentRoles = {
   '.github/pull_request_template.md': 'contribution_template',
-  '_audit/remediation/assessment-source.md': 'retained_assessment_source',
-  '_audit/remediation/assessment-remediation.md': 'remediation_report',
-  '_audit/remediation/decision-template.md': 'decision_template',
-    '_audit/remediation/release-v1.7.2-notes-proposal.md': 'private_owner_review_release_metadata_proposal',
   '_audit/state-machine-review.md': 'state_machine_review',
   '_audit/state-machines.md': 'generated_state_census',
   'scripts/lib/compiler-and-story-domains.md': 'source_maintenance_guide',

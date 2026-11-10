@@ -6,6 +6,13 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    ignore:
+      # Provenance-locked dependencies (require synchronized Linux container,
+      # editor-parser attribution, or vendor UMD bundle updates):
+      - dependency-name: "playwright"
+      - dependency-name: "parse5"
+      - dependency-name: "react"
+      - dependency-name: "react-dom"
     groups:
       dev-dependencies:
         dependency-type: development
