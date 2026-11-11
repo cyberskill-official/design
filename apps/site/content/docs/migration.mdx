@@ -1,0 +1,23 @@
+---
+title: Migrating from 2.x
+description: Move an app from the Umber & Ochre system (2.x) to Ink & Gold (3.0).
+---
+
+3.0 is a new major version with new tokens, new components and a smaller API. 2.x stays available on npm under the `legacy` tag and on the repository's `legacy` branch.
+
+## Steps
+
+1. **Pin first.** If you install from GitHub without a version (`github:cyberskill-official/design-system`), change to `"@cyberskill/design": "2.8.0"` before 3.0 lands, so nothing changes under you.
+2. **Install 3.x** and import the styles (see [Get started](/docs/get-started)).
+3. **Swap tokens.** Names match the Practice app's names (`--background`, `--foreground`, `--primary`, `--primary-foreground`, `--muted`, `--border`, `--destructive`, `--success`, `--warning`), so most CSS keeps working. `--gold` and `--on-gold` still exist as aliases of `--accent` and `--accent-foreground`.
+4. **Replace components** one screen at a time. 2.x and 3.x class names don't collide (`cs-` prefix in 3.x).
+5. **Run your accessibility checks** in light and dark.
+
+## What changed
+
+| 2.x | 3.0 |
+|---|---|
+| Umber `#45210E` + Ochre `#F4BA17` | Ink `#14243D` + Gold `#F4BA17` |
+| Be Vietnam Pro everywhere | Manrope headlines, Be Vietnam Pro body, JetBrains Mono data |
+| HTML-first bundle and Storybook | React components on Base UI, plain CSS, Storybook as the workbench |
+| Docx export, native tokens, templates | Not in 3.0; still on `legacy` |

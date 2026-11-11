@@ -1,0 +1,34 @@
+---
+title: Overview
+description: Tokens, accessible React components and patterns for every CyberSkill product.
+---
+
+The CyberSkill Design System gives every product the same Ink & Gold look and the same accessible behavior, from one npm package: `@cyberskill/design`.
+
+<Cards>
+  <Card title="Get started" href="/docs/get-started" description="Install the package in a Next.js, Tailwind or plain HTML app." />
+  <Card title="Foundations" href="/docs/foundations/color" description="Color, type, spacing, radius, shadows and motion tokens." />
+  <Card title="Components" href="/docs/components" description="Buttons, forms, overlays, navigation, data display and feedback." />
+  <Card title="Patterns" href="/docs/patterns" description="Dashboards, AI assistant, command palette, data tables and more." />
+</Cards>
+
+## What's in the package
+
+| Import | What you get |
+|---|---|
+| `@cyberskill/design` | React components |
+| `@cyberskill/design/styles.css` | Tokens, base styles and component CSS in one file |
+| `@cyberskill/design/tokens.css` | CSS variables only, light and dark |
+| `@cyberskill/design/tailwind.css` | Tailwind v4 theme mapping |
+| `@cyberskill/design/tokens` | Typed token object for charts, emails and native apps |
+| `@cyberskill/design/charts` | Chart presets (needs `recharts`) |
+| `@cyberskill/design/table` | Data table (needs `@tanstack/react-table`) |
+| `@cyberskill/design/forms` | React Hook Form helpers (needs `react-hook-form`) |
+| `@cyberskill/design/assets/*` | Logo files |
+
+## Principles
+
+- **Accessible by default.** Behavior comes from [Base UI](https://base-ui.com): focus, keyboard and screen readers work out of the box. Every component is tested with axe in light and dark.
+- **Checked, not eyeballed.** The token build fails if text contrast drops below WCAG targets, or if two colors that mean different things look alike, including to color-blind readers.
+- **Calm by default, gold for the moment that matters.** Product screens keep gold under 3% of the screen.
+- **Works anywhere.** Plain CSS with tokens: Next.js with or without Tailwind, plain HTML, React Server Components.

@@ -1,0 +1,49 @@
+{
+  "$description": "Ink & Gold semantic colors. Every value here is checked by scripts/build-tokens.mjs: text contrast, status and chart distinctness for normal and color-blind vision. Change a value, run the build, and it fails if a rule breaks.",
+  "light": {
+    "background": { "$type": "color", "$value": "#F7F8FA", "$description": "Page canvas" },
+    "panel": { "$type": "color", "$value": "#FFFFFF", "$description": "Cards and panels" },
+    "raised": { "$type": "color", "$value": "#EEF1F5", "$description": "Nested sections, hover rows, skeletons" },
+    "border": { "$type": "color", "$value": "#DDE2EA", "$description": "Dividers and card edges" },
+    "input": { "$type": "color", "$value": "#7D889B", "$description": "Form control borders (3:1)" },
+    "foreground": { "$type": "color", "$value": "#0F1B2D", "$description": "Headings and body text" },
+    "muted": { "$type": "color", "$value": "#525F73", "$description": "Secondary text and labels" },
+    "primary": { "$type": "color", "$value": "#14243D", "$description": "Ink: main actions, links, structure" },
+    "primary-foreground": { "$type": "color", "$value": "#FFFFFF" },
+    "accent": { "$type": "color", "$value": "#F4BA17", "$description": "CyberSkill gold: highlights, key actions, AI moments" },
+    "accent-foreground": { "$type": "color", "$value": "#1A1406" },
+    "accent-text": { "$type": "color", "$value": "#8A5D00", "$description": "Gold used as text on light surfaces" },
+    "success": { "$type": "color", "$value": "#067A4B" },
+    "warning": { "$type": "color", "$value": "#7B3C00" },
+    "destructive": { "$type": "color", "$value": "#CC323B" },
+    "info": { "$type": "color", "$value": "#1F5CB8" }
+  },
+  "dark": {
+    "background": { "$type": "color", "$value": "#0A111D" },
+    "panel": { "$type": "color", "$value": "#111A29" },
+    "raised": { "$type": "color", "$value": "#182335" },
+    "border": { "$type": "color", "$value": "#253247" },
+    "input": { "$type": "color", "$value": "#66748A" },
+    "foreground": { "$type": "color", "$value": "#E9EEF6" },
+    "muted": { "$type": "color", "$value": "#9AA7BA" },
+    "primary": { "$type": "color", "$value": "#E6ECF5" },
+    "primary-foreground": { "$type": "color", "$value": "#0A111D" },
+    "accent": { "$type": "color", "$value": "#F4BA17" },
+    "accent-foreground": { "$type": "color", "$value": "#1A1406" },
+    "accent-text": { "$type": "color", "$value": "#F4BA17" },
+    "success": { "$type": "color", "$value": "#43D58F" },
+    "warning": { "$type": "color", "$value": "#EA7D2E" },
+    "destructive": { "$type": "color", "$value": "#F9598F" },
+    "info": { "$type": "color", "$value": "#82B2FF" }
+  },
+  "chart": {
+    "$description": "Categorical series colors in fixed order: blue, gold, teal, magenta, violet. Validated against the chart surface (panel) in each theme.",
+    "names": ["Blue", "Gold", "Teal", "Magenta", "Violet"],
+    "light": ["#5B8CC4", "#C08A05", "#00A3A0", "#9A4C95", "#AB81DE"],
+    "dark": ["#5582D0", "#947B06", "#18A292", "#AB4A7D", "#A872DB"]
+  },
+  "brand": {
+    "ink": { "$type": "color", "$value": "#14243D", "$description": "Fixed brand ink, same in every theme" },
+    "gold": { "$type": "color", "$value": "#F4BA17", "$description": "Fixed brand gold, same in every theme" }
+  }
+}

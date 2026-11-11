@@ -1,5 +1,0 @@
-# Fastlane for App Store packaging scaffold (sample only until product need).
-# Bundle locally: `bundle install` then `bundle exec fastlane lanes`.
-source "https://rubygems.org"
-
-gem "fastlane", "~> 2.220"

@@ -1,0 +1,82 @@
+---
+title: Button
+description: Triggers an action. Seven variants, three sizes, loading and icon-only forms.
+---
+
+import { ButtonGroupDemo, ButtonSizes, ButtonStates, ButtonVariants } from '@/demos/button';
+
+Use a button for actions: save, deploy, delete, open a dialog. Use a link when the click only navigates. Keep **one primary button** per view and at most **one gold `accent` button** for the key moment (often AI).
+
+## Variants
+
+<Demo title="Variants">
+  <ButtonVariants />
+</Demo>
+
+```tsx
+<Button>Start free trial</Button>
+<Button variant="secondary">Talk to sales</Button>
+<Button variant="ghost">Cancel</Button>
+<Button variant="quiet">Preview</Button>
+<Button variant="accent" iconStart={<Sparkle />}>Ask AI</Button>
+<Button variant="danger">Delete project</Button>
+<Button variant="link">View docs</Button>
+```
+
+## Sizes
+
+`sm` is 32px, `md` 40px and `lg` 48px tall. Small and medium buttons keep an invisible 44px touch area.
+
+<Demo title="Sizes">
+  <ButtonSizes />
+</Demo>
+
+```tsx
+<Button size="sm" iconStart={<Plus />}>New project</Button>
+<Button size="md">Deploy</Button>
+<Button size="lg" iconEnd={<ArrowRight />}>Book a demo</Button>
+```
+
+## Loading, disabled and icon-only
+
+<Demo title="States">
+  <ButtonStates />
+</Demo>
+
+```tsx
+<Button loading={saving}>Saving</Button>
+<Button disabled>Disabled</Button>
+<IconButton label="Edit" icon={<PencilSimple />} />
+```
+
+## Button group
+
+<Demo title="Group">
+  <ButtonGroupDemo />
+</Demo>
+
+```tsx
+<ButtonGroup label="View">
+  <Button variant="secondary" size="sm" aria-pressed={view === 'List'}>List</Button>
+  <Button variant="secondary" size="sm" aria-pressed={view === 'Board'}>Board</Button>
+</ButtonGroup>
+```
+
+## Props
+
+<PropsTable rows={[
+  ['variant', "'primary' | 'secondary' | 'ghost' | 'quiet' | 'accent' | 'danger' | 'link'", "'primary'", 'Visual style'],
+  ['size', "'sm' | 'md' | 'lg'", "'md'", 'Height 32, 40 or 48px'],
+  ['loading', 'boolean', 'false', 'Shows a spinner, stays focusable, sets aria-busy and ignores clicks'],
+  ['iconStart / iconEnd', 'ReactNode', '–', 'Decorative icons before or after the label'],
+  ['fullWidth', 'boolean', 'false', 'Stretches to the container'],
+  ['render', 'ReactElement', '–', 'Render as another element, e.g. a Next.js Link'],
+]} />
+
+`IconButton` takes `label` (required, its accessible name) and `icon`. `ButtonGroup` takes `label` when the group has no visible heading.
+
+## Accessibility
+
+- Enter and Space activate. Disabled buttons are skipped by Tab, except `loading`, which stays focusable so focus never jumps.
+- Icon-only buttons are named by `label`; screen readers never hear "button" alone.
+- Every variant meets 4.5:1 text contrast in light and dark.

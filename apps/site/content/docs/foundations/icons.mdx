@@ -1,0 +1,28 @@
+---
+title: Icons
+description: Phosphor icons in the regular weight, sized to the control they sit in.
+---
+
+The system uses [Phosphor](https://phosphoricons.com) (`@phosphor-icons/react`).
+
+| Context | Size | Weight |
+|---|---|---|
+| Inside `sm` and `md` controls, inline text | 16px | regular |
+| Inside `lg` controls, alerts, empty states | 20–24px | regular |
+| Emphasis (rare) | – | bold |
+
+## Status icons
+
+| Status | Icon |
+|---|---|
+| Success | `CheckCircle` |
+| Warning | `Warning` |
+| Error | `XCircle` |
+| Info | `Info` |
+| AI | `Sparkle` |
+
+## Rules
+
+- Decorative icons next to text get `aria-hidden`.
+- Icon-only buttons need a name: `<IconButton label="Edit" icon={<PencilSimple />} />`.
+- Don't use emoji as interface icons.

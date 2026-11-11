@@ -1,0 +1,27 @@
+---
+title: Spacing, radius and elevation
+description: A 4px spacing scale, five radii and four shadow levels that adapt to dark mode.
+---
+
+import { RadiusAndShadow, SpaceScale } from '@/components/foundations';
+
+## Spacing
+
+Built on 4px. Use `gap` in flex and grid layouts rather than margins between siblings.
+
+<SpaceScale />
+
+## Radius and shadows
+
+Controls use `--radius-md`, cards `--radius-lg`, dialogs `--radius-xl`. Shadows are softer in light mode and deeper in dark mode, where borders do most of the separation.
+
+<RadiusAndShadow />
+
+## Control sizes
+
+| Token | Height | Use |
+|---|---|---|
+| `--control-sm` | 32px | Dense toolbars, table actions |
+| `--control-md` | 40px | Default buttons and inputs |
+| `--control-lg` | 48px | Marketing calls to action, mobile forms |
+| `--control-touch` | 44px | Minimum touch area for anything tapped on its own |

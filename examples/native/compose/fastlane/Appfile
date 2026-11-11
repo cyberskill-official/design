@@ -1,5 +1,0 @@
-# Google Play identity — fill when promoting this sample to a real product.
-# CI soft-skips without PLAY_SERVICE_ACCOUNT_JSON (Decision 1C).
-
-json_key_file(ENV["PLAY_SERVICE_ACCOUNT_JSON"] || "REPLACE_WITH_PLAY_JSON_KEY_PATH")
-package_name("world.cyberskill.sample")

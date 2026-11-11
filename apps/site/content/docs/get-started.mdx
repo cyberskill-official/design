@@ -1,0 +1,86 @@
+---
+title: Get started
+description: Install @cyberskill/design and render your first component.
+---
+
+## Install
+
+```bash
+npm install @cyberskill/design @phosphor-icons/react
+```
+
+React 19 is required. Charts, tables and form helpers are optional and need their own peer packages (see [Overview](/docs)).
+
+## Next.js with Tailwind 4
+
+```css title="app/globals.css"
+@import 'tailwindcss';
+@import '@cyberskill/design/tailwind.css';
+@import '@cyberskill/design/styles.css';
+```
+
+Load the three fonts with `next/font` and point the tokens at them:
+
+```tsx title="app/layout.tsx"
+import { Be_Vietnam_Pro, JetBrains_Mono, Manrope } from 'next/font/google';
+
+const display = Manrope({ subsets: ['latin', 'vietnamese'], weight: ['600', '700', '800'], variable: '--font-app-display' });
+const sans = Be_Vietnam_Pro({ subsets: ['latin', 'vietnamese'], weight: ['400', '500', '600', '700'], variable: '--font-app-sans' });
+const mono = JetBrains_Mono({ subsets: ['latin', 'vietnamese'], variable: '--font-app-mono' });
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="vi" data-theme="light" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+```css title="app/globals.css"
+:root, [data-theme] {
+  --font-display: var(--font-app-display), sans-serif;
+  --font-sans: var(--font-app-sans), sans-serif;
+  --font-mono: var(--font-app-mono), monospace;
+}
+```
+
+Tailwind utilities now speak the system: `bg-primary text-primary-foreground`, `border-border`, `text-muted`, `font-display`, `rounded-lg`, `bg-chart-1`.
+
+## Use a component
+
+```tsx
+import { Button } from '@cyberskill/design';
+
+export default function Page() {
+  return <Button variant="accent">Ask AI</Button>;
+}
+```
+
+Components work in Server Components files: every export is a flat name (`Dialog`, `DialogContent`…), never `Dialog.Root`.
+
+## Dark mode
+
+Set `data-theme` on `<html>` or on any element:
+
+| Value | Result |
+|---|---|
+| `light` (default) | Ink & Gold light |
+| `dark` | Ink & Gold dark |
+| `system` | Follows the operating system |
+
+Themes can be nested: a `data-theme="dark"` panel inside a light page is fully dark.
+
+## Plain HTML
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@700;800&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/@cyberskill/design@3/dist/styles.css">
+
+<button class="cs-button" data-variant="primary" data-size="md">
+  <span class="cs-button-label">Save changes</span>
+</button>
+```
+
+Interactive components (dialogs, menus, selects) need React; static ones (buttons, badges, cards, alerts, tables) work with the classes alone.
