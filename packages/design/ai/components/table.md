@@ -74,7 +74,7 @@ Mark number columns `numeric`: they align right with tabular mono figures so dig
 ## Exact types
 
 ```ts
-type BadgeProps = ComponentProps<'span'> & {
+export type BadgeProps = ComponentProps<'span'> & {
   /** Color meaning. `success`, `warning`, `danger` and `info` show a status icon by default. */
   tone?: BadgeTone;
   /** `soft` tinted (default), `solid` filled, `outline` bordered. */
@@ -84,7 +84,7 @@ type BadgeProps = ComponentProps<'span'> & {
   /** Decorative icon before the text. Replaces a status tone's icon; `false` removes the icon on non-status tones only. */
   icon?: ReactNode | false;
 };
-type TableProps = ComponentProps<'table'> & {
+export type TableProps = ComponentProps<'table'> & {
   /** Row height: `comfortable` (default) or `compact` for dense data. */
   density?: 'comfortable' | 'compact';
   /** Alternate row backgrounds. */
@@ -94,12 +94,12 @@ type TableProps = ComponentProps<'table'> & {
   /** Max height of the scroll container, e.g. `360` or `'50vh'`. */
   maxHeight?: number | string;
 };
-type TableBodyProps = ComponentProps<'tbody'>;
-type TableCaptionProps = ComponentProps<'caption'>;
-type TableCellProps = Omit<ComponentProps<'td'>, 'align'> & CellAlign;
-type TableHeadProps = Omit<ComponentProps<'th'>, 'align'> & CellAlign;
-type TableHeaderProps = ComponentProps<'thead'>;
-type TableRowProps = ComponentProps<'tr'> & {
+export type TableBodyProps = ComponentProps<'tbody'>;
+export type TableCaptionProps = ComponentProps<'caption'>;
+export type TableCellProps = Omit<ComponentProps<'td'>, 'align'> & CellAlign;
+export type TableHeadProps = Omit<ComponentProps<'th'>, 'align'> & CellAlign;
+export type TableHeaderProps = ComponentProps<'thead'>;
+export type TableRowProps = ComponentProps<'tr'> & {
   /** Highlights the row. Also show selection in text or a checkbox: the highlight alone is not announced. */
   selected?: boolean;
 };

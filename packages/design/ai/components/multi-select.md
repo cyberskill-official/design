@@ -65,13 +65,19 @@ Also takes `placeholder`, `children` (custom option content), `triggerLabel`, `a
 ## Exact types
 
 ```ts
-// BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type MultiSelectProps<Item extends ComboboxItem = ComboboxItem> = Omit<BaseUI.Combobox.Root.Props<string, true, Item>, 'items' | 'children' | 'multiple' | 'value' | 'defaultValue' | 'onValueChange'> & SharedProps<Item> & {
+export type MultiSelectProps<Item extends ComboboxItem = ComboboxItem> = Omit<Combobox.Root.Props<string, true, Item>, 'items' | 'children' | 'multiple' | 'value' | 'defaultValue' | 'onValueChange'> & SharedProps<Item> & {
   /** Selected item values. Use with `onValueChange` when controlled. */
   value?: string[];
   defaultValue?: string[];
-  onValueChange?: (value: string[], eventDetails: BaseUI.Combobox.Root.ChangeEventDetails) => void;
-type MultiSelectFieldProps<Item extends ComboboxItem = ComboboxItem> = MultiSelectProps<Item> & Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error' | 'optionalLabel'> & {
+  onValueChange?: (value: string[], eventDetails: Combobox.Root.ChangeEventDetails) => void;
+  /** Most values that can be chosen; other options are disabled once it is reached. */
+  max?: number;
+  /** Show at most this many chips and a "+N" count for the rest. */
+  maxChips?: number;
+  /** Accessible name of each chip's remove button. Pass Vietnamese text in Vietnamese UIs. */
+  removeLabel?: (label: string) => string;
+};
+export type MultiSelectFieldProps<Item extends ComboboxItem = ComboboxItem> = MultiSelectProps<Item> & Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error' | 'optionalLabel'> & {
   fieldClassName?: string;
 };
 ```

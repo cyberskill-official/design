@@ -52,7 +52,7 @@ Pass children instead of `items` to use your router's `Link`. Each child becomes
 ## Exact types
 
 ```ts
-type BreadcrumbsProps = HTMLAttributes<HTMLElement> & {
+export type BreadcrumbsProps = HTMLAttributes<HTMLElement> & {
   className?: string;
   /** The trail from the top level to the current page. The last item is the current page. */
   items?: BreadcrumbItem[];
@@ -61,7 +61,7 @@ type BreadcrumbsProps = HTMLAttributes<HTMLElement> & {
   /** Accessible name of the landmark. Pass "Đường dẫn" in Vietnamese UIs. */
   label?: string;
 };
-type LinkProps = useRender.ComponentProps<'a'> & {
+export type LinkProps = useRender.ComponentProps<'a'> & {
   /** `default` ink, `muted` for secondary links (footers, meta lines). */
   tone?: 'default' | 'muted';
   /** Opens in a new tab: adds `target="_blank"`, `rel="noopener noreferrer"`, an icon and screen-reader text. */

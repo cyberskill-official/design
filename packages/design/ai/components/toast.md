@@ -67,7 +67,7 @@ toast({
 ## Exact types
 
 ```ts
-type ToastProviderProps = Toast.Provider.Props & {
+export type ToastProviderProps = Toast.Provider.Props & {
   /** Accessible name of each toast's close (×) button. */
   closeLabel?: string;
   /** Accessible name of the notifications region (reached with F6). */

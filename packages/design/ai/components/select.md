@@ -33,6 +33,19 @@ const plans = [
 <Select aria-label="Plan" items={plans} size="lg" defaultValue="business" />
 ```
 
+## Groups
+
+Put `{ label, items }` entries in `items` to split the list into titled sections. Groups and loose options can mix; the trigger shows the chosen option's label either way.
+
+```tsx
+const regions = [
+  { label: 'Asia Pacific', items: [{ value: 'sg', label: 'Singapore' }, { value: 'hcm', label: 'Ho Chi Minh City' }] },
+  { label: 'Europe', items: [{ value: 'fra', label: 'Frankfurt' }, { value: 'ams', label: 'Amsterdam (full)', disabled: true }] },
+];
+
+<SelectField label="Region" items={regions} placeholder="Choose a region" defaultValue="hcm" />
+```
+
 ## Controlled
 
 ```tsx
@@ -44,7 +57,7 @@ const [plan, setPlan] = useState<string | null>('team');
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
-| `items` | `{ value, label, disabled? }[]` | – | Options in display order (required). label is shown in the list and in the trigger |
+| `items` | `({ value, label, disabled? } \| { label, items })[]` | – | Options in display order, optionally in titled groups (required). label is shown in the list and in the trigger |
 | `placeholder` | `ReactNode` | – | Shown while nothing is chosen |
 | `value / defaultValue` | `Value \| null` | – | Controlled or initial value. Use null for "nothing chosen" |
 | `onValueChange` | `(value, details) => void` | – | Called when the user picks an option |
@@ -61,15 +74,17 @@ const [plan, setPlan] = useState<string | null>('team');
 - The trigger is a combobox named by the label; help and error text are its description. Clicking the label focuses the trigger without opening the list, like a native select.
 - Enter, Space or the arrow keys open the list. Arrow keys move, Enter picks, Escape closes and returns focus. Typing a letter jumps to the matching option.
 - The selected option is marked with a check and `aria-selected`; disabled options are skipped.
+- Each group is a `group` named by its label, so screen readers announce "Europe, group" when the highlight enters it.
+- The error message has a warning icon beside it, hidden from screen readers; the trigger's description is the message text only.
 - The list opens under the trigger and stays inside the viewport.
 
 ## Exact types
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type SelectProps<Value = string> = Omit<BaseUI.Select.Root.Props<Value>, 'items' | 'children' | 'multiple'> & {
-  /** Options in display order. `label` is shown in the list and in the trigger once chosen. */
-  items: SelectItem<Value>[];
+export type SelectProps<Value = string> = Omit<BaseUI.Select.Root.Props<Value>, 'items' | 'children' | 'multiple'> & {
+  /** Options in display order, optionally in titled groups (`{ label, items }`). `label` is shown in the list and in the trigger once chosen. */
+  items: (SelectItem<Value> | SelectGroup<Value>)[];
   /** Shown in the trigger while nothing is chosen, e.g. "Choose a plan". */
   placeholder?: ReactNode;
   size?: SelectSize;
@@ -81,7 +96,7 @@ type SelectProps<Value = string> = Omit<BaseUI.Select.Root.Props<Value>, 'items'
   /** Accessible name when there is no visible label. Prefer `SelectField`. */
   'aria-label'?: string;
 };
-type SelectFieldProps<Value = string> = SelectProps<Value> & Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error' | 'optionalLabel'> & {
+export type SelectFieldProps<Value = string> = SelectProps<Value> & Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error' | 'optionalLabel'> & {
   fieldClassName?: string;
 };
 ```

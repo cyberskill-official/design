@@ -46,12 +46,14 @@ Use a fieldset when several fields answer one question or belong to one topic: a
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type FieldsetProps = Omit<BaseUI.Fieldset.Root.Props, 'className'> & {
+export type FieldsetProps = Omit<BaseUI.Fieldset.Root.Props, 'className'> & {
   className?: string;
   /** Heading of the group, read as the group's name. */
   legend: ReactNode;
   /** Help text under the legend, read as the group's description. */
   description?: ReactNode;
 };
-type TextFieldProps, Textarea, type TextareaProps, type Theme, type ThemeScopeProps, type ToastOptions, type ToastProviderProps, type ToastTone, type ToggleProps, type ToolbarButtonProps, type ToolbarGroupProps, type ToolbarLinkProps, type ToolbarProps, type ToolbarSeparatorProps, type TooltipProps, type TooltipProviderProps };
+export type TextFieldProps = Omit<InputProps, 'children'> & Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error' | 'optionalLabel'> & {
+  fieldClassName?: string;
+};
 ```

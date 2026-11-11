@@ -87,14 +87,14 @@ Turn off built-in filtering with `filter={null}`, fetch in `onInputValueChange` 
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type ComboboxProps<Item extends ComboboxItem = ComboboxItem> = Omit<BaseUI.Combobox.Root.Props<string, false, Item>, 'items' | 'children' | 'multiple'> & PickerProps<Item> & {
+export type ComboboxProps<Item extends ComboboxItem = ComboboxItem> = Omit<BaseUI.Combobox.Root.Props<string, false, Item>, 'items' | 'children' | 'multiple'> & PickerProps<Item> & {
   /** Shows a spinner and `loadingText` in the list and marks it busy, for async search. */
   loading?: boolean;
   loadingText?: ReactNode;
   /** Accessible name of the clear (×) button. */
   clearLabel?: string;
 };
-type ComboboxFieldProps<Item extends ComboboxItem = ComboboxItem> = ComboboxProps<Item> & Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error' | 'optionalLabel'> & {
+export type ComboboxFieldProps<Item extends ComboboxItem = ComboboxItem> = ComboboxProps<Item> & Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error' | 'optionalLabel'> & {
   fieldClassName?: string;
 };
 ```

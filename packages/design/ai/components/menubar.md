@@ -56,20 +56,32 @@ Use a menubar in app-like tools with many commands: editors, builders, consoles.
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type MenubarProps = Omit<BaseUI.Menubar.Props, 'className'> & {
+export type MenubarProps = Omit<BaseUI.Menubar.Props, 'className'> & {
   className?: string;
 };
-type MenubarContentProps = Omit<BaseUI.Menu.Popup.Props, 'className'> & {
+export type MenubarContentProps = Omit<Menu.Popup.Props, 'className'> & {
   className?: string;
 };
-type MenubarMenuProps = BaseUI.Menu.Root.Props;
-type MenubarSubmenuProps = BaseUI.Menu.SubmenuRoot.Props;
-type MenubarSubmenuTriggerProps = Omit<BaseUI.Menu.SubmenuTrigger.Props, 'className'> & {
+export type MenubarItemProps = Omit<BaseUI.ContextMenu.Item.Props, 'className'> & {
+  className?: string;
+  /** Icon before the label (decorative). */
+  icon?: ReactNode;
+  /** Keyboard shortcut shown at the end, e.g. "⌘D". Display only: wire the shortcut yourself. */
+  shortcut?: ReactNode;
+  /** `danger` for destructive actions such as Delete. */
+  tone?: 'neutral' | 'danger';
+};
+export type MenubarMenuProps = Menu.Root.Props;
+export type MenubarSeparatorProps = Omit<BaseUI.ContextMenu.Separator.Props, 'className'> & {
+  className?: string;
+};
+export type MenubarSubmenuProps = Menu.SubmenuRoot.Props;
+export type MenubarSubmenuTriggerProps = Omit<Menu.SubmenuTrigger.Props, 'className'> & {
   className?: string;
   /** Icon before the label (decorative). */
   icon?: ReactNode;
 };
-type MenubarTriggerProps = Omit<BaseUI.Menu.Trigger.Props, 'className'> & {
+export type MenubarTriggerProps = Omit<Menu.Trigger.Props, 'className'> & {
   className?: string;
 };
 ```

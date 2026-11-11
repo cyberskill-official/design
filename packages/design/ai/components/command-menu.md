@@ -1,9 +1,9 @@
 # Command Menu
 
-> A ⌘K palette that filters commands and pages as you type. Accent-insensitive search, keyboard-first, and a hook for the shortcut.
+> A ⌘K palette that filters commands and pages as you type. Accent-insensitive search, keyboard-first, with a shortcut you can change or turn off.
 
 ```tsx
-import { Button, CommandGroup, CommandItem, CommandMenu, useCommandMenuShortcut } from '@cyberskill/design';
+import { Button, CommandGroup, CommandItem, CommandMenu } from '@cyberskill/design';
 ```
 
 Use a command menu to let people jump to any page or run any command from the keyboard. It complements, never replaces, visible navigation. For picking a value in a form use a select or combobox.
@@ -12,10 +12,10 @@ Use a command menu to let people jump to any page or run any command from the ke
 
 ```tsx
 const [open, setOpen] = useState(false);
-useCommandMenuShortcut(setOpen); // ⌘K on macOS, Ctrl+K elsewhere
 
 <Button variant="secondary" iconStart={<MagnifyingGlass />} onClick={() => setOpen(true)}>Search…</Button>
-<CommandMenu open={open} onOpenChange={setOpen}>
+{/* ⌘K is this site's search, so the example uses ⌘J; apps usually keep the default 'k' */}
+<CommandMenu open={open} onOpenChange={setOpen} shortcut="j">
   <CommandGroup label="Go to">
     <CommandItem icon={<House />} onSelect={() => router.push('/')}>Dashboard</CommandItem>
     <CommandItem icon={<Gear />} keywords={['settings', 'preferences']} onSelect={openSettings}>Cài đặt</CommandItem>
@@ -28,11 +28,23 @@ useCommandMenuShortcut(setOpen); // ⌘K on macOS, Ctrl+K elsewhere
 
 Search matches the item label (or `value`) and its `keywords`, ignoring case and accents: "cai dat" and "settings" both find "Cài đặt". Groups with no match hide, and `emptyLabel` shows when nothing matches. Choosing an item runs `onSelect` and closes the menu.
 
+## Shortcut
+
+The menu toggles on ⌘K (macOS) or Ctrl+K (Windows, Linux) by itself. When the page already uses that shortcut, pass another letter, or `false` and open the menu only from a button:
+
+```tsx
+<CommandMenu open={open} onOpenChange={setOpen} shortcut="p">…</CommandMenu>   {/* ⌘P / Ctrl+P */}
+<CommandMenu open={open} onOpenChange={setOpen} shortcut={false}>…</CommandMenu> {/* no shortcut */}
+```
+
+Render the menu only when needed (`{ready && <CommandMenu … />}`)? Then add `useCommandMenuShortcut(setOpen)` where it is always mounted, so the shortcut works before the menu is. The two never toggle twice.
+
 ## Props
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
 | `open / onOpenChange` | `boolean / (open) => void` | – | Controlled open state (required) |
+| `shortcut` | `string \| false` | `'k'` | Letter that toggles the menu with ⌘ (macOS) or Ctrl; false turns it off, e.g. when the page already uses ⌘K |
 | `placeholder` | `string` | `'Type a command or search…'` | Search box placeholder |
 | `emptyLabel` | `ReactNode` | `'No results found.'` | Shown and announced when nothing matches |
 | `label` | `string` | `'Command menu'` | Accessible name of the dialog and search box |
@@ -42,7 +54,7 @@ Search matches the item label (or `value`) and its `keywords`, ignoring case and
 | `keywords (Item)` | `string[]` | `[]` | Extra search terms: synonyms, other languages |
 | `value (Item)` | `string` | `children` | Text to match when children is not a plain string |
 | `icon / shortcut (Item)` | `ReactNode` | – | Decorative icon; shortcut hint (display only) |
-| `useCommandMenuShortcut(setOpen, key?)` | `hook` | `key = 'k'` | Toggles the menu on ⌘ or Ctrl plus the key |
+| `useCommandMenuShortcut(setOpen, key?)` | `hook` | `key = 'k'` | The same shortcut for a menu that is not always mounted. Ignores keydown events with no key (browser autofill) and ones the menu already handled |
 
 ## Accessibility
 
@@ -54,7 +66,7 @@ Search matches the item label (or `value`) and its `keywords`, ignoring case and
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
+export type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
   className?: string;
   /** Visual style. `accent` (gold) is for one key action or AI moment per view. */
   variant?: ButtonVariant;
@@ -68,12 +80,12 @@ type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
   /** Stretch to the container width. */
   fullWidth?: boolean;
 };
-type CommandGroupProps = Omit<BaseUI.Autocomplete.Group.Props, 'className'> & {
+export type CommandGroupProps = Omit<Autocomplete.Group.Props, 'className'> & {
   className?: string;
   /** Heading above the group, e.g. "Navigation". Hidden with the group when none of its items match. */
   label: ReactNode;
 };
-type CommandItemProps = Omit<BaseUI.Autocomplete.Item.Props, 'className' | 'value' | 'onClick' | 'onSelect'> & {
+export type CommandItemProps = Omit<Autocomplete.Item.Props, 'className' | 'value' | 'onClick' | 'onSelect'> & {
   className?: string;
   /** Text the search matches. Defaults to `children` when it is a string. */
   value?: string;
@@ -85,8 +97,27 @@ type CommandItemProps = Omit<BaseUI.Autocomplete.Item.Props, 'className' | 'valu
   shortcut?: ReactNode;
   /** Runs when the item is chosen with Enter or a click. The menu then closes. */
   onSelect?: () => void;
-type CommandMenuProps = {
-  /** Controlled open state. Pair with `useCommandMenuShortcut(setOpen)` for ⌘K / Ctrl+K. */
+};
+export type CommandMenuProps = {
+  /** Controlled open state. */
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  /**
+   * Letter that toggles the menu with ⌘ (macOS) or Ctrl (Windows, Linux). Pick another letter, or `false` to turn
+   * the shortcut off, when the page already uses ⌘K (e.g. a docs site's search).
+   */
+  shortcut?: string | false;
+  /** Accessible name of the palette and its search box. */
+  label?: string;
+  placeholder?: string;
+  /** Shown (and announced) when nothing matches the search. */
+  emptyLabel?: ReactNode;
+  /** Footer hint and screen reader close button texts. Pass Vietnamese strings in Vietnamese UIs. */
+  navigateLabel?: string;
+  selectLabel?: string;
+  closeLabel?: string;
+  className?: string;
+  /** `CommandGroup`s and `CommandItem`s. */
+  children: ReactNode;
+};
 ```

@@ -75,7 +75,7 @@ Other Base UI root props (`largeStep`, `minStepsBetweenValues`, `thumbCollisionB
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type SliderProps = Omit<BaseUI.Slider.Root.Props, 'className' | 'children'> & {
+export type SliderProps = Omit<BaseUI.Slider.Root.Props, 'className' | 'children'> & {
   className?: string;
   /** Visible label above the track; names the thumb of a single slider. */
   label?: ReactNode;

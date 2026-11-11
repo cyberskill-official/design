@@ -49,7 +49,7 @@ Use vertical in narrow side panels or when descriptions are long.
 ## Exact types
 
 ```ts
-type StepperProps = HTMLAttributes<HTMLOListElement> & {
+export type StepperProps = HTMLAttributes<HTMLOListElement> & {
   className?: string;
   steps: StepperStep[];
   orientation?: 'horizontal' | 'vertical';

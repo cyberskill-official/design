@@ -48,11 +48,11 @@ Use a preview card to give a glance of what is behind a link: who a person is, w
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type PreviewCardProps = BaseUI.PreviewCard.Root.Props;
-type PreviewCardContentProps = Omit<BaseUI.PreviewCard.Popup.Props, 'className'> & Pick<BaseUI.PreviewCard.Positioner.Props, 'side' | 'align' | 'sideOffset'> & {
+export type PreviewCardProps = BaseUI.PreviewCard.Root.Props;
+export type PreviewCardContentProps = Omit<BaseUI.PreviewCard.Popup.Props, 'className'> & Pick<BaseUI.PreviewCard.Positioner.Props, 'side' | 'align' | 'sideOffset'> & {
   className?: string;
 };
-type PreviewCardTriggerProps = Omit<BaseUI.PreviewCard.Trigger.Props, 'className'> & {
+export type PreviewCardTriggerProps = Omit<BaseUI.PreviewCard.Trigger.Props, 'className'> & {
   className?: string;
 };
 ```

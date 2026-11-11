@@ -62,7 +62,7 @@ All native button props and Base UI's `value` (for toggle groups) pass through.
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type ToggleProps = Omit<BaseUI.Toggle.Props, 'className'> & {
+export type ToggleProps = Omit<BaseUI.Toggle.Props, 'className'> & {
   className?: string;
   size?: 'sm' | 'md' | 'lg';
   /** Icon before the text (decorative). */

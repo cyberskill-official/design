@@ -56,8 +56,8 @@ When `onConfirm` returns a promise, the confirm button shows a spinner, Cancel a
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type AlertDialogProps = BaseUI.AlertDialog.Root.Props;
-type AlertDialogContentProps = Omit<BaseUI.AlertDialog.Popup.Props, 'className' | 'title'> & {
+export type AlertDialogProps = BaseUI.AlertDialog.Root.Props;
+export type AlertDialogContentProps = Omit<BaseUI.AlertDialog.Popup.Props, 'className' | 'title'> & {
   className?: string;
   /** The question, announced when it opens: "Delete Support Copilot?". */
   title: ReactNode;
@@ -74,10 +74,11 @@ type AlertDialogContentProps = Omit<BaseUI.AlertDialog.Popup.Props, 'className' 
    * it closes when the promise resolves and stays open when it rejects (show the error yourself).
    */
   onConfirm?: () => void | Promise<unknown>;
-type AlertDialogTriggerProps = Omit<BaseUI.AlertDialog.Trigger.Props, 'className'> & {
+};
+export type AlertDialogTriggerProps = Omit<BaseUI.AlertDialog.Trigger.Props, 'className'> & {
   className?: string;
 };
-type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
+export type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
   className?: string;
   /** Visual style. `accent` (gold) is for one key action or AI moment per view. */
   variant?: ButtonVariant;

@@ -62,7 +62,7 @@ When the whole card goes somewhere, render it as the link and add `interactive` 
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type BadgeProps = ComponentProps<'span'> & {
+export type BadgeProps = ComponentProps<'span'> & {
   /** Color meaning. `success`, `warning`, `danger` and `info` show a status icon by default. */
   tone?: BadgeTone;
   /** `soft` tinted (default), `solid` filled, `outline` bordered. */
@@ -72,7 +72,7 @@ type BadgeProps = ComponentProps<'span'> & {
   /** Decorative icon before the text. Replaces a status tone's icon; `false` removes the icon on non-status tones only. */
   icon?: ReactNode | false;
 };
-type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
+export type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
   className?: string;
   /** Visual style. `accent` (gold) is for one key action or AI moment per view. */
   variant?: ButtonVariant;
@@ -86,13 +86,13 @@ type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
   /** Stretch to the container width. */
   fullWidth?: boolean;
 };
-type CardProps = useRender.ComponentProps<'div'> & {
+export type CardProps = useRender.ComponentProps<'div'> & {
   /** Hover and focus styles for a card that is itself a link. Pair with `render={<a href="…" />}` (or a Next.js `Link`). */
   interactive?: boolean;
 };
-type CardContentProps = ComponentProps<'div'>;
-type CardDescriptionProps = ComponentProps<'p'>;
-type CardFooterProps = ComponentProps<'div'>;
-type CardHeaderProps = ComponentProps<'div'>;
-type CardTitleProps = useRender.ComponentProps<'h3'>;
+export type CardContentProps = ComponentProps<'div'>;
+export type CardDescriptionProps = ComponentProps<'p'>;
+export type CardFooterProps = ComponentProps<'div'>;
+export type CardHeaderProps = ComponentProps<'div'>;
+export type CardTitleProps = useRender.ComponentProps<'h3'>;
 ```

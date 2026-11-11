@@ -42,7 +42,7 @@ import Link from 'next/link';
 | `SideNavItem href` | `string` | – | Where the link goes |
 | `SideNavItem icon` | `ReactNode` | – | Icon before the label (decorative) |
 | `SideNavItem active` | `boolean` | `false` | The current page: aria-current="page" and the highlighted style |
-| `SideNavItem badge` | `ReactNode` | – | Count or status after the label, read as part of the link name |
+| `SideNavItem badge` | `ReactNode` | – | Plain text after the label, e.g. 12 or "New". It is part of the link name ("Conversations 12"), so pass text, not a Badge, icon or control |
 | `SideNavItem render` | `ReactElement` | – | Render as another component, e.g. a router Link |
 
 ## Accessibility
@@ -50,11 +50,12 @@ import Link from 'next/link';
 - A `nav` landmark named by `label`, with lists so screen readers announce how many items each section has.
 - The current page has `aria-current="page"`, shown with a tinted background, primary text and bold weight, not color alone.
 - Items are plain links: Tab moves between them and Enter follows them. Items grow to 44px on touch screens.
+- `badge` renders inside the link, so screen readers read it with the label ("Conversations 12"). Give it plain text; for a count that needs more words, put them in the text ("12 new").
 
 ## Exact types
 
 ```ts
-type LinkProps = useRender.ComponentProps<'a'> & {
+export type LinkProps = useRender.ComponentProps<'a'> & {
   /** `default` ink, `muted` for secondary links (footers, meta lines). */
   tone?: 'default' | 'muted';
   /** Opens in a new tab: adds `target="_blank"`, `rel="noopener noreferrer"`, an icon and screen-reader text. */
@@ -62,23 +63,26 @@ type LinkProps = useRender.ComponentProps<'a'> & {
   /** Screen-reader text for external links. Pass a Vietnamese string in Vietnamese UIs. */
   externalLabel?: string;
 };
-type SideNavProps = HTMLAttributes<HTMLElement> & {
+export type SideNavProps = HTMLAttributes<HTMLElement> & {
   className?: string;
   /** Accessible name of the landmark, e.g. "Main" / "Chính". */
   label: string;
 };
-type SideNavGroupProps = HTMLAttributes<HTMLLIElement> & {
+export type SideNavGroupProps = HTMLAttributes<HTMLLIElement> & {
   className?: string;
   /** Visible heading of the section; also names its list for screen readers. */
   label: ReactNode;
 };
-type SideNavItemProps = useRender.ComponentProps<'a'> & {
+export type SideNavItemProps = useRender.ComponentProps<'a'> & {
   className?: string;
   /** Icon before the label (decorative). */
   icon?: ReactNode;
   /** The current page: sets `aria-current="page"` and the highlighted style. */
   active?: boolean;
-  /** Count or status after the label, e.g. `12` or a Badge. Read as part of the link name. */
+  /**
+   * Plain text after the label, e.g. `12` or "New". It renders inside the link, so it is read as part of the
+   * link's accessible name ("Conversations 12"): pass text, not a `Badge`, icon or anything interactive.
+   */
   badge?: ReactNode;
 };
 ```

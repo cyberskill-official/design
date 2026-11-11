@@ -60,7 +60,7 @@ All other `div` props pass through.
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type AlertProps = Omit<HTMLAttributes<HTMLDivElement>, 'title'> & {
+export type AlertProps = Omit<HTMLAttributes<HTMLDivElement>, 'title'> & {
   className?: string;
   tone?: AlertTone;
   /** Short headline, e.g. "Payment failed". */
@@ -70,7 +70,10 @@ type AlertProps = Omit<HTMLAttributes<HTMLDivElement>, 'title'> & {
   action?: ReactNode;
   /** Shows a dismiss (×) button that calls this. */
   onDismiss?: () => void;
-type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
+  /** Accessible name of the dismiss button. Pass a Vietnamese string in Vietnamese UIs. */
+  dismissLabel?: string;
+};
+export type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
   className?: string;
   /** Visual style. `accent` (gold) is for one key action or AI moment per view. */
   variant?: ButtonVariant;

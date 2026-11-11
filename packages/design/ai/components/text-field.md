@@ -52,7 +52,20 @@ All native input props (`type`, `name`, `value`, `onChange`, `autoComplete`…) 
 ## Exact types
 
 ```ts
-type InputProps, type KbdProps, type LinkProps, type MenuCheckboxItemProps, type MenuContentProps, type MenuGroupLabelProps, type MenuGroupProps, type MenuItemProps, type MenuProps, type MenuSeparatorProps, type MenuTriggerProps, type MenubarContentProps, type MenubarMenuProps, type MenubarProps, type MenubarSubmenuProps, type MenubarSubmenuTriggerProps, type MenubarTriggerProps, type MeterProps, type MeterTone, type MultiSelectFieldProps, type MultiSelectProps, type NavigationMenuContentProps, type NavigationMenuItemProps, type NavigationMenuLinkCardProps, type NavigationMenuLinkProps, type NavigationMenuProps, type NavigationMenuTriggerProps, type NumberFieldProps, type OtpFieldProps, type PaginationProps, type PopoverContentProps, type PopoverProps, type PopoverTriggerProps, type PreviewCardContentProps, type PreviewCardProps, type PreviewCardTriggerProps, type ProgressProps, type ProgressTone, type RadioGroupProps, type RadioProps, type ScrollAreaProps, type SegmentedControlItem, type SegmentedControlProps, type SelectFieldProps, type SelectItem, type SelectProps, type SelectSize, type SeparatorProps, type SideNavGroupProps, type SideNavItemProps, type SideNavProps, type SkeletonProps, type SkeletonTextProps, type SliderMark, type SliderProps, type SpinnerProps, type StatDelta, type StatProps, type StepStatus, type StepperProps, type StepperStep, type SwitchProps, type TableBodyProps, type TableCaptionProps, type TableCellProps, type TableHeadProps, type TableHeaderProps, type TableProps, type TableRowProps, type TabsListProps, type TabsPanelProps, type TabsProps, type TabsTabProps, type TagProps, TextField, type TextFieldProps, Textarea, type TextareaProps, type Theme, type ThemeScopeProps, type ToastOptions, type ToastProviderProps, type ToastTone, type ToggleProps, type ToolbarButtonProps, type ToolbarGroupProps, type ToolbarLinkProps, type ToolbarProps, type ToolbarSeparatorProps, type TooltipProps, type TooltipProviderProps };
-type TextFieldProps, Textarea, type TextareaProps, type Theme, type ThemeScopeProps, type ToastOptions, type ToastProviderProps, type ToastTone, type ToggleProps, type ToolbarButtonProps, type ToolbarGroupProps, type ToolbarLinkProps, type ToolbarProps, type ToolbarSeparatorProps, type TooltipProps, type TooltipProviderProps };
-type TextareaProps, type Theme, type ThemeScopeProps, type ToastOptions, type ToastProviderProps, type ToastTone, type ToggleProps, type ToolbarButtonProps, type ToolbarGroupProps, type ToolbarLinkProps, type ToolbarProps, type ToolbarSeparatorProps, type TooltipProps, type TooltipProviderProps };
+// BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
+export type InputProps = Omit<BaseUI.Input.Props, 'className' | 'size'> & {
+  className?: string;
+  size?: 'sm' | 'md' | 'lg';
+  /** Content inside the box before the text, e.g. an icon or "https://". */
+  startAdornment?: ReactNode;
+  /** Content inside the box after the text, e.g. a unit, ".cyberskill.world" or a shortcut hint. */
+  endAdornment?: ReactNode;
+};
+export type TextFieldProps = Omit<InputProps, 'children'> & Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error' | 'optionalLabel'> & {
+  fieldClassName?: string;
+};
+export type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error' | 'optionalLabel'> & {
+  fieldClassName?: string;
+  className?: string;
+};
 ```

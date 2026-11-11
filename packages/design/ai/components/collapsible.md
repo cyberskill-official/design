@@ -42,14 +42,16 @@ Use a collapsible to tuck away one block of secondary content: advanced options,
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type CollapsibleProps = Omit<BaseUI.Collapsible.Root.Props, 'className'> & {
+export type CollapsibleProps = Omit<BaseUI.Collapsible.Root.Props, 'className'> & {
   className?: string;
 };
-type CollapsiblePanelProps = Omit<BaseUI.Collapsible.Panel.Props, 'className'> & {
+export type CollapsiblePanelProps = Omit<BaseUI.Collapsible.Panel.Props, 'className'> & {
   className?: string;
 };
-type CollapsibleTriggerProps = Omit<BaseUI.Collapsible.Trigger.Props, 'className'> & {
+export type CollapsibleTriggerProps = Omit<BaseUI.Collapsible.Trigger.Props, 'className'> & {
   className?: string;
 };
-type TextFieldProps, Textarea, type TextareaProps, type Theme, type ThemeScopeProps, type ToastOptions, type ToastProviderProps, type ToastTone, type ToggleProps, type ToolbarButtonProps, type ToolbarGroupProps, type ToolbarLinkProps, type ToolbarProps, type ToolbarSeparatorProps, type TooltipProps, type TooltipProviderProps };
+export type TextFieldProps = Omit<InputProps, 'children'> & Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error' | 'optionalLabel'> & {
+  fieldClassName?: string;
+};
 ```

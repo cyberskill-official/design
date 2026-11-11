@@ -50,7 +50,7 @@ Use a radio group when people must pick one of 2 to 6 options and should see the
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type RadioProps<Value = string> = Omit<BaseUI.Radio.Root.Props<Value>, 'className' | 'children'> & {
+export type RadioProps<Value = string> = Omit<BaseUI.Radio.Root.Props<Value>, 'className' | 'children'> & {
   /** Class for the row (dot + label + description). */
   className?: string;
   /** Visible label beside the dot. Clicking it selects the option. */
@@ -58,7 +58,7 @@ type RadioProps<Value = string> = Omit<BaseUI.Radio.Root.Props<Value>, 'classNam
   /** Help text under the label, announced with it. */
   description?: ReactNode;
 };
-type RadioGroupProps<Value = string> = Omit<BaseUI.RadioGroup.Props<Value>, 'className'> & {
+export type RadioGroupProps<Value = string> = Omit<BaseUI.RadioGroup.Props<Value>, 'className'> & {
   className?: string;
   /** Visible group label (rendered as the fieldset legend). */
   label: ReactNode;

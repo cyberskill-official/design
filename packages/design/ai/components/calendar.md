@@ -81,6 +81,8 @@ import { vi } from 'react-day-picker/locale';
 | `defaultMonth / month` | `Date` | `today` | Month shown first, or controlled month with onMonthChange |
 | `today` | `Date` | `now` | Which day gets the today ring |
 
+On a statically rendered or server-rendered page, don't compute dates with `new Date()` while rendering: the HTML keeps the build day and hydration no longer matches. Render with a fixed day (or pass `today` and `defaultMonth`) and switch to the real today in an effect after mount, as the demos on this page do.
+
 Every other react-day-picker prop passes through (`showWeekNumber`, `labels`, `footer`, `components`…). In range mode react-day-picker's own `min` and `max` are the shortest and longest range in days.
 
 ## Accessibility
@@ -94,7 +96,7 @@ Every other react-day-picker prop passes through (`showWeekNumber`, `labels`, `f
 ## Exact types
 
 ```ts
-type CalendarProps = DayPickerProps & {
+export type CalendarProps = DayPickerProps & {
   /** Earliest selectable day. Days before it are disabled and navigation stops at its month. (rdp's own `min`/`max` count days in a range.) */
   minDate?: Date;
   /** Latest selectable day. Days after it are disabled and navigation stops at its month. */

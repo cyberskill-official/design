@@ -49,7 +49,10 @@ Other props go to the outer `<span>`.
 ## Exact types
 
 ```ts
-type TagProps = ComponentProps<'span'> & {
+export type TagProps = ComponentProps<'span'> & {
   /** Shows a remove (×) button. Move focus somewhere sensible after removing, e.g. the next tag or the input. */
   onRemove?: (event: MouseEvent<HTMLButtonElement>) => void;
+  /** First word of the remove button's accessible name; the tag text follows ("Remove SOC 2"). Pass "Xóa" in Vietnamese UIs. */
+  removeLabel?: string;
+};
 ```

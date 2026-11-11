@@ -70,7 +70,7 @@ Use a button for actions: save, deploy, delete, open a dialog. Use a link when t
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
+export type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
   className?: string;
   /** Visual style. `accent` (gold) is for one key action or AI moment per view. */
   variant?: ButtonVariant;
@@ -84,11 +84,11 @@ type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
   /** Stretch to the container width. */
   fullWidth?: boolean;
 };
-type ButtonGroupProps = React.HTMLAttributes<HTMLDivElement> & {
+export type ButtonGroupProps = React.HTMLAttributes<HTMLDivElement> & {
   className?: string;
   label?: string;
 };
-type IconButtonProps = Omit<ButtonProps, 'children' | 'iconStart' | 'iconEnd' | 'fullWidth'> & {
+export type IconButtonProps = Omit<ButtonProps, 'children' | 'iconStart' | 'iconEnd' | 'fullWidth'> & {
   /** Accessible name, read by screen readers and shown as the tooltip-free label. Required. */
   label: string;
   icon: ReactNode;

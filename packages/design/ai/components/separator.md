@@ -49,7 +49,7 @@ Inside a flex row the line stretches to the row's height.
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
+export type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
   className?: string;
   /** Visual style. `accent` (gold) is for one key action or AI moment per view. */
   variant?: ButtonVariant;
@@ -63,7 +63,7 @@ type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
   /** Stretch to the container width. */
   fullWidth?: boolean;
 };
-type SeparatorProps = Omit<BaseUI.Separator.Props, 'className' | 'children'> & {
+export type SeparatorProps = Omit<BaseUI.Separator.Props, 'className' | 'children'> & {
   className?: string;
   /** Text in the middle of the line, e.g. "or" / "hoặc". A string label also becomes the separator's accessible name. */
   label?: ReactNode;

@@ -7,7 +7,7 @@ import { Button, Checkbox, SelectField, TextField } from '@cyberskill/design';
 import { FormField } from '@cyberskill/design/forms';
 ```
 
-`FormField` is React Hook Form's `Controller` plus one thing: it hands your render function the field's validation message as `error`, ready for the `error` prop of `TextField`, `Textarea`, `SelectField`, `Checkbox`, `CheckboxGroup` and `RadioGroup`. It lives in its own entry so apps that don't use React Hook Form never load it.
+`FormField` is React Hook Form's `Controller` plus one thing: it hands your render function the field's validation message as `error`, ready for the `error` prop of `TextField`, `Textarea`, `SelectField`, `Checkbox`, `CheckboxGroup`, `RadioGroup` and the date and time pickers. It lives in its own entry so apps that don't use React Hook Form never load it.
 
 ```bash
 npm install react-hook-form
@@ -84,6 +84,7 @@ Text inputs take `{...field}` directly. Other controls use their own value props
 | `Checkbox, Switch` | `checked, onCheckedChange, inputRef` | – | The field value is a boolean |
 | `CheckboxGroup` | `value, onValueChange` | – | The field value is a string array |
 | `RadioGroup` | `value, onValueChange, inputRef` | – | Start the value at null for "nothing chosen" |
+| `DatePicker, DateRangePicker, TimePicker, DateTimePicker` | `name, value, onValueChange, onBlur, inputRef` | – | Start at null. Invalid typed text sets the value to null, so required rules catch it |
 
 ## Props
 
@@ -104,7 +105,7 @@ Text inputs take `{...field}` directly. Other controls use their own value props
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
+export type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
   className?: string;
   /** Visual style. `accent` (gold) is for one key action or AI moment per view. */
   variant?: ButtonVariant;
@@ -118,7 +119,7 @@ type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
   /** Stretch to the container width. */
   fullWidth?: boolean;
 };
-type CheckboxProps = Omit<BaseUI.Checkbox.Root.Props, 'className' | 'children'> & {
+export type CheckboxProps = Omit<BaseUI.Checkbox.Root.Props, 'className' | 'children'> & {
   /** Class for the row (box + label + description). */
   className?: string;
   /** Visible label beside the box. Clicking it toggles the checkbox. */
@@ -128,10 +129,13 @@ type CheckboxProps = Omit<BaseUI.Checkbox.Root.Props, 'className' | 'children'> 
   /** Error message for a standalone checkbox (e.g. "Accept the terms to continue"). Marks it invalid. */
   error?: ReactNode;
 };
-type SelectFieldProps<Value = string> = SelectProps<Value> & Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error' | 'optionalLabel'> & {
+export type SelectFieldProps<Value = string> = SelectProps<Value> & Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error' | 'optionalLabel'> & {
   fieldClassName?: string;
 };
-type TextFieldProps, Textarea, type TextareaProps, type Theme, type ThemeScopeProps, type ToastOptions, type ToastProviderProps, type ToastTone, type ToggleProps, type ToolbarButtonProps, type ToolbarGroupProps, type ToolbarLinkProps, type ToolbarProps, type ToolbarSeparatorProps, type TooltipProps, type TooltipProviderProps };
-type FormFieldProps<TFieldValues extends FieldValues = FieldValues, TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>, TTransformedValues = TFieldValues> = Omit<ControllerProps<TFieldValues, TName, TTransformedValues>, 'render'> & {
+export type TextFieldProps = Omit<InputProps, 'children'> & Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error' | 'optionalLabel'> & {
+  fieldClassName?: string;
+};
+export type FormFieldProps<TFieldValues extends FieldValues = FieldValues, TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>, TTransformedValues = TFieldValues> = Omit<ControllerProps<TFieldValues, TName, TTransformedValues>, 'render'> & {
   render: (props: FormFieldRenderProps<TFieldValues, TName, TTransformedValues>) => ReactElement;
+};
 ```

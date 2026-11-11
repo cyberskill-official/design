@@ -50,7 +50,7 @@ import NextLink from 'next/link';
 ## Exact types
 
 ```ts
-type LinkProps = useRender.ComponentProps<'a'> & {
+export type LinkProps = useRender.ComponentProps<'a'> & {
   /** `default` ink, `muted` for secondary links (footers, meta lines). */
   tone?: 'default' | 'muted';
   /** Opens in a new tab: adds `target="_blank"`, `rel="noopener noreferrer"`, an icon and screen-reader text. */

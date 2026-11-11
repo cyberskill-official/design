@@ -18,13 +18,14 @@ The value text is a percentage of `max`. Pass `value={null}` when the amount is 
 
 ## Tones and states
 
-`warnAt` turns a bar amber once the value reaches it; `tone="danger"` marks a failure. Both add an icon beside the value, so the change does not rest on color alone.
+`warnAt` turns a bar amber once the value reaches it; `tone="danger"` marks a failure. Both add an icon beside the value (also on an indeterminate bar) and the status to the name screen readers hear ("Storage, Warning"), so the change does not rest on color alone.
 
 ```tsx
 <Progress label="Importing contacts" value={64} />
 <Progress label="Storage" value={86} warnAt={80} />
 <Progress label="Import stopped" value={30} tone="danger" />
 <Progress label="Preparing export" value={null} />
+<Progress label="Retrying sync" value={null} tone="danger" />
 ```
 
 ## Meter
@@ -46,6 +47,7 @@ The value text is a percentage of `max`. Pass `value={null}` when the amount is 
 | `min / max` | `number` | `0 / 100` | Range of the value |
 | `tone` | `'primary' \| 'warning' \| 'danger'` | `'primary'` | Bar color; warning and danger add an icon |
 | `warnAt` | `number` | – | Switches a primary bar to warning once value reaches it |
+| `warningLabel / dangerLabel` | `string` | `'Warning' / 'Critical'` | Status added to the accessible name in those tones, e.g. "Cảnh báo" / "Nghiêm trọng" |
 | `valueLabel` | `ReactNode` | – | Meter only: visible value text, e.g. "720K of 1M" |
 | `format / locale` | `Intl.NumberFormatOptions / string` | – | Format the value text, e.g. compact numbers or vi-VN |
 | `getAriaValueText` | `(formatted, value) => string` | – | Spoken value, e.g. a Vietnamese "indeterminate" text |
@@ -53,6 +55,7 @@ The value text is a percentage of `max`. Pass `value={null}` when the amount is 
 ## Accessibility
 
 - Progress is a `progressbar` and Meter a `meter`, each named by its label; screen readers read the value text (or `valueLabel`).
+- In the warning and danger tones the name also carries the status, from visually hidden text: "Storage, Warning, 86%". Pass `warningLabel` and `dangerLabel` in Vietnamese UIs.
 - The indeterminate bar slides; with reduced motion it becomes a still, faint full-width bar that does not look like a value.
 - The bar meets 3:1 against its track in light and dark; value text meets 4.5:1.
 
@@ -60,7 +63,7 @@ The value text is a percentage of `max`. Pass `value={null}` when the amount is 
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type MeterProps = Omit<BaseUI.Meter.Root.Props, 'className' | 'children'> & {
+export type MeterProps = Omit<BaseUI.Meter.Root.Props, 'className' | 'children'> & {
   className?: string;
   /** Visible label, also the meter's accessible name. */
   label: ReactNode;
@@ -69,13 +72,21 @@ type MeterProps = Omit<BaseUI.Meter.Root.Props, 'className' | 'children'> & {
   tone?: MeterTone;
   /** Switches a `primary` meter to `warning` once `value` reaches this number (same scale as `max`). */
   warnAt?: number;
+  /** Screen-reader text added to the name in the `warning` tone. */
+  warningLabel?: string;
+  /** Screen-reader text added to the name in the `danger` tone. */
+  dangerLabel?: string;
 };
-type ProgressProps = Omit<BaseUI.Progress.Root.Props, 'className' | 'children'> & {
+export type ProgressProps = Omit<BaseUI.Progress.Root.Props, 'className' | 'children'> & {
   className?: string;
   /** Visible label, also the progress bar's accessible name. */
   label: ReactNode;
   tone?: ProgressTone;
   /** Switches a `primary` bar to `warning` once `value` reaches this number (same scale as `max`). */
   warnAt?: number;
+  /** Screen-reader text added to the name in the `warning` tone. */
+  warningLabel?: string;
+  /** Screen-reader text added to the name in the `danger` tone. */
+  dangerLabel?: string;
 };
 ```

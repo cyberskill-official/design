@@ -57,7 +57,7 @@ Use a dialog when the user must finish or dismiss something before going on: con
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
+export type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
   className?: string;
   /** Visual style. `accent` (gold) is for one key action or AI moment per view. */
   variant?: ButtonVariant;
@@ -71,11 +71,11 @@ type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
   /** Stretch to the container width. */
   fullWidth?: boolean;
 };
-type DialogProps = BaseUI.Dialog.Root.Props;
-type DialogCloseProps = Omit<BaseUI.Dialog.Close.Props, 'className'> & {
+export type DialogProps = BaseUI.Dialog.Root.Props;
+export type DialogCloseProps = Omit<BaseUI.Dialog.Close.Props, 'className'> & {
   className?: string;
 };
-type DialogContentProps = Omit<BaseUI.Dialog.Popup.Props, 'className' | 'title'> & {
+export type DialogContentProps = Omit<BaseUI.Dialog.Popup.Props, 'className' | 'title'> & {
   className?: string;
   /** Heading of the dialog, announced when it opens. */
   title: ReactNode;
@@ -90,8 +90,10 @@ type DialogContentProps = Omit<BaseUI.Dialog.Popup.Props, 'className' | 'title'>
   closeLabel?: string;
   hideClose?: boolean;
 };
-type DialogTriggerProps = Omit<BaseUI.Dialog.Trigger.Props, 'className'> & {
+export type DialogTriggerProps = Omit<BaseUI.Dialog.Trigger.Props, 'className'> & {
   className?: string;
 };
-type TextFieldProps, Textarea, type TextareaProps, type Theme, type ThemeScopeProps, type ToastOptions, type ToastProviderProps, type ToastTone, type ToggleProps, type ToolbarButtonProps, type ToolbarGroupProps, type ToolbarLinkProps, type ToolbarProps, type ToolbarSeparatorProps, type TooltipProps, type TooltipProviderProps };
+export type TextFieldProps = Omit<InputProps, 'children'> & Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error' | 'optionalLabel'> & {
+  fieldClassName?: string;
+};
 ```

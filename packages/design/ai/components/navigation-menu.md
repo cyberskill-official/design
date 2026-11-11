@@ -27,7 +27,7 @@ Use a navigation menu for a site or product header: a few top-level links, some 
 </NavigationMenu>
 ```
 
-Panels lay link cards out in `columns` (1, 2 or 3; default 2) and drop to one column on phones. For client-side routing pass your router's link: `render={<NextLink href="/pricing" />}`.
+Each panel opens under its trigger, lined up with the trigger's start edge (shifted back into view near the end of the screen), and slides between triggers. Panels lay link cards out in `columns` (1, 2 or 3; default 2) and drop to one column on phones. For client-side routing pass your router's link: `render={<NextLink href="/pricing" />}`.
 
 ## Narrow screens
 
@@ -71,11 +71,11 @@ Below about 768px, hide the navigation menu and show a menu button that opens th
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type DrawerProps = Omit<BaseUI.Drawer.Root.Props, 'swipeDirection'> & {
+export type DrawerProps = Omit<BaseUI.Drawer.Root.Props, 'swipeDirection'> & {
   /** Edge the drawer slides in from; swiping back toward it dismisses. `bottom` is a mobile bottom sheet with a grab handle. */
   side?: DrawerSide;
 };
-type DrawerContentProps = Omit<BaseUI.Drawer.Popup.Props, 'className' | 'title'> & {
+export type DrawerContentProps = Omit<BaseUI.Drawer.Popup.Props, 'className' | 'title'> & {
   className?: string;
   /** Heading of the drawer, announced when it opens. */
   title: ReactNode;
@@ -88,29 +88,29 @@ type DrawerContentProps = Omit<BaseUI.Drawer.Popup.Props, 'className' | 'title'>
   /** Accessible name of the close (×) button. Pass a Vietnamese string in Vietnamese UIs. */
   closeLabel?: string;
 };
-type DrawerTriggerProps = Omit<BaseUI.Drawer.Trigger.Props, 'className'> & {
+export type DrawerTriggerProps = Omit<BaseUI.Drawer.Trigger.Props, 'className'> & {
   className?: string;
 };
-type IconButtonProps = Omit<ButtonProps, 'children' | 'iconStart' | 'iconEnd' | 'fullWidth'> & {
+export type IconButtonProps = Omit<ButtonProps, 'children' | 'iconStart' | 'iconEnd' | 'fullWidth'> & {
   /** Accessible name, read by screen readers and shown as the tooltip-free label. Required. */
   label: string;
   icon: ReactNode;
 };
-type NavigationMenuProps = Omit<BaseUI.NavigationMenu.Root.Props, 'className'> & {
+export type NavigationMenuProps = Omit<BaseUI.NavigationMenu.Root.Props, 'className'> & {
   className?: string;
 };
-type NavigationMenuContentProps = Omit<BaseUI.NavigationMenu.Content.Props, 'className'> & {
+export type NavigationMenuContentProps = Omit<BaseUI.NavigationMenu.Content.Props, 'className'> & {
   className?: string;
   /** Columns of link cards on wide screens; always one column on phones. */
   columns?: 1 | 2 | 3;
 };
-type NavigationMenuItemProps = Omit<BaseUI.NavigationMenu.Item.Props, 'className'> & {
+export type NavigationMenuItemProps = Omit<BaseUI.NavigationMenu.Item.Props, 'className'> & {
   className?: string;
 };
-type NavigationMenuLinkProps = Omit<BaseUI.NavigationMenu.Link.Props, 'className'> & {
+export type NavigationMenuLinkProps = Omit<BaseUI.NavigationMenu.Link.Props, 'className'> & {
   className?: string;
 };
-type NavigationMenuLinkCardProps = Omit<BaseUI.NavigationMenu.Link.Props, 'className' | 'title'> & {
+export type NavigationMenuLinkCardProps = Omit<BaseUI.NavigationMenu.Link.Props, 'className' | 'title'> & {
   className?: string;
   /** Destination name, e.g. "Agents". */
   title: ReactNode;
@@ -119,7 +119,7 @@ type NavigationMenuLinkCardProps = Omit<BaseUI.NavigationMenu.Link.Props, 'class
   /** Decorative icon in a tile before the text. */
   icon?: ReactNode;
 };
-type NavigationMenuTriggerProps = Omit<BaseUI.NavigationMenu.Trigger.Props, 'className'> & {
+export type NavigationMenuTriggerProps = Omit<BaseUI.NavigationMenu.Trigger.Props, 'className'> & {
   className?: string;
 };
 ```

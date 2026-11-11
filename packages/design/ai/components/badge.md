@@ -63,7 +63,7 @@ Other props go to the `<span>`.
 ## Exact types
 
 ```ts
-type BadgeProps = ComponentProps<'span'> & {
+export type BadgeProps = ComponentProps<'span'> & {
   /** Color meaning. `success`, `warning`, `danger` and `info` show a status icon by default. */
   tone?: BadgeTone;
   /** `soft` tinted (default), `solid` filled, `outline` bordered. */

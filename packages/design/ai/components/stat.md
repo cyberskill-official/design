@@ -37,18 +37,20 @@ Children render under the figures. Give the chart a text alternative.
 | `delta` | `{ value, trend: 'up' \| 'down', sentiment?: 'positive' \| 'negative' \| 'neutral' }` | – | Change shown as an arrow and text, colored by sentiment |
 | `hint` | `ReactNode` | – | Context such as "vs. last month" |
 | `children` | `ReactNode` | – | Slot under the figures, e.g. a sparkline |
+| `positiveLabel / negativeLabel` | `string` | `'positive change' / 'negative change'` | Visually hidden text after the change, e.g. "tích cực" / "tiêu cực" |
 
 ## Accessibility
 
 - Label, value, change and hint are plain text, read in that order.
 - The change is never color alone: the arrow shows the direction and the text carries the sign ("+8.4%", "−0.4 pts"). Write the sign in `delta.value`.
+- Whether the change is good news is also text: screen readers hear "−0.4 pts (positive change)" for churn. Neutral changes add nothing. Pass `positiveLabel` and `negativeLabel` in Vietnamese UIs.
 - Format numbers before passing them (`Intl.NumberFormat('vi-VN')` in Vietnamese UIs).
 - A sparkline needs `role="img"` and an `aria-label` that says the trend, or `aria-hidden` if the hint already says it.
 
 ## Exact types
 
 ```ts
-type StatProps = Omit<ComponentProps<'div'>, 'children'> & {
+export type StatProps = Omit<ComponentProps<'div'>, 'children'> & {
   /** What is measured, e.g. "Monthly revenue". */
   label: ReactNode;
   /** The figure, formatted: "$48,210", "1,284", "99.98%". */
@@ -59,5 +61,9 @@ type StatProps = Omit<ComponentProps<'div'>, 'children'> & {
   hint?: ReactNode;
   /** Slot under the figures, e.g. a sparkline. */
   children?: ReactNode;
+  /** Screen-reader text after a good-news delta, since its color alone carries the meaning. */
+  positiveLabel?: string;
+  /** Screen-reader text after a bad-news delta. */
+  negativeLabel?: string;
 };
 ```

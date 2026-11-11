@@ -32,7 +32,7 @@ All native `kbd` attributes pass through.
 ## Exact types
 
 ```ts
-type KbdProps = React.HTMLAttributes<HTMLElement> & {
+export type KbdProps = React.HTMLAttributes<HTMLElement> & {
   className?: string;
 };
 ```

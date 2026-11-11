@@ -68,7 +68,7 @@ Wrap it in `Field` for a visible label and help text. `icon={null}` drops the se
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type AutocompleteProps = Omit<BaseUI.Autocomplete.Root.Props<AutocompleteItem>, 'items' | 'children'> & {
+export type AutocompleteProps = Omit<BaseUI.Autocomplete.Root.Props<AutocompleteItem>, 'items' | 'children'> & {
   /** Suggestions, flat or in groups (`{ label, items }`). Typing filters them. */
   items: AutocompleteItem[] | AutocompleteGroup[];
   placeholder?: string;
@@ -88,5 +88,19 @@ type AutocompleteProps = Omit<BaseUI.Autocomplete.Root.Props<AutocompleteItem>, 
   /** Accessible name when there is no visible label. Or wrap it in `Field`. */
   'aria-label'?: string;
 };
-type FieldProps, type FieldsetProps, type FileUploadItem, type FileUploadProps, type FormProps, type IconButtonProps, Input, type InputProps, type KbdProps, type LinkProps, type MenuCheckboxItemProps, type MenuContentProps, type MenuGroupLabelProps, type MenuGroupProps, type MenuItemProps, type MenuProps, type MenuSeparatorProps, type MenuTriggerProps, type MenubarContentProps, type MenubarMenuProps, type MenubarProps, type MenubarSubmenuProps, type MenubarSubmenuTriggerProps, type MenubarTriggerProps, type MeterProps, type MeterTone, type MultiSelectFieldProps, type MultiSelectProps, type NavigationMenuContentProps, type NavigationMenuItemProps, type NavigationMenuLinkCardProps, type NavigationMenuLinkProps, type NavigationMenuProps, type NavigationMenuTriggerProps, type NumberFieldProps, type OtpFieldProps, type PaginationProps, type PopoverContentProps, type PopoverProps, type PopoverTriggerProps, type PreviewCardContentProps, type PreviewCardProps, type PreviewCardTriggerProps, type ProgressProps, type ProgressTone, type RadioGroupProps, type RadioProps, type ScrollAreaProps, type SegmentedControlItem, type SegmentedControlProps, type SelectFieldProps, type SelectItem, type SelectProps, type SelectSize, type SeparatorProps, type SideNavGroupProps, type SideNavItemProps, type SideNavProps, type SkeletonProps, type SkeletonTextProps, type SliderMark, type SliderProps, type SpinnerProps, type StatDelta, type StatProps, type StepStatus, type StepperProps, type StepperStep, type SwitchProps, type TableBodyProps, type TableCaptionProps, type TableCellProps, type TableHeadProps, type TableHeaderProps, type TableProps, type TableRowProps, type TabsListProps, type TabsPanelProps, type TabsProps, type TabsTabProps, type TagProps, TextField, type TextFieldProps, Textarea, type TextareaProps, type Theme, type ThemeScopeProps, type ToastOptions, type ToastProviderProps, type ToastTone, type ToggleProps, type ToolbarButtonProps, type ToolbarGroupProps, type ToolbarLinkProps, type ToolbarProps, type ToolbarSeparatorProps, type TooltipProps, type TooltipProviderProps };
+export type FieldProps = Omit<BaseUI.Field.Root.Props, 'className' | 'children'> & {
+  className?: string;
+  /** Visible label. Required for accessibility; hide it visually with `hideLabel` if the design must. */
+  label: ReactNode;
+  hideLabel?: boolean;
+  /** Help text under the control. */
+  description?: ReactNode;
+  /** Error message. Passing it marks the field invalid and shows the message (for form libraries). */
+  error?: ReactNode;
+  /** Adds a visual marker and `required` semantics are left to the control. */
+  required?: boolean;
+  /** Text after the label for optional fields, e.g. "Optional" / "Không bắt buộc". */
+  optionalLabel?: ReactNode;
+  children: ReactNode;
+};
 ```

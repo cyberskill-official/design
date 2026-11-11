@@ -54,7 +54,7 @@ Use `size="sm"` in cards, panels and tables.
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
+export type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
   className?: string;
   /** Visual style. `accent` (gold) is for one key action or AI moment per view. */
   variant?: ButtonVariant;
@@ -68,7 +68,7 @@ type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
   /** Stretch to the container width. */
   fullWidth?: boolean;
 };
-type EmptyStateProps = Omit<HTMLAttributes<HTMLDivElement>, 'title'> & {
+export type EmptyStateProps = Omit<HTMLAttributes<HTMLDivElement>, 'title'> & {
   className?: string;
   /** Phosphor icon shown in a tile above the title (decorative). */
   icon?: ReactNode;

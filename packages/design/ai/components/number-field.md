@@ -20,6 +20,8 @@ Use a number field for quantities people adjust in small steps: seats, replicas,
 
 `format` takes `Intl.NumberFormat` options. Pair a currency with `locale` so the separators and symbol are right.
 
+**Pasting with `locale="vi-VN"`:** text is read with Vietnamese separators (`.` groups thousands, `,` marks decimals), so a pasted `1.000.000` is one million but a pasted `1,000,000` copied from an English source becomes **1000**. Base UI parses it this way and has no option to change it, so tell people the expected format in `description` (for example "Nhập 1.000.000") when values are likely to be pasted from elsewhere.
+
 ```tsx
 <NumberField label="Monthly budget" locale="vi-VN" format={{ style: 'currency', currency: 'VND' }} defaultValue={5_000_000} step={500_000} min={0} incrementLabel="Tăng" decrementLabel="Giảm" />
 <NumberField label="Discount" format={{ style: 'percent' }} defaultValue={0.1} step={0.05} min={0} max={1} />
@@ -60,7 +62,7 @@ Also takes `placeholder`, `ref` (the input), `className` (the stepper box) and o
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type NumberFieldProps = Omit<BaseUI.NumberField.Root.Props, 'className'> & Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error' | 'optionalLabel'> & {
+export type NumberFieldProps = Omit<BaseUI.NumberField.Root.Props, 'className'> & Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error' | 'optionalLabel'> & {
   /** Class for the stepper box. */
   className?: string;
   fieldClassName?: string;
@@ -71,5 +73,12 @@ type NumberFieldProps = Omit<BaseUI.NumberField.Root.Props, 'className'> & Pick<
   /** Accessible names of the − and + buttons. Pass Vietnamese text in Vietnamese UIs. */
   decrementLabel?: string;
   incrementLabel?: string;
+  /**
+   * Locale for showing and reading the number, e.g. `"vi-VN"`. Typed and pasted text is read with this locale's
+   * separators, so with `vi-VN` a pasted `1,000,000` (English grouping) becomes 1000: the comma is the Vietnamese decimal mark.
+   */
+  locale?: BaseUI.NumberField.Root.Props['locale'];
+  /** `Intl.NumberFormat` options, e.g. `{ style: 'currency', currency: 'VND' }`. Parsing follows `locale`, not `format`. */
+  format?: BaseUI.NumberField.Root.Props['format'];
 };
 ```

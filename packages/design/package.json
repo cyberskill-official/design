@@ -32,7 +32,9 @@
     "tokens",
     "ai",
     "bin",
-    "README.md"
+    "README.md",
+    "LICENSE",
+    "THIRD-PARTY-NOTICES.md"
   ],
   "bin": {
     "cyberskill-design": "./bin/cyberskill-design.mjs"
@@ -40,27 +42,31 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "default": "./dist/index.js"
     },
     "./charts": {
       "types": "./dist/charts.d.ts",
-      "import": "./dist/charts.js"
+      "default": "./dist/charts.js"
     },
     "./table": {
       "types": "./dist/table.d.ts",
-      "import": "./dist/table.js"
+      "default": "./dist/table.js"
     },
     "./forms": {
       "types": "./dist/forms.d.ts",
-      "import": "./dist/forms.js"
+      "default": "./dist/forms.js"
     },
     "./date": {
       "types": "./dist/date.d.ts",
-      "import": "./dist/date.js"
+      "default": "./dist/date.js"
+    },
+    "./utils": {
+      "types": "./dist/utils.d.ts",
+      "default": "./dist/utils.js"
     },
     "./tokens": {
       "types": "./dist/tokens.d.ts",
-      "import": "./dist/tokens.js"
+      "default": "./dist/tokens.js"
     },
     "./tokens.json": "./dist/tokens.json",
     "./styles.css": "./dist/styles.css",
@@ -74,16 +80,17 @@
     "provenance": true
   },
   "scripts": {
-    "build": "node scripts/build-tokens.mjs && node scripts/build-css.mjs && tsdown && node scripts/build-ai-docs.mjs",
+    "build": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\" && node scripts/build-tokens.mjs && node scripts/build-css.mjs && tsdown && node scripts/build-ai-docs.mjs",
     "dev": "concurrently -k -n tokens,css,js \"node --watch-path=tokens scripts/build-tokens.mjs\" \"node --watch-path=src/css scripts/build-css.mjs\" \"tsdown --watch\"",
     "test": "vitest run",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit",
     "lint:css": "node scripts/check-css.mjs",
-    "check:package": "npm pack --dry-run && publint && attw --pack . --profile esm-only",
+    "check:package": "npm pack --dry-run && publint && attw --pack . --profile esm-only --exclude-entrypoints ./styles.css ./tokens.css ./tailwind.css",
     "storybook": "storybook dev -p 6006 --no-open",
     "build-storybook": "storybook build -o storybook-static",
-    "check:ai-docs": "node scripts/build-ai-docs.mjs --check"
+    "check:ai-docs": "node scripts/build-ai-docs.mjs --check",
+    "test:gates": "node --test scripts/*.test.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

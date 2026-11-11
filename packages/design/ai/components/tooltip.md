@@ -52,21 +52,21 @@ Wrap a toolbar in `TooltipProvider`: once one tooltip is open, moving to the nex
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type ButtonGroupProps = React.HTMLAttributes<HTMLDivElement> & {
+export type ButtonGroupProps = React.HTMLAttributes<HTMLDivElement> & {
   className?: string;
   label?: string;
 };
-type IconButtonProps = Omit<ButtonProps, 'children' | 'iconStart' | 'iconEnd' | 'fullWidth'> & {
+export type IconButtonProps = Omit<ButtonProps, 'children' | 'iconStart' | 'iconEnd' | 'fullWidth'> & {
   /** Accessible name, read by screen readers and shown as the tooltip-free label. Required. */
   label: string;
   icon: ReactNode;
 };
-type TooltipProps = Omit<BaseUI.Tooltip.Root.Props, 'children' | 'handle'> & Pick<BaseUI.Tooltip.Positioner.Props, 'side' | 'align'> & Pick<BaseUI.Tooltip.Trigger.Props, 'delay' | 'closeDelay'> & {
+export type TooltipProps = Omit<BaseUI.Tooltip.Root.Props, 'children' | 'handle'> & Pick<BaseUI.Tooltip.Positioner.Props, 'side' | 'align'> & Pick<BaseUI.Tooltip.Trigger.Props, 'delay' | 'closeDelay'> & {
   /** Short supplementary text. Never the only place essential information lives. */
   content: ReactNode;
   /** The trigger: one element that forwards `ref` and props, e.g. `<IconButton label="Copy" … />`. It needs its own accessible name. */
   children: ReactElement;
   className?: string;
 };
-type TooltipProviderProps = BaseUI.Tooltip.Provider.Props;
+export type TooltipProviderProps = BaseUI.Tooltip.Provider.Props;
 ```

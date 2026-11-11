@@ -39,7 +39,7 @@ Use a switch for a setting that takes effect the moment it is flipped, like on a
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type SwitchProps = Omit<BaseUI.Switch.Root.Props, 'className' | 'children'> & {
+export type SwitchProps = Omit<BaseUI.Switch.Root.Props, 'className' | 'children'> & {
   /** Class for the row (track + label + description). */
   className?: string;
   /** Visible label beside the switch. Clicking it toggles the switch. */

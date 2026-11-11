@@ -57,7 +57,7 @@ Use an avatar to show who owns, edited or is assigned to something. It shows ini
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type AvatarProps = Omit<BaseUI.Avatar.Root.Props, 'className' | 'children'> & {
+export type AvatarProps = Omit<BaseUI.Avatar.Root.Props, 'className' | 'children'> & {
   className?: string;
   /** Person or team name. Becomes the accessible name and the initials. */
   name: string;
@@ -68,7 +68,7 @@ type AvatarProps = Omit<BaseUI.Avatar.Root.Props, 'className' | 'children'> & {
   /** `sm` 24px, `md` 32px (default), `lg` 40px. */
   size?: AvatarSize;
 };
-type AvatarGroupProps = ComponentProps<'div'> & {
+export type AvatarGroupProps = ComponentProps<'div'> & {
   /** Names the group for screen readers, e.g. "Project members". */
   label?: string;
   /** Show at most this many avatars, then a "+N" bubble. */
@@ -77,4 +77,5 @@ type AvatarGroupProps = ComponentProps<'div'> & {
   size?: AvatarSize;
   /** Accessible name of the "+N" bubble. Pass a Vietnamese string in Vietnamese UIs. */
   overflowLabel?: (count: number) => string;
+};
 ```

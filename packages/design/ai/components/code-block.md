@@ -3,7 +3,7 @@
 > Read-only code with an optional title, language label and a copy button.
 
 ```tsx
-import { CodeBlock, CopyButton } from '@cyberskill/design';
+import { CodeBlock, CopyButton, Toolbar, ToolbarButton, ToolbarSeparator } from '@cyberskill/design';
 ```
 
 Use a code block to show code, commands or config that people copy. It shows the text as-is, with no syntax highlighting. For a short value inline in a sentence, use `<code>`.
@@ -31,6 +31,20 @@ No header puts the copy button in the corner. `inverted` is a dark ink surface i
 <CopyButton value="ws_8f3k2q" label="Copy workspace ID" />
 ```
 
+## In a toolbar
+
+Pass the copy button to a `ToolbarButton`'s `render` so it joins the toolbar's arrow-key navigation (the whole toolbar stays one Tab stop). Name it with CopyButton's own `label`.
+
+```tsx
+<Toolbar aria-label="Answer actions">
+  <ToolbarButton render={<CopyButton value={answer} label="Copy answer" />} />
+  <ToolbarSeparator />
+  <ToolbarButton icon={<ThumbsUp />} label="Good answer" />
+  <ToolbarButton icon={<ThumbsDown />} label="Bad answer" />
+  <ToolbarButton icon={<ArrowClockwise />}>Regenerate</ToolbarButton>
+</Toolbar>
+```
+
 ## Props
 
 | Prop | Type | Default | Description |
@@ -55,7 +69,8 @@ No header puts the copy button in the corner. `inverted` is a dark ink surface i
 ## Exact types
 
 ```ts
-type CodeBlockProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'title'> & {
+// BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
+export type CodeBlockProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 'title'> & {
   className?: string;
   /** The code, shown as-is (no syntax highlighting) and copied by the copy button. */
   code: string;
@@ -72,7 +87,7 @@ type CodeBlockProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'children' | 't
   copyLabel?: string;
   copiedLabel?: string;
 };
-type CopyButtonProps = Omit<IconButtonProps, 'label' | 'icon' | 'value'> & {
+export type CopyButtonProps = Omit<IconButtonProps, 'label' | 'icon' | 'value'> & {
   /** Text written to the clipboard. */
   value: string;
   /** Accessible name of the button, e.g. "Copy" / "Sao chép". */
@@ -81,4 +96,18 @@ type CopyButtonProps = Omit<IconButtonProps, 'label' | 'icon' | 'value'> & {
   copiedLabel?: string;
   /** Called after the text is on the clipboard. */
   onCopy?: (value: string) => void;
+};
+export type ToolbarProps = Omit<BaseUI.Toolbar.Root.Props, 'className'> & {
+  className?: string;
+};
+export type ToolbarButtonProps = Omit<BaseUI.Toolbar.Button.Props, 'className'> & {
+  className?: string;
+  /** Icon before the text, or the only content when the button has no children (decorative). */
+  icon?: ReactNode;
+  /** Accessible name. Required for icon-only buttons, e.g. "Bold" / "In đậm". */
+  label?: string;
+};
+export type ToolbarSeparatorProps = Omit<BaseUI.Toolbar.Separator.Props, 'className'> & {
+  className?: string;
+};
 ```

@@ -3,7 +3,8 @@
 > Bar, line, area and donut presets on Recharts, plus a sparkline. Token colors, a hover tooltip and a table view on every chart.
 
 ```tsx
-import { AreaChart, BarChart, ChartFrame, DonutChart, LineChart, Sparkline } from '@cyberskill/design/charts';
+import { Tooltip } from '@cyberskill/design';
+import { AreaChart, BarChart, ChartFrame, ChartTooltipCard, DonutChart, LineChart, Sparkline } from '@cyberskill/design/charts';
 ```
 
 Chart presets for dashboards and reports. Each one sits in a `ChartFrame` card with a title, a legend for two or more series, a hover and keyboard tooltip, and a **Show table** toggle that swaps the chart for a table of the same numbers. They live in their own entry, so apps that never draw a chart never load Recharts:
@@ -68,14 +69,14 @@ A series takes the palette slot of its position. When a filter hides some series
 
 ## Vietnamese and number formats
 
-Every label is a prop. `valueFormatter` formats tooltip, legend and table values; `axisFormatter` formats y-axis ticks (full numbers, compact once the axis reaches 10,000).
+Every label is a prop. Numbers use `locale`, fixed to `en-US` by default (1,550) rather than the visitor's runtime locale, so the HTML rendered on the server matches the client and React never reports a hydration mismatch. Pass `locale="vi-VN"` for Vietnamese numbers (1.550; compact 12 N on the axis). For anything else, `valueFormatter` formats tooltip, legend and table values and `axisFormatter` the y-axis ticks (full numbers, compact once the axis reaches 10,000).
 
 ```tsx
 <LineChart
   title="Người dùng hoạt động" description="Theo tháng" data={signups} xKey="month" xLabel="Tháng"
   series={[{ key: 'web', label: 'Web' }, { key: 'mobile', label: 'Di động' }]}
   showTableLabel="Xem bảng" showChartLabel="Xem biểu đồ"
-  valueFormatter={(v) => new Intl.NumberFormat('vi-VN').format(v)}
+  locale="vi-VN"
 />
 ```
 
@@ -89,6 +90,8 @@ A tiny trend for stat tiles: no axes and no tooltip, a muted line with the curre
 
 ## Your own Recharts chart
 
+`chartColor(slot)` and `seriesColor(series, index)` return the palette color (`var(--chart-n)`) for custom marks. They are pure functions: in Server Components import them from `@cyberskill/design/utils`.
+
 `ChartFrame` gives any Recharts chart the same card, legend and table view. Spread the props it passes onto the chart root so the SVG is an image named by the title.
 
 ```tsx
@@ -97,6 +100,21 @@ A tiny trend for stat tiles: no axes and no tooltip, a muted line with the curre
     <ComposedChart {...a11y} data={signups} responsive style={{ width: '100%', height: 240 }}>…</ComposedChart>
   )}
 </ChartFrame>
+```
+
+`ChartTooltipCard` is the presets' tooltip. Use it in a custom chart's Recharts `Tooltip` so every chart's hover card looks the same.
+
+```tsx
+<Tooltip
+  content={({ active, payload, label }) =>
+    active ? (
+      <ChartTooltipCard
+        label={label}
+        items={(payload ?? []).map((p, i) => ({ key: String(p.dataKey), label: p.name, color: p.color ?? chartColor(i + 1), value: p.value }))}
+      />
+    ) : null
+  }
+/>
 ```
 
 ## Props
@@ -111,7 +129,8 @@ Shared by `BarChart`, `LineChart`, `AreaChart` and `DonutChart`:
 | `series` | `{ key, label, color? }[]` | – | Fields to plot, in palette order. color pins a slot 1–5 |
 | `xKey` | `string` | – | Field with the category or date of each row |
 | `xLabel` | `string` | `xKey` | Header of the first table-view column |
-| `valueFormatter` | `(value: number) => string` | `locale number` | Tooltip, legend and table values |
+| `locale` | `string` | `'en-US'` | Locale of the default number formats, e.g. vi-VN. Fixed, so server and client render the same text |
+| `valueFormatter` | `(value: number) => string` | `locale number` | Tooltip, legend, table and donut center values |
 | `height` | `number` | `240 (donut 200)` | Plot height in px, axis labels included |
 | `showTableLabel / showChartLabel` | `string` | `'Show table' / 'Show chart'` | Toggle labels |
 | `legend` | `ChartLegendItem[] \| false` | `one per series (2+)` | Override or hide the legend |
@@ -128,15 +147,23 @@ Per preset: `BarChart` and `AreaChart` take `stacked`; `LineChart` and `AreaChar
 ## Exact types
 
 ```ts
-type AreaChartProps = LineChartProps & {
+// BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
+export type TooltipProps = Omit<BaseUI.Tooltip.Root.Props, 'children' | 'handle'> & Pick<BaseUI.Tooltip.Positioner.Props, 'side' | 'align'> & Pick<BaseUI.Tooltip.Trigger.Props, 'delay' | 'closeDelay'> & {
+  /** Short supplementary text. Never the only place essential information lives. */
+  content: ReactNode;
+  /** The trigger: one element that forwards `ref` and props, e.g. `<IconButton label="Copy" … />`. It needs its own accessible name. */
+  children: ReactElement;
+  className?: string;
+};
+export type AreaChartProps = LineChartProps & {
   /** Stack the areas so the top edge shows the total. */
   stacked?: boolean;
 };
-type BarChartProps = CartesianChartProps & {
+export type BarChartProps = CartesianChartProps & {
   /** Stack the series in one bar per category instead of grouping them side by side. */
   stacked?: boolean;
 };
-type ChartFrameProps = Omit<HTMLAttributes<HTMLElement>, 'title' | 'children'> & {
+export type ChartFrameProps = Omit<HTMLAttributes<HTMLElement>, 'title' | 'children'> & {
   /** Visible title; also names the chart image and the table view. */
   title: ReactNode;
   description?: ReactNode;
@@ -146,6 +173,9 @@ type ChartFrameProps = Omit<HTMLAttributes<HTMLElement>, 'title' | 'children'> &
   xKey: string;
   /** Header of the first column in the table view. Defaults to `xKey`. */
   xLabel?: string;
+  /** Locale of the default number format, e.g. `vi-VN` (1.550). Fixed to `en-US` by default so server and client render the same text. */
+  locale?: Intl.LocalesArgument;
+  /** Formats values in the table, tooltip and legend. Defaults to the `locale` number format. */
   valueFormatter?: ValueFormatter;
   /** Legend entries. Defaults to one per series when there are two or more; `false` hides it. */
   legend?: ChartLegendItem[] | false;
@@ -157,7 +187,8 @@ type ChartFrameProps = Omit<HTMLAttributes<HTMLElement>, 'title' | 'children'> &
   showChartLabel?: string;
   /** Renders the chart. Spread the given props onto the Recharts root (`<BarChart {...a11y}>`). */
   children: (a11y: ChartA11yProps) => ReactNode;
-type DonutChartProps = Omit<ChartFrameProps, 'children' | 'legend' | 'legendMark'> & {
+};
+export type DonutChartProps = Omit<ChartFrameProps, 'children' | 'legend' | 'legendMark'> & {
   /** Plot height in px; the ring fills it. */
   height?: number;
   /** Small text under the center figure, e.g. "Total" / "Tổng". */
@@ -167,11 +198,11 @@ type DonutChartProps = Omit<ChartFrameProps, 'children' | 'legend' | 'legendMark
   /** Pin palette slots per slice name so colors follow the entity across filters. Defaults to the slice's position. */
   colors?: Partial<Record<string, ChartColor>>;
 };
-type LineChartProps = CartesianChartProps & {
+export type LineChartProps = CartesianChartProps & {
   /** Series names at the end of each line. Defaults to on for four series or fewer. */
   directLabels?: boolean;
 };
-type SparklineProps = Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'color'> & {
+export type SparklineProps = Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'color'> & {
   data: readonly object[];
   /** Field holding each point's value. */
   dataKey: string;

@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/cyberskill-official/design/main/packages/design/assets/logo-primary.svg" width="56" height="56" alt="CyberSkill">
+<img src="https://cdn.jsdelivr.net/npm/@cyberskill/design@3/assets/logo-primary.svg" width="56" height="56" alt="CyberSkill">
 
 # @cyberskill/design
 
@@ -30,6 +30,8 @@ import { Button, TextField, Dialog, DialogTrigger, DialogContent } from '@cybers
 | `@cyberskill/design/charts` | Chart presets | `recharts@3` |
 | `@cyberskill/design/table` | Data table | `@tanstack/react-table@9`, `@tanstack/react-virtual@3` |
 | `@cyberskill/design/forms` | React Hook Form helpers | `react-hook-form@7` |
+| `@cyberskill/design/date` | Calendar, date, range and time pickers | `react-day-picker@10`, `date-fns@4` |
+| `@cyberskill/design/utils` | Pure helpers (`cx`, `formatFileSize`, chart colors), safe in Server Components | – |
 
 Dark mode: `data-theme="dark"` (or `system`) on `<html>` or any element.
 

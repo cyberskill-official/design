@@ -55,7 +55,7 @@ Prefer this over a tooltip when the text matters: it opens on tap and is read by
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
+export type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
   className?: string;
   /** Visual style. `accent` (gold) is for one key action or AI moment per view. */
   variant?: ButtonVariant;
@@ -69,13 +69,13 @@ type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
   /** Stretch to the container width. */
   fullWidth?: boolean;
 };
-type IconButtonProps = Omit<ButtonProps, 'children' | 'iconStart' | 'iconEnd' | 'fullWidth'> & {
+export type IconButtonProps = Omit<ButtonProps, 'children' | 'iconStart' | 'iconEnd' | 'fullWidth'> & {
   /** Accessible name, read by screen readers and shown as the tooltip-free label. Required. */
   label: string;
   icon: ReactNode;
 };
-type PopoverProps = BaseUI.Popover.Root.Props;
-type PopoverContentProps = Omit<BaseUI.Popover.Popup.Props, 'className' | 'title'> & Pick<BaseUI.Popover.Positioner.Props, 'side' | 'align'> & {
+export type PopoverProps = BaseUI.Popover.Root.Props;
+export type PopoverContentProps = Omit<BaseUI.Popover.Popup.Props, 'className' | 'title'> & Pick<BaseUI.Popover.Positioner.Props, 'side' | 'align'> & {
   className?: string;
   /** Heading that names the popover, announced when it opens. */
   title: ReactNode;
@@ -84,8 +84,10 @@ type PopoverContentProps = Omit<BaseUI.Popover.Popup.Props, 'className' | 'title
   /** Accessible name of the close (×) button. Pass a Vietnamese string in Vietnamese UIs. */
   closeLabel?: string;
 };
-type PopoverTriggerProps = Omit<BaseUI.Popover.Trigger.Props, 'className'> & {
+export type PopoverTriggerProps = Omit<BaseUI.Popover.Trigger.Props, 'className'> & {
   className?: string;
 };
-type TextFieldProps, Textarea, type TextareaProps, type Theme, type ThemeScopeProps, type ToastOptions, type ToastProviderProps, type ToastTone, type ToggleProps, type ToolbarButtonProps, type ToolbarGroupProps, type ToolbarLinkProps, type ToolbarProps, type ToolbarSeparatorProps, type TooltipProps, type TooltipProviderProps };
+export type TextFieldProps = Omit<InputProps, 'children'> & Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error' | 'optionalLabel'> & {
+  fieldClassName?: string;
+};
 ```

@@ -45,7 +45,7 @@ All other `span` props pass through.
 ## Exact types
 
 ```ts
-type SpinnerProps = HTMLAttributes<HTMLSpanElement> & {
+export type SpinnerProps = HTMLAttributes<HTMLSpanElement> & {
   className?: string;
   /** Announced to screen readers (polite status). Pass a Vietnamese string in Vietnamese UIs. */
   label?: string;

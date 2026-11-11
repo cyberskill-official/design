@@ -48,7 +48,7 @@ Skeletons are hidden from screen readers. Give the container `aria-busy="true"` 
 ## Exact types
 
 ```ts
-type SkeletonProps = HTMLAttributes<HTMLDivElement> & {
+export type SkeletonProps = HTMLAttributes<HTMLDivElement> & {
   className?: string;
   /** CSS width; numbers are px. Default fills the container. */
   width?: CSSProperties['width'];
@@ -57,7 +57,7 @@ type SkeletonProps = HTMLAttributes<HTMLDivElement> & {
   /** Corner radius token. Use `full` for avatars and pills. */
   radius?: 'sm' | 'md' | 'lg' | 'full';
 };
-type SkeletonTextProps = HTMLAttributes<HTMLDivElement> & {
+export type SkeletonTextProps = HTMLAttributes<HTMLDivElement> & {
   className?: string;
   /** Number of lines; the last one is shorter, like a paragraph. */
   lines?: number;

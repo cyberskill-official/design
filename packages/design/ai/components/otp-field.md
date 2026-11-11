@@ -51,7 +51,7 @@ Also takes `autoSubmit` (submit the form when complete), `normalizeValue`, `inpu
 ## Exact types
 
 ```ts
-type OtpFieldProps = Omit<OTPField.Root.Props, 'className' | 'length' | 'onValueComplete'> & Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error' | 'optionalLabel'> & {
+export type OtpFieldProps = Omit<OTPField.Root.Props, 'className' | 'length' | 'onValueComplete'> & Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error' | 'optionalLabel'> & {
   /** Class for the row of boxes. */
   className?: string;
   fieldClassName?: string;
@@ -61,4 +61,5 @@ type OtpFieldProps = Omit<OTPField.Root.Props, 'className' | 'length' | 'onValue
   onComplete?: OTPField.Root.Props['onValueComplete'];
   /** Accessible name of boxes 2…N (box 1 uses `label`). Pass Vietnamese text in Vietnamese UIs. */
   slotLabel?: (position: number, length: number) => string;
+};
 ```

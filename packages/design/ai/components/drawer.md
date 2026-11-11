@@ -71,7 +71,7 @@ A bottom sheet shows a grab handle, rounds its top corners and keeps clear of th
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
+export type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
   className?: string;
   /** Visual style. `accent` (gold) is for one key action or AI moment per view. */
   variant?: ButtonVariant;
@@ -85,14 +85,14 @@ type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
   /** Stretch to the container width. */
   fullWidth?: boolean;
 };
-type DrawerProps = Omit<BaseUI.Drawer.Root.Props, 'swipeDirection'> & {
+export type DrawerProps = Omit<BaseUI.Drawer.Root.Props, 'swipeDirection'> & {
   /** Edge the drawer slides in from; swiping back toward it dismisses. `bottom` is a mobile bottom sheet with a grab handle. */
   side?: DrawerSide;
 };
-type DrawerCloseProps = Omit<BaseUI.Drawer.Close.Props, 'className'> & {
+export type DrawerCloseProps = Omit<BaseUI.Drawer.Close.Props, 'className'> & {
   className?: string;
 };
-type DrawerContentProps = Omit<BaseUI.Drawer.Popup.Props, 'className' | 'title'> & {
+export type DrawerContentProps = Omit<BaseUI.Drawer.Popup.Props, 'className' | 'title'> & {
   className?: string;
   /** Heading of the drawer, announced when it opens. */
   title: ReactNode;
@@ -105,8 +105,10 @@ type DrawerContentProps = Omit<BaseUI.Drawer.Popup.Props, 'className' | 'title'>
   /** Accessible name of the close (×) button. Pass a Vietnamese string in Vietnamese UIs. */
   closeLabel?: string;
 };
-type DrawerTriggerProps = Omit<BaseUI.Drawer.Trigger.Props, 'className'> & {
+export type DrawerTriggerProps = Omit<BaseUI.Drawer.Trigger.Props, 'className'> & {
   className?: string;
 };
-type TextFieldProps, Textarea, type TextareaProps, type Theme, type ThemeScopeProps, type ToastOptions, type ToastProviderProps, type ToastTone, type ToggleProps, type ToolbarButtonProps, type ToolbarGroupProps, type ToolbarLinkProps, type ToolbarProps, type ToolbarSeparatorProps, type TooltipProps, type TooltipProviderProps };
+export type TextFieldProps = Omit<InputProps, 'children'> & Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error' | 'optionalLabel'> & {
+  fieldClassName?: string;
+};
 ```

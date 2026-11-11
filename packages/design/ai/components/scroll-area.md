@@ -46,7 +46,7 @@ The root exposes `data-has-overflow-x|y` and `data-overflow-{x|y}-{start|end}` f
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type ScrollAreaProps = Omit<BaseUI.ScrollArea.Root.Props, 'className'> & {
+export type ScrollAreaProps = Omit<BaseUI.ScrollArea.Root.Props, 'className'> & {
   className?: string;
   /** Accessible name of the scrollable region. Keyboard users can focus it and scroll with the arrow keys. */
   label: string;

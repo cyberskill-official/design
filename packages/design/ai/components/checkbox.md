@@ -69,7 +69,7 @@ const [value, setValue] = useState<string[]>(['eu-central-1']);
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type CheckboxProps = Omit<BaseUI.Checkbox.Root.Props, 'className' | 'children'> & {
+export type CheckboxProps = Omit<BaseUI.Checkbox.Root.Props, 'className' | 'children'> & {
   /** Class for the row (box + label + description). */
   className?: string;
   /** Visible label beside the box. Clicking it toggles the checkbox. */
@@ -79,7 +79,7 @@ type CheckboxProps = Omit<BaseUI.Checkbox.Root.Props, 'className' | 'children'> 
   /** Error message for a standalone checkbox (e.g. "Accept the terms to continue"). Marks it invalid. */
   error?: ReactNode;
 };
-type CheckboxGroupProps = Omit<BaseUI.CheckboxGroup.Props, 'className'> & {
+export type CheckboxGroupProps = Omit<BaseUI.CheckboxGroup.Props, 'className'> & {
   className?: string;
   /** Visible group label (rendered as the fieldset legend). */
   label: ReactNode;

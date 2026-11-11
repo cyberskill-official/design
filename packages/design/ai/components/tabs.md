@@ -55,16 +55,16 @@ Use tabs to **switch between views of the same object**: an agent's overview, so
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type TabsProps = Omit<BaseUI.Tabs.Root.Props, 'className'> & {
+export type TabsProps = Omit<BaseUI.Tabs.Root.Props, 'className'> & {
   className?: string;
 };
-type TabsListProps = Omit<BaseUI.Tabs.List.Props, 'className'> & {
+export type TabsListProps = Omit<BaseUI.Tabs.List.Props, 'className'> & {
   className?: string;
 };
-type TabsPanelProps = Omit<BaseUI.Tabs.Panel.Props, 'className'> & {
+export type TabsPanelProps = Omit<BaseUI.Tabs.Panel.Props, 'className'> & {
   className?: string;
 };
-type TabsTabProps = Omit<BaseUI.Tabs.Tab.Props, 'className'> & {
+export type TabsTabProps = Omit<BaseUI.Tabs.Tab.Props, 'className'> & {
   className?: string;
 };
 ```

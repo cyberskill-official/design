@@ -47,11 +47,11 @@ Use a context menu as a shortcut for actions on what is under the pointer: a fil
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type ContextMenuProps = BaseUI.ContextMenu.Root.Props;
-type ContextMenuContentProps = Omit<BaseUI.ContextMenu.Popup.Props, 'className'> & {
+export type ContextMenuProps = BaseUI.ContextMenu.Root.Props;
+export type ContextMenuContentProps = Omit<BaseUI.ContextMenu.Popup.Props, 'className'> & {
   className?: string;
 };
-type ContextMenuItemProps = Omit<BaseUI.ContextMenu.Item.Props, 'className'> & {
+export type ContextMenuItemProps = Omit<BaseUI.ContextMenu.Item.Props, 'className'> & {
   className?: string;
   /** Icon before the label (decorative). */
   icon?: ReactNode;
@@ -60,10 +60,10 @@ type ContextMenuItemProps = Omit<BaseUI.ContextMenu.Item.Props, 'className'> & {
   /** `danger` for destructive actions such as Delete. */
   tone?: 'neutral' | 'danger';
 };
-type ContextMenuSeparatorProps = Omit<BaseUI.ContextMenu.Separator.Props, 'className'> & {
+export type ContextMenuSeparatorProps = Omit<BaseUI.ContextMenu.Separator.Props, 'className'> & {
   className?: string;
 };
-type ContextMenuTriggerProps = Omit<BaseUI.ContextMenu.Trigger.Props, 'className'> & {
+export type ContextMenuTriggerProps = Omit<BaseUI.ContextMenu.Trigger.Props, 'className'> & {
   className?: string;
 };
 ```

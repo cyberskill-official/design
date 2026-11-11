@@ -63,16 +63,16 @@ One section open at a time (the default). Opening another closes the first.
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type AccordionProps = Omit<BaseUI.Accordion.Root.Props, 'className'> & {
+export type AccordionProps = Omit<BaseUI.Accordion.Root.Props, 'className'> & {
   className?: string;
 };
-type AccordionItemProps = Omit<BaseUI.Accordion.Item.Props, 'className'> & {
+export type AccordionItemProps = Omit<BaseUI.Accordion.Item.Props, 'className'> & {
   className?: string;
 };
-type AccordionPanelProps = Omit<BaseUI.Accordion.Panel.Props, 'className'> & {
+export type AccordionPanelProps = Omit<BaseUI.Accordion.Panel.Props, 'className'> & {
   className?: string;
 };
-type AccordionTriggerProps = Omit<BaseUI.Accordion.Trigger.Props, 'className'> & {
+export type AccordionTriggerProps = Omit<BaseUI.Accordion.Trigger.Props, 'className'> & {
   className?: string;
 };
 ```

@@ -49,7 +49,7 @@ Icon-only buttons take an `icon` and a `label` (their accessible name). Toggles 
 | `icon` | `ReactNode` | – | ToolbarButton: decorative icon, or the only content |
 | `label` | `string` | – | ToolbarButton: accessible name, required when icon-only |
 | `disabled` | `boolean` | `false` | ToolbarButton or ToolbarGroup: inert but still focusable |
-| `render` | `ReactElement` | – | ToolbarButton: make it a Menu, Popover or Dialog trigger |
+| `render` | `ReactElement` | – | ToolbarButton: make it a Menu, Popover or Dialog trigger, or another button such as <CopyButton />, so it joins the arrow keys |
 
 ## Accessibility
 
@@ -62,23 +62,23 @@ Icon-only buttons take an `icon` and a `label` (their accessible name). Toggles 
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-type ToolbarProps = Omit<BaseUI.Toolbar.Root.Props, 'className'> & {
+export type ToolbarProps = Omit<BaseUI.Toolbar.Root.Props, 'className'> & {
   className?: string;
 };
-type ToolbarButtonProps = Omit<BaseUI.Toolbar.Button.Props, 'className'> & {
+export type ToolbarButtonProps = Omit<BaseUI.Toolbar.Button.Props, 'className'> & {
   className?: string;
   /** Icon before the text, or the only content when the button has no children (decorative). */
   icon?: ReactNode;
   /** Accessible name. Required for icon-only buttons, e.g. "Bold" / "In đậm". */
   label?: string;
 };
-type ToolbarGroupProps = Omit<BaseUI.Toolbar.Group.Props, 'className'> & {
+export type ToolbarGroupProps = Omit<BaseUI.Toolbar.Group.Props, 'className'> & {
   className?: string;
 };
-type ToolbarLinkProps = Omit<BaseUI.Toolbar.Link.Props, 'className'> & {
+export type ToolbarLinkProps = Omit<BaseUI.Toolbar.Link.Props, 'className'> & {
   className?: string;
 };
-type ToolbarSeparatorProps = Omit<BaseUI.Toolbar.Separator.Props, 'className'> & {
+export type ToolbarSeparatorProps = Omit<BaseUI.Toolbar.Separator.Props, 'className'> & {
   className?: string;
 };
 ```

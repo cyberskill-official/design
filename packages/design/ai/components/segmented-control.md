@@ -63,7 +63,7 @@ const [view, setView] = useState('board');
 ## Exact types
 
 ```ts
-type SegmentedControlProps<Value extends string = string> = Omit<ToggleGroup.Props<Value>, 'className' | 'value' | 'defaultValue' | 'onValueChange' | 'multiple' | 'children'> & {
+export type SegmentedControlProps<Value extends string = string> = Omit<ToggleGroup.Props<Value>, 'className' | 'value' | 'defaultValue' | 'onValueChange' | 'multiple' | 'children'> & {
   className?: string;
   /** Segments in display order (2 to 5 short labels work best). */
   items: SegmentedControlItem<Value>[];
@@ -73,4 +73,8 @@ type SegmentedControlProps<Value extends string = string> = Omit<ToggleGroup.Pro
   defaultValue?: Value;
   /** Called with the newly selected value. One segment always stays selected. */
   onValueChange?: (value: Value) => void;
+  size?: 'sm' | 'md' | 'lg';
+  /** Accessible name of the group, e.g. "View" / "Chế độ xem". Required: the control has no visible label. */
+  label: string;
+};
 ```
