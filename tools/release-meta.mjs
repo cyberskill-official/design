@@ -11,7 +11,9 @@ export function decide({ version, refType, refName, preTag }) {
   if (prerelease && !preTag) return { error: `${version} is a prerelease but changesets is not in pre mode (.changeset/pre.json); it would publish as latest` };
   if (!prerelease && preTag) return { error: `${version} is stable but changesets is still in pre mode; run "npx changeset pre exit" first` };
   if (!prerelease && refType !== 'tag') return { error: `stable ${version} publishes only from its v${version} tag, not a manual run` };
-  return { distTag: prerelease ? preTag : 'latest' };
+  if (prerelease && preTag !== 'next') return { error: `${version} is a prerelease but pre mode's tag is "${preTag}"; previews publish only under "next", never "latest"` };
+  if (refType !== 'tag' && refName !== 'next') return { error: `manual runs publish only from the next branch, not ${refName}` };
+  return { distTag: prerelease ? 'next' : 'latest' };
 }
 
 function main() {

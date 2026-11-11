@@ -23,11 +23,11 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with: { node-version-file: .nvmrc, cache: npm }
       - run: npm ci
-      - run: npx playwright install --with-deps chromium
+      - run: npx playwright install chromium  # no --with-deps: the runner image already has Chrome's libraries, and its apt step fails whenever Ubuntu's mirror is unreachable
       - name: Build (fails on broken contrast or color rules)
         run: npm run build
       - name: AI docs are committed and current
-        run: git diff --exit-code -- packages/design/ai || (echo "::error::packages/design/ai is stale. Run npm run build and commit it." && exit 1)
+        run: test -z "$(git status --porcelain -- packages/design/ai)" || (git status --short -- packages/design/ai; echo "::error::packages/design/ai is stale. Run npm run build and commit it."; exit 1)
       - run: npm run lint:css -w @cyberskill/design
       - run: npm run test:gates -w @cyberskill/design
       - run: npm run test:tools
@@ -47,7 +47,7 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with: { node-version-file: .nvmrc, cache: npm }
       - run: npm ci
-      - run: npx playwright install --with-deps chromium
+      - run: npx playwright install chromium  # no --with-deps: the runner image already has Chrome's libraries, and its apt step fails whenever Ubuntu's mirror is unreachable
       - run: npm run site:build
       - run: npm run typecheck -w @cyberskill/site
       - name: Forensic visual audit (contrast on rendered colors, clipping, overlap, targets, fold)

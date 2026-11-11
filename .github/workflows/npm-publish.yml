@@ -36,7 +36,7 @@ jobs:
         with: { node-version-file: .nvmrc, cache: npm, registry-url: 'https://registry.npmjs.org' }
       - name: npm 11.5.1 or newer (trusted publishing needs it)
         run: npm install -g npm@11 && node tools/release-meta.mjs --check-npm "$(npm --version)"
-      - run: npm ci
+      - run: npm ci --ignore-scripts # no dependency install scripts while this job holds the OIDC publish token
       - run: npm run build
       - name: Version, tag and dist-tag agree
         id: meta

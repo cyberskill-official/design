@@ -1,6 +1,7 @@
 {
   "name": "cyberskill-design",
   "private": true,
+  "version": "0.0.0",
   "description": "CyberSkill Design System: tokens, React components and the showcase site.",
   "license": "UNLICENSED",
   "type": "module",
