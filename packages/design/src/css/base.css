@@ -47,11 +47,3 @@
   white-space: nowrap;
   border: 0;
 }
-
-@media (prefers-reduced-motion: reduce) {
-  :where([class^="cs-"], [class*=" cs-"]) {
-    transition-duration: 1ms;
-    animation-duration: 1ms;
-    animation-iteration-count: 1;
-  }
-}

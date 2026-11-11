@@ -1,0 +1,8 @@
+/* Reduced motion: emitted unlayered after every component, so it overrides their transitions and animations. */
+@media (prefers-reduced-motion: reduce) {
+  :where([class^="cs-"], [class*=" cs-"], [class^="cs-"]::before, [class^="cs-"]::after) {
+    transition-duration: 1ms;
+    animation-duration: 1ms;
+    animation-iteration-count: 1;
+  }
+}

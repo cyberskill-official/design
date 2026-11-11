@@ -2,8 +2,10 @@ import type { Preview } from '@storybook/react-vite';
 import '../dist/tokens.css';
 import '../src/css/base.css';
 import './preview.css';
+import { ThemeScope } from '../src/react/ThemeScope';
 
 import.meta.glob('../src/css/components/*.css', { eager: true });
+import '../src/css/motion.css';
 
 const preview: Preview = {
   globalTypes: {
@@ -19,12 +21,13 @@ const preview: Preview = {
       if (theme === 'side-by-side') {
         return (
           <div className="sb-split">
-            <div data-theme="light" className="sb-stage"><Story /></div>
-            <div data-theme="dark" className="sb-stage"><Story /></div>
+            <ThemeScope theme="light" className="sb-stage"><Story /></ThemeScope>
+            <ThemeScope theme="dark" className="sb-stage"><Story /></ThemeScope>
           </div>
         );
       }
-      return <div data-theme={theme} className="sb-stage"><Story /></div>;
+      // ThemeScope (not a bare data-theme div) so menus, selects and dialogs portalled to <body> get the theme too.
+      return <ThemeScope theme={theme === 'dark' ? 'dark' : 'light'} className="sb-stage"><Story /></ThemeScope>;
     },
   ],
   parameters: {

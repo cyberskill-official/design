@@ -4,9 +4,11 @@ import { playwright } from '@vitest/browser-playwright';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import { fileURLToPath } from 'node:url';
 import { readFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
 
 // Pre-bundle every exported Base UI part so the first run never re-optimizes mid-test ("Invalid hook call").
-const baseUiPkg = JSON.parse(readFileSync(fileURLToPath(new URL('../../node_modules/@base-ui/react/package.json', import.meta.url)), 'utf8')) as { exports: Record<string, unknown> };
+// resolved, not a hard-coded ../../node_modules path, so it works wherever npm hoists the package
+const baseUiPkg = JSON.parse(readFileSync(createRequire(import.meta.url).resolve('@base-ui/react/package.json'), 'utf8')) as { exports: Record<string, unknown> };
 const baseUiParts = Object.keys(baseUiPkg.exports)
   .filter(k => /^\.\/[a-z-]+$/.test(k) && !['./types', './utils', './package.json'].includes(k))
   .map(k => `@base-ui/react/${k.slice(2)}`);

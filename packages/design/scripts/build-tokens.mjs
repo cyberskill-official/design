@@ -5,9 +5,14 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const read = f => JSON.parse(readFileSync(join(root, 'tokens', f), 'utf8'));
+// TOKENS_DIR / OUT_DIR let the gate tests run against bad fixtures without touching the real tokens.
+const tokensDir = process.env.TOKENS_DIR ?? join(root, 'tokens');
+const read = f => JSON.parse(readFileSync(join(tokensDir, f), 'utf8'));
 const C = read('color.json'), F = read('foundations.json');
-const val = group => Object.fromEntries(Object.entries(group).filter(([k]) => !k.startsWith('$')).map(([k, v]) => [k, v.$value.toUpperCase()]));
+const HEX = /^#[0-9A-F]{6}$/i;
+const bad = [];
+const hex6 = (v, where) => { if (typeof v !== 'string' || !HEX.test(v)) bad.push(`${where}: "${v}" is not a #RRGGBB color`); return String(v).toUpperCase(); };
+const val = (group, where) => Object.fromEntries(Object.entries(group).filter(([k]) => !k.startsWith('$')).map(([k, v]) => [k, hex6(v.$value, `${where}.${k}`)]));
 
 /* ---------- color math (sRGB, WCAG, OKLab/OKLCH, Machado 2009 CVD) ---------- */
 const rgb = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
@@ -29,27 +34,35 @@ const sim = (h, k) => { const v = rgb(h).map(lin); return k ? MC[k].map(r => Mat
 export const deltaE = (a, b, k) => { const p = oklabLin(sim(a, k)), q = oklabLin(sim(b, k)); return 100 * Math.hypot(p[0] - q[0], p[1] - q[1], p[2] - q[2]); };
 const cvd = (a, b) => Math.min(deltaE(a, b, 'protan'), deltaE(a, b, 'deutan'));
 const toHex = (L, Cc, H) => { // OKLCH -> sRGB hex, shrinking chroma until in gamut
-  for (let c = Cc; ; c *= 0.97) {
+  for (let c = Cc, i = 0; i < 400; c *= 0.97, i++) {
     const a = c * Math.cos((H * Math.PI) / 180), b = c * Math.sin((H * Math.PI) / 180);
     const l = (L + 0.3963377774 * a + 0.2158037573 * b) ** 3, m = (L - 0.1055613458 * a - 0.0638541728 * b) ** 3, s = (L - 0.0894841775 * a - 1.291485548 * b) ** 3;
     const out = [4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s, -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s, -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s];
     if (out.every(v => v >= -1e-4 && v <= 1 + 1e-4) || c < 1e-4)
       return '#' + out.map(v => Math.round(255 * (Math.min(1, Math.max(0, v)) <= 0.0031308 ? 12.92 * Math.min(1, Math.max(0, v)) : 1.055 * Math.min(1, Math.max(0, v)) ** (1 / 2.4) - 0.055)).toString(16).padStart(2, '0')).join('').toUpperCase();
   }
+  throw new Error(`could not map oklch(${L} ${Cc} ${H}) into sRGB`);
 };
 const mix = (a, b, t) => '#' + rgb(a).map((x, i) => Math.round(x * t + rgb(b)[i] * (1 - t)).toString(16).padStart(2, '0')).join('').toUpperCase();
 const onColor = (fill, dark) => (contrast('#FFFFFF', fill) >= contrast(dark, fill) ? '#FFFFFF' : dark);
 
 /* ---------- semantic colors + derived tokens ---------- */
 const theme = {};
+const NAMES = Object.keys(C.light).filter(k => !k.startsWith('$'));
 for (const mode of ['light', 'dark']) {
-  const c = val(C[mode]);
+  const c = val(C[mode], mode);
+  const missing = NAMES.filter(k => !(k in c)), extra = Object.keys(c).filter(k => !NAMES.includes(k));
+  if (missing.length || extra.length) bad.push(`${mode}: tokens differ from light (missing ${missing.join(', ') || 'none'}; extra ${extra.join(', ') || 'none'})`);
+  if (missing.length) continue; // derived tokens below need the full set
   c['primary-soft'] = mix(c.primary, c.panel, 0.12);
   for (const k of ['destructive', 'success', 'warning', 'info']) c[`${k}-foreground`] = onColor(c[k], c.background);
   c.ring = c.primary;
   theme[mode] = c;
 }
-const chart = { light: C.chart.light.map(h => h.toUpperCase()), dark: C.chart.dark.map(h => h.toUpperCase()) };
+const chart = { light: C.chart.light.map((h, i) => hex6(h, `chart.light[${i}]`)), dark: C.chart.dark.map((h, i) => hex6(h, `chart.dark[${i}]`)) };
+if (chart.light.length !== C.chart.names.length || chart.dark.length !== C.chart.names.length) bad.push(`chart: light, dark and names must all have ${C.chart.names.length} entries`);
+hex6(C.brand.ink.$value, 'brand.ink'); hex6(C.brand.gold.$value, 'brand.gold');
+if (bad.length) { console.error(`✗ invalid tokens:\n  ${bad.join('\n  ')}`); process.exit(1); }
 
 /* ---------- rules ---------- */
 const PAIRS = [
@@ -61,6 +74,8 @@ const PAIRS = [
   ['success', 'background', 4.5, 'Success text on page'], ['warning', 'background', 4.5, 'Warning text on page'], ['destructive', 'background', 4.5, 'Error text on page'], ['info', 'background', 4.5, 'Info text on page'],
   ['destructive-foreground', 'destructive', 4.5, 'Destructive button'], ['success-foreground', 'success', 4.5, 'Filled success'],
   ['warning-foreground', 'warning', 4.5, 'Filled warning'], ['info-foreground', 'info', 4.5, 'Filled info'], ['primary', 'primary-soft', 4.5, 'Active nav item'],
+  ['success', 'raised', 4.5, 'Success text on raised'], ['warning', 'raised', 4.5, 'Warning text on raised'], ['destructive', 'raised', 4.5, 'Error text on raised'], ['info', 'raised', 4.5, 'Info text on raised'],
+  ['input', 'background', 3, 'Input border on page'], ['input', 'raised', 3, 'Input border on raised'], ['foreground', 'raised', 7, 'Text on raised'],
 ];
 const BAND = { light: [0.43, 0.77], dark: [0.48, 0.67] };
 const failures = [], checks = { light: [], dark: [] };
@@ -74,10 +89,17 @@ for (const mode of ['light', 'dark']) {
   const names = Object.keys(status);
   for (let i = 0; i < names.length; i++) for (let j = i + 1; j < names.length; j++) {
     const a = status[names[i]], b = status[names[j]], n = deltaE(a, b), v = cvd(a, b);
-    if (n < 15 || v < 8) failures.push(`${mode}: ${names[i]} vs ${names[j]} too alike (normal ${n.toFixed(1)} < 15 or color-blind ${v.toFixed(1)} < 8)`);
+    if (n < 15) failures.push(`${mode}: ${names[i]} vs ${names[j]} too alike for normal vision (ΔE ${n.toFixed(1)} < 15)`);
+    if (v < 8) failures.push(`${mode}: ${names[i]} vs ${names[j]} too alike for color-blind readers (ΔE ${v.toFixed(1)} < 8)`);
   }
   for (const k of names) { const n = deltaE(status[k], t.info); if (n < 15) failures.push(`${mode}: ${k} vs info too alike (${n.toFixed(1)})`); }
-  { const n = deltaE(t.accent, t.warning), v = cvd(t.accent, t.warning); if (n < 15 || v < 8) failures.push(`${mode}: gold vs warning too alike (${n.toFixed(1)} / ${v.toFixed(1)})`); }
+  // Gold fill vs warning: 15. Gold as text (emphasis only, never a status; warnings always carry an icon): 12,
+  // because no gold text dark enough for 4.5:1 on light surfaces gets further from the warning brown.
+  for (const [k, needN] of [['accent', 15], ['accent-text', 12]]) {
+    const n = deltaE(t[k], t.warning), v = cvd(t[k], t.warning);
+    if (n < needN) failures.push(`${mode}: ${k} vs warning too alike for normal vision (ΔE ${n.toFixed(1)} < ${needN})`);
+    if (v < 8) failures.push(`${mode}: ${k} vs warning too alike for color-blind readers (ΔE ${v.toFixed(1)} < 8)`);
+  }
   const against = [t.success, t.warning, t.destructive, t.info, t.accent];
   chart[mode].forEach((h, i) => {
     const [L, Cc] = oklch(h);
@@ -85,7 +107,14 @@ for (const mode of ['light', 'dark']) {
     if (Cc < 0.1) failures.push(`${mode}: chart ${i + 1} ${h} chroma ${Cc.toFixed(3)} reads as gray`);
     if (contrast(h, t.panel) < 3) failures.push(`${mode}: chart ${i + 1} ${h} under 3:1 on ${t.panel}`);
     for (const s of against) if (deltaE(h, s) < 15) failures.push(`${mode}: chart ${i + 1} ${h} too close to status/gold ${s} (${deltaE(h, s).toFixed(1)})`);
-    if (i > 0) { const p = chart[mode][i - 1]; if (deltaE(h, p) < 15 || cvd(h, p) < 8) failures.push(`${mode}: chart ${i} and ${i + 1} too alike`); }
+    // Every pair: >= 15 for normal vision. Color-blind: >= 8 for neighbours, >= 6 for the rest
+    // (the data-viz floor, allowed because every chart also has a legend, direct labels and a table view).
+    chart[mode].forEach((o, j) => {
+      if (j <= i) return;
+      const n = deltaE(h, o), v = cvd(h, o), needC = j === i + 1 ? 8 : 6;
+      if (n < 15) failures.push(`${mode}: chart ${i + 1} vs ${j + 1} too alike for normal vision (ΔE ${n.toFixed(1)} < 15)`);
+      if (v < needC) failures.push(`${mode}: chart ${i + 1} vs ${j + 1} too alike for color-blind readers (ΔE ${v.toFixed(1)} < ${needC})`);
+    });
   });
 }
 if (failures.length) { console.error(`✗ ${failures.length} token rule(s) failed:\n  ` + failures.join('\n  ')); process.exit(1); }
@@ -109,7 +138,8 @@ const chartVars = list => list.map((h, i) => `  --chart-${i + 1}: ${h};`);
 const shadowVars = s => Object.entries(s).map(([k, v]) => `  --shadow-${k}: ${v};`);
 const aliases = ['  --card: var(--panel);', '  --card-foreground: var(--foreground);', '  --popover: var(--panel);', '  --popover-foreground: var(--foreground);',
   '  --gold: var(--accent);', '  --on-gold: var(--accent-foreground);', '  --muted-foreground: var(--muted);'];
-const themeBlock = mode => [...colorVars(theme[mode]), ...chartVars(chart[mode]), ...shadowVars(F.shadow[mode]), `  color-scheme: ${mode};`];
+// Aliases live in every theme block: var() resolves where it is declared, so a :root-only alias would stay light inside dark scopes.
+const themeBlock = mode => [...colorVars(theme[mode]), ...chartVars(chart[mode]), ...shadowVars(F.shadow[mode]), ...aliases];
 const constants = [
   ...Object.entries(F.font).map(([k, v]) => `  --font-${k}: ${v.$value};`),
   ...Object.entries(F.text).flatMap(([k, t]) => [`  --text-${k}-size: ${t.size}px;`, `  --text-${k}-line: ${t.line}px;`, `  --text-${k}-weight: ${t.weight};`, `  --text-${k}-tracking: ${t.tracking};`, `  --text-${k}-family: var(--font-${t.family});`]),
@@ -126,11 +156,15 @@ const constants = [
 const banner = '/* @cyberskill/design tokens. Generated by scripts/build-tokens.mjs from tokens/*.json. Do not edit. */';
 const css = [banner,
   '/* Light is the default. Set data-theme="dark" on <html> or any element for dark, or data-theme="system" to follow the OS. */',
-  ':root, [data-theme="light"] {', ...constants, ...aliases, ...themeBlock('light'), '}',
+  ':root {', ...constants, '}',
+  ':root, [data-theme="light"], [data-theme="system"] {', ...themeBlock('light'), '}',
   '[data-theme="dark"] {', ...themeBlock('dark'), '}',
-  '@media (prefers-color-scheme: dark) {', '  [data-theme="system"] {', ...themeBlock('dark').map(l => '  ' + l), '  }', '}', ''].join('\n');
+  '@media (prefers-color-scheme: dark) {', '  [data-theme="system"] {', ...themeBlock('dark').map(l => '  ' + l), '  }', '}',
+  '/* color-scheme only where a theme is chosen, so apps with their own dark mode keep their scrollbars and form controls */',
+  '[data-theme="light"] { color-scheme: light; }', '[data-theme="dark"] { color-scheme: dark; }', '[data-theme="system"] { color-scheme: light dark; }', ''].join('\n');
 
-const tw = [banner, '/* Tailwind v4: @import "@cyberskill/design/tailwind.css"; after @import "tailwindcss"; */', '@import "./tokens.css";', '@theme inline {',
+// No @import of tokens.css here: styles.css already holds the tokens, and importing both would ship them twice.
+const tw = [banner, '/* Tailwind v4: @import "tailwindcss"; then this file, then @import "@cyberskill/design/styles.css" (or tokens.css). Only maps names. */', '@theme inline {',
   ...[...Object.keys(theme.light), 'card', 'card-foreground', 'popover', 'popover-foreground', 'gold', 'on-gold'].map(k => `  --color-${k}: var(--${k});`),
   ...chart.light.map((_, i) => `  --color-chart-${i + 1}: var(--chart-${i + 1});`),
   ...Object.keys(F.font).map(k => `  --font-${k}: var(--font-${k});`),
@@ -142,7 +176,7 @@ const tw = [banner, '/* Tailwind v4: @import "@cyberskill/design/tailwind.css"; 
 const data = { color: theme, chart: { names: C.chart.names, ...chart }, brand: { ink: C.brand.ink.$value, gold: C.brand.gold.$value }, ramps,
   font: Object.fromEntries(Object.entries(F.font).map(([k, v]) => [k, v.$value])), text: F.text, space: F.space, radius: F.radius, shadow: F.shadow,
   duration: F.duration, ease: F.ease, z: F.z, breakpoint: F.breakpoint, control: F.control, checks };
-const dist = join(root, 'dist'); mkdirSync(dist, { recursive: true });
+const dist = process.env.OUT_DIR ?? join(root, 'dist'); mkdirSync(dist, { recursive: true });
 writeFileSync(join(dist, 'tokens.css'), css);
 writeFileSync(join(dist, 'tailwind.css'), tw);
 writeFileSync(join(dist, 'tokens.json'), JSON.stringify(data, null, 2));
