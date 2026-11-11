@@ -80,6 +80,7 @@ html > body[data-scroll-locked] {
   color: var(--muted);
 }
 .demo-stage {
+  container-type: inline-size; /* a demo is a card: components that follow their container (Pagination) follow the stage */
   padding: 28px 24px;
   display: flex;
   flex-wrap: wrap;

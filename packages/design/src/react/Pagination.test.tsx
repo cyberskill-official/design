@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { page as browserPage, userEvent } from 'vitest/browser';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Pagination, pageItems } from './Pagination';
 import { expectAccessibleInThemes } from '../test/a11y';
 
@@ -89,6 +89,36 @@ describe('Pagination', () => {
     expect(parseFloat(getComputedStyle(screen.getByRole('button', { name: 'Page 10' }), '::before').width)).toBeGreaterThanOrEqual(44);
     await userEvent.click(screen.getByRole('button', { name: 'Next page' }));
     expect(screen.getAllByRole('button').map(b => b.getAttribute('aria-label'))).toEqual(['Previous page', 'Page 1', 'Page 11', 'Page 20', 'Next page']);
+  });
+
+  // Inside a size container the row follows the container, not the screen (DataTable's footer is one).
+  const inContainer = (width: number, ui: ReactNode) => render(<div style={{ width, containerType: 'inline-size' }}>{ui}</div>);
+  const buttonNames = () => screen.getAllByRole('button').filter(b => b.checkVisibility()).map(b => b.getAttribute('aria-label'));
+
+  it('shows ‹ 3 / 6 › in a container too narrow for page numbers, on one row with 44px targets', async () => {
+    inContainer(256, <Controlled start={3} count={6} />);
+    expect(buttonNames()).toEqual(['Previous page', 'Next page']);
+    expect(screen.getByText('3 / 6')).toBeVisible();
+    expect(screen.getByText('Page 3 of 6')).toHaveClass('cs-visually-hidden');
+    const nav = screen.getByRole('navigation');
+    expect(nav.scrollWidth).toBeLessThanOrEqual(256);
+    const visible = screen.getAllByRole('button').filter(b => b.checkVisibility());
+    expect(new Set(visible.map(b => b.getBoundingClientRect().top)).size).toBe(1);
+    for (const b of visible) expect(parseFloat(getComputedStyle(b, '::before').width)).toBeGreaterThanOrEqual(44);
+    await userEvent.click(screen.getByRole('button', { name: 'Next page' }));
+    expect(screen.getByText('4 / 6')).toBeVisible();
+  });
+
+  it('drops the siblings in a mid-width container even on a desktop screen', () => {
+    inContainer(340, <Controlled start={10} />);
+    expect(buttonNames()).toEqual(['Previous page', 'Page 1', 'Page 10', 'Page 20', 'Next page']);
+    expect(screen.getByRole('navigation').scrollWidth).toBeLessThanOrEqual(340);
+  });
+
+  it('keeps the full row outside a size container, and hides the compact status', () => {
+    render(<div style={{ width: 256 }}><Controlled start={10} /></div>);
+    expect(buttonNames()).toContain('Page 11');
+    expect(screen.getByText('10 / 20').closest('li')).not.toBeVisible();
   });
 
   it('has no accessibility violations in light and dark', async () => {

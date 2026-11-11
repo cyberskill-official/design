@@ -137,6 +137,15 @@ describe('DataTable', () => {
     expect(screen.getByRole('checkbox', { name: 'Select all rows on this page' })).toBeVisible();
   });
 
+  it('keeps its pagination on one row in a narrow card (the footer is a size container)', () => {
+    render(<div style={{ width: 280 }}><DataTable label="Invoices" columns={columns} data={invoices} pageSize={5} /></div>);
+    const nav = screen.getByRole('navigation', { name: 'Invoices pages' });
+    const visible = within(nav).getAllByRole('button').filter(b => b.checkVisibility());
+    expect(visible.map(b => b.getAttribute('aria-label'))).toEqual(['Previous page', 'Next page']);
+    expect(within(nav).getByText('1 / 5')).toBeVisible();
+    expect(new Set(visible.map(b => b.getBoundingClientRect().top)).size).toBe(1);
+  });
+
   it('onRowClick: rows open on click, Enter or Space, but not from controls inside them', async () => {
     const opened: string[] = [];
     const withButton = col.columns([

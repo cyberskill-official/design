@@ -16,6 +16,8 @@ export type PaginationProps = Omit<HTMLAttributes<HTMLElement>, 'onChange'> & {
   nextLabel?: string;
   /** Accessible name of each page button, e.g. `(n) => \`Trang ${n}\``. */
   pageLabel?: (page: number) => string;
+  /** Read out in the compact `‹ 3 / 6 ›` layout, e.g. `(p, n) => \`Trang ${p} / ${n}\``. */
+  statusLabel?: (page: number, pageCount: number) => string;
 };
 
 /** First and last page, the current page with `siblings` on each side, ellipses for the rest. Same length on every page, so nothing jumps. */
@@ -42,8 +44,12 @@ function slots(page: number, count: number, siblings: number): Slot[] {
   }));
 }
 
-/** Moves through pages of a list or table. Page buttons are 32px with a 44px touch area; phones show the current page without siblings. */
-export function Pagination({ page, pageCount, onPageChange, siblings = 1, label = 'Pagination', previousLabel = 'Previous page', nextLabel = 'Next page', pageLabel = n => `Page ${n}`, className, ...props }: PaginationProps) {
+/**
+ * Moves through pages of a list or table. Page buttons are 32px with a 44px touch area; phones show the current page without siblings.
+ * Inside a size container (DataTable's footer, or any element with `container-type: inline-size`) it follows that width instead:
+ * no siblings under 25rem, and `‹ 3 / 6 ›` under 19.5rem, so the row never wraps.
+ */
+export function Pagination({ page, pageCount, onPageChange, siblings = 1, label = 'Pagination', previousLabel = 'Previous page', nextLabel = 'Next page', pageLabel = n => `Page ${n}`, statusLabel = (p, n) => `Page ${p} of ${n}`, className, ...props }: PaginationProps) {
   return (
     <nav aria-label={label} {...props} className={cx('cs-pagination', className)}>
       <ul className="cs-pagination-list">
@@ -63,6 +69,10 @@ export function Pagination({ page, pageCount, onPageChange, siblings = 1, label 
             )}
           </li>
         ))}
+        <li data-range="compact" className="cs-pagination-status">
+          <span aria-hidden="true">{page} / {pageCount}</span>
+          <span className="cs-visually-hidden">{statusLabel(page, pageCount)}</span>
+        </li>
         <li>
           <button type="button" className="cs-pagination-button" aria-label={nextLabel} disabled={page >= pageCount} onClick={() => onPageChange(page + 1)}>
             <CaretRight aria-hidden="true" />

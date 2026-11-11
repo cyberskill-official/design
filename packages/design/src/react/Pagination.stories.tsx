@@ -35,3 +35,15 @@ export const FewPages: Story = { args: { page: 2, pageCount: 4 } };
 export const Vietnamese: Story = {
   args: { page: 6, label: 'Phân trang', previousLabel: 'Trang trước', nextLabel: 'Trang sau', pageLabel: n => `Trang ${n}` },
 };
+
+/** In a card narrower than 19.5rem that is a size container: `‹ 3 / 6 ›`, still 44px targets. */
+export const NarrowCard: Story = {
+  args: { page: 3, pageCount: 6 },
+  render: args => <div style={{ width: 240, containerType: 'inline-size' }}><Stateful {...args} /></div>,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('3 / 6')).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'Next page' }));
+    await expect(canvas.getByText('4 / 6')).toBeVisible();
+  },
+};

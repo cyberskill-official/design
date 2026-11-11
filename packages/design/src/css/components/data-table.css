@@ -101,6 +101,7 @@
 .cs-data-table td.cs-data-table-empty { height: 120px; text-align: center; color: var(--muted); }
 
 .cs-data-table-footer {
+  container-type: inline-size; /* its Pagination follows the table's width, down to ‹ 3 / 6 › */
   display: flex;
   flex-wrap: wrap;
   align-items: center;

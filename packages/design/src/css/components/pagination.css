@@ -8,11 +8,29 @@
   list-style: none;
 
   /* Phones: the current page without siblings, so the row fits 375px with 44px targets. */
-  & > [data-range='narrow'] { display: none; }
+  & > :is([data-range='narrow'], [data-range='compact']) { display: none; }
   @media (max-width: 439px) {
     & > [data-range='wide'] { display: none; }
     & > [data-range='narrow'] { display: block; }
   }
+  /* Inside a size container (DataTable's footer, a card with container-type: inline-size) follow its width:
+     the full row needs 9 × 32px + 8 gaps = 384px, without siblings 7 × 32px + 6 gaps = 296px. */
+  @container (width < 25rem) {
+    & > [data-range='wide'] { display: none; }
+    & > [data-range='narrow'] { display: block; }
+  }
+  @container (width < 19.5rem) {
+    & > li:not(:first-child, :last-child) { display: none; }
+    & > li[data-range='compact'] { display: block; }
+  }
+}
+
+.cs-pagination-status {
+  padding: 0 var(--space-1);
+  color: var(--foreground);
+  font: 500 14px/var(--control-sm) var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .cs-pagination-button {
