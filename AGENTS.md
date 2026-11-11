@@ -47,6 +47,10 @@ CyberSkill Design System 3.x: Ink & Gold tokens, accessible React components and
 
 `apps/site/content/docs/components/<name>.mdx` with front matter `title` and `description`, then: a short intro (what it is for, when not to use it), `<Demo>` blocks with live examples imported from `@/demos/<name>`, a fenced `tsx` code block under each demo showing the same code, a `<PropsTable rows={[...]} />`, and an **Accessibility** section (keyboard, screen reader). Pages are UI reference only: no brand or company content.
 
+## AI docs shipped to consumers
+
+`packages/design/ai/` is **generated** by `scripts/build-ai-docs.mjs` from the site pages and the built `.d.ts` files: `INDEX.md`, `components/<name>.md`, `tokens.md`, `SKILL.md`, `cursor-rule.mdc`, `AGENTS-snippet.md`. Never edit it by hand: change the component's site page or JSDoc, run the build, commit the result. CI runs `npm run check:ai-docs -w @cyberskill/design` and fails when it is stale. Apps install the skill and rules with `npx cyberskill-design ai-setup`.
+
 ## Before you finish
 
 ```bash

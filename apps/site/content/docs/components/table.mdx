@@ -1,0 +1,83 @@
+---
+title: Table
+description: Static, styled data table with density, stripes, a sticky header and right-aligned numbers.
+---
+
+import { TableBasic, TableCompactStriped, TableSticky } from '@/demos/table';
+
+Use a table to compare records across the same columns: invoices, members, API keys. It is a styled HTML table with no sorting or paging; for those use the data table. For one or two records, a list or [Card](/docs/components/card) reads better.
+
+## Basic
+
+Mark number columns `numeric`: they align right with tabular mono figures so digits line up. Use `TableHead scope="row"` for the cell that names each row. Wide tables scroll sideways inside their frame on narrow screens.
+
+<Demo title="Invoices" layout="block">
+  <TableBasic />
+</Demo>
+
+```tsx
+<Table>
+  <TableCaption>Recent invoices</TableCaption>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Invoice</TableHead>
+      <TableHead>Customer</TableHead>
+      <TableHead numeric>Amount</TableHead>
+      <TableHead>Status</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableHead scope="row">INV-1042</TableHead>
+      <TableCell>Northwind Traders</TableCell>
+      <TableCell numeric>$1,240.00</TableCell>
+      <TableCell><Badge tone="success" size="sm">Paid</Badge></TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+```
+
+## Compact, striped and selected
+
+`density="compact"` tightens rows for dense data. `striped` alternates row backgrounds. `selected` highlights a row with a tint and an edge bar.
+
+<Demo title="Compact" layout="block">
+  <TableCompactStriped />
+</Demo>
+
+```tsx
+<Table density="compact" striped>
+  …
+  <TableRow selected>…</TableRow>
+</Table>
+```
+
+## Sticky header
+
+`stickyHeader` keeps the column headers in view while the body scrolls inside `maxHeight`.
+
+<Demo title="Sticky header" layout="block">
+  <TableSticky />
+</Demo>
+
+```tsx
+<Table density="compact" stickyHeader maxHeight={200}>…</Table>
+```
+
+## Props
+
+<PropsTable rows={[
+  ['density', "'comfortable' | 'compact'", "'comfortable'", 'Row height'],
+  ['striped', 'boolean', 'false', 'Alternate row backgrounds'],
+  ['stickyHeader', 'boolean', 'false', 'Header stays visible while the body scrolls. Needs maxHeight'],
+  ['maxHeight', 'number | string', '–', 'Max height of the scroll frame'],
+]} />
+
+`TableRow` takes `selected`. `TableHead` and `TableCell` take `align` (`'start' | 'center' | 'end'`) and `numeric`. `TableHead` defaults to `scope="col"`. Other props go to the native elements.
+
+## Accessibility
+
+- A real `<table>`: screen readers announce rows, columns and the header of each cell. Name it with `TableCaption` (hide it with `className="cs-visually-hidden"` if a heading already shows).
+- Use `TableHead scope="row"` for the first cell of each row so cells are read with their row name.
+- When the table overflows its frame, the frame joins the Tab order so keyboard users can scroll it with the arrow keys.
+- `selected` is visual only. Say it in the row too, usually with a checked checkbox in the first column.

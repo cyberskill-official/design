@@ -1,0 +1,33 @@
+/* Box and input from .cs-input-group / .cs-input (field.css), so it lines up with text fields. */
+.cs-number-field { display: grid; min-width: 0; }
+
+.cs-number-field-group {
+  box-sizing: border-box; /* keep the 40px outer height of .cs-input */
+  width: 100%;
+  &[data-disabled] { background: var(--raised); }
+}
+
+.cs-number-field-input {
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.cs-number-field-step {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--_h);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
+  &:hover:not([data-disabled]) { background: var(--raised); color: var(--foreground); }
+  /* Inset: the group clips overflow */
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; }
+  &[data-disabled] { color: var(--muted); cursor: not-allowed; }
+  & > svg { width: 16px; height: 16px; }
+}
+.cs-number-field-group[data-size='lg'] .cs-number-field-step > svg { width: 20px; height: 20px; }

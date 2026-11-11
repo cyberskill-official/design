@@ -1,0 +1,99 @@
+/* Backdrop comes from .cs-dialog-backdrop; it fades as the drawer is swiped away. */
+.cs-drawer-backdrop { opacity: calc(1 - var(--drawer-swipe-progress, 0)); }
+
+.cs-drawer-viewport {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+}
+
+.cs-drawer {
+  --_w: 400px;
+  --_h: 75dvh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border: 0 solid var(--border);
+  background: var(--panel);
+  color: var(--foreground);
+  box-shadow: var(--shadow-overlay);
+  outline: 0;
+  transition: transform var(--duration-slow) var(--ease-standard);
+
+  &[data-size='sm'] { --_w: 320px; --_h: 50dvh; }
+  &[data-size='lg'] { --_w: 560px; --_h: 92dvh; }
+  &[data-swiping] { transition-duration: 0ms; }
+  /* A fast flick closes faster. */
+  &[data-ending-style] { transition-duration: calc(var(--drawer-swipe-strength, 1) * var(--duration-slow)); }
+
+  &[data-swipe-direction='right'], &[data-swipe-direction='left'] {
+    width: min(var(--_w), calc(100vw - var(--space-10)));
+    height: 100%;
+    transform: translateX(var(--drawer-swipe-movement-x, 0px));
+  }
+  &[data-swipe-direction='right'] {
+    margin-left: auto;
+    border-left-width: 1px;
+    &[data-starting-style], &[data-ending-style] { transform: translateX(100%); }
+  }
+  &[data-swipe-direction='left'] {
+    margin-right: auto;
+    border-right-width: 1px;
+    &[data-starting-style], &[data-ending-style] { transform: translateX(-100%); }
+  }
+  &[data-swipe-direction='down'] {
+    align-self: flex-end;
+    width: min(100%, 720px);
+    max-height: min(var(--_h), calc(100dvh - var(--space-10)));
+    margin-inline: auto;
+    border-width: 1px 1px 0;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    padding-bottom: env(safe-area-inset-bottom);
+    transform: translateY(var(--drawer-swipe-movement-y, 0px));
+    &[data-starting-style], &[data-ending-style] { transform: translateY(100%); }
+  }
+}
+
+/* Grab handle: bottom sheets only. Decorative; swiping works anywhere on the sheet. */
+.cs-drawer-handle {
+  display: none;
+  flex: none;
+  width: 36px;
+  height: 4px;
+  margin: var(--space-2) auto 0;
+  border-radius: var(--radius-full);
+  background: var(--input);
+  .cs-drawer[data-swipe-direction='down'] > & { display: block; }
+}
+
+.cs-drawer-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  flex: none;
+  padding: var(--space-5) var(--space-6) var(--space-4);
+}
+
+.cs-drawer-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+  padding: 0 var(--space-6) var(--space-6);
+  font: 400 15px/22px var(--font-sans);
+}
+
+.cs-drawer-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  flex: none;
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--border);
+}

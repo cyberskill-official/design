@@ -1,0 +1,29 @@
+.cs-tooltip-positioner { z-index: var(--z-tooltip); }
+
+/* Inverted surface: the foreground color as background, so it reads as a label, not a panel */
+.cs-tooltip {
+  box-sizing: border-box;
+  max-width: min(280px, var(--available-width));
+  padding: 6px var(--space-2);
+  border-radius: var(--radius-md);
+  background: var(--foreground);
+  color: var(--background);
+  box-shadow: var(--shadow-md);
+  font: 500 13px/18px var(--font-sans);
+  text-wrap: pretty;
+  transform-origin: var(--transform-origin);
+  transition: opacity var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-standard);
+  &[data-starting-style], &[data-ending-style] { opacity: 0; transform: scale(0.96); }
+  &[data-instant] { transition-duration: 0ms; }
+}
+
+.cs-tooltip-arrow {
+  width: 12px;
+  height: 6px;
+  background: var(--foreground);
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+  &[data-side='bottom'] { top: -6px; }
+  &[data-side='top'] { bottom: -6px; rotate: 180deg; }
+  &[data-side='left'], &[data-side='inline-start'] { right: -9px; rotate: 90deg; }
+  &[data-side='right'], &[data-side='inline-end'] { left: -9px; rotate: -90deg; }
+}

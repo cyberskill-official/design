@@ -1,0 +1,3 @@
+/* ThemeScope: the portal host carries data-theme for popups but paints nothing itself. */
+.cs-portal-host { background: transparent; color: inherit; }
+.cs-theme-scope { background: var(--background); color: var(--foreground); }

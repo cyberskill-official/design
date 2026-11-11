@@ -1,0 +1,54 @@
+# Scroll area
+
+> A scrollable box with thin, theme-aware scrollbars that keyboard users can scroll too.
+
+```tsx
+import { ScrollArea } from '@cyberskill/design';
+```
+
+Use a scroll area when content must fit a fixed space: a side panel list, a log, a wide table inside a card. Avoid nesting scroll areas, and let the page scroll when it can.
+
+## Vertical
+
+Size it with `style` or `className`. The scrollbars appear while you hover, scroll or focus it.
+
+```tsx
+<ScrollArea label="Release notes" style={{ height: 200 }}>
+  {notes.map((n) => <p key={n}>{n}</p>)}
+</ScrollArea>
+```
+
+## Both axes
+
+```tsx
+<ScrollArea label="Usage by region" style={{ height: 200, maxWidth: 360 }}>
+  <table>…</table>
+</ScrollArea>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `label` | `string` | – | Accessible name of the scrollable region (required) |
+| `overflowEdgeThreshold` | `number` | `0` | Pixels before the overflow edge data attributes apply (for fades) |
+| `className / style` | `–` | – | Size the box, e.g. a height or max-height |
+
+The root exposes `data-has-overflow-x|y` and `data-overflow-{x|y}-{start|end}` for edge fades.
+
+## Accessibility
+
+- The viewport is a region named by `label`. When its content overflows it joins the Tab order, so arrow keys, Page Up/Down and Home/End scroll it.
+- Native scrolling stays: touch, trackpad and wheel work as usual.
+- Scrollbars are visual only; the region itself is what keyboard and screen reader users reach.
+
+## Exact types
+
+```ts
+// BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
+type ScrollAreaProps = Omit<BaseUI.ScrollArea.Root.Props, 'className'> & {
+  className?: string;
+  /** Accessible name of the scrollable region. Keyboard users can focus it and scroll with the arrow keys. */
+  label: string;
+};
+```

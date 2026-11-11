@@ -10,3 +10,6 @@ export * from './_exports/forms';
 export * from './_exports/display';
 export * from './_exports/feedback';
 export * from './_exports/overlays';
+export * from './_exports/pickers';
+export * from './_exports/structure';
+export * from './_exports/more-overlays';

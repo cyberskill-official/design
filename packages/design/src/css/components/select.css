@@ -1,0 +1,104 @@
+/* Trigger: same box, border and focus treatment as .cs-input so selects and text fields line up in forms */
+.cs-select {
+  --_h: var(--control-md);
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  min-width: 160px;
+  height: var(--_h);
+  margin: 0;
+  padding: 0 var(--space-2) 0 var(--space-3);
+  border: 1px solid var(--input);
+  border-radius: var(--radius-md);
+  background: var(--panel);
+  color: var(--foreground);
+  font: 400 15px/20px var(--font-sans);
+  text-align: start;
+  cursor: pointer;
+  user-select: none;
+  transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+
+  &:hover:not([data-disabled]) { border-color: var(--foreground); }
+  &:focus-visible { outline: none; border-color: var(--ring); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ring) 22%, transparent); }
+  &[data-popup-open] { border-color: var(--primary); }
+  &[data-invalid] { border-color: var(--destructive); }
+  &[data-invalid]:focus-visible { box-shadow: 0 0 0 3px color-mix(in srgb, var(--destructive) 20%, transparent); }
+  &[data-disabled] { background: var(--raised); color: var(--muted); cursor: not-allowed; }
+  &[data-size='sm'] { --_h: var(--control-sm); font-size: 14px; }
+  &[data-size='lg'] { --_h: var(--control-lg); font-size: 16px; padding-inline-start: var(--space-4); }
+}
+
+.cs-select-value {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  &[data-placeholder] { color: var(--muted); }
+}
+
+.cs-select-icon {
+  display: inline-flex;
+  flex: none;
+  color: var(--muted);
+  & > svg { width: 16px; height: 16px; }
+}
+.cs-select[data-size='lg'] .cs-select-icon > svg { width: 20px; height: 20px; }
+
+.cs-select-positioner { z-index: var(--z-dropdown); outline: 0; }
+
+.cs-select-popup {
+  box-sizing: border-box;
+  min-width: var(--anchor-width);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  color: var(--foreground);
+  box-shadow: var(--shadow-lg);
+  outline: 0;
+  transform-origin: var(--transform-origin);
+  transition: opacity var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-standard);
+  &[data-starting-style], &[data-ending-style] { opacity: 0; transform: scale(0.98); }
+}
+
+.cs-select-list {
+  box-sizing: border-box;
+  max-height: min(var(--available-height), 320px);
+  overflow-y: auto;
+  padding: var(--space-1);
+  scroll-padding-block: var(--space-1);
+  outline: 0;
+}
+
+.cs-select-item {
+  --_h: 36px;
+  display: grid;
+  grid-template-columns: 1fr 16px;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--_h);
+  padding: 0 var(--space-2) 0 var(--space-3);
+  border-radius: 6px;
+  font: 400 14px/20px var(--font-sans);
+  cursor: pointer;
+  outline: 0;
+  user-select: none;
+
+  &[data-highlighted] { background: var(--raised); }
+  &[data-selected] { font-weight: 600; }
+  &[data-disabled] { color: var(--muted); cursor: not-allowed; }
+}
+.cs-select-popup[data-size='sm'] .cs-select-item { --_h: var(--control-sm); font-size: 13px; }
+.cs-select-popup[data-size='lg'] .cs-select-item { --_h: var(--control-touch); font-size: 15px; }
+
+.cs-select-item-text { grid-column: 1; min-width: 0; }
+
+.cs-select-item-indicator {
+  grid-column: 2;
+  display: inline-flex;
+  color: var(--primary);
+  & > svg { width: 16px; height: 16px; }
+}

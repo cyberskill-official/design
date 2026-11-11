@@ -1,0 +1,39 @@
+/* Row layout (.cs-choice*) lives in checkbox.css and is shared. */
+.cs-switch {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  width: 36px;
+  height: 20px;
+  padding: 2px;
+  border-radius: var(--radius-full);
+  background: var(--input);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+
+  /* 44px touch target around the 36x20 track */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: var(--control-touch);
+    height: var(--control-touch);
+    transform: translate(-50%, -50%);
+  }
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  &[data-checked] { background: var(--primary); }
+  &[data-disabled] { opacity: 0.5; cursor: not-allowed; }
+}
+.cs-choice-label:hover .cs-switch:not([data-disabled], [data-checked]) { background: color-mix(in srgb, var(--input) 80%, var(--foreground)); }
+
+.cs-switch-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full);
+  background: var(--panel);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--duration-fast) var(--ease-standard);
+  &[data-checked] { transform: translateX(16px); }
+}

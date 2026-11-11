@@ -1,0 +1,82 @@
+# Date range picker
+
+> Labelled field for a start and end date, with a two-month calendar and optional presets.
+
+```tsx
+import { DateRangePicker } from '@cyberskill/design/date';
+```
+
+`DateRangePicker` picks a start and an end date: a stay, a report period, a campaign. Type both dates (`01/03/2026 – 15/03/2026`), click two days on the calendar, or use a preset. Use two separate [Date pickers](/docs/components/date-picker) when the dates are unrelated or far apart.
+
+```tsx
+import { DateRangePicker, rangePresets } from '@cyberskill/design/date';
+```
+
+## Pick two days
+
+The first click starts a new range, the second finishes it and closes the popup; picking the end first works too. From 640px wide the calendar shows two months, one below that.
+
+```tsx
+const [stay, setStay] = useState<DateRangeValue | null>(null);
+
+<DateRangePicker label="Stay" value={stay} onValueChange={setStay} min={new Date()} />
+```
+
+## Presets
+
+`rangePresets()` returns Today, Last 7 days, Last 30 days and This month (the 1st to today). Call it while rendering so "today" stays current, or pass your own `{ label, value }` list. The active preset is marked as pressed.
+
+```tsx
+const presets = rangePresets();
+
+<DateRangePicker label="Report period" value={period} onValueChange={setPeriod} presets={presets} max={new Date()} />
+```
+
+## Vietnamese
+
+```tsx
+import { vi } from 'react-day-picker/locale';
+
+<DateRangePicker
+  label="Kỳ báo cáo"
+  locale={vi}
+  presets={rangePresets({ today: 'Hôm nay', last7Days: '7 ngày qua', last30Days: '30 ngày qua', thisMonth: 'Tháng này' })}
+  presetsLabel="Chọn nhanh"
+  clearLabel="Xoá ngày"
+  openLabel="Chọn khoảng ngày"
+  invalidMessage="Nhập hai ngày dạng dd/mm/yyyy – dd/mm/yyyy."
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `label` | `ReactNode` | – | Visible label (required) |
+| `value / defaultValue` | `{ from: Date; to: Date } \| null` | `null` | Controlled or uncontrolled range |
+| `onValueChange` | `(range \| null) => void` | – | Called when a full range is picked or typed, or null when cleared |
+| `presets` | `{ label: string; value: { from; to } }[]` | – | Quick picks beside the calendar, e.g. rangePresets() |
+| `presetsLabel` | `string` | `'Presets'` | Name of the presets group |
+| `numberOfMonths` | `number` | `2 wide, 1 narrow` | Months side by side |
+| `format / locale` | `string / Locale` | `'dd/MM/yyyy' / English` | As in Date picker |
+| `min / max / disabledDates` | `Date / Matcher` | – | Allowed days; typed ranges outside them are invalid |
+| `invalidMessage` | `ReactNode` | `'Enter a valid date'` | Shown for text that is not two allowed dates |
+| `clearLabel / openLabel` | `string` | `'Clear dates' / 'Choose dates'` | Names of the × and calendar buttons |
+
+`rangePresets(labels?, today?)` takes partial labels `{ today, last7Days, last30Days, thisMonth }` and an optional reference day.
+
+## Accessibility
+
+- One labelled input holds the whole range, so screen readers read it as one value: "Stay, 01/03/2026 – 15/03/2026".
+- Alt+↓ or the calendar button opens a dialog with focus on the start day. Arrows move, Enter picks the start then the end, Escape closes and returns focus.
+- Presets are buttons in a labelled group; the active one has `aria-pressed`.
+- Range days are announced as selected; start and end are filled, the middle sits on a band with 4.5:1 text contrast.
+
+## Exact types
+
+```ts
+type DateRangePickerProps = Omit<PickerFieldProps, 'placeholder'> & {
+  value?: DateRangeValue | null;
+  defaultValue?: DateRangeValue | null;
+  onValueChange?: (value: DateRangeValue | null) => void;
+```

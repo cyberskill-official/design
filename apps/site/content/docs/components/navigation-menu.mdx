@@ -1,0 +1,75 @@
+---
+title: Navigation Menu
+description: Website header navigation with dropdown panels of link cards. Marks the current page and hands narrow screens over to a drawer.
+---
+
+import { HeaderNavigation, MobileNavigation } from '@/demos/navigation-menu';
+
+Use a navigation menu for a site or product header: a few top-level links, some of which open a panel of related pages. It navigates; for actions use a [menu](/docs/components/menu), for app commands a [menubar](/docs/components/menubar).
+
+## Mega menu
+
+<Demo title="Header with panels" layout="block">
+  <HeaderNavigation />
+</Demo>
+
+```tsx
+<NavigationMenu aria-label="Main">
+  <NavigationMenuItem>
+    <NavigationMenuTrigger>Product</NavigationMenuTrigger>
+    <NavigationMenuContent>
+      <NavigationMenuLinkCard href="/agents" icon={<Robot />} title="Agents"
+        description="Build, train and publish support agents." active />
+      <NavigationMenuLinkCard href="/inbox" icon={<ChatsCircle />} title="Inbox"
+        description="Hand conversations over to your team." />
+    </NavigationMenuContent>
+  </NavigationMenuItem>
+  <NavigationMenuItem>
+    <NavigationMenuLink href="/pricing" active={pathname === '/pricing'}>Pricing</NavigationMenuLink>
+  </NavigationMenuItem>
+</NavigationMenu>
+```
+
+Panels lay link cards out in `columns` (1, 2 or 3; default 2) and drop to one column on phones. For client-side routing pass your router's link: `render={<NextLink href="/pricing" />}`.
+
+## Narrow screens
+
+Below about 768px, hide the navigation menu and show a menu button that opens the same links in a left [drawer](/docs/components/drawer). Until then the bar scrolls sideways instead of wrapping.
+
+<Demo title="Mobile navigation in a drawer" layout="center">
+  <MobileNavigation />
+</Demo>
+
+```tsx
+<header>
+  <NavigationMenu aria-label="Main" className="nav-desktop">…</NavigationMenu>
+  <Drawer side="left">
+    <DrawerTrigger render={<IconButton label="Open menu" icon={<List />} className="nav-mobile" />} />
+    <DrawerContent title="Menu" size="sm">
+      <nav aria-label="Main">{/* the same links, as full-width ghost buttons rendering <a> */}</nav>
+    </DrawerContent>
+  </Drawer>
+</header>
+```
+
+```css
+.nav-mobile { display: none; }
+@media (max-width: 767px) { .nav-desktop { display: none; } .nav-mobile { display: inline-flex; } }
+```
+
+## Props
+
+<PropsTable rows={[
+  ['aria-label (NavigationMenu)', 'string', '–', 'Names the <nav>, e.g. "Main"'],
+  ['delay / closeDelay (NavigationMenu)', 'number', '50 / 50', 'Hover delays in ms before a panel opens or closes'],
+  ['columns (Content)', '1 | 2 | 3', '2', 'Columns of link cards on wide screens'],
+  ['title / description / icon (LinkCard)', 'ReactNode', '–', 'Card text and a decorative icon tile'],
+  ['active (Link, LinkCard)', 'boolean', 'false', 'Marks the current page with aria-current="page"'],
+  ['render (Link, LinkCard)', 'ReactElement', '<a>', 'Your router\'s link component'],
+]} />
+
+## Accessibility
+
+- Renders a `<nav>` landmark; give it an `aria-label`. Triggers are buttons with `aria-expanded`.
+- Tab moves through triggers and links; Enter or Space opens a panel and Tab continues into its links. Escape closes it and focus returns to the trigger.
+- The current page is announced via `aria-current="page"` and shown in the soft primary color.

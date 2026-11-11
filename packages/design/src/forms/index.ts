@@ -1,2 +1,3 @@
-// React Hook Form adapters for Field (optional peer dependency). Filled in with the form helpers.
-export {};
+// React Hook Form adapters (optional peer dependency `react-hook-form`). Import from `@cyberskill/design/forms`.
+export { FormField } from './FormField';
+export type { FormFieldProps, FormFieldRenderProps } from './FormField';

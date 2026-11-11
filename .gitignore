@@ -16,3 +16,4 @@ tools/audit/out/
 .vitest-attachments/
 __screenshots__/
 .claude/
+.vitest/

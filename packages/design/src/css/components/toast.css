@@ -1,0 +1,89 @@
+/* Stack: bottom of the screen on mobile, bottom-right from 640px. Safe-area aware. */
+.cs-toast-viewport {
+  position: fixed;
+  z-index: var(--z-toast);
+  left: max(var(--space-4), env(safe-area-inset-left));
+  right: max(var(--space-4), env(safe-area-inset-right));
+  bottom: max(var(--space-4), env(safe-area-inset-bottom));
+  margin: 0 auto;
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+}
+@media (min-width: 640px) {
+  .cs-toast-viewport {
+    left: auto;
+    right: max(var(--space-6), env(safe-area-inset-right));
+    bottom: max(var(--space-6), env(safe-area-inset-bottom));
+    width: 380px;
+  }
+}
+
+/* Collapsed stack peeks the toasts behind; hover or focus expands it (Base UI sets the --toast-* variables). */
+.cs-toast {
+  --_tone: var(--info);
+  --_gap: var(--space-3);
+  --_peek: var(--space-2);
+  --_scale: calc(max(0, 1 - (var(--toast-index) * 0.05)));
+  --_shrink: calc(1 - var(--_scale));
+  --_height: var(--toast-frontmost-height, var(--toast-height));
+  --_offset-y: calc(var(--toast-offset-y) * -1 + (var(--toast-index) * var(--_gap) * -1) + var(--toast-swipe-movement-y));
+
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: calc(1000 - var(--toast-index));
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--_height);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  color: var(--foreground);
+  box-shadow: var(--shadow-lg);
+  transform-origin: bottom center;
+  transform: translateX(var(--toast-swipe-movement-x)) translateY(calc(var(--toast-swipe-movement-y) - (var(--toast-index) * var(--_peek)) - (var(--_shrink) * var(--_height)))) scale(var(--_scale));
+  user-select: none;
+  cursor: default;
+  transition: transform var(--duration-slow) var(--ease-standard), opacity var(--duration-slow) var(--ease-standard), height var(--duration-fast) var(--ease-standard);
+
+  &[data-tone='success'] { --_tone: var(--success); }
+  &[data-tone='warning'] { --_tone: var(--warning); }
+  &[data-tone='danger'] { --_tone: var(--destructive); }
+
+  &[data-expanded] { height: var(--toast-height); transform: translateX(var(--toast-swipe-movement-x)) translateY(var(--_offset-y)); }
+  &[data-starting-style], &[data-ending-style] { transform: translateY(150%); }
+  &[data-limited] { opacity: 0; }
+  &[data-ending-style] {
+    opacity: 0;
+    &[data-swipe-direction='down'] { transform: translateY(calc(var(--toast-swipe-movement-y) + 150%)); }
+    &[data-swipe-direction='right'] { transform: translateX(calc(var(--toast-swipe-movement-x) + 150%)) translateY(var(--_offset-y)); }
+  }
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+  /* keeps the stack expanded while the pointer crosses the gap between toasts */
+  &::after { content: ''; position: absolute; top: 100%; left: 0; width: 100%; height: calc(var(--_gap) + 1px); }
+}
+
+.cs-toast-content {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+  overflow: hidden;
+  transition: opacity var(--duration-base) var(--ease-standard);
+  &[data-behind] { opacity: 0; }
+  &[data-expanded] { opacity: 1; }
+}
+
+.cs-toast-icon {
+  display: inline-flex;
+  flex: none;
+  padding-block: 2px;
+  color: var(--_tone);
+  & > svg { width: 18px; height: 18px; }
+}
+
+.cs-toast-text { display: grid; gap: 2px; flex: 1; min-width: 0; padding-block: 1px; }
+.cs-toast-title { margin: 0; font: 600 14px/20px var(--font-sans); color: var(--foreground); }
+.cs-toast-description { margin: 0; font: 400 13px/18px var(--font-sans); color: var(--muted); }
+.cs-toast-action { justify-self: start; margin-top: var(--space-2); }
+.cs-toast-close { flex: none; margin: -4px -4px -4px 0; }

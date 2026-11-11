@@ -1,0 +1,73 @@
+---
+title: Menu
+description: A dropdown list of actions or options, opened from a button. Arrow keys, typeahead and focus return are handled for you.
+---
+
+import { ActionsMenu, ColumnsMenu } from '@/demos/menu';
+
+Use a menu for a short list of **actions** on one object (rename, duplicate, delete) or a few toggles. To pick a value for a form field, use a select; to navigate between pages, use links or a side nav.
+
+## Actions
+
+<Demo title="Actions menu" layout="center">
+  <ActionsMenu />
+</Demo>
+
+```tsx
+<Menu>
+  <MenuTrigger render={<Button variant="secondary" iconEnd={<CaretDown />} />}>Actions</MenuTrigger>
+  <MenuContent>
+    <MenuItem icon={<PencilSimple />} shortcut="⌘R" onClick={rename}>Rename</MenuItem>
+    <MenuItem icon={<Copy />} shortcut="⌘D">Duplicate</MenuItem>
+    <MenuItem icon={<Archive />} disabled>Archive</MenuItem>
+    <MenuSeparator />
+    <MenuItem icon={<Trash />} tone="danger">Delete agent</MenuItem>
+  </MenuContent>
+</Menu>
+```
+
+Put destructive items last, after a separator, with `tone="danger"`. If the action cannot be undone, open a confirmation dialog from it.
+
+## Groups and checkbox items
+
+<Demo title="Toggle columns" layout="center">
+  <ColumnsMenu />
+</Demo>
+
+```tsx
+<Menu>
+  <MenuTrigger render={<IconButton label="View options" icon={<DotsThree />} />} />
+  <MenuContent align="end">
+    <MenuGroup>
+      <MenuGroupLabel>Columns</MenuGroupLabel>
+      <MenuCheckboxItem defaultChecked>Owner</MenuCheckboxItem>
+      <MenuCheckboxItem>Cost this month</MenuCheckboxItem>
+    </MenuGroup>
+  </MenuContent>
+</Menu>
+```
+
+Checkbox items stay open on click so several can be toggled; use `checked` + `onCheckedChange` to control them.
+
+## Props
+
+<PropsTable rows={[
+  ['MenuContent side / align', "'top' | 'bottom' | 'left' | 'right' / 'start' | 'center' | 'end'", "'bottom' / 'start'", 'Where the menu opens; it flips when there is no room'],
+  ['MenuContent sideOffset', 'number', '6', 'Gap between trigger and menu in px'],
+  ['MenuItem icon', 'ReactNode', '–', 'Icon before the label (decorative)'],
+  ['MenuItem shortcut', 'ReactNode', '–', 'Shortcut hint in a key style, e.g. "⌘D". Display only: wire the shortcut yourself'],
+  ['MenuItem tone', "'neutral' | 'danger'", "'neutral'", 'Danger colors the item for destructive actions'],
+  ['MenuItem disabled', 'boolean', 'false', 'Skipped by clicks, still announced as unavailable'],
+  ['MenuItem closeOnClick', 'boolean', 'true', 'Set false to keep the menu open after the action'],
+  ['MenuCheckboxItem checked / defaultChecked / onCheckedChange', 'boolean / boolean / (checked) => void', '–', 'Controlled or uncontrolled toggle'],
+]} />
+
+`Menu` takes `open`, `defaultOpen`, `onOpenChange` and `modal`. `MenuTrigger` takes `render` to use a design-system `Button` or `IconButton`.
+
+## Accessibility
+
+- The trigger announces that it opens a menu and whether it is expanded.
+- Enter, Space or Arrow Down opens the menu and focuses the first item; Arrow Up opens it on the last.
+- Arrow keys move between items, Home and End jump to the ends, typing a letter jumps to the matching item.
+- Escape or a click outside closes it and returns focus to the trigger.
+- Group labels name their group; checkbox items announce checked or not checked.

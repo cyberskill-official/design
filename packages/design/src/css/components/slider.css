@@ -1,0 +1,67 @@
+.cs-slider {
+  display: grid;
+  align-content: start;
+  gap: var(--space-2);
+  width: 100%;
+  min-width: 160px;
+  &[data-disabled] .cs-slider-control { opacity: 0.5; cursor: not-allowed; }
+}
+
+.cs-slider-header { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); }
+.cs-slider-label { font: 600 14px/20px var(--font-sans); color: var(--foreground); }
+.cs-slider[data-disabled] .cs-slider-label { color: var(--muted); }
+.cs-slider-value { font: 500 13px/20px var(--font-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.cs-slider-control {
+  display: flex;
+  align-items: center;
+  height: var(--control-sm);
+  touch-action: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+.cs-slider-track {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--border);
+}
+
+.cs-slider-indicator { border-radius: inherit; background: var(--primary); }
+
+.cs-slider-mark {
+  position: absolute;
+  top: 50%;
+  width: 2px;
+  height: 8px;
+  border-radius: 1px;
+  background: var(--input);
+  transform: translate(-50%, -50%);
+}
+
+.cs-slider-thumb {
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--primary);
+  border-radius: 50%;
+  background: var(--panel);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--duration-fast) var(--ease-standard);
+  /* 44px touch target: 16px inside the border + 2 × 14px */
+  &::before { content: ''; position: absolute; inset: -14px; border-radius: 50%; }
+  &:has(:focus-visible) { outline: 2px solid var(--ring); outline-offset: 2px; }
+  &[data-dragging] { box-shadow: 0 0 0 6px color-mix(in srgb, var(--primary) 16%, transparent); }
+  &[data-disabled] { cursor: not-allowed; }
+}
+
+.cs-slider-mark-labels { position: relative; height: 18px; margin-top: calc(-1 * var(--space-1)); }
+.cs-slider-mark-label {
+  position: absolute;
+  top: 0;
+  font: 500 12px/18px var(--font-sans);
+  color: var(--muted);
+  white-space: nowrap;
+}

@@ -30,8 +30,13 @@
     "dist",
     "assets",
     "tokens",
+    "ai",
+    "bin",
     "README.md"
   ],
+  "bin": {
+    "cyberskill-design": "./bin/cyberskill-design.mjs"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -49,6 +54,10 @@
       "types": "./dist/forms.d.ts",
       "import": "./dist/forms.js"
     },
+    "./date": {
+      "types": "./dist/date.d.ts",
+      "import": "./dist/date.js"
+    },
     "./tokens": {
       "types": "./dist/tokens.d.ts",
       "import": "./dist/tokens.js"
@@ -65,7 +74,7 @@
     "provenance": true
   },
   "scripts": {
-    "build": "node scripts/build-tokens.mjs && node scripts/build-css.mjs && tsdown",
+    "build": "node scripts/build-tokens.mjs && node scripts/build-css.mjs && tsdown && node scripts/build-ai-docs.mjs",
     "dev": "concurrently -k -n tokens,css,js \"node --watch-path=tokens scripts/build-tokens.mjs\" \"node --watch-path=src/css scripts/build-css.mjs\" \"tsdown --watch\"",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -73,7 +82,8 @@
     "lint:css": "node scripts/check-css.mjs",
     "check:package": "npm pack --dry-run && publint && attw --pack . --profile esm-only",
     "storybook": "storybook dev -p 6006 --no-open",
-    "build-storybook": "storybook build -o storybook-static"
+    "build-storybook": "storybook build -o storybook-static",
+    "check:ai-docs": "node scripts/build-ai-docs.mjs --check"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
@@ -83,7 +93,9 @@
     "@phosphor-icons/react": "^2.1.0",
     "@tanstack/react-table": "^9.0.0",
     "@tanstack/react-virtual": "^3.10.0",
+    "date-fns": "^4.1.0",
     "react": "^19.0.0",
+    "react-day-picker": "^10.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.50.0",
     "recharts": "^3.0.0"
@@ -99,6 +111,12 @@
       "optional": true
     },
     "recharts": {
+      "optional": true
+    },
+    "react-day-picker": {
+      "optional": true
+    },
+    "date-fns": {
       "optional": true
     }
   },
@@ -120,10 +138,12 @@
     "@vitest/browser-playwright": "^5.1.0",
     "axe-core": "^4.14.0",
     "concurrently": "^10.0.7",
+    "date-fns": "^4.4.0",
     "lightningcss": "^1.33.0",
     "playwright": "1.60.0",
     "publint": "^0.3.25",
     "react": "^19.3.1",
+    "react-day-picker": "^10.0.2",
     "react-dom": "^19.3.1",
     "react-hook-form": "^7.92.0",
     "recharts": "^3.10.1",

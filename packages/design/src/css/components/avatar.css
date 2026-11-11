@@ -1,0 +1,37 @@
+.cs-avatar {
+  --_size: 32px;
+  --_font: 700 13px/1 var(--font-display);
+
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  box-sizing: border-box;
+  width: var(--_size);
+  height: var(--_size);
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  background: var(--primary-soft);
+  color: var(--primary);
+  font: var(--_font);
+  letter-spacing: 0.01em;
+  vertical-align: middle;
+  user-select: none;
+
+  &[data-size='sm'] { --_size: 24px; --_font: 700 12px/1 var(--font-display); letter-spacing: 0; }
+  &[data-size='lg'] { --_size: 40px; --_font: 700 15px/1 var(--font-display); }
+  &[data-overflow] { background: var(--raised); color: var(--foreground); font-variant-numeric: tabular-nums; }
+}
+
+.cs-avatar-image { width: 100%; height: 100%; object-fit: cover; }
+
+.cs-avatar-group {
+  /* small overlap so the ring never cuts the neighbour's initials */
+  --_overlap: -4px;
+  display: inline-flex;
+  align-items: center;
+  &[data-size='sm'] { --_overlap: -2px; }
+  &[data-size='lg'] { --_overlap: -6px; }
+  & > .cs-avatar { box-shadow: 0 0 0 2px var(--background); }
+  & > .cs-avatar + .cs-avatar { margin-inline-start: var(--_overlap); }
+}

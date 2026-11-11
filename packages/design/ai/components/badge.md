@@ -1,0 +1,76 @@
+# Badge
+
+> Short status or count label. Seven tones, three variants, two sizes. Status tones always carry an icon.
+
+```tsx
+import { Badge } from '@cyberskill/design';
+```
+
+Use a badge to show the state of something next to it: a deployment is **Active**, a run **Failed**, a feature is in **Beta**. Badges are not interactive; for a removable or clickable label use a [Tag](/docs/components/tag) or a Button. Keep the text to one or two words.
+
+## Tones and variants
+
+`soft` (default) is a light tint for tables and lists, `solid` is for the one badge that must stand out, `outline` is the quietest. Every tone keeps text at 4.5:1 or more in light and dark.
+
+```tsx
+<Badge>Draft</Badge>
+<Badge tone="primary">Beta</Badge>
+<Badge tone="accent">New</Badge>
+<Badge tone="success">Active</Badge>
+<Badge tone="warning">Trial ends soon</Badge>
+<Badge tone="danger" variant="solid">Failed</Badge>
+<Badge tone="info" variant="outline">Syncing</Badge>
+```
+
+## Sizes
+
+`sm` is 20px tall for dense tables, `md` 24px.
+
+```tsx
+<Badge size="sm" tone="success">Active</Badge>
+<Badge size="md" tone="success">Active</Badge>
+<Badge size="sm" tone="primary" variant="solid">12</Badge>
+```
+
+## Icons
+
+`success`, `warning`, `danger` and `info` show a status icon by default (check, warning, cross, info), so the meaning never rests on color alone. Pass `icon` to swap it. `icon={false}` removes the icon on non-status tones only; on status tones it is ignored.
+
+```tsx
+<Badge tone="accent" icon={<Sparkle />}>AI assisted</Badge>
+<Badge tone="warning">Degraded</Badge>
+<Badge tone="danger" icon={false}>Failed</Badge> {/* still shows its icon */}
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `tone` | `'neutral' \| 'primary' \| 'accent' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'neutral'` | Color meaning. Status tones add an icon |
+| `variant` | `'soft' \| 'solid' \| 'outline'` | `'soft'` | Tinted, filled or bordered |
+| `size` | `'sm' \| 'md'` | `'md'` | Height 20 or 24px |
+| `icon` | `ReactNode \| false` | – | Decorative icon before the text. Replaces the status icon; false removes it on non-status tones |
+
+Other props go to the `<span>`.
+
+## Accessibility
+
+- A badge is plain text; screen readers read its words. The icon is decorative (`aria-hidden`), so the text must say the state ("Failed", not "!").
+- Status is shown by icon shape and text as well as color.
+- Text contrast is 4.5:1 or more for every tone and variant in light and dark (checked by axe in the tests).
+- When a badge stands for a count next to an icon ("3" unread), give the parent an accessible name that includes it, e.g. `aria-label="Inbox, 3 unread"`.
+
+## Exact types
+
+```ts
+type BadgeProps = ComponentProps<'span'> & {
+  /** Color meaning. `success`, `warning`, `danger` and `info` show a status icon by default. */
+  tone?: BadgeTone;
+  /** `soft` tinted (default), `solid` filled, `outline` bordered. */
+  variant?: BadgeVariant;
+  /** `sm` 20px, `md` 24px tall. */
+  size?: 'sm' | 'md';
+  /** Decorative icon before the text. Replaces a status tone's icon; `false` removes the icon on non-status tones only. */
+  icon?: ReactNode | false;
+};
+```

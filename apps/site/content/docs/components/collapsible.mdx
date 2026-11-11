@@ -1,0 +1,42 @@
+---
+title: Collapsible
+description: A button that shows and hides one region, such as advanced settings.
+---
+
+import { CollapsibleDemo } from '@/demos/collapsible';
+
+Use a collapsible to tuck away one block of secondary content: advanced options, extra details, a long list. For several headed sections, use an accordion.
+
+## Example
+
+<Demo title="Advanced settings" layout="block">
+  <CollapsibleDemo />
+</Demo>
+
+```tsx
+<Collapsible>
+  <CollapsibleTrigger>Advanced settings</CollapsibleTrigger>
+  <CollapsiblePanel>
+    <TextField label="Temperature" type="number" defaultValue="0.2" />
+    <TextField label="Max tokens" type="number" defaultValue="800" />
+  </CollapsiblePanel>
+</Collapsible>
+```
+
+## Props
+
+<PropsTable rows={[
+  ['defaultOpen / open', 'boolean', 'false', 'Collapsible: open state, uncontrolled or controlled'],
+  ['onOpenChange', '(open: boolean) => void', '–', 'Collapsible: called when it opens or closes'],
+  ['disabled', 'boolean', 'false', 'Collapsible: ignore interaction'],
+  ['keepMounted', 'boolean', 'false', 'CollapsiblePanel: keep the content in the DOM while closed'],
+  ['hiddenUntilFound', 'boolean', 'false', 'CollapsiblePanel: closed content stays findable with find-in-page'],
+]} />
+
+`CollapsibleTrigger` shows a caret that turns when open. Pass `render={<Button variant="ghost" />}` to use a design-system button instead.
+
+## Accessibility
+
+- The trigger is a button with `aria-expanded` and `aria-controls` pointing at the panel.
+- Enter or Space toggles it. It has a 44px touch area.
+- The height animation respects reduced motion.

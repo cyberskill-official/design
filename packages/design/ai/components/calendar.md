@@ -1,0 +1,103 @@
+# Calendar
+
+> Month grid for picking one day, several days or a range. Weeks start on Monday, Vietnamese ready.
+
+```tsx
+import { Calendar } from '@cyberskill/design/date';
+```
+
+`Calendar` is an always-visible month grid built on react-day-picker and styled with Ink & Gold tokens. Use it inline when choosing days is the main task (booking, scheduling, availability). Inside a form, use [Date picker](/docs/components/date-picker) or [Date range picker](/docs/components/date-range-picker) instead: they add a typed input and open this calendar in a popup.
+
+It ships in the optional date entry, with `react-day-picker` and `date-fns` as peers:
+
+```tsx
+import { Calendar } from '@cyberskill/design/date';
+```
+
+## Single day
+
+The selected day is filled with ink, today has a gold ring and bold number, days from the next and previous month are muted.
+
+```tsx
+const [day, setDay] = useState<Date | undefined>(new Date());
+
+<Calendar mode="single" selected={day} onSelect={setDay} />
+```
+
+## Range, two months
+
+Start and end are filled, the days between sit on a soft band. Two months side by side suit ranges; days of the next month only show in a single-month view.
+
+```tsx
+const [range, setRange] = useState<DateRange | undefined>();
+
+<Calendar mode="range" numberOfMonths={2} selected={range} onSelect={setRange} />
+```
+
+## Several days
+
+```tsx
+<Calendar mode="multiple" selected={days} onSelect={setDays} />
+```
+
+## Limits and disabled days
+
+`minDate` and `maxDate` disable days outside the window and stop month navigation there. `disabled` takes react-day-picker matchers, here weekends. Disabled days are struck through as well as muted.
+
+```tsx
+<Calendar mode="single" minDate={today} maxDate={in60Days} disabled={{ dayOfWeek: [0, 6] }} />
+```
+
+## Month and year dropdowns
+
+For dates far from today, such as a date of birth.
+
+```tsx
+<Calendar mode="single" captionLayout="dropdown" defaultMonth={new Date(1995, 5, 1)} minDate={new Date(1940, 0, 1)} maxDate={new Date()} />
+```
+
+## Vietnamese
+
+Pass `vi` from `react-day-picker/locale`: it translates month and weekday names and every screen-reader label ("Đến tháng tiếp theo", "Hôm nay"). The date-fns `vi` locale also works but leaves the labels in English.
+
+```tsx
+import { vi } from 'react-day-picker/locale';
+
+<Calendar mode="single" locale={vi} selected={day} onSelect={setDay} />
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `mode` | `'single' \| 'range' \| 'multiple'` | – | What a click selects |
+| `selected / onSelect` | `Date \| DateRange \| Date[]` | – | Controlled selection, shaped by mode |
+| `minDate / maxDate` | `Date` | – | First and last selectable day; navigation stops at their months |
+| `disabled` | `Matcher \| Matcher[]` | – | Days that cannot be picked, e.g. { dayOfWeek: [0, 6] } or { before: date } |
+| `locale` | `Locale` | `English` | Use vi from react-day-picker/locale for Vietnamese names and labels |
+| `weekStartsOn` | `0–6` | `1 (Monday)` | 0 is Sunday |
+| `numberOfMonths` | `number` | `1` | Months side by side |
+| `captionLayout` | `'label' \| 'dropdown'` | `'label'` | Month and year dropdowns instead of the caption |
+| `defaultMonth / month` | `Date` | `today` | Month shown first, or controlled month with onMonthChange |
+| `today` | `Date` | `now` | Which day gets the today ring |
+
+Every other react-day-picker prop passes through (`showWeekNumber`, `labels`, `footer`, `components`…). In range mode react-day-picker's own `min` and `max` are the shortest and longest range in days.
+
+## Accessibility
+
+- The month is a grid labelled by its name. Arrow keys move by day and week, Home and End to the week edges, Page Up and Page Down by month (with Shift, by year). Enter or Space selects.
+- Only one day is in the tab order: the selected day, else today. Tab moves on to the month buttons.
+- Each day is announced with its weekday, date and state ("Today, Tuesday, 10 March 2026, selected"), and the label keeps the visible number as a word for voice control.
+- Month changes are announced. Previous and next buttons are labelled and report when they can't go further.
+- Today is marked by a ring and bold weight, not color alone. Days are 40px, 44px on touch screens.
+
+## Exact types
+
+```ts
+type CalendarProps = DayPickerProps & {
+  /** Earliest selectable day. Days before it are disabled and navigation stops at its month. (rdp's own `min`/`max` count days in a range.) */
+  minDate?: Date;
+  /** Latest selectable day. Days after it are disabled and navigation stops at its month. */
+  maxDate?: Date;
+};
+```

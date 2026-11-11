@@ -1,0 +1,20 @@
+.cs-spinner {
+  --_size: 24px;
+  display: inline-flex;
+  flex: none;
+  vertical-align: middle;
+  &[data-size='sm'] { --_size: 16px; }
+  &[data-size='lg'] { --_size: 32px; }
+}
+
+.cs-spinner-ring {
+  box-sizing: border-box;
+  width: var(--_size);
+  height: var(--_size);
+  border: 2px solid color-mix(in srgb, currentColor 20%, transparent);
+  border-top-color: currentColor;
+  border-radius: var(--radius-full);
+  animation: cs-spinner-spin 0.8s linear infinite;
+}
+.cs-spinner[data-size='lg'] .cs-spinner-ring { border-width: 3px; }
+@keyframes cs-spinner-spin { to { transform: rotate(360deg); } }

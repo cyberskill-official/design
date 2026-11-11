@@ -1,0 +1,28 @@
+---
+title: Use with AI coding tools
+description: The package ships its own compact guide so Claude Code, Cursor and other agents use the system exactly.
+---
+
+`@cyberskill/design` includes an `ai/` folder written for AI coding tools. It is generated from this site and from the package's type definitions on every build, so it always matches the code.
+
+| File | What it gives an AI |
+|---|---|
+| `ai/INDEX.md` | Setup, the rules, and every component with its import and doc file. One small file to read first. |
+| `ai/components/<name>.md` | One component: when to use it, examples, props, exact TypeScript types, accessibility. Read only the ones needed. |
+| `ai/tokens.md` | Every token with light and dark values and its Tailwind name. |
+| `ai/SKILL.md` | A Claude Code skill that points the agent at the files above. |
+| `ai/cursor-rule.mdc` | The same guidance as a Cursor rule. |
+
+## Install it in your app
+
+```bash
+npx cyberskill-design ai-setup
+```
+
+This writes `.claude/skills/cyberskill-design/SKILL.md`, `.cursor/rules/cyberskill-design.mdc` and a marked section in `AGENTS.md` (other content in `AGENTS.md` is left alone). Run it again after upgrading the package; use `--dry-run` to preview or `--only claude,cursor,agents` to choose.
+
+## Why it saves tokens
+
+An agent reads one short index, then only the component files it needs, instead of crawling `node_modules` or guessing from memory. The rules in the index (tokens only, flat imports, labels, status with icons) prevent the most common review comments.
+
+This site also publishes [`/llms.txt`](/llms.txt) and [`/llms-full.txt`](/llms-full.txt) for tools that read the web.

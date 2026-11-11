@@ -1,0 +1,37 @@
+/* Row and group layout (.cs-choice*) lives in checkbox.css and is shared. */
+.cs-radio {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  border: 1.5px solid var(--input);
+  border-radius: var(--radius-full);
+  background: var(--panel);
+  transition: background-color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard);
+
+  /* 44px touch target around the 18px dot */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: var(--control-touch);
+    height: var(--control-touch);
+    transform: translate(-50%, -50%);
+  }
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  &[data-checked] { background: var(--primary); border-color: var(--primary); }
+  &[data-invalid]:not([data-checked]) { border-color: var(--destructive); }
+  &[data-disabled] { opacity: 0.5; cursor: not-allowed; }
+}
+.cs-choice-label:hover .cs-radio:not([data-disabled], [data-checked]) { border-color: var(--foreground); }
+
+.cs-radio-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--primary-foreground);
+}

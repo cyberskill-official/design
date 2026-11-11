@@ -1,0 +1,40 @@
+.cs-scroll-area {
+  box-sizing: border-box;
+  min-width: 0;
+  min-height: 0;
+}
+
+.cs-scroll-area-viewport {
+  box-sizing: border-box;
+  height: 100%;
+  max-height: inherit;
+  border-radius: inherit;
+  overscroll-behavior: contain;
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+}
+
+.cs-scroll-area-scrollbar {
+  display: flex;
+  padding: 2px;
+  border-radius: var(--radius-full);
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard);
+
+  &[data-orientation='vertical'] { width: 10px; box-sizing: border-box; }
+  &[data-orientation='horizontal'] { height: 10px; box-sizing: border-box; }
+  &[data-hovering], &[data-scrolling] { opacity: 1; }
+  &[data-scrolling] { transition-duration: 0ms; }
+  &:hover { background: color-mix(in srgb, var(--border) 60%, transparent); }
+}
+/* Keyboard users see where they are while the region has focus */
+.cs-scroll-area:focus-within .cs-scroll-area-scrollbar { opacity: 1; }
+
+.cs-scroll-area-thumb {
+  flex: 1;
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--muted) 55%, transparent);
+  transition: background-color var(--duration-fast) var(--ease-standard);
+  .cs-scroll-area-scrollbar:hover > &, &:active { background: var(--muted); }
+}
+
+.cs-scroll-area-corner { background: transparent; }

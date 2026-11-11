@@ -1,0 +1,31 @@
+.cs-breadcrumbs { min-width: 0; }
+
+.cs-breadcrumbs-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font: 500 14px/20px var(--font-sans);
+}
+
+.cs-breadcrumbs-item {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+  color: var(--muted);
+
+  /* the crumb itself: an <a>, a router Link, or the current page's <span> */
+  & > :not(.cs-breadcrumbs-separator) {
+    padding: 2px;
+    border-radius: var(--radius-sm);
+    color: var(--muted);
+    text-decoration: none;
+  }
+  & > a:hover { color: var(--foreground); text-decoration: underline; text-underline-offset: 3px; }
+  & > a:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  & > [aria-current='page'] { color: var(--foreground); font-weight: 600; }
+}
+
+.cs-breadcrumbs-separator { flex: none; width: 14px; height: 14px; margin: 0 var(--space-1); color: var(--muted); }

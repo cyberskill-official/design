@@ -1,0 +1,79 @@
+/* Box from .cs-input-group (field.css), popup and options from combobox.css. The box grows as chips wrap. */
+.cs-input-group.cs-multi-select {
+  height: auto;
+  min-height: var(--_h);
+  --_chip: 28px;
+  &[data-size='sm'] { --_chip: 24px; }
+  &[data-size='lg'] { --_chip: 32px; }
+  & > .cs-combobox-actions { align-self: flex-start; height: calc(var(--_h) - 2px); }
+}
+
+.cs-multi-select-chips {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+  min-width: 0;
+  padding: calc((var(--_h) - 2px - var(--_chip)) / 2) var(--space-1) calc((var(--_h) - 2px - var(--_chip)) / 2) calc((var(--_h) - 2px - var(--_chip)) / 2);
+}
+
+.cs-multi-select-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  max-width: 100%;
+  height: var(--_chip);
+  padding-inline: var(--space-2) 2px;
+  border-radius: var(--radius-sm);
+  background: var(--raised);
+  color: var(--foreground);
+  font: 500 13px/18px var(--font-sans);
+  outline: 0;
+  &:focus-visible, &[data-highlighted] { outline: 2px solid var(--ring); outline-offset: 1px; }
+}
+.cs-multi-select[data-disabled] .cs-multi-select-chip { background: var(--panel); color: var(--muted); }
+
+.cs-multi-select-chip-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.cs-multi-select-chip-remove {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  &:hover:not([data-disabled]) { background: color-mix(in srgb, var(--foreground) 10%, var(--raised)); color: var(--foreground); }
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 1px; }
+  &[data-disabled] { cursor: not-allowed; }
+  & > svg { width: 14px; height: 14px; }
+}
+
+.cs-multi-select-more {
+  padding-inline: var(--space-1);
+  font: 600 13px/18px var(--font-sans);
+  color: var(--muted);
+}
+
+.cs-multi-select-input {
+  flex: 1;
+  min-width: 8ch;
+  height: var(--_chip);
+  margin: 0;
+  padding: 0 var(--space-1);
+  border: 0;
+  background: transparent;
+  color: var(--foreground);
+  font: 400 15px/20px var(--font-sans);
+  outline: 0;
+  &::placeholder { color: var(--muted); opacity: 1; }
+  &[data-disabled] { cursor: not-allowed; }
+}
+.cs-multi-select[data-size='sm'] .cs-multi-select-input { font-size: 14px; }
+.cs-multi-select[data-size='lg'] .cs-multi-select-input { font-size: 16px; }

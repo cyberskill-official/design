@@ -1,0 +1,103 @@
+---
+title: Forms (React Hook Form)
+description: FormField connects React Hook Form to every field component and shows its validation message.
+---
+
+import { FormFieldDemo } from '@/demos/forms';
+
+`FormField` is React Hook Form's `Controller` plus one thing: it hands your render function the field's validation message as `error`, ready for the `error` prop of `TextField`, `Textarea`, `SelectField`, `Checkbox`, `CheckboxGroup` and `RadioGroup`. It lives in its own entry so apps that don't use React Hook Form never load it.
+
+```bash
+npm install react-hook-form
+```
+
+```tsx
+import { FormField } from '@cyberskill/design/forms';
+```
+
+## Example
+
+Submit the empty form to see the errors; the first invalid field gets focus.
+
+<Demo title="Start a trial" layout="stack">
+  <FormFieldDemo />
+</Demo>
+
+```tsx
+const { control, handleSubmit } = useForm<Values>({
+  defaultValues: { email: '', plan: null, billing: null, terms: false },
+});
+
+<form noValidate onSubmit={handleSubmit(onSubmit)}>
+  <FormField
+    control={control}
+    name="email"
+    rules={{ required: 'Enter a work email.' }}
+    render={({ field, error }) => <TextField label="Work email" type="email" {...field} error={error} />}
+  />
+  <FormField
+    control={control}
+    name="plan"
+    rules={{ required: 'Choose a plan.' }}
+    render={({ field, error }) => (
+      <SelectField label="Plan" items={plans} placeholder="Choose a plan"
+        name={field.name} value={field.value} onValueChange={field.onChange}
+        onBlur={field.onBlur} ref={field.ref} error={error} />
+    )}
+  />
+  <FormField
+    control={control}
+    name="terms"
+    rules={{ validate: (accepted) => accepted || 'Accept the terms to continue.' }}
+    render={({ field, error }) => (
+      <Checkbox label="I accept the terms of service" checked={field.value}
+        onCheckedChange={field.onChange} inputRef={field.ref} error={error} />
+    )}
+  />
+  <Button type="submit">Start trial</Button>
+</form>
+```
+
+## With a zod schema
+
+Install `zod` and `@hookform/resolvers`, then pass the resolver to `useForm`. `FormField` is unchanged: the schema's messages arrive as `error`.
+
+```tsx
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+
+const schema = z.object({
+  email: z.email('Enter a valid email, like name@company.vn.'),
+  plan: z.string('Choose a plan.'),
+  terms: z.literal(true, 'Accept the terms to continue.'),
+});
+
+const { control, handleSubmit } = useForm({ resolver: zodResolver(schema), defaultValues });
+```
+
+## Wiring each component
+
+Text inputs take `{...field}` directly. Other controls use their own value props:
+
+<PropsTable rows={[
+  ['TextField, Textarea', '{...field}', '–', 'value, onChange, onBlur, ref and name map one to one'],
+  ['SelectField', 'value, onValueChange, onBlur, ref', '–', 'ref focuses the trigger on error. Start the value at null, not undefined'],
+  ['Checkbox, Switch', 'checked, onCheckedChange, inputRef', '–', 'The field value is a boolean'],
+  ['CheckboxGroup', 'value, onValueChange', '–', 'The field value is a string array'],
+  ['RadioGroup', 'value, onValueChange, inputRef', '–', 'Start the value at null for "nothing chosen"'],
+]} />
+
+## Props
+
+<PropsTable rows={[
+  ['control / name', 'Control / field path', '–', 'From useForm (required)'],
+  ['rules', 'RegisterOptions', '–', 'React Hook Form validation rules, when you don’t use a resolver'],
+  ['render', '({ field, fieldState, formState, error }) => ReactElement', '–', 'Renders the field; error is fieldState.error?.message'],
+  ['defaultValue / shouldUnregister / disabled', '–', '–', 'Same as Controller'],
+]} />
+
+## Accessibility
+
+- Errors appear as text under the field and are linked to it, so screen readers announce them; invalid fields set `aria-invalid`.
+- On a failed submit, React Hook Form moves focus to the first invalid field (pass `ref` / `inputRef` as shown).
+- Add `noValidate` to the form so the browser's own bubbles don't compete with these messages.

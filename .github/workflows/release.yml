@@ -1,0 +1,36 @@
+name: Release
+
+# Changesets opens a "Version packages" PR on main; merging it publishes to npm with provenance.
+# The legacy 2.x line publishes from the `legacy` branch with the `legacy` dist-tag (see that branch).
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+concurrency: release-${{ github.ref }}
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    environment: npm
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version-file: .nvmrc, cache: npm, registry-url: 'https://registry.npmjs.org' }
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - run: npm run test -w @cyberskill/design
+      - uses: changesets/action@v1
+        with:
+          version: npx changeset version
+          publish: npm run release
+          commit: 'chore: version packages'
+          title: 'chore: version packages'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_CONFIG_PROVENANCE: 'true'

@@ -1,0 +1,68 @@
+.cs-tabs {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  &[data-orientation='vertical'] { flex-direction: row; gap: var(--space-6); }
+}
+
+.cs-tabs-list {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  gap: var(--space-1);
+  overflow-x: auto;
+  scrollbar-width: thin;
+  box-shadow: inset 0 -1px 0 var(--border);
+  &[data-orientation='vertical'] { flex-direction: column; flex: none; overflow: visible; box-shadow: inset -1px 0 0 var(--border); }
+}
+
+.cs-tabs-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  flex: none;
+  height: var(--control-md);
+  margin: 0;
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  background: transparent;
+  color: var(--muted);
+  font: 500 14px/20px var(--font-sans);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard);
+
+  &:hover:not([data-disabled]) { color: var(--foreground); background: var(--raised); }
+  &[data-active] { color: var(--foreground); font-weight: 600; }
+  &[data-disabled] { opacity: 0.5; cursor: not-allowed; }
+  /* inset ring: the list scrolls sideways and would clip an outer one */
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; }
+  & > svg { width: 16px; height: 16px; flex: none; }
+  &[data-orientation='vertical'] { justify-content: flex-start; border-radius: var(--radius-md) 0 0 var(--radius-md); }
+  @media (pointer: coarse) { height: var(--control-touch); }
+}
+
+.cs-tabs-indicator {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  bottom: 0;
+  width: var(--active-tab-width);
+  height: 2px;
+  border-radius: var(--radius-full);
+  background: var(--primary);
+  translate: var(--active-tab-left) 0;
+  transition: translate var(--duration-base) var(--ease-standard), width var(--duration-base) var(--ease-standard), height var(--duration-base) var(--ease-standard);
+  &[data-orientation='vertical'] { left: auto; right: 0; bottom: auto; top: 0; width: 2px; height: var(--active-tab-height); translate: 0 var(--active-tab-top); }
+}
+
+.cs-tabs-panel {
+  flex: 1;
+  min-width: 0;
+  padding-block: var(--space-4);
+  border-radius: var(--radius-sm);
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  &[data-orientation='vertical'] { padding-block: 0; }
+}

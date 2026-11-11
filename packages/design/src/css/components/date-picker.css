@@ -1,0 +1,58 @@
+/* DatePicker, DateRangePicker and DateTimePicker. The input box itself is .cs-input / .cs-input-group from field.css. */
+.cs-date-picker .cs-input { font-variant-numeric: tabular-nums; }
+.cs-date-picker .cs-input-adornment { gap: 2px; padding-inline-end: var(--space-1); }
+
+.cs-date-picker-positioner { z-index: var(--z-dropdown); outline: 0; }
+
+.cs-date-picker-popup {
+  box-sizing: border-box;
+  max-width: var(--available-width);
+  max-height: var(--available-height);
+  overflow: auto;
+  padding: var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  color: var(--foreground);
+  box-shadow: var(--shadow-lg);
+  transform-origin: var(--transform-origin);
+  transition: opacity var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-standard);
+  &[data-starting-style], &[data-ending-style] { opacity: 0; transform: translateY(-6px); }
+  &[data-side='top'][data-starting-style], &[data-side='top'][data-ending-style] { transform: translateY(6px); }
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+}
+
+/* Range: presets column beside the calendar, a row above it on narrow screens */
+.cs-date-range-panel { display: flex; gap: var(--space-3); }
+.cs-date-range-presets {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 136px;
+  padding-inline-end: var(--space-3);
+  border-inline-end: 1px solid var(--border);
+  & > .cs-button { justify-content: flex-start; }
+  & > .cs-button[aria-pressed='true'] { --_bg: var(--primary-soft); --_fg: var(--primary); }
+}
+@media (max-width: 639px) {
+  .cs-date-range-panel { flex-direction: column; }
+  .cs-date-range-presets { flex-direction: row; flex-wrap: wrap; min-width: 0; padding: 0 0 var(--space-3); border-inline-end: 0; border-bottom: 1px solid var(--border); }
+}
+
+/* DateTimePicker: a fieldset whose legend is the visible label */
+.cs-date-time-picker {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  & > legend { float: inline-start; width: 100%; padding: 0; margin-bottom: 6px; }
+}
+.cs-date-time-picker-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  & > .cs-date-picker { flex: 1 1 160px; }
+  & > .cs-time-picker { flex: 0 1 120px; }
+}

@@ -1,0 +1,32 @@
+.cs-alert {
+  --_tone: var(--info);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  box-sizing: border-box;
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid color-mix(in srgb, var(--_tone) 45%, var(--border));
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--_tone) 8%, var(--panel));
+  color: var(--foreground);
+  font: 400 14px/20px var(--font-sans);
+
+  &[data-tone='success'] { --_tone: var(--success); }
+  &[data-tone='warning'] { --_tone: var(--warning); }
+  &[data-tone='danger'] { --_tone: var(--destructive); }
+}
+
+.cs-alert-icon {
+  display: inline-flex;
+  flex: none;
+  padding-block: 2px;
+  color: var(--_tone);
+  & > svg { width: 18px; height: 18px; }
+}
+
+.cs-alert-content { display: grid; gap: var(--space-1); flex: 1; min-width: 0; }
+.cs-alert-title { font-weight: 600; color: var(--foreground); }
+.cs-alert-description { color: var(--muted); }
+.cs-alert-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-top: var(--space-2); }
+
+.cs-alert-dismiss { flex: none; margin: -6px -8px -6px 0; }

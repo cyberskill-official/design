@@ -8,6 +8,7 @@ export default defineConfig({
     charts: 'src/charts/index.ts',
     table: 'src/table/index.ts',
     forms: 'src/forms/index.ts',
+    date: 'src/date/index.ts',
   },
   format: 'esm',
   platform: 'neutral',
@@ -17,5 +18,5 @@ export default defineConfig({
   sourcemap: true,
   // Components are interactive client components; keep the directive for React Server Components apps.
   banner: { js: "'use client';" },
-  deps: { neverBundle: [/^react($|\/)/, /^react-dom($|\/)/, /^@base-ui\/react/, /^@phosphor-icons\/react/, /^recharts/, /^@tanstack\//, /^react-hook-form/, 'clsx'] },
+  deps: { neverBundle: [/^react($|\/)/, /^react-dom($|\/)/, /^@base-ui\/react/, /^@phosphor-icons\/react/, /^recharts/, /^@tanstack\//, /^react-hook-form/, /^react-day-picker/, /^date-fns/, 'clsx'] },
 });

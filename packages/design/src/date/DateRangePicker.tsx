@@ -1,0 +1,110 @@
+import { isSameDay, startOfDay, startOfMonth, subDays } from 'date-fns';
+import type { Locale } from 'date-fns';
+import { useState, useSyncExternalStore } from 'react';
+import type { DateRange, Matcher } from 'react-day-picker';
+import { Button } from '../react/Button';
+import { Calendar } from './Calendar';
+import { PickerField, type PickerFieldProps } from './PickerField';
+import { DEFAULT_DATE_FORMAT, formatDate, isPickable, parseDate, useControllable } from './utils';
+
+export type DateRangeValue = { from: Date; to: Date };
+export type DateRangePreset = { label: string; value: DateRangeValue };
+export type RangePresetLabels = { today: string; last7Days: string; last30Days: string; thisMonth: string };
+
+/**
+ * The four common presets: Today, Last 7 days, Last 30 days, This month (1st to today). Override labels for Vietnamese:
+ * `rangePresets({ today: 'Hôm nay', last7Days: '7 ngày qua', last30Days: '30 ngày qua', thisMonth: 'Tháng này' })`.
+ * Call it while rendering so "today" stays current.
+ */
+export function rangePresets(labels: Partial<RangePresetLabels> = {}, today: Date = new Date()): DateRangePreset[] {
+  const l = { today: 'Today', last7Days: 'Last 7 days', last30Days: 'Last 30 days', thisMonth: 'This month', ...labels };
+  const day = startOfDay(today);
+  return [
+    { label: l.today, value: { from: day, to: day } },
+    { label: l.last7Days, value: { from: subDays(day, 6), to: day } },
+    { label: l.last30Days, value: { from: subDays(day, 29), to: day } },
+    { label: l.thisMonth, value: { from: startOfMonth(day), to: day } },
+  ];
+}
+
+export type DateRangePickerProps = Omit<PickerFieldProps, 'placeholder'> & {
+  value?: DateRangeValue | null;
+  defaultValue?: DateRangeValue | null;
+  onValueChange?: (value: DateRangeValue | null) => void;
+  /** date-fns pattern for each date. */
+  format?: string;
+  locale?: Locale;
+  min?: Date;
+  max?: Date;
+  disabledDates?: Matcher | Matcher[];
+  weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  /** Quick picks beside the calendar, e.g. `rangePresets()`. */
+  presets?: DateRangePreset[];
+  /** Accessible name of the presets group. */
+  presetsLabel?: string;
+  /** Months side by side. Default 2 from 640px wide, 1 below. */
+  numberOfMonths?: number;
+  /** Defaults to `dd/mm/yyyy – dd/mm/yyyy` from `format`. */
+  placeholder?: string;
+};
+
+const SEPARATOR = ' – ';
+const WIDE = '(min-width: 640px)';
+const subscribe = (onChange: () => void) => {
+  const query = matchMedia(WIDE);
+  query.addEventListener('change', onChange);
+  return () => query.removeEventListener('change', onChange);
+};
+
+/** Labelled range field: type `01/03/2026 – 15/03/2026`, pick two days on a two-month calendar, or use presets. */
+export function DateRangePicker({ value, defaultValue = null, onValueChange, format = DEFAULT_DATE_FORMAT, locale, min, max, disabledDates, weekStartsOn, presets, presetsLabel = 'Presets', numberOfMonths, placeholder = `${format.toLowerCase()}${SEPARATOR}${format.toLowerCase()}`, clearLabel = 'Clear dates', openLabel = 'Choose dates', ...props }: DateRangePickerProps) {
+  const [current, setCurrent] = useControllable(value, defaultValue, onValueChange);
+  const wide = useSyncExternalStore(subscribe, () => matchMedia(WIDE).matches, () => true);
+  const months = numberOfMonths ?? (wide ? 2 : 1);
+  const toText = (r: DateRangeValue) => `${formatDate(r.from, format, locale)}${SEPARATOR}${formatDate(r.to, format, locale)}`;
+  const fromText = (text: string): DateRangeValue | null => {
+    // Split on a dash with spaces around it, or on any en/em dash, so `yyyy-MM-dd` formats still work.
+    const [a, b, ...rest] = text.split(/\s+[-–—]\s+|\s*[–—]\s*/).map(part => parseDate(part, format, locale));
+    if (!a || !b || rest.length || ![a, b].every(d => isPickable(d, min, max, disabledDates))) return null;
+    return a <= b ? { from: a, to: b } : { from: b, to: a };
+  };
+
+  return (
+    <PickerField {...props} placeholder={placeholder} clearLabel={clearLabel} openLabel={openLabel} value={current} onCommit={setCurrent} toText={toText} fromText={fromText}>
+      {select => (
+        <div className="cs-date-range-panel">
+          {presets?.length ? (
+            <div className="cs-date-range-presets" role="group" aria-label={presetsLabel}>
+              {presets.map(p => (
+                <Button key={p.label} variant="ghost" size="sm" aria-pressed={!!current && isSameDay(p.value.from, current.from) && isSameDay(p.value.to, current.to)} onClick={() => select(p.value)}>
+                  {p.label}
+                </Button>
+              ))}
+            </div>
+          ) : null}
+          <RangeCalendar value={current} onPick={select} numberOfMonths={months} locale={locale} minDate={min} maxDate={max} disabled={disabledDates} weekStartsOn={weekStartsOn} />
+        </div>
+      )}
+    </PickerField>
+  );
+}
+
+type RangeCalendarProps = { value: DateRangeValue | null; onPick: (range: DateRangeValue) => void; numberOfMonths: number; locale?: Locale; minDate?: Date; maxDate?: Date; disabled?: Matcher | Matcher[]; weekStartsOn?: DateRangePickerProps['weekStartsOn'] };
+
+// First click starts a new range, second click finishes it and closes. Lives inside the popup, so it resets on every open.
+function RangeCalendar({ value, onPick, ...props }: RangeCalendarProps) {
+  const [draft, setDraft] = useState<DateRange | undefined>(value ?? undefined);
+  return (
+    <Calendar
+      {...props}
+      mode="range"
+      selected={draft}
+      defaultMonth={value?.from}
+      onSelect={(_range, day) => {
+        const from = draft?.from;
+        if (!from || draft?.to) return setDraft({ from: day, to: undefined });
+        onPick(day < from ? { from: day, to: from } : { from, to: day });
+      }}
+    />
+  );
+}

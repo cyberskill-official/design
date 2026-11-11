@@ -1,0 +1,26 @@
+.cs-separator {
+  flex: none;
+  margin: 0;
+  border: 0;
+  background: var(--border);
+
+  &[data-orientation='horizontal'] { width: 100%; height: 1px; }
+  &[data-orientation='vertical'] { align-self: stretch; width: 1px; min-height: 1em; }
+
+  /* labelled: the line is drawn either side of the text */
+  &[data-labelled] {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    background: transparent;
+    &::before, &::after { content: ''; flex: 1; background: var(--border); }
+  }
+  &[data-labelled][data-orientation='horizontal'] { height: auto; &::before, &::after { height: 1px; } }
+  &[data-labelled][data-orientation='vertical'] { flex-direction: column; width: auto; &::before, &::after { width: 1px; } }
+}
+
+.cs-separator-label {
+  flex: none;
+  font: 500 12px/16px var(--font-sans);
+  color: var(--muted);
+}

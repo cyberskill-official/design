@@ -2,6 +2,7 @@ import { Dialog as BaseDialog } from '@base-ui/react/dialog';
 import { X } from '@phosphor-icons/react';
 import type { ReactNode } from 'react';
 import { cx } from '../utils/cx';
+import { ThemedPortal } from './ThemeScope';
 
 export type DialogProps = BaseDialog.Root.Props;
 /** Holds the open state. Controlled (`open` + `onOpenChange`) or uncontrolled (`defaultOpen`). */
@@ -34,7 +35,7 @@ export type DialogContentProps = Omit<BaseDialog.Popup.Props, 'className' | 'tit
 /** The dialog panel with backdrop, title, description and close button. Focus is trapped and restored for you. */
 export function DialogContent({ title, description, size = 'md', icon, tone = 'neutral', closeLabel = 'Close', hideClose, className, children, ...props }: DialogContentProps) {
   return (
-    <BaseDialog.Portal>
+    <ThemedPortal part={BaseDialog.Portal}>
       <BaseDialog.Backdrop className="cs-dialog-backdrop" />
       <BaseDialog.Popup {...props} data-size={size} className={cx('cs-dialog', className)}>
         <div className="cs-dialog-header">
@@ -51,7 +52,7 @@ export function DialogContent({ title, description, size = 'md', icon, tone = 'n
         </div>
         {children != null && <div className="cs-dialog-body">{children}</div>}
       </BaseDialog.Popup>
-    </BaseDialog.Portal>
+    </ThemedPortal>
   );
 }
 

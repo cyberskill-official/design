@@ -1,0 +1,39 @@
+.cs-stat {
+  display: grid;
+  align-content: start;
+  gap: var(--space-1);
+  box-sizing: border-box;
+  min-width: 0;
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  color: var(--foreground);
+}
+
+.cs-stat-label { font: 500 13px/18px var(--font-sans); color: var(--muted); }
+
+.cs-stat-value {
+  font: 700 28px/34px var(--font-display);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.cs-stat-meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-2); font: 400 13px/18px var(--font-sans); }
+
+.cs-stat-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  &[data-sentiment='positive'] { color: var(--success); }
+  &[data-sentiment='negative'] { color: var(--destructive); }
+  &[data-sentiment='neutral'] { color: var(--muted); }
+  & > svg { width: 16px; height: 16px; flex: none; }
+}
+
+.cs-stat-hint { color: var(--muted); }
+
+.cs-stat-chart { margin-top: var(--space-2); min-width: 0; }

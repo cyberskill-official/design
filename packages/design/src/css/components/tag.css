@@ -1,0 +1,39 @@
+.cs-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  box-sizing: border-box;
+  height: 24px;
+  max-width: 100%;
+  padding: 0 var(--space-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--raised);
+  color: var(--foreground);
+  font: 500 13px/1 var(--font-sans);
+  vertical-align: middle;
+  &:has(.cs-tag-remove) { padding-inline-end: 2px; }
+}
+
+.cs-tag-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.cs-tag-remove {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
+  /* 44px touch target, leaning right so a tap on the label never removes the tag */
+  &::before { content: ''; position: absolute; inset: -13px -18px -13px -8px; }
+  &:hover { background: color-mix(in srgb, var(--foreground) 10%, var(--raised)); color: var(--foreground); }
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 1px; }
+  & > svg { width: 12px; height: 12px; }
+}

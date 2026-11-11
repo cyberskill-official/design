@@ -1,0 +1,104 @@
+# Data table
+
+> Sortable, selectable table on TanStack Table v9 with pagination or row virtualization, a sticky header and right-aligned numbers.
+
+```tsx
+import { DataTable } from '@cyberskill/design/table';
+```
+
+For records people scan, sort and act on: invoices, users, deployments. It lives in its own entry, so apps without tables never load TanStack:
+
+```tsx
+import { DataTable, createDataTableColumnHelper } from '@cyberskill/design/table';
+```
+
+For a short list of label–value pairs, use a description list; for a layout grid, use CSS grid. Do not put forms or long text in cells.
+
+## Sorting
+
+Columns are TanStack Table v9 column definitions. Headers sort on click (text A→Z first, numbers high→low first); turn a column off with `enableSorting: false`. `meta: { numeric: true }` right-aligns a column and sets it in tabular figures so digits line up.
+
+```tsx
+type Invoice = { id: string; customer: string; status: string; total: number };
+const col = createDataTableColumnHelper<Invoice>();
+const columns = col.columns([
+  col.accessor('id', { header: 'Invoice' }),
+  col.accessor('customer', { header: 'Customer' }),
+  col.accessor('status', { header: 'Status', enableSorting: false }),
+  col.accessor('total', { header: 'Amount', meta: { numeric: true }, cell: (c) => money.format(c.getValue()) }),
+]);
+
+<DataTable label="Invoices" columns={columns} data={invoices} getRowId={(r) => r.id} />
+```
+
+Keep `columns` stable: define them at module scope or in `useMemo`. Pass `getRowId` with a database id so selection survives sorting and new data.
+
+## Selection and pagination
+
+`selectable` adds a checkbox column; the header checkbox selects the page and shows a dash when only some rows are selected. Selected rows take the soft primary background. `pageSize` paginates on the client and shows the range and previous/next buttons.
+
+```tsx
+const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+
+<DataTable
+  label="Invoices" columns={columns} data={invoices} getRowId={(r) => r.id} pageSize={8}
+  selectable rowSelection={rowSelection} onRowSelectionChange={setRowSelection}
+  selectRowLabel={(r) => `Select ${r.id}`}
+/>
+```
+
+## Large data
+
+`virtualized` renders only the rows in view, so thousands of rows scroll smoothly. It scrolls inside `maxHeight` (480px by default) with the header pinned. `maxHeight` alone gives a sticky header without virtualization. `density` is `compact` (36px rows), `default` (44px) or `comfortable` (52px).
+
+```tsx
+<DataTable label="All invoices" columns={columns} data={invoices} getRowId={(r) => r.id} virtualized maxHeight={360} density="compact" />
+```
+
+## Empty state
+
+```tsx
+<DataTable label="Drafts" columns={columns} data={[]} emptyState="No drafts yet. New invoices start here." />
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `columns` | `DataTableColumnDef<T>[]` | – | TanStack v9 column definitions; build them with createDataTableColumnHelper<T>() |
+| `data` | `T[]` | – | Rows |
+| `label` | `string` | – | Accessible name of the table (and of its scroll region) |
+| `getRowId` | `(row, index) => string` | `index` | Stable row id, e.g. the database id |
+| `density` | `'compact' \| 'default' \| 'comfortable'` | `'default'` | Row height 36, 44 or 52px |
+| `sorting / onSortingChange` | `SortingState / OnChangeFn` | – | Controlled sort state; pass both |
+| `selectable` | `boolean` | `false` | Adds the checkbox column |
+| `rowSelection / onRowSelectionChange` | `RowSelectionState / OnChangeFn` | – | Controlled selection keyed by row id; pass both |
+| `pageSize` | `number` | – | Paginates on the client and shows the footer |
+| `virtualized` | `boolean` | `false` | Renders only rows in view |
+| `maxHeight` | `number \| string` | `480 when virtualized` | Scroll height; the header stays pinned |
+| `emptyState` | `ReactNode` | `'No results'` | Shown when there are no rows |
+| `selectAllLabel / selectRowLabel` | `string / (row) => string` | `'Select all rows' / 'Select row'` | Checkbox names |
+| `previousPageLabel / nextPageLabel` | `string` | `'Previous page' / 'Next page'` | Pager button names |
+| `formatRange` | `(from, to, total) => string` | `'1–10 of 214'` | Footer range text |
+
+Column `meta`: `numeric` (right-aligned, tabular figures). Also exported: `dataTableFeatures` (the TanStack features object), `DataTableColumnDef`, `DataTableColumnMeta`, `SortingState`, `RowSelectionState`.
+
+## Accessibility
+
+- A real `<table>` named by `label`, with column headers. Sortable headers are buttons; the sorted column carries `aria-sort`, and the caret icons are decorative.
+- Checkboxes are native, keyboard operable with Space, each named (`selectRowLabel`), with a 44px hit area. The header checkbox reports mixed when some rows are selected.
+- Previous and next stay focusable on the first and last page (`aria-disabled`), so focus never drops to the page. The range text is announced as it changes.
+- A scrolling table is a focusable, labelled region so keyboard users can scroll it. Virtualized tables keep `aria-rowcount` and `aria-rowindex`, so screen readers report the true position in the full list.
+
+## Exact types
+
+```ts
+type DataTableProps<TData extends object> = Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {
+  /** Keep stable (module scope or `useMemo`); a new array every render rebuilds the table. */
+  columns: readonly DataTableColumnDef<TData>[];
+  data: readonly TData[];
+  /** Accessible name of the table, e.g. "Invoices". */
+  label: string;
+  /** Stable row id (database id). Needed for selection to survive sorting and new data. Defaults to the row index. */
+  getRowId?: (row: TData, index: number) => string;
+```

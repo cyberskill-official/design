@@ -1,4 +1,5 @@
 'use client';
+import { ThemeScope } from '@cyberskill/design';
 import { useState, type ReactNode } from 'react';
 
 type Layout = 'row' | 'stack' | 'center' | 'block';
@@ -21,9 +22,10 @@ export function Demo({ children, title = 'Example', layout = 'row' }: { children
           ))}
         </span>
       </figcaption>
-      <div className="demo-stage" data-theme={theme} data-layout={layout}>
+      {/* ThemeScope also themes the menus, selects and dialogs opened from the example */}
+      <ThemeScope theme={theme} className="demo-stage" data-layout={layout}>
         {children}
-      </div>
+      </ThemeScope>
     </figure>
   );
 }

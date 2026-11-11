@@ -1,0 +1,22 @@
+.cs-fieldset {
+  display: grid;
+  gap: var(--space-4);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: var(--foreground);
+}
+
+.cs-fieldset-header { display: grid; gap: var(--space-1); }
+
+.cs-fieldset-legend {
+  margin: 0;
+  padding: 0;
+  font: 700 16px/24px var(--font-display);
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+  &[data-disabled] { color: var(--muted); }
+}
+
+.cs-fieldset-description { margin: 0; font: 400 13px/18px var(--font-sans); color: var(--muted); }

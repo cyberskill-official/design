@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main, next]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  package:
+    name: Package (tokens, build, tests)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version-file: .nvmrc, cache: npm }
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Build (fails on broken contrast or color rules)
+        run: npm run build
+      - name: AI docs are committed and current
+        run: git diff --exit-code -- packages/design/ai || (echo "::error::packages/design/ai is stale. Run npm run build and commit it." && exit 1)
+      - run: npm run lint:css -w @cyberskill/design
+      - run: npm run typecheck -w @cyberskill/design
+      - name: Component tests and every story as an accessibility test
+        run: npm run test -w @cyberskill/design
+      - name: Package shape (publint, are-the-types-wrong)
+        run: npm run check:package -w @cyberskill/design
+
+  site:
+    name: Site and forensic visual audit
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version-file: .nvmrc, cache: npm }
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run site:build
+      - run: npm run typecheck -w @cyberskill/site
+      - name: Forensic visual audit (contrast on rendered colors, clipping, overlap, targets, fold)
+        run: npm run audit:visual
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-audit
+          path: tools/audit/out
+          if-no-files-found: ignore

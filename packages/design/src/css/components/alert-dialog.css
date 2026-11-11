@@ -1,0 +1,8 @@
+/* AlertDialog reuses the Dialog panel (.cs-dialog, data-size="sm"); only the differences live here. */
+.cs-alert-dialog {
+  /* Phones: full-width buttons, the confirm action on top, Cancel nearest the thumb. */
+  @media (max-width: 479px) {
+    & .cs-dialog-footer { flex-direction: column-reverse; }
+    & .cs-dialog-footer > .cs-button { width: 100%; }
+  }
+}

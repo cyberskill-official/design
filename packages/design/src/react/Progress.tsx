@@ -1,0 +1,38 @@
+import { Progress as BaseProgress } from '@base-ui/react/progress';
+import type { ReactNode } from 'react';
+import { toneIcons } from './Alert';
+import { cx } from '../utils/cx';
+
+export type ProgressTone = 'primary' | 'warning' | 'danger';
+
+export type ProgressProps = Omit<BaseProgress.Root.Props, 'className' | 'children'> & {
+  className?: string;
+  /** Visible label, also the progress bar's accessible name. */
+  label: ReactNode;
+  tone?: ProgressTone;
+  /** Switches a `primary` bar to `warning` once `value` reaches this number (same scale as `max`). */
+  warnAt?: number;
+};
+
+/**
+ * Labelled bar for a task that takes time (upload, export, import). `value={null}` shows an indeterminate bar.
+ * For a static amount such as quota used, use `Meter`.
+ */
+export function Progress({ label, tone = 'primary', warnAt, className, value, ...props }: ProgressProps) {
+  const resolved = tone === 'primary' && warnAt != null && value != null && value >= warnAt ? 'warning' : tone;
+  const Icon = resolved === 'primary' ? null : toneIcons[resolved];
+  return (
+    <BaseProgress.Root {...props} value={value} data-tone={resolved} className={cx('cs-progress', className)}>
+      <BaseProgress.Label className="cs-progress-label">{label}</BaseProgress.Label>
+      {value != null && (
+        <span className="cs-progress-value">
+          {Icon && <Icon aria-hidden="true" />}
+          <BaseProgress.Value />
+        </span>
+      )}
+      <BaseProgress.Track className="cs-progress-track">
+        <BaseProgress.Indicator className="cs-progress-indicator" />
+      </BaseProgress.Track>
+    </BaseProgress.Root>
+  );
+}

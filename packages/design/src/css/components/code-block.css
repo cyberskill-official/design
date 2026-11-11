@@ -1,0 +1,63 @@
+.cs-code-block {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--raised);
+  color: var(--foreground);
+
+  /* inverted carries data-theme="dark", so these tokens are the dark theme's */
+  &[data-variant='inverted'] { background: var(--background); }
+}
+
+.cs-code-block-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--control-md);
+  padding: var(--space-1) var(--space-2) var(--space-1) var(--space-4);
+  border-bottom: 1px solid var(--border);
+}
+
+.cs-code-block-title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font: 500 13px/18px var(--font-sans);
+  color: var(--foreground);
+}
+
+.cs-code-block-language {
+  margin-inline-start: auto;
+  font: 500 11px/16px var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cs-code-block-title + .cs-code-block-language { margin-inline-start: 0; }
+.cs-code-block-header > .cs-copy-button:first-child { margin-inline-start: auto; }
+
+/* no header: the copy button floats in the corner */
+.cs-code-block > .cs-copy-button { position: absolute; top: var(--space-2); inset-inline-end: var(--space-2); z-index: 1; }
+.cs-code-block:has(> .cs-copy-button) .cs-code-block-pre { padding-inline-end: calc(var(--control-sm) + var(--space-4)); }
+
+.cs-code-block-pre {
+  margin: 0;
+  padding: var(--space-4);
+  overflow-x: auto;
+  font: 400 13px/20px var(--font-mono);
+  tab-size: 2;
+  white-space: pre;
+  scrollbar-width: thin;
+  scrollbar-color: var(--muted) transparent;
+  & > code { font: inherit; background: none; color: inherit; }
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  [data-wrap] > & { white-space: pre-wrap; overflow-wrap: anywhere; }
+}
+
+.cs-copy-button[data-copied] { --_fg: var(--success); }

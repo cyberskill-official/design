@@ -1,0 +1,55 @@
+---
+title: Link
+description: Underlined text link with a muted tone, external links and router support.
+---
+
+import { LinkInText, LinkRouter } from '@/demos/link';
+
+Use a link when the click only navigates. If it changes something (save, delete, open a dialog), use a Button; `Button variant="link"` looks like a link but acts like a button.
+
+## In text
+
+Links are always underlined, so they never rely on color. `tone="muted"` is for secondary links in footers and meta lines. `external` opens a new tab, adds an arrow icon and tells screen readers.
+
+<Demo title="Links in text">
+  <LinkInText />
+</Demo>
+
+```tsx
+<p>
+  Follow the <Link href="/docs/setup">setup guide</Link>. Questions? Check the{' '}
+  <Link href="https://status.example.com" external>status page</Link> or read the{' '}
+  <Link href="/terms" tone="muted">terms</Link>.
+</p>
+```
+
+## With a router
+
+Pass your router's link as `render` to keep client-side navigation and the styles.
+
+<Demo title="Next.js Link">
+  <LinkRouter />
+</Demo>
+
+```tsx
+import NextLink from 'next/link';
+
+<Link render={<NextLink href="/docs/components/button" />}>Button docs</Link>
+```
+
+## Props
+
+<PropsTable rows={[
+  ['href', 'string', '–', 'Destination'],
+  ['tone', "'default' | 'muted'", "'default'", 'Ink or muted text'],
+  ['external', 'boolean', 'false', 'Opens in a new tab with rel="noopener noreferrer", an icon and screen-reader text'],
+  ['externalLabel', 'string', "'(opens in new tab)'", 'Screen-reader text for external links. Pass Vietnamese, e.g. "(mở trong thẻ mới)"'],
+  ['render', 'ReactElement', '–', 'Render as another element, e.g. a Next.js Link'],
+]} />
+
+## Accessibility
+
+- Tab focuses the link and Enter follows it; the focus ring is the standard 2px ring.
+- Link text should make sense on its own ("setup guide", not "click here"); screen-reader users often list links out of context.
+- External links say "(opens in new tab)" to screen readers; the arrow icon is decorative.
+- Links are underlined in every tone, so they are told apart from text without color.
