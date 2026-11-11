@@ -302,4 +302,5 @@ html > body[data-scroll-locked] {
 .pt-tip { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--space-2); color: var(--muted); }
 
 /* 404 */
-.not-found { flex: 1; display: grid; place-items: center; padding: 64px 16px; }
+.not-found { flex: 1; display: grid; place-content: center; justify-items: center; padding: 64px 16px; }
+.not-found-legacy { max-width: 46ch; margin: -24px 0 0; /* sits under the empty state's 64px bottom padding */ text-align: center; text-wrap: balance; color: var(--muted); font-size: 14px; line-height: 1.5; }

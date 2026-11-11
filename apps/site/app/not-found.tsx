@@ -18,6 +18,11 @@ export default function NotFound() {
           description="This page doesn't exist or has moved. Components, patterns and foundations are all one search away."
           action={<Link href="/docs/">Browse the design system</Link>}
         />
+        <p className="not-found-legacy">
+          Looking for the 2.x (Umber &amp; Ochre) docs or Storybook? They stay on the{' '}
+          <Link href="https://github.com/cyberskill-official/design/tree/legacy">legacy branch</Link>. Moving an app over:{' '}
+          <Link href="/docs/migration/">Migrating from&nbsp;2.x</Link>.
+        </p>
       </main>
     </HomeLayout>
   );

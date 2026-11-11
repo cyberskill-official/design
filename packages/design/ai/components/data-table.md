@@ -16,13 +16,13 @@ For a short list of label–value pairs, use a description list; for a layout gr
 
 ## Sorting
 
-Columns are TanStack Table v9 column definitions. Headers sort on click (text A→Z first, numbers high→low first); turn a column off with `enableSorting: false`. `meta: { numeric: true }` right-aligns a column and sets it in tabular figures so digits line up.
+Columns are TanStack Table v9 column definitions. Headers sort on click (text A→Z first, numbers high→low first). Text follows Vietnamese alphabet order, so "Ánh" and "Đặng" come before "Zoe", and numbers inside text sort by value (INV-2 before INV-10); a column's own `sortFn` wins. Turn a column off with `enableSorting: false`. `meta: { numeric: true }` right-aligns a column and sets it in tabular figures so digits line up; `meta: { code: true }` sets codes and IDs in mono and keeps them on one line.
 
 ```tsx
 type Invoice = { id: string; customer: string; status: string; total: number };
 const col = createDataTableColumnHelper<Invoice>();
 const columns = col.columns([
-  col.accessor('id', { header: 'Invoice' }),
+  col.accessor('id', { header: 'Invoice', meta: { code: true } }),
   col.accessor('customer', { header: 'Customer' }),
   col.accessor('status', { header: 'Status', enableSorting: false }),
   col.accessor('total', { header: 'Amount', meta: { numeric: true }, cell: (c) => money.format(c.getValue()) }),
@@ -87,18 +87,18 @@ const [opened, setOpened] = useState<Invoice | null>(null);
 | `sorting / onSortingChange` | `SortingState / OnChangeFn` | – | Controlled sort state; pass both |
 | `selectable` | `boolean` | `false` | Adds the checkbox column |
 | `rowSelection / onRowSelectionChange` | `RowSelectionState / OnChangeFn` | – | Controlled selection keyed by row id; pass both |
-| `pageSize` | `number` | – | Paginates on the client and shows the footer |
+| `pageSize` | `number` | – | Paginates on the client and shows the footer; changing it re-pages |
 | `virtualized` | `boolean` | `false` | Renders only rows in view |
 | `maxHeight` | `number \| string` | `480 when virtualized` | Scroll height; the header stays pinned |
 | `emptyState` | `ReactNode` | `'No results'` | Shown when there are no rows |
 | `onRowClick` | `(row: T) => void` | – | Makes rows clickable and focusable: click, Enter or Space. Clicks on controls inside a cell do not count |
-| `selectAllLabel / selectRowLabel` | `string / (row) => string` | `'Select all rows' / 'Select row'` | Checkbox names |
+| `selectAllLabel / selectRowLabel` | `string / (row) => string` | `'Select all rows' ('… on this page' with pageSize) / 'Select row'` | Checkbox names |
 | `previousPageLabel / nextPageLabel` | `string` | `'Previous page' / 'Next page'` | Previous and next button names |
 | `pageLabel` | `(page: number) => string` | ``Page ${n}`` | Name of each page button, e.g. (n) => `Trang ${n}` |
 | `paginationLabel` | `string` | ``${label} pages`` | Name of the pagination landmark, e.g. "Invoices pages" |
 | `formatRange` | `(from, to, total) => string` | `'1–10 of 214'` | Footer range text |
 
-Column `meta`: `numeric` (right-aligned, tabular figures). Also exported: `dataTableFeatures` (the TanStack features object), `DataTableColumnDef`, `DataTableColumnMeta`, `SortingState`, `RowSelectionState`.
+Column `meta`: `numeric` (right-aligned, tabular figures), `code` (mono, one line). Also exported: `dataTableFeatures` (the TanStack features object), `DataTableColumnDef`, `DataTableColumnMeta`, `SortingState`, `RowSelectionState`.
 
 ## Accessibility
 
@@ -141,6 +141,7 @@ export type DataTableProps<TData extends object> = Omit<HTMLAttributes<HTMLDivEl
    * Clicks on links, buttons, checkboxes and other controls inside a cell run those controls instead.
    */
   onRowClick?: (row: TData) => void;
+  /** Accessible name of the header checkbox. Defaults to "Select all rows", or "Select all rows on this page" with `pageSize` (it selects only that page). */
   selectAllLabel?: string;
   /** Accessible name of a row checkbox. Name the row, e.g. `row => \`Select ${row.number}\``. */
   selectRowLabel?: (row: TData) => string;

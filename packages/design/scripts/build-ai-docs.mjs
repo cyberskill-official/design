@@ -135,9 +135,9 @@ const table = index.map(c => `| ${c.title} | ${c.description} | ${c.imports.map(
 files.set('INDEX.md', ['# @cyberskill/design: AI guide', '',
   'CyberSkill Design System (Ink & Gold). Read this file first, then open only the `components/*.md` files you need. Paths are relative to `node_modules/@cyberskill/design/ai/`.', '',
   '## Setup (once per app)', '', '```css', "/* app/globals.css: Tailwind v4 apps */", "@import 'tailwindcss';", "@import '@cyberskill/design/tailwind.css';", "@import '@cyberskill/design/styles.css';", '/* no Tailwind: only the styles.css line */', '```', '',
-  'Fonts: load Manrope, Be Vietnam Pro and JetBrains Mono (with the `vietnamese` subset) and set `--font-display`, `--font-sans`, `--font-mono` on `:root, [data-theme]`. Dark mode: `data-theme="dark"` on `<html>` or any container.', '',
+  'Fonts: load Manrope, Be Vietnam Pro and JetBrains Mono (with the `vietnamese` subset) and set `--font-display`, `--font-sans`, `--font-mono` on `:root, [data-theme]`. Dark mode: `data-theme="dark"` on `<html>` or any container; `data-theme="system"` follows the OS. Without the attribute the page stays light.', '',
   '## Rules', '',
-  '1. **Use a component before writing UI.** Find it in the table below. Only build custom UI when nothing fits, and then style it with tokens.',
+  '1. **Use a component before writing UI.** Find it in the table below. Only build custom UI when nothing fits, and then style it with tokens. **Add no other UI kit** (Radix, shadcn/ui, MUI, Chakra, Mantine, Ant Design, Headless UI): every part here is already built on Base UI, and a second kit brings its own look and focus handling.',
   '2. **Never hard-code colors, fonts or sizes.** Use CSS variables (`var(--primary)`) or the Tailwind names (`bg-primary text-primary-foreground border-border text-muted`). No hex, rgb or Tailwind palette colors like `blue-600`.',
   '3. **Flat named imports only**: `DialogContent`, never `Dialog.Content`. They work in React Server Component files.',
   '4. **One primary button per view; at most one gold `accent` element** (key action or AI moment). Product screens keep gold under 3% of the screen.',
@@ -154,12 +154,12 @@ const skill = ['---', 'name: cyberskill-design', 'description: Use when building
   '# CyberSkill Design System', '', '1. Read `node_modules/@cyberskill/design/ai/INDEX.md`: setup, rules and the table of every component with its import.',
   '2. For each component you will use, read `node_modules/@cyberskill/design/ai/components/<name>.md` (exact props and types, examples, accessibility). Do not read the others.',
   '3. For colors, spacing, type or motion, read `node_modules/@cyberskill/design/ai/tokens.md`.',
-  '4. Follow the rules in INDEX.md exactly: components before custom UI, tokens only (no hex or Tailwind palette colors), flat imports, labels on every control, status with icon + text.',
+  '4. Follow the rules in INDEX.md exactly: components before custom UI, no other UI kit (Radix, shadcn/ui, MUI…), tokens only (no hex or Tailwind palette colors), flat imports, labels on every control, status with icon + text.',
   '5. Do not read the package source or `dist/` to learn the API; the ai/ docs are generated from it and are exact.', ''].join('\n');
 files.set('SKILL.md', skill);
 files.set('cursor-rule.mdc', ['---', 'description: CyberSkill Design System (@cyberskill/design): use its components and tokens for all UI', 'globs: ["**/*.tsx", "**/*.jsx", "**/*.css", "**/*.mdx"]', 'alwaysApply: false', '---', '',
-  'This project uses @cyberskill/design. Before writing or changing UI, read `node_modules/@cyberskill/design/ai/INDEX.md`, then only the `ai/components/<name>.md` files you need. Follow its rules: components before custom UI, tokens only (no hex or Tailwind palette colors), flat named imports, visible labels, status with icon + text.', ''].join('\n'));
-files.set('AGENTS-snippet.md', ['## UI: CyberSkill Design System', '', 'All UI uses `@cyberskill/design`. Before writing or changing UI, read `node_modules/@cyberskill/design/ai/INDEX.md` and then only the `ai/components/<name>.md` files you need. Rules: use a component before writing custom UI; tokens only (no hex or Tailwind palette colors); flat named imports; every control has a visible label; status shows icon + text.', ''].join('\n'));
+  'This project uses @cyberskill/design. Before writing or changing UI, read `node_modules/@cyberskill/design/ai/INDEX.md`, then only the `ai/components/<name>.md` files you need. Follow its rules: components before custom UI, no other UI kit (Radix, shadcn/ui, MUI…), tokens only (no hex or Tailwind palette colors), flat named imports, visible labels, status with icon + text.', ''].join('\n'));
+files.set('AGENTS-snippet.md', ['## UI: CyberSkill Design System', '', 'All UI uses `@cyberskill/design`. Before writing or changing UI, read `node_modules/@cyberskill/design/ai/INDEX.md` and then only the `ai/components/<name>.md` files you need. Rules: use a component before writing custom UI; add no other UI kit (Radix, shadcn/ui, MUI…); tokens only (no hex or Tailwind palette colors); flat named imports; every control has a visible label; status shows icon + text.', ''].join('\n'));
 
 /* ---------- write or check ---------- */
 const stale = [];

@@ -79,8 +79,8 @@ export declare const createDataTableColumnHelper: <TData extends object>() => im
   rowSortingFeature: import("@tanstack/table-core").TableFeature;
   sortedRowModel: (table: import("@tanstack/table-core").Table<any, any>) => () => import("@tanstack/table-core").RowModel<any, any>;
   sortFns: {
-    alphanumeric: import("@tanstack/table-core").CreatedSortFn<any, any>;
-    text: import("@tanstack/table-core").CreatedSortFn<any, any>;
+    alphanumeric: SortFn<any, any>;
+    text: SortFn<any, any>;
     datetime: import("@tanstack/table-core").CreatedSortFn<any, any>;
   };
   rowSelectionFeature: import("@tanstack/table-core").TableFeature;
@@ -102,8 +102,8 @@ export declare const dataTableFeatures: {
   rowSortingFeature: import("@tanstack/table-core").TableFeature;
   sortedRowModel: (table: import("@tanstack/table-core").Table<any, any>) => () => import("@tanstack/table-core").RowModel<any, any>;
   sortFns: {
-    alphanumeric: import("@tanstack/table-core").CreatedSortFn<any, any>;
-    text: import("@tanstack/table-core").CreatedSortFn<any, any>;
+    alphanumeric: SortFn<any, any>;
+    text: SortFn<any, any>;
     datetime: import("@tanstack/table-core").CreatedSortFn<any, any>;
   };
   rowSelectionFeature: import("@tanstack/table-core").TableFeature;

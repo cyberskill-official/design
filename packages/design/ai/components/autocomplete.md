@@ -69,7 +69,7 @@ Wrap it in `Field` for a visible label and help text. `icon={null}` drops the se
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
 export type AutocompleteProps = Omit<BaseUI.Autocomplete.Root.Props<AutocompleteItem>, 'items' | 'children'> & {
-  /** Suggestions, flat or in groups (`{ label, items }`). Typing filters them. */
+  /** Suggestions, flat or in groups (`{ label, items }`). Typing filters them, ignoring case and accents (NFC or NFD). */
   items: AutocompleteItem[] | AutocompleteGroup[];
   placeholder?: string;
   size?: AutocompleteSize;

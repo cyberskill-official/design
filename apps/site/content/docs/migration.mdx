@@ -5,27 +5,28 @@ description: Move an app from the Umber & Ochre system (2.x) to Ink & Gold (3.0)
 
 3.0 is a new major version: new tokens, React components on Base UI, and a much smaller package. 2.x stays on npm under the `legacy` tag and on the repository's `legacy` branch, so nothing moves until you upgrade.
 
-## Before 3.0 lands: pin 2.x
+## Staying on 2.x for now
 
-An app that installs from GitHub without a version follows whatever `main` holds, and will jump to 3.0 on cut-over day. Pin it now to one of these:
+Pin the last 2.x release from npm:
 
 ```json
 "@cyberskill/design": "2.8.0"
 ```
 
-```json
-"@cyberskill/design": "github:cyberskill-official/design-system#3edeb1350c2e48761bee18f7c10c323e6103ff7d"
-```
+Apps that installed straight from GitHub (`github:cyberskill-official/design` or the old `design-system` name) must move to npm. Since 3.0 the repository root is a workspace, not a package, so a GitHub install no longer gives you a working package. If the app's lockfile points at an older commit, pin that exact commit to keep the code it builds with today; finance, for example, is on `3edeb1350c2e48761bee18f7c10c323e6103ff7d`, a 1.0-era build, so moving it to 2.8.0 is itself an upgrade to test:
 
-The npm version is preferred. The commit pin keeps an app on exactly the 2.x code it builds with today (finance resolves to this commit). Apps known to use 2.x: Practice, landing, finance, strategem and CyberOS.
+```json
+"@cyberskill/design": "github:cyberskill-official/design#3edeb1350c2e48761bee18f7c10c323e6103ff7d"
+```
 
 ## Steps
 
 1. **Install 3.x** and import the styles (see [Get started](/docs/get-started)). Load the fonts yourself: 3.0 ships no font files (2.x self-hosted them).
 2. **Swap tokens** with the tables below, then delete the app's own copies of those values.
-3. **Replace components** one screen at a time. 2.x and 3.0 class names don't collide, so both can run side by side during the move.
-4. **Check focus and layers**: the focus ring and z-index scale changed (see below).
-5. **Run your accessibility checks** in light and dark.
+3. **Move the app in one go, or route by route.** 2.x and 3.0 share about 50 class names (`.cs-button`, `.cs-dialog`, `.cs-card`, `.cs-field`, `.cs-table`…), so a page that loads both stylesheets restyles each version's components with the other's CSS. Either switch the whole app at once, or keep each route on one stylesheet. To keep 2.x code during the move, install it under an alias: `"cs2": "npm:@cyberskill/design@2.8.0"`.
+4. **Rename components** with the table below.
+5. **Check focus and layers**: the focus ring and z-index scale changed (see below).
+6. **Run your accessibility checks** in light and dark.
 
 ## Token names
 
@@ -73,10 +74,51 @@ The npm version is preferred. The commit pin keeps an app on exactly the 2.x cod
 
 | 2.x | 3.0 |
 |---|---|
-| `@cyberskill/design`, `/styles.css`, `/tokens.css`, `/assets/*` | Same paths, new contents |
+| `@cyberskill/design`, `/styles.css`, `/tokens.css` | Same paths, new contents |
+| `/assets/*` | New file names (see Assets below) |
 | `/react`, `/legacy`, `/components/*`, `/source`, `/base/*`, `/styles/components/*` | `@cyberskill/design` (every component, flat named imports) |
 | `/tokens/*`, `/schemas/*` | `@cyberskill/design/tokens` (typed object) or `/tokens.json` |
 | `/styles.min.css`, `/styles.layered.css`, `/dist/styles.css` | `@cyberskill/design/styles.css` (already in cascade layers) |
 | `/_ds_bundle.js`, `/_ds_manifest.json` | Removed |
 | – | New: `/charts`, `/table`, `/forms`, `/date`, `/utils`, `/tailwind.css` |
 | Docx export, native tokens, templates | Not in 3.0; still on `legacy` |
+
+## Components
+
+Renamed in 3.0:
+
+| 2.x | 3.0 |
+|---|---|
+| `Breadcrumb` | `Breadcrumbs` |
+| `Divider` | `Separator` |
+| `ProgressBar` | `Progress` (or `Meter` for a value in a range) |
+| `InputOTP` | `OtpField` |
+| `HoverCard` | `PreviewCard` |
+| `Steps` | `Stepper` |
+| `Sidebar`, `NavItem` | `SideNav`, `SideNavGroup`, `SideNavItem` |
+| `CommandPalette` | `CommandMenu`, `CommandGroup`, `CommandItem` |
+| `Toast`, `ToastStack` | `ToastProvider` once near the root, then `useToast()` |
+| `Tab` | `Tabs`, `TabsList`, `TabsTab`, `TabsPanel` |
+| `CardBody` | `CardContent` (with `CardHeader`, `CardTitle`, `CardDescription`, `CardFooter`) |
+| `NativeSelect` | `Select` |
+| `Popconfirm` | `AlertDialog` |
+| `Result` | `EmptyState` |
+| `StatusIndicator` | `Badge` with a status `tone` |
+| `Chart` | `BarChart`, `LineChart`, `AreaChart`, `DonutChart`, `Sparkline` from `@cyberskill/design/charts` |
+| `DataGrid` | `DataTable` from `@cyberskill/design/table` |
+| `FormFieldArray`, `FormWizard` | `FormField` from `@cyberskill/design/forms`, with `Stepper` for steps |
+| `Icon`, `CS_ICONS` | Phosphor icons from `@phosphor-icons/react` |
+| `Logo`, `CS_LOGO_*` | The SVG files under Assets below |
+| `Editor`, `EDITOR_SCHEMA` | `@cyberskill/cyber-editor` |
+| `LocaleProvider`, `OverlayProvider` | Not needed: pass labels as props; `ThemeScope` themes portals |
+
+Not in 3.0 (still on 2.x): the AI set (`AIDisclosureBadge`, `ChatMessage`, `CitationList`, `ConfidenceMeter`, `HumanReviewGate`, `LumiAvatar`, `PromptInput`, `PromptSuggestions`, `TypingIndicator`; see the [AI assistant pattern](/docs/patterns/ai-assistant) for building one), `Anchor`, `AspectRatio`, `BackTop`, `Carousel`, `Cascader`, `ColorPicker`, `Comment`, `DescriptionList`, `Dock`, `FloatingActionButton`, `HotKeys`, `Image`, `InlineEdit`, `InputGroup`, `Item`, `List`, `ListItem`, `Masonry`, `Mentions`, `QRCode`, `Rating`, `Sortable` (use dnd-kit in the app), `Splitter`, `TagInput`, `Terminal`, `Timeline`, `Tour`, `Transfer`, `Tree`, `TreeSelect`, `TreeTable`, `Watermark`.
+
+## Assets
+
+| 2.x | 3.0 |
+|---|---|
+| `assets/logo-mark.svg`, `logo-mark.png` | `assets/logo-mark-ink.svg` (light backgrounds), `logo-mark-white.svg` (dark), `logo-mark-gold.svg` |
+| — | `assets/logo-primary.svg`, `logo-reversed.svg` (full logo) |
+| `assets/favicon.svg` | `assets/logo-mark-ink.svg` |
+| `assets/aurora-*`, `lumi-poster.webp`, `og-dashboard.png` | Removed |

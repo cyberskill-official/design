@@ -4,4 +4,4 @@ globs: ["**/*.tsx", "**/*.jsx", "**/*.css", "**/*.mdx"]
 alwaysApply: false
 ---
 
-This project uses @cyberskill/design. Before writing or changing UI, read `node_modules/@cyberskill/design/ai/INDEX.md`, then only the `ai/components/<name>.md` files you need. Follow its rules: components before custom UI, tokens only (no hex or Tailwind palette colors), flat named imports, visible labels, status with icon + text.
+This project uses @cyberskill/design. Before writing or changing UI, read `node_modules/@cyberskill/design/ai/INDEX.md`, then only the `ai/components/<name>.md` files you need. Follow its rules: components before custom UI, no other UI kit (Radix, shadcn/ui, MUI…), tokens only (no hex or Tailwind palette colors), flat named imports, visible labels, status with icon + text.

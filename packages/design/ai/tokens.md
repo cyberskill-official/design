@@ -15,7 +15,7 @@ Use semantic tokens, never hex values. They switch with `data-theme` (`light` de
 | `--primary-foreground` | `primary-foreground` | #FFFFFF / #0A111D |  |
 | `--accent` | `accent` | #F4BA17 / #F4BA17 | CyberSkill gold: highlights, key actions, AI moments |
 | `--accent-foreground` | `accent-foreground` | #1A1406 / #1A1406 |  |
-| `--accent-text` | `accent-text` | #8B6902 / #F4BA17 | Gold used as text on light surfaces |
+| `--accent-text` | `accent-text` | #8B6902 / #F4BA17 | Gold used as text. Passes 4.5:1 on background and panel, not on raised |
 | `--success` | `success` | #067A4B / #43D58F |  |
 | `--warning` | `warning` | #7B3C00 / #EA7D2E |  |
 | `--destructive` | `destructive` | #CC323B / #F9598F |  |

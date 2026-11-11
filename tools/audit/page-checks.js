@@ -112,7 +112,14 @@ export function layoutChecks({ w, h, fold }) {
     if (label) { const l = label.getBoundingClientRect(); hitW = Math.max(hitW, l.width); hitH = Math.max(hitH, l.height); }
     hits.push({ el, r, hitW, hitH });
   }
-  const near = (h, o) => { const cx = h.r.left + h.r.width / 2, cy = h.r.top + h.r.height / 2; const dx = Math.max(o.r.left - cx, 0, cx - o.r.right), dy = Math.max(o.r.top - cy, 0, cy - o.r.bottom); return dx * dx + dy * dy < 144; };
+  // WCAG 2.5.8: h's 24px circle may not touch another target, nor the 24px circle of another undersized target.
+  const centre = t => [t.r.left + t.r.width / 2, t.r.top + t.r.height / 2];
+  const near = (h, o) => {
+    const [cx, cy] = centre(h), dx = Math.max(o.r.left - cx, 0, cx - o.r.right), dy = Math.max(o.r.top - cy, 0, cy - o.r.bottom);
+    if (dx * dx + dy * dy < 144) return true;
+    if (Math.min(o.hitW, o.hitH) >= 24) return false;
+    const [ox, oy] = centre(o); return (ox - cx) ** 2 + (oy - cy) ** 2 < 576;
+  };
   for (const h of hits) {
     const min = Math.min(h.hitW, h.hitH);
     if (min >= 44) continue;

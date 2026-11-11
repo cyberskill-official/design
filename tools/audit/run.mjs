@@ -18,7 +18,7 @@ const arg = (name) => { const i = process.argv.indexOf(name); return i > 0 ? pro
 if (!existsSync(site)) { console.error('No static site at apps/site/out. Run `npm run site:build` first.'); process.exit(2); }
 mkdirSync(outDir, { recursive: true });
 
-const VIEWPORTS = [{ w: 375, h: 812, n: 'phone' }, { w: 768, h: 1024, n: 'tablet' }, { w: 1280, h: 800, n: 'laptop' }, { w: 1440, h: 900, n: 'desktop' }];
+const VIEWPORTS = [{ w: 360, h: 780, n: 'phone' }, { w: 768, h: 1024, n: 'tablet' }, { w: 1280, h: 800, n: 'laptop' }, { w: 1440, h: 900, n: 'desktop' }];
 const FOLD = { '/': ['.home-title', '.home-actions'] };
 // Gold budget, % of the screen. Pattern pages are real screens, so over budget fails there; component pages only warn.
 const goldBudget = page => (page.startsWith('/docs/patterns/marketing-site') ? 8 : 3);

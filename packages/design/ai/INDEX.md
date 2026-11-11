@@ -12,11 +12,11 @@ CyberSkill Design System (Ink & Gold). Read this file first, then open only the 
 /* no Tailwind: only the styles.css line */
 ```
 
-Fonts: load Manrope, Be Vietnam Pro and JetBrains Mono (with the `vietnamese` subset) and set `--font-display`, `--font-sans`, `--font-mono` on `:root, [data-theme]`. Dark mode: `data-theme="dark"` on `<html>` or any container.
+Fonts: load Manrope, Be Vietnam Pro and JetBrains Mono (with the `vietnamese` subset) and set `--font-display`, `--font-sans`, `--font-mono` on `:root, [data-theme]`. Dark mode: `data-theme="dark"` on `<html>` or any container; `data-theme="system"` follows the OS. Without the attribute the page stays light.
 
 ## Rules
 
-1. **Use a component before writing UI.** Find it in the table below. Only build custom UI when nothing fits, and then style it with tokens.
+1. **Use a component before writing UI.** Find it in the table below. Only build custom UI when nothing fits, and then style it with tokens. **Add no other UI kit** (Radix, shadcn/ui, MUI, Chakra, Mantine, Ant Design, Headless UI): every part here is already built on Base UI, and a second kit brings its own look and focus handling.
 2. **Never hard-code colors, fonts or sizes.** Use CSS variables (`var(--primary)`) or the Tailwind names (`bg-primary text-primary-foreground border-border text-muted`). No hex, rgb or Tailwind palette colors like `blue-600`.
 3. **Flat named imports only**: `DialogContent`, never `Dialog.Content`. They work in React Server Component files.
 4. **One primary button per view; at most one gold `accent` element** (key action or AI moment). Product screens keep gold under 3% of the screen.
