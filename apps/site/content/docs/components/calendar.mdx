@@ -22,7 +22,7 @@ The selected day is filled with ink, today has a gold ring and bold number, days
 </Demo>
 
 ```tsx
-const [day, setDay] = useState<Date | undefined>(new Date());
+const [day, setDay] = useState<Date | undefined>();
 
 <Calendar mode="single" selected={day} onSelect={setDay} />
 ```
@@ -101,10 +101,10 @@ import { vi } from 'react-day-picker/locale';
   ['numberOfMonths', 'number', '1', 'Months side by side'],
   ['captionLayout', "'label' | 'dropdown'", "'label'", 'Month and year dropdowns instead of the caption'],
   ['defaultMonth / month', 'Date', 'today', 'Month shown first, or controlled month with onMonthChange'],
-  ['today', 'Date', 'now', 'Which day gets the today ring'],
+  ['today', 'Date', "the visitor's today", 'Which day gets the today ring. Without it, the ring appears once the page has hydrated'],
 ]} />
 
-On a statically rendered or server-rendered page, don't compute dates with `new Date()` while rendering: the HTML keeps the build day and hydration no longer matches. Render with a fixed day (or pass `today` and `defaultMonth`) and switch to the real today in an effect after mount, as the demos on this page do.
+Calendar is safe on a statically rendered or server-rendered page: it marks today, and picks today's month when no `defaultMonth` is given, only after hydration, so the HTML never keeps the build day. Your own `new Date()` while rendering (a `minDate`, `maxDate` or starting `selected`) still does: start without it, or with a fixed day, and switch to the real today in an effect after mount, as the limits and dropdown demos on this page do.
 
 Every other react-day-picker prop passes through (`showWeekNumber`, `labels`, `footer`, `components`…). In range mode react-day-picker's own `min` and `max` are the shortest and longest range in days.
 

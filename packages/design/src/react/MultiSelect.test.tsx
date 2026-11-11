@@ -31,6 +31,12 @@ describe('MultiSelect', () => {
     expect(screen.getByRole('button', { name: 'Remove Go' })).toBeVisible();
   });
 
+  it('matches decomposed (NFD) Vietnamese labels typed without accents', async () => {
+    render(<MultiSelect aria-label="People" items={[{ value: '1', label: 'Nguyễn Văn An'.normalize('NFD') }, { value: '2', label: 'Trần Bình' }]} />);
+    await userEvent.type(screen.getByRole('combobox', { name: 'People' }), 'nguyen');
+    await expect.poll(() => screen.queryAllByRole('option').map(o => o.textContent?.normalize())).toEqual(['Nguyễn Văn An']);
+  });
+
   it('removes a chip with its remove button', async () => {
     const onValueChange = vi.fn();
     render(<MultiSelect aria-label="Skills" items={skills} defaultValue={['react', 'go']} onValueChange={onValueChange} removeLabel={l => `Bỏ ${l}`} />);

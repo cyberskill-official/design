@@ -6,7 +6,7 @@ type Invoice = { id: string; customer: string; status: string; total: number };
 const col = createDataTableColumnHelper<Invoice>();
 const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
 const columns = col.columns([
-  col.accessor('id', { header: 'Invoice' }),
+  col.accessor('id', { header: 'Invoice', meta: { code: true } }),
   col.accessor('customer', { header: 'Customer' }),
   col.accessor('status', { header: 'Status', enableSorting: false }),
   col.accessor('total', { header: 'Amount', meta: { numeric: true }, cell: c => money.format(c.getValue()) }),
@@ -47,7 +47,7 @@ export const SelectionAndPagination: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('checkbox', { name: 'Select INV-1041' }));
-    await expect(canvas.getByRole('checkbox', { name: 'Select all rows' })).toHaveProperty('indeterminate', true);
+    await expect(canvas.getByRole('checkbox', { name: 'Select all rows on this page' })).toHaveProperty('indeterminate', true);
     await expect(canvas.getByText('1–10 of 42')).toBeVisible();
     await userEvent.click(canvas.getByRole('button', { name: 'Next page' }));
     await expect(canvas.getByText('11–20 of 42')).toBeVisible();

@@ -26,7 +26,7 @@ export function FileUploadProgress() {
         label="Documents"
         multiple
         files={files}
-        onAdd={(added) => setFiles((fs) => [...fs, ...added.map((f) => ({ id: `${f.name}-${f.lastModified}`, name: f.name, size: f.size, progress: 0 }))])}
+        onAdd={(added) => setFiles((fs) => [...fs, ...added.map((f) => ({ id: `${f.name}-${f.lastModified}`, name: f.name, size: f.size, progress: 0, file: f }))])}
         onRemove={(item) => setFiles((fs) => fs.filter((f) => f.id !== item.id))}
       />
     </div>

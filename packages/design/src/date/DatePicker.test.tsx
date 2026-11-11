@@ -58,6 +58,29 @@ describe('DatePicker', () => {
     expect(new FormData(form).get('start')).toBe('');
   });
 
+  it('an outside value change replaces invalid typed text and clears the error', async () => {
+    const { rerender } = render(<DatePicker label="Start date" value={null} />);
+    const input = screen.getByRole('textbox', { name: 'Start date' });
+    await userEvent.type(input, '32/13/2026');
+    await userEvent.tab();
+    expect(input).toHaveAttribute('aria-invalid', 'true');
+    rerender(<DatePicker label="Start date" value={new Date(2026, 0, 1)} />);
+    expect(input).toHaveValue('01/01/2026');
+    expect(input).not.toHaveAttribute('aria-invalid');
+  });
+
+  it('a controlled value reset to undefined (React Hook Form reset()) empties the field and the submitted value', async () => {
+    const ui = (value?: Date | null) => <form><DatePicker label="Start date" name="start" value={value} /></form>;
+    const { container, rerender } = render(ui(march15));
+    const input = screen.getByRole('textbox', { name: 'Start date' });
+    await userEvent.clear(input);
+    await userEvent.type(input, '20/03/2026');
+    await userEvent.tab(); // picked, but the parent never stored it
+    rerender(ui(undefined));
+    expect(input).toHaveValue('');
+    expect(new FormData(container.querySelector('form')!).get('start')).toBe('');
+  });
+
   it('forwards inputRef and onBlur to the visible input, after the text is checked', async () => {
     const onBlur = vi.fn();
     const onValueChange = vi.fn();

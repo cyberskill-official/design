@@ -25,6 +25,27 @@ describe('Combobox', () => {
     expect(input).toHaveValue('Singapore');
   });
 
+  it('matches Vietnamese with or without accents, stored or typed decomposed (NFD)', async () => {
+    const people = [{ value: '1', label: 'Nguyễn Văn An'.normalize('NFD') }, { value: '2', label: 'Đặng Thu Hà' }, { value: '3', label: 'Trần Bình' }];
+    render(<Combobox aria-label="Person" items={people} />);
+    const input = screen.getByRole('combobox', { name: 'Person' });
+    await userEvent.type(input, 'nguyen');
+    await expect.poll(() => screen.queryAllByRole('option').map(o => o.textContent?.normalize())).toEqual(['Nguyễn Văn An']);
+    await userEvent.fill(input, 'Đặng'.normalize('NFD'));
+    await expect.poll(() => screen.queryAllByRole('option').map(o => o.textContent?.normalize())).toEqual(['Đặng Thu Hà']);
+    await userEvent.fill(input, 'dang');
+    await expect.poll(() => screen.queryAllByRole('option').map(o => o.textContent?.normalize())).toEqual(['Đặng Thu Hà']);
+  });
+
+  it('reopening after a choice lists every option again', async () => {
+    render(<Combobox aria-label="Region" items={regions} />);
+    await userEvent.type(screen.getByRole('combobox', { name: 'Region' }), 'sing');
+    await userEvent.click(await screen.findByRole('option', { name: 'Singapore' }));
+    await expect.poll(() => screen.queryByRole('listbox')).toBeNull();
+    await userEvent.click(screen.getByRole('button', { name: 'Show options' }));
+    await expect.poll(() => screen.queryAllByRole('option')).toHaveLength(regions.length);
+  });
+
   it('shows the empty text when nothing matches', async () => {
     render(<Combobox aria-label="Region" items={regions} emptyText="Không có kết quả" />);
     await userEvent.type(screen.getByRole('combobox', { name: 'Region' }), 'zzz');

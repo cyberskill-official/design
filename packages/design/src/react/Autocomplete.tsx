@@ -2,6 +2,7 @@ import { Autocomplete as BaseAutocomplete } from '@base-ui/react/autocomplete';
 import { MagnifyingGlass, X } from '@phosphor-icons/react';
 import type { FocusEventHandler, ReactNode, Ref } from 'react';
 import { cx } from '../utils/cx';
+import { foldText, includesFolded } from '../utils/search';
 import { ThemedPortal } from './ThemeScope';
 
 /** A suggestion: plain text, or `{ value, label }` where `label` is what fills the input. */
@@ -11,7 +12,7 @@ export type AutocompleteGroup = { label: string; items: AutocompleteItem[] };
 export type AutocompleteSize = 'sm' | 'md' | 'lg';
 
 export type AutocompleteProps = Omit<BaseAutocomplete.Root.Props<AutocompleteItem>, 'items' | 'children'> & {
-  /** Suggestions, flat or in groups (`{ label, items }`). Typing filters them. */
+  /** Suggestions, flat or in groups (`{ label, items }`). Typing filters them, ignoring case and accents (NFC or NFD). */
   items: AutocompleteItem[] | AutocompleteGroup[];
   placeholder?: string;
   size?: AutocompleteSize;
@@ -33,18 +34,17 @@ export type AutocompleteProps = Omit<BaseAutocomplete.Root.Props<AutocompleteIte
 
 const labelOf = (item: AutocompleteItem) => (typeof item === 'string' ? item : item.label);
 const isGroup = (entry: AutocompleteItem | AutocompleteGroup): entry is AutocompleteGroup => typeof entry === 'object' && 'items' in entry;
-// Case- and accent-insensitive, so "ha noi" finds "Hà Nội". Folded per character so indexes map back to the text.
-const fold = (s: string) => s.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
 
-/** Wraps the first match of `query` in `text` with <mark>. */
+/** Wraps the first match of `query` in `text` with <mark>, ignoring case and accents ("dang" marks "Đặng"). */
 function Highlight({ text, query }: { text: string; query: string }) {
-  const q = fold(query.trim());
+  const q = foldText(query.trim());
   if (!q) return text;
-  const chars = Array.from(text);
+  // Composed first, so an accent never splits from its letter at the edge of the mark. Folded per character so indexes map back.
+  const chars = Array.from(text.normalize('NFC'));
   let folded = '';
   const starts = chars.map(c => {
     const at = folded.length;
-    folded += fold(c);
+    folded += foldText(c);
     return at;
   });
   const at = folded.indexOf(q);
@@ -90,7 +90,7 @@ export function Autocomplete({
 }: AutocompleteProps) {
   return (
     // Base UI types flat and grouped items as separate overloads; the union is valid at runtime.
-    <BaseAutocomplete.Root {...props} items={items as AutocompleteItem[]}>
+    <BaseAutocomplete.Root filter={(item: AutocompleteItem, query: string) => includesFolded(labelOf(item), query)} {...props} items={items as AutocompleteItem[]}>
       <BaseAutocomplete.InputGroup data-size={size} className={cx('cs-input-group', 'cs-combobox', 'cs-autocomplete', className)}>
         {icon != null && <span className="cs-input-adornment" data-side="start" aria-hidden="true">{icon}</span>}
         <BaseAutocomplete.Input ref={ref} onBlur={onBlur} aria-label={ariaLabel} placeholder={placeholder} data-size={size} className="cs-input" />

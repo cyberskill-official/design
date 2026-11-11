@@ -38,12 +38,44 @@ describe('DataTable', () => {
     expect(header).not.toHaveAttribute('aria-sort');
   });
 
+  it('sorts text in Vietnamese order, and numbers inside text by value', async () => {
+    const people: Invoice[] = [
+      { id: 'INV-10', customer: 'Zoe', total: 1 },
+      { id: 'INV-2', customer: 'Đặng', total: 2 },
+      { id: 'INV-1', customer: 'Ân', total: 3 },
+      { id: 'INV-3', customer: 'Ánh', total: 4 },
+    ];
+    render(<DataTable label="Invoices" columns={columns} data={people} />);
+    await userEvent.click(screen.getByRole('button', { name: 'Customer' }));
+    expect(bodyRows().map(r => within(r).getAllByRole('cell')[1]!.textContent)).toEqual(['Ánh', 'Ân', 'Đặng', 'Zoe']);
+    await userEvent.click(screen.getByRole('button', { name: 'Invoice' }));
+    expect(firstCells()).toEqual(['INV-1', 'INV-2', 'INV-3', 'INV-10']);
+  });
+
+  it('a column sortFn still wins over the default text order', async () => {
+    const byLength = col.columns([col.accessor('customer', { header: 'Customer', sortFn: (a, b) => a.original.customer.length - b.original.customer.length })]);
+    render(<DataTable label="People" columns={byLength} data={[{ id: '1', customer: 'Ánh', total: 0 }, { id: '2', customer: 'An', total: 0 }]} />);
+    await userEvent.click(screen.getByRole('button', { name: 'Customer' }));
+    expect(firstCells()).toEqual(['An', 'Ánh']);
+  });
+
   it('right-aligns numeric columns in tabular figures', () => {
     render(<DataTable label="Invoices" columns={columns} data={invoices.slice(0, 2)} />);
     const cell = within(bodyRows()[0]!).getAllByRole('cell')[2]!;
     expect(getComputedStyle(cell).textAlign).toBe('end');
     expect(getComputedStyle(cell).fontVariantNumeric).toBe('tabular-nums');
     expect(getComputedStyle(screen.getByRole('columnheader', { name: 'Total' })).textAlign).toBe('end');
+  });
+
+  it('keeps code columns on one line in mono, even when the table is squeezed', () => {
+    const coded = col.columns([col.accessor('id', { header: 'Invoice', meta: { code: true } }), col.accessor('customer', { header: 'Customer' })]);
+    render(<div style={{ width: 120 }}><DataTable label="Invoices" columns={coded} data={invoices.slice(0, 1)} /></div>);
+    const cell = within(bodyRows()[0]!).getAllByRole('cell')[0]!;
+    expect(getComputedStyle(cell).whiteSpace).toBe('nowrap');
+    expect(getComputedStyle(cell).fontFamily).toMatch(/mono/i);
+    expect(cell.getClientRects().length).toBe(1);
+    const text = document.createRange(); text.selectNodeContents(cell);
+    expect(text.getClientRects().length).toBe(1); // INV-001 not split at the hyphen
   });
 
   it('selects rows with checkboxes, shows the selection and reports it', async () => {
@@ -92,6 +124,19 @@ describe('DataTable', () => {
     expect(next).toBeDisabled();
   });
 
+  it('follows a new pageSize', () => {
+    const { rerender } = render(<DataTable label="Invoices" columns={columns} data={invoices} pageSize={10} />);
+    expect(bodyRows()).toHaveLength(10);
+    rerender(<DataTable label="Invoices" columns={columns} data={invoices} pageSize={50} />);
+    expect(bodyRows()).toHaveLength(25);
+    expect(screen.getByText('1–25 of 25')).toBeVisible();
+  });
+
+  it('names the select-all checkbox for the current page when paginated', () => {
+    render(<DataTable label="Invoices" columns={columns} data={invoices} selectable pageSize={10} />);
+    expect(screen.getByRole('checkbox', { name: 'Select all rows on this page' })).toBeVisible();
+  });
+
   it('onRowClick: rows open on click, Enter or Space, but not from controls inside them', async () => {
     const opened: string[] = [];
     const withButton = col.columns([
@@ -130,6 +175,20 @@ describe('DataTable', () => {
     region.scrollTop = 1000 * 44;
     await expect.poll(() => firstCells().includes('INV-1001')).toBe(true);
     expect(bodyRows().find(r => r.textContent?.startsWith('INV-1001'))).toHaveAttribute('aria-rowindex', '1002');
+  });
+
+  it('virtualized row indexes count every header row of grouped columns', () => {
+    const grouped = col.columns([
+      col.accessor('id', { header: 'Invoice' }),
+      col.group({ id: 'details', header: 'Details', columns: col.columns([col.accessor('customer', { header: 'Customer' }), col.accessor('total', { header: 'Total' })]) }),
+    ]);
+    const many = Array.from({ length: 50 }, (_, i) => ({ id: `INV-${i + 1}`, customer: 'Lan', total: i }));
+    render(<DataTable label="Invoices" columns={grouped} data={many} getRowId={getRowId} virtualized maxHeight={300} />);
+    const table = screen.getByRole('table');
+    expect(table).toHaveAttribute('aria-rowcount', '52');
+    const rows = within(table).getAllByRole('row');
+    expect(rows.slice(0, 3).map(r => r.getAttribute('aria-rowindex'))).toEqual(['1', '2', '3']);
+    expect(rows[2]!.textContent).toBe('INV-1Lan0'); // the first body row
   });
 
   it('keeps virtualized headers readable on a phone: the table scrolls sideways instead of squeezing columns', () => {

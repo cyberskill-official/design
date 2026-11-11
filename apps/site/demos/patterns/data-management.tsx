@@ -90,7 +90,7 @@ export function DataManagementPattern() {
   const columns = useMemo(() => {
     const col = createDataTableColumnHelper<Ticket>();
     return col.columns([
-      col.accessor('id', { header: 'Ticket', cell: (c) => <span className="pt-nowrap">{c.getValue()}</span> }),
+      col.accessor('id', { header: 'Ticket', meta: { code: true } }),
       // nowrap: on phones the table scrolls sideways instead of squeezing text into narrow columns
       col.accessor('subject', { header: 'Subject', cell: (c) => <span className="pt-nowrap">{c.getValue()}</span> }),
       col.accessor('customer', { header: 'Customer', cell: (c) => <span className="pt-nowrap">{c.getValue()}</span> }),

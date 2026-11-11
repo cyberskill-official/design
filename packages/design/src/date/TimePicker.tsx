@@ -1,12 +1,12 @@
 import { Combobox } from '@base-ui/react/combobox';
 import { Check, Clock } from '@phosphor-icons/react';
 import type { Locale } from 'date-fns';
-import { useMemo, useRef, useState, type FocusEventHandler, type ReactNode, type Ref } from 'react';
+import { useMemo, useRef, type FocusEventHandler, type ReactNode, type Ref } from 'react';
 import { Button } from '../react/Button';
 import { Field, type FieldProps } from '../react/Field';
 import { cx } from '../utils/cx';
 import { formatTime, parseTime } from './utils';
-import { useControllable } from './picker-state';
+import { useControllable, useDraft } from './picker-state';
 import { ThemedPortal } from '../react/ThemeScope';
 
 type Slot = { value: string; label: string };
@@ -43,8 +43,6 @@ const digits = (s: string) => s.replace(/\D/g, '');
 /** Labelled time field: type `9:30`, `21:30` or `930`, or choose from a list of times every `step` minutes. */
 export function TimePicker({ label, hideLabel, description, error, optionalLabel, required, disabled, className, value, defaultValue = null, onValueChange, step = 15, min, max, hourCycle = 24, locale, placeholder = hourCycle === 24 ? 'hh:mm' : 'h:mm', invalidMessage = 'Enter a valid time', name, inputRef, onBlur }: TimePickerProps) {
   const [current, setCurrent] = useControllable(value, defaultValue, onValueChange);
-  const [draft, setDraft] = useState<string | null>(null); // null: show the formatted value
-  const [invalid, setInvalid] = useState(false);
   const highlighted = useRef<Slot | undefined>(undefined);
   // Normalised so "9:00" and "09:00" compare the same ("HH:mm" strings sort like times).
   const lo = (min && parseTime(min)) || '00:00';
@@ -61,6 +59,7 @@ export function TimePicker({ label, hideLabel, description, error, optionalLabel
   }, [lo, hi, step, hourCycle, locale]);
 
   const shown = current ? formatTime(current, hourCycle, locale) : '';
+  const { draft, setDraft, invalid, setInvalid } = useDraft(shown);
   const text = draft ?? shown;
   // A typed off-step time (09:37) stays the value even though the list has no row for it.
   const selected = current ? (slots.find(s => s.value === current) ?? { value: current, label: shown }) : null;

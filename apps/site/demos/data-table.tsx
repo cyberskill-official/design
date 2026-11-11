@@ -6,7 +6,7 @@ type Invoice = { id: string; customer: string; status: string; total: number };
 const col = createDataTableColumnHelper<Invoice>();
 const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
 const columns = col.columns([
-  col.accessor('id', { header: 'Invoice' }),
+  col.accessor('id', { header: 'Invoice', meta: { code: true } }),
   col.accessor('customer', { header: 'Customer' }),
   col.accessor('status', { header: 'Status', enableSorting: false }),
   col.accessor('total', { header: 'Amount', meta: { numeric: true }, cell: (c) => money.format(c.getValue()) }),

@@ -69,6 +69,17 @@ describe('CommandMenu', () => {
     expect(visibleOptions()).toEqual([]);
   });
 
+  it('matches decomposed (NFD) labels, e.g. pasted from macOS file names', async () => {
+    render(
+      <CommandMenu open onOpenChange={() => {}}>
+        <CommandItem>{'Hợp đồng Nguyễn.pdf'.normalize('NFD')}</CommandItem>
+        <CommandItem>Báo cáo.pdf</CommandItem>
+      </CommandMenu>,
+    );
+    await userEvent.type(await screen.findByRole('combobox', { name: 'Command menu' }), 'hop dong nguyen');
+    await expect.poll(() => screen.queryAllByRole('option').map(o => o.textContent?.normalize())).toEqual(['Hợp đồng Nguyễn.pdf']);
+  });
+
   it('highlights the first match; arrows move it, Enter runs onSelect and closes', async () => {
     const onNewAgent = vi.fn();
     render(<Example onNewAgent={onNewAgent} />);

@@ -89,6 +89,37 @@ describe('FileUpload', () => {
     expect(onAdd).toHaveBeenCalledWith([expect.objectContaining({ name: 'a.png' })]);
   });
 
+  it('formats sizes in en-US by default, whatever the browser locale, so server and client HTML match', () => {
+    const RealNumberFormat = Intl.NumberFormat;
+    // A visitor whose browser runs in Vietnamese: the runtime default would print "1,5 kB".
+    Intl.NumberFormat = function (locale?: Intl.LocalesArgument, options?: Intl.NumberFormatOptions) {
+      return new RealNumberFormat(locale ?? 'vi', options);
+    } as unknown as typeof Intl.NumberFormat;
+    try {
+      render(<FileUpload label="Documents" files={[{ id: '1', name: 'notes.txt', size: 1536 }]} />);
+      expect(screen.getByText('1.5 kB')).toBeVisible();
+    } finally {
+      Intl.NumberFormat = RealNumberFormat;
+    }
+  });
+
+  it('skips a file that is already listed and rejects files past maxFiles', async () => {
+    const onAdd = vi.fn();
+    render(<FileUpload label="Attachments" multiple maxFiles={2} onAdd={onAdd} maxFilesMessage={(f, max) => `${f.name}: tối đa ${max} tệp.`} />);
+    const zone = screen.getByRole('button', { name: /Attachments/ });
+    const a = file('a.pdf', 10, 'application/pdf');
+    drop(zone, [a]);
+    expect(await screen.findByText('a.pdf')).toBeVisible();
+    drop(zone, [a]); // the same file picked again
+    expect(onAdd).toHaveBeenCalledTimes(1);
+    drop(zone, [file('b.pdf', 10, 'application/pdf'), file('c.pdf', 10, 'application/pdf')]);
+    expect(await screen.findByText('c.pdf: tối đa 2 tệp.')).toBeVisible();
+    expect(onAdd).toHaveBeenLastCalledWith([expect.objectContaining({ name: 'b.pdf' })]);
+    expect(screen.getAllByText('a.pdf')).toHaveLength(1);
+    expect(screen.queryByText('c.pdf')).toBeNull();
+    expect(zone).toHaveAttribute('aria-invalid', 'true');
+  });
+
   it('field and rejection errors carry a hidden warning icon before the text', async () => {
     render(<FileUpload label="Documents" error="Add at least one document." />);
     const message = screen.getByText('Add at least one document.').closest('.cs-field-error')!;

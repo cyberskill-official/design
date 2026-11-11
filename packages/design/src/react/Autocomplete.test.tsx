@@ -38,6 +38,17 @@ describe('Autocomplete', () => {
     expect(option.querySelector('mark')).toHaveTextContent('Phòng');
   });
 
+  it('matches decomposed (NFD) text, and highlights đ typed as d', async () => {
+    render(<Autocomplete aria-label="Name" items={['Nguyễn Văn An'.normalize('NFD'), 'Đặng Thu Hà', 'Trần Bình']} />);
+    const input = screen.getByRole('combobox', { name: 'Name' });
+    await userEvent.type(input, 'nguyen');
+    await expect.poll(() => screen.queryAllByRole('option').map(o => o.textContent?.normalize())).toEqual(['Nguyễn Văn An']);
+    expect(screen.getByRole('option').querySelector('mark')?.textContent?.normalize()).toBe('Nguyễn');
+    await userEvent.fill(input, 'dang');
+    const option = await screen.findByRole('option', { name: 'Đặng Thu Hà' });
+    expect(option.querySelector('mark')).toHaveTextContent('Đặng');
+  });
+
   it('renders groups with their labels', async () => {
     render(<Autocomplete aria-label="Search" items={grouped} />);
     await userEvent.type(screen.getByRole('combobox', { name: 'Search' }), 'n');

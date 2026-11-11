@@ -2,13 +2,14 @@ import { Combobox as BaseCombobox } from '@base-ui/react/combobox';
 import { CaretUpDown, Check, X } from '@phosphor-icons/react';
 import { useMemo, type FocusEventHandler, type ReactNode, type Ref } from 'react';
 import { cx } from '../utils/cx';
+import { includesFolded } from '../utils/search';
 import { Field, type FieldProps } from './Field';
 import { ThemedPortal } from './ThemeScope';
 
 export type ComboboxItem = {
   /** Stored and submitted value, e.g. an ID. */
   value: string;
-  /** Text shown in the list and in the input once chosen; also what typing filters on. */
+  /** Text shown in the list and in the input once chosen; also what typing filters on (ignoring case and accents, NFC or NFD). */
   label: string;
   /** Second line under the label, e.g. an email or a region code. */
   description?: ReactNode;
@@ -111,7 +112,7 @@ export function Combobox<Item extends ComboboxItem = ComboboxItem>({
 }: ComboboxProps<Item>) {
   const collection = useComboboxItems(items);
   return (
-    <BaseCombobox.Root {...props} items={collection}>
+    <BaseCombobox.Root filter={(item: Item, query: string) => includesFolded(item.label, query)} {...props} items={collection}>
       <BaseCombobox.InputGroup data-size={size} className={cx('cs-input-group', 'cs-combobox', className)}>
         <BaseCombobox.Input ref={ref} onBlur={onBlur} aria-label={ariaLabel} placeholder={placeholder} data-size={size} className="cs-input" />
         <span className="cs-combobox-actions">

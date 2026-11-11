@@ -33,6 +33,7 @@
   & tbody tr[data-clickable]:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; }
   & [data-numeric] { text-align: end; }
   & td[data-numeric] { font-family: var(--font-mono); font-size: 13px; font-variant-numeric: tabular-nums; }
+  & td[data-code] { font-family: var(--font-mono); font-size: 13px; white-space: nowrap; }
   & [data-select] { width: 20px; padding-inline-end: 0; }
 }
 

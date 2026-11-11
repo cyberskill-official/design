@@ -1,11 +1,11 @@
 import { CaretDown, CaretUp, CaretUpDown } from '@phosphor-icons/react';
 import {
   createColumnHelper, createPaginatedRowModel, createSortedRowModel, metaHelper, rowPaginationFeature, rowSelectionFeature, rowSortingFeature,
-  sortFn_alphanumeric, sortFn_datetime, sortFn_text, tableFeatures, useTable,
-  type ColumnDef, type OnChangeFn, type RowSelectionState, type SortingState,
+  sortFn_datetime, tableFeatures, useTable,
+  type ColumnDef, type OnChangeFn, type RowSelectionState, type SortFn, type SortingState,
 } from '@tanstack/react-table';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { useMemo, useRef, type HTMLAttributes, type KeyboardEvent, type MouseEvent, type ReactNode } from 'react';
+import { useEffect, useMemo, useRef, type HTMLAttributes, type KeyboardEvent, type MouseEvent, type ReactNode } from 'react';
 import { Pagination, type PaginationProps } from '../react/Pagination';
 import { cx } from '../utils/cx';
 
@@ -15,13 +15,20 @@ type DataTableMeta = { selectAllLabel: string; selectRowLabel: (row: any) => str
 export type DataTableColumnMeta = {
   /** Right-aligns the column and sets numbers in tabular mono figures. */
   numeric?: boolean;
+  /** Codes and IDs (INV-1043, SKU-88): mono, and never broken across lines at a hyphen. */
+  code?: boolean;
 };
+
+// Text sorts in Vietnamese order ("Ánh", "Đặng" before "Zoe"), numbers inside it by value (INV-2 before INV-10).
+// Registered under both names 'auto' picks for strings; number columns keep the basic comparator and sort descending first.
+const collator = new Intl.Collator('vi', { numeric: true });
+const sortFn_collate: SortFn<any, any> = (a, b, id) => collator.compare(String(a.getValue(id) ?? ''), String(b.getValue(id) ?? ''));
 
 /** The TanStack Table v9 features DataTable registers: sorting, row selection, pagination and typed column meta. */
 export const dataTableFeatures = tableFeatures({
   rowSortingFeature,
   sortedRowModel: createSortedRowModel(),
-  sortFns: { alphanumeric: sortFn_alphanumeric, text: sortFn_text, datetime: sortFn_datetime },
+  sortFns: { alphanumeric: sortFn_collate, text: sortFn_collate, datetime: sortFn_datetime },
   rowSelectionFeature,
   rowPaginationFeature,
   paginatedRowModel: createPaginatedRowModel(),
@@ -67,6 +74,7 @@ export type DataTableProps<TData extends object> = Omit<HTMLAttributes<HTMLDivEl
    * Clicks on links, buttons, checkboxes and other controls inside a cell run those controls instead.
    */
   onRowClick?: (row: TData) => void;
+  /** Accessible name of the header checkbox. Defaults to "Select all rows", or "Select all rows on this page" with `pageSize` (it selects only that page). */
   selectAllLabel?: string;
   /** Accessible name of a row checkbox. Name the row, e.g. `row => \`Select ${row.number}\``. */
   selectRowLabel?: (row: TData) => string;
@@ -110,7 +118,7 @@ const CONTROLS = 'a[href], button, input, select, textarea, label, summary, [rol
 export function DataTable<TData extends object>({
   columns, data, label, getRowId, density = 'default', sorting, onSortingChange, selectable = false, rowSelection, onRowSelectionChange,
   pageSize, virtualized = false, maxHeight = virtualized ? 480 : undefined, emptyState = 'No results', onRowClick,
-  selectAllLabel = 'Select all rows', selectRowLabel = () => 'Select row', previousPageLabel = 'Previous page', nextPageLabel = 'Next page',
+  selectAllLabel = pageSize ? 'Select all rows on this page' : 'Select all rows', selectRowLabel = () => 'Select row', previousPageLabel = 'Previous page', nextPageLabel = 'Next page',
   paginationLabel = `${label} pages`, pageLabel, formatRange = defaultRange, className, ...props
 }: DataTableProps<TData>) {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -132,6 +140,11 @@ export function DataTable<TData extends object>({
     ...(onRowSelectionChange && { onRowSelectionChange }),
   });
 
+  // initialState is read once; follow later pageSize changes.
+  useEffect(() => {
+    if (pageSize && pageSize !== table.state.pagination.pageSize) table.setPageSize(pageSize);
+  }, [table, pageSize]);
+
   const rows = table.getRowModel().rows;
   const virtualizer = useVirtualizer({
     count: rows.length,
@@ -150,6 +163,7 @@ export function DataTable<TData extends object>({
   const from = total ? pageIndex * size + 1 : 0;
   const to = Math.min(pageIndex * size + rows.length, total);
   const scrolls = maxHeight != null;
+  const headerGroups = table.getHeaderGroups();
 
   return (
     <div {...props} className={cx('cs-data-table', className)} data-density={density}>
@@ -158,14 +172,14 @@ export function DataTable<TData extends object>({
         {...(scrolls && { tabIndex: 0, role: 'region', 'aria-label': label })}
       >
         <table
-          aria-label={label} aria-rowcount={virtualized ? rows.length + 1 : undefined} data-virtualized={virtualized || undefined}
+          aria-label={label} aria-rowcount={virtualized ? rows.length + headerGroups.length : undefined} data-virtualized={virtualized || undefined}
           // Virtualized tables use a fixed layout so columns don't jump as rows scroll. A floor of 9rem per column makes
           // narrow screens scroll sideways instead of squeezing headers into each other.
           style={virtualized ? { minWidth: `calc(${leafCount(columns)} * 9rem${selectable ? ' + 36px' : ''})` } : undefined}
         >
           <thead>
-            {table.getHeaderGroups().map(group => (
-              <tr key={group.id} aria-rowindex={virtualized ? 1 : undefined}>
+            {headerGroups.map((group, g) => (
+              <tr key={group.id} aria-rowindex={virtualized ? g + 1 : undefined}>
                 {group.headers.map(header => {
                   const sorted = header.column.getIsSorted();
                   const numeric = header.column.columnDef.meta?.numeric;
@@ -196,7 +210,7 @@ export function DataTable<TData extends object>({
               <tr
                 key={row.id} data-selected={row.getIsSelected() || undefined}
                 data-index={virtualized ? items[i]!.index : undefined}
-                aria-rowindex={virtualized ? items[i]!.index + 2 : undefined}
+                aria-rowindex={virtualized ? items[i]!.index + headerGroups.length + 1 : undefined}
                 ref={virtualized ? virtualizer.measureElement : undefined}
                 {...(onRowClick && {
                   tabIndex: 0,
@@ -211,7 +225,7 @@ export function DataTable<TData extends object>({
                 })}
               >
                 {row.getAllCells().map(cell => (
-                  <td key={cell.id} data-numeric={cell.column.columnDef.meta?.numeric || undefined} data-select={cell.column.id === '_select' || undefined}>
+                  <td key={cell.id} data-numeric={cell.column.columnDef.meta?.numeric || undefined} data-code={cell.column.columnDef.meta?.code || undefined} data-select={cell.column.id === '_select' || undefined}>
                     <table.FlexRender cell={cell} />
                   </td>
                 ))}

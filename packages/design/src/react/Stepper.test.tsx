@@ -42,6 +42,17 @@ describe('Stepper', () => {
     expect(screen.getByRole('list')).toHaveAttribute('data-orientation', 'vertical');
   });
 
+  it('wraps steps into rows on a phone instead of letting titles run into the next step', () => {
+    const four: StepperStep[] = ['Connect sources', 'Train agent', 'Test answers', 'Go live'].map((title, i) => ({ title, status: i === 0 ? 'complete' : i === 1 ? 'current' : 'upcoming' }));
+    const { container } = render(<div style={{ width: 240 }}><Stepper steps={four} /></div>);
+    for (const step of container.querySelectorAll('.cs-stepper-step')) {
+      const text = document.createRange();
+      text.selectNodeContents(step.querySelector('.cs-stepper-title')!);
+      // the rendered words, not the title box: in a column too narrow they spill past the step into its neighbour
+      expect(text.getBoundingClientRect().right).toBeLessThanOrEqual(step.getBoundingClientRect().right + 1);
+    }
+  });
+
   it('has no accessibility violations in light and dark', async () => {
     await expectAccessibleInThemes(
       <div>

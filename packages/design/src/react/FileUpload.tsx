@@ -32,14 +32,16 @@ export type FileUploadProps = {
   multiple?: boolean;
   /** Largest allowed file in bytes. Sizes print in binary units, so write `5 * 1024 * 1024` for a "5 MB" hint. */
   maxSize?: number;
+  /** Most files the list may hold (with `multiple`). Files past it are rejected with `maxFilesMessage`. */
+  maxFiles?: number;
   disabled?: boolean;
   /** Controlled list (e.g. with upload progress). Omit to let the component keep the picked files. */
   files?: FileUploadItem[];
-  /** Called with the files that passed `accept` and `maxSize`. */
+  /** Called with the files that passed `accept`, `maxSize` and `maxFiles`. A file already listed (same name, size and last-modified time) is skipped. */
   onAdd?: (files: File[]) => void;
   /** Called when a file's remove button is pressed. */
   onRemove?: (item: FileUploadItem) => void;
-  /** Locale for file sizes. */
+  /** Locale for file sizes. A fixed default (not the browser's) keeps server and client HTML identical. */
   locale?: Intl.LocalesArgument;
   /** Text inside the drop zone. Pass Vietnamese text in Vietnamese UIs. */
   prompt?: ReactNode;
@@ -50,6 +52,8 @@ export type FileUploadProps = {
   wrongTypeMessage?: (file: File) => string;
   /** Without `multiple`, shown when several files are dropped at once; none of them is added. */
   tooManyFilesMessage?: (count: number) => string;
+  /** Shown for each file past `maxFiles`; that file is not added. */
+  maxFilesMessage?: (file: File, maxFiles: number) => string;
   removeLabel?: (name: string) => string;
   progressLabel?: (name: string) => string;
   /** Shown with a check mark in place of the bar once a file reaches 100%, e.g. "Uploaded" / "Đã tải lên". */
@@ -80,16 +84,18 @@ export function FileUpload({
   accept,
   multiple,
   maxSize,
+  maxFiles,
   disabled,
   files,
   onAdd,
   onRemove,
-  locale,
+  locale = 'en-US',
   prompt = 'Drag files here or click to browse',
   hint,
   tooLargeMessage = (file, max) => `${file.name} is larger than ${max}.`,
   wrongTypeMessage = file => `${file.name} is not an accepted file type.`,
   tooManyFilesMessage = count => `Add one file at a time (${count} were dropped).`,
+  maxFilesMessage = (file, max) => `${file.name} was not added: the limit is ${max} files.`,
   removeLabel = name => `Remove ${name}`,
   progressLabel = name => `Uploading ${name}`,
   doneLabel = 'Uploaded',
@@ -108,9 +114,12 @@ export function FileUpload({
     if (!multiple && picked.length > 1) return setRejected([tooManyFilesMessage(picked.length)]);
     const ok: File[] = [];
     const problems: string[] = [];
+    const kept = multiple ? list.length : 0; // without multiple, a pick replaces the list
     for (const file of Array.from(picked)) {
+      if (list.some(({ file: f }) => f && f.name === file.name && f.size === file.size && f.lastModified === file.lastModified)) continue; // already listed
       if (!accepts(file, accept)) problems.push(wrongTypeMessage(file));
       else if (maxSize != null && file.size > maxSize) problems.push(tooLargeMessage(file, formatFileSize(maxSize, locale)));
+      else if (maxFiles != null && kept + ok.length >= maxFiles) problems.push(maxFilesMessage(file, maxFiles));
       else ok.push(file);
     }
     setRejected(problems);

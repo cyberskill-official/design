@@ -72,8 +72,8 @@ export function DateRangePicker({ value, defaultValue = null, onValueChange, for
     return a <= b ? { from: a, to: b } : { from: b, to: a };
   };
   const fromText = (text: string): DateRangeValue | null => {
-    // Split on a dash with spaces around it, or on any en/em dash, so `yyyy-MM-dd` formats still work.
-    const [a, b, ...rest] = text.split(/\s+[-–—]\s+|\s*[–—]\s*/).map(part => parseDate(part, format, locale));
+    // Any dash splits when the format has none; otherwise a hyphen needs spaces around it, so `yyyy-MM-dd` still works.
+    const [a, b, ...rest] = text.split(format.includes('-') ? /\s+[-–—]\s+|\s*[–—]\s*/ : /\s*[-–—]\s*/).map(part => parseDate(part, format, locale));
     return rest.length ? null : toRange(a, b);
   };
   const formFields = name ? { [`${name}[from]`]: current ? formatDate(current.from, FORM_DATE_FORMAT) : '', [`${name}[to]`]: current ? formatDate(current.to, FORM_DATE_FORMAT) : '' } : undefined;

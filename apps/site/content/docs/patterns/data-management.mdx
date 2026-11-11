@@ -23,7 +23,7 @@ import { DataTable, createDataTableColumnHelper, type RowSelectionState } from '
 
 const col = createDataTableColumnHelper<Ticket>();
 const columns = col.columns([
-  col.accessor('id', { header: 'Ticket' }),
+  col.accessor('id', { header: 'Ticket', meta: { code: true } }),
   col.accessor('subject', { header: 'Subject' }),
   col.accessor('status', { header: 'Status', enableSorting: false, cell: (c) => <Badge size="sm" tone={tones[c.getValue()]}>{labels[c.getValue()]}</Badge> }),
   col.accessor('created', { header: 'Created', cell: (c) => date.format(c.getValue()) }),

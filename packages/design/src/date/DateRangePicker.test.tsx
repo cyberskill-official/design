@@ -23,6 +23,13 @@ describe('DateRangePicker', () => {
     expect(input).toHaveValue('01/03/2026 – 20/03/2026');
   });
 
+  it('reads a plain hyphen between the dates when the format has none', async () => {
+    const onValueChange = vi.fn();
+    render(<DateRangePicker label="Stay" onValueChange={onValueChange} />);
+    await userEvent.type(screen.getByRole('textbox', { name: 'Stay' }), '01/03/2026-15/03/2026{Enter}');
+    expect(onValueChange).toHaveBeenLastCalledWith({ from: new Date(2026, 2, 1), to: new Date(2026, 2, 15) });
+  });
+
   it('flags a half-typed range', async () => {
     render(<DateRangePicker label="Stay" invalidMessage="Nhập hai ngày" />);
     const input = screen.getByRole('textbox', { name: 'Stay' });

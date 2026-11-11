@@ -3,6 +3,7 @@ import { Dialog as BaseDialog } from '@base-ui/react/dialog';
 import { MagnifyingGlass } from '@phosphor-icons/react';
 import { createContext, useContext, useEffect, useLayoutEffect, useRef, useState, type Dispatch, type ReactNode, type SetStateAction } from 'react';
 import { cx } from '../utils/cx';
+import { includesFolded } from '../utils/search';
 import { ThemedPortal } from './ThemeScope';
 
 type CommandMenuContextValue = { matches: (text: string) => boolean; close: () => void };
@@ -76,13 +77,12 @@ function CommandSearch({ label, placeholder, emptyLabel, close, children }: Pick
   // the highlight within them and the empty state is known. `null` until the first measure.
   const [matching, setMatching] = useState<string[] | null>(null);
   const listRef = useRef<HTMLDivElement>(null);
-  const { contains } = Autocomplete.useFilter();
   useLayoutEffect(() => {
     const values = Array.from(listRef.current?.querySelectorAll<HTMLElement>('[role="option"]') ?? [], el => el.dataset.value ?? '');
     setMatching(prev => (prev?.join('\n') === values.join('\n') ? prev : values));
   });
 
-  const context: CommandMenuContextValue = { matches: text => contains(text, query), close };
+  const context: CommandMenuContextValue = { matches: text => includesFolded(text, query), close };
   return (
     <Autocomplete.Root
       open

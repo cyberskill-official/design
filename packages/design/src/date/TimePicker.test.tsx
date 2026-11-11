@@ -115,6 +115,17 @@ describe('TimePicker', () => {
     expect(new FormData(form).get('start')).toBe('');
   });
 
+  it('an outside value change replaces invalid typed text and clears the error', async () => {
+    const { rerender } = render(<TimePicker label="Start time" value={null} />);
+    const input = screen.getByRole('combobox', { name: 'Start time' });
+    await userEvent.type(input, '25:99');
+    await userEvent.tab();
+    expect(input).toHaveAttribute('aria-invalid', 'true');
+    rerender(<TimePicker label="Start time" value="09:00" />);
+    expect(input).toHaveValue('09:00');
+    expect(input).not.toHaveAttribute('aria-invalid');
+  });
+
   it('forwards inputRef and onBlur to the visible input', async () => {
     const onBlur = vi.fn();
     let el: HTMLInputElement | null = null;

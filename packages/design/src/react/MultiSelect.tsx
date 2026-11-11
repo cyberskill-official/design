@@ -2,6 +2,7 @@ import { Combobox as BaseCombobox } from '@base-ui/react/combobox';
 import { CaretUpDown, X } from '@phosphor-icons/react';
 import { useState } from 'react';
 import { cx } from '../utils/cx';
+import { includesFolded } from '../utils/search';
 import { ComboboxPopup, renderComboboxItem, useComboboxItems, type ComboboxItem, type ComboboxProps } from './Combobox';
 import { Field, type FieldProps } from './Field';
 
@@ -58,6 +59,7 @@ export function MultiSelect<Item extends ComboboxItem = ComboboxItem>({
 
   return (
     <BaseCombobox.Root
+      filter={(item: Item, query: string) => includesFolded(item.label, query)}
       {...props}
       multiple
       items={collection}

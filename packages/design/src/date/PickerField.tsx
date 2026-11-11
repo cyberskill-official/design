@@ -1,6 +1,7 @@
 import { Popover } from '@base-ui/react/popover';
 import { CalendarBlank, X } from '@phosphor-icons/react';
 import { useRef, useState, type FocusEventHandler, type ReactNode, type Ref } from 'react';
+import { useDraft } from './picker-state';
 import { IconButton } from '../react/Button';
 import { Field, Input, type FieldProps } from '../react/Field';
 import { cx } from '../utils/cx';
@@ -44,11 +45,11 @@ type Props<T> = Omit<PickerFieldProps, 'name'> & {
  */
 export function PickerField<T>({ value, formFields, onCommit, toText, fromText, children, label, hideLabel, description, error, optionalLabel, required, disabled, className, placeholder, invalidMessage = 'Enter a valid date', clearLabel = 'Clear date', openLabel = 'Choose date', inputRef: externalRef, onBlur }: Props<T>) {
   const [open, setOpen] = useState(false);
-  const [draft, setDraft] = useState<string | null>(null); // null: show the formatted value
-  const [invalid, setInvalid] = useState(false);
+  const shown = value == null ? '' : toText(value);
+  const { draft, setDraft, invalid, setInvalid } = useDraft(shown);
   const inputRef = useRef<HTMLInputElement>(null);
   const popupRef = useRef<HTMLDivElement>(null);
-  const text = draft ?? (value == null ? '' : toText(value));
+  const text = draft ?? shown;
 
   const select = (next: T | null) => {
     setDraft(null);

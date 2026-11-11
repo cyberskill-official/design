@@ -1,4 +1,6 @@
-import { render, screen, within } from '@testing-library/react';
+import { act, render, screen, within } from '@testing-library/react';
+import { hydrateRoot, type Root } from 'react-dom/client';
+import { renderToString } from 'react-dom/server';
 import { userEvent } from 'vitest/browser';
 import { describe, expect, it, vi as mock } from 'vitest';
 import { vi } from 'react-day-picker/locale';
@@ -56,6 +58,31 @@ describe('Calendar', () => {
   it('shows two months side by side', () => {
     render(<Calendar mode="range" defaultMonth={march} numberOfMonths={2} />);
     expect(screen.getAllByRole('grid').map(g => g.getAttribute('aria-label'))).toEqual(['March 2026', 'April 2026']);
+  });
+
+  it('server HTML and the first client render match on another day, then the visitor\'s today is marked', async () => {
+    mock.useFakeTimers({ toFake: ['Date'] });
+    const errors = mock.spyOn(console, 'error').mockImplementation(() => {});
+    const container = document.createElement('div');
+    let root: Root | undefined;
+    try {
+      const ui = <Calendar mode="single" defaultMonth={march} />;
+      mock.setSystemTime(new Date(2026, 2, 10, 12)); // the day the page was built
+      container.innerHTML = renderToString(ui);
+      document.body.append(container);
+      expect(container.querySelector('[data-today]')).toBeNull();
+      mock.setSystemTime(new Date(2026, 2, 11, 12)); // the visitor opens it a day later
+      await act(async () => {
+        root = hydrateRoot(container, ui, { onRecoverableError: error => console.error(error) });
+      });
+      expect(errors.mock.calls.map(c => String(c[0]).slice(0, 400))).toEqual([]);
+      expect(container.querySelector('[data-today]')).toHaveAttribute('data-day', '2026-03-11');
+    } finally {
+      act(() => root?.unmount());
+      container.remove();
+      errors.mockRestore();
+      mock.useRealTimers();
+    }
   });
 
   it('has no accessibility violations in light and dark', async () => {
