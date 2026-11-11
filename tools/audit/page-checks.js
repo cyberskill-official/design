@@ -11,7 +11,9 @@ export function colorChecks() {
   const Y = c => 0.2126 * lin(c[0]) + 0.7152 * lin(c[1]) + 0.0722 * lin(c[2]);
   const ratio = (a, b) => { const x = Y(a), y = Y(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); };
   const hex = c => '#' + c.slice(0, 3).map(v => Math.round(v).toString(16).padStart(2, '0')).join('').toUpperCase();
-  const visible = el => { if (el.closest('[hidden],[aria-hidden="true"] .cs-visually-hidden')) return false; const r = el.getBoundingClientRect(); if (r.width < 1 || r.height < 1) return false; const cs = getComputedStyle(el); return cs.visibility !== 'hidden' && cs.display !== 'none' && +cs.opacity > 0.05; };
+  // Visually hidden for screen readers (sr-only, cs-visually-hidden, any clip-to-1px technique): never drawn, so not audited.
+  const srOnly = el => { for (let e = el; e && e.nodeType === 1; e = e.parentElement) { const cs = getComputedStyle(e); if (cs.clip === 'rect(0px, 0px, 0px, 0px)' || cs.clipPath === 'inset(50%)' || (cs.position === 'absolute' && parseFloat(cs.width) <= 1 && parseFloat(cs.height) <= 1 && /hidden|clip/.test(cs.overflow))) return true; } return false; };
+  const visible = el => { if (el.closest('[hidden]') || srOnly(el)) return false; const r = el.getBoundingClientRect(); if (r.width < 1 || r.height < 1) return false; const cs = getComputedStyle(el); return cs.visibility !== 'hidden' && cs.display !== 'none' && +cs.opacity > 0.05; };
   const opacity = el => { let o = 1; for (let e = el; e && e.nodeType === 1; e = e.parentElement) o *= +getComputedStyle(e).opacity; return o; };
   const bgBehind = el => {
     const layers = []; let image = false;
@@ -60,7 +62,9 @@ export function colorChecks() {
 export function layoutChecks({ w, h, fold }) {
   const out = { viewport: `${w}x${h}`, pageOverflowX: document.documentElement.scrollWidth - innerWidth, clipped: [], spill: [], overlap: [], targets: [], smallText: {}, orphans: [], longLines: [], fold: [] };
   let id = 0; const mark = (el, type) => { const k = 'l' + id++; el.setAttribute('data-audit-l', k); el.setAttribute('data-audit-type', type); return k; };
-  const visible = el => { if (el.closest('[hidden]')) return false; const r = el.getBoundingClientRect(); if (r.width < 1 || r.height < 1) return false; const cs = getComputedStyle(el); return cs.visibility !== 'hidden' && cs.display !== 'none'; };
+  // Visually hidden for screen readers (sr-only, cs-visually-hidden, any clip-to-1px technique): never drawn, so not audited.
+  const srOnly = el => { for (let e = el; e && e.nodeType === 1; e = e.parentElement) { const cs = getComputedStyle(e); if (cs.clip === 'rect(0px, 0px, 0px, 0px)' || cs.clipPath === 'inset(50%)' || (cs.position === 'absolute' && parseFloat(cs.width) <= 1 && parseFloat(cs.height) <= 1 && /hidden|clip/.test(cs.overflow))) return true; } return false; };
+  const visible = el => { if (el.closest('[hidden]') || srOnly(el)) return false; const r = el.getBoundingClientRect(); if (r.width < 1 || r.height < 1) return false; const cs = getComputedStyle(el); return cs.visibility !== 'hidden' && cs.display !== 'none'; };
   const path = el => { const p = []; for (let e = el; e && e !== document.body && p.length < 4; e = e.parentElement) p.unshift(e.tagName.toLowerCase() + (e.classList.length ? '.' + [...e.classList].slice(0, 2).join('.') : '')); return p.join(' > '); };
   const pad = e => { const r = e.getBoundingClientRect(); const l = r.left + e.clientLeft, t = r.top + e.clientTop; return { l, t, r: l + e.clientWidth, b: t + e.clientHeight }; };
   // The text's own element can clip or scroll it, so start there.
@@ -92,15 +96,31 @@ export function layoutChecks({ w, h, fold }) {
     const ix = Math.min(a.u.r, b.u.r) - Math.max(a.u.l, b.u.l), iy = Math.min(a.u.b, b.u.b) - Math.max(a.u.t, b.u.t);
     if (ix > 2 && iy > 4) out.overlap.push({ k: mark(a.el, 'overlap'), a: a.el.textContent.trim().slice(0, 30), b: b.el.textContent.trim().slice(0, 30), path: path(a.el) });
   }
-  // Touch targets: count an invisible ::before hit area when a component provides one.
+  // Touch targets. The hit area counts a component's invisible ::before/::after hit-slop and a wrapping <label>.
+  // Under 24px fails (WCAG 2.5.8) unless a 24px circle around it touches no other target (the spacing exception); under 44px warns.
+  const hits = [];
   for (const el of document.querySelectorAll('a[href], button, summary, input:not([type=hidden]), select, textarea, [role=button], [role=tab], [role=menuitem], [role=checkbox], [role=switch], [role=radio]')) {
     if (!visible(el) || ignored(el)) continue;
     if (el.matches('a') && getComputedStyle(el).display === 'inline' && el.closest('p, li, td')) continue; // inline links in text are exempt (WCAG 2.5.8)
-    const r = el.getBoundingClientRect(), b = getComputedStyle(el, '::before');
-    const hitW = Math.max(r.width, b.position === 'absolute' ? parseFloat(b.width) || 0 : 0), hitH = Math.max(r.height, b.position === 'absolute' ? parseFloat(b.height) || 0 : 0);
-    const min = Math.min(hitW, hitH);
-    if (min < 44) out.targets.push({ k: min < 24 ? mark(el, 'target') : null, label: (el.getAttribute('aria-label') || el.textContent || el.getAttribute('name') || '').trim().slice(0, 30), w: Math.round(hitW), h: Math.round(hitH), level: min < 24 ? 'fail' : 'below 44', path: path(el) });
+    const r = el.getBoundingClientRect();
+    let hitW = r.width, hitH = r.height;
+    for (const pseudo of ['::before', '::after']) {
+      const b = getComputedStyle(el, pseudo);
+      if (b.content !== 'none' && b.position === 'absolute') { hitW = Math.max(hitW, parseFloat(b.width) || 0); hitH = Math.max(hitH, parseFloat(b.height) || 0); }
+    }
+    const label = el.matches('input') && el.closest('label');
+    if (label) { const l = label.getBoundingClientRect(); hitW = Math.max(hitW, l.width); hitH = Math.max(hitH, l.height); }
+    hits.push({ el, r, hitW, hitH });
   }
+  const near = (h, o) => { const cx = h.r.left + h.r.width / 2, cy = h.r.top + h.r.height / 2; const dx = Math.max(o.r.left - cx, 0, cx - o.r.right), dy = Math.max(o.r.top - cy, 0, cy - o.r.bottom); return dx * dx + dy * dy < 144; };
+  for (const h of hits) {
+    const min = Math.min(h.hitW, h.hitH);
+    if (min >= 44) continue;
+    const spaced = min < 24 && !hits.some(o => o !== h && !o.el.contains(h.el) && !h.el.contains(o.el) && near(h, o));
+    const fail = min < 24 && !spaced;
+    out.targets.push({ k: fail ? mark(h.el, 'target') : null, label: (h.el.getAttribute('aria-label') || h.el.textContent || h.el.getAttribute('name') || '').trim().slice(0, 30), w: Math.round(h.hitW), h: Math.round(h.hitH), level: fail ? 'fail' : 'warn', path: path(h.el) + (spaced ? ' [spaced]' : '') });
+  }
+
   // Lone item wrapped onto its own line in a wrapping row
   for (const el of document.querySelectorAll('body *')) {
     const cs = getComputedStyle(el); if (cs.display.indexOf('flex') < 0 || cs.flexWrap !== 'wrap' || !visible(el) || ignored(el)) continue;

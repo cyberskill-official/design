@@ -1,0 +1,59 @@
+---
+title: Pricing
+description: A monthly or yearly switch, three plan cards with the popular one marked, feature lists and an FAQ.
+full: true
+---
+
+import { PricingPattern } from '@/demos/patterns/pricing';
+
+Use this pattern for a pricing page or an in-app plan picker. A [Segmented control](/docs/components/segmented-control) switches monthly and yearly prices. Each plan is a [Card](/docs/components/card) with a price, a feature list with check icons and a [Button](/docs/components/button); the recommended plan carries a [Badge](/docs/components/badge) "Most popular" and the only primary button. An [Accordion](/docs/components/accordion) answers common questions.
+
+## Example
+
+<Demo title="Pricing" layout="block">
+  <PricingPattern />
+</Demo>
+
+```tsx
+import { Accordion, AccordionItem, AccordionPanel, AccordionTrigger, Badge, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, SegmentedControl } from '@cyberskill/design';
+import { Check } from '@phosphor-icons/react';
+
+<SegmentedControl label="Billing cycle" value={cycle} onValueChange={setCycle}
+  items={[{ value: 'monthly', label: 'Monthly' }, { value: 'yearly', label: 'Yearly · save 20%' }]} />
+
+<div className="plans">                                   {/* repeat(auto-fit, minmax(240px, 1fr)) */}
+  {plans.map((plan) => (
+    <Card key={plan.name} className={plan.popular ? 'plan-featured' : undefined}>
+      <CardHeader>
+        <CardTitle>{plan.name}</CardTitle>
+        {plan.popular && <Badge tone="accent" size="sm">Most popular</Badge>}
+        <CardDescription>{plan.blurb}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p className="price">${plan.price[cycle]} <small>{plan.unit}</small></p>
+        <ul aria-label={`${plan.name} includes`}>
+          {plan.features.map((f) => <li key={f}><Check aria-hidden /> {f}</li>)}
+        </ul>
+      </CardContent>
+      <CardFooter>
+        <Button fullWidth variant={plan.popular ? 'primary' : 'secondary'}>{plan.cta}</Button>
+      </CardFooter>
+    </Card>
+  ))}
+</div>
+
+<Accordion>
+  <AccordionItem value="messages">
+    <AccordionTrigger>What counts as a message?</AccordionTrigger>
+    <AccordionPanel>Every reply an agent sends counts as one message.</AccordionPanel>
+  </AccordionItem>
+</Accordion>
+```
+
+## Notes
+
+- The segmented control changes what is shown, not a saved choice, so it fits here; in a checkout form, use a [Radio group](/docs/components/radio-group) instead.
+- Mark one plan as popular with the badge and the only primary button. The gold `accent` badge is the single gold element on the page.
+- The check icons are decorative (`aria-hidden`); the list is named "Team includes" so screen readers hear what the items belong to. Write features so they read well on their own.
+- Show what the yearly price means ("Billed $228 a year per seat") so the switch never hides the real total.
+- Responsive: cards sit three across when there is room and stack on phones, each keeping its button at the bottom so buttons line up across cards.

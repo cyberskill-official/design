@@ -2,10 +2,11 @@
 import { DatePicker, DateTimePicker, formatDate } from '@cyberskill/design/date';
 import { useState } from 'react';
 import { vi } from 'react-day-picker/locale';
+import { useToday } from './calendar';
 
 export function DatePickerStates() {
   const [start, setStart] = useState<Date | null>(new Date(2026, 2, 15));
-  const today = new Date();
+  const today = useToday();
   return (
     <div style={{ display: 'grid', gap: 20, width: '100%', maxWidth: 320 }}>
       <DatePicker label="Start date" value={start} onValueChange={setStart} description="Type dd/mm/yyyy or pick from the calendar." />
@@ -17,13 +18,14 @@ export function DatePickerStates() {
 }
 
 export function DatePickerVietnamese() {
+  const today = useToday();
   return (
     <div style={{ width: '100%', maxWidth: 320 }}>
       <DatePicker
         label="Ngày sinh"
         locale={vi}
         defaultValue={new Date(1995, 5, 12)}
-        max={new Date()}
+        max={today}
         invalidMessage="Ngày không hợp lệ. Nhập dạng dd/mm/yyyy."
         clearLabel="Xoá ngày"
         openLabel="Chọn ngày"

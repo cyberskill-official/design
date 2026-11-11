@@ -23,6 +23,8 @@ Use a number field for quantities people adjust in small steps: seats, replicas,
 
 `format` takes `Intl.NumberFormat` options. Pair a currency with `locale` so the separators and symbol are right.
 
+**Pasting with `locale="vi-VN"`:** text is read with Vietnamese separators (`.` groups thousands, `,` marks decimals), so a pasted `1.000.000` is one million but a pasted `1,000,000` copied from an English source becomes **1000**. Base UI parses it this way and has no option to change it, so tell people the expected format in `description` (for example "Nhập 1.000.000") when values are likely to be pasted from elsewhere.
+
 <Demo title="Formats" layout="stack">
   <NumberFieldFormats />
 </Demo>

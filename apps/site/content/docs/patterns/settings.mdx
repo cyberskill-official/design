@@ -1,0 +1,71 @@
+---
+title: Settings
+description: Tabbed settings with grouped fields, a save button with a toast, switches that apply at once and a confirmed delete.
+full: true
+---
+
+import { SettingsPattern } from '@/demos/patterns/settings';
+
+Use this pattern for account and workspace settings. [Tabs](/docs/components/tabs) split the page into Profile, Notifications, Billing and a Danger zone. Each tab groups its fields with [Fieldset](/docs/components/fieldset) and uses [Text field](/docs/components/text-field), [Select](/docs/components/select), [Radio group](/docs/components/radio-group) and [Switch](/docs/components/switch). Forms that save on submit use [Form](/docs/components/form) with a save [Button](/docs/components/button) and confirm with a [Toast](/docs/components/toast). Deleting the workspace asks first in an [Alert dialog](/docs/components/alert-dialog).
+
+## Example
+
+Save the profile (an `@example.com` email shows a server error under the field), flip a notification switch, or try to delete the workspace.
+
+<Demo title="Settings" layout="block">
+  <SettingsPattern />
+</Demo>
+
+```tsx
+import { AlertDialog, AlertDialogContent, AlertDialogTrigger, Button, Fieldset, Form, Radio, RadioGroup, SelectField, Switch, Tabs, TabsList, TabsPanel, TabsTab, TextField, ToastProvider, useToast } from '@cyberskill/design';
+
+// once, at the app root
+<ToastProvider>{children}</ToastProvider>
+
+const { toast } = useToast();
+
+<Tabs defaultValue="profile">
+  <TabsList aria-label="Settings">
+    <TabsTab value="profile">Profile</TabsTab>
+    <TabsTab value="notifications">Notifications</TabsTab>
+    <TabsTab value="billing">Billing</TabsTab>
+    <TabsTab value="danger">Danger zone</TabsTab>
+  </TabsList>
+
+  <TabsPanel value="profile">
+    <Form errors={errors} onFormSubmit={async (values) => { await save(values); toast({ tone: 'success', title: 'Profile saved' }); }}>
+      <Fieldset legend="Personal details" description="Shown to teammates in conversations and audit logs.">
+        <TextField label="Full name" name="name" required autoComplete="name" />
+        <TextField label="Work email" name="email" type="email" required autoComplete="email" />
+      </Fieldset>
+      <Fieldset legend="Regional">
+        <SelectField label="Time zone" name="timezone" items={timezones} />
+      </Fieldset>
+      <Button type="submit" loading={saving}>Save profile</Button>
+    </Form>
+  </TabsPanel>
+
+  <TabsPanel value="notifications">
+    <Switch label="A conversation is handed to a person" defaultChecked onCheckedChange={update} />
+    <RadioGroup label="Summary email" defaultValue="weekly">
+      <Radio value="daily" label="Daily" /><Radio value="weekly" label="Weekly" /><Radio value="never" label="Never" />
+    </RadioGroup>
+  </TabsPanel>
+
+  <TabsPanel value="danger">
+    <AlertDialog>
+      <AlertDialogTrigger render={<Button variant="danger" iconStart={<Trash />} />}>Delete workspace</AlertDialogTrigger>
+      <AlertDialogContent title="Delete the Northwind workspace?" description="… This cannot be undone." confirmLabel="Delete workspace" onConfirm={deleteWorkspace} />
+    </AlertDialog>
+  </TabsPanel>
+</Tabs>
+```
+
+## Notes
+
+- Switches apply at once, so the Notifications tab has no save button; confirm each change with a short toast. Fields that only matter together (profile, invoice details) save with a button.
+- One primary button per tab, at the end of the form. "Discard" is a ghost button beside it.
+- `Form` focuses the first invalid field on submit, and `errors` shows server messages under the field they belong to until it is edited.
+- `onConfirm` returns a promise, so the alert dialog shows a busy confirm button and blocks Cancel until the delete finishes. Name the action in the button ("Delete workspace"), never "OK".
+- Toasts confirm; they never carry the only copy of an error. Keep validation errors next to their fields.
+- Responsive: field pairs sit side by side from 560px and stack below it; the tab list scrolls sideways on narrow screens instead of wrapping.

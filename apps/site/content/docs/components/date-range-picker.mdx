@@ -27,7 +27,7 @@ const [stay, setStay] = useState<DateRangeValue | null>(null);
 
 ## Presets
 
-`rangePresets()` returns Today, Last 7 days, Last 30 days and This month (the 1st to today). Call it while rendering so "today" stays current, or pass your own `{ label, value }` list. The active preset is marked as pressed.
+`rangePresets()` returns Today, Last 7 days, Last 30 days and This month (the 1st to today). Call it while rendering so "today" stays current, or pass your own `{ label, value }` list. The active preset is marked as pressed. A preset whose start or end falls outside `min`, `max` or `disabledDates` is disabled, not clamped: the same rule as a typed range, so "Last 30 days" with `min` set to the 1st of this month cannot be picked.
 
 <Demo title="Presets" layout="stack">
   <DateRangePresets />
@@ -38,6 +38,10 @@ const presets = rangePresets();
 
 <DateRangePicker label="Report period" value={period} onValueChange={setPeriod} presets={presets} max={new Date()} />
 ```
+
+## In a form
+
+`name` submits the range as two hidden inputs, `name[from]` and `name[to]`, each `yyyy-MM-dd` (empty while there is no valid range). `name="stay"` sends `stay[from]=2026-03-01&stay[to]=2026-03-15`, which most servers read as `{ stay: { from, to } }`. With React Hook Form pass `onBlur` and `inputRef` as for [Date picker](/docs/components/date-picker#in-a-form). Typed text that is not two allowed dates stays in the field with `invalidMessage` and reports `null`.
 
 ## Vietnamese
 
@@ -64,8 +68,10 @@ import { vi } from 'react-day-picker/locale';
 <PropsTable rows={[
   ['label', 'ReactNode', '–', 'Visible label (required)'],
   ['value / defaultValue', '{ from: Date; to: Date } | null', 'null', 'Controlled or uncontrolled range'],
-  ['onValueChange', '(range | null) => void', '–', 'Called when a full range is picked or typed, or null when cleared'],
-  ['presets', '{ label: string; value: { from; to } }[]', '–', 'Quick picks beside the calendar, e.g. rangePresets()'],
+  ['onValueChange', '(range | null) => void', '–', 'Called when a full range is picked or typed, or null when cleared or the typed text is invalid'],
+  ['name', 'string', '–', 'Submits name[from] and name[to] as yyyy-MM-dd'],
+  ['inputRef / onBlur', 'Ref / FocusEventHandler', '–', 'Go to the visible input, for React Hook Form'],
+  ['presets', '{ label: string; value: { from; to } }[]', '–', 'Quick picks beside the calendar, e.g. rangePresets(); disabled when outside min / max / disabledDates'],
   ['presetsLabel', 'string', "'Presets'", 'Name of the presets group'],
   ['numberOfMonths', 'number', '2 wide, 1 narrow', 'Months side by side'],
   ['format / locale', 'string / Locale', "'dd/MM/yyyy' / English", 'As in Date picker'],

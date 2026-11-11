@@ -14,7 +14,12 @@ function lum(hex: string) {
   const c = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255).map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
   return 0.2126 * c[0]! + 0.7152 * c[1]! + 0.0722 * c[2]!;
 }
-const ink = (hex: string) => (lum(hex) > 0.25 ? '#0F1B2D' : '#FFFFFF');
+// label color for a swatch: whichever of white or ink contrasts more (a fixed luminance cut-off left mid blues and golds below 4.5:1)
+const ink = (hex: string) => {
+  const l = lum(hex), ratio = (c: string) => { const m = lum(c); return (Math.max(l, m) + 0.05) / (Math.min(l, m) + 0.05); };
+  // ink first, then white; black only for mid tones (chart blue, gold 500) where neither reaches 4.5:1
+  return ['#0F1B2D', '#FFFFFF', '#000000'].find((c) => ratio(c) >= 4.5) ?? '#000000';
+};
 
 function Chip({ hex }: { hex: string }) {
   return (
@@ -158,7 +163,7 @@ export function TypeScale() {
           {Object.entries(tokens.text).map(([k, t]) => (
             <tr key={k}>
               <td className="fd-mono">.cs-{k}</td>
-              <td style={{ maxWidth: 520, overflow: 'hidden' }}><div className={`cs-${k}`} style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', color: k === 'caption' || k === 'overline' ? undefined : 'var(--foreground)' }}>{SAMPLE[k]}</div></td>
+              <td style={{ maxWidth: 520 }}><div className={`cs-${k}`} style={{ color: k === 'caption' || k === 'overline' ? undefined : 'var(--foreground)' }}>{SAMPLE[k]}</div></td>
               <td className="fd-mono fd-muted" style={{ whiteSpace: 'nowrap' }}>{t.family} · {t.size}/{t.line} · {t.weight}{t.tracking !== '0' ? ` · ${t.tracking}` : ''}</td>
             </tr>
           ))}

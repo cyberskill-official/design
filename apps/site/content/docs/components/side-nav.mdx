@@ -44,7 +44,7 @@ import Link from 'next/link';
   ['SideNavItem href', 'string', '–', 'Where the link goes'],
   ['SideNavItem icon', 'ReactNode', '–', 'Icon before the label (decorative)'],
   ['SideNavItem active', 'boolean', 'false', 'The current page: aria-current="page" and the highlighted style'],
-  ['SideNavItem badge', 'ReactNode', '–', 'Count or status after the label, read as part of the link name'],
+  ['SideNavItem badge', 'ReactNode', '–', 'Plain text after the label, e.g. 12 or "New". It is part of the link name ("Conversations 12"), so pass text, not a Badge, icon or control'],
   ['SideNavItem render', 'ReactElement', '–', 'Render as another component, e.g. a router Link'],
 ]} />
 
@@ -53,3 +53,4 @@ import Link from 'next/link';
 - A `nav` landmark named by `label`, with lists so screen readers announce how many items each section has.
 - The current page has `aria-current="page"`, shown with a tinted background, primary text and bold weight, not color alone.
 - Items are plain links: Tab moves between them and Enter follows them. Items grow to 44px on touch screens.
+- `badge` renders inside the link, so screen readers read it with the label ("Conversations 12"). Give it plain text; for a count that needs more words, put them in the text ("12 new").

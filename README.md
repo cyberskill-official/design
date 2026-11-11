@@ -42,9 +42,9 @@ Full guide: [Get started](https://design.cyberskill.world/docs/get-started).
 |---|---|
 | **Tokens** | One JSON source for color, type, space, radius, shadow and motion. The build fails if text contrast drops below WCAG targets or two colors with different meanings look alike, including to color-blind readers. |
 | **Components** | Built on [Base UI](https://base-ui.com) for keyboard, focus and screen reader behavior. Plain CSS in cascade layers: works with or without Tailwind and in Server Components. |
-| **Charts, tables, forms** | Optional entry points on Recharts, TanStack Table and React Hook Form; apps that don't use them never load them. |
+| **Charts, tables, forms, dates** | Optional entry points on Recharts, TanStack Table, React Hook Form and react-day-picker; apps that don't use them never load them. |
 | **AI-ready** | The package ships compact docs for AI coding tools (`ai/INDEX.md`, one file per component, a Claude Code skill and a Cursor rule). Run `npx cyberskill-design ai-setup` in your app. |
-| **Quality gates** | Every component and every story is tested in a real browser with axe, in light and dark. A forensic visual audit checks rendered contrast, clipping, overlap and touch targets on every page. |
+| **Quality gates** | Every component is tested in a real browser with axe in light and dark, and every story also runs as a browser test with axe. The build fails on any broken contrast or color-distinctness rule. A forensic visual audit checks rendered contrast, clipping, overlap and touch targets on every site page in both themes. |
 
 ## Repository
 
@@ -53,6 +53,7 @@ Full guide: [Get started](https://design.cyberskill.world/docs/get-started).
 | `packages/design` | The npm package `@cyberskill/design` |
 | `apps/site` | design.cyberskill.world (Next.js + Fumadocs, static export) |
 | `tools/audit` | Forensic visual audit |
+| `examples/next-hello` | Smallest consumer app; CI installs the packed tarball into it |
 
 ```bash
 npm install

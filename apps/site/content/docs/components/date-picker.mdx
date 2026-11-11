@@ -13,7 +13,7 @@ import { DatePicker, DateTimePicker } from '@cyberskill/design/date';
 
 ## States
 
-Typed text is checked when the field loses focus or on Enter. Text that is not a real date, or falls outside `min`, `max` or `disabledDates`, shows `invalidMessage` and never reaches `onValueChange`.
+Typed text is checked when the field loses focus or on Enter. Text that is not a real date, or falls outside `min`, `max` or `disabledDates`, stays in the field with `invalidMessage`, and `onValueChange` gets `null`: a form never keeps (or submits) the previous date while the field shows something else.
 
 <Demo title="States" layout="stack">
   <DatePickerStates />
@@ -51,7 +51,7 @@ import { vi } from 'react-day-picker/locale';
 
 ## Date and time
 
-`DateTimePicker` puts a date and a time field in one labelled group and gives you a single `Date`. It reports `null` until both parts are filled.
+`DateTimePicker` puts a date and a time field in one labelled group and gives you a single `Date`. It reports `null` until both parts are filled. `min` and `max` limit the time too, but only on their own day: with `min` at 15/03/2026 09:00, 15/03 lists times from 09:00 and rejects 08:30, while 16/03 takes any time.
 
 <Demo title="Date and time" layout="stack">
   <DateTimePickerDemo />
@@ -63,12 +63,30 @@ const [start, setStart] = useState<Date | null>(new Date(2026, 2, 15, 14, 30));
 <DateTimePicker label="Meeting starts" value={start} onValueChange={setStart} step={30} />
 ```
 
+## In a form
+
+Pass `name` to submit the value with a plain `<form>`: a hidden input holds `yyyy-MM-dd` (`DateTimePicker`: `yyyy-MM-ddTHH:mm`), empty while there is no valid date. With React Hook Form, also pass `onBlur` and `inputRef` so blur validation works and a failed submit focuses the field; see [Forms](/docs/components/forms).
+
+```tsx
+<FormField
+  control={control}
+  name="start"
+  rules={{ required: 'Pick a start date.' }}
+  render={({ field, error }) => (
+    <DatePicker label="Start date" name={field.name} value={field.value} onValueChange={field.onChange}
+      onBlur={field.onBlur} inputRef={field.ref} error={error} />
+  )}
+/>
+```
+
 ## Props
 
 <PropsTable rows={[
   ['label', 'ReactNode', '–', 'Visible label (required)'],
   ['value / defaultValue', 'Date | null', 'null', 'Controlled or uncontrolled date'],
-  ['onValueChange', '(date: Date | null) => void', '–', 'Called with a picked or valid typed date, or null when cleared'],
+  ['onValueChange', '(date: Date | null) => void', '–', 'Called with a picked or valid typed date, or null when cleared or when the typed text is invalid'],
+  ['name', 'string', '–', 'Submits a hidden input with yyyy-MM-dd (empty while invalid)'],
+  ['inputRef / onBlur', 'Ref / FocusEventHandler', '–', 'Go to the visible input, for React Hook Form field.ref and field.onBlur'],
   ['format', 'string', "'dd/MM/yyyy'", 'date-fns pattern for showing and typing'],
   ['locale', 'Locale', 'English', 'vi from react-day-picker/locale for Vietnamese'],
   ['min / max', 'Date', '–', 'First and last allowed day'],
@@ -80,7 +98,7 @@ const [start, setStart] = useState<Date | null>(new Date(2026, 2, 15, 14, 30));
   ['placeholder', 'string', "'dd/mm/yyyy'", 'Derived from format'],
 ]} />
 
-`DateTimePicker` takes the same date props plus `step` and `hourCycle` from Time picker, `dateLabel` / `timeLabel` (screen-reader names of the two inputs, default "Date" and "Time") and `invalidTimeMessage`. Helpers `formatDate(date, format?, locale?)` and `parseDate(text, format?, locale?)` are exported for showing and reading dates in the same format elsewhere.
+`DateTimePicker` takes the same date props plus `step` and `hourCycle` from Time picker, `dateLabel` / `timeLabel` (screen-reader names of the two inputs, default "Date" and "Time") and `invalidTimeMessage`. Its `name` submits one `yyyy-MM-ddTHH:mm` value, `inputRef` goes to the date input and `onBlur` fires as either input loses focus. Helpers `formatDate(date, format?, locale?)` and `parseDate(text, format?, locale?)` are exported for showing and reading dates in the same format elsewhere.
 
 ## Accessibility
 

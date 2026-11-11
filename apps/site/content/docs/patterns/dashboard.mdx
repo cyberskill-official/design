@@ -1,0 +1,69 @@
+---
+title: Dashboard
+description: An app shell with side navigation and a top bar, a row of KPIs, a trend chart and recent activity.
+full: true
+---
+
+import { DashboardPattern } from '@/demos/patterns/dashboard';
+
+Use this shell for the home screen of a product: where people land after sign-in to see how things are going and jump to work. It combines [Side nav](/docs/components/side-nav), [Breadcrumbs](/docs/components/breadcrumbs), [Autocomplete](/docs/components/autocomplete) search, an [Avatar](/docs/components/avatar) account [Menu](/docs/components/menu), [Stat](/docs/components/stat) tiles with a [Sparkline](/docs/components/charts#sparkline), a [Line chart](/docs/components/charts#line-chart), a [Card](/docs/components/card) of recent activity and an [Alert](/docs/components/alert). Below 880px the side nav moves into a [Drawer](/docs/components/drawer).
+
+## Example
+
+<Demo title="Dashboard" layout="block">
+  <DashboardPattern />
+</Demo>
+
+```tsx
+import { Alert, Autocomplete, Avatar, Breadcrumbs, Card, CardContent, CardHeader, CardTitle, Drawer, DrawerContent, DrawerTrigger, IconButton, Menu, MenuContent, MenuItem, MenuTrigger, SideNav, SideNavItem, Stat } from '@cyberskill/design';
+import { LineChart, Sparkline } from '@cyberskill/design/charts';
+
+<div className="shell">                                   {/* grid: 232px nav + main; one column below 880px */}
+  <aside className="shell-nav">
+    <SideNav label="Main">
+      <SideNavItem href="/" icon={<House />} active>Overview</SideNavItem>
+      <SideNavItem href="/agents" icon={<Robot />}>Agents</SideNavItem>
+    </SideNav>
+  </aside>
+  <div>
+    <header className="topbar">
+      <Drawer side="left">                                  {/* shown below 880px only */}
+        <DrawerTrigger render={<IconButton label="Open navigation" icon={<List />} />} />
+        <DrawerContent title="Northwind" size="sm"><SideNav label="Main">…</SideNav></DrawerContent>
+      </Drawer>
+      <Breadcrumbs items={[{ label: 'Workspace', href: '/' }, { label: 'Overview' }]} />
+      <Autocomplete aria-label="Search the workspace" items={search} size="sm" />
+      <Menu>
+        <MenuTrigger render={<IconButton label="Account menu for Linh Tran" icon={<Avatar name="Linh Tran" size="sm" aria-hidden />} variant="ghost" />} />
+        <MenuContent align="end">
+          <MenuItem icon={<UserCircle />}>Profile</MenuItem>
+          <MenuItem icon={<SignOut />}>Sign out</MenuItem>
+        </MenuContent>
+      </Menu>
+    </header>
+    <main>
+      <Alert tone="warning" role="note" title="86% of this month's messages used" action={<Button size="sm" variant="secondary">Upgrade plan</Button>} />
+      <section className="kpis" aria-label="Key metrics">     {/* repeat(auto-fit, minmax(180px, 1fr)) */}
+        <Stat label="Conversations" value="24,318" delta={{ value: '+12.4%', trend: 'up' }} hint="vs. previous 12 weeks">
+          <Sparkline data={weeks} dataKey="conversations" label="Conversations per week, rising" />
+        </Stat>
+        …
+      </section>
+      <LineChart title="Conversations per week" data={weeks} xKey="week" series={[{ key: 'resolved', label: 'Resolved by AI' }, { key: 'handedOff', label: 'Handed off' }]} />
+      <Card>
+        <CardHeader><CardTitle>Recent activity</CardTitle></CardHeader>
+        <CardContent><ul>…</ul></CardContent>
+      </Card>
+    </main>
+  </div>
+</div>
+```
+
+## Notes
+
+- Keep three to five KPIs. Each `Stat` says what changed and against what (`hint`); its sparkline gets a `label` that states the trend, so the tile reads without the picture.
+- One primary action per screen. Here the page has none: "Export report" and "Upgrade plan" are secondary, so the quota alert does not compete with the data.
+- The alert is part of the page from load, so it uses `role="note"` and is not announced as an interruption. Let people dismiss it.
+- Responsive: the KPI row wraps to two columns and then one; the chart and activity card stack below 760px; the search moves to its own row in the top bar on phones. The layout uses container queries, so it adapts to the space it is given, not only the window.
+- The account trigger is an icon button named "Account menu for Linh Tran"; the avatar inside it is `aria-hidden` so the name is not read twice.
+- Do not put more than one chart in the first view on phones; link to the analytics page instead.

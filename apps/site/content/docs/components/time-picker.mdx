@@ -5,13 +5,15 @@ description: Labelled time field. Type 9:30, 21:30 or 930, or choose from a list
 
 import { TimePickerStates, TimePickerVietnamese } from '@/demos/time-picker';
 
-`TimePicker` is a text field for a time of day with a list of suggested times. Typing is the fast path and accepts `9:30`, `09.30`, `930`, `21:30`, `9h30`, `9:30 PM` and Vietnamese `SA`/`CH`. The list steps every 15 minutes by default and opens on the current time. For a date and a time together, use `DateTimePicker` from [Date picker](/docs/components/date-picker).
+`TimePicker` is a text field for a time of day with a list of suggested times. Typing is the fast path and accepts `9:30`, `09.30`, `930`, `21:30`, `9:30 PM`, and the Vietnamese forms `9h30`, `9h`, `21h`, `9 h 30`, `9g30`, `9g` and `SA`/`CH`. The list steps every 15 minutes by default and opens on the current time. For a date and a time together, use `DateTimePicker` from [Date picker](/docs/components/date-picker).
 
 ```tsx
 import { TimePicker } from '@cyberskill/design/date';
 ```
 
-The value is always 24-hour `"HH:mm"` (or `null`), whatever the field shows. A typed time between steps, such as `9:37`, is kept.
+The value is always 24-hour `"HH:mm"` (or `null`), whatever the field shows. A typed time between steps, such as `9:37`, is kept. Text that is not a time inside `min`/`max` stays in the field with `invalidMessage`, and `onValueChange` gets `null` so a form does not keep the previous time. `min` and `max` take the same forms as typing (`"9:00"`, `"9h"`) and are compared as times.
+
+Pass `name` to submit `HH:mm` with a plain form, and `onBlur` / `inputRef` for React Hook Form (see [Forms](/docs/components/forms)).
 
 ## States
 
@@ -45,9 +47,11 @@ const [start, setStart] = useState<string | null>('09:30');
 <PropsTable rows={[
   ['label', 'ReactNode', '–', 'Visible label (required)'],
   ['value / defaultValue', 'string | null', 'null', '24-hour "HH:mm"'],
-  ['onValueChange', '(time: string | null) => void', '–', 'Called with a picked or valid typed time, or null when cleared'],
+  ['onValueChange', '(time: string | null) => void', '–', 'Called with a picked or valid typed time, or null when cleared or the typed text is invalid'],
+  ['name', 'string', '–', 'Submits the time as HH:mm (empty while invalid)'],
+  ['inputRef / onBlur', 'Ref / FocusEventHandler', '–', 'Go to the visible input, for React Hook Form'],
   ['step', 'number', '15', 'Minutes between listed times'],
-  ['min / max', 'string', "'00:00' / '23:59'", 'Allowed window, "HH:mm"'],
+  ['min / max', 'string', "'00:00' / '23:59'", 'Allowed window, e.g. "09:00" or "9h"'],
   ['hourCycle', '12 | 24', '24', '12 shows 9:30 PM; typing works either way'],
   ['locale', 'Locale', 'English', 'date-fns locale for the AM/PM words'],
   ['invalidMessage', 'ReactNode', "'Enter a valid time'", 'Shown for text that is not a time inside min/max'],

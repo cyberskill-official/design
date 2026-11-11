@@ -5,7 +5,7 @@ description: FormField connects React Hook Form to every field component and sho
 
 import { FormFieldDemo } from '@/demos/forms';
 
-`FormField` is React Hook Form's `Controller` plus one thing: it hands your render function the field's validation message as `error`, ready for the `error` prop of `TextField`, `Textarea`, `SelectField`, `Checkbox`, `CheckboxGroup` and `RadioGroup`. It lives in its own entry so apps that don't use React Hook Form never load it.
+`FormField` is React Hook Form's `Controller` plus one thing: it hands your render function the field's validation message as `error`, ready for the `error` prop of `TextField`, `Textarea`, `SelectField`, `Checkbox`, `CheckboxGroup`, `RadioGroup` and the date and time pickers. It lives in its own entry so apps that don't use React Hook Form never load it.
 
 ```bash
 npm install react-hook-form
@@ -85,6 +85,7 @@ Text inputs take `{...field}` directly. Other controls use their own value props
   ['Checkbox, Switch', 'checked, onCheckedChange, inputRef', '–', 'The field value is a boolean'],
   ['CheckboxGroup', 'value, onValueChange', '–', 'The field value is a string array'],
   ['RadioGroup', 'value, onValueChange, inputRef', '–', 'Start the value at null for "nothing chosen"'],
+  ['DatePicker, DateRangePicker, TimePicker, DateTimePicker', 'name, value, onValueChange, onBlur, inputRef', '–', 'Start at null. Invalid typed text sets the value to null, so required rules catch it'],
 ]} />
 
 ## Props

@@ -1,0 +1,9 @@
+# CyberSkill Design System
+
+> Ink & Gold tokens, accessible React components (Base UI) and the showcase site at https://design.cyberskill.world. One npm package: @cyberskill/design.
+
+- [AGENTS.md](AGENTS.md): how to work in this repo (layout, component, CSS, test and docs rules)
+- [packages/design/ai/INDEX.md](packages/design/ai/INDEX.md): how to use the package in an app (setup, rules, every component with its import)
+- [packages/design/ai/tokens.md](packages/design/ai/tokens.md): every token, light and dark
+- [packages/design/tokens/](packages/design/tokens/): token source (DTCG JSON)
+- [Site llms.txt](https://design.cyberskill.world/llms.txt): the site's pages as plain text

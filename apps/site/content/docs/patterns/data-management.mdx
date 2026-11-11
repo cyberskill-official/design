@@ -1,0 +1,85 @@
+---
+title: Data management
+description: A filterable data table with bulk actions, row details in a drawer, pagination and an empty state.
+full: true
+---
+
+import { DataManagementEmpty, DataManagementPattern } from '@/demos/patterns/data-management';
+
+Use this pattern for any list people search, filter and act on in bulk: tickets, customers, invoices, deployments. The filter bar combines an [Autocomplete](/docs/components/autocomplete) search, a [Multi-select](/docs/components/multi-select) status filter and a [Date range picker](/docs/components/date-range-picker). The [Data table](/docs/components/data-table) selects rows, and a bulk-action [Toolbar](/docs/components/toolbar) appears while any are selected. A click on a row opens its details in a [Drawer](/docs/components/drawer), the table's [Pagination](/docs/components/pagination) moves through pages, and an [Empty state](/docs/components/empty-state) explains when nothing matches.
+
+## Example
+
+Click a row (or Tab to it and press Enter) for its details, select rows for the bulk actions, or filter until nothing matches.
+
+<Demo title="Tickets" layout="block">
+  <DataManagementPattern />
+</Demo>
+
+```tsx
+import { Autocomplete, Badge, Button, Drawer, DrawerClose, DrawerContent, EmptyState, Field, MultiSelectField, Toolbar, ToolbarButton } from '@cyberskill/design';
+import { DateRangePicker } from '@cyberskill/design/date';
+import { DataTable, createDataTableColumnHelper, type RowSelectionState } from '@cyberskill/design/table';
+
+const col = createDataTableColumnHelper<Ticket>();
+const columns = col.columns([
+  col.accessor('id', { header: 'Ticket' }),
+  col.accessor('subject', { header: 'Subject' }),
+  col.accessor('status', { header: 'Status', enableSorting: false, cell: (c) => <Badge size="sm" tone={tones[c.getValue()]}>{labels[c.getValue()]}</Badge> }),
+  col.accessor('created', { header: 'Created', cell: (c) => date.format(c.getValue()) }),
+]);
+
+<div role="search" aria-label="Filter tickets" className="filters">
+  <Field label="Search"><Autocomplete items={suggestions} value={query} onValueChange={setQuery} /></Field>
+  <MultiSelectField label="Status" items={statuses} value={status} onValueChange={setStatus} placeholder="Any status" />
+  <DateRangePicker label="Created" value={range} onValueChange={setRange} />
+</div>
+
+{selected.length > 0 && (
+  <div className="bulkbar">
+    <strong role="status">{selected.length} selected</strong>
+    <Toolbar aria-label="Bulk actions">
+      <ToolbarButton icon={<UserPlus />}>Assign</ToolbarButton>
+      <ToolbarButton icon={<CheckCircle />}>Mark solved</ToolbarButton>
+    </Toolbar>
+  </div>
+)}
+
+<DataTable
+  label="Tickets" columns={columns} data={filtered} pageSize={6} getRowId={(t) => t.id}
+  onRowClick={openDetails}
+  selectable rowSelection={selection} onRowSelectionChange={setSelection}
+  emptyState={<EmptyState size="sm" icon={<FunnelSimple />} title="No tickets match these filters" action={<Button variant="secondary" size="sm" onClick={clearFilters}>Clear filters</Button>} />}
+/>
+
+<Drawer open={open} onOpenChange={setOpen}>
+  <DrawerContent title={ticket.subject} description={`${ticket.id} · opened ${date.format(ticket.created)}`}
+    footer={<><DrawerClose render={<Button variant="secondary" />}>Close</DrawerClose><Button>Reply</Button></>}>
+    <dl>…</dl>
+  </DrawerContent>
+</Drawer>
+```
+
+## Nothing matches
+
+<Demo title="Empty state" layout="center">
+  <DataManagementEmpty />
+</Demo>
+
+```tsx
+<EmptyState
+  icon={<FunnelSimple />}
+  title="No tickets match these filters"
+  description="Try another status or a wider date range."
+  action={<Button variant="secondary" size="sm">Clear filters</Button>}
+/>
+```
+
+## Notes
+
+- `pageSize` paginates on the client and shows the range with [Pagination](/docs/components/pagination) under the table; new data (a filter change) goes back to page 1. For server data, pass only the current page and render `Pagination` yourself from the total. Any filter change also clears the selection, so people never act on rows they cannot see.
+- `onRowClick` opens the details from anywhere in the row: a click, or Tab to the row and Enter. The checkboxes keep their own behavior; a click on any control in a cell never opens the row.
+- Keep the drawer's text while it slides out: hold the open state apart from the selected record.
+- The selection count is a `role="status"`, so screen readers hear "3 selected" as it changes. Destructive bulk actions (delete) should confirm with an [Alert dialog](/docs/components/alert-dialog).
+- Status badges carry an icon and a word, never color alone.
+- Responsive: the three filters stack on phones and sit in one row from 760px; the table scrolls sideways inside its frame rather than squeezing columns. On phones, consider hiding low-value columns.

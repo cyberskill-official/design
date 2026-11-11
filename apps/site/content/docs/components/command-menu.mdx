@@ -1,6 +1,6 @@
 ---
 title: Command Menu
-description: A ⌘K palette that filters commands and pages as you type. Accent-insensitive search, keyboard-first, and a hook for the shortcut.
+description: A ⌘K palette that filters commands and pages as you type. Accent-insensitive search, keyboard-first, with a shortcut you can change or turn off.
 ---
 
 import { CommandMenuDemo } from '@/demos/command-menu';
@@ -9,16 +9,16 @@ Use a command menu to let people jump to any page or run any command from the ke
 
 ## Palette
 
-<Demo title="Press ⌘K or Ctrl+K" layout="center">
+<Demo title="Press ⌘J or Ctrl+J" layout="center">
   <CommandMenuDemo />
 </Demo>
 
 ```tsx
 const [open, setOpen] = useState(false);
-useCommandMenuShortcut(setOpen); // ⌘K on macOS, Ctrl+K elsewhere
 
 <Button variant="secondary" iconStart={<MagnifyingGlass />} onClick={() => setOpen(true)}>Search…</Button>
-<CommandMenu open={open} onOpenChange={setOpen}>
+{/* ⌘K is this site's search, so the example uses ⌘J; apps usually keep the default 'k' */}
+<CommandMenu open={open} onOpenChange={setOpen} shortcut="j">
   <CommandGroup label="Go to">
     <CommandItem icon={<House />} onSelect={() => router.push('/')}>Dashboard</CommandItem>
     <CommandItem icon={<Gear />} keywords={['settings', 'preferences']} onSelect={openSettings}>Cài đặt</CommandItem>
@@ -31,10 +31,22 @@ useCommandMenuShortcut(setOpen); // ⌘K on macOS, Ctrl+K elsewhere
 
 Search matches the item label (or `value`) and its `keywords`, ignoring case and accents: "cai dat" and "settings" both find "Cài đặt". Groups with no match hide, and `emptyLabel` shows when nothing matches. Choosing an item runs `onSelect` and closes the menu.
 
+## Shortcut
+
+The menu toggles on ⌘K (macOS) or Ctrl+K (Windows, Linux) by itself. When the page already uses that shortcut, pass another letter, or `false` and open the menu only from a button:
+
+```tsx
+<CommandMenu open={open} onOpenChange={setOpen} shortcut="p">…</CommandMenu>   {/* ⌘P / Ctrl+P */}
+<CommandMenu open={open} onOpenChange={setOpen} shortcut={false}>…</CommandMenu> {/* no shortcut */}
+```
+
+Render the menu only when needed (`{ready && <CommandMenu … />}`)? Then add `useCommandMenuShortcut(setOpen)` where it is always mounted, so the shortcut works before the menu is. The two never toggle twice.
+
 ## Props
 
 <PropsTable rows={[
   ['open / onOpenChange', 'boolean / (open) => void', '–', 'Controlled open state (required)'],
+  ['shortcut', 'string | false', "'k'", 'Letter that toggles the menu with ⌘ (macOS) or Ctrl; false turns it off, e.g. when the page already uses ⌘K'],
   ['placeholder', 'string', "'Type a command or search…'", 'Search box placeholder'],
   ['emptyLabel', 'ReactNode', "'No results found.'", 'Shown and announced when nothing matches'],
   ['label', 'string', "'Command menu'", 'Accessible name of the dialog and search box'],
@@ -44,7 +56,7 @@ Search matches the item label (or `value`) and its `keywords`, ignoring case and
   ['keywords (Item)', 'string[]', '[]', 'Extra search terms: synonyms, other languages'],
   ['value (Item)', 'string', 'children', 'Text to match when children is not a plain string'],
   ['icon / shortcut (Item)', 'ReactNode', '–', 'Decorative icon; shortcut hint (display only)'],
-  ['useCommandMenuShortcut(setOpen, key?)', 'hook', "key = 'k'", 'Toggles the menu on ⌘ or Ctrl plus the key'],
+  ['useCommandMenuShortcut(setOpen, key?)', 'hook', "key = 'k'", 'The same shortcut for a menu that is not always mounted. Ignores keydown events with no key (browser autofill) and ones the menu already handled'],
 ]} />
 
 ## Accessibility

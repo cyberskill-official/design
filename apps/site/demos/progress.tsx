@@ -28,6 +28,7 @@ export function ProgressStates() {
       <Progress label="Storage" value={86} warnAt={80} />
       <Progress label="Import stopped" value={30} tone="danger" />
       <Progress label="Preparing export" value={null} />
+      <Progress label="Retrying sync" value={null} tone="danger" />
     </div>
   );
 }

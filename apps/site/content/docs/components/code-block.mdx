@@ -3,7 +3,7 @@ title: Code block
 description: Read-only code with an optional title, language label and a copy button.
 ---
 
-import { CodeBlockDemo, CodeBlockVariants, CopyButtonDemo } from '@/demos/code-block';
+import { CodeBlockDemo, CodeBlockVariants, CopyButtonDemo, CopyButtonToolbarDemo } from '@/demos/code-block';
 
 Use a code block to show code, commands or config that people copy. It shows the text as-is, with no syntax highlighting. For a short value inline in a sentence, use `<code>`.
 
@@ -40,6 +40,24 @@ No header puts the copy button in the corner. `inverted` is a dark ink surface i
 ```tsx
 <code>ws_8f3k2q</code>
 <CopyButton value="ws_8f3k2q" label="Copy workspace ID" />
+```
+
+## In a toolbar
+
+Pass the copy button to a `ToolbarButton`'s `render` so it joins the toolbar's arrow-key navigation (the whole toolbar stays one Tab stop). Name it with CopyButton's own `label`.
+
+<Demo title="Toolbar">
+  <CopyButtonToolbarDemo />
+</Demo>
+
+```tsx
+<Toolbar aria-label="Answer actions">
+  <ToolbarButton render={<CopyButton value={answer} label="Copy answer" />} />
+  <ToolbarSeparator />
+  <ToolbarButton icon={<ThumbsUp />} label="Good answer" />
+  <ToolbarButton icon={<ThumbsDown />} label="Bad answer" />
+  <ToolbarButton icon={<ArrowClockwise />}>Regenerate</ToolbarButton>
+</Toolbar>
 ```
 
 ## Props

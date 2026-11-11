@@ -3,21 +3,80 @@ title: Migrating from 2.x
 description: Move an app from the Umber & Ochre system (2.x) to Ink & Gold (3.0).
 ---
 
-3.0 is a new major version with new tokens, new components and a smaller API. 2.x stays available on npm under the `legacy` tag and on the repository's `legacy` branch.
+3.0 is a new major version: new tokens, React components on Base UI, and a much smaller package. 2.x stays on npm under the `legacy` tag and on the repository's `legacy` branch, so nothing moves until you upgrade.
+
+## Before 3.0 lands: pin 2.x
+
+An app that installs from GitHub without a version follows whatever `main` holds, and will jump to 3.0 on cut-over day. Pin it now to one of these:
+
+```json
+"@cyberskill/design": "2.8.0"
+```
+
+```json
+"@cyberskill/design": "github:cyberskill-official/design-system#3edeb1350c2e48761bee18f7c10c323e6103ff7d"
+```
+
+The npm version is preferred. The commit pin keeps an app on exactly the 2.x code it builds with today (finance resolves to this commit). Apps known to use 2.x: Practice, landing, finance, strategem and CyberOS.
 
 ## Steps
 
-1. **Pin first.** If you install from GitHub without a version (`github:cyberskill-official/design-system`), change to `"@cyberskill/design": "2.8.0"` before 3.0 lands, so nothing changes under you.
-2. **Install 3.x** and import the styles (see [Get started](/docs/get-started)).
-3. **Swap tokens.** Names match the Practice app's names (`--background`, `--foreground`, `--primary`, `--primary-foreground`, `--muted`, `--border`, `--destructive`, `--success`, `--warning`), so most CSS keeps working. `--gold` and `--on-gold` still exist as aliases of `--accent` and `--accent-foreground`.
-4. **Replace components** one screen at a time. 2.x and 3.x class names don't collide (`cs-` prefix in 3.x).
+1. **Install 3.x** and import the styles (see [Get started](/docs/get-started)). Load the fonts yourself: 3.0 ships no font files (2.x self-hosted them).
+2. **Swap tokens** with the tables below, then delete the app's own copies of those values.
+3. **Replace components** one screen at a time. 2.x and 3.0 class names don't collide, so both can run side by side during the move.
+4. **Check focus and layers**: the focus ring and z-index scale changed (see below).
 5. **Run your accessibility checks** in light and dark.
 
-## What changed
+## Token names
+
+3.0 drops the `--cs-` prefix. Names follow the Practice app (shadcn-style), so a Tailwind app maps them with one import.
 
 | 2.x | 3.0 |
 |---|---|
-| Umber `#45210E` + Ochre `#F4BA17` | Ink `#14243D` + Gold `#F4BA17` |
-| Be Vietnam Pro everywhere | Manrope headlines, Be Vietnam Pro body, JetBrains Mono data |
-| HTML-first bundle and Storybook | React components on Base UI, plain CSS, Storybook as the workbench |
+| `--cs-color-surface-page` | `--background` |
+| `--cs-color-surface-panel` | `--panel` (`--card`, `--popover` are aliases) |
+| `--cs-color-surface-raised` | `--raised` |
+| `--cs-color-text-primary` | `--foreground` |
+| `--cs-color-text-muted` | `--muted` |
+| `--cs-color-text-inverse` | `--primary-foreground` |
+| `--cs-color-text-accent` | `--accent-text` (gold that passes 4.5:1 as text) |
+| `--cs-color-border-default` | `--border` |
+| `--cs-color-brand-umber` | `--primary` (Ink) |
+| `--cs-color-brand-ochre`, `--cs-color-accent-ochre` | `--accent` (Gold); `--gold` is an alias |
+| `--cs-color-link`, `--cs-color-link-hover` | Use the `Link` component (it uses `--primary`) |
+| `--cs-color-semantic-success \| warning \| danger \| info` | `--success`, `--warning`, `--destructive`, `--info` |
+| `--cs-color-semantic-*-fg` | `--success-foreground` etc. (text on the filled color) |
+| `--cs-color-semantic-*-text` | The status token itself: every status color passes 4.5:1 as text |
+| `--cs-doc-*` | Removed (documents moved out of the design system) |
+
+## Practice: names that look the same but mean something else
+
+| Token | Practice today | 3.0 |
+|---|---|---|
+| `--accent` | Soft cream hover tint | **Gold**, for one key action per view. Move hover tints to `--raised` or `--primary-soft` |
+| `--input` | Input background (white) | Input **border** color. Input backgrounds use `--panel` |
+| `--ring` | Translucent gold glow | Solid `--primary`, drawn as a 2px outline with a 2px offset |
+| `--focus-ring` | Umber outline | Removed: use `--ring` |
+| `--z-*` | `--z-modal: 60`, `--z-toast: 70`… | `--z-sticky` 1100, `--z-overlay` 1200, `--z-modal` 1300, `--z-dropdown` 1400, `--z-toast` 1500, `--z-tooltip` 1600. Keep app layers below 1100 |
+| `--space-sm`, `--space-md`… | Named steps | Numbered 4px steps: `--space-1` (4px) to `--space-20` (80px) |
+| `--medal-*`, `--brain-*`, `--glass-*`, `--hero-glow-*` | App tokens | Not in the system: keep them in the app, defined from 3.0 tokens |
+
+## Look and feel
+
+| 2.x | 3.0 |
+|---|---|
+| Umber `#45210E` + Ochre `#F4BA17` on warm cream | Ink `#14243D` + Gold `#F4BA17` on cool gray `#F7F8FA` |
+| Be Vietnam Pro everywhere, Space Grotesk display | Manrope headings, Be Vietnam Pro body, JetBrains Mono data |
+| Gold focus glow | Ink outline in light, near-white in dark |
+
+## Imports
+
+| 2.x | 3.0 |
+|---|---|
+| `@cyberskill/design`, `/styles.css`, `/tokens.css`, `/assets/*` | Same paths, new contents |
+| `/react`, `/legacy`, `/components/*`, `/source`, `/base/*`, `/styles/components/*` | `@cyberskill/design` (every component, flat named imports) |
+| `/tokens/*`, `/schemas/*` | `@cyberskill/design/tokens` (typed object) or `/tokens.json` |
+| `/styles.min.css`, `/styles.layered.css`, `/dist/styles.css` | `@cyberskill/design/styles.css` (already in cascade layers) |
+| `/_ds_bundle.js`, `/_ds_manifest.json` | Removed |
+| – | New: `/charts`, `/table`, `/forms`, `/date`, `/utils`, `/tailwind.css` |
 | Docx export, native tokens, templates | Not in 3.0; still on `legacy` |

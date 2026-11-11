@@ -1,19 +1,19 @@
 'use client';
 import { ChartBar, Gear, House, MagnifyingGlass, Moon, Plus, Robot, UserPlus } from '@phosphor-icons/react';
-import { Button, CommandGroup, CommandItem, CommandMenu, useCommandMenuShortcut } from '@cyberskill/design';
+import { Button, CommandGroup, CommandItem, CommandMenu } from '@cyberskill/design';
 import { useState } from 'react';
 
 export function CommandMenuDemo() {
   const [open, setOpen] = useState(false);
   const [last, setLast] = useState<string | null>(null);
-  useCommandMenuShortcut(setOpen);
   return (
     <>
       <Button variant="secondary" iconStart={<MagnifyingGlass />} onClick={() => setOpen(true)}>
-        Search… <kbd className="cs-command-menu-kbd" style={{ marginInlineStart: 8 }}>⌘K</kbd>
+        Search… <kbd className="cs-command-menu-kbd" style={{ marginInlineStart: 8 }}>⌘J</kbd>
       </Button>
       {last && <span className="cs-caption" role="status">Ran: {last}</span>}
-      <CommandMenu open={open} onOpenChange={setOpen}>
+      {/* ⌘K is this site's search, so the example uses ⌘J; apps usually keep the default 'k' */}
+      <CommandMenu open={open} onOpenChange={setOpen} shortcut="j">
         <CommandGroup label="Go to">
           <CommandItem icon={<House />} onSelect={() => setLast('Dashboard')}>Dashboard</CommandItem>
           <CommandItem icon={<Robot />} keywords={['bots', 'trợ lý']} onSelect={() => setLast('Agents')}>Agents</CommandItem>

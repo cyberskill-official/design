@@ -16,4 +16,4 @@
 4. Changing a color? Edit `packages/design/tokens/color.json` only, then run the build. It tells you which contrast or distinctness rule a new value breaks.
 5. Changing a component's API? Update its site page (`apps/site/content/docs/components/<name>.mdx`). The AI docs in `packages/design/ai/` are generated from it on build; commit the regenerated files.
 
-Releases are automated: merging the "Version packages" PR publishes to npm with provenance.
+Releases: merging the "chore: version packages" PR bumps the version and CHANGELOG. Publishing is a separate, deliberate step: push the matching tag (`git tag v3.0.0-next.1 && git push origin v3.0.0-next.1`) and `npm-publish.yml` runs every CI check, then publishes with provenance. While changesets is in pre mode (`.changeset/pre.json`), versions are `-next.N` and go to the `next` dist-tag; a stable version can only publish from its tag, after `npx changeset pre exit`.

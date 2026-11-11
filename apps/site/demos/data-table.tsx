@@ -47,3 +47,13 @@ export function DataTableVirtualized() {
 export function DataTableEmpty() {
   return <DataTable label="Drafts" columns={columns} data={[]} emptyState="No drafts yet. New invoices start here." />;
 }
+
+export function DataTableRowClick() {
+  const [opened, setOpened] = useState<Invoice | null>(null);
+  return (
+    <div style={{ display: 'grid', gap: 8, width: '100%' }}>
+      <span role="status" style={{ color: 'var(--muted)', fontSize: 13 }}>{opened ? `Opened ${opened.id} (${opened.customer})` : 'Click a row, or Tab to one and press Enter'}</span>
+      <DataTable label="Invoices" columns={columns} data={invoices.slice(0, 5)} getRowId={getRowId} selectable selectRowLabel={(r) => `Select ${r.id}`} onRowClick={setOpened} />
+    </div>
+  );
+}

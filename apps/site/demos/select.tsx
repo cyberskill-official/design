@@ -38,3 +38,17 @@ export function SelectControlled() {
     </div>
   );
 }
+
+const regions = [
+  { label: 'Asia Pacific', items: [{ value: 'sg', label: 'Singapore' }, { value: 'hcm', label: 'Ho Chi Minh City' }, { value: 'syd', label: 'Sydney' }] },
+  { label: 'Europe', items: [{ value: 'fra', label: 'Frankfurt' }, { value: 'ams', label: 'Amsterdam (full)', disabled: true }] },
+  { label: 'Americas', items: [{ value: 'us-east', label: 'Virginia' }, { value: 'sao', label: 'São Paulo' }] },
+];
+
+export function SelectGroups() {
+  return (
+    <div style={{ width: '100%', maxWidth: 420 }}>
+      <SelectField label="Region" items={regions} placeholder="Choose a region" defaultValue="hcm" />
+    </div>
+  );
+}

@@ -35,7 +35,7 @@ export function VietnameseChartDemo() {
     <LineChart
       title="Người dùng hoạt động" description="Theo tháng" data={signups} xKey="month" xLabel="Tháng"
       series={[{ key: 'web', label: 'Web' }, { key: 'mobile', label: 'Di động' }]}
-      showTableLabel="Xem bảng" showChartLabel="Xem biểu đồ" valueFormatter={v => new Intl.NumberFormat('vi-VN').format(v)}
+      showTableLabel="Xem bảng" showChartLabel="Xem biểu đồ" locale="vi-VN"
     />
   );
 }

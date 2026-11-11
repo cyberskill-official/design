@@ -9,11 +9,11 @@ CyberSkill Design System 3.x: Ink & Gold tokens, accessible React components and
 | `packages/design/tokens/*.json` | **Single source of truth** for every color, font, size, radius, shadow, motion and z-index value |
 | `packages/design/scripts/build-tokens.mjs` | Generates `dist/tokens.css`, `tailwind.css`, `tokens.{js,d.ts,json}`. **Fails the build** when a contrast or color-distinctness rule breaks |
 | `packages/design/src/css/base.css` | Zero-specificity defaults, type classes (`cs-h1`…), `cs-visually-hidden` |
-| `packages/design/src/css/components/<name>.css` | One stylesheet per component (kebab-case file name). The build wraps it in `@layer cs.components` |
+| `packages/design/src/css/components/<name>.css` | One stylesheet per component (kebab-case file name). The build wraps it in `@layer components` (base.css in `@layer base`), so app CSS and Tailwind utilities win |
 | `packages/design/src/react/<Name>.tsx` | Component (PascalCase file name) |
 | `packages/design/src/react/<Name>.stories.tsx` | Storybook stories. Each story also runs as a real-browser test |
 | `packages/design/src/react/<Name>.test.tsx` | Vitest browser tests (behavior + axe) |
-| `packages/design/src/react/index.ts` | Public exports (the maintainer adds new components here) |
+| `packages/design/src/react/_exports/*.ts` | Public exports by family, re-exported by `src/react/index.ts`. Pure helpers also go in `src/utils/index.ts` (`/utils`, no `'use client'`) |
 | `apps/site/demos/<name>.tsx` | Live examples used by the site page |
 | `apps/site/content/docs/components/<name>.mdx` | The component's page on the site |
 
@@ -49,13 +49,14 @@ CyberSkill Design System 3.x: Ink & Gold tokens, accessible React components and
 
 ## AI docs shipped to consumers
 
-`packages/design/ai/` is **generated** by `scripts/build-ai-docs.mjs` from the site pages and the built `.d.ts` files: `INDEX.md`, `components/<name>.md`, `tokens.md`, `SKILL.md`, `cursor-rule.mdc`, `AGENTS-snippet.md`. Never edit it by hand: change the component's site page or JSDoc, run the build, commit the result. CI runs `npm run check:ai-docs -w @cyberskill/design` and fails when it is stale. Apps install the skill and rules with `npx cyberskill-design ai-setup`.
+`packages/design/ai/` is **generated** by `scripts/build-ai-docs.mjs` from the site pages and the built `.d.ts` files: `INDEX.md`, `components/<name>.md`, `tokens.md`, `helpers.md`, `SKILL.md`, `cursor-rule.mdc`, `AGENTS-snippet.md`. Never edit it by hand: change the component's site page or JSDoc, run the build, commit the result. CI fails when it is stale, and the build fails when a component appears in no page's code sample (so its doc would be missing). Apps install the skill and rules with `npx cyberskill-design ai-setup`.
 
 ## Before you finish
 
 ```bash
 npm run build -w @cyberskill/design    # tokens + CSS + JS, fails on any broken color rule
 npm run lint:css -w @cyberskill/design
+npm run test:gates -w @cyberskill/design  # proves the token, CSS and CLI gates reject bad input
 npm run typecheck -w @cyberskill/design
 npm run test -w @cyberskill/design
 ```

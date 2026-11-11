@@ -1,0 +1,72 @@
+---
+title: Onboarding
+description: A first-run empty state with a command menu tip, and a setup wizard with steps, file upload and progress.
+full: true
+---
+
+import { OnboardingEmptyPattern, OnboardingWizardPattern } from '@/demos/patterns/onboarding';
+
+Use this pattern for the first minutes in a product: an empty workspace that points to the first step, then a short setup flow. The [Empty state](/docs/components/empty-state) says what is missing and offers one action, with a [Kbd](/docs/components/kbd) tip for the [Command menu](/docs/components/command-menu). The wizard shows its steps with a [Stepper](/docs/components/stepper) (connect data → train agent → go live), takes training files with [File upload](/docs/components/file-upload) and shows the training run with [Progress](/docs/components/progress).
+
+## No agents yet
+
+<Demo title="Empty workspace" layout="block">
+  <OnboardingEmptyPattern />
+</Demo>
+
+```tsx
+import { Button, CommandGroup, CommandItem, CommandMenu, EmptyState, Kbd } from '@cyberskill/design';
+
+const [open, setOpen] = useState(false);
+
+<EmptyState
+  size="lg" headingLevel={1} icon={<Robot />}
+  title="No agents yet"
+  description="An agent answers customers from your help center and hands the hard questions to your team."
+  action={<Button iconStart={<Plus />}>Create your first agent</Button>}
+/>
+<p>Tip: press <Kbd>⌘</Kbd><Kbd>K</Kbd> to jump anywhere.</p>
+<CommandMenu open={open} onOpenChange={setOpen}>         {/* ⌘K on macOS, Ctrl+K elsewhere */}
+  <CommandGroup label="Get started">
+    <CommandItem icon={<Plus />} shortcut="⌘N" onSelect={createAgent}>New agent</CommandItem>
+    <CommandItem icon={<Database />} keywords={['upload', 'documents']} onSelect={addSource}>Add training source</CommandItem>
+  </CommandGroup>
+</CommandMenu>
+```
+
+## Setup wizard
+
+Add or remove files, continue to watch the training run, then switch the widget on.
+
+<Demo title="Setup" layout="block">
+  <OnboardingWizardPattern />
+</Demo>
+
+```tsx
+import { Alert, Button, FileUpload, Progress, Stepper, Switch, type FileUploadItem } from '@cyberskill/design';
+
+<Stepper aria-label="Agent setup" steps={[
+  { title: 'Connect data', description: '2 files', status: 'complete' },
+  { title: 'Train agent', description: 'About 5 minutes', status: 'current' },
+  { title: 'Go live', description: 'Publish to your website', status: 'upcoming' },
+]} />
+
+{step === 0 && (
+  <FileUpload label="Training files" hint="PDF, DOCX, Markdown or CSV, up to 20 MB each" accept=".pdf,.docx,.md,.csv"
+    multiple maxSize={20_000_000} files={files} onAdd={startUploads} onRemove={removeFile} />
+)}
+{step === 1 && <Progress label="Training on 2 files and 142 articles" value={progress} />}
+{step === 2 && <Switch label="Show the chat widget on northwind.io" checked={live} onCheckedChange={setLive} />}
+
+<Button variant="ghost" iconStart={<ArrowLeft />} onClick={back}>Back</Button>
+<Button iconEnd={<ArrowRight />} disabled={!canContinue} onClick={next}>Continue</Button>
+```
+
+## Notes
+
+- The empty state offers exactly one action. The command menu tip is extra help, never the only way in; the button opens the same menu for people who do not use shortcuts. (This demo passes `shortcut={false}` and opens it only from the button, because ⌘K opens this site's search.)
+- The stepper is a progress display, not navigation: Back and Continue live in the flow. Its status is read as text after each title ("Train agent, Current step").
+- Continue stays disabled until the step can be finished (files uploaded, training done). Say why next to the button when it is not obvious.
+- File upload checks type and size before uploading and explains each rejected file; each file has its own progress bar, which turns into an "Uploaded" check mark at 100%, and a named remove button.
+- Keep a setup flow to three to five steps. Celebrate the end with a success alert and point to where the results show up.
+- Responsive: the stepper stays horizontal and wraps its descriptions; on very narrow screens use `orientation="vertical"`.
