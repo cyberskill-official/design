@@ -1,0 +1,46 @@
+name: npm publish
+
+# Publishes @cyberskill/design with provenance through npm trusted publishing (OIDC, no token).
+# npm's trusted-publisher setting names this file, as it did for 2.x, so keep the file name.
+#   - Push a tag vX.Y.Z[-next.N] that matches packages/design/package.json, or
+#   - run it by hand on a branch (e.g. next) to publish that branch's -next.N prerelease.
+# Prerelease versions always go to the `next` dist-tag and stable ones only from a tag, so a preview can never become `latest`.
+# Every CI check runs first; the `npm` environment can require a reviewer before the publish job starts.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: npm-publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  checks:
+    uses: ./.github/workflows/ci.yml
+
+  publish:
+    needs: checks
+    runs-on: ubuntu-24.04
+    environment: npm
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+        with: { persist-credentials: false }
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
+        with: { node-version-file: .nvmrc, cache: npm, registry-url: 'https://registry.npmjs.org' }
+      - name: npm 11.5.1 or newer (trusted publishing needs it)
+        run: npm install -g npm@11 && node tools/release-meta.mjs --check-npm "$(npm --version)"
+      - run: npm ci
+      - run: npm run build
+      - name: Version, tag and dist-tag agree
+        id: meta
+        run: node tools/release-meta.mjs
+      - name: Publish
+        if: steps.meta.outputs.published == 'false'
+        run: npm publish -w @cyberskill/design --ignore-scripts --provenance --access public --tag "${{ steps.meta.outputs.dist_tag }}"

@@ -1,7 +1,7 @@
-name: Release
+name: Version PR
 
-# Changesets opens a "Version packages" PR on main; merging it publishes to npm with provenance.
-# The legacy 2.x line publishes from the `legacy` branch with the `legacy` dist-tag (see that branch).
+# Changesets keeps a "chore: version packages" PR open on main. Merging it bumps the version and CHANGELOG.
+# Publishing is separate: push the tag (v3.0.0, or v3.0.0-next.1 in pre mode) and npm-publish.yml publishes it.
 on:
   push:
     branches: [main]
@@ -9,28 +9,20 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  id-token: write
 
-concurrency: release-${{ github.ref }}
+concurrency: version-pr-${{ github.ref }}
 
 jobs:
-  release:
+  version-pr:
     runs-on: ubuntu-24.04
-    environment: npm
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
-        with: { node-version-file: .nvmrc, cache: npm, registry-url: 'https://registry.npmjs.org' }
-      - run: npm ci
-      - run: npx playwright install --with-deps chromium
-      - run: npm run build
-      - run: npm run test -w @cyberskill/design
-      - uses: changesets/action@v1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
+        with: { node-version-file: .nvmrc, cache: npm }
+      - run: npm ci --ignore-scripts
+      - uses: changesets/action@ae32849d5ba541f9ae29e40e22a623bc13562f51  # v2.1.2
         with:
-          version: npx changeset version
-          publish: npm run release
-          commit: 'chore: version packages'
-          title: 'chore: version packages'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_CONFIG_PROVENANCE: 'true'
+          version-script: npm run version-packages
+          commit-message: 'chore: version packages'
+          pr-title: 'chore: version packages'
+          github-token: ${{ secrets.GITHUB_TOKEN }}

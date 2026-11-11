@@ -4,12 +4,14 @@ on:
   pull_request:
   push:
     branches: [main, next]
+  workflow_call: # npm-publish.yml runs every check before publishing
 
 permissions:
   contents: read
 
 concurrency:
-  group: ci-${{ github.ref }}
+  # github.workflow is the caller's name when npm-publish.yml calls this, so a publish never cancels (or is cancelled by) a normal run
+  group: ci-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -17,8 +19,8 @@ jobs:
     name: Package (tokens, build, tests)
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with: { node-version-file: .nvmrc, cache: npm }
       - run: npm ci
       - run: npx playwright install --with-deps chromium
@@ -27,6 +29,10 @@ jobs:
       - name: AI docs are committed and current
         run: git diff --exit-code -- packages/design/ai || (echo "::error::packages/design/ai is stale. Run npm run build and commit it." && exit 1)
       - run: npm run lint:css -w @cyberskill/design
+      - run: npm run test:gates -w @cyberskill/design
+      - run: npm run test:tools
+      - name: Package LICENSE and notices match the repo's
+        run: cmp LICENSE packages/design/LICENSE && cmp THIRD-PARTY-NOTICES.md packages/design/THIRD-PARTY-NOTICES.md
       - run: npm run typecheck -w @cyberskill/design
       - name: Component tests and every story as an accessibility test
         run: npm run test -w @cyberskill/design
@@ -37,8 +43,8 @@ jobs:
     name: Site and forensic visual audit
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
         with: { node-version-file: .nvmrc, cache: npm }
       - run: npm ci
       - run: npx playwright install --with-deps chromium
@@ -47,8 +53,26 @@ jobs:
       - name: Forensic visual audit (contrast on rendered colors, clipping, overlap, targets, fold)
         run: npm run audit:visual
       - if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7
         with:
           name: visual-audit
           path: tools/audit/out
           if-no-files-found: ignore
+
+  install:
+    name: Packed tarball installs and renders in a fresh Next app
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
+        with: { node-version-file: .nvmrc, cache: npm }
+      - run: npm ci
+      - run: npm run build
+      - run: npm pack -w @cyberskill/design --pack-destination "$RUNNER_TEMP"
+      - name: Install the tarball outside the workspace, build, check the output
+        run: |
+          cp -R examples/next-hello "$RUNNER_TEMP/app"
+          cd "$RUNNER_TEMP/app"
+          npm install --no-audit --no-fund "$RUNNER_TEMP"/cyberskill-design-*.tgz
+          npm run build
+          node check.mjs

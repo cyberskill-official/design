@@ -10,8 +10,7 @@
   },
   "workspaces": [
     "packages/*",
-    "apps/*",
-    "examples/*"
+    "apps/*"
   ],
   "scripts": {
     "build": "npm run build -w @cyberskill/design",
@@ -23,7 +22,8 @@
     "check:package": "npm run check:package -w @cyberskill/design",
     "audit:visual": "node tools/audit/run.mjs",
     "changeset": "changeset",
-    "release": "npm run build && changeset publish"
+    "version-packages": "changeset version && npm install --package-lock-only --ignore-scripts --no-audit --no-fund",
+    "test:tools": "node --test tools/*.test.mjs"
   },
   "devDependencies": {
     "@changesets/cli": "^3.0.3",
