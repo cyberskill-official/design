@@ -5,8 +5,8 @@
     {
       "source": "README.md",
       "mirror": "docs/vi/entrypoints/README.md",
-      "sourceSha256": "a7eb37a66d0e9ddb5da940999dfef7220e350e3206647d9ba855e3f60b70b66a",
-      "mirrorSha256": "8ec5ef169f83465287d67c0aa847c8006ef8c39c2d1b20a9c31ce55d9d7dacce",
+      "sourceSha256": "72d8b810016916b7a57c4faa26096a73020dd07a2efa3f3bb1cef9b1bdc9d0c6",
+      "mirrorSha256": "bc16ec66674c1bd6e8a769da9b12eb1c438d1b08b4718ffbe1cceb731b9ac55a",
       "reviewedAt": "2026-11-11"
     },
     {
@@ -55,8 +55,8 @@
     {
       "source": "SECURITY.md",
       "mirror": "docs/vi/entrypoints/SECURITY.md",
-      "sourceSha256": "3f8577fec10de48d921ffd6f9536d9f13bc86e53f9f0318d2d06f0abc5c4e165",
-      "mirrorSha256": "a221c37aab86af7ca63dbdac1e059f1ec4b0033f7023b9aada8ced8b8179fefa"
+      "sourceSha256": "9aab51417d74aad71e6ae966f9024a4a083bab625c4513b934b9b16bcf95ed8a",
+      "mirrorSha256": "108d55f7ce3f3256af39eae803e7efeac2952baace89bc663816fa2e2020e029"
     }
   ],
   "generatedEntries": [

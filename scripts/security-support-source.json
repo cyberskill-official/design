@@ -3,7 +3,7 @@
   "package": "@cyberskill/design",
   "registry": "https://registry.npmjs.org/",
   "snapshotPath": "_audit/ci/fixtures/npm-published-release.json",
-  "observedAt": "2026-11-10T13:04:18.764Z",
+  "observedAt": "2026-11-11T17:13:45.509Z",
   "supportWindow": "latest-published-stable-minor",
   "acknowledgementBusinessDays": 10,
   "bestEffort": true,
