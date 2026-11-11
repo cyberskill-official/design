@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from '@testing-library/react';
+import { cleanup, render, screen, within } from '@testing-library/react';
 import { userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { DatePicker } from './DatePicker';
@@ -28,7 +28,7 @@ describe('DatePicker', () => {
     expect(onValueChange).toHaveBeenLastCalledWith(new Date(2026, 3, 20));
   });
 
-  it('shows the invalid message for impossible or out-of-range dates and keeps the value', async () => {
+  it('shows the invalid message for impossible or out-of-range dates and never reports them as a value', async () => {
     const onValueChange = vi.fn();
     render(<DatePicker label="Ngày bắt đầu" min={new Date(2026, 0, 1)} invalidMessage="Ngày không hợp lệ" onValueChange={onValueChange} />);
     const input = screen.getByRole('textbox', { name: 'Ngày bắt đầu' });
@@ -41,6 +41,34 @@ describe('DatePicker', () => {
     await userEvent.tab();
     expect(input).toHaveAttribute('aria-invalid', 'true');
     expect(onValueChange).not.toHaveBeenCalled();
+  });
+
+  it('an invalid typed date reports null, keeps the text and empties the submitted value', async () => {
+    const onValueChange = vi.fn();
+    const { container } = render(<form><DatePicker label="Start date" name="start" defaultValue={march15} invalidMessage="Ngày không hợp lệ" onValueChange={onValueChange} /></form>);
+    const form = container.querySelector('form')!;
+    expect(new FormData(form).get('start')).toBe('2026-03-15');
+    const input = screen.getByRole('textbox', { name: 'Start date' });
+    await userEvent.clear(input);
+    await userEvent.type(input, '31/02/2026');
+    await userEvent.tab();
+    expect(onValueChange).toHaveBeenLastCalledWith(null);
+    expect(input).toHaveValue('31/02/2026');
+    expect(input).toHaveAccessibleDescription('Ngày không hợp lệ');
+    expect(new FormData(form).get('start')).toBe('');
+  });
+
+  it('forwards inputRef and onBlur to the visible input, after the text is checked', async () => {
+    const onBlur = vi.fn();
+    const onValueChange = vi.fn();
+    let el: HTMLInputElement | null = null;
+    render(<DatePicker label="Start date" inputRef={node => { el = node; }} onBlur={onBlur} onValueChange={onValueChange} />);
+    const input = screen.getByRole('textbox', { name: 'Start date' });
+    expect(el).toBe(input);
+    await userEvent.type(input, '1/4/2026');
+    await userEvent.tab();
+    expect(onBlur).toHaveBeenCalledTimes(1);
+    expect(onValueChange.mock.invocationCallOrder[0]).toBeLessThan(onBlur.mock.invocationCallOrder[0]!);
   });
 
   it('opens the calendar from the button on the selected day, picks a day and closes', async () => {
@@ -129,6 +157,69 @@ describe('DateTimePicker', () => {
     await userEvent.clear(date);
     await userEvent.type(date, '16/03/2026{Enter}');
     expect(onValueChange).toHaveBeenLastCalledWith(new Date(2026, 2, 16, 14, 45));
+  });
+
+  it('on the min and max days the time is limited too; other days have no time limit', async () => {
+    const onValueChange = vi.fn();
+    render(<DateTimePicker label="Meeting starts" min={new Date(2026, 2, 15, 9, 0)} max={new Date(2026, 2, 20, 17, 0)} step={30} invalidTimeMessage="Giờ không hợp lệ" onValueChange={onValueChange} />);
+    const date = screen.getByRole('textbox', { name: 'Date' });
+    const time = screen.getByRole('combobox', { name: 'Time' });
+    await userEvent.type(date, '15/03/2026');
+    await userEvent.tab();
+    await userEvent.click(time);
+    expect(within(await screen.findByRole('listbox')).getAllByRole('option')[0]).toHaveTextContent('09:00');
+    await userEvent.type(time, '8:30');
+    await userEvent.tab();
+    expect(time).toHaveAttribute('aria-invalid', 'true');
+    expect(time).toHaveAccessibleDescription('Giờ không hợp lệ');
+    expect(onValueChange).not.toHaveBeenCalled();
+    await userEvent.clear(time);
+    await userEvent.type(time, '9:30');
+    await userEvent.tab();
+    expect(onValueChange).toHaveBeenLastCalledWith(new Date(2026, 2, 15, 9, 30));
+    // A day in between: any time.
+    await userEvent.clear(date);
+    await userEvent.type(date, '16/03/2026');
+    await userEvent.tab();
+    await userEvent.clear(time);
+    await userEvent.type(time, '7:00');
+    await userEvent.tab();
+    expect(onValueChange).toHaveBeenLastCalledWith(new Date(2026, 2, 16, 7, 0));
+    // The max day: nothing after 17:00.
+    await userEvent.clear(date);
+    await userEvent.type(date, '20/03/2026');
+    await userEvent.tab();
+    await userEvent.clear(time);
+    await userEvent.type(time, '17:30');
+    await userEvent.tab();
+    expect(time).toHaveAttribute('aria-invalid', 'true');
+    expect(onValueChange).toHaveBeenLastCalledWith(null);
+  });
+
+  it('a time typed first becomes invalid when the min day is chosen, and reports nothing', async () => {
+    const onValueChange = vi.fn();
+    render(<DateTimePicker label="Meeting starts" min={new Date(2026, 2, 15, 9, 0)} onValueChange={onValueChange} />);
+    const date = screen.getByRole('textbox', { name: 'Date' });
+    const time = screen.getByRole('combobox', { name: 'Time' });
+    await userEvent.type(time, '8:00');
+    await userEvent.tab();
+    await userEvent.type(date, '15/03/2026');
+    await userEvent.tab();
+    expect(time).toHaveAttribute('aria-invalid', 'true');
+    expect(onValueChange).not.toHaveBeenCalled();
+    await userEvent.clear(date);
+    await userEvent.type(date, '16/03/2026');
+    await userEvent.tab();
+    expect(time).not.toHaveAttribute('aria-invalid');
+    expect(onValueChange).toHaveBeenLastCalledWith(new Date(2026, 2, 16, 8, 0));
+  });
+
+  it('submits one yyyy-MM-ddTHH:mm value under name and forwards inputRef to the date input', () => {
+    let el: HTMLInputElement | null = null;
+    const { container } = render(<form><DateTimePicker label="Meeting starts" name="start" defaultValue={new Date(2026, 2, 15, 14, 45)} inputRef={node => { el = node; }} /></form>);
+    const data = new FormData(container.querySelector('form')!);
+    expect([...data.entries()]).toEqual([['start', '2026-03-15T14:45']]);
+    expect(el).toBe(screen.getByRole('textbox', { name: 'Date' }));
   });
 
   it('has no accessibility violations in light and dark', async () => {

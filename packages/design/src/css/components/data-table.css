@@ -29,6 +29,8 @@
   & tbody tr { transition: background-color var(--duration-fast) var(--ease-standard); }
   & tbody tr:hover { background: color-mix(in srgb, var(--raised) 60%, var(--panel)); }
   & tbody tr[data-selected] { background: var(--primary-soft); }
+  & tbody tr[data-clickable] { cursor: pointer; }
+  & tbody tr[data-clickable]:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; }
   & [data-numeric] { text-align: end; }
   & td[data-numeric] { font-family: var(--font-mono); font-size: 13px; font-variant-numeric: tabular-nums; }
   & [data-select] { width: 20px; padding-inline-end: 0; }
@@ -99,17 +101,13 @@
 
 .cs-data-table-footer {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-3);
+  gap: var(--space-2) var(--space-3);
   padding: var(--space-2) var(--space-2) var(--space-2) var(--space-4);
   border-top: 1px solid var(--border);
   font: 500 13px/20px var(--font-sans);
   color: var(--muted);
 }
 .cs-data-table-range { font-variant-numeric: tabular-nums; }
-.cs-data-table-pager {
-  display: inline-flex;
-  gap: var(--space-1);
-  & [aria-disabled='true'] { --_hover: transparent; cursor: not-allowed; opacity: 0.5; }
-}

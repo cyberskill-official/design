@@ -5,7 +5,8 @@ import type { DateRange, Matcher } from 'react-day-picker';
 import { Button } from '../react/Button';
 import { Calendar } from './Calendar';
 import { PickerField, type PickerFieldProps } from './PickerField';
-import { DEFAULT_DATE_FORMAT, formatDate, isPickable, parseDate, useControllable } from './utils';
+import { DEFAULT_DATE_FORMAT, FORM_DATE_FORMAT, formatDate, parseDate } from './utils';
+import { isPickable, useControllable } from './picker-state';
 
 export type DateRangeValue = { from: Date; to: Date };
 export type DateRangePreset = { label: string; value: DateRangeValue };
@@ -27,10 +28,13 @@ export function rangePresets(labels: Partial<RangePresetLabels> = {}, today: Dat
   ];
 }
 
-export type DateRangePickerProps = Omit<PickerFieldProps, 'placeholder'> & {
+export type DateRangePickerProps = Omit<PickerFieldProps, 'placeholder' | 'name'> & {
   value?: DateRangeValue | null;
   defaultValue?: DateRangeValue | null;
+  /** Called with a full range, or `null` when cleared or when the typed text is not two allowed dates. */
   onValueChange?: (value: DateRangeValue | null) => void;
+  /** Submits the range with a native form as two hidden inputs, `name[from]` and `name[to]`, each `yyyy-MM-dd`. */
+  name?: string;
   /** date-fns pattern for each date. */
   format?: string;
   locale?: Locale;
@@ -38,7 +42,7 @@ export type DateRangePickerProps = Omit<PickerFieldProps, 'placeholder'> & {
   max?: Date;
   disabledDates?: Matcher | Matcher[];
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
-  /** Quick picks beside the calendar, e.g. `rangePresets()`. */
+  /** Quick picks beside the calendar, e.g. `rangePresets()`. A preset with a start or end outside `min`, `max` or `disabledDates` is disabled. */
   presets?: DateRangePreset[];
   /** Accessible name of the presets group. */
   presetsLabel?: string;
@@ -57,29 +61,37 @@ const subscribe = (onChange: () => void) => {
 };
 
 /** Labelled range field: type `01/03/2026 – 15/03/2026`, pick two days on a two-month calendar, or use presets. */
-export function DateRangePicker({ value, defaultValue = null, onValueChange, format = DEFAULT_DATE_FORMAT, locale, min, max, disabledDates, weekStartsOn, presets, presetsLabel = 'Presets', numberOfMonths, placeholder = `${format.toLowerCase()}${SEPARATOR}${format.toLowerCase()}`, clearLabel = 'Clear dates', openLabel = 'Choose dates', ...props }: DateRangePickerProps) {
+export function DateRangePicker({ value, defaultValue = null, onValueChange, format = DEFAULT_DATE_FORMAT, locale, min, max, disabledDates, weekStartsOn, presets, presetsLabel = 'Presets', numberOfMonths, placeholder = `${format.toLowerCase()}${SEPARATOR}${format.toLowerCase()}`, clearLabel = 'Clear dates', openLabel = 'Choose dates', name, ...props }: DateRangePickerProps) {
   const [current, setCurrent] = useControllable(value, defaultValue, onValueChange);
   const wide = useSyncExternalStore(subscribe, () => matchMedia(WIDE).matches, () => true);
   const months = numberOfMonths ?? (wide ? 2 : 1);
   const toText = (r: DateRangeValue) => `${formatDate(r.from, format, locale)}${SEPARATOR}${formatDate(r.to, format, locale)}`;
+  // One rule for typed ranges and presets: both ends must be pickable; the range comes back in order.
+  const toRange = (a?: Date | null, b?: Date | null): DateRangeValue | null => {
+    if (!a || !b || ![a, b].every(d => isPickable(d, min, max, disabledDates))) return null;
+    return a <= b ? { from: a, to: b } : { from: b, to: a };
+  };
   const fromText = (text: string): DateRangeValue | null => {
     // Split on a dash with spaces around it, or on any en/em dash, so `yyyy-MM-dd` formats still work.
     const [a, b, ...rest] = text.split(/\s+[-–—]\s+|\s*[–—]\s*/).map(part => parseDate(part, format, locale));
-    if (!a || !b || rest.length || ![a, b].every(d => isPickable(d, min, max, disabledDates))) return null;
-    return a <= b ? { from: a, to: b } : { from: b, to: a };
+    return rest.length ? null : toRange(a, b);
   };
+  const formFields = name ? { [`${name}[from]`]: current ? formatDate(current.from, FORM_DATE_FORMAT) : '', [`${name}[to]`]: current ? formatDate(current.to, FORM_DATE_FORMAT) : '' } : undefined;
 
   return (
-    <PickerField {...props} placeholder={placeholder} clearLabel={clearLabel} openLabel={openLabel} value={current} onCommit={setCurrent} toText={toText} fromText={fromText}>
+    <PickerField {...props} placeholder={placeholder} clearLabel={clearLabel} openLabel={openLabel} value={current} formFields={formFields} onCommit={setCurrent} toText={toText} fromText={fromText}>
       {select => (
         <div className="cs-date-range-panel">
           {presets?.length ? (
             <div className="cs-date-range-presets" role="group" aria-label={presetsLabel}>
-              {presets.map(p => (
-                <Button key={p.label} variant="ghost" size="sm" aria-pressed={!!current && isSameDay(p.value.from, current.from) && isSameDay(p.value.to, current.to)} onClick={() => select(p.value)}>
-                  {p.label}
-                </Button>
-              ))}
+              {presets.map(p => {
+                const range = toRange(p.value.from, p.value.to);
+                return (
+                  <Button key={p.label} variant="ghost" size="sm" disabled={!range} aria-pressed={!!current && isSameDay(p.value.from, current.from) && isSameDay(p.value.to, current.to)} onClick={() => range && select(range)}>
+                    {p.label}
+                  </Button>
+                );
+              })}
             </div>
           ) : null}
           <RangeCalendar value={current} onPick={select} numberOfMonths={months} locale={locale} minDate={min} maxDate={max} disabled={disabledDates} weekStartsOn={weekStartsOn} />

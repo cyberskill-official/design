@@ -3,7 +3,7 @@ import { ChartBar, Gear, House, MagnifyingGlass, Moon, Plus, Robot, UserPlus } f
 import { useState } from 'react';
 import { expect, fn, screen, userEvent, waitFor, within } from 'storybook/test';
 import { Button } from './Button';
-import { CommandGroup, CommandItem, CommandMenu, useCommandMenuShortcut } from './CommandMenu';
+import { CommandGroup, CommandItem, CommandMenu } from './CommandMenu';
 
 const onNewAgent = fn();
 
@@ -14,7 +14,6 @@ const meta = {
   args: { open: false, onOpenChange: fn(), children: null },
   render: function Render(args) {
     const [open, setOpen] = useState(false);
-    useCommandMenuShortcut(setOpen);
     return (
       <>
         <Button variant="secondary" iconStart={<MagnifyingGlass />} onClick={() => setOpen(true)}>
@@ -61,5 +60,16 @@ export const NoResults: Story = {
     await userEvent.click(within(canvasElement).getByRole('button', { name: /Search/ }));
     await userEvent.type(await screen.findByRole('combobox'), 'zzz');
     await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent('Không tìm thấy kết quả.'));
+  },
+};
+
+/** `shortcut` picks another letter (⌘J / Ctrl+J here) when the page already uses ⌘K; `false` turns it off. */
+export const CustomShortcut: Story = {
+  args: { shortcut: 'j' },
+  play: async () => {
+    await userEvent.keyboard('{Meta>}j{/Meta}');
+    await screen.findByRole('dialog', { name: 'Command menu' });
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(screen.queryByRole('dialog')).toBeNull());
   },
 };

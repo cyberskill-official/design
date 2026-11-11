@@ -25,6 +25,15 @@ describe('Meter', () => {
     expect(meter.querySelector('svg')).not.toBeNull();
   });
 
+  it('names the warning and danger status for screen readers, with overridable labels', () => {
+    const { rerender } = render(<Meter label="API calls" value={850} max={1000} warnAt={800} />);
+    expect(screen.getByRole('meter', { name: /^API calls ?, Warning$/ })).toBeVisible();
+    rerender(<Meter label="Seats" value={10} max={10} tone="danger" />);
+    expect(screen.getByRole('meter', { name: /^Seats ?, Critical$/ })).toBeVisible();
+    rerender(<Meter label="Chỗ ngồi" value={10} max={10} tone="warning" warningLabel="Cảnh báo" />);
+    expect(screen.getByRole('meter', { name: /^Chỗ ngồi ?, Cảnh báo$/ })).toBeVisible();
+  });
+
   it('has no accessibility violations in light and dark', async () => {
     await expectAccessibleInThemes(
       <div style={{ display: 'grid', gap: 16, width: 320 }}>

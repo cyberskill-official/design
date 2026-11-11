@@ -75,19 +75,48 @@ describe('DataTable', () => {
     expect(parseFloat(hit.width)).toBeGreaterThanOrEqual(44);
   });
 
-  it('paginates with a range and previous/next buttons', async () => {
-    render(<DataTable label="Invoices" columns={columns} data={invoices} pageSize={10} formatRange={(a, b, t) => `${a}–${b} / ${t}`} nextPageLabel="Trang sau" />);
+  it('paginates with a range and the Pagination component', async () => {
+    render(<DataTable label="Invoices" columns={columns} data={invoices} pageSize={10} formatRange={(a, b, t) => `${a}–${b} / ${t}`} nextPageLabel="Trang sau" pageLabel={n => `Trang ${n}`} />);
     expect(screen.getByText('1–10 / 25')).toBeVisible();
     expect(bodyRows()).toHaveLength(10);
-    const prev = screen.getByRole('button', { name: 'Previous page' });
-    expect(prev).toHaveAttribute('aria-disabled', 'true');
-    const next = screen.getByRole('button', { name: 'Trang sau' });
+    const nav = screen.getByRole('navigation', { name: 'Invoices pages' });
+    expect(within(nav).getByRole('button', { name: 'Trang 1' })).toHaveAttribute('aria-current', 'page');
+    expect(within(nav).getByRole('button', { name: 'Previous page' })).toBeDisabled();
+    const next = within(nav).getByRole('button', { name: 'Trang sau' });
     await userEvent.click(next);
-    await userEvent.click(next);
+    expect(screen.getByText('11–20 / 25')).toBeVisible();
+    await userEvent.click(within(nav).getByRole('button', { name: 'Trang 3' }));
     expect(screen.getByText('21–25 / 25')).toBeVisible();
     expect(firstCells()[0]).toBe('INV-021');
-    expect(next).toHaveAttribute('aria-disabled', 'true');
-    expect(document.activeElement).toBe(next);
+    expect(within(nav).getByRole('button', { name: 'Trang 3' })).toHaveAttribute('aria-current', 'page');
+    expect(next).toBeDisabled();
+  });
+
+  it('onRowClick: rows open on click, Enter or Space, but not from controls inside them', async () => {
+    const opened: string[] = [];
+    const withButton = col.columns([
+      ...columns,
+      col.display({ id: 'actions', header: 'Actions', cell: c => <button type="button">Email {c.row.original.id}</button> }),
+    ]);
+    render(<DataTable label="Invoices" columns={withButton} data={invoices.slice(0, 3)} getRowId={getRowId} selectable selectRowLabel={r => `Select ${r.id}`} onRowClick={r => opened.push(r.id)} />);
+    const [first, second] = bodyRows();
+    expect(getComputedStyle(first!).cursor).toBe('pointer');
+
+    await userEvent.click(within(first!).getByText('Lan'));
+    expect(opened).toEqual(['INV-001']);
+
+    await userEvent.click(screen.getByRole('checkbox', { name: 'Select INV-002' }));
+    await userEvent.click(screen.getByRole('button', { name: 'Email INV-002' }));
+    expect(opened).toEqual(['INV-001']);
+    expect(screen.getByRole('checkbox', { name: 'Select INV-002' })).toBeChecked();
+
+    second!.focus();
+    await userEvent.keyboard('{Enter}');
+    await userEvent.keyboard(' ');
+    expect(opened).toEqual(['INV-001', 'INV-002', 'INV-002']);
+    screen.getByRole('button', { name: 'Email INV-002' }).focus();
+    await userEvent.keyboard('{Enter}');
+    expect(opened).toHaveLength(3);
   });
 
   it('virtualizes large data, rendering only rows in view', async () => {
@@ -103,6 +132,17 @@ describe('DataTable', () => {
     expect(bodyRows().find(r => r.textContent?.startsWith('INV-1001'))).toHaveAttribute('aria-rowindex', '1002');
   });
 
+  it('keeps virtualized headers readable on a phone: the table scrolls sideways instead of squeezing columns', () => {
+    const many = Array.from({ length: 50 }, (_, i) => ({ id: `INV-${i + 1}`, customer: 'Lan', total: i }));
+    render(<div style={{ width: 300 }}><DataTable label="Invoices" columns={columns} data={many} getRowId={getRowId} virtualized maxHeight={300} /></div>);
+    const table = screen.getByRole('table');
+    for (const th of table.querySelectorAll('th')) {
+      const sort = th.querySelector('button');
+      if (sort) expect(sort.getBoundingClientRect().right).toBeLessThanOrEqual(th.getBoundingClientRect().right + 0.5);
+    }
+    expect(table.getBoundingClientRect().width).toBeGreaterThan(300);
+  });
+
   it('shows the empty state when there are no rows', () => {
     render(<DataTable label="Invoices" columns={columns} data={[]} emptyState="Chưa có hóa đơn" />);
     expect(screen.getByRole('cell', { name: 'Chưa có hóa đơn' })).toHaveAttribute('colspan', '3');
@@ -111,7 +151,7 @@ describe('DataTable', () => {
   it('has no accessibility violations in light and dark', async () => {
     await expectAccessibleInThemes(
       <div>
-        <DataTable label="Invoices" columns={columns} data={invoices} getRowId={getRowId} selectable pageSize={5} rowSelection={{ 'INV-002': true }} onRowSelectionChange={() => {}} density="compact" />
+        <DataTable label="Invoices" columns={columns} data={invoices} getRowId={getRowId} selectable pageSize={5} rowSelection={{ 'INV-002': true }} onRowSelectionChange={() => {}} density="compact" onRowClick={() => {}} />
         <DataTable label="Archive" columns={columns} data={invoices} maxHeight={200} density="comfortable" />
         <DataTable label="Drafts" columns={columns} data={[]} />
       </div>,

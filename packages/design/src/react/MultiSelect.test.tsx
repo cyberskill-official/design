@@ -74,6 +74,20 @@ describe('MultiSelect', () => {
     expect(many!.getBoundingClientRect().height).toBeGreaterThan(40);
   });
 
+  it('keeps its width as chips are added; they wrap inside it', () => {
+    render(
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, width: 900 }}>
+        <MultiSelect aria-label="None" items={skills} />
+        <MultiSelect aria-label="One" items={skills} defaultValue={['go']} />
+        <MultiSelect aria-label="All" items={skills} defaultValue={['react', 'ts', 'node', 'go']} />
+      </div>,
+    );
+    const [none, one, all] = Array.from(document.querySelectorAll('.cs-multi-select'), el => el.getBoundingClientRect());
+    expect(one!.width).toBe(none!.width);
+    expect(all!.width).toBe(none!.width);
+    expect(all!.height).toBeGreaterThan(none!.height);
+  });
+
   it('has no accessibility violations in light and dark', async () => {
     await expectAccessibleInThemes(
       <div style={{ display: 'grid', gap: 12, maxWidth: 360 }}>

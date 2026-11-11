@@ -22,11 +22,17 @@ export type StatProps = Omit<ComponentProps<'div'>, 'children'> & {
   hint?: ReactNode;
   /** Slot under the figures, e.g. a sparkline. */
   children?: ReactNode;
+  /** Screen-reader text after a good-news delta, since its color alone carries the meaning. */
+  positiveLabel?: string;
+  /** Screen-reader text after a bad-news delta. */
+  negativeLabel?: string;
 };
 
 /** KPI tile: label, a large tabular figure, an optional change and a chart slot. */
-export function Stat({ label, value, delta, hint, className, children, ...props }: StatProps) {
+export function Stat({ label, value, delta, hint, positiveLabel = 'positive change', negativeLabel = 'negative change', className, children, ...props }: StatProps) {
   const Arrow = delta?.trend === 'down' ? ArrowDownRight : ArrowUpRight;
+  const sentiment = delta?.sentiment ?? (delta?.trend === 'up' ? 'positive' : 'negative');
+  const sentimentText = sentiment === 'positive' ? positiveLabel : sentiment === 'negative' ? negativeLabel : null;
   return (
     <div {...props} className={cx('cs-stat', className)}>
       <div className="cs-stat-label">{label}</div>
@@ -34,9 +40,10 @@ export function Stat({ label, value, delta, hint, className, children, ...props 
       {(delta || hint) && (
         <div className="cs-stat-meta">
           {delta && (
-            <span className="cs-stat-delta" data-trend={delta.trend} data-sentiment={delta.sentiment ?? (delta.trend === 'up' ? 'positive' : 'negative')}>
+            <span className="cs-stat-delta" data-trend={delta.trend} data-sentiment={sentiment}>
               <Arrow aria-hidden="true" />
               {delta.value}
+              {sentimentText && <span className="cs-visually-hidden"> ({sentimentText})</span>}
             </span>
           )}
           {hint && <span className="cs-stat-hint">{hint}</span>}

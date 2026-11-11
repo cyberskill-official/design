@@ -40,7 +40,10 @@ export type SideNavItemProps = useRender.ComponentProps<'a'> & {
   icon?: ReactNode;
   /** The current page: sets `aria-current="page"` and the highlighted style. */
   active?: boolean;
-  /** Count or status after the label, e.g. `12` or a Badge. Read as part of the link name. */
+  /**
+   * Plain text after the label, e.g. `12` or "New". It renders inside the link, so it is read as part of the
+   * link's accessible name ("Conversations 12"): pass text, not a `Badge`, icon or anything interactive.
+   */
   badge?: ReactNode;
 };
 

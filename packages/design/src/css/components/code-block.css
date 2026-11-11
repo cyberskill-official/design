@@ -60,4 +60,4 @@
   [data-wrap] > & { white-space: pre-wrap; overflow-wrap: anywhere; }
 }
 
-.cs-copy-button[data-copied] { --_fg: var(--success); }
+.cs-copy-button[data-copied] { --_fg: var(--success); color: var(--_fg); } /* color too: inside a toolbar, .cs-toolbar-button sets it */

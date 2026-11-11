@@ -1,10 +1,13 @@
+import { WarningCircle } from '@phosphor-icons/react';
+import { isSameDay, startOfMinute } from 'date-fns';
 import { useId, useState, type ReactNode } from 'react';
 import { cx } from '../utils/cx';
 import { DatePicker, type DatePickerProps } from './DatePicker';
 import { TimePicker, type TimePickerProps } from './TimePicker';
-import { formatDate, useControllable, withTime } from './utils';
+import { FORM_DATE_TIME_FORMAT, formatDate, withTime } from './utils';
+import { useControllable } from './picker-state';
 
-export type DateTimePickerProps = Pick<DatePickerProps, 'format' | 'locale' | 'min' | 'max' | 'disabledDates' | 'weekStartsOn' | 'invalidMessage' | 'clearLabel' | 'openLabel'> &
+export type DateTimePickerProps = Pick<DatePickerProps, 'format' | 'locale' | 'min' | 'max' | 'disabledDates' | 'weekStartsOn' | 'invalidMessage' | 'clearLabel' | 'openLabel' | 'onBlur'> &
   Pick<TimePickerProps, 'step' | 'hourCycle'> & {
     className?: string;
     /** Group label, e.g. "Meeting starts". */
@@ -15,25 +18,37 @@ export type DateTimePickerProps = Pick<DatePickerProps, 'format' | 'locale' | 'm
     disabled?: boolean;
     value?: Date | null;
     defaultValue?: Date | null;
-    /** Called with the combined date and time once both are set, `null` while either is empty. */
+    /** Called with the combined date and time once both are set and allowed, `null` while either is empty or invalid. */
     onValueChange?: (value: Date | null) => void;
     /** Accessible names of the two inputs (the group label is visible). */
     dateLabel?: string;
     timeLabel?: string;
-    /** Error for a typed time that is not a time. */
+    /** Error for a typed time that is not a time, or is before `min` / after `max` on their days. */
     invalidTimeMessage?: ReactNode;
+    /** Submits the value with a native form as one hidden input, `yyyy-MM-ddTHH:mm`. */
+    name?: string;
+    /** Ref to the date input, e.g. React Hook Form's `field.ref` so a failed submit focuses it. */
+    inputRef?: DatePickerProps['inputRef'];
   };
 
-/** Date + time in one labelled group, producing a single `Date`. */
-export function DateTimePicker({ className, label, description, error, required, disabled, value, defaultValue = null, onValueChange, dateLabel = 'Date', timeLabel = 'Time', step, hourCycle, invalidTimeMessage, locale, ...dateProps }: DateTimePickerProps) {
+/**
+ * Date + time in one labelled group, producing a single `Date`. `min` and `max` limit the days and, on those two days,
+ * the time as well (a `min` of 15/03/2026 09:00 allows 15/03 from 09:00 and any time after that day).
+ */
+export function DateTimePicker({ className, label, description, error, required, disabled, value, defaultValue = null, onValueChange, dateLabel = 'Date', timeLabel = 'Time', step, hourCycle, invalidTimeMessage, locale, min, max, name, inputRef, onBlur, ...dateProps }: DateTimePickerProps) {
   const [current, setCurrent] = useControllable(value, defaultValue, onValueChange);
-  // Half-filled input (a date without a time, or the reverse) waits here until both parts exist.
+  // Half-filled or out-of-range input (a date without a time, 08:00 on a day that starts at 09:00) waits here.
   const [draft, setDraft] = useState<{ date: Date | null; time: string | null }>({ date: null, time: null });
   const date = current ?? draft.date;
   const time = current ? formatDate(current, 'HH:mm') : draft.time;
+  // The time limits only apply on the first and last allowed day.
+  const timeMin = date && min && isSameDay(date, min) ? formatDate(min, 'HH:mm') : undefined;
+  const timeMax = date && max && isSameDay(date, max) ? formatDate(max, 'HH:mm') : undefined;
   const update = (d: Date | null, t: string | null) => {
-    setDraft(d && t ? { date: null, time: null } : { date: d, time: t });
-    setCurrent(d && t ? withTime(d, t) : null);
+    const next = d && t ? withTime(d, t) : null;
+    const allowed = next && !(min && next < startOfMinute(min)) && !(max && next > max) ? next : null;
+    setDraft(allowed ? { date: null, time: null } : { date: d, time: t });
+    setCurrent(allowed);
   };
   const id = useId();
   const describedBy = [description && `${id}-description`, error && `${id}-error`].filter(Boolean).join(' ') || undefined;
@@ -45,11 +60,17 @@ export function DateTimePicker({ className, label, description, error, required,
         {required && <span className="cs-field-required" aria-hidden="true">*</span>}
       </legend>
       <div className="cs-date-time-picker-row">
-        <DatePicker {...dateProps} locale={locale} label={dateLabel} hideLabel required={required} disabled={disabled} value={date} onValueChange={d => update(d, time)} />
-        <TimePicker label={timeLabel} hideLabel required={required} disabled={disabled} step={step} hourCycle={hourCycle} locale={locale} invalidMessage={invalidTimeMessage} value={time} onValueChange={t => update(date, t)} />
+        <DatePicker {...dateProps} locale={locale} min={min} max={max} label={dateLabel} hideLabel required={required} disabled={disabled} value={date} onValueChange={d => update(d, time)} inputRef={inputRef} onBlur={onBlur} />
+        <TimePicker label={timeLabel} hideLabel required={required} disabled={disabled} step={step} hourCycle={hourCycle} locale={locale} min={timeMin} max={timeMax} invalidMessage={invalidTimeMessage} value={time} onValueChange={t => update(date, t)} onBlur={onBlur} />
       </div>
+      {name && <input type="hidden" name={name} value={current ? formatDate(current, FORM_DATE_TIME_FORMAT) : ''} disabled={disabled} />}
       {description && <p id={`${id}-description`} className="cs-field-description">{description}</p>}
-      {error && <p id={`${id}-error`} className="cs-field-error">{error}</p>}
+      {error && (
+        <p id={`${id}-error`} className="cs-field-error">
+          <WarningCircle aria-hidden="true" />
+          <span>{error}</span>
+        </p>
+      )}
     </fieldset>
   );
 }

@@ -63,6 +63,7 @@
 .cs-file-upload-item-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 500 14px/20px var(--font-sans); color: var(--foreground); }
 .cs-file-upload-item-size { flex: none; font: 400 12px/18px var(--font-mono); color: var(--muted); }
 
+.cs-file-upload-item-done,
 .cs-file-upload-item-error {
   display: inline-flex;
   align-items: center;
@@ -71,6 +72,7 @@
   color: var(--destructive);
   & > svg { flex: none; width: 14px; height: 14px; }
 }
+.cs-file-upload-item-done { color: var(--success); }
 
 .cs-file-upload-progress-track { height: 4px; overflow: hidden; border-radius: var(--radius-full); background: var(--border); }
 .cs-file-upload-progress-indicator { height: 100%; border-radius: inherit; background: var(--primary); transition: width var(--duration-base) var(--ease-standard); }

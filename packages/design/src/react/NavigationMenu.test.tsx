@@ -1,6 +1,6 @@
 import axe from 'axe-core';
 import { render, screen } from '@testing-library/react';
-import { userEvent } from 'vitest/browser';
+import { page, userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { ChartBar, Robot } from '@phosphor-icons/react';
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuLinkCard, NavigationMenuTrigger } from './NavigationMenu';
@@ -43,6 +43,29 @@ const openPanel = async () => {
 };
 
 describe('NavigationMenu', () => {
+  it('opens each panel under its own trigger, starting at the trigger, not centred past the header', async () => {
+    const { width, height } = { width: window.innerWidth, height: window.innerHeight };
+    await page.viewport(1200, 800);
+    render(<div style={{ paddingInlineStart: 240 }}><Example /></div>);
+    const { trigger, card } = await openPanel();
+    const panel = card.closest('.cs-navigation-menu-popup')!.getBoundingClientRect();
+    const button = trigger.getBoundingClientRect();
+    expect(panel.left).toBeCloseTo(button.left, 0);
+    expect(panel.top).toBeCloseTo(button.bottom + 8, 0);
+    await page.viewport(width, height);
+  });
+
+  it('shifts the panel back into view when there is no room toward the end', async () => {
+    const { width, height } = { width: window.innerWidth, height: window.innerHeight };
+    await page.viewport(1200, 800);
+    render(<div style={{ display: 'flex', justifyContent: 'flex-end', paddingInlineEnd: 160 }}><Example /></div>);
+    const { trigger, card } = await openPanel();
+    const panel = card.closest('.cs-navigation-menu-popup')!.getBoundingClientRect();
+    expect(panel.left).toBeLessThan(trigger.getBoundingClientRect().left);
+    expect(panel.right).toBeCloseTo(1200 - 16, 0); // collisionPadding
+    await page.viewport(width, height);
+  });
+
   it('renders a labelled nav and marks the current page', () => {
     render(<Example />);
     expect(screen.getByRole('navigation', { name: 'Main' })).toBeVisible();

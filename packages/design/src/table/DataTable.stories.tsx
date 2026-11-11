@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, fn, userEvent, within } from 'storybook/test';
 import { createDataTableColumnHelper, DataTable } from './index';
 
 type Invoice = { id: string; customer: string; status: string; total: number };
@@ -54,6 +54,18 @@ export const SelectionAndPagination: Story = {
   },
 };
 
+/** `onRowClick`: click a row, or Tab to it and press Enter. The checkbox keeps its own behavior. */
+export const ClickableRows: Story = {
+  args: { selectable: true, selectRowLabel: (r: Invoice) => `Select ${r.id}`, onRowClick: fn() },
+  play: async ({ args, canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByText('INV-1042'));
+    await expect(args.onRowClick).toHaveBeenLastCalledWith(expect.objectContaining({ id: 'INV-1042' }));
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Select INV-1043' }));
+    await expect(args.onRowClick).toHaveBeenCalledTimes(1);
+  },
+};
+
 export const Virtualized: Story = {
   args: { label: 'All invoices', data: makeInvoices(5000), virtualized: true, maxHeight: 420 },
   play: async ({ canvasElement }) => {
@@ -75,6 +87,7 @@ export const Vietnamese: Story = {
   args: {
     label: 'Hóa đơn', data: invoices, selectable: true, pageSize: 10, emptyState: 'Chưa có hóa đơn',
     selectAllLabel: 'Chọn tất cả', selectRowLabel: (r: Invoice) => `Chọn ${r.id}`, previousPageLabel: 'Trang trước', nextPageLabel: 'Trang sau',
+    pageLabel: (n: number) => `Trang ${n}`, paginationLabel: 'Phân trang hóa đơn',
     formatRange: (from: number, to: number, total: number) => `${from}–${to} trên ${total}`,
   },
 };

@@ -14,7 +14,9 @@ export function NavigationMenu({ className, children, ...props }: NavigationMenu
     <BaseNavigationMenu.Root {...props} className={cx('cs-navigation-menu', className)}>
       <BaseNavigationMenu.List className="cs-navigation-menu-list">{children}</BaseNavigationMenu.List>
       <ThemedPortal part={BaseNavigationMenu.Portal}>
-        <BaseNavigationMenu.Positioner sideOffset={8} collisionPadding={16} collisionAvoidance={{ side: 'none' }} className="cs-navigation-menu-positioner">
+        {/* align start: the panel opens down from its trigger instead of centering on it and hanging past the header's start edge;
+            near the end edge Base UI shifts it back into view */}
+        <BaseNavigationMenu.Positioner align="start" sideOffset={8} collisionPadding={16} collisionAvoidance={{ side: 'none' }} className="cs-navigation-menu-positioner">
           <BaseNavigationMenu.Popup className="cs-navigation-menu-popup">
             <BaseNavigationMenu.Viewport className="cs-navigation-menu-viewport" />
           </BaseNavigationMenu.Popup>

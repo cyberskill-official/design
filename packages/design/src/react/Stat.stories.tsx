@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, within } from 'storybook/test';
 import { Stat } from './Stat';
 
 const meta = {
@@ -23,6 +24,11 @@ export const Sentiments: Story = {
       <Stat label="Seats" value="128" delta={{ value: '+0', trend: 'up', sentiment: 'neutral' }} hint="no change" />
     </div>
   ),
+  // The sentiment is also text, so "−0.4 pts" for churn reads as good news without the color.
+  play: async ({ canvasElement }) => {
+    const [churn] = within(canvasElement).getAllByText('−0.4 pts');
+    await expect(churn).toHaveTextContent('−0.4 pts (positive change)');
+  },
 };
 
 const points = [12, 14, 13, 17, 16, 19, 22, 21, 24, 27];

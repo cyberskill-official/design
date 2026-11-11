@@ -1,6 +1,6 @@
 // Exports for the forms group. Owned by that group; add each new component and its types here.
 export { Select, SelectField } from '../Select';
-export type { SelectProps, SelectFieldProps, SelectItem, SelectSize } from '../Select';
+export type { SelectProps, SelectFieldProps, SelectItem, SelectGroup, SelectSize } from '../Select';
 export { Checkbox, CheckboxGroup } from '../Checkbox';
 export type { CheckboxProps, CheckboxGroupProps } from '../Checkbox';
 export { RadioGroup, Radio } from '../RadioGroup';

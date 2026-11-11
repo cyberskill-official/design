@@ -7,13 +7,18 @@ import { Button } from './Button';
 import { CommandGroup, CommandItem, CommandMenu, useCommandMenuShortcut } from './CommandMenu';
 import { expectNoA11yViolations } from '../test/a11y';
 
-function Example({ onNewAgent = () => {} }: { onNewAgent?: () => void }) {
+function WithHook() {
   const [open, setOpen] = useState(false);
   useCommandMenuShortcut(setOpen);
+  return <CommandMenu open={open} onOpenChange={setOpen}><CommandItem>Dashboard</CommandItem></CommandMenu>;
+}
+
+function Example({ onNewAgent = () => {}, shortcut }: { onNewAgent?: () => void; shortcut?: string | false }) {
+  const [open, setOpen] = useState(false);
   return (
     <>
       <Button variant="secondary" onClick={() => setOpen(true)}>Search</Button>
-      <CommandMenu open={open} onOpenChange={setOpen}>
+      <CommandMenu open={open} onOpenChange={setOpen} shortcut={shortcut}>
         <CommandGroup label="Navigation">
           <CommandItem icon={<House />}>Dashboard</CommandItem>
           <CommandItem icon={<Gear />} keywords={['preferences']}>Cài đặt</CommandItem>
@@ -91,6 +96,37 @@ describe('CommandMenu', () => {
     await screen.findByRole('dialog', { name: 'Command menu' });
     await userEvent.keyboard('{Control>}k{/Control}');
     await expect.poll(() => screen.queryByRole('dialog')).toBeNull();
+  });
+
+  it('shortcut changes the letter, and false turns it off', async () => {
+    const { unmount } = render(<Example shortcut="j" />);
+    await userEvent.keyboard('{Meta>}k{/Meta}');
+    expect(screen.queryByRole('dialog')).toBeNull();
+    await userEvent.keyboard('{Meta>}j{/Meta}');
+    await screen.findByRole('dialog', { name: 'Command menu' });
+    unmount();
+
+    render(<Example shortcut={false} />);
+    await userEvent.keyboard('{Meta>}k{/Meta}');
+    await userEvent.keyboard('{Control>}k{/Control}');
+    expect(screen.queryByRole('dialog')).toBeNull();
+  });
+
+  it('toggles once when useCommandMenuShortcut is also used', async () => {
+    render(<WithHook />);
+    await userEvent.keyboard('{Meta>}k{/Meta}');
+    await screen.findByRole('dialog', { name: 'Command menu' });
+  });
+
+  it('ignores keydown events without a key (Chrome autofill)', () => {
+    const errors: unknown[] = [];
+    const onError = (e: ErrorEvent) => errors.push(e.error);
+    window.addEventListener('error', onError);
+    render(<Example />);
+    document.dispatchEvent(new Event('keydown')); // a plain Event: `key` is undefined
+    window.removeEventListener('error', onError);
+    expect(errors).toEqual([]);
+    expect(screen.queryByRole('dialog')).toBeNull();
   });
 
   it('has no accessibility violations when open, in light and dark', async () => {

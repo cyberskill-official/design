@@ -16,6 +16,13 @@ export type NumberFieldProps = Omit<BaseNumberField.Root.Props, 'className'> &
     /** Accessible names of the − and + buttons. Pass Vietnamese text in Vietnamese UIs. */
     decrementLabel?: string;
     incrementLabel?: string;
+    /**
+     * Locale for showing and reading the number, e.g. `"vi-VN"`. Typed and pasted text is read with this locale's
+     * separators, so with `vi-VN` a pasted `1,000,000` (English grouping) becomes 1000: the comma is the Vietnamese decimal mark.
+     */
+    locale?: BaseNumberField.Root.Props['locale'];
+    /** `Intl.NumberFormat` options, e.g. `{ style: 'currency', currency: 'VND' }`. Parsing follows `locale`, not `format`. */
+    format?: BaseNumberField.Root.Props['format'];
   };
 
 /**

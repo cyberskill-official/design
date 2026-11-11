@@ -19,6 +19,15 @@ describe('Stat', () => {
     expect(delta.querySelector('svg')).toHaveAttribute('aria-hidden', 'true');
   });
 
+  it('says whether the change is good or bad in text, with overridable labels', () => {
+    const { rerender } = render(<Stat label="Churn" value="2.1%" delta={{ value: '−0.4 pts', trend: 'down', sentiment: 'positive' }} />);
+    expect(screen.getByText('−0.4 pts')).toHaveTextContent('−0.4 pts (positive change)');
+    rerender(<Stat label="Latency" value="412 ms" delta={{ value: '+38 ms', trend: 'up', sentiment: 'negative' }} negativeLabel="tiêu cực" />);
+    expect(screen.getByText('+38 ms')).toHaveTextContent('+38 ms (tiêu cực)');
+    rerender(<Stat label="Seats" value="128" delta={{ value: '0', trend: 'up', sentiment: 'neutral' }} />);
+    expect(screen.getByText('0').textContent).toBe('0');
+  });
+
   it('sentiment defaults from the trend', () => {
     render(<Stat label="Uptime" value="99.2%" delta={{ value: '−0.6%', trend: 'down' }} />);
     expect(screen.getByText('−0.6%')).toHaveAttribute('data-sentiment', 'negative');

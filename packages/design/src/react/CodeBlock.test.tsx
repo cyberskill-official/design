@@ -1,7 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from 'vitest/browser';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { ThumbsUp } from '@phosphor-icons/react';
 import { CodeBlock, CopyButton } from './CodeBlock';
+import { Toolbar, ToolbarButton } from './Toolbar';
 import { expectAccessibleInThemes } from '../test/a11y';
 
 const install = 'npm install @cyberskill/design';
@@ -75,5 +77,39 @@ describe('CopyButton', () => {
     await new Promise(r => setTimeout(r, 50));
     expect(screen.getByRole('status').textContent).toBe('');
     writeText.mockRestore();
+  });
+
+  it('joins a Toolbar as <ToolbarButton render={<CopyButton />} />: one Tab stop, arrow keys, Enter copies', async () => {
+    const writeText = vi.spyOn(navigator.clipboard, 'writeText').mockResolvedValue(undefined);
+    render(
+      <Toolbar aria-label="Answer actions">
+        <ToolbarButton render={<CopyButton value="Reset the password from Settings." label="Copy answer" />} />
+        <ToolbarButton icon={<ThumbsUp />} label="Good answer" />
+      </Toolbar>,
+    );
+    const copy = screen.getByRole('button', { name: 'Copy answer' });
+    const good = screen.getByRole('button', { name: 'Good answer' });
+    expect(copy.querySelector('.cs-button-label')).toBeNull(); // the toolbar's children do not add an empty label
+    expect(copy.getBoundingClientRect().width).toBe(good.getBoundingClientRect().width);
+    await userEvent.tab();
+    expect(copy).toHaveFocus();
+    expect(good).toHaveAttribute('tabindex', '-1');
+    await userEvent.keyboard('{ArrowRight}');
+    expect(good).toHaveFocus();
+    await userEvent.keyboard('{ArrowLeft}');
+    expect(copy).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+    expect(writeText).toHaveBeenCalledWith('Reset the password from Settings.');
+    await expect.poll(() => copy.hasAttribute('data-copied')).toBe(true);
+    writeText.mockRestore();
+  });
+
+  it('in a toolbar, has no accessibility violations in light and dark', async () => {
+    await expectAccessibleInThemes(
+      <Toolbar aria-label="Answer actions">
+        <ToolbarButton render={<CopyButton value="x" label="Copy answer" />} />
+        <ToolbarButton icon={<ThumbsUp />} label="Good answer" />
+      </Toolbar>,
+    );
   });
 });

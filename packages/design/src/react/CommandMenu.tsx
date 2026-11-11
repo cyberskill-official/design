@@ -9,9 +9,14 @@ type CommandMenuContextValue = { matches: (text: string) => boolean; close: () =
 const CommandMenuContext = createContext<CommandMenuContextValue>({ matches: () => true, close: () => {} });
 
 export type CommandMenuProps = {
-  /** Controlled open state. Pair with `useCommandMenuShortcut(setOpen)` for ⌘K / Ctrl+K. */
+  /** Controlled open state. */
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  /**
+   * Letter that toggles the menu with ⌘ (macOS) or Ctrl (Windows, Linux). Pick another letter, or `false` to turn
+   * the shortcut off, when the page already uses ⌘K (e.g. a docs site's search).
+   */
+  shortcut?: string | false;
   /** Accessible name of the palette and its search box. */
   label?: string;
   placeholder?: string;
@@ -33,6 +38,7 @@ export type CommandMenuProps = {
 export function CommandMenu({
   open,
   onOpenChange,
+  shortcut = 'k',
   label = 'Command menu',
   placeholder = 'Type a command or search…',
   emptyLabel = 'No results found.',
@@ -42,6 +48,7 @@ export function CommandMenu({
   className,
   children,
 }: CommandMenuProps) {
+  useModifierKey(shortcut, () => onOpenChange(!open));
   return (
     <BaseDialog.Root open={open} onOpenChange={next => onOpenChange(next)}>
       <ThemedPortal part={BaseDialog.Portal}>
@@ -147,15 +154,26 @@ export function CommandItem({ value, keywords = [], icon, shortcut, onSelect, cl
   );
 }
 
-/** Toggles the command menu on ⌘K (macOS) or Ctrl+K (Windows, Linux). Pass the `useState` setter; `key` changes the letter. */
-export function useCommandMenuShortcut(setOpen: Dispatch<SetStateAction<boolean>>, key = 'k') {
+/** Runs `onPress` on ⌘ or Ctrl plus `key`, unless another listener already handled the event (so the prop and the hook never toggle twice). */
+function useModifierKey(key: string | false, onPress: () => void) {
   useEffect(() => {
+    if (!key) return;
+    const letter = key.toLowerCase();
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key.toLowerCase() !== key.toLowerCase() || !(event.metaKey || event.ctrlKey)) return;
+      // `key` is undefined on some synthetic keydowns (Chrome autofill).
+      if (event.defaultPrevented || event.key?.toLowerCase() !== letter || !(event.metaKey || event.ctrlKey)) return;
       event.preventDefault();
-      setOpen(open => !open);
+      onPress();
     }
     document.addEventListener('keydown', onKeyDown);
     return () => document.removeEventListener('keydown', onKeyDown);
-  }, [setOpen, key]);
+  }, [key, onPress]);
+}
+
+/**
+ * Toggles the command menu on ⌘K (macOS) or Ctrl+K (Windows, Linux). Pass the `useState` setter; `key` changes the letter.
+ * `CommandMenu` already does this through its `shortcut` prop; use the hook only when the menu is not always mounted.
+ */
+export function useCommandMenuShortcut(setOpen: Dispatch<SetStateAction<boolean>>, key = 'k') {
+  useModifierKey(key, () => setOpen(open => !open));
 }

@@ -13,5 +13,10 @@ export { OtpField } from '../OtpField';
 export type { OtpFieldProps } from '../OtpField';
 export { Toggle } from '../Toggle';
 export type { ToggleProps } from '../Toggle';
-export { FileUpload, formatFileSize } from '../FileUpload';
+export { ToggleGroup, ToggleGroupItem } from '../ToggleGroup';
+export type { ToggleGroupProps, ToggleGroupItemProps } from '../ToggleGroup';
+export { SearchField } from '../SearchField';
+export type { SearchFieldProps } from '../SearchField';
+export { FileUpload } from '../FileUpload';
+export { formatFileSize } from '../../utils/format'; // from the pure module, so it stays server-safe
 export type { FileUploadProps, FileUploadItem } from '../FileUpload';

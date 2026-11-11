@@ -8,6 +8,7 @@ import { Checkbox } from '../react/Checkbox';
 import { Radio, RadioGroup } from '../react/RadioGroup';
 import { TextField } from '../react/Field';
 import { SelectField } from '../react/Select';
+import { DatePicker } from '../date/DatePicker';
 import { expectAccessibleInThemes } from '../test/a11y';
 
 // `@hookform/resolvers` is not installed here, so validation uses RHF `rules`; a zod resolver plugs into `useForm` the same way.
@@ -65,6 +66,24 @@ function InviteForm({ onSubmit }: { onSubmit: (values: Values) => void }) {
   );
 }
 
+// A date picker wired the way the docs show: value/onValueChange, onBlur and inputRef.
+function BookingForm({ onSubmit }: { onSubmit: (values: { start: Date | null }) => void }) {
+  const { control, handleSubmit } = useForm<{ start: Date | null }>({ mode: 'onBlur', defaultValues: { start: null } });
+  return (
+    <form noValidate onSubmit={handleSubmit(onSubmit)} style={{ display: 'grid', gap: 16, maxWidth: 360 }}>
+      <FormField
+        control={control}
+        name="start"
+        rules={{ required: 'Pick a start date.' }}
+        render={({ field, error }) => (
+          <DatePicker label="Start date" name={field.name} value={field.value} onValueChange={field.onChange} onBlur={field.onBlur} inputRef={field.ref} error={error} />
+        )}
+      />
+      <Button type="submit">Book</Button>
+    </form>
+  );
+}
+
 describe('FormField', () => {
   it('passes validation messages into the error props and focuses the first invalid field', async () => {
     const onSubmit = vi.fn();
@@ -96,7 +115,38 @@ describe('FormField', () => {
     expect(screen.queryByText('Enter a work email.')).toBeNull();
   });
 
+  it('DatePicker: a failed submit focuses it, blur validates, and invalid text never submits the old date', async () => {
+    const onSubmit = vi.fn();
+    render(<BookingForm onSubmit={onSubmit} />);
+    const input = screen.getByRole('textbox', { name: 'Start date' });
+    await userEvent.click(input);
+    await userEvent.tab(); // mode: 'onBlur' validates on leaving the field
+    await expect.poll(() => input.getAttribute('aria-invalid')).toBe('true');
+    await userEvent.click(screen.getByRole('button', { name: 'Book' }));
+    await expect.poll(() => document.activeElement).toBe(input);
+    expect(input).toHaveAccessibleDescription('Pick a start date.');
+    expect(onSubmit).not.toHaveBeenCalled();
+
+    await userEvent.type(input, '15/03/2026');
+    await userEvent.tab();
+    await expect.poll(() => input.getAttribute('aria-invalid')).toBeNull();
+    await userEvent.click(screen.getByRole('button', { name: 'Book' }));
+    await expect.poll(() => onSubmit.mock.calls.length).toBe(1);
+    expect(onSubmit.mock.calls[0]?.[0]).toEqual({ start: new Date(2026, 2, 15) });
+
+    // Typing an impossible date clears the field value; the blur shows the form's error, and submit is blocked.
+    await userEvent.clear(input);
+    await userEvent.type(input, '31/02/2026');
+    await userEvent.tab();
+    await expect.poll(() => input.getAttribute('aria-invalid')).toBe('true');
+    expect(input).toHaveAccessibleDescription('Pick a start date.');
+    await userEvent.click(screen.getByRole('button', { name: 'Book' }));
+    await expect.poll(() => document.activeElement).toBe(input);
+    expect(onSubmit).toHaveBeenCalledTimes(1);
+  });
+
   it('has no accessibility violations in light and dark', async () => {
     await expectAccessibleInThemes(<InviteForm onSubmit={() => {}} />);
+    await expectAccessibleInThemes(<BookingForm onSubmit={() => {}} />);
   });
 });

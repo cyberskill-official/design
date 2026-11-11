@@ -1,7 +1,16 @@
 import { Field as BaseField } from '@base-ui/react/field';
 import { Input as BaseInput } from '@base-ui/react/input';
+import { WarningCircle } from '@phosphor-icons/react';
 import type { ReactNode } from 'react';
 import { cx } from '../utils/cx';
+
+// Icon beside the message so the error does not rest on color alone; aria-hidden keeps the text as the description.
+const renderError: BaseField.Error.Props['render'] = ({ children, ...props }) => (
+  <div {...props}>
+    <WarningCircle aria-hidden="true" />
+    <span>{children}</span>
+  </div>
+);
 
 export type FieldProps = Omit<BaseField.Root.Props, 'className' | 'children'> & {
   className?: string;
@@ -32,11 +41,11 @@ export function Field({ label, hideLabel, description, error, required, optional
       {children}
       {description && <BaseField.Description className="cs-field-description">{description}</BaseField.Description>}
       {error ? (
-        <BaseField.Error className="cs-field-error" match>
+        <BaseField.Error className="cs-field-error" render={renderError} match>
           {error}
         </BaseField.Error>
       ) : (
-        <BaseField.Error className="cs-field-error" />
+        <BaseField.Error className="cs-field-error" render={renderError} />
       )}
     </BaseField.Root>
   );

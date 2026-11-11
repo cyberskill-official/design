@@ -1,12 +1,12 @@
-import { CaretDown, CaretLeft, CaretRight, CaretUp, CaretUpDown } from '@phosphor-icons/react';
+import { CaretDown, CaretUp, CaretUpDown } from '@phosphor-icons/react';
 import {
   createColumnHelper, createPaginatedRowModel, createSortedRowModel, metaHelper, rowPaginationFeature, rowSelectionFeature, rowSortingFeature,
   sortFn_alphanumeric, sortFn_datetime, sortFn_text, tableFeatures, useTable,
   type ColumnDef, type OnChangeFn, type RowSelectionState, type SortingState,
 } from '@tanstack/react-table';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { useMemo, useRef, type HTMLAttributes, type ReactNode } from 'react';
-import { IconButton } from '../react/Button';
+import { useMemo, useRef, type HTMLAttributes, type KeyboardEvent, type MouseEvent, type ReactNode } from 'react';
+import { Pagination, type PaginationProps } from '../react/Pagination';
 import { cx } from '../utils/cx';
 
 /** Labels the built-in checkbox column reads, passed as table meta so inline label functions never rebuild the columns. */
@@ -62,14 +62,25 @@ export type DataTableProps<TData extends object> = Omit<HTMLAttributes<HTMLDivEl
   maxHeight?: number | string;
   /** Shown in place of rows when there is no data. */
   emptyState?: ReactNode;
+  /**
+   * Makes rows clickable, e.g. to open a detail view: a click on the row, or Enter or Space while it has focus.
+   * Clicks on links, buttons, checkboxes and other controls inside a cell run those controls instead.
+   */
+  onRowClick?: (row: TData) => void;
   selectAllLabel?: string;
   /** Accessible name of a row checkbox. Name the row, e.g. `row => \`Select ${row.number}\``. */
   selectRowLabel?: (row: TData) => string;
   previousPageLabel?: string;
   nextPageLabel?: string;
+  /** Accessible name of the pagination landmark. Defaults to `${label} pages`, e.g. "Invoices pages". */
+  paginationLabel?: string;
+  /** Accessible name of each page button, e.g. `(n) => \`Trang ${n}\``. */
+  pageLabel?: PaginationProps['pageLabel'];
   /** Footer range text. Defaults to "1–10 of 214". */
   formatRange?: (from: number, to: number, total: number) => string;
 };
+
+const leafCount = (defs: readonly object[]): number => defs.reduce<number>((n, d) => n + ('columns' in d && Array.isArray(d.columns) ? leafCount(d.columns) : 1), 0);
 
 const selectColumn: DataTableColumnDef<object> = {
   id: '_select',
@@ -92,12 +103,15 @@ const selectColumn: DataTableColumnDef<object> = {
 
 const defaultRange = (from: number, to: number, total: number) => `${from}–${to} of ${total}`;
 
+// What a click inside a clickable row may land on and still belong to a control, not the row (the row itself matches [tabindex]).
+const CONTROLS = 'a[href], button, input, select, textarea, label, summary, [role="button"], [role="checkbox"], [role="switch"], [role="link"], [role="menuitem"], [contenteditable="true"], [tabindex]';
+
 /** Sortable, selectable data table on TanStack Table v9, with optional pagination or row virtualization. */
 export function DataTable<TData extends object>({
   columns, data, label, getRowId, density = 'default', sorting, onSortingChange, selectable = false, rowSelection, onRowSelectionChange,
-  pageSize, virtualized = false, maxHeight = virtualized ? 480 : undefined, emptyState = 'No results',
+  pageSize, virtualized = false, maxHeight = virtualized ? 480 : undefined, emptyState = 'No results', onRowClick,
   selectAllLabel = 'Select all rows', selectRowLabel = () => 'Select row', previousPageLabel = 'Previous page', nextPageLabel = 'Next page',
-  formatRange = defaultRange, className, ...props
+  paginationLabel = `${label} pages`, pageLabel, formatRange = defaultRange, className, ...props
 }: DataTableProps<TData>) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -143,7 +157,12 @@ export function DataTable<TData extends object>({
         ref={scrollRef} className="cs-data-table-scroll" style={{ maxHeight }}
         {...(scrolls && { tabIndex: 0, role: 'region', 'aria-label': label })}
       >
-        <table aria-label={label} aria-rowcount={virtualized ? rows.length + 1 : undefined} data-virtualized={virtualized || undefined}>
+        <table
+          aria-label={label} aria-rowcount={virtualized ? rows.length + 1 : undefined} data-virtualized={virtualized || undefined}
+          // Virtualized tables use a fixed layout so columns don't jump as rows scroll. A floor of 9rem per column makes
+          // narrow screens scroll sideways instead of squeezing headers into each other.
+          style={virtualized ? { minWidth: `calc(${leafCount(columns)} * 9rem${selectable ? ' + 36px' : ''})` } : undefined}
+        >
           <thead>
             {table.getHeaderGroups().map(group => (
               <tr key={group.id} aria-rowindex={virtualized ? 1 : undefined}>
@@ -179,6 +198,17 @@ export function DataTable<TData extends object>({
                 data-index={virtualized ? items[i]!.index : undefined}
                 aria-rowindex={virtualized ? items[i]!.index + 2 : undefined}
                 ref={virtualized ? virtualizer.measureElement : undefined}
+                {...(onRowClick && {
+                  tabIndex: 0,
+                  'data-clickable': '',
+                  // closest() reaching the row means no control in between (portalled popups never reach it)
+                  onClick: (event: MouseEvent<HTMLTableRowElement>) => (event.target as Element).closest(CONTROLS) === event.currentTarget && onRowClick(row.original),
+                  onKeyDown: (event: KeyboardEvent<HTMLTableRowElement>) => {
+                    if (event.target !== event.currentTarget || (event.key !== 'Enter' && event.key !== ' ')) return;
+                    event.preventDefault(); // Space would scroll the page
+                    onRowClick(row.original);
+                  },
+                })}
               >
                 {row.getAllCells().map(cell => (
                   <td key={cell.id} data-numeric={cell.column.columnDef.meta?.numeric || undefined} data-select={cell.column.id === '_select' || undefined}>
@@ -199,11 +229,10 @@ export function DataTable<TData extends object>({
       {pageSize != null && (
         <div className="cs-data-table-footer">
           <span className="cs-data-table-range" aria-live="polite">{formatRange(from, to, total)}</span>
-          <span className="cs-data-table-pager">
-            {/* aria-disabled, not disabled: focus stays on the button when the last page is reached */}
-            <IconButton label={previousPageLabel} icon={<CaretLeft />} size="sm" variant="ghost" aria-disabled={!table.getCanPreviousPage() || undefined} onClick={() => table.getCanPreviousPage() && table.previousPage()} />
-            <IconButton label={nextPageLabel} icon={<CaretRight />} size="sm" variant="ghost" aria-disabled={!table.getCanNextPage() || undefined} onClick={() => table.getCanNextPage() && table.nextPage()} />
-          </span>
+          <Pagination
+            page={pageIndex + 1} pageCount={Math.max(1, table.getPageCount())} onPageChange={page => table.setPageIndex(page - 1)}
+            label={paginationLabel} previousLabel={previousPageLabel} nextLabel={nextPageLabel} pageLabel={pageLabel}
+          />
         </div>
       )}
     </div>

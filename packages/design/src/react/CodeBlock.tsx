@@ -14,7 +14,10 @@ export type CopyButtonProps = Omit<IconButtonProps, 'label' | 'icon' | 'value'> 
   onCopy?: (value: string) => void;
 };
 
-/** Icon button that copies `value` to the clipboard, swaps to a check mark and announces `copiedLabel` to screen readers. */
+/**
+ * Icon button that copies `value` to the clipboard, swaps to a check mark and announces `copiedLabel` to screen readers.
+ * In a toolbar, pass it to `render` so it joins the arrow-key navigation: `<ToolbarButton render={<CopyButton value={text} />} />`.
+ */
 export function CopyButton({ value, label = 'Copy', copiedLabel = 'Copied', onCopy, onClick, variant = 'ghost', size = 'sm', className, ...props }: CopyButtonProps) {
   const [copied, setCopied] = useState(false);
   useEffect(() => {

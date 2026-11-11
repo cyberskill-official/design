@@ -15,7 +15,8 @@
   &:has(.cs-tag-remove) { padding-inline-end: 2px; }
 }
 
-.cs-tag-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* line-height above 1: overflow (for the ellipsis) would otherwise cut descenders like g and y */
+.cs-tag-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 18px; }
 
 .cs-tag-remove {
   position: relative;

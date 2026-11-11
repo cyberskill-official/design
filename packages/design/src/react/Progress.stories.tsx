@@ -33,4 +33,13 @@ export const Tones: Story = {
 
 export const Indeterminate: Story = { args: { label: 'Preparing export', value: null } };
 
+/** Warning and danger add their status to the name ("Retrying sync, Critical") and keep the icon without a value. */
+export const IndeterminateDanger: Story = {
+  args: { label: 'Retrying sync', value: null, tone: 'danger' },
+  play: async ({ canvasElement }) => {
+    const bar = within(canvasElement).getByRole('progressbar', { name: /^Retrying sync ?, Critical$/ });
+    await expect(bar.querySelector('.cs-progress-value svg')).not.toBeNull();
+  },
+};
+
 export const Complete: Story = { args: { label: 'Upload complete', value: 100 } };

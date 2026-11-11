@@ -1,4 +1,4 @@
-/* Box from .cs-input-group (field.css), popup and options from combobox.css. The box grows as chips wrap. */
+/* Box from .cs-input-group (field.css), popup and options from combobox.css. The box grows taller as chips wrap, never wider. */
 .cs-input-group.cs-multi-select {
   height: auto;
   min-height: var(--_h);
@@ -16,6 +16,10 @@
   gap: var(--space-1);
   min-width: 0;
   padding: calc((var(--_h) - 2px - var(--_chip)) / 2) var(--space-1) calc((var(--_h) - 2px - var(--_chip)) / 2) calc((var(--_h) - 2px - var(--_chip)) / 2);
+  /* Chips never widen the control (in a flex row or auto-sized column it would grow with each one);
+     it keeps the width of an empty input and the chips wrap inside it. */
+  contain: inline-size;
+  contain-intrinsic-inline-size: 140px;
 }
 
 .cs-multi-select-chip {
@@ -63,7 +67,7 @@
 
 .cs-multi-select-input {
   flex: 1;
-  min-width: 8ch;
+  min-width: min(8ch, 100%); /* room to type before it wraps under the chips */
   height: var(--_chip);
   margin: 0;
   padding: 0 var(--space-1);

@@ -3,7 +3,8 @@ import { cx } from '../utils/cx';
 
 export type Theme = 'light' | 'dark' | 'system';
 
-const PortalHost = createContext<HTMLElement | null>(null);
+// undefined: no ThemeScope above (portal to body). null: inside one, host not created yet (Base UI waits, so no flash in the wrong theme).
+const PortalHost = createContext<HTMLElement | null | undefined>(undefined);
 
 export type ThemeScopeProps = React.HTMLAttributes<HTMLDivElement> & {
   /** `light`, `dark`, or `system` (follows the operating system). */
@@ -37,13 +38,13 @@ export function ThemeScope({ theme, className, children, ...props }: ThemeScopeP
   );
 }
 
-/** The element popups should render into: the nearest ThemeScope's host, or `null` for document.body. */
-export function usePortalContainer(): HTMLElement | null {
+/** The element popups should render into: the nearest ThemeScope's host, `null` while it is being created, or `undefined` outside any ThemeScope (document.body). */
+export function usePortalContainer(): HTMLElement | null | undefined {
   return useContext(PortalHost);
 }
 
 /** Internal: renders a Base UI `*.Portal` part into the nearest ThemeScope host when there is one. */
 export function ThemedPortal({ part: Part, ...props }: { part: ElementType; children?: ReactNode; [prop: string]: unknown }) {
   const container = usePortalContainer();
-  return <Part {...props} {...(container ? { container } : {})} />;
+  return <Part {...props} {...(container === undefined ? {} : { container })} />;
 }

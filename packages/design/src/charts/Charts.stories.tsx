@@ -58,7 +58,7 @@ export const Vietnamese: Story = {
     <LineChart
       {...args} title="Người dùng hoạt động" description="Theo tháng" xLabel="Tháng" showTableLabel="Xem bảng" showChartLabel="Xem biểu đồ"
       series={[{ key: 'web', label: 'Web' }, { key: 'mobile', label: 'Di động' }]}
-      valueFormatter={v => new Intl.NumberFormat('vi-VN').format(v)}
+      locale="vi-VN"
     />
   ),
   play: async ({ canvasElement }) => {

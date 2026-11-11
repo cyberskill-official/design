@@ -55,6 +55,44 @@ describe('DateRangePicker', () => {
     expect(onValueChange).toHaveBeenLastCalledWith({ from: new Date(2026, 2, 12), to: today });
   });
 
+  it('disables presets outside min, max or disabledDates and still checks the ones it allows', async () => {
+    const onValueChange = vi.fn();
+    const presets = rangePresets({}, today);
+    // Last 30 days starts before min; Last 7 days starts on a disabled day.
+    render(<DateRangePicker label="Report period" presets={presets} min={new Date(2026, 2, 1)} disabledDates={new Date(2026, 2, 12)} onValueChange={onValueChange} />);
+    await userEvent.click(screen.getByRole('button', { name: 'Choose dates' }));
+    const group = await screen.findByRole('group', { name: 'Presets' });
+    expect(within(group).getAllByRole('button').map(b => [b.textContent, (b as HTMLButtonElement).disabled])).toEqual([
+      ['Today', false],
+      ['Last 7 days', true],
+      ['Last 30 days', true],
+      ['This month', false],
+    ]);
+    await userEvent.click(within(group).getByRole('button', { name: 'Last 30 days' }), { force: true });
+    expect(onValueChange).not.toHaveBeenCalled();
+    await userEvent.click(within(group).getByRole('button', { name: 'This month' }));
+    expect(onValueChange).toHaveBeenLastCalledWith({ from: new Date(2026, 2, 1), to: today });
+    cleanup();
+    render(<DateRangePicker label="Report period" presets={presets} max={new Date(2026, 2, 17)} />);
+    await userEvent.click(screen.getByRole('button', { name: 'Choose dates' }));
+    const capped = await screen.findByRole('group', { name: 'Presets' });
+    expect(within(capped).getAllByRole('button').every(b => (b as HTMLButtonElement).disabled)).toBe(true);
+  });
+
+  it('submits the range as name[from] and name[to] in yyyy-MM-dd, empty when invalid', async () => {
+    const onValueChange = vi.fn();
+    const { container } = render(<form><DateRangePicker label="Stay" name="stay" defaultValue={march} onValueChange={onValueChange} /></form>);
+    const form = container.querySelector('form')!;
+    expect([...new FormData(form).entries()]).toEqual([['stay[from]', '2026-03-03'], ['stay[to]', '2026-03-12']]);
+    const input = screen.getByRole('textbox', { name: 'Stay' });
+    await userEvent.clear(input);
+    await userEvent.type(input, '20/03/2026');
+    await userEvent.tab();
+    expect(onValueChange).toHaveBeenLastCalledWith(null);
+    expect(input).toHaveValue('20/03/2026');
+    expect([...new FormData(form).entries()]).toEqual([['stay[from]', ''], ['stay[to]', '']]);
+  });
+
   it('rangePresets computes Today, Last 7 days, Last 30 days and This month from today', () => {
     expect(rangePresets({}, today).map(p => p.value)).toEqual([
       { from: today, to: today },

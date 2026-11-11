@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { Cell, Pie, PieChart, Tooltip, type TooltipContentProps } from 'recharts';
-import { chartColor, ChartFrame, ChartTooltipCard, formatNumber, formatValue, valueOf, type ChartColor, type ChartFrameProps } from './ChartFrame';
+import { chartColor, ChartFrame, ChartTooltipCard, formatValue, numberFormatter, valueOf, type ChartColor, type ChartFrameProps } from './ChartFrame';
 
 export type DonutChartProps = Omit<ChartFrameProps, 'children' | 'legend' | 'legendMark'> & {
   /** Plot height in px; the ring fills it. */
@@ -17,7 +17,7 @@ export type DonutChartProps = Omit<ChartFrameProps, 'children' | 'legend' | 'leg
  * Part-to-whole for at most five slices, read clockwise from the top. `xKey` names each slice and `series[0].key` holds its value.
  * The legend lists each slice with its value and share. For close values or more slices, use a bar chart.
  */
-export function DonutChart({ data, series, xKey, height = 200, valueFormatter = formatNumber, centerLabel, centerValue, colors, ...frame }: DonutChartProps) {
+export function DonutChart({ data, series, xKey, height = 200, locale, valueFormatter = numberFormatter(locale), centerLabel, centerValue, colors, ...frame }: DonutChartProps) {
   const valueKey = series[0]?.key ?? 'value';
   const total = data.reduce((sum, row) => sum + (Number(valueOf(row, valueKey)) || 0), 0);
   const slices = data.map((row, i) => {

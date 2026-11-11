@@ -1,5 +1,7 @@
 .cs-field {
   display: grid;
+  /* Rows keep their natural height when a grid or flex parent stretches the field (next to a taller one) */
+  align-content: start;
   gap: 6px;
   min-width: 0;
 }
@@ -16,7 +18,17 @@
 .cs-field-optional { margin-inline-start: 4px; font-weight: 400; color: var(--muted); }
 
 .cs-field-description { margin: 0; font: 400 13px/18px var(--font-sans); color: var(--muted); }
-.cs-field-error { margin: 0; font: 500 13px/18px var(--font-sans); color: var(--destructive); }
+.cs-field-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 0;
+  font: 500 13px/18px var(--font-sans);
+  color: var(--destructive);
+  /* 16px icon centred on the first 18px line; the text wraps beside it */
+  & > svg { flex: none; width: 16px; height: 16px; margin-block-start: 1px; }
+  & > span { min-width: 0; }
+}
 
 .cs-input {
   --_h: var(--control-md);

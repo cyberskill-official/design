@@ -1,7 +1,7 @@
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
-import { AreaChart, BarChart, DonutChart, LineChart, Sparkline } from './index';
+import { AreaChart, BarChart, chartColor, DonutChart, LineChart, seriesColor, Sparkline } from './index';
 import { expectAccessibleInThemes, expectNoA11yViolations } from '../test/a11y';
 
 const data = [
@@ -78,6 +78,30 @@ describe('Charts', () => {
     expect(screen.getByText('100')).toBeVisible();
     expect(screen.getByRole('list')).toMatchTextContent('Chrome60 · 60%');
     expect(await screen.findByRole('img', { name: 'Browsers' })).toBeVisible();
+  });
+
+  it('formats numbers in a fixed en-US locale by default (no hydration mismatch); locale="vi-VN" switches it', async () => {
+    const { unmount } = render(<BarChart title="Default" data={data} series={series} xKey="month" />);
+    await userEvent.click(screen.getByRole('button', { name: 'Show table' }));
+    expect(screen.getByRole('cell', { name: '1,350' })).toBeVisible();
+    unmount();
+    render(<BarChart title="Theo tháng" data={data} series={series} xKey="month" locale="vi-VN" showTableLabel="Xem bảng" />);
+    await userEvent.click(screen.getByRole('button', { name: 'Xem bảng' }));
+    expect(screen.getByRole('cell', { name: '1.350' })).toBeVisible();
+  });
+
+  it('donut center and legend follow the locale', () => {
+    const visits = [{ browser: 'Chrome', visits: 6120 }, { browser: 'Safari', visits: 2480 }];
+    render(<DonutChart title="Trình duyệt" data={visits} series={[{ key: 'visits', label: 'Lượt xem' }]} xKey="browser" locale="vi-VN" />);
+    expect(screen.getByText('8.600')).toBeVisible();
+    expect(screen.getByRole('list')).toMatchTextContent('Chrome6.120 · 71%');
+  });
+
+  it('chartColor and seriesColor stay importable from the charts entry', () => {
+    expect(chartColor(2)).toBe('var(--chart-2)');
+    expect(chartColor(6)).toBe('var(--muted)');
+    expect(seriesColor({ color: 4 }, 0)).toBe('var(--chart-4)');
+    expect(seriesColor({}, 2)).toBe('var(--chart-3)');
   });
 
   it('sparkline is a named image', () => {

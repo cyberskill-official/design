@@ -1,15 +1,18 @@
 import { Progress as BaseProgress } from '@base-ui/react/progress';
-import { File as FileIcon, UploadSimple, Warning, X } from '@phosphor-icons/react';
+import { CheckCircle, File as FileIcon, UploadSimple, Warning, WarningCircle, X } from '@phosphor-icons/react';
 import { useId, useRef, useState, type DragEvent, type ReactNode } from 'react';
 import { cx } from '../utils/cx';
+import { formatFileSize } from '../utils/format';
 import { IconButton } from './Button';
+
+export { formatFileSize };
 
 export type FileUploadItem = {
   id: string;
   name: string;
   /** Bytes. */
   size: number;
-  /** Upload progress 0–100; shows a bar while set. */
+  /** Upload progress 0–100: a bar while below 100, then a check mark and `doneLabel`. */
   progress?: number;
   /** Per-file problem, e.g. "Upload failed". */
   error?: ReactNode;
@@ -27,7 +30,7 @@ export type FileUploadProps = {
   /** Same syntax as the native attribute: ".pdf,image/*". Also checked for dropped files. */
   accept?: string;
   multiple?: boolean;
-  /** Largest allowed file in bytes. */
+  /** Largest allowed file in bytes. Sizes print in binary units, so write `5 * 1024 * 1024` for a "5 MB" hint. */
   maxSize?: number;
   disabled?: boolean;
   /** Controlled list (e.g. with upload progress). Omit to let the component keep the picked files. */
@@ -42,10 +45,15 @@ export type FileUploadProps = {
   prompt?: ReactNode;
   /** Second line in the drop zone, e.g. "PDF or PNG, up to 5 MB". */
   hint?: ReactNode;
+  /** `maxSize` arrives formatted by `formatFileSize`, e.g. "5 MB". */
   tooLargeMessage?: (file: File, maxSize: string) => string;
   wrongTypeMessage?: (file: File) => string;
+  /** Without `multiple`, shown when several files are dropped at once; none of them is added. */
+  tooManyFilesMessage?: (count: number) => string;
   removeLabel?: (name: string) => string;
   progressLabel?: (name: string) => string;
+  /** Shown with a check mark in place of the bar once a file reaches 100%, e.g. "Uploaded" / "Đã tải lên". */
+  doneLabel?: ReactNode;
   className?: string;
 };
 
@@ -61,18 +69,6 @@ function accepts(file: File, accept?: string) {
     if (rule.endsWith('/*')) return type.startsWith(rule.slice(0, -1));
     return rule !== '' && type === rule;
   });
-}
-
-/** "1.5 MB" in the given locale (decimal units, like macOS). */
-export function formatFileSize(bytes: number, locale?: Intl.LocalesArgument) {
-  const units = ['byte', 'kilobyte', 'megabyte', 'gigabyte'] as const;
-  let i = 0;
-  let n = bytes;
-  while (n >= 1000 && i < units.length - 1) {
-    n /= 1000;
-    i++;
-  }
-  return new Intl.NumberFormat(locale, { style: 'unit', unit: units[i], unitDisplay: 'short', maximumFractionDigits: i === 0 ? 0 : 1 }).format(n);
 }
 
 /** Drop zone (a button that also opens the file picker) plus a list of chosen files with size, progress and remove. */
@@ -93,8 +89,10 @@ export function FileUpload({
   hint,
   tooLargeMessage = (file, max) => `${file.name} is larger than ${max}.`,
   wrongTypeMessage = file => `${file.name} is not an accepted file type.`,
+  tooManyFilesMessage = count => `Add one file at a time (${count} were dropped).`,
   removeLabel = name => `Remove ${name}`,
   progressLabel = name => `Uploading ${name}`,
+  doneLabel = 'Uploaded',
   className,
 }: FileUploadProps) {
   const id = useId();
@@ -107,9 +105,10 @@ export function FileUpload({
 
   function add(picked: FileList | null) {
     if (!picked || disabled) return;
+    if (!multiple && picked.length > 1) return setRejected([tooManyFilesMessage(picked.length)]);
     const ok: File[] = [];
     const problems: string[] = [];
-    for (const file of Array.from(picked).slice(0, multiple ? undefined : 1)) {
+    for (const file of Array.from(picked)) {
       if (!accepts(file, accept)) problems.push(wrongTypeMessage(file));
       else if (maxSize != null && file.size > maxSize) problems.push(tooLargeMessage(file, formatFileSize(maxSize, locale)));
       else ok.push(file);
@@ -180,9 +179,11 @@ export function FileUpload({
       {description && <p id={`${id}-description`} className="cs-field-description">{description}</p>}
       {/* Always mounted so new rejection messages are announced */}
       <div id={`${id}-errors`} className="cs-file-upload-errors" aria-live="polite">
-        {hasError && <p className="cs-field-error">{error}</p>}
-        {rejected.map(message => (
-          <p key={message} className="cs-field-error">{message}</p>
+        {[...(hasError ? [error] : []), ...rejected].map((message, i) => (
+          <p key={i} className="cs-field-error">
+            <WarningCircle aria-hidden="true" />
+            <span>{message}</span>
+          </p>
         ))}
       </div>
       {list.length > 0 && (
@@ -195,12 +196,18 @@ export function FileUpload({
                   <span className="cs-file-upload-item-name">{item.name}</span>
                   <span className="cs-file-upload-item-size">{formatFileSize(item.size, locale)}</span>
                 </div>
-                {item.progress != null && (
+                {item.progress != null && item.progress < 100 && (
                   <BaseProgress.Root value={item.progress} aria-label={progressLabel(item.name)} className="cs-file-upload-progress">
                     <BaseProgress.Track className="cs-file-upload-progress-track">
                       <BaseProgress.Indicator className="cs-file-upload-progress-indicator" />
                     </BaseProgress.Track>
                   </BaseProgress.Root>
+                )}
+                {item.progress != null && item.progress >= 100 && !item.error && (
+                  <span className="cs-file-upload-item-done">
+                    <CheckCircle aria-hidden="true" />
+                    {doneLabel}
+                  </span>
                 )}
                 {item.error && (
                   <span className="cs-file-upload-item-error">

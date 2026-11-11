@@ -12,22 +12,30 @@ export type ProgressProps = Omit<BaseProgress.Root.Props, 'className' | 'childre
   tone?: ProgressTone;
   /** Switches a `primary` bar to `warning` once `value` reaches this number (same scale as `max`). */
   warnAt?: number;
+  /** Screen-reader text added to the name in the `warning` tone. */
+  warningLabel?: string;
+  /** Screen-reader text added to the name in the `danger` tone. */
+  dangerLabel?: string;
 };
 
 /**
  * Labelled bar for a task that takes time (upload, export, import). `value={null}` shows an indeterminate bar.
  * For a static amount such as quota used, use `Meter`.
  */
-export function Progress({ label, tone = 'primary', warnAt, className, value, ...props }: ProgressProps) {
+export function Progress({ label, tone = 'primary', warnAt, warningLabel = 'Warning', dangerLabel = 'Critical', className, value, ...props }: ProgressProps) {
   const resolved = tone === 'primary' && warnAt != null && value != null && value >= warnAt ? 'warning' : tone;
   const Icon = resolved === 'primary' ? null : toneIcons[resolved];
+  const status = resolved === 'warning' ? warningLabel : resolved === 'danger' ? dangerLabel : null;
   return (
     <BaseProgress.Root {...props} value={value} data-tone={resolved} className={cx('cs-progress', className)}>
-      <BaseProgress.Label className="cs-progress-label">{label}</BaseProgress.Label>
-      {value != null && (
+      <BaseProgress.Label className="cs-progress-label">
+        {label}
+        {status && <span className="cs-visually-hidden">, {status}</span>}
+      </BaseProgress.Label>
+      {(value != null || Icon) && (
         <span className="cs-progress-value">
           {Icon && <Icon aria-hidden="true" />}
-          <BaseProgress.Value />
+          {value != null && <BaseProgress.Value />}
         </span>
       )}
       <BaseProgress.Track className="cs-progress-track">

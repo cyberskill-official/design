@@ -16,6 +16,8 @@ describe('TimePicker', () => {
     ['21:30', '21:30'],
     ['930', '09:30'],
     ['9h30', '09:30'],
+    ['21h', '21:00'],
+    ['9g30', '09:30'],
     ['9:30 pm', '21:30'],
   ])('parses "%s" on blur as %s', async (typed, expected) => {
     const onValueChange = vi.fn();
@@ -82,6 +84,46 @@ describe('TimePicker', () => {
     await userEvent.tab();
     expect(input).toHaveAttribute('aria-invalid', 'true');
     expect(onValueChange).not.toHaveBeenCalled();
+  });
+
+  it('reads min and max in any time form, not by string order', async () => {
+    const onValueChange = vi.fn();
+    render(<TimePicker label="Start time" min="9:00" max="17h" step={60} onValueChange={onValueChange} />);
+    const input = screen.getByRole('combobox', { name: 'Start time' });
+    await userEvent.type(input, '10:00');
+    await userEvent.tab();
+    expect(onValueChange).toHaveBeenLastCalledWith('10:00');
+    expect(input).not.toHaveAttribute('aria-invalid');
+    await userEvent.clear(input);
+    await userEvent.click(input);
+    const options = within(await screen.findByRole('listbox')).getAllByRole('option');
+    expect([options[0]?.textContent, options.at(-1)?.textContent]).toEqual(['09:00', '17:00']);
+  });
+
+  it('an invalid typed time reports null, keeps the text and empties the submitted value', async () => {
+    const onValueChange = vi.fn();
+    const { container } = render(<form><TimePicker label="Start time" name="start" defaultValue="09:30" invalidMessage="Giờ không hợp lệ" onValueChange={onValueChange} /></form>);
+    const form = container.querySelector('form')!;
+    expect(new FormData(form).get('start')).toBe('09:30');
+    const input = screen.getByRole('combobox', { name: 'Start time' });
+    await userEvent.clear(input);
+    await userEvent.type(input, '25:00');
+    await userEvent.tab();
+    expect(onValueChange).toHaveBeenLastCalledWith(null);
+    expect(input).toHaveValue('25:00');
+    expect(input).toHaveAccessibleDescription('Giờ không hợp lệ');
+    expect(new FormData(form).get('start')).toBe('');
+  });
+
+  it('forwards inputRef and onBlur to the visible input', async () => {
+    const onBlur = vi.fn();
+    let el: HTMLInputElement | null = null;
+    render(<TimePicker label="Start time" inputRef={node => { el = node; }} onBlur={onBlur} />);
+    const input = screen.getByRole('combobox', { name: 'Start time' });
+    expect(el).toBe(input);
+    await userEvent.click(input);
+    await userEvent.tab();
+    expect(onBlur).toHaveBeenCalled();
   });
 
   it('has no accessibility violations in light and dark, closed and open', async () => {

@@ -1,6 +1,6 @@
 import { Popover } from '@base-ui/react/popover';
 import { CalendarBlank, X } from '@phosphor-icons/react';
-import { useRef, useState, type ReactNode } from 'react';
+import { useRef, useState, type FocusEventHandler, type ReactNode, type Ref } from 'react';
 import { IconButton } from '../react/Button';
 import { Field, Input, type FieldProps } from '../react/Field';
 import { cx } from '../utils/cx';
@@ -17,11 +17,19 @@ export type PickerFieldProps = Pick<FieldProps, 'label' | 'hideLabel' | 'descrip
   clearLabel?: string;
   /** Accessible name of the calendar button and of the calendar popup. */
   openLabel?: string;
+  /** Submits the value with a native form as a hidden input: `yyyy-MM-dd` (empty while there is no valid value). */
+  name?: string;
+  /** Ref to the visible text input, e.g. React Hook Form's `field.ref` so a failed submit focuses it. */
+  inputRef?: Ref<HTMLInputElement>;
+  /** Called when the visible input loses focus, after the typed text is checked (React Hook Form's `field.onBlur`). */
+  onBlur?: FocusEventHandler<HTMLInputElement>;
 };
 
-type Props<T> = PickerFieldProps & {
+type Props<T> = Omit<PickerFieldProps, 'name'> & {
   value: T | null;
-  /** Called with a parsed value, or `null` when cleared. */
+  /** Hidden inputs for native form submission, `{ name: value }`. */
+  formFields?: Record<string, string>;
+  /** Called with a parsed value, or `null` when cleared or when the typed text is invalid. */
   onCommit: (value: T | null) => void;
   toText: (value: T) => string;
   /** `null` when the text is not a valid value. */
@@ -30,8 +38,11 @@ type Props<T> = PickerFieldProps & {
   children: (select: (value: T | null) => void) => ReactNode;
 };
 
-/** Internal: labelled text input + clear + calendar button + Base UI Popover. Typed text is parsed on blur and Enter. */
-export function PickerField<T>({ value, onCommit, toText, fromText, children, label, hideLabel, description, error, optionalLabel, required, disabled, className, placeholder, invalidMessage = 'Enter a valid date', clearLabel = 'Clear date', openLabel = 'Choose date' }: Props<T>) {
+/**
+ * Internal: labelled text input + clear + calendar button + Base UI Popover. Typed text is parsed on blur and Enter;
+ * invalid text stays in the field with `invalidMessage` and commits `null`, so a form never keeps the old value.
+ */
+export function PickerField<T>({ value, formFields, onCommit, toText, fromText, children, label, hideLabel, description, error, optionalLabel, required, disabled, className, placeholder, invalidMessage = 'Enter a valid date', clearLabel = 'Clear date', openLabel = 'Choose date', inputRef: externalRef, onBlur }: Props<T>) {
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState<string | null>(null); // null: show the formatted value
   const [invalid, setInvalid] = useState(false);
@@ -48,21 +59,31 @@ export function PickerField<T>({ value, onCommit, toText, fromText, children, la
   const commit = () => {
     if (draft == null) return;
     const next = draft.trim() ? fromText(draft) : null;
-    if (draft.trim() && next == null) setInvalid(true);
-    else select(next);
+    if (draft.trim() && next == null) {
+      setInvalid(true);
+      onCommit(null);
+    } else select(next);
+  };
+  const setInputRef = (el: HTMLInputElement | null) => {
+    inputRef.current = el;
+    if (typeof externalRef === 'function') externalRef(el);
+    else if (externalRef) externalRef.current = el;
   };
 
   return (
     <Field label={label} hideLabel={hideLabel} description={description} optionalLabel={optionalLabel} required={required} disabled={disabled} error={error ?? (invalid ? invalidMessage : undefined)} className={cx('cs-date-picker', className)}>
       <Popover.Root open={open} onOpenChange={setOpen}>
         <Input
-          ref={inputRef}
+          ref={setInputRef}
           value={text}
           placeholder={placeholder}
           required={required}
           autoComplete="off"
           onChange={e => setDraft(e.target.value)}
-          onBlur={commit}
+          onBlur={e => {
+            commit();
+            onBlur?.(e);
+          }}
           onKeyDown={e => {
             if (e.key === 'Enter') commit();
             if (e.key === 'ArrowDown' && e.altKey) {
@@ -92,6 +113,7 @@ export function PickerField<T>({ value, onCommit, toText, fromText, children, la
           </Popover.Positioner>
         </ThemedPortal>
       </Popover.Root>
+      {formFields && Object.entries(formFields).map(([n, v]) => <input key={n} type="hidden" name={n} value={v} disabled={disabled} />)}
     </Field>
   );
 }

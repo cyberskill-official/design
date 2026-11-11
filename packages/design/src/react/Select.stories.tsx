@@ -48,3 +48,23 @@ export const Sizes: Story = {
     </div>
   ),
 };
+
+const regions = [
+  { label: 'Asia Pacific', items: [{ value: 'sg', label: 'Singapore' }, { value: 'hcm', label: 'Ho Chi Minh City' }, { value: 'syd', label: 'Sydney' }] },
+  { label: 'Europe', items: [{ value: 'fra', label: 'Frankfurt' }, { value: 'ams', label: 'Amsterdam', disabled: true }] },
+  { label: 'Americas', items: [{ value: 'us-east', label: 'Virginia' }, { value: 'sao', label: 'São Paulo' }] },
+];
+
+/** `{ label, items }` entries render as titled sections. */
+export const Groups: Story = {
+  args: { label: 'Region', items: regions, placeholder: 'Choose a region' },
+  play: async ({ canvasElement, args }) => {
+    const trigger = within(canvasElement).getByRole('combobox', { name: 'Region' });
+    await userEvent.click(trigger);
+    const europe = await screen.findByRole('group', { name: 'Europe' });
+    await waitFor(() => expect(europe).toBeVisible()); // after the fade-in
+    await clickOption('Frankfurt');
+    await expect(args.onValueChange).toHaveBeenCalledWith('fra', expect.anything());
+    await waitFor(() => expect(trigger).toHaveTextContent('Frankfurt'));
+  },
+};

@@ -23,6 +23,23 @@ describe('Progress', () => {
     expect(bar.querySelector('svg')).not.toBeNull();
   });
 
+  it('names the warning and danger status for screen readers, with overridable labels', () => {
+    const { rerender } = render(<Progress label="Storage" value={85} warnAt={80} />);
+    expect(screen.getByRole('progressbar', { name: /^Storage ?, Warning$/ })).toBeVisible();
+    rerender(<Progress label="Import" value={30} tone="danger" />);
+    expect(screen.getByRole('progressbar', { name: /^Import ?, Critical$/ })).toBeVisible();
+    rerender(<Progress label="Nhập dữ liệu" value={30} tone="danger" dangerLabel="Nghiêm trọng" />);
+    expect(screen.getByRole('progressbar', { name: /^Nhập dữ liệu ?, Nghiêm trọng$/ })).toBeVisible();
+    rerender(<Progress label="Upload" value={30} />);
+    expect(screen.getByRole('progressbar', { name: 'Upload' })).toBeVisible();
+  });
+
+  it('shows the tone icon and status in the indeterminate state', () => {
+    render(<Progress label="Retrying sync" value={null} tone="danger" />);
+    const bar = screen.getByRole('progressbar', { name: /^Retrying sync ?, Critical$/ });
+    expect(bar.querySelector('.cs-progress-value svg')).not.toBeNull();
+  });
+
   it('is indeterminate when value is null', () => {
     render(<Progress label="Preparing export" value={null} />);
     const bar = screen.getByRole('progressbar', { name: 'Preparing export' });
@@ -37,6 +54,7 @@ describe('Progress', () => {
         <Progress label="Storage" value={85} warnAt={80} />
         <Progress label="Import failed" value={60} tone="danger" />
         <Progress label="Preparing export" value={null} />
+        <Progress label="Retrying sync" value={null} tone="danger" />
       </div>,
     );
   });

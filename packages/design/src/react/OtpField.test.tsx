@@ -35,6 +35,17 @@ describe('OtpField', () => {
     expect(screen.getByRole('textbox', { name: 'Code' })).toHaveValue('1');
   });
 
+  it('keeps six 44px boxes on one row in a card on a 375px phone', () => {
+    // 375px screen − 16px gutters − 8px pattern padding − 16px card padding and border ≈ 290px
+    render(<div style={{ width: 290 }}><OtpField label="Code" /></div>);
+    const boxes = screen.getAllByRole('textbox').map(box => box.getBoundingClientRect());
+    expect(new Set(boxes.map(b => b.top)).size).toBe(1);
+    for (const b of boxes) {
+      expect(b.width).toBeGreaterThanOrEqual(44);
+      expect(b.height).toBeGreaterThanOrEqual(44);
+    }
+  });
+
   it('has no accessibility violations in light and dark', async () => {
     await expectAccessibleInThemes(
       <div style={{ display: 'grid', gap: 16 }}>

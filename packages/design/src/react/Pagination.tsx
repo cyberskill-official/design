@@ -8,7 +8,7 @@ export type PaginationProps = Omit<HTMLAttributes<HTMLElement>, 'onChange'> & {
   page: number;
   pageCount: number;
   onPageChange: (page: number) => void;
-  /** Pages shown on each side of the current one before an ellipsis. */
+  /** Pages shown on each side of the current one before an ellipsis. Phone-width screens show none. */
   siblings?: number;
   /** Accessible name of the landmark. */
   label?: string;
@@ -27,7 +27,22 @@ export function pageItems(page: number, count: number, siblings = 1): (number | 
   return [1, start > 3 ? 'ellipsis' : 2, ...range(start, end), end < count - 2 ? 'ellipsis' : count - 1, count];
 }
 
-/** Moves through pages of a list or table. Page buttons are 32px with a 44px tall touch area. */
+type Slot = { key: string; item: number | 'ellipsis'; range?: 'wide' | 'narrow' };
+
+/** Both lists in one: `wide` slots hide on phones, `narrow` slots (the `siblings = 0` list) show only there. */
+function slots(page: number, count: number, siblings: number): Slot[] {
+  const keyed = (items: (number | 'ellipsis')[]) => items.map((item, i) => (item === 'ellipsis' ? `e${items[i - 1]}` : String(item)));
+  const wide = keyed(pageItems(page, count, siblings));
+  const narrow = keyed(pageItems(page, count, 0));
+  const position = (key: string) => (key[0] === 'e' ? Number(key.slice(1)) + 0.5 : Number(key));
+  return [...new Set([...wide, ...narrow])].sort((a, b) => position(a) - position(b)).map(key => ({
+    key,
+    item: key[0] === 'e' ? 'ellipsis' : Number(key),
+    range: !narrow.includes(key) ? 'wide' : !wide.includes(key) ? 'narrow' : undefined,
+  }));
+}
+
+/** Moves through pages of a list or table. Page buttons are 32px with a 44px touch area; phones show the current page without siblings. */
 export function Pagination({ page, pageCount, onPageChange, siblings = 1, label = 'Pagination', previousLabel = 'Previous page', nextLabel = 'Next page', pageLabel = n => `Page ${n}`, className, ...props }: PaginationProps) {
   return (
     <nav aria-label={label} {...props} className={cx('cs-pagination', className)}>
@@ -37,8 +52,8 @@ export function Pagination({ page, pageCount, onPageChange, siblings = 1, label 
             <CaretLeft aria-hidden="true" />
           </button>
         </li>
-        {pageItems(page, pageCount, siblings).map((item, i) => (
-          <li key={item === 'ellipsis' ? `e${i}` : item}>
+        {slots(page, pageCount, siblings).map(({ key, item, range }) => (
+          <li key={key} data-range={range}>
             {item === 'ellipsis' ? (
               <span className="cs-pagination-ellipsis" aria-hidden="true">…</span>
             ) : (

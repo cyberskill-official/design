@@ -7,7 +7,7 @@ const meta = {
   title: 'Pickers/FileUpload',
   component: FileUpload,
   tags: ['autodocs'],
-  args: { label: 'Attachments', hint: 'PDF or PNG, up to 5 MB', accept: '.pdf,image/png', multiple: true, maxSize: 5_000_000, onAdd: fn() },
+  args: { label: 'Attachments', hint: 'PDF or PNG, up to 5 MB', accept: '.pdf,image/png', multiple: true, maxSize: 5 * 1024 * 1024, onAdd: fn() },
   render: args => (
     <div style={{ maxWidth: 440 }}>
       <FileUpload {...args} />
@@ -38,7 +38,7 @@ function Uploading() {
     { id: '3', name: 'scan-0042.pdf', size: 4_200_000, error: 'Upload failed. Try again.' },
   ]);
   useEffect(() => {
-    const t = setInterval(() => setFiles(fs => fs.map(f => (f.progress != null && f.progress < 100 ? { ...f, progress: f.progress + 5 } : { ...f, progress: undefined }))), 400);
+    const t = setInterval(() => setFiles(fs => fs.map(f => (f.progress != null && f.progress < 100 ? { ...f, progress: Math.min(100, f.progress + 5) } : f))), 400);
     return () => clearInterval(t);
   }, []);
   return (
@@ -61,7 +61,7 @@ export const Vietnamese: Story = {
     label: 'Ảnh đại diện',
     accept: 'image/*',
     multiple: false,
-    maxSize: 2_000_000,
+    maxSize: 2 * 1024 * 1024,
     locale: 'vi-VN',
     prompt: 'Kéo thả ảnh vào đây hoặc bấm để chọn',
     hint: 'PNG hoặc JPG, tối đa 2 MB',

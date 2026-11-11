@@ -48,7 +48,8 @@ export type IconButtonProps = Omit<ButtonProps, 'children' | 'iconStart' | 'icon
 
 /** Square button with only an icon. `label` becomes its accessible name. */
 export function IconButton({ label, icon, variant = 'secondary', className, ...props }: IconButtonProps) {
-  return <Button {...props} variant={variant} aria-label={label} iconStart={icon} data-icon-only="" className={cx('cs-icon-button', className)} />;
+  // children={undefined}: a parent's `render` (e.g. `<ToolbarButton render={<IconButton … />} />`) passes its own children; only the icon shows
+  return <Button {...props} variant={variant} aria-label={label} iconStart={icon} data-icon-only="" className={cx('cs-icon-button', className)} children={undefined} />;
 }
 
 export type ButtonGroupProps = React.HTMLAttributes<HTMLDivElement> & { className?: string; label?: string };

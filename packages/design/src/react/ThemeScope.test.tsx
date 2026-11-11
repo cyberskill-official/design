@@ -39,6 +39,25 @@ describe('ThemeScope', () => {
     document.documentElement.removeAttribute('data-theme');
   });
 
+  it('a popup open on first render lands in the scope host, never in body', async () => {
+    const strays: Element[] = [];
+    const watch = new MutationObserver(records => {
+      for (const r of records) for (const n of r.addedNodes) if (n instanceof Element && n.querySelector('[role="dialog"]') && !n.closest('.cs-portal-host')) strays.push(n);
+    });
+    watch.observe(document.body, { childList: true, subtree: true });
+    render(
+      <ThemeScope theme="dark">
+        <Dialog defaultOpen>
+          <DialogContent title="Open at once" />
+        </Dialog>
+      </ThemeScope>,
+    );
+    const dialog = await screen.findByRole('dialog', { name: 'Open at once' });
+    watch.disconnect();
+    expect(dialog.closest('.cs-portal-host')).not.toBeNull();
+    expect(strays).toHaveLength(0);
+  });
+
   it('without a scope, popups keep rendering into document.body', async () => {
     render(
       <Menu>

@@ -1,4 +1,10 @@
-.cs-otp-field { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.cs-otp-field {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  /* 8px between boxes, shrinking to 4px so six 44px boxes (284px) stay on one row in a card on a 375px phone */
+  column-gap: clamp(var(--space-1), calc((100% - 6 * var(--control-touch)) / 5), var(--space-2));
+}
 
 /* Same border, focus ring and states as .cs-input (field.css) */
 .cs-otp-field-input {

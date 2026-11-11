@@ -1,5 +1,5 @@
 import { Area, AreaChart as RAreaChart, Bar, BarChart as RBarChart, BarStack, CartesianGrid, Line, LineChart as RLineChart, Tooltip, XAxis, YAxis, type LabelProps, type TooltipContentProps } from 'recharts';
-import { axisFormatterFor, ChartFrame, ChartTooltipCard, formatNumber, formatValue, seriesColor, valueOf, type ChartFrameProps, type ChartSeries, type ValueFormatter } from './ChartFrame';
+import { axisFormatterFor, ChartFrame, ChartTooltipCard, formatValue, numberFormatter, seriesColor, valueOf, type ChartFrameProps, type ChartSeries, type ValueFormatter } from './ChartFrame';
 
 export type CartesianChartProps = Omit<ChartFrameProps, 'children' | 'legendMark'> & {
   /** Height of the plot in px, x-axis labels included. */
@@ -21,8 +21,8 @@ function maxValue(data: readonly object[], series: readonly ChartSeries[], stack
 }
 
 /** Grid, one x-axis, one y-axis and the token tooltip, shared by every cartesian preset. Recharts 3 accepts wrapped children. */
-function CartesianChrome({ data, series, xKey, stacked, valueFormatter, axisFormatter }: { data: readonly object[]; series: readonly ChartSeries[]; xKey: string; stacked: boolean; valueFormatter: ValueFormatter; axisFormatter?: ValueFormatter }) {
-  const tick = axisFormatter ?? axisFormatterFor(maxValue(data, series, stacked));
+function CartesianChrome({ data, series, xKey, stacked, locale, valueFormatter, axisFormatter }: { data: readonly object[]; series: readonly ChartSeries[]; xKey: string; stacked: boolean; locale?: Intl.LocalesArgument; valueFormatter: ValueFormatter; axisFormatter?: ValueFormatter }) {
+  const tick = axisFormatter ?? axisFormatterFor(maxValue(data, series, stacked), locale);
   return (
     <>
       <CartesianGrid vertical={false} />
@@ -59,13 +59,13 @@ export type BarChartProps = CartesianChartProps & {
 };
 
 /** Vertical bars, grouped or stacked. Bars stay at most 24px thick with 4px rounded data ends and a 2px surface gap. */
-export function BarChart({ data, series, xKey, stacked = false, height = 240, valueFormatter = formatNumber, axisFormatter, ...frame }: BarChartProps) {
+export function BarChart({ data, series, xKey, stacked = false, height = 240, locale, valueFormatter = numberFormatter(locale), axisFormatter, ...frame }: BarChartProps) {
   const bars = series.map((s, i) => <Bar key={s.key} dataKey={s.key} name={s.label} fill={seriesColor(s, i)} radius={stacked ? 0 : [4, 4, 0, 0]} />);
   return (
     <ChartFrame {...frame} data={data} series={series} xKey={xKey} valueFormatter={valueFormatter} legendMark="rect" data-chart="bar" data-stacked={stacked || undefined}>
       {a11y => (
         <RBarChart {...a11y} data={data as object[]} responsive style={{ width: '100%', height }} margin={MARGIN} barGap={2} maxBarSize={24}>
-          <CartesianChrome data={data} series={series} xKey={xKey} stacked={stacked} valueFormatter={valueFormatter} axisFormatter={axisFormatter} />
+          <CartesianChrome data={data} series={series} xKey={xKey} stacked={stacked} locale={locale} valueFormatter={valueFormatter} axisFormatter={axisFormatter} />
           {stacked ? <BarStack radius={[4, 4, 0, 0]}>{bars}</BarStack> : bars}
         </RBarChart>
       )}
@@ -79,13 +79,13 @@ export type LineChartProps = CartesianChartProps & {
 };
 
 /** Trends over an ordered x-axis: 2px lines, an 8px ringed marker on hover, series names at the line ends. */
-export function LineChart({ data, series, xKey, height = 240, valueFormatter = formatNumber, axisFormatter, directLabels = series.length <= 4, ...frame }: LineChartProps) {
+export function LineChart({ data, series, xKey, height = 240, locale, valueFormatter = numberFormatter(locale), axisFormatter, directLabels = series.length <= 4, ...frame }: LineChartProps) {
   const last = data.length - 1;
   return (
     <ChartFrame {...frame} data={data} series={series} xKey={xKey} valueFormatter={valueFormatter} legendMark="line" data-chart="line">
       {a11y => (
         <RLineChart {...a11y} data={data as object[]} responsive style={{ width: '100%', height }} margin={{ ...MARGIN, right: directLabels ? labelRoom(series) : MARGIN.right }}>
-          <CartesianChrome data={data} series={series} xKey={xKey} stacked={false} valueFormatter={valueFormatter} axisFormatter={axisFormatter} />
+          <CartesianChrome data={data} series={series} xKey={xKey} stacked={false} locale={locale} valueFormatter={valueFormatter} axisFormatter={axisFormatter} />
           {series.map((s, i) => (
             <Line key={s.key} dataKey={s.key} name={s.label} type="monotone" stroke={seriesColor(s, i)} strokeWidth={2} dot={false} activeDot={ACTIVE_DOT} label={directLabels ? endLabel(s.label, last) : false} />
           ))}
@@ -101,13 +101,13 @@ export type AreaChartProps = LineChartProps & {
 };
 
 /** Lines with a 10% wash beneath, optionally stacked to show a total and its parts. */
-export function AreaChart({ data, series, xKey, stacked = false, height = 240, valueFormatter = formatNumber, axisFormatter, directLabels = series.length <= 4, ...frame }: AreaChartProps) {
+export function AreaChart({ data, series, xKey, stacked = false, height = 240, locale, valueFormatter = numberFormatter(locale), axisFormatter, directLabels = series.length <= 4, ...frame }: AreaChartProps) {
   const last = data.length - 1;
   return (
     <ChartFrame {...frame} data={data} series={series} xKey={xKey} valueFormatter={valueFormatter} legendMark="rect" data-chart="area">
       {a11y => (
         <RAreaChart {...a11y} data={data as object[]} responsive style={{ width: '100%', height }} margin={{ ...MARGIN, right: directLabels ? labelRoom(series) : MARGIN.right }}>
-          <CartesianChrome data={data} series={series} xKey={xKey} stacked={stacked} valueFormatter={valueFormatter} axisFormatter={axisFormatter} />
+          <CartesianChrome data={data} series={series} xKey={xKey} stacked={stacked} locale={locale} valueFormatter={valueFormatter} axisFormatter={axisFormatter} />
           {series.map((s, i) => (
             <Area
               key={s.key} dataKey={s.key} name={s.label} type="monotone" stackId={stacked ? 'stack' : undefined}

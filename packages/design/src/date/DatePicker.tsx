@@ -2,12 +2,13 @@ import type { Locale } from 'date-fns';
 import type { Matcher } from 'react-day-picker';
 import { Calendar } from './Calendar';
 import { PickerField, type PickerFieldProps } from './PickerField';
-import { DEFAULT_DATE_FORMAT, formatDate, isPickable, parseDate, useControllable } from './utils';
+import { DEFAULT_DATE_FORMAT, FORM_DATE_FORMAT, formatDate, parseDate } from './utils';
+import { isPickable, useControllable } from './picker-state';
 
 export type DatePickerProps = PickerFieldProps & {
   value?: Date | null;
   defaultValue?: Date | null;
-  /** Called with the picked or typed date, or `null` when cleared. Invalid text never reaches it. */
+  /** Called with the picked or typed date, or `null` when cleared or when the typed text is not an allowed date. */
   onValueChange?: (value: Date | null) => void;
   /** date-fns pattern for display and typing. */
   format?: string;
@@ -22,13 +23,14 @@ export type DatePickerProps = PickerFieldProps & {
 };
 
 /** Labelled date field: type `15/03/2026` or pick from a calendar popup (calendar button or Alt+ArrowDown). */
-export function DatePicker({ value, defaultValue = null, onValueChange, format = DEFAULT_DATE_FORMAT, locale, min, max, disabledDates, weekStartsOn, placeholder = format.toLowerCase(), ...props }: DatePickerProps) {
+export function DatePicker({ value, defaultValue = null, onValueChange, format = DEFAULT_DATE_FORMAT, locale, min, max, disabledDates, weekStartsOn, placeholder = format.toLowerCase(), name, ...props }: DatePickerProps) {
   const [current, setCurrent] = useControllable(value, defaultValue, onValueChange);
   return (
     <PickerField
       {...props}
       placeholder={placeholder}
       value={current}
+      formFields={name ? { [name]: current ? formatDate(current, FORM_DATE_FORMAT) : '' } : undefined}
       onCommit={setCurrent}
       toText={d => formatDate(d, format, locale)}
       fromText={t => {

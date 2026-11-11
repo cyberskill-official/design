@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { userEvent } from 'vitest/browser';
-import { describe, expect, it, vi } from 'vitest';
+import { page as browserPage, userEvent } from 'vitest/browser';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { useState } from 'react';
 import { Pagination, pageItems } from './Pagination';
 import { expectAccessibleInThemes } from '../test/a11y';
@@ -24,6 +24,11 @@ describe('pageItems', () => {
 });
 
 describe('Pagination', () => {
+  // Desktop layout unless a test says otherwise (the runner's default 414px is a phone).
+  beforeEach(async () => {
+    await browserPage.viewport(1024, 768);
+  });
+
   it('renders a labelled nav and marks the current page', () => {
     render(<Controlled start={10} />);
     expect(screen.getByRole('navigation', { name: 'Pagination' })).toBeVisible();
@@ -61,6 +66,29 @@ describe('Pagination', () => {
     const button = screen.getByRole('button', { name: 'Page 2' });
     expect(button.getBoundingClientRect().height).toBe(32);
     expect(parseFloat(getComputedStyle(button, '::before').height)).toBeGreaterThanOrEqual(44);
+  });
+
+  it('gives every button a 44px wide touch area that never overlaps its neighbour', () => {
+    render(<Controlled start={10} />);
+    const hits = screen.getAllByRole('button').map(b => {
+      const r = b.getBoundingClientRect();
+      const w = parseFloat(getComputedStyle(b, '::before').width);
+      return { w, left: r.left + r.width / 2 - w / 2, right: r.left + r.width / 2 + w / 2 };
+    });
+    for (const hit of hits) expect(hit.w).toBeGreaterThanOrEqual(44);
+    for (let i = 1; i < hits.length; i++) expect(hits[i]!.left).toBeGreaterThanOrEqual(hits[i - 1]!.right - 0.5);
+  });
+
+  it('fits a 375px phone on one row by dropping the siblings', async () => {
+    await browserPage.viewport(375, 812);
+    render(<div style={{ width: 343 }}><Controlled start={10} /></div>);
+    const nav = screen.getByRole('navigation');
+    expect(nav.scrollWidth).toBeLessThanOrEqual(343);
+    expect(screen.getAllByRole('button').map(b => b.getAttribute('aria-label'))).toEqual(['Previous page', 'Page 1', 'Page 10', 'Page 20', 'Next page']);
+    expect(new Set(screen.getAllByRole('button').map(b => b.getBoundingClientRect().top)).size).toBe(1);
+    expect(parseFloat(getComputedStyle(screen.getByRole('button', { name: 'Page 10' }), '::before').width)).toBeGreaterThanOrEqual(44);
+    await userEvent.click(screen.getByRole('button', { name: 'Next page' }));
+    expect(screen.getAllByRole('button').map(b => b.getAttribute('aria-label'))).toEqual(['Previous page', 'Page 1', 'Page 11', 'Page 20', 'Next page']);
   });
 
   it('has no accessibility violations in light and dark', async () => {

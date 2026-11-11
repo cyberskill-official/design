@@ -26,11 +26,12 @@
   padding: 0 var(--space-2);
   border-radius: var(--radius-md);
   color: var(--foreground);
+  text-decoration: none;
   cursor: default;
   user-select: none;
   outline: 0;
 
-  &[data-highlighted] { background: var(--raised); }
+  &[data-highlighted], &[data-popup-open] { background: var(--raised); }
   &:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; }
   &[data-tone='danger'] { color: var(--destructive); }
   &[data-disabled] { opacity: 0.5; cursor: not-allowed; }
@@ -47,6 +48,10 @@
   .cs-menu-item[data-tone='danger'] & { color: inherit; }
 }
 .cs-menu-item-check { display: inline-flex; color: var(--foreground); }
+a.cs-menu-item { cursor: pointer; }
+
+.cs-menu-submenu-caret { flex: none; width: 16px; height: 16px; margin-inline-start: var(--space-2); color: var(--muted); }
+[dir='rtl'] .cs-menu-submenu-caret { transform: scaleX(-1); }
 
 .cs-menu-item-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 

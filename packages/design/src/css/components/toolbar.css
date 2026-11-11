@@ -3,6 +3,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
+  flex-wrap: wrap; /* narrow screens: items wrap instead of spilling out */
   max-width: 100%;
   padding: var(--space-1);
   border: 1px solid var(--border);
@@ -14,6 +15,7 @@
 
 .cs-toolbar-group {
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--space-1);
   &[data-orientation='vertical'] { flex-direction: column; align-items: stretch; }

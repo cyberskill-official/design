@@ -2,9 +2,10 @@ import { ChartBar, Table } from '@phosphor-icons/react';
 import { useId, useState, type CSSProperties, type HTMLAttributes, type ReactNode } from 'react';
 import { Button } from '../react/Button';
 import { cx } from '../utils/cx';
+import { chartColor, seriesColor, type ChartColor } from '../utils/chart-colors';
 
-/** Slot in the fixed categorical palette: 1 Blue, 2 Gold, 3 Teal, 4 Magenta, 5 Violet. */
-export type ChartColor = 1 | 2 | 3 | 4 | 5;
+export { chartColor, seriesColor };
+export type { ChartColor };
 
 export type ChartSeries = {
   /** Field of each data row holding this series' value. */
@@ -22,17 +23,18 @@ export type ChartA11yProps = { role: 'img'; 'aria-labelledby': string; 'aria-des
 
 export type ChartLegendItem = { label: ReactNode; color: string; value?: ReactNode };
 
-/** Color of a series: its pinned slot, else its position. Past five series the rest read as "Other" in muted gray; never cycled. */
-export function chartColor(slot: number): string {
-  return slot >= 1 && slot <= 5 ? `var(--chart-${slot})` : 'var(--muted)';
+/** Default value format in `locale`. A fixed locale (not the runtime one) keeps server and client HTML identical. */
+export function numberFormatter(locale: Intl.LocalesArgument = 'en-US'): ValueFormatter {
+  const full = new Intl.NumberFormat(locale, { maximumFractionDigits: 2 });
+  return v => full.format(v);
 }
-export const seriesColor = (s: ChartSeries, index: number) => chartColor(s.color ?? index + 1);
-
-const full = new Intl.NumberFormat(undefined, { maximumFractionDigits: 2 });
-const compact = new Intl.NumberFormat(undefined, { notation: 'compact', maximumFractionDigits: 1 });
-export const formatNumber: ValueFormatter = v => full.format(v);
+export const formatNumber: ValueFormatter = numberFormatter();
 /** Axis ticks: in full under 10,000, compact (10K) on an axis that reaches it. One style per axis. */
-export const axisFormatterFor = (max: number): ValueFormatter => (Math.abs(max) >= 10_000 ? v => compact.format(v) : formatNumber);
+export function axisFormatterFor(max: number, locale: Intl.LocalesArgument = 'en-US'): ValueFormatter {
+  if (Math.abs(max) < 10_000) return numberFormatter(locale);
+  const compact = new Intl.NumberFormat(locale, { notation: 'compact', maximumFractionDigits: 1 });
+  return v => compact.format(v);
+}
 
 export const valueOf = (row: object, key: string) => (row as Record<string, unknown>)[key];
 export const formatValue = (v: unknown, format: ValueFormatter) => (typeof v === 'number' ? format(v) : v == null ? '–' : String(v));
@@ -47,6 +49,9 @@ export type ChartFrameProps = Omit<HTMLAttributes<HTMLElement>, 'title' | 'child
   xKey: string;
   /** Header of the first column in the table view. Defaults to `xKey`. */
   xLabel?: string;
+  /** Locale of the default number format, e.g. `vi-VN` (1.550). Fixed to `en-US` by default so server and client render the same text. */
+  locale?: Intl.LocalesArgument;
+  /** Formats values in the table, tooltip and legend. Defaults to the `locale` number format. */
   valueFormatter?: ValueFormatter;
   /** Legend entries. Defaults to one per series when there are two or more; `false` hides it. */
   legend?: ChartLegendItem[] | false;
@@ -62,7 +67,7 @@ export type ChartFrameProps = Omit<HTMLAttributes<HTMLElement>, 'title' | 'child
 
 /** Card around any chart: title, description, legend and a "Show table" toggle that swaps the chart for an accessible table of the same data. */
 export function ChartFrame({
-  title, description, data, series, xKey, xLabel, valueFormatter = formatNumber, legend, legendMark = 'rect',
+  title, description, data, series, xKey, xLabel, locale, valueFormatter = numberFormatter(locale), legend, legendMark = 'rect',
   showTableLabel = 'Show table', showChartLabel = 'Show chart', className, children, ...props
 }: ChartFrameProps) {
   const id = useId();
