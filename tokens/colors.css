@@ -20,7 +20,7 @@
   --cs-color-text-primary: #45210E;  /* = Umber */
   --cs-color-text-inverse: #FFFFFF;
   --cs-color-text-accent: #6E3B0E;   /* accessible ochre-adjacent link/accent text */
-  --cs-color-text-muted: #3F2D21;    /* Secondary text: APCA75 on page/panel/raised, including all element variants */
+  --cs-color-text-muted: #5E4436;    /* Secondary text: warm umber-taupe, APCA75+ on neutral/soft/middle; deep packs solve per-surface */
 
   /* ---- Semantic fills + paired foregrounds (literal-on-semantic, UX-008) ---- */
   --cs-color-semantic-success: #166534;

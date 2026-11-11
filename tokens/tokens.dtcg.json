@@ -91,7 +91,7 @@
           },
           "tho": {
             "--cs-accent": "#F4BA17",
-            "--cs-accent-strong": "#916D11",
+            "--cs-accent-strong": "#A4631E",
             "--cs-accent-bright": "#F4BA17",
             "--cs-accent-on": "#45210E",
             "--cs-accent-on-strong": "#FFFFFF",
@@ -101,7 +101,7 @@
             "--cs-accent-grad-a": "#F4BA17",
             "--cs-accent-grad-b": "#C4B78F",
             "--cs-color-text-accent": "#6E3B0E",
-            "--cs-color-link": "#644A05"
+            "--cs-color-link": "#744000"
           },
           "tho.clay": {
             "--cs-accent": "#723E06",
@@ -301,7 +301,7 @@
           "tho": {
             "--cs-accent": "#E9B321",
             "--cs-accent-bright": "#FDD378",
-            "--cs-accent-strong": "#6E5205",
+            "--cs-accent-strong": "#7D480C",
             "--cs-accent-on": "#f5ead9",
             "--cs-accent-on-strong": "#FFFFFF",
             "--cs-accent-tint": "#2B1E00",
@@ -531,11 +531,11 @@
       "declarationGraph": {
         "path": "declarations.json",
         "schemaVersion": 1,
-        "sha256": "e79b29b1657f546e91ba25be46d417ea1f6c5acc8b1a7f694b91b28293cf3749",
-        "declarations": 1074,
-        "publicDeclarations": 391,
+        "sha256": "7df624c9a2c773f4eb5d0b830e2103b4cc18f947c86ef8a1e3c41841bc53df64",
+        "declarations": 1105,
+        "publicDeclarations": 392,
         "publicNames": 216,
-        "privateDeclarations": 683
+        "privateDeclarations": 713
       }
     }
   },
@@ -682,15 +682,15 @@
       "$value": {
         "colorSpace": "srgb",
         "components": [
-          0.24705882352941178,
-          0.17647058823529413,
-          0.12941176470588237
+          0.3686274509803922,
+          0.26666666666666666,
+          0.21176470588235294
         ],
         "alpha": 1
       },
       "$extensions": {
         "com.cyberskill": {
-          "css": "#3F2D21"
+          "css": "#5E4436"
         }
       }
     },
@@ -1598,15 +1598,15 @@
       "$value": {
         "colorSpace": "srgb",
         "components": [
-          0.5686274509803921,
-          0.42745098039215684,
-          0.06666666666666667
+          0.6431372549019608,
+          0.38823529411764707,
+          0.11764705882352941
         ],
         "alpha": 1
       },
       "$extensions": {
         "com.cyberskill": {
-          "css": "#916D11"
+          "css": "#A4631E"
         }
       }
     },
@@ -2080,11 +2080,11 @@
         "color": {
           "colorSpace": "srgb",
           "components": [
-            0.12156862745098039,
-            0.07450980392156863,
-            0.043137254901960784
+            0.27058823529411763,
+            0.12941176470588237,
+            0.054901960784313725
           ],
-          "alpha": 0.18
+          "alpha": 0.14
         },
         "offsetX": {
           "value": 0,
@@ -2106,7 +2106,7 @@
       "$description": "Structured from the CSS box-shadow string in tokens/elevation.css; the raw CSS form (native/agent emission source) is preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
-          "css": "0 12px 30px rgba(31, 19, 11, 0.18)",
+          "css": "0 12px 30px rgba(69, 33, 14, 0.14)",
           "nativeFormat": "css"
         }
       }
@@ -2154,11 +2154,11 @@
         "color": {
           "colorSpace": "srgb",
           "components": [
-            0.12156862745098039,
-            0.07450980392156863,
-            0.043137254901960784
+            0.27058823529411763,
+            0.12941176470588237,
+            0.054901960784313725
           ],
-          "alpha": 0.26
+          "alpha": 0.24
         },
         "offsetX": {
           "value": 0,
@@ -2180,7 +2180,7 @@
       "$description": "Structured from the CSS box-shadow string in tokens/elevation.css; the raw CSS form (native/agent emission source) is preserved in $extensions[\"com.cyberskill\"].css.",
       "$extensions": {
         "com.cyberskill": {
-          "css": "0 24px 80px rgba(31, 19, 11, 0.26)",
+          "css": "0 24px 80px rgba(69, 33, 14, 0.24)",
           "nativeFormat": "css"
         }
       }

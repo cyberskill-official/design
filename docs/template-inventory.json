@@ -5,7 +5,7 @@
     {
       "name": "App shell",
       "path": "templates/app-shell/AppShell.dc.html",
-      "sha256": "f71017a26f12b71d9e653dff79635ed14d5eb4a3dac9c5ce095188c537b858e3",
+      "sha256": "db367cea935919c4ad90d7fdb3513309d04bebb575269ee756b2be6f074e82b7",
       "declaredProps": [
         {
           "language": {
@@ -946,7 +946,7 @@
     {
       "name": "Board · Meeting deck",
       "path": "templates/bod-deck/BodDeck.dc.html",
-      "sha256": "83a2ea61af568fef5600a002bf646af8fda7467e83778439524edc51514b2431",
+      "sha256": "ce30fa21a80ab6eb6f198e16f13c928d1a9c8ab73883b83fcd53d087b9423fb4",
       "declaredProps": [
         {
           "language": {
@@ -1248,7 +1248,7 @@
     {
       "name": "Board · Investor update email",
       "path": "templates/bod-investor-update/BodInvestorUpdate.dc.html",
-      "sha256": "3d62bb7dc28fd362ba9b2d28fb37829b5c0a64019bb158aa3cccf56e32e87449",
+      "sha256": "88c598968753b234520386d60124fdda2b28692b4c27fd6b096b9c36c0fe2817",
       "declaredProps": [
         {
           "language": {
@@ -2529,7 +2529,7 @@
     {
       "name": "Dashboard",
       "path": "templates/dashboard/Dashboard.dc.html",
-      "sha256": "e39de5367d3b0309a9c29ad61ab379707b327fb71cb19d1fe87f8e7b9ab64f6d",
+      "sha256": "abf3996bfbaaf7deb62e5ce0a6958c16b73db630237be8135f9838436bec76aa",
       "declaredProps": [
         {
           "language": {
@@ -3535,7 +3535,7 @@
     {
       "name": "Delivery · QBR deck",
       "path": "templates/delivery-qbr-deck/DeliveryQbrDeck.dc.html",
-      "sha256": "2463e404a33208fca14222473d571c58e096ca6b97cfa1de788bd1490299d011",
+      "sha256": "05de5ad0d238f840edb63c6b014bd2b03ebe7f8598f8bdf83560949178434047",
       "declaredProps": [
         {
           "language": {
@@ -4180,7 +4180,7 @@
     {
       "name": "Delivery · Weekly status email",
       "path": "templates/delivery-status-email/DeliveryStatusEmail.dc.html",
-      "sha256": "fed3c9b079806e96a2db546ffb730fe1a89743fef73f77735c6ace53062f6377",
+      "sha256": "6734c66af11496ee1d4bd2d3d65e44aaf807e795c3d947cff3db536ef6cfbd3b",
       "declaredProps": [
         {
           "language": {
@@ -4831,7 +4831,7 @@
         },
         {
           "path": "templates/email/Email-VN-standalone.html",
-          "sha256": "d9e5ff722c8558d086212dc5cbcc03c80302cd1be5bd4469e20530dae399f940"
+          "sha256": "90ec1856210e2de7ead5e6664bb8b31754bd0978e69c71bf2ec58a7d18c72acc"
         },
         {
           "path": "templates/email/content-schema.json",
@@ -8073,7 +8073,7 @@
     {
       "name": "Marketing · Newsletter",
       "path": "templates/marketing-newsletter/MarketingNewsletter.dc.html",
-      "sha256": "b87b3d465883dbdcb3325572caf3a025b1396788b1995e6f42193de7bfeabfbc",
+      "sha256": "e4d585ae9e5a59619e19497b5bab1d738a218a91dbb8e4c3cca250c681dfdcb4",
       "declaredProps": [
         {
           "element": {
@@ -8246,7 +8246,7 @@
     {
       "name": "Marketing page",
       "path": "templates/marketing-page/MarketingPage.dc.html",
-      "sha256": "54fa23a31a7037210672fe43548ff07229d58faf818ef90afcf5898d1d50db83",
+      "sha256": "7fecead46d1c300013885f0e8b0e247379858c70c52e514560185854d487660c",
       "declaredProps": [
         {
           "language": {
@@ -9243,7 +9243,7 @@
     {
       "name": "Sales · Proposal deck",
       "path": "templates/sales-proposal-deck/SalesProposalDeck.dc.html",
-      "sha256": "1ce3b5aa09d263b7fdab25002ed6975bafff9b503d2e58d3b0cbfe0d7f023fff",
+      "sha256": "5669ae23ec2e63eff285ff9fe83fd2df0defaca8124f3eb78b2925b0cae345bf",
       "declaredProps": [
         {
           "language": {
@@ -15883,7 +15883,7 @@
   "staticTemplates": [
     {
       "path": "templates/ai-cluster-demo.html",
-      "sha256": "3210cd4aee5846a5d8c4a6122da2ad30db518d481c394fc9f667661b0e7c74fc",
+      "sha256": "9cf7e96ec61eba60798ac07c26365449374137d09053ca2a328567320d893c74",
       "declaredProps": [],
       "componentImports": [],
       "references": [
@@ -15924,7 +15924,7 @@
     },
     {
       "path": "templates/email-safe/email-announcement.html",
-      "sha256": "29cad37338838444a77b0936b9bbde1a06a5fc34636010e24e09f1503be37e34",
+      "sha256": "4a3d54e89f42114daf58f5ea369209a3daf335b54f9103db65a12c7c26608a18",
       "declaredProps": [],
       "componentImports": [],
       "references": [
@@ -15953,7 +15953,7 @@
     },
     {
       "path": "templates/email-safe/email-dunning.html",
-      "sha256": "9100096d9c98b0d4b2b69a35252d7570be598fc7190aa0894470a0254cdb7c8a",
+      "sha256": "07bb3e41aab075f49b89aa0c6fd5f301462402d92722c6b23db33101d25b8950",
       "declaredProps": [],
       "componentImports": [],
       "references": [
@@ -15978,7 +15978,7 @@
     },
     {
       "path": "templates/email-safe/email-investor.html",
-      "sha256": "ac5657a766c611df061c8f7749c3daaeedc23ff938e9d4f863b875f1e2e03108",
+      "sha256": "5f60931d1c202d1959a5043d98f458ca1acf2d38c18d7c9e2f738d727e88aa3c",
       "declaredProps": [],
       "componentImports": [],
       "references": [
@@ -16007,7 +16007,7 @@
     },
     {
       "path": "templates/email-safe/email-launch.html",
-      "sha256": "fb7ba5ae2edb3183819af9d03759559fb4fbd40998c164c2cb455a0b4eb826f2",
+      "sha256": "2760d0fdfcb783b9c0d774b5e4f65979d85247e9b752d89830ba2e820cdbff72",
       "declaredProps": [],
       "componentImports": [],
       "references": [
@@ -16036,7 +16036,7 @@
     },
     {
       "path": "templates/email-safe/email-newsletter.html",
-      "sha256": "ae18d0e6ea9601cdcb40a0338fe531a59e3e09261dcca9d0bdaf37b4ac89aca8",
+      "sha256": "c9f2d5cc58ca5d06e93f0efdd781d2010afa8d2ab09bb12d6c20330672b22afe",
       "declaredProps": [],
       "componentImports": [],
       "references": [
@@ -16061,7 +16061,7 @@
     },
     {
       "path": "templates/email-safe/email-status.html",
-      "sha256": "4cbad8501f53d82db895393929fe99a32bb265e47f1a62f822cfe0f09afc289d",
+      "sha256": "8da3bdfbe87b239e4dcca944cc4c5f741f54e87279818197c324a5b079a50a30",
       "declaredProps": [],
       "componentImports": [],
       "references": [
@@ -16090,7 +16090,7 @@
     },
     {
       "path": "templates/email-safe/email-transactional.html",
-      "sha256": "c0149ff3410b4750bf54d6435d7f0a761ef33a96642c6dd53d721e94f130b451",
+      "sha256": "c53f93020d4e00ca29f77179cf07bf04dd7fe24018d4fe725e0263ba9fa30f85",
       "declaredProps": [],
       "componentImports": [],
       "references": [
@@ -16119,7 +16119,7 @@
     },
     {
       "path": "templates/email/Email-VN-standalone.html",
-      "sha256": "d9e5ff722c8558d086212dc5cbcc03c80302cd1be5bd4469e20530dae399f940",
+      "sha256": "90ec1856210e2de7ead5e6664bb8b31754bd0978e69c71bf2ec58a7d18c72acc",
       "declaredProps": [
         {
           "element": {
@@ -16213,7 +16213,7 @@
     },
     {
       "path": "templates/kitchen-sink.html",
-      "sha256": "d5ac87fd3552c4dd6a98cf49556cace99913643a063cef2e6db841902e9020fe",
+      "sha256": "99d628a06f5c9cf7add246f2224eca7000dd9c7f57c60918ea5e008e95614fd0",
       "declaredProps": [],
       "componentImports": [],
       "references": [
@@ -16264,7 +16264,7 @@
     },
     {
       "path": "templates/playground.html",
-      "sha256": "2f297972aa67d79199f45b39bce09fbd180d8094002132f497df78538ccea92c",
+      "sha256": "5b1c198164f7568f5b43ad49baacab0a578e8217b28967244c7037121e2189a3",
       "declaredProps": [],
       "componentImports": [],
       "references": [
@@ -16370,15 +16370,15 @@
         },
         {
           "path": "ui_kits/status-hub/login.html",
-          "sha256": "633642cf574f171c5b570e10a4a0df4403dcd64ad5b7a5188625e1df6bacd35d"
+          "sha256": "f46e9006291737031236c813628650508781491455976fffc2f03dcbb2acadf9"
         },
         {
           "path": "ui_kits/status-hub/project.html",
-          "sha256": "abd4f5f7fb4fa6bb96c9550795eb64fa695fecfdfbf7fd913952c29336cc8ca1"
+          "sha256": "e6611104e329d66ccf0f64f3d9fe9cdc307b6f95aa440945fc449053884cef3a"
         },
         {
           "path": "ui_kits/status-hub/settings.html",
-          "sha256": "cc4405af38350a0b9b71eddeadcdfb827274017d78d96f0f7b2a8ca140402780"
+          "sha256": "786a5eec1bf5cdf96279e5c1bc6abcb8dff5e3d7add00ad488acd601aee83b73"
         },
         {
           "path": "ui_kits/status-hub/static-locale.js",
@@ -16386,7 +16386,7 @@
         },
         {
           "path": "ui_kits/status-hub/status.css",
-          "sha256": "d4f602209ab8b46eabeaf57e1fcb9de23003c6a9f0f8a28add8d84e736bfa4fc"
+          "sha256": "af221fa3f0aa6bf88bb6f37bc4b10ff537e88ed10f7e27118ca4ccbfd502d3db"
         }
       ],
       "pages": [
@@ -16457,7 +16457,7 @@
         },
         {
           "path": "ui_kits/status-hub/login.html",
-          "sha256": "633642cf574f171c5b570e10a4a0df4403dcd64ad5b7a5188625e1df6bacd35d",
+          "sha256": "f46e9006291737031236c813628650508781491455976fffc2f03dcbb2acadf9",
           "declaredProps": [],
           "componentImports": [],
           "references": [
@@ -16502,7 +16502,7 @@
         },
         {
           "path": "ui_kits/status-hub/project.html",
-          "sha256": "abd4f5f7fb4fa6bb96c9550795eb64fa695fecfdfbf7fd913952c29336cc8ca1",
+          "sha256": "e6611104e329d66ccf0f64f3d9fe9cdc307b6f95aa440945fc449053884cef3a",
           "declaredProps": [],
           "componentImports": [],
           "references": [
@@ -16559,7 +16559,7 @@
         },
         {
           "path": "ui_kits/status-hub/settings.html",
-          "sha256": "cc4405af38350a0b9b71eddeadcdfb827274017d78d96f0f7b2a8ca140402780",
+          "sha256": "786a5eec1bf5cdf96279e5c1bc6abcb8dff5e3d7add00ad488acd601aee83b73",
           "declaredProps": [],
           "componentImports": [],
           "references": [
@@ -16625,11 +16625,11 @@
         },
         {
           "path": "ui_kits/website/careers.html",
-          "sha256": "81860652897199c92191df0ccf9f8df6dcca7154b4b7e96ffee16556878d5600"
+          "sha256": "8cd1fdc601fd2a811dc4dccffd283874514fad4ce0e6b06bf41a9b918fb7cd75"
         },
         {
           "path": "ui_kits/website/chat.html",
-          "sha256": "541914b9e553f074acba60b7afa57a1424d1c350bce6d104b1a8f521bdea596c"
+          "sha256": "99e55034cc8df4d7e36e368bb23b49fc9f428d0694d6bca2b5470a82a4a5bc26"
         },
         {
           "path": "ui_kits/website/copy.js",
@@ -16641,17 +16641,17 @@
         },
         {
           "path": "ui_kits/website/site.css",
-          "sha256": "e6f142d768535b0116d33c58a1c99ce31c2e4075363456a76a062f0635de6fa1"
+          "sha256": "7d7bf4f1df1b83c9e0506a7a23a8e31f046ad0af3cff1e70234ef01a2aaadb19"
         },
         {
           "path": "ui_kits/website/work.html",
-          "sha256": "305357e2c9b2c08f13c5c2b903ad62b924495b270d874d92b8169be9ffb39741"
+          "sha256": "d67ff33970d1b737f9c8c61c186abe58deb0d359f6ec7b3e478ee3de7151aad7"
         }
       ],
       "pages": [
         {
           "path": "ui_kits/website/careers.html",
-          "sha256": "81860652897199c92191df0ccf9f8df6dcca7154b4b7e96ffee16556878d5600",
+          "sha256": "8cd1fdc601fd2a811dc4dccffd283874514fad4ce0e6b06bf41a9b918fb7cd75",
           "declaredProps": [],
           "componentImports": [],
           "references": [
@@ -16736,7 +16736,7 @@
         },
         {
           "path": "ui_kits/website/chat.html",
-          "sha256": "541914b9e553f074acba60b7afa57a1424d1c350bce6d104b1a8f521bdea596c",
+          "sha256": "99e55034cc8df4d7e36e368bb23b49fc9f428d0694d6bca2b5470a82a4a5bc26",
           "declaredProps": [],
           "componentImports": [],
           "references": [
@@ -16864,7 +16864,7 @@
         },
         {
           "path": "ui_kits/website/work.html",
-          "sha256": "305357e2c9b2c08f13c5c2b903ad62b924495b270d874d92b8169be9ffb39741",
+          "sha256": "d67ff33970d1b737f9c8c61c186abe58deb0d359f6ec7b3e478ee3de7151aad7",
           "declaredProps": [],
           "componentImports": [],
           "references": [

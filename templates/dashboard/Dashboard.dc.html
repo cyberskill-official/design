@@ -27,14 +27,14 @@
           <p style="margin:2px 0 0;font-size:13px;color:var(--cs-accent-on-strong)">{{ tagline }}</p>
         </div>
       </div>
-      <span>
+      <span style="--cs-component-button-primary-bg:var(--cs-accent-on-strong);--cs-component-button-primary-fg:var(--cs-accent-strong)">
         <x-import component-from-global-scope="CyberSkillDS.Button" variant="primary" size="sm" hint-size="130px,36px">{{ newBtn }}</x-import>
       </span>
     </div>
   </header>
 
   <div style="max-width:1280px;margin:0 auto;padding:28px">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;padding:22px 24px;background:var(--cs-color-surface-panel);border:1px solid var(--cs-color-border-default);border-radius:var(--cs-radius-lg);box-shadow:var(--cs-shadow-sm)">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));align-items:start;gap:20px;padding:22px 24px;background:var(--cs-color-surface-panel);border:1px solid var(--cs-color-border-default);border-radius:var(--cs-radius-lg);box-shadow:var(--cs-shadow-sm)">
       <x-import component-from-global-scope="CyberSkillDS.Stat" label="{{ s1 }}" value="6" hint-size="140px,70px"></x-import>
       <x-import component-from-global-scope="CyberSkillDS.Stat" label="{{ s2 }}" value="4" hint-size="140px,70px"></x-import>
       <x-import component-from-global-scope="CyberSkillDS.Stat" label="{{ s3 }}" value="1" hint-size="140px,70px"></x-import>

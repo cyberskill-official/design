@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v2.8.0 · source sha256 6da8cd3627ad355d…
+// release v2.8.0 · source sha256 738212f89aeb6e32…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
@@ -21,7 +21,7 @@ public enum CSTokens {
   public static let colorTextPrimary = color(0x45210E)
   public static let colorTextInverse = color(0xFFFFFF)
   public static let colorTextAccent = color(0x6E3B0E)
-  public static let colorTextMuted = color(0x3F2D21)
+  public static let colorTextMuted = color(0x5E4436)
   public static let colorSemanticSuccess = color(0x166534)
   public static let colorSemanticDanger = color(0xB42318)
   public static let colorSemanticWarning = color(0x92400E)
@@ -83,7 +83,7 @@ public enum CSTokens {
   public static let componentTextfieldPaddingXAlias: CGFloat = 12
   public static let componentTextfieldMinHeightAlias: CGFloat = 44
   public static let accent = color(0xF4BA17)
-  public static let accentStrong = color(0x916D11)
+  public static let accentStrong = color(0xA4631E)
   public static let accentBright = color(0xF4BA17)
   public static let accentOn = color(0x45210E)
   public static let accentTint = color(0xFBF4E9)
@@ -114,9 +114,9 @@ public enum CSTokens {
   public static let glassHeavyOpacity: String = "90%"
   public static let shadowXs: String = "0 1px 2px rgba(69, 33, 14, 0.06)"
   public static let shadowSm: String = "0 1px 3px rgba(69, 33, 14, 0.04), 0 8px 24px rgba(69, 33, 14, 0.06)"
-  public static let shadowMd: String = "0 12px 30px rgba(31, 19, 11, 0.18)"
+  public static let shadowMd: String = "0 12px 30px rgba(69, 33, 14, 0.14)"
   public static let shadowLg: String = "0 20px 60px rgba(69, 33, 14, 0.18)"
-  public static let shadowXl: String = "0 24px 80px rgba(31, 19, 11, 0.26)"
+  public static let shadowXl: String = "0 24px 80px rgba(69, 33, 14, 0.24)"
   public static let durationInstantMs: Double = 80
   public static let durationFastMs: Double = 120
   public static let durationBaseMs: Double = 200
@@ -323,7 +323,7 @@ public enum CSTokens {
   public static let colorTextAccentThoSandLight = color(0x695300)
   public static let colorLinkThoSandLight = color(0x695300)
   public static let accentThoLight = color(0xF4BA17)
-  public static let accentStrongThoLight = color(0x916D11)
+  public static let accentStrongThoLight = color(0xA4631E)
   public static let accentBrightThoLight = color(0xF4BA17)
   public static let accentOnThoLight = color(0x45210E)
   public static let accentOnStrongThoLight = color(0xFFFFFF)
@@ -333,7 +333,7 @@ public enum CSTokens {
   public static let accentGradAThoLight = color(0xF4BA17)
   public static let accentGradBThoLight = color(0xC4B78F)
   public static let colorTextAccentThoLight = color(0x6E3B0E)
-  public static let colorLinkThoLight = color(0x644A05)
+  public static let colorLinkThoLight = color(0x744000)
   public static let accentThoClayLight = color(0x723E06)
   public static let accentStrongThoClayLight = color(0x5A3004)
   public static let accentBrightThoClayLight = color(0xF2C5A3)
@@ -505,7 +505,7 @@ public enum CSTokens {
   public static let colorTextAccentThoSandDark = color(0xF9E5AE)
   public static let colorLinkThoSandDark = color(0xF9E5AE)
   public static let accentThoDark = color(0xE9B321)
-  public static let accentStrongThoDark = color(0x6E5205)
+  public static let accentStrongThoDark = color(0x7D480C)
   public static let accentBrightThoDark = color(0xFDD378)
   public static let accentOnThoDark = color(0xF5EAD9)
   public static let accentOnStrongThoDark = color(0xFFFFFF)

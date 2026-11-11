@@ -19,7 +19,7 @@ This file does not replace doctrine, the product registry, or the consume guide.
 - **Anchors follow the source-derived doctrine table below.** One accent per surface (Ochre on core; a product's element accent inside its `data-cs-element` scope). Every neutral warmed toward umber — no cold grey.
 - **Vietnamese-first & bilingual** — ship EN + VN, preserve diacritics, VN-safe line-heights. Every bilingual template carries a root `lang` (see conventions → Screen-reader language).
 - **Accessibility floor** — preserve the composite focus indicator (text-primary contour plus Ochre halo); ≥44px touch targets on coarse pointers; body text APCA Lc ≥ 75; honour `prefers-reduced-motion`/`prefers-contrast`. Focus styles live in `base/reset.css` and the component CSS; `base/a11y.css` covers coarse-pointer sizing and preference safety nets. Verify the rendered focus state after changes.
-- **Grammar** — Theme × Element × Language × Style are independent axes. Style pack is liquid-glass (sole pack; absent ≡ default).
+- **Grammar** — Theme × Element × Language × Style are independent axes. Style packs are `liquid-glass` (default; absent ≡ default) and `matte-paper`.
 - **Voice** — warm / direct / honest / respectful. Products are "wishes" Lumi helps grant. Lumi stays golden in every element.
 
 ## Expansion and verification
@@ -80,7 +80,7 @@ Doctrine immutables (source-derived):
 | Language | Vietnamese-first; every UI string ships an EN + VN pair |
 | Accessibility floor | APCA Lc ≥ 75 body text; focus rings never removed; ≥ 44px touch targets |
 | Axes | Theme × Element × Language × Style (independent) |
-| Style pack | liquid-glass (sole pack; absent ≡ default) |
+| Style pack | liquid-glass (default; absent ≡ default) · matte-paper |
 
 - **static-html** — `styles.css`; [guide](DESIGN.md). Use .cs-* classes; .dc.html additionally requires the shipped interpreter or a verified grammar-aware runtime.
 - **react** — `@cyberskill/design`; [guide](docs/consuming.md). Compiled ESM with peer React; explicit @cyberskill/design/source is raw JSX. CommonJS is not promised.

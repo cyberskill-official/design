@@ -9,11 +9,11 @@
   #sum{font-size:15px;font-weight:800;margin:12px 0}
 </style></head><body>
 <h1>Style contract</h1>
-<p class="lede">Allowlists the Style product axis: sole pack <code>liquid-glass</code> (absent ≡ liquid-glass). Asserts <code>styles.css</code> imports <code>tokens/styles.css</code>, <code>--cs-style-pack</code> resolves, and scanned sources never set an unknown <code>data-cs-style</code>. Verdict: <code>window.__stylecontract.pass</code>.</p>
+<p class="lede">Allowlists the Style product axis: <code>liquid-glass</code> (default; absent ≡ liquid-glass) and <code>matte-paper</code> (opaque crisp paper surfaces). Asserts <code>styles.css</code> imports <code>tokens/styles.css</code>, <code>--cs-style-pack</code> resolves for both packs, and scanned sources never set an unknown <code>data-cs-style</code>. Verdict: <code>window.__stylecontract.pass</code>.</p>
 <div id="list"></div><div id="sum">running…</div>
 <script>
 const list=document.getElementById('list');
-const ALLOWED=new Set(['liquid-glass']);
+const ALLOWED=new Set(['liquid-glass','matte-paper']);
 function row(ok,t){const d=document.createElement('div');d.className='row '+(ok?'ok':'bad');d.textContent=(ok?'✓ ':'✗ ')+t;list.appendChild(d);}
 (async()=>{
   const fails=[];
@@ -32,6 +32,11 @@ function row(ok,t){const d=document.createElement('div');d.className='row '+(ok?
   const packExplicit=getComputedStyle(document.documentElement).getPropertyValue('--cs-style-pack').trim();
   row(packExplicit==='liquid-glass', 'data-cs-style="liquid-glass" keeps --cs-style-pack');
   if(packExplicit!=='liquid-glass') fails.push('explicit liquid-glass pack drifted');
+
+  document.documentElement.setAttribute('data-cs-style','matte-paper');
+  const packMatte=getComputedStyle(document.documentElement).getPropertyValue('--cs-style-pack').trim();
+  row(packMatte==='matte-paper', 'data-cs-style="matte-paper" resolves --cs-style-pack to matte-paper (got "'+packMatte+'")');
+  if(packMatte!=='matte-paper') fails.push('matte-paper pack drifted');
   document.documentElement.removeAttribute('data-cs-style');
 
   let M;
@@ -55,13 +60,13 @@ function row(ok,t){const d=document.createElement('div');d.className='row '+(ok?
       }
     }catch(e){ /* optional */ }
   }
-  row(unknown.length===0, 'data-cs-style values allowlisted ('+scanned+' files scanned)'+(unknown.length?(' · '+unknown.slice(0,6).join(', ')):' · sole pack liquid-glass'));
+  row(unknown.length===0, 'data-cs-style values allowlisted ('+scanned+' files scanned)'+(unknown.length?(' · '+unknown.slice(0,6).join(', ')):' · liquid-glass + matte-paper'));
   if(unknown.length) fails.push(...unknown.map(u=>'unknown style '+u));
 
   const pass=fails.length===0;
   window.__stylecontract={pass,fails,allowed:[...ALLOWED],scanned};
   const s=document.getElementById('sum');
-  s.textContent=pass?'✓ PASS — style contract (liquid-glass sole pack)':'✗ FAIL — '+fails.join(', ');
+  s.textContent=pass?'✓ PASS — style contract (liquid-glass · matte-paper)':'✗ FAIL — '+fails.join(', ');
   s.style.color=pass?'#166534':'#B42318';
 })();
 </script></body></html>

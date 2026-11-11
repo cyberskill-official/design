@@ -6,9 +6,9 @@
 <style>
   body{margin:0;background:var(--cs-color-surface-page);padding:22px 24px;font-family:var(--cs-font-family-ui);color:var(--cs-color-text-primary)}
   .wrap{max-width:600px}
-  h3{margin:0 0 2px;font-size:13px;font-weight:800;color:var(--_cs-light,var(--cs-color-brand-umber)) var(--_cs-dark,var(--cs-color-brand-ochre))}
+  h3{margin:0 0 2px;font-size:13px;font-weight:800;color:var(--_cs-light,var(--cs-color-brand-umber))var(--_cs-dark,var(--cs-color-text-accent))}
   .cap{font-size:12px;color:var(--cs-color-text-primary);opacity:.75;margin:0 0 14px}
-  .track{display:grid;grid-template-columns:104px 1fr;align-items:center;gap:12px;margin-bottom:9px}
+  .track{display:grid;grid-template-columns:minmax(196px,auto) 1fr;align-items:center;gap:12px;margin-bottom:9px}
   .lbl{font-size:12.5px}.lbl b{font-weight:700}.lbl .v{display:block;font-family:var(--cs-font-family-mono);font-size:12px;color:var(--cs-color-text-muted)}
   .rail{position:relative;height:18px;background:var(--cs-color-surface-raised);border-radius:999px;border:1px solid var(--cs-color-border-default);container-type:inline-size}
   .dot{position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:var(--cs-color-brand-ochre);box-shadow:0 1px 3px rgba(69,33,14,.3);will-change:transform}
@@ -19,9 +19,9 @@
   .d2{animation:run 1.3s var(--cs-ease-entrance) infinite alternate}
   .d3{animation:run 1.3s var(--cs-ease-exit) infinite alternate}
   .durrow{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
-  .chip{font-family:var(--cs-font-family-ui);font-size:12px;color:var(--_cs-light,var(--cs-color-brand-umber)) var(--_cs-dark,var(--cs-color-brand-ochre));background:var(--cs-color-surface-raised);border:1px solid var(--cs-color-border-default);border-radius:999px;padding:5px 12px;position:relative;overflow:hidden}
+  .chip{font-family:var(--cs-font-family-ui);font-size:12px;color:var(--_cs-light,var(--cs-color-brand-umber))var(--_cs-dark,var(--cs-color-text-accent));background:var(--cs-color-surface-raised);border:1px solid var(--cs-color-border-default);border-radius:999px;padding:5px 12px;position:relative;overflow:hidden}
   .chip span{position:relative;z-index:1}
-  .chip i{position:absolute;left:0;top:0;bottom:0;width:100%;background:var(--_cs-light,var(--cs-accent-tint)) var(--_cs-dark,color-mix(in oklab,var(--cs-accent) 24%,var(--cs-color-surface-raised)));transform-origin:left;z-index:0}
+  .chip i{position:absolute;left:0;top:0;bottom:0;width:100%;background:var(--_cs-light,var(--cs-accent-tint))var(--_cs-dark,color-mix(in oklab,var(--cs-accent) 24%,var(--cs-color-surface-raised)));transform-origin:left;z-index:0}
   @keyframes fill{0%,8%{transform:scaleX(0)}50%{transform:scaleX(1)}92%,100%{transform:scaleX(1);opacity:0}}
   .c1 i{animation:fill 2s var(--cs-ease-standard) infinite}
   .c2 i{animation:fill 2s var(--cs-ease-standard) infinite;animation-delay:.15s}

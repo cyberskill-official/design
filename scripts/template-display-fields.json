@@ -237,7 +237,7 @@
     {
       "template": "delivery-status-email",
       "path": "templates/delivery-status-email/DeliveryStatusEmail.dc.html",
-      "baselineSha256": "184a92437677fa83303157e90f13ad2d5fb5cf938363b9283428d8395c243ad3",
+      "baselineSha256": "353138d5155deab3eed038555db779967bd6c1593dd49493e62be26587bfbb54",
       "fields": [
         {
           "id": "reportTitleEn",
@@ -3444,7 +3444,7 @@
     {
       "template": "marketing-newsletter",
       "path": "templates/marketing-newsletter/MarketingNewsletter.dc.html",
-      "baselineSha256": "e9e9777818bed1b84d495548a41b5b979b6348fa7a72fe47ad0dd9439656f239",
+      "baselineSha256": "222085d796f18dbb0f350cb5f31468c5ae99b9244cffb6fdde6850748d418873",
       "fields": [
         {
           "id": "issueDisplayEn",

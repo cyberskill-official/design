@@ -19,7 +19,7 @@ Storybook **10** là **site sản phẩm** cho operator trên `design.cyberskill
   - `States` (hoặc subsection Matrix) cho `disabled` / `loading` / `error` / `busy` khi có argTypes
   - Mọi option enum `size` / `variant` gắn trong story họ matrix
   - `FullMatrix` khi ≥1 trong {size enums, variant enums, state keys} — tích size × variant × key-state qua helper `stories/lib/matrix.jsx`
-- Toolbar globals: Theme (light · dark · **system**) × Element × Language × Style (cùng trục với templates / Atomic View). Element liệt kê **đủ 15** pack Ngũ Hành. Style chỉ có **liquid-glass**.
+- Toolbar globals: Theme (light · dark · **system**) × Element × Language (`vi` · `en`) × Style (`liquid-glass` · `matte-paper`; cùng trục với templates / Atomic View). Element liệt kê **đủ 15** pack Ngũ Hành.
 - **Docs/** tài liệu operator đã xuất bản — **Start / Guides / Maintainers**, MDX curated, một story sidebar mỗi trang markdown trong danh mục công khai, và iframe Thư viện tài liệu `/docs/viewer.html` (EN·VI). Prose canonical vẫn `docs/*.md`. **Release Notes/** prose curated (**không CHANGELOG.md**); **Status/** embed `_audit/run.html` full-bleed
 - **Templates/** điểm bắt đầu công khai — Gallery (tier Templates của Atomic View + kitchen-sink/playground) và mọi template manifest theo category Atomic View (gồm **HR** / `vn-*`). Regen CSF bằng `node scripts/generate-template-stories.mjs` sau khi đổi tên template
 - **Pages/** UI kit công khai (Status Hub, Marketing site, Slide deck)

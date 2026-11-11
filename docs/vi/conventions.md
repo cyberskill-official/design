@@ -13,10 +13,10 @@ Mọi bề mặt render resolve bốn scope trực giao — không bao giờ mã
 |---|---|---|---|
 | **Theme** | `data-theme="dark\|system"` | light / dark / system (OS) | `tokens/colors.css` |
 | **Element** (Ngũ Hành) | `data-cs-element` + `data-cs-variant` | bản sắc hue theo sản phẩm | `tokens/elements.css` |
-| **Language** | `lang` / Language tweak | EN · VI bắt buộc; spike `ja` (primary subtag BCP-47) | registry component + props template — xem `docs/decisions/locale-architecture.md` |
-| **Style** | `data-cs-style` (tuỳ chọn; vắng ≡ `liquid-glass`) | pack vật liệu bề mặt | `tokens/styles.css` |
+| **Language** | `lang` / Language tweak | EN · VI (`vi` mặc định trên bề mặt UI; spike `ja` nội bộ) | registry component + props template — xem `docs/decisions/locale-architecture.md` |
+| **Style** | `data-cs-style` (tuỳ chọn; vắng ≡ `liquid-glass`) | pack vật liệu bề mặt (`liquid-glass` · `matte-paper`) | `tokens/styles.css` + `base/glass.css` |
 
-Pack Style duy nhất hiện nay là **liquid-glass**. Bất biến dưới mọi trục: anchors Umber/Ochre, voice, họ chữ, màu semantic status, chỉ báo focus ghép (contour text-primary + halo ochre), sàn APCA, target ≥44px.
+Trục Style có hai pack: **liquid-glass** (mặc định) và **matte-paper** (bề mặt giấy mờ đặc sắc nét). Bất biến dưới mọi trục: anchors Umber/Ochre, voice, họ chữ, màu semantic status, chỉ báo focus ghép (contour text-primary + halo ochre), sàn APCA, target ≥44px.
 
 ## Ngữ pháp đặt tên
 
@@ -85,7 +85,7 @@ phần tử HTML, không dùng trong URL, thuộc tính, CSS hay script.
 
 - Element thay thế hoàn toàn Ochre trong scope sản phẩm; cạnh hot-pink của plasma được duyệt (Th7 2026).
 
-- Trục: Theme × Element × Language × Style. Pack Style liquid-glass (sole pack; vắng ≡ mặc định).
+- Trục: Theme × Element × Language × Style. Pack Style gồm `liquid-glass` (mặc định; vắng ≡ mặc định) và `matte-paper`.
 
 - Product registry **đã khóa** (Th7 2026) — tám ánh xạ portfolio trong `docs/products.md`; không invent ánh xạ product → element mới.
 

@@ -28,7 +28,10 @@ button.cs-item--interactive { border: 1px solid transparent; background: var(--c
 }
 .cs-item--interactive:focus-visible { outline: 2px solid var(--cs-color-text-primary); outline-offset: 2px; box-shadow: 0 0 0 5px var(--cs-color-accent-ochre); }
 .cs-item.is-selected { border-color: var(--cs-color-text-accent); background: color-mix(in oklab, var(--cs-accent) 18%, var(--cs-color-surface-panel)); }
-.cs-item.is-selected .cs-item__description { color: var(--_cs-light, var(--cs-color-text-muted))var(--_cs-dark, var(--cs-color-text-primary)); }
+.cs-item.is-selected .cs-item__description { color: var(--cs-color-text-primary); }
+tr.cs-item { display: table-row; }
+tr.cs-item.is-selected > td, tr.cs-item.is-selected > th { background: color-mix(in oklab, var(--cs-accent) 18%, var(--cs-color-surface-panel)); }
+tr.cs-item.is-selected > td:first-child, tr.cs-item.is-selected > th:first-child { box-shadow: inset 3px 0 0 var(--cs-color-text-accent); }
 .cs-item.is-disabled, .cs-item[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; pointer-events: none; }
 /* Static Item text remains information, rather than an inactive control. */
 div.cs-item.is-disabled { opacity: 1; }
@@ -81,8 +84,8 @@ div.cs-item.is-disabled { opacity: 1; }
   --cs-code-bg: #2b1e14;
   --cs-code-fg: #f5ead9;
   --cs-code-border: #4a3a2c;
-  --cs-code-muted: #c9b7a3;
-  position: relative; background: var(--cs-code-bg); color: var(--cs-code-fg); border-radius: var(--cs-radius-lg); overflow: hidden; border: 1px solid var(--cs-code-border);
+  --cs-code-muted: #e9d6c2;
+  color-scheme: dark; position: relative; background: var(--cs-code-bg); color: var(--cs-code-fg); border-radius: var(--cs-radius-lg); overflow: hidden; border: 1px solid var(--cs-code-border);
 }
 .cs-code__bar { display: flex; align-items: center; justify-content: space-between; padding: 8px 14px; border-block-end: 1px solid var(--cs-code-border); font-family: var(--cs-font-family-mono); font-size: var(--cs-font-size-xs); color: var(--cs-code-muted); }
 .cs-code__copy { border: 0; background: transparent; color: var(--cs-code-muted); cursor: pointer; font: inherit; font-family: var(--cs-font-family-ui); font-weight: 600; min-block-size: 32px; padding-inline: 8px; border-radius: var(--cs-radius-sm); }

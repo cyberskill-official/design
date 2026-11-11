@@ -282,13 +282,13 @@ public enum CSTerminalModel {
   public static let dotHex = "#5b4331"
   public static let bgHex = "#1a1108"
   public static let fgHex = "#f5ead9"
-  public static let mutedHex = "#c9b7a3"
+  public static let mutedHex = "#e9d6c2"
   public static let borderColor = CSColorValue(colorSpace: .srgb, components: [58.0 / 255.0, 42.0 / 255.0, 28.0 / 255.0], alpha: 1)
   public static let barColor = CSColorValue(colorSpace: .srgb, components: [42.0 / 255.0, 26.0 / 255.0, 13.0 / 255.0], alpha: 1)
   public static let dotColor = CSColorValue(colorSpace: .srgb, components: [91.0 / 255.0, 67.0 / 255.0, 49.0 / 255.0], alpha: 1)
   public static let bgColor = CSColorValue(colorSpace: .srgb, components: [26.0 / 255.0, 17.0 / 255.0, 8.0 / 255.0], alpha: 1)
   public static let fgColor = CSColorValue(colorSpace: .srgb, components: [245.0 / 255.0, 234.0 / 255.0, 217.0 / 255.0], alpha: 1)
-  public static let mutedColor = CSColorValue(colorSpace: .srgb, components: [201.0 / 255.0, 183.0 / 255.0, 163.0 / 255.0], alpha: 1)
+  public static let mutedColor = CSColorValue(colorSpace: .srgb, components: [233.0 / 255.0, 214.0 / 255.0, 194.0 / 255.0], alpha: 1)
   public static func maxWidth() -> Double { 480 }
   public static func borderWidth() -> Double { 1 }
   public static let dotCount = 3

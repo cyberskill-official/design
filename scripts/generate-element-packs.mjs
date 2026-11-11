@@ -204,7 +204,8 @@ function deriveLightRoles(seeds, accent, gradB, { pinThoStudio, slot }) {
   };
 
   if (pinThoStudio) {
-    const strong = finishStrong(lchDegToHex(0.65, accent.C * 0.85, accent.H));
+    // Bezold–Brücke warm-amber rotation (62°, aligned with tho.clay 60° axis) avoids olive shift when ochre darkens.
+    const strong = finishStrong(lchDegToHex(0.65, accent.C * 0.70, 62));
     return {
       '--cs-accent': accentHex,
       '--cs-accent-strong': strong,
@@ -233,7 +234,7 @@ function deriveLightRoles(seeds, accent, gradB, { pinThoStudio, slot }) {
   };
 }
 
-function deriveDarkRoles(seeds, light, slot) {
+function deriveDarkRoles(seeds, light, slot, { pinThoStudio = false } = {}) {
   const D = seeds.dark;
   const T = D.targets;
   const lightAccent = hexToLCH(light['--cs-accent']);
@@ -286,7 +287,8 @@ function deriveDarkRoles(seeds, light, slot) {
       : slot === 'middle'
         ? clamp(aLCH.C * 1.00, 0.052, 0.15)
         : clamp(aLCH.C * 0.95, 0.060, 0.145);
-  const strong = lchDegToHex(darkStrongL, darkStrongC, lightH);
+  const strongH = pinThoStudio ? 62 : lightH;
+  const strong = lchDegToHex(darkStrongL, darkStrongC, strongH);
   const bo = bestOn(strong);
 
   const darkTintL = slot === 'soft' ? 0.295 : slot === 'middle' ? 0.245 : 0.195;
@@ -359,9 +361,21 @@ function ensureBodyOnStrong(roles) {
   roles['--cs-accent-on-strong'] = on;
 }
 
+function neutralTextMuted(mode) {
+  const css = fs.readFileSync(path.join(ROOT, 'tokens/colors.css'), 'utf8');
+  const selector = mode === 'dark' ? '[data-theme="dark"]' : ':root';
+  const start = css.indexOf(selector + ' {');
+  const block = css.slice(start, css.indexOf('}', start));
+  const match = block.match(/--cs-color-text-muted:\s*(#[0-9a-f]{6})/i);
+  if (!match) throw Error('Missing neutral text-muted for ' + mode);
+  return match[1].toUpperCase();
+}
+
 function buildAllPacks(seeds) {
   const packs = [];
   const middleAccent = {};
+  const baseLightMuted = neutralTextMuted('light');
+  const baseDarkMuted = neutralTextMuted('dark');
   for (const elKey of Object.keys(seeds.elements)) {
     middleAccent[elKey] = slotAccent(seeds, elKey, 'middle', null).hex;
   }
@@ -379,13 +393,17 @@ function buildAllPacks(seeds) {
       const light = deriveLightRoles(seeds, accent, gradB, { pinThoStudio, slot: s.slot });
       const darkSeedLight = { ...light };
       ensureBodyOnStrong(light);
-      light['--cs-color-link'] = ensureLinkOnSurfaces(light['--cs-accent-strong'], bodyLinkSurfaces(light, 'light'));
+      const lightSurfaces = bodyLinkSurfaces(light, 'light');
+      light['--cs-color-link'] = ensureLinkOnSurfaces(light['--cs-accent-strong'], lightSurfaces);
       // Semantic accent text supports small body copy on the same surfaces as links.
       light['--cs-color-text-accent'] = pinThoStudio ? '#6E3B0E' : light['--cs-color-link'];
-      const dark = deriveDarkRoles(seeds, darkSeedLight, s.slot);
+      const lightMuted = ensureLinkOnSurfaces(baseLightMuted, lightSurfaces, 4.5, 77);
+      const dark = deriveDarkRoles(seeds, darkSeedLight, s.slot, { pinThoStudio });
       ensureBodyOnStrong(dark);
-      dark['--cs-color-link'] = ensureLinkOnSurfaces(dark['--cs-accent-bright'], bodyLinkSurfaces(dark, 'dark'), 4.5, 78, 'dark');
+      const darkSurfaces = bodyLinkSurfaces(dark, 'dark');
+      dark['--cs-color-link'] = ensureLinkOnSurfaces(dark['--cs-accent-bright'], darkSurfaces, 4.5, 78, 'dark');
       dark['--cs-color-text-accent'] = dark['--cs-color-link'];
+      const darkMuted = ensureLinkOnSurfaces(baseDarkMuted, darkSurfaces, 4.5, 77, 'dark');
       packs.push({
         el: elKey,
         variant: s.variant,
@@ -393,6 +411,8 @@ function buildAllPacks(seeds) {
         middleName: s.name || null,
         light,
         dark,
+        lightMuted,
+        darkMuted,
       });
     }
   }

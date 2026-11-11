@@ -142,8 +142,24 @@
  * --cs-color-border-default / --cs-color-text-muted from the --_cs-standard /
  * --_cs-high channel toggles, which flip to high under prefers-contrast: more
  * (light #9a8060 / #45210e · dark #7a6450 / #f5ead9) unless a scope sets
- * data-cs-contrast explicitly. The former contextual overrides here were
- * already superseded by that resolver's higher specificity. */
+ * data-cs-contrast explicitly. Below, explicit [data-cs-contrast="high"] also
+ * reinforces field controls, glass borders and table cell dividers, with a
+ * clean nested [data-cs-contrast="standard"] reset. */
+[data-cs-contrast="high"] :is(.cs-field__control, .cs-select, .cs-combobox, .cs-search, .cs-taginput, .cs-otp__slot, .cs-datepicker__field, .cs-surface-light, .cs-surface-standard, .cs-glass-card, .cs-surface-heavy) {
+  border-color: color-mix(in oklab, var(--cs-color-text-primary) 54%, var(--cs-color-surface-panel));
+}
+[data-cs-contrast="high"] :is(.cs-table th, .cs-table td, .cs-datagrid th, .cs-datagrid td) {
+  border-block-end-color: color-mix(in oklab, var(--cs-color-text-primary) 42%, var(--cs-color-surface-panel));
+}
+[data-cs-contrast="high"] [data-cs-contrast="standard"] :is(.cs-field__control, .cs-select, .cs-combobox, .cs-search, .cs-taginput, .cs-otp__slot, .cs-datepicker__field) {
+  border-color: var(--cs-component-textfield-border-default, #bfa58f);
+}
+[data-cs-contrast="high"] [data-cs-contrast="standard"] .cs-surface-light { border-color: var(--cs-glass-light-border); }
+[data-cs-contrast="high"] [data-cs-contrast="standard"] :is(.cs-surface-standard, .cs-glass-card) { border-color: var(--cs-glass-standard-border); }
+[data-cs-contrast="high"] [data-cs-contrast="standard"] .cs-surface-heavy { border-color: var(--cs-glass-heavy-border); }
+[data-cs-contrast="high"] [data-cs-contrast="standard"] :is(.cs-table th, .cs-table td, .cs-datagrid th, .cs-datagrid td) {
+  border-block-end-color: var(--cs-color-border-subtle, var(--_cs-border-subtle));
+}
 
 /* Forced colors removes authored backgrounds and shadows. State must survive
  * that substitution using real borders, system colors and knob position. */

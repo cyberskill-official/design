@@ -31,8 +31,9 @@
   .motion-embed{border:1px solid var(--cs-color-border-default);border-radius:var(--cs-radius-lg);overflow:hidden;background:var(--cs-color-surface-panel);margin:16px 0}
   .motion-embed iframe{width:100%;height:352px;border:0;display:block;background:var(--cs-color-surface-page)}
   main{min-width:0}
-  .toolbar{position:sticky;top:1px;z-index:20;display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px;padding:12px 22px;background:color-mix(in oklab,var(--cs-color-surface-panel) 88%,transparent);backdrop-filter:blur(8px);border-block-end:1px solid var(--cs-color-border-default)}
-  @media (prefers-reduced-transparency: reduce){.toolbar{backdrop-filter:none;background:var(--cs-color-surface-panel)}}
+  .toolbar{position:sticky;top:1px;z-index:20;display:flex;flex-wrap:wrap;align-items:center;gap:14px 18px;padding:12px 22px;background:color-mix(in oklab,var(--cs-color-surface-panel) 88%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-block-end:1px solid var(--cs-color-border-default)}
+  @media (prefers-reduced-transparency: reduce){.toolbar{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--cs-color-surface-panel)}}
+  [data-cs-style="matte-paper"] .toolbar{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--cs-color-surface-panel)}
   .toolbar h1{font-size:15px;margin:0;letter-spacing:-.01em}
   .ctl{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--cs-color-text-muted)}
   .ctl select{font:inherit;font-size:12.5px;padding:5px 8px;border:1px solid var(--cs-color-border-default);border-radius:var(--cs-radius-sm);background:var(--cs-color-surface-panel);color:var(--cs-color-text-primary)}
@@ -56,7 +57,6 @@
   .framed .cs-dialog{top:22px}
   .srow{display:flex;flex-wrap:wrap;align-items:flex-start;gap:12px}
   #canvas button:not(.cs-switch){min-block-size:32px;max-block-size:52px}
-  @media (max-width:768px),(min-width:1024px){:root,body,#canvas{--cs-font-weight-medium:600;--cs-font-weight-semibold:600;--cs-font-weight-extrabold:700}.brand,.navtier,.navsub,.grphead,.tierhead,.cs-stat__value{font-weight:700}.cs-combobox input,.cs-igroup>input,.cs-taginput>input,.cs-cal__grid button,.cs-datepicker__field,.cs-treeselect__field,.cs-cascader__opt,.cs-terminal__body,[style*="font-weight: 500"],[style*="font-weight:500"]{font-weight:600!important}[style*="font-weight: 800"],[style*="font-weight:800"]{font-weight:700!important}}
   .srow .cs-slider{inline-size:160px;flex:none!important}
   .srow button,.srow a,.cs-datagrid__sort,.cs-navmenu__top{white-space:nowrap}
   .cs-datagrid thead th{inset-block-start:1px}
@@ -389,7 +389,7 @@ const STORIES = [
   { tier:"Organism", name:"DataGrid", grp:"Data", render:(L)=> <GridD L={L}/> },
   { tier:"Organism", name:"TreeTable", grp:"Data", render:(L)=> has(TreeTable)?<TreeTable defaultExpanded={["p"]} columns={[{key:"name",header:L==="vi"?"Hạng mục":"Item"},{key:"pct",header:L==="vi"?"Tiến độ":"Progress"}]} nodes={[{key:"p",name:L==="vi"?"Nền tảng":"Platform",pct:"70%",children:[{key:"ds",name:"Design System",pct:"72%"},{key:"tok",name:"Token Pipeline",pct:"66%"}]},{key:"ai",name:"AI",pct:"58%",children:[{key:"lumi",name:"Lumi Genie",pct:"58%"}]}]}/>:<Miss n="TreeTable"/> },
   { tier:"Organism", name:"Sortable", grp:"Data", render:(L)=> <SortD L={L}/> },
-  { tier:"Organism", name:"Masonry", grp:"Data", render:(L)=> has(Masonry)?<Masonry columns={3} gap={12}>{[64,110,80,140,72,96].map((h,i)=><div key={i} style={{height:h,background:"var(--cs-accent-tint)",border:"1px solid var(--cs-color-border-default)",borderRadius:"var(--cs-radius-md)",display:"grid",placeItems:"center",fontSize:12,color:"var(--cs-color-text-muted)"}}>{(L==="vi"?"Thẻ ":"Card ")+(i+1)}</div>)}</Masonry>:<Miss n="Masonry"/> },
+  { tier:"Organism", name:"Masonry", grp:"Data", render:(L)=> has(Masonry)?<Masonry columns={3} gap={12}>{[64,110,80,140,72,96].map((h,i)=><div key={i} style={{height:h,background:"var(--cs-color-surface-raised)",border:"1px solid var(--cs-color-border-default)",borderRadius:"var(--cs-radius-md)",display:"grid",placeItems:"center",fontSize:12,color:"var(--cs-color-text-muted)"}}>{(L==="vi"?"Thẻ ":"Card ")+(i+1)}</div>)}</Masonry>:<Miss n="Masonry"/> },
   { tier:"Organism", name:"Splitter", grp:"Data", render:(L)=> has(Splitter)?<Splitter height={170} initial={45} start={<div style={{fontSize:13,color:"var(--cs-color-text-muted)"}}>{L==="vi"?"Khung trái — kéo thanh chia.":"Left pane — drag the divider."}</div>} end={<div style={{fontSize:13,color:"var(--cs-color-text-muted)"}}>{L==="vi"?"Khung phải.":"Right pane."}</div>}/>:<Miss n="Splitter"/> },
   { tier:"Organism", name:"HotKeys", grp:"Navigation", render:(L)=> has(HotKeys,Kbd)?<HotKeys bindings={[{keys:"mod+k",description:L==="vi"?"Bảng lệnh":"Command palette"},{keys:"mod+s",description:L==="vi"?"Lưu":"Save"}]}><span style={{fontSize:13,color:"var(--cs-color-text-muted)"}}>{L==="vi"?"Nhấn ":"Press "}<Kbd>?</Kbd>{L==="vi"?" để xem phím tắt.":" for the shortcut sheet."}</span></HotKeys>:<Miss n="HotKeys"/> },
   { tier:"Organism", name:"Dock", grp:"Navigation", render:(L)=> has(Dock,Icon)?<Dock label="Apps" items={[{icon:<Icon name="chat"/>,label:"Lumi",active:true},{icon:<Icon name="calendar"/>,label:L==="vi"?"Lịch":"Calendar"},{icon:<Icon name="sliders"/>,label:L==="vi"?"Cài đặt":"Settings"},{icon:<Icon name="search"/>,label:L==="vi"?"Tìm kiếm":"Search"}]}/>:<Miss n="Dock"/> },
@@ -418,7 +418,7 @@ const STORIES = [
 
   { tier:"Organism", name:"OverlayProvider", grp:"Overlays", framed:true, render:(L)=> has(OverlayProvider,Dialog,Button)?<OverlayProvider><p style={{fontSize:13,color:"var(--cs-color-text-muted)",maxInlineSize:"var(--cs-prose-measure,45rem)"}}>{L==="vi"?"Provider gắn #cs-overlay-root và xếp chồng Escape/scroll-lock cho modal lồng nhau.":"Provider mounts #cs-overlay-root and stacks Escape/scroll-lock for nested modals."}</p><DialogDemo title="Nested-safe dialog" startOpen={false}/></OverlayProvider>:<Miss n="OverlayProvider"/> },
 
-  { tier:"Organism", name:"Popover", grp:"Overlays", framed:true, controls:[{k:"trigger",type:"text",def:"Filter ▾"}], renderC:(v)=> has(Popover,Button,RadioGroup)?<div style={{padding:16}}><Popover open={true} onOpenChange={()=>{}} trigger={<Button variant="secondary" size="sm">{v.trigger}</Button>}><RadioGroup legend="Status" defaultValue="active" options={[{value:"active",label:"In progress"},{value:"done",label:"Shipped"}]}/></Popover></div>:<Miss n="Popover"/>, render:(L)=> has(Popover,Button,RadioGroup)?<div style={{padding:16}}><Popover open={true} onOpenChange={()=>{}} trigger={<Button variant="secondary" size="sm">{L==="vi"?"Lọc ▾":"Filter ▾"}</Button>}><RadioGroup legend={L==="vi"?"Trạng thái":"Status"} defaultValue="active" options={L==="vi"?[{value:"active",label:"Đang làm"},{value:"done",label:"Đã ra mắt"},{value:"hold",label:"Bị chặn"}]:[{value:"active",label:"In progress"},{value:"done",label:"Shipped"},{value:"hold",label:"Blocked"}]}/></Popover></div>:<Miss n="Popover"/> },
+  { tier:"Organism", name:"Popover", grp:"Overlays", framed:true, controls:[{k:"trigger",type:"text",def:"Filter ▾"}], renderC:(v)=> has(Popover,Button,RadioGroup)?<div style={{padding:16}}><Popover portal={false} open={true} onOpenChange={()=>{}} trigger={<Button variant="secondary" size="sm">{v.trigger}</Button>}><RadioGroup legend="Status" defaultValue="active" options={[{value:"active",label:"In progress"},{value:"done",label:"Shipped"}]}/></Popover></div>:<Miss n="Popover"/>, render:(L)=> has(Popover,Button,RadioGroup)?<div style={{padding:16}}><Popover portal={false} open={true} onOpenChange={()=>{}} trigger={<Button variant="secondary" size="sm">{L==="vi"?"Lọc ▾":"Filter ▾"}</Button>}><RadioGroup legend={L==="vi"?"Trạng thái":"Status"} defaultValue="active" options={L==="vi"?[{value:"active",label:"Đang làm"},{value:"done",label:"Đã ra mắt"},{value:"hold",label:"Bị chặn"}]:[{value:"active",label:"In progress"},{value:"done",label:"Shipped"},{value:"hold",label:"Blocked"}]}/></Popover></div>:<Miss n="Popover"/> },
   { tier:"Organism", name:"Conversation (PromptInput + ChatMessage)", grp:"AI-native", render:(L)=> has(ChatMessage)?<div style={{maxWidth:520}}><div className="cs-chat" style={{marginBottom:12}}><ChatMessage role="lumi">{L==="vi"?"Xin chào, mình là Lumi. Hãy nói điều ước của bạn — mình sẽ tư vấn thẳng thắn trước khi hỏi bất kỳ điều gì.":"Hello, I'm Lumi. Tell me a wish, and I'll share plain advice before asking for anything."}</ChatMessage><ChatMessage role="user">{L==="vi"?"Một trang thanh toán nhanh hơn.":"A faster checkout."}</ChatMessage><ChatMessage role="lumi">{L==="vi"?"Một điều ước đáng thực hiện — mình nên gọi bạn là gì?":"A wish worth granting — what should I call you?"}</ChatMessage></div><PromptD L={L}/></div>:<Miss n="ChatMessage"/> },
   { tier:"Organism", name:"HumanReviewGate", grp:"AI-native", controls:[{k:"risk",type:"text",def:"High-stakes · billing change"},{k:"summary",type:"text",def:"Move client to annual + prorated credit."},{k:"reviewer",type:"text",def:"Ops on call"}], renderC:(v)=> has(HumanReviewGate)?<div style={{maxWidth:520}}><HumanReviewGate risk={v.risk} summary={v.summary} reviewer={v.reviewer}/></div>:<Miss n="HumanReviewGate"/>, render:()=> has(HumanReviewGate)?<div style={{maxWidth:520}}><HumanReviewGate risk="High-stakes · billing change" summary="Lumi proposes moving this client to the annual plan and issuing a prorated credit." reviewer="Ops on call"/></div>:<Miss n="HumanReviewGate"/> },
 ];
@@ -435,7 +435,7 @@ const ELEMENTS = [
   ["moc|","Mộc · leaf (middle)"],["moc|bamboo","Mộc · bamboo (soft)"],["moc|forest","Mộc · forest (deep)"],
   ["kim|","Kim · champagne (middle)"],["kim|titanium","Kim · titanium (soft)"],["kim|steel","Kim · steel (deep)"],
 ];
-const LANGS = [["","Default"],["en","English"],["vi","Tiếng Việt"],["ja","日本語 (spike)"]];
+const LANGS = [["vi","Tiếng Việt"],["en","English"]];
 const DENSITIES = [["comfortable","Comfortable"],["compact","Compact"]];
 const CONTRASTS = [["standard","Standard"],["high","High"]];
 const PAGES = [
@@ -607,7 +607,7 @@ function App(){
             <select value={el} onChange={(e)=>setEl(e.target.value)}>{ELEMENTS.map(([v,l])=><option key={v} value={v}>{l}</option>)}</select>
           </label>
           <label className="ctl">Style
-            <select value={style} onChange={(e)=>setStyle(e.target.value)}><option value="liquid-glass">Liquid glass</option></select>
+            <select value={style} onChange={(e)=>setStyle(e.target.value)}><option value="liquid-glass">Liquid glass</option><option value="matte-paper">Matte paper</option></select>
           </label>
           <label className="ctl">Language
             <select value={lang} onChange={(e)=>setLang(e.target.value)}>{LANGS.map(([v,l])=><option key={v} value={v}>{l}</option>)}</select>

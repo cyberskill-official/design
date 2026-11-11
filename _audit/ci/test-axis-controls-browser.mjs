@@ -27,7 +27,7 @@ await withBrowserFixture(async page=>{
     scope:document.querySelector('#fixture > div').getAttribute('data-cs-contrast'),
     muted:getComputedStyle(document.querySelector('#fixture > div')).getPropertyValue('--cs-color-text-muted').trim().toLowerCase(),
   }));
-  if(story.theme!=='light'||story.density!=='comfortable'||story.space!=='4px'||story.root!=='standard'||story.scope!=='standard'||story.muted!=='#3f2d21')failures.push({surface:'Storybook explicit Standard under OS more',...story});
+  if(story.theme!=='light'||story.density!=='comfortable'||story.space!=='4px'||story.root!=='standard'||story.scope!=='standard'||story.muted!=='#5e4436')failures.push({surface:'Storybook explicit Standard under OS more',...story});
   for (const [language, labels] of [
     ['vi', {theme: 'Chế độ nền', density: 'Mật độ', contrast: 'Tương phản'}],
     ['en', {theme: 'Theme', density: 'Density', contrast: 'Contrast'}],
@@ -53,7 +53,7 @@ await withBrowserFixture(async page=>{
       muted: getComputedStyle(el).getPropertyValue('--cs-color-text-muted').trim().toLowerCase(),
     }));
     if (atomic.theme !== 'light' || atomic.density !== 'comfortable' || atomic.space !== '4px' ||
-        atomic.scope !== 'standard' || atomic.muted !== '#3f2d21')
+        atomic.scope !== 'standard' || atomic.muted !== '#5e4436')
       failures.push({surface: 'Atomic View explicit Standard under OS more', language, ...atomic});
   }
   const artifact=await page.evaluate(()=>{

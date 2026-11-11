@@ -60,6 +60,7 @@ export function emitThemeResolver(root,packs,roleKeys) {
     const l={},d={};
     for(const k of roleKeys){l[k]=p.light[k];d[k]=p.dark[k]??p.light[k];}
     for(const k of ['--cs-color-text-accent','--cs-color-link']){l[k]=p.light[k]??light[k];d[k]=p.dark[k]??dark[k];}
+    l['--cs-color-text-muted']=p.lightMuted??light['--cs-color-text-muted'];d['--cs-color-text-muted']=p.darkMuted??dark['--cs-color-text-muted'];
     l['--cs-color-link-hover']=light['--cs-color-link-hover'];d['--cs-color-link-hover']=dark['--cs-color-link-hover'];
     for(const [surface,lp,dp] of [['panel',4,10],['page',8,8],['raised',15,14],['border-default',40,40]]){
       const k=surface==='border-default'?'--cs-color-border-default':`--cs-color-surface-${surface}`;

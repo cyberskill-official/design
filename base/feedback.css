@@ -66,3 +66,11 @@
 .cs-skeleton--circle { border-radius: 50%; }
 @keyframes cs-shimmer { from { background-position: 100% 0; } to { background-position: 0 0; } }
 @media (prefers-reduced-motion: reduce) { .cs-skeleton { animation: none; } }
+
+/* Compact density scope (resets cleanly under nested [data-cs-density="comfortable"]) */
+[data-cs-density="compact"] .cs-alert { padding: 10px 12px; gap: 8px; }
+[data-cs-density="compact"] .cs-toast { padding: 9px 12px; gap: 8px; }
+[data-cs-density="compact"] .cs-tag { padding: 3px 8px; }
+[data-cs-density="compact"] [data-cs-density="comfortable"] .cs-alert { padding: 14px 16px; gap: 12px; }
+[data-cs-density="compact"] [data-cs-density="comfortable"] .cs-toast { padding: 12px 14px; gap: 12px; }
+[data-cs-density="compact"] [data-cs-density="comfortable"] .cs-tag { padding: 5px 10px; }

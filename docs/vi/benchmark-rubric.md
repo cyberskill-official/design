@@ -28,7 +28,7 @@ Checklist tự kiểm khi tiến hóa CyberSkill Design System — chuẩn bên 
 
 ## Checklist mở rộng style (`data-cs-style`)
 
-Sole pack hôm nay: **liquid-glass** (`tokens/styles.css`, gate `_audit/style-contract.html`). Khi thêm style pack ngoài liquid-glass:
+Các pack hiện hành: **liquid-glass** (mặc định; vắng ≡ mặc định) và **matte-paper** (`tokens/styles.css` + `base/glass.css`, gate `_audit/style-contract.html`). Khi thêm style pack mới:
 
 1. Overlay token **tiêu thụ** 10 role `--cs-accent-*` sẵn có, gồm `--cs-accent-on-strong` (không invent pack Element song song).
 2. Specimen card + Storybook / Atomic View nếu style chọn được ở sản phẩm.

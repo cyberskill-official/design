@@ -190,6 +190,10 @@
       if (isChrome(node)) return;
       const tag = node.tagName.toLowerCase();
       if (tag === 'script' || tag === 'style' || tag === 'noscript' || tag === 'svg') return;
+      if (tag === 'br') {
+        parts.push({ t: '', br: true, italic, bold, color, fill, size });
+        return;
+      }
       const st = window.getComputedStyle(node);
       const nextItalic = italic || st.fontStyle === 'italic' || tag === 'i' || tag === 'em';
       const nextBold =
@@ -214,7 +218,7 @@
         if (parts.length > before && nxt) {
           const last = parts[parts.length - 1];
           const nextRaw = nxt.textContent || '';
-          if (last && last.t && !/\s$/.test(last.t) && nextRaw.replace(/\s+/g, '') && !/^\s/.test(nextRaw)) {
+          if (last && !last.br && last.t && !/\s$/.test(last.t) && nextRaw.replace(/\s+/g, '') && !/^\s/.test(nextRaw)) {
             parts.push({
               t: ' ',
               italic: nextItalic,
@@ -237,6 +241,8 @@
       const prev = merged[merged.length - 1];
       if (
         prev &&
+        !prev.br &&
+        !r.br &&
         prev.italic === r.italic &&
         prev.bold === r.bold &&
         prev.color === r.color &&
@@ -257,6 +263,7 @@
     }
     return runs
       .map((r) => {
+        if (r.br) return '<w:r><w:br/></w:r>';
         const rPr = [];
         if (r.bold) rPr.push('<w:b/>');
         if (r.italic) rPr.push('<w:i/>');

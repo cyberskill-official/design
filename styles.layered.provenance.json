@@ -20,7 +20,7 @@
     },
     {
       "path": "tokens/colors.css",
-      "sha256": "40914e9efbdde8c8b9f81a49881d4c5c98646ccf8b53397d4fbf7fc8ce0b54f4"
+      "sha256": "8156d4d2ae951e1939a522bf835c151e8e987c841d49129a0ebfaf8f20b8ca56"
     },
     {
       "path": "tokens/typography.css",
@@ -32,7 +32,7 @@
     },
     {
       "path": "tokens/elevation.css",
-      "sha256": "0c24e92a2026cc036ee53b72d6bb4ffef3e44ca12641650e8ad97c687acb7f6b"
+      "sha256": "2014355eac5748460932783ca3fa03bfd26bc2bb6d1a3144347792b4fdd8ee7b"
     },
     {
       "path": "tokens/motion.css",
@@ -44,11 +44,11 @@
     },
     {
       "path": "tokens/elements.css",
-      "sha256": "b6282cecc7e8b3c154530b36e62f36e9744c73c24e8ae59cbe1ea5650d3073cb"
+      "sha256": "fdc5f1597d253fa8ad63f46fe26b4856060971d8c58ce1e1f8de2f745013ea2f"
     },
     {
       "path": "tokens/styles.css",
-      "sha256": "4b677b90823a026f96e295ea5b6537a3c125b04bb93d3f67c09a7dcf341a6630"
+      "sha256": "d0b582f5d054406280e44a6edd452deb329e0950d8ebca1106be14e583af7c7c"
     },
     {
       "path": "tokens/theme-attributes.css",
@@ -64,35 +64,35 @@
     },
     {
       "path": "base/components.css",
-      "sha256": "568dd72532092ccc5530944772f63509a69cc4d1de89f9f9a44f5bcbefa3ccb6"
+      "sha256": "77b6b6cd7df2ed9c65e531a6d3e9c869b173d85c2bd7a9657cc6731dc1139726"
     },
     {
       "path": "base/forms.css",
-      "sha256": "4999e66483fa95bab74e087471b7762f2a2e566331809488e5416cbf1d662522"
+      "sha256": "5e380ff5a6ba6f0cbaa5bf0b8f1da3af6c6415a2451c86acfa430a0ced014052"
     },
     {
       "path": "base/feedback.css",
-      "sha256": "ba1aadc4ae1c9f9a07ad9df36df06184244ebe488ec723b30ab691d97d09ae4d"
+      "sha256": "ba6e95a6316c9b65f6d279306a9e2f447874a06f709e2d5f62d3e62de3a0436d"
     },
     {
       "path": "base/data.css",
-      "sha256": "4c92290bf35d51a0f0244ca05ab70f57fe4453abb8f71ba23327606f5a2a4227"
+      "sha256": "f910e6a023cd1444cb4b8288ca939c223311e8a2124e465e5f5aea254dfcf4f9"
     },
     {
       "path": "base/navigation.css",
-      "sha256": "4958938bd2775bf4fa430c9eeee514242dc5931fee66113c1b94d043e0fd0964"
+      "sha256": "48799ecc9eae03301003f05fd194194f49d210e65ce9d2ad721686dfd8c8dc7e"
     },
     {
       "path": "base/ai.css",
-      "sha256": "fe288cee4345584a0fc189c6deb356e0af078a18fb0e8ad2f6ef4dd4e1511665"
+      "sha256": "6f00788d6efdcc62435834ccb065158f8e80f7b5208f089080cf10a7dbe0f8d5"
     },
     {
       "path": "base/controls.css",
-      "sha256": "1f983026bbc0e5f5962fad7c7188729c74530cd8983fd29e00d6304854231e28"
+      "sha256": "f6ff09b41ed693b4c9de6a699209e8744a8b116104cf3120e94fbacb42bd0dba"
     },
     {
       "path": "base/collections.css",
-      "sha256": "9d55ef7c05f38a9ac789014868b15e1495e4fb46f9fc30d729cc0ef6dc6794ee"
+      "sha256": "fd5d59fb1ef0adac438c7decf0abbdf6de217e33072df79ab609ca9a96a3890c"
     },
     {
       "path": "base/shell.css",
@@ -100,7 +100,7 @@
     },
     {
       "path": "base/glass.css",
-      "sha256": "fe27603ead71c265aa4f30deb0bc754d09f5e71d7cfc656e282a740fffb87f2f"
+      "sha256": "70a9c914734c6b5f5d51fa214c3747c5d294e9c4a1c5d505a942072c53451192"
     },
     {
       "path": "base/interaction.css",
@@ -108,11 +108,11 @@
     },
     {
       "path": "base/a11y.css",
-      "sha256": "07ea769359d4eefe6fc820b9fc13fef2790cc278c1289f0f1cc493ca5c288bd4"
+      "sha256": "15a6dec38ca80f791f68c417e8eaa0fc93c1b6795f749bdaf66c6ae7b8cef37e"
     },
     {
       "path": "base/responsive.css",
-      "sha256": "e3e3509509d6d495a26e582dc6c9263a9e525e16f4f8936386ee5b372e7c5947"
+      "sha256": "2365ed1f0b1ce2d062581c0bd48942c4c24185654f0b2ee6fc4eb688d76839eb"
     }
   ],
   "assets": [
@@ -156,5 +156,5 @@
     "fonts/spacegrotesk-var-vietnamese.woff2"
   ],
   "importantCount": 46,
-  "sha256": "9e74deff65b37c3251f2917609bf8d908caea447ad0c87344f6f4363aaa60df4"
+  "sha256": "21f6aad8afd38694dc3282ccaf461e50e61e278fcdeff49941ab94bd73a9fb9e"
 }

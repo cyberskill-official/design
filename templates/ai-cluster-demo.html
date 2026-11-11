@@ -7,7 +7,7 @@
 <style>
   body{margin:0 auto;font-family:var(--cs-font-family-ui);background:var(--cs-color-surface-page);color:var(--cs-color-text-primary);padding:24px;max-width:720px}
   h1{font-size:18px;margin:0 0 8px} .sub{color:var(--cs-color-text-muted);font-size:13px;line-height:1.5;margin:0 0 18px}
-  #root{display:grid;gap:14px}
+  #root,#cluster{display:grid;gap:16px;align-items:start}
 </style>
 <script src="../_vendor/react/react.production.min.js"></script>
 <script src="../_vendor/react/react-dom.production.min.js"></script>
@@ -19,7 +19,7 @@
 <div id="root"></div>
 </main>
 <script>
-const NS=window[Object.keys(window).find(k=>/^CyberSkillDesignSystem_[0-9a-f]{6}$/.test(k))];
+const NS=window[Object.keys(window).find(k=>k.startsWith('CyberSkillDesignSystem_'))];
 const h=React.createElement;
 function App(){
   const [lang,setLang]=React.useState('en');

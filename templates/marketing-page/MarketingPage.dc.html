@@ -23,13 +23,15 @@
   border:1px solid var(--cs-color-border-default);border-radius:var(--cs-radius-md);
 }
 @media print{#cs-mktg-hero[data-authoring]::part(empty){display:none}}
+@media (prefers-reduced-transparency: reduce){.cs-mktg-nav{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background:var(--cs-color-surface-panel)!important}}
+[data-cs-style="matte-paper"] .cs-mktg-nav{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background:var(--cs-color-surface-panel)!important}
 </style>
 </helmet>
 <div data-theme="{{ rootTheme }}" lang="{{ langAttr }}" data-cs-element="{{ elAttr }}" data-cs-variant="{{ vaAttr }}" style="font-family:var(--cs-font-family-ui);color:var(--cs-color-text-primary);background:var(--cs-color-surface-page);min-height:100vh">
   <a class="cs-skip" href="#main">{{ skipLabel }}</a>
   <main id="main">
   <div style="position:sticky;top:0;z-index:50">
-  <header style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 24px;padding:14px 32px;background:color-mix(in oklab,var(--cs-color-surface-panel) 82%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--cs-color-border-default)">
+  <header class="cs-mktg-nav" style="display:flex;align-items:center;flex-wrap:wrap;gap:10px 24px;padding:14px 32px;background:color-mix(in oklab,var(--cs-color-surface-panel) 82%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--cs-color-border-default)">
     <div style="display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;color:var(--cs-color-text-primary);letter-spacing:-0.01em">
       <x-import component-from-global-scope="CyberSkillDS.Logo" size="32" hint-size="32px,32px"></x-import>
       CyberSkill
@@ -90,7 +92,7 @@
         <h2 style="color:var(--cs-accent-on-strong);font-size:28px;font-weight:800;margin:0 0 6px;letter-spacing:-0.01em">{{ ctaH }}</h2>
         <p style="margin:0;max-width:520px">{{ ctaP }}</p>
       </div>
-      <span id="contact">
+      <span id="contact" style="--cs-component-button-primary-bg:var(--cs-accent-on-strong);--cs-component-button-primary-fg:var(--cs-accent-strong)">
         <x-import component-from-global-scope="CyberSkillDS.Button" variant="primary" data-cs-on-click="{{ openChat }}" hint-size="150px,44px">{{ talkBtn }}</x-import>
       </span>
     </div>

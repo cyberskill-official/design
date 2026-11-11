@@ -4,8 +4,8 @@ The design system exposes four **independent** axes — the same switches in thi
 
 1. **Theme** — `data-theme` — light (default) · dark · **system** (OS `prefers-color-scheme`)
 2. **Element** — `data-cs-element` (+ optional `data-cs-variant`) — Ngũ Hành product identity: Kim · Mộc · Thủy · Hỏa · Thổ, the packs declared by the [current catalog](reference-catalog.json) in the Element toolbar (same set as **Foundations/Elements**, Atomic View, and template EL maps)
-3. **Language** — `lang` — `en` · `vi` (see **I18n**)
-4. **Style** — `data-cs-style` — sole pack today: `liquid-glass` (absent ≡ liquid-glass)
+3. **Language** — `lang` — `vi` (default) · `en` (see **I18n**)
+4. **Style** — `data-cs-style` — `liquid-glass` (default; absent ≡ liquid-glass) · `matte-paper` (opaque crisp paper surfaces)
 
 State them on a container for components that consume these scopes. Template support is declared per template in `docs/reference-catalog.json` (published counts); static print documents, UI kits and fixed-language collateral have documented boundaries. Language changes also require translated content and a renderer that selects it:
 
@@ -33,4 +33,4 @@ Storybook defaults: `light · tho · vi · liquid-glass`.
 - Don't remap semantic status colours or the Ochre focus halo per element
 - Don't mix two element accents as primary + secondary (gradient wash along Tương sinh only)
 - Don't inline one-language UI chrome in components
-- Don't invent a second Style pack without the Expansion Rule checklist
+- Don't invent an unreviewed Style pack without the Expansion Rule checklist

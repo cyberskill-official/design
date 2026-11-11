@@ -16,7 +16,7 @@
  * Generative cycle (Tương sinh) only for grad-b: Mộc→Hỏa→Thổ→Kim→Thủy→Mộc. */
 :root {
   --cs-accent: #F4BA17;
-  --cs-accent-strong: #916D11;
+  --cs-accent-strong: #A4631E;
   --cs-accent-bright: #F4BA17;
   --cs-accent-on: #45210E;
   --cs-accent-on-strong: #FFFFFF;
@@ -59,7 +59,7 @@
   --_cs-dark-color-text-inverse: #1a1108;
   --_cs-light-color-text-accent: #6E3B0E;
   --_cs-dark-color-text-accent: #FECD5D;
-  --_cs-light-color-text-muted: #3F2D21;
+  --_cs-light-color-text-muted: #5E4436;
   --_cs-dark-color-text-muted: #E9D6C2;
   --_cs-light-color-semantic-success: #166534;
   --_cs-dark-color-semantic-success: #4ADE80;
@@ -111,16 +111,16 @@
   --_cs-dark-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.40);
   --_cs-light-shadow-sm: 0 1px 3px rgba(69, 33, 14, 0.04), 0 8px 24px rgba(69, 33, 14, 0.06);
   --_cs-dark-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.34), 0 8px 24px rgba(0, 0, 0, 0.42);
-  --_cs-light-shadow-md: 0 12px 30px rgba(31, 19, 11, 0.18);
+  --_cs-light-shadow-md: 0 12px 30px rgba(69, 33, 14, 0.14);
   --_cs-dark-shadow-md: 0 12px 30px rgba(0, 0, 0, 0.50);
   --_cs-light-shadow-lg: 0 20px 60px rgba(69, 33, 14, 0.18);
   --_cs-dark-shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.55);
-  --_cs-light-shadow-xl: 0 24px 80px rgba(31, 19, 11, 0.26);
+  --_cs-light-shadow-xl: 0 24px 80px rgba(69, 33, 14, 0.24);
   --_cs-dark-shadow-xl: 0 24px 80px rgba(0, 0, 0, 0.62);
   --_cs-light-accent: #F4BA17;
   --_cs-dark-accent: #F4BA17;
-  --_cs-light-accent-strong: #916D11;
-  --_cs-dark-accent-strong: #916D11;
+  --_cs-light-accent-strong: #A4631E;
+  --_cs-dark-accent-strong: #A4631E;
   --_cs-light-accent-bright: #F4BA17;
   --_cs-dark-accent-bright: #F4BA17;
   --_cs-light-accent-on: #45210E;
@@ -177,6 +177,8 @@
   --_cs-dark-color-text-accent: #F9E5AE;
   --_cs-light-color-link: #695300;
   --_cs-dark-color-link: #F9E5AE;
+  --_cs-light-color-text-muted: #5E4436;
+  --_cs-dark-color-text-muted: #EBD8C4;
   --_cs-light-color-link-hover: #45210E;
   --_cs-dark-color-link-hover: #f5ead9;
   --_cs-light-color-surface-panel: color-mix(in oklab, var(--_cs-light-accent) 4%, #FFFFFF);
@@ -196,8 +198,8 @@
 [data-cs-element="tho"] {
   --_cs-light-accent: #F4BA17;
   --_cs-dark-accent: #E9B321;
-  --_cs-light-accent-strong: #916D11;
-  --_cs-dark-accent-strong: #6E5205;
+  --_cs-light-accent-strong: #A4631E;
+  --_cs-dark-accent-strong: #7D480C;
   --_cs-light-accent-bright: #F4BA17;
   --_cs-dark-accent-bright: #FDD378;
   --_cs-light-accent-on: #45210E;
@@ -216,8 +218,10 @@
   --_cs-dark-accent-grad-b: #C4B78F;
   --_cs-light-color-text-accent: #6E3B0E;
   --_cs-dark-color-text-accent: #FFD57A;
-  --_cs-light-color-link: #644A05;
+  --_cs-light-color-link: #744000;
   --_cs-dark-color-link: #FFD57A;
+  --_cs-light-color-text-muted: #5E4436;
+  --_cs-dark-color-text-muted: #E9D6C2;
   --_cs-light-color-link-hover: #45210E;
   --_cs-dark-color-link-hover: #f5ead9;
   --_cs-light-color-surface-panel: color-mix(in oklab, var(--_cs-light-accent) 4%, #FFFFFF);
@@ -229,7 +233,7 @@
   --_cs-light-color-border-default: color-mix(in oklab, var(--_cs-light-accent) 40%, #E7D9C6);
   --_cs-dark-color-border-default: color-mix(in oklab, var(--_cs-dark-accent) 40%, #4a3a2c);
   --_cs-light-component-button-primary-bg: #45210E;
-  --_cs-dark-component-button-primary-bg: #6E5205;
+  --_cs-dark-component-button-primary-bg: #7D480C;
   --_cs-light-component-button-primary-fg: #FFFFFF;
   --_cs-dark-component-button-primary-fg: #FFFFFF;
 }
@@ -259,6 +263,8 @@
   --_cs-dark-color-text-accent: #FFD2AF;
   --_cs-light-color-link: #462402;
   --_cs-dark-color-link: #FFD2AF;
+  --_cs-light-color-text-muted: #442B1E;
+  --_cs-dark-color-text-muted: #E9D6C2;
   --_cs-light-color-link-hover: #45210E;
   --_cs-dark-color-link-hover: #f5ead9;
   --_cs-light-color-surface-panel: color-mix(in oklab, var(--_cs-light-accent) 4%, #FFFFFF);
@@ -300,6 +306,8 @@
   --_cs-dark-color-text-accent: #FDDDDE;
   --_cs-light-color-link: #714B4D;
   --_cs-dark-color-link: #FDDDDE;
+  --_cs-light-color-text-muted: #5E4436;
+  --_cs-dark-color-text-muted: #E9D6C2;
   --_cs-light-color-link-hover: #45210E;
   --_cs-dark-color-link-hover: #f5ead9;
   --_cs-light-color-surface-panel: color-mix(in oklab, var(--_cs-light-accent) 4%, #FFFFFF);
@@ -341,6 +349,8 @@
   --_cs-dark-color-text-accent: #FFD1BA;
   --_cs-light-color-link: #793609;
   --_cs-dark-color-link: #FFD1BA;
+  --_cs-light-color-text-muted: #5E4436;
+  --_cs-dark-color-text-muted: #E9D6C2;
   --_cs-light-color-link-hover: #45210E;
   --_cs-dark-color-link-hover: #f5ead9;
   --_cs-light-color-surface-panel: color-mix(in oklab, var(--_cs-light-accent) 4%, #FFFFFF);
@@ -382,6 +392,8 @@
   --_cs-dark-color-text-accent: #FDD0CA;
   --_cs-light-color-link: #550306;
   --_cs-dark-color-link: #FDD0CA;
+  --_cs-light-color-text-muted: #422A1D;
+  --_cs-dark-color-text-muted: #E9D6C2;
   --_cs-light-color-link-hover: #45210E;
   --_cs-dark-color-link-hover: #f5ead9;
   --_cs-light-color-surface-panel: color-mix(in oklab, var(--_cs-light-accent) 4%, #FFFFFF);
@@ -423,6 +435,8 @@
   --_cs-dark-color-text-accent: #A6F8F6;
   --_cs-light-color-link: #116060;
   --_cs-dark-color-link: #A6F8F6;
+  --_cs-light-color-text-muted: #5E4436;
+  --_cs-dark-color-text-muted: #EBD8C4;
   --_cs-light-color-link-hover: #45210E;
   --_cs-dark-color-link-hover: #f5ead9;
   --_cs-light-color-surface-panel: color-mix(in oklab, var(--_cs-light-accent) 4%, #FFFFFF);
@@ -464,6 +478,8 @@
   --_cs-dark-color-text-accent: #79EDFF;
   --_cs-light-color-link: #0D535C;
   --_cs-dark-color-link: #79EDFF;
+  --_cs-light-color-text-muted: #5E4436;
+  --_cs-dark-color-text-muted: #E9D6C2;
   --_cs-light-color-link-hover: #45210E;
   --_cs-dark-color-link-hover: #f5ead9;
   --_cs-light-color-surface-panel: color-mix(in oklab, var(--_cs-light-accent) 4%, #FFFFFF);
@@ -505,6 +521,8 @@
   --_cs-dark-color-text-accent: #AFE2FA;
   --_cs-light-color-link: #003142;
   --_cs-dark-color-link: #AFE2FA;
+  --_cs-light-color-text-muted: #452D1F;
+  --_cs-dark-color-text-muted: #E9D6C2;
   --_cs-light-color-link-hover: #45210E;
   --_cs-dark-color-link-hover: #f5ead9;
   --_cs-light-color-surface-panel: color-mix(in oklab, var(--_cs-light-accent) 4%, #FFFFFF);
@@ -546,6 +564,8 @@
   --_cs-dark-color-text-accent: #DCF0B1;
   --_cs-light-color-link: #4A5B02;
   --_cs-dark-color-link: #DCF0B1;
+  --_cs-light-color-text-muted: #5E4436;
+  --_cs-dark-color-text-muted: #EBD8C4;
   --_cs-light-color-link-hover: #45210E;
   --_cs-dark-color-link-hover: #f5ead9;
   --_cs-light-color-surface-panel: color-mix(in oklab, var(--_cs-light-accent) 4%, #FFFFFF);
@@ -587,6 +607,8 @@
   --_cs-dark-color-text-accent: #B2EC9E;
   --_cs-light-color-link: #24570B;
   --_cs-dark-color-link: #B2EC9E;
+  --_cs-light-color-text-muted: #5E4436;
+  --_cs-dark-color-text-muted: #E9D6C2;
   --_cs-light-color-link-hover: #45210E;
   --_cs-dark-color-link-hover: #f5ead9;
   --_cs-light-color-surface-panel: color-mix(in oklab, var(--_cs-light-accent) 4%, #FFFFFF);
@@ -628,6 +650,8 @@
   --_cs-dark-color-text-accent: #B0E7C3;
   --_cs-light-color-link: #04361D;
   --_cs-dark-color-link: #B0E7C3;
+  --_cs-light-color-text-muted: #452D1F;
+  --_cs-dark-color-text-muted: #E9D6C2;
   --_cs-light-color-link-hover: #45210E;
   --_cs-dark-color-link-hover: #f5ead9;
   --_cs-light-color-surface-panel: color-mix(in oklab, var(--_cs-light-accent) 4%, #FFFFFF);
@@ -669,6 +693,8 @@
   --_cs-dark-color-text-accent: #D6E9FD;
   --_cs-light-color-link: #3D5670;
   --_cs-dark-color-link: #D6E9FD;
+  --_cs-light-color-text-muted: #5E4436;
+  --_cs-dark-color-text-muted: #EBD8C4;
   --_cs-light-color-link-hover: #45210E;
   --_cs-dark-color-link-hover: #f5ead9;
   --_cs-light-color-surface-panel: color-mix(in oklab, var(--_cs-light-accent) 4%, #FFFFFF);
@@ -710,6 +736,8 @@
   --_cs-dark-color-text-accent: #E5DBBA;
   --_cs-light-color-link: #564B27;
   --_cs-dark-color-link: #E5DBBA;
+  --_cs-light-color-text-muted: #5E4436;
+  --_cs-dark-color-text-muted: #E9D6C2;
   --_cs-light-color-link-hover: #45210E;
   --_cs-dark-color-link-hover: #f5ead9;
   --_cs-light-color-surface-panel: color-mix(in oklab, var(--_cs-light-accent) 4%, #FFFFFF);
@@ -751,6 +779,8 @@
   --_cs-dark-color-text-accent: #C8DBFD;
   --_cs-light-color-link: #1B2E4C;
   --_cs-dark-color-link: #C8DBFD;
+  --_cs-light-color-text-muted: #442B1E;
+  --_cs-dark-color-text-muted: #E9D6C2;
   --_cs-light-color-link-hover: #45210E;
   --_cs-dark-color-link-hover: #f5ead9;
   --_cs-light-color-surface-panel: color-mix(in oklab, var(--_cs-light-accent) 4%, #FFFFFF);

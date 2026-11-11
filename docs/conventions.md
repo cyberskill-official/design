@@ -13,10 +13,10 @@ Every rendered surface resolves four orthogonal scopes — never encode one axis
 |---|---|---|---|
 | **Theme** | `data-theme="dark\|system"` | light / dark / system (OS) | `tokens/colors.css` |
 | **Element** (Ngũ Hành) | `data-cs-element` + `data-cs-variant` | hue identity per product | `tokens/elements.css` |
-| **Language** | `lang` / Language tweak | EN · VI required; `ja` spike (BCP-47 primary subtags) | component registry + template props — see `docs/decisions/locale-architecture.md` |
-| **Style** | `data-cs-style` (optional; absent ≡ `liquid-glass`) | surface material pack | `tokens/styles.css` |
+| **Language** | `lang` / Language tweak | EN · VI (`vi` default on UI surfaces; internal `ja` i18n spike) | component registry + template props — see `docs/decisions/locale-architecture.md` |
+| **Style** | `data-cs-style` (optional; absent ≡ `liquid-glass`) | surface material pack (`liquid-glass` · `matte-paper`) | `tokens/styles.css` + `base/glass.css` |
 
-Style’s sole pack today is **liquid-glass**. Immutable under all axes: Umber/Ochre anchors, voice, type families, semantic status colors, the composite focus indicator (text-primary contour + ochre halo), APCA floors, ≥44px targets.
+Style ships two packs: **liquid-glass** (default) and **matte-paper** (opaque crisp paper surfaces). Immutable under all axes: Umber/Ochre anchors, voice, type families, semantic status colors, the composite focus indicator (text-primary contour + ochre halo), APCA floors, ≥44px targets.
 
 ## Naming grammar
 
@@ -84,7 +84,7 @@ only for HTML element content, never URL, attribute, CSS or script contexts.
 
 - Elements fully replace Ochre inside product scopes; plasma's hot-pink edge approved (Jul 2026).
 
-- Axes are Theme × Element × Language × Style. Style pack is liquid-glass (sole pack; absent ≡ default).
+- Axes are Theme × Element × Language × Style. Style packs are `liquid-glass` (default; absent ≡ default) and `matte-paper`.
 
 - Product registry is **locked** (Jul 2026) — eight portfolio mappings in `docs/products.md`; do not invent new product → element assignments.
 

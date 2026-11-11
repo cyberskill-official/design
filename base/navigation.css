@@ -13,7 +13,7 @@
 .cs-breadcrumb li { display: inline-flex; align-items: center; gap: 8px; }
 .cs-breadcrumb a { color: var(--cs-color-text-muted); text-decoration: none; }
 .cs-breadcrumb a:hover { color: var(--cs-color-text-accent); }
-.cs-breadcrumb__sep { color: var(--cs-color-border-default); }
+.cs-breadcrumb__sep { color: var(--cs-color-text-muted); }
 .cs-breadcrumb__current { color: var(--cs-color-text-primary); font-weight: 600; }
 
 /* Pagination */
@@ -35,3 +35,11 @@
 .cs-menu__item--danger:hover { background: color-mix(in oklab, var(--cs-color-semantic-danger) 10%, transparent); }
 .cs-menu__sep { block-size: 1px; background: var(--cs-color-border-default); margin: 4px 2px; }
 .cs-menu__label { font-size: var(--cs-font-size-xs); text-transform: uppercase; letter-spacing: var(--cs-letter-spacing-caps); color: var(--cs-color-text-muted); padding: 6px 10px 2px; }
+
+/* Compact density scope (coarse-pointer 44px hit floors in base/a11y.css still apply) */
+[data-cs-density="compact"] .cs-tab { padding: 7px 10px; gap: 5px; }
+[data-cs-density="compact"] .cs-menu__list { padding: 4px; }
+[data-cs-density="compact"] .cs-menu__item { padding: 6px 8px; gap: 8px; }
+[data-cs-density="compact"] [data-cs-density="comfortable"] .cs-tab { padding: 10px 14px; gap: 7px; }
+[data-cs-density="compact"] [data-cs-density="comfortable"] .cs-menu__list { padding: 6px; }
+[data-cs-density="compact"] [data-cs-density="comfortable"] .cs-menu__item { padding: 8px 10px; gap: 10px; }

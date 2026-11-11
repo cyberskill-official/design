@@ -1932,11 +1932,11 @@ public enum CSCodeBlockModel {
   public static let bgHex = "#2b1e14"
   public static let fgHex = "#f5ead9"
   public static let borderHex = "#4a3a2c"
-  public static let mutedHex = "#c9b7a3"
+  public static let mutedHex = "#e9d6c2"
   public static let bgColor = CSColorValue(colorSpace: .srgb, components: [Double(0x2B) / 255.0, Double(0x1E) / 255.0, Double(0x14) / 255.0], alpha: 1.0)
   public static let fgColor = CSColorValue(colorSpace: .srgb, components: [Double(0xF5) / 255.0, Double(0xEA) / 255.0, Double(0xD9) / 255.0], alpha: 1.0)
   public static let borderColor = CSColorValue(colorSpace: .srgb, components: [Double(0x4A) / 255.0, Double(0x3A) / 255.0, Double(0x2C) / 255.0], alpha: 1.0)
-  public static let mutedColor = CSColorValue(colorSpace: .srgb, components: [Double(0xC9) / 255.0, Double(0xB7) / 255.0, Double(0xA3) / 255.0], alpha: 1.0)
+  public static let mutedColor = CSColorValue(colorSpace: .srgb, components: [Double(0xE9) / 255.0, Double(0xD6) / 255.0, Double(0xC2) / 255.0], alpha: 1.0)
   public static func borderWidth() -> Double { 1 }
   public static func barPaddingY() -> Double { 8 }
   public static func barPaddingX() -> Double { 14 }

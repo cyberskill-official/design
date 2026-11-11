@@ -42,13 +42,13 @@
         <h1 style="font-size:26px;font-weight:800;letter-spacing:-0.02em;margin:0 0 4px">{{ h1 }}</h1>
         <p style="color:var(--cs-color-text-muted);margin:0">{{ sub }}</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:20px;background:var(--cs-color-surface-panel);border:1px solid var(--cs-color-border-default);border-radius:var(--cs-radius-lg);padding:22px 24px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));align-items:start;gap:20px;background:var(--cs-color-surface-panel);border:1px solid var(--cs-color-border-default);border-radius:var(--cs-radius-lg);padding:22px 24px;box-shadow:var(--cs-shadow-xs)">
         <x-import component-from-global-scope="CyberSkillDS.Stat" label="{{ s1 }}" value="6" hint-size="140px,70px"></x-import>
         <x-import component-from-global-scope="CyberSkillDS.Stat" label="{{ s2 }}" value="4" hint-size="140px,70px"></x-import>
         <x-import component-from-global-scope="CyberSkillDS.Stat" label="{{ s3 }}" value="1" hint-size="140px,70px"></x-import>
         <x-import component-from-global-scope="CyberSkillDS.Stat" label="{{ s4 }}" value="70%" delta="{{ s4d }}" trend="up" hint-size="140px,70px"></x-import>
       </div>
-      <div style="background:var(--cs-color-surface-panel);border:1px solid var(--cs-color-border-default);border-radius:var(--cs-radius-lg);padding:6px 18px 12px">
+      <div style="background:var(--cs-color-surface-panel);border:1px solid var(--cs-color-border-default);border-radius:var(--cs-radius-lg);padding:16px 20px 14px;box-shadow:var(--cs-shadow-xs)">
         <x-import component-from-global-scope="CyberSkillDS.DataTable" caption="{{ tblCap }}" columns="{{ cols }}" rows="{{ rows }}" row-key="key" hint-size="100%,220px"></x-import>
       </div>
     </main>

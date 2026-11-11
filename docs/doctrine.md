@@ -42,7 +42,7 @@ Deep checks, never surface spot-checks. Cover the **whole set and every relevant
 | Language | Vietnamese-first; every UI string ships an EN + VN pair |
 | Accessibility floor | APCA Lc ≥ 75 body text; focus rings never removed; ≥ 44px touch targets |
 | Axes | Theme × Element × Language × Style (independent) |
-| Style pack | liquid-glass (sole pack; absent ≡ default) |
+| Style pack | liquid-glass (default; absent ≡ default) · matte-paper |
 
 One accent per surface. Semantic statuses and the composite focus indicator (text-primary contour + ochre halo) are never elemental. Lumi stays golden in every element.
 

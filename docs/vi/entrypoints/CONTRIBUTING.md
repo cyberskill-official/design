@@ -15,7 +15,7 @@ Tệp này không thay thế doctrine, registry sản phẩm hay hướng dẫn 
 - **Các màu neo tuân theo bảng doctrine suy ra từ nguồn bên dưới.** Mỗi bề mặt chỉ một accent (Ochre ở lõi; accent Ngũ Hành của sản phẩm trong scope `data-cs-element`). Mọi màu trung tính ngả ấm về umber — không dùng xám lạnh.
 - **Ưu tiên tiếng Việt và song ngữ** — cung cấp EN + VN, giữ dấu, dùng line-height phù hợp tiếng Việt. Mọi template song ngữ có `lang` ở gốc (xem quy ước → Ngôn ngữ trình đọc màn hình).
 - **Ngưỡng tiếp cận tối thiểu** — giữ chỉ báo tiêu điểm kết hợp (viền text-primary và quầng Ochre); vùng chạm ≥44px trên con trỏ thô; văn bản nội dung APCA Lc ≥ 75; tôn trọng `prefers-reduced-motion`/`prefers-contrast`. Kiểu tiêu điểm nằm trong `base/reset.css` và CSS component; `base/a11y.css` bao phủ kích thước con trỏ thô và cơ chế dự phòng tùy chọn. Kiểm chứng trạng thái tiêu điểm hiển thị sau thay đổi.
-- **Ngữ pháp** — Theme × Element × Language × Style là các trục độc lập. Gói phong cách là liquid-glass (gói duy nhất; không khai báo ≡ mặc định).
+- **Ngữ pháp** — Theme × Element × Language × Style là các trục độc lập. Các gói phong cách gồm `liquid-glass` (mặc định; không khai báo ≡ mặc định) và `matte-paper`.
 - **Giọng điệu** — ấm áp / trực tiếp / trung thực / tôn trọng. Sản phẩm là “điều ước” mà Lumi giúp hiện thực hóa. Lumi luôn màu vàng trong mọi hành.
 
 ## Mở rộng và kiểm chứng
@@ -78,7 +78,7 @@ Các bất biến của doctrine (suy ra từ nguồn):
 | Ngôn ngữ | Ưu tiên tiếng Việt; mỗi chuỗi giao diện có cặp EN + VN |
 | Ngưỡng tiếp cận tối thiểu | APCA Lc ≥ 75 cho văn bản nội dung; không bao giờ bỏ vòng tiêu điểm; vùng chạm ≥ 44px |
 | Các trục | Theme × Element × Language × Style (độc lập) |
-| Gói phong cách | liquid-glass (gói duy nhất; không khai báo ≡ mặc định) |
+| Gói phong cách | liquid-glass (mặc định; không khai báo ≡ mặc định) · matte-paper |
 
 - **static-html** — `styles.css`; [hướng dẫn](../../../DESIGN.md). Dùng lớp .cs-*; .dc.html còn cần trình thông dịch được cung cấp hoặc runtime hiểu ngữ pháp đã được kiểm chứng.
 - **react** — `@cyberskill/design`; [hướng dẫn](../../../docs/consuming.md). ESM đã biên dịch với peer React; @cyberskill/design/source tường minh là JSX thô. Không cam kết CommonJS.

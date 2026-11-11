@@ -19,7 +19,7 @@ Storybook **10** is the **product site** for operators on `design.cyberskill.wor
   - `States` (or a Matrix subsection) covering `disabled` / `loading` / `error` / `busy` when those argTypes exist
   - Every discrete `size` / `variant` enum option mounted in a matrix-family story
   - `FullMatrix` when ≥1 of {size enums, variant enums, state keys} exist — the size × variant × key-state product via shared helpers in `stories/lib/matrix.jsx`
-- Toolbar globals: Theme (light · dark · **system**) × Element × Language × Style (same axes as templates / Atomic View). Element lists **all 15** Ngũ Hành packs (`tokens.elements` / template EL maps / Storybook toolbar) — not a subset. Style’s sole pack is **liquid-glass**.
+- Toolbar globals: Theme (light · dark · **system**) × Element × Language (`vi` · `en`) × Style (`liquid-glass` · `matte-paper`; same axes as templates / Atomic View). Element lists **all 15** Ngũ Hành packs (`tokens.elements` / template EL maps / Storybook toolbar) — not a subset.
 - **Docs/** published operator documentation — nested **Start / Guides / Maintainers**, curated MDX for high-traffic pages, one sidebar story per public catalog markdown page, and a Documentation Library iframe of `/docs/viewer.html` (EN·VI). Canonical prose remains `docs/*.md`; Storybook is the live reading surface. **Release Notes/** curated product prose (**no CHANGELOG.md**); **Status/** embeds `_audit/run.html` full-bleed
 - **Templates/** public starting points — Gallery (Atomic View Templates tier + kitchen-sink/playground) and every manifest template under Atomic View categories (including **HR** / `vn-*`). Regen CSF with `node scripts/generate-template-stories.mjs` after template renames
 - **Pages/** public UI kits (Status Hub, Marketing site, Slide deck)

@@ -1,13 +1,13 @@
 # Phong cách thiết kế
 
-Các trục styling sống là **Theme × Element × Language × Style**. Pack Style duy nhất hiện tại là **liquid-glass**; khi không có attribute style, pack này được dùng. Phần tử con không có attribute kế thừa phạm vi theme và element gần nhất; root trung tính mặc định sáng với các màu neo thương hiệu studio. Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
+Các trục styling sống là **Theme × Element × Language × Style**. Trục Style có hai pack vật liệu bề mặt: **liquid-glass** (mặc định; khi không có attribute style, pack này được dùng) và **matte-paper** (bề mặt giấy mờ đặc sắc nét, không làm mờ nền). Phần tử con không có attribute kế thừa phạm vi theme và element gần nhất; root trung tính mặc định sáng với các màu neo thương hiệu studio. Xuất bản trên Storybook **Docs** tại `design.cyberskill.world`.
 
 | Trục | Cách đặt | Thay đổi gì |
 |---|---|---|
 | **Theme** | `data-theme="light"`, `"dark"` hoặc `"system"`; khi không có attribute, kế thừa phạm vi gần nhất (root trung tính mặc định sáng) | màu semantic sáng/tối (trục UI sản phẩm). Light tường minh đặt lại phạm vi dưới tổ tiên dark. System theo tuỳ chọn sáng/tối của OS qua `prefers-color-scheme`; Storybook toolbar và Atomic View có cả ba giá trị |
 | **Element** | `data-cs-element` + tùy chọn `data-cs-variant` | bản sắc sản phẩm Ngũ Hành (**15 pack** = 5 element × soft/middle/deep) |
-| **Language** | `lang` / Language tweak | nội dung dựng sẵn EN · VI, mặc định tiếng Việt; `ja` tuỳ chọn chỉ là thử nghiệm Pagination có giới hạn, không phải bao phủ tiếng Nhật đầy đủ |
-| **Style** | `data-cs-style` (tuỳ chọn; vắng ≡ `liquid-glass`) | Pack vật liệu bề mặt. Sole pack hôm nay: **liquid-glass** (`tokens/styles.css` + `base/glass.css`) |
+| **Language** | `lang` / Language tweak | nội dung dựng sẵn EN · VI (`vi` mặc định trên các bề mặt UI); `ja` chỉ là thử nghiệm i18n nội bộ cho Pagination, không phải tùy chọn trên thanh công cụ UI |
+| **Style** | `data-cs-style` (tuỳ chọn; vắng ≡ `liquid-glass`) | Pack vật liệu bề mặt: **liquid-glass** (kính mờ quang học mặc định) · **matte-paper** (bề mặt giấy mờ đặc sắc nét, `tokens/styles.css` + `base/glass.css`) |
 
 ## Hợp đồng màu Element
 
@@ -24,11 +24,12 @@ Nguồn sự thật: [`tokens/element-seeds.json`](../../tokens/element-seeds.js
 | **Không bao giờ remap** | Chỉ báo focus tổ hợp (viền text-primary + hào quang ochre) · màu semantic status |
 | **Gate hình học** | [`_audit/element-geometry.html`](../../_audit/element-geometry.html) — sync cường độ · tách variant · khóa hue |
 
-## Pack Style — liquid-glass
+## Các pack Style — liquid-glass & matte-paper
 
-- Vật liệu liquid-glass (`cs-surface-*`) là ngôn ngữ bề mặt mặc định.
+- **liquid-glass** (`cs-surface-*`, mặc định khi vắng `data-cs-style`) là ngôn ngữ bề mặt kính mờ quang học.
+- **matte-paper** (`data-cs-style="matte-paper"`) tắt làm mờ nền, chuyển `.cs-surface-*` và `.cs-card` / `.cs-dialog` / `.cs-drawer` / `.cs-popover__panel` / `.cs-menu__list` sang nền đặc `--cs-color-surface-panel` / `--cs-color-surface-raised` với viền liền `1px` `--cs-color-border-default` và độ nổi phẳng (`--cs-shadow-xs`), phù hợp cho trình soạn thảo pháp lý/biên tập, bảng ERP dày dữ liệu và War-Room; phạm vi con `[data-cs-style="liquid-glass"]` khôi phục hiệu ứng kính mờ.
 - Radius, shadow và token kính đến từ `tokens/elevation.css` + `base/glass.css`; hợp đồng trục Style nằm ở [`tokens/styles.css`](../../tokens/styles.css).
-- Gate: [`_audit/style-contract.html`](../../_audit/style-contract.html) — allowlist chỉ `liquid-glass`.
+- Gate: [`_audit/style-contract.html`](../../_audit/style-contract.html) — allowlist `liquid-glass` và `matte-paper`.
 - Từ chối theo doctrine: hue neon/cyberpunk lạnh, memphis vui nhộn, skeuomorphism đầy đủ, emoji trong chrome UI.
 - Họ chữ cố định và có tên token: Be Vietnam Pro (UI) · Space Grotesk (`--cs-font-family-display`, mặt chữ tiêu đề opt-in) · JetBrains Mono (code). Mặt chữ display là **role một scope có thể chọn dùng** qua `.cs-display-face`, không phải trục sản phẩm.
 
@@ -40,7 +41,7 @@ Nguồn sự thật: [`tokens/element-seeds.json`](../../tokens/element-seeds.js
 3. Pattern đã ghi trong `docs/conventions.md` + specimen card khi pattern cần tái sử dụng.
 4. Pack **`data-cs-style`** mới chỉ sau Expansion Rule — xem checklist trong [`docs/vi/benchmark-rubric.md`](benchmark-rubric.md). Style tiêu thụ cùng 10 role accent (gồm `on-strong`); không invent pack Element song song.
 
-Không invent trục sản phẩm thứ năm, và không thêm Style pack thứ hai khi chưa đủ checklist Expansion Rule.
+Không invent trục sản phẩm thứ năm, và không thêm Style pack chưa rà soát khi chưa đủ checklist Expansion Rule.
 
 ## Công tắc theme nội bộ
 
@@ -53,7 +54,7 @@ Bảo trì generator nguồn rồi chạy `npm run tokens:generate` và `npm run
 
 ## Mật độ và vai trò khoảng cách công khai
 
-`data-cs-density="compact"` hiện tác động đến Button và các chỉ số dùng chung của `.cs-field__control`. TextField, Textarea, Select, NativeSelect và Mentions dùng lớp này. Các token của component mang giá trị ghi đè trực tiếp; các utility `--cs-density-*` riêng không chứng minh mức áp dụng rộng hơn. Mức tối thiểu của vùng bấm cho con trỏ thô vẫn được giữ.
+`data-cs-density="compact"` thu gọn Button, chỉ số `.cs-field__control` dùng chung (TextField, Textarea, Select, NativeSelect, Mentions), và nhịp điệu khung chứa của `.cs-card`, `.cs-table`, `.cs-dialog`, `.cs-field`, `.cs-review-gate`, `.cs-alert`, `.cs-toast`, `.cs-tag`, `.cs-tab`, `.cs-menu`, `.cs-stat` và `.cs-divider` (có đặt lại cho `[data-cs-density="comfortable"]` lồng bên trong). Mức tối thiểu `>= 44px` của vùng bấm cho con trỏ thô vẫn được giữ nghiêm ngặt. `data-cs-contrast="high"` (và `prefers-contrast: more`) tăng cường tương phản cho token chữ/viền cùng các ô nhập biểu mẫu, viền tấm kính và đường kẻ ô bảng/datagrid.
 
 Chỉ thay giá trị trực tiếp bằng token khoảng cách khi chúng biểu đạt cùng một vai trò bố cục. Các sửa đổi hiện tại xác minh hình học không đổi và tác động thực tế khi thay token cho control và bố cục collection. Độ dày viền, cỡ chữ, hình học cố định và vùng bấm không tự động là ứng viên cho token khoảng cách. Vì vậy, thống kê `px` đo số giá trị, không đo số lỗi.
 

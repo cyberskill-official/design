@@ -1083,8 +1083,8 @@
             1
           ],
           "textChild": 0,
-          "en": "#6E5A4C",
-          "vi": "#6E5A4C",
+          "en": "#5E4436",
+          "vi": "#5E4436",
           "kind": "source-identifier-or-specimen",
           "reason": "Reviewed literal token, icon name, element variant identifier, color value, CSS/typographic or numerical specimen; spelling is its source contract.",
           "language": "en"
@@ -5634,11 +5634,6 @@
           "kind": "translated-prose"
         },
         {
-          "en": "Default",
-          "vi": "Mặc định",
-          "kind": "translated-prose"
-        },
-        {
           "en": "Status Hub (product)",
           "vi": "Status Hub (sản phẩm)",
           "kind": "translated-prose"
@@ -5761,6 +5756,11 @@
         {
           "en": "Liquid glass",
           "vi": "Kính lỏng",
+          "kind": "translated-prose"
+        },
+        {
+          "en": "Matte paper",
+          "vi": "Giấy mờ",
           "kind": "translated-prose"
         },
         {
@@ -8459,6 +8459,12 @@
         },
         {
           "en": "liquid-glass",
+          "language": "en",
+          "kind": "authored-demo-or-code",
+          "reason": "Exact existing authored JSX example, API label/identifier or bilingual sample; not guideline prose. Runtime only marks leaf owners, preserving existing explicit subtree language."
+        },
+        {
+          "en": "matte-paper",
           "language": "en",
           "kind": "authored-demo-or-code",
           "reason": "Exact existing authored JSX example, API label/identifier or bilingual sample; not guideline prose. Runtime only marks leaf owners, preserving existing explicit subtree language."

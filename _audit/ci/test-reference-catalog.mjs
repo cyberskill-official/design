@@ -18,6 +18,7 @@ const reviewedDocumentRoles = {
   '.github/pull_request_template.md': 'contribution_template',
   '_audit/state-machine-review.md': 'state_machine_review',
   '_audit/state-machines.md': 'generated_state_census',
+  '_audit/visual-audit-report.md': 'visual_audit_record',
   'scripts/lib/compiler-and-story-domains.md': 'source_maintenance_guide',
   'scripts/template-hex-policy.md': 'source_maintenance_guide',
 };

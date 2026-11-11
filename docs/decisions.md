@@ -104,7 +104,7 @@ Operational follow-ups — not product marketing, not a backlog surface:
 
 7. **Element colour geometry** (Jul 2026; owner palette bar Jul 2026) — **30** default sets (5 × soft/middle/deep × light/dark) from `tokens/element-seeds.json` (`npm run tokens:elements`): soft = washed pastel, middle = intensity-synced default (Thổ middle pins logo ochre), deep = clearly darker sibling in the same hue family; harmonious role ramps; light↔dark hue lock; APCA dark floors. Geometry gate requires both minΔE and minΔL plus monotonic L. Public variant names unchanged. Hard gate: `_audit/element-geometry.html`. Benchmark rubric: `docs/benchmark-rubric.md`.
 
-8. **Style axis (`data-cs-style`)** (Jul 2026) — Fourth product axis; sole live pack **liquid-glass** (absent ≡ liquid-glass). Contract: `tokens/styles.css` + hard gate `_audit/style-contract.html`. Future Style packs may expand indefinitely, each with its own colour-combination language — only via owner approval + Expansion Rule checklist in `docs/benchmark-rubric.md` (do not invent packs casually).
+8. **Style axis (`data-cs-style`)** (Jul 2026; expanded Nov 2026) — Fourth product axis; live packs **liquid-glass** (default; absent ≡ liquid-glass) and **matte-paper** (zero-blur opaque crisp paper surfaces for editorial/dense workspaces). Contract: `tokens/styles.css` + `base/glass.css` + hard gate `_audit/style-contract.html`. Future Style packs may expand only via owner approval + Expansion Rule checklist in `docs/benchmark-rubric.md` (do not invent packs casually).
 
 9. **Identity Lab retired** (Jul 2026) — Owner choice: delete `ui_kits/status-hub/identity-lab.html` and every product/docs/Storybook reference. Axis demos live in the Storybook Theme × Element × Language × Style toolbar, Atomic View, and the Elements Geometry specimen. Theme × Element × Language × Style **axes remain** product infrastructure (templates, tokens, kits Thổ-faithful). Do not revive the Lab under another name without a new decision.
 
@@ -130,7 +130,7 @@ Rules:
 
 Normative record: [`docs/decisions/locale-architecture.md`](./decisions/locale-architecture.md).
 
-- Language stays a product axis (Theme × Element × Language × Style). Values are primary language subtags (`en` · `vi` · spike `ja`), not a nested locale axis and not full region tags yet.
+- Language stays a product axis (Theme × Element × Language × Style). UI surfaces expose `vi` · `en` only (`vi` default); `ja` remains an internal programmatic BCP-47 fallback spike for Pagination, not a UI toolbar locale.
 - Registry keeps required EN·VI pairs; optional spike tables must match `en` keys when present.
 - Vietnamese-first default unchanged (`lang` unset → `vi`). Plural/ICU and region variants are follow-on.
 

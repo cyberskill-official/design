@@ -8,7 +8,7 @@
 
 [![Design System Gates](https://github.com/cyberskill-official/design/actions/workflows/design-system-gates.yml/badge.svg)](https://github.com/cyberskill-official/design/actions/workflows/design-system-gates.yml)
 
-A warm, enterprise-grade, **Vietnamese-first** design system for **CyberSkill** — a Saigon software studio (est. 2020) that turns a clear *wish* into working software. Anchored on **Umber** and **Ochre**, guided by **Lumi** the golden genie, every surface resolves four independent axes: **Theme** (light · dark · system) × **Element** (Ngũ Hành product identity: Kim · Mộc · Thủy · Hỏa · Thổ, 15 variants) × **Language** (EN · VI) × **Style** (`data-cs-style` — sole pack **liquid-glass**; absent ≡ default). Consumers link one file: **`styles.css`** (`dist/styles.css` is the same closure flattened into one file for environments that don't follow `@import` chains (card renderers, some sandboxes); regenerate with `npm run build:css` after editing `tokens/` or `base/`).
+A warm, enterprise-grade, **Vietnamese-first** design system for **CyberSkill** — a Saigon software studio (est. 2020) that turns a clear *wish* into working software. Anchored on **Umber** and **Ochre**, guided by **Lumi** the golden genie, every surface resolves four independent axes: **Theme** (light · dark · system) × **Element** (Ngũ Hành product identity: Kim · Mộc · Thủy · Hỏa · Thổ, 15 variants) × **Language** (VI · EN) × **Style** (`data-cs-style` — **liquid-glass** default, absent ≡ default · **matte-paper** opaque crisp paper surfaces). Consumers link one file: **`styles.css`** (`dist/styles.css` is the same closure flattened into one file for environments that don't follow `@import` chains (card renderers, some sandboxes); regenerate with `npm run build:css` after editing `tokens/` or `base/`).
 
 ---
 
@@ -35,7 +35,7 @@ This is the **entrance document** for the CyberSkill Design System — source ch
 | `docs/consumer-grant.md` | Written npm consumer grant (CyberSkill portfolio; UNLICENSED + named products) |
 | `docs/conventions.md` | How to extend the system (naming grammar, checklists, the four axes) |
 | `docs/release-notes.md` | Curated product highlights (not a changelog) |
-| `docs/design-styles.md` | The live styling axes (Theme × Element × Language × Style) and the fixed liquid-glass treatment |
+| `docs/design-styles.md` | The live styling axes (Theme × Element × Language × Style) and surface material packs (liquid-glass · matte-paper) |
 | `docs/products.md` | Product → element registry (**locked** — do not invent assignments) |
 | `docs/contrast-report.md` | Generated APCA elemental sweep — 0 failures at its Lc ≥ 60 UI-label floor. Body text authors to the stricter Lc ≥ 75 floor (see Anchor immutables); the sweep's Lc ≥ 60 rows are accent/label pairings, not body text. |
 | `docs/template-schema-v2.md` | Typed content-slot spec for templates — opt-in, machine-checkable |
@@ -75,7 +75,7 @@ This is the **entrance document** for the CyberSkill Design System — source ch
 | Language | Vietnamese-first; every UI string ships an EN + VN pair |
 | Accessibility floor | APCA Lc ≥ 75 body text; focus rings never removed; ≥ 44px touch targets |
 | Axes | Theme × Element × Language × Style (independent) |
-| Style pack | liquid-glass (sole pack; absent ≡ default) |
+| Style pack | liquid-glass (default; absent ≡ default) · matte-paper |
 <!-- END DOCTRINE IMMUTABLES -->
 
 ---
@@ -100,7 +100,7 @@ This is the **entrance document** for the CyberSkill Design System — source ch
 
 ## Visual foundations
 
-- **Palette — warm earth, never cold.** Umber `#45210E` grounds everything (it *is* the primary text colour); Ochre `#F4BA17` is the single accent — CTAs on dark, focus rings, highlights, the genie. Surfaces are warm paper: page `#FFFDF8`, panel `#FFFFFF`, raised `#FBF4E9`. Every neutral is warmed toward umber — borders are `#E7D9C6`, muted text `#3F2D21`. Semantic colours (success `#166534`, danger `#B42318`, warning `#92400E`, info `#1D4ED8`) are used sparingly and never as the only signal. **Max one accent per surface** — on core surfaces that accent is Ochre; a *product* may swap in its element accent, never add a second hue beside it. No bluish-purple gradients.
+- **Palette — warm earth, never cold.** Umber `#45210E` grounds everything (it *is* the primary text colour); Ochre `#F4BA17` is the single accent — CTAs on dark, focus rings, highlights, the genie. Surfaces are warm paper: page `#FFFDF8`, panel `#FFFFFF`, raised `#FBF4E9`. Every neutral is warmed toward umber — borders are `#E7D9C6`, muted text `#5E4436`. Semantic colours (success `#166534`, danger `#B42318`, warning `#92400E`, info `#1D4ED8`) are used sparingly and never as the only signal. **Max one accent per surface** — on core surfaces that accent is Ochre; a *product* may swap in its element accent, never add a second hue beside it. No bluish-purple gradients.
 - **Typography.** UI: **Be Vietnam Pro** (300–800; a Vietnamese-first Google family) — the default for every surface, headings included. Display/headline: **Space Grotesk** (variable 300–700), the **opt-in** face behind `--cs-font-family-display`; nothing points at it until a scope opts in with `.cs-display-face`, which retargets `--cs-heading-family` and leaves body copy on the UI face. Code/data: **JetBrains Mono**. Display headings are heavy (800 on the UI face; under `.cs-display-face`, Space Grotesk tops out at 700 so 800 clamps within that family), tight tracking (−0.02em); body is 400/500 at 1.5. Uppercase eyebrows at 0.08–0.12em tracking. The size ramp runs xs 12 → 5xl 60 on a 16px base.
 - **Spacing & layout.** 4px base grid; section padding lives between 64 and 96px; content max-width ~1200–1320px. Generous, calm whitespace.
 - **Corners & cards.** Radii: sm 4, md 8 (default), **lg 14 (cards/panels)**, full 999 (pills, inputs, chips). A default card = white panel, 1px warm border `#E7D9C6`, 14px radius, soft warm shadow. No coloured-left-border cards.

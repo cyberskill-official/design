@@ -3,7 +3,7 @@
  * AIDisclosureBadge + HumanReviewGate (base/components.css). */
 
 /* PromptInput */
-.cs-prompt { border: 1px solid var(--cs-color-border-default); border-radius: var(--cs-radius-lg); background: var(--cs-color-surface-panel); padding: 10px 12px; display: grid; gap: 8px; }
+.cs-prompt { border: 1px solid var(--cs-component-textfield-border-default, var(--cs-color-border-default)); border-radius: var(--cs-radius-lg); background: var(--cs-color-surface-panel); padding: 10px 12px; display: grid; gap: 8px; }
 .cs-prompt.is-invalid, .is-invalid .cs-prompt, .cs-prompt[aria-invalid="true"] { border-color: var(--cs-color-semantic-danger); }
 .cs-prompt:focus-within {
   border-color: var(--cs-color-text-primary);
@@ -48,7 +48,7 @@
 .cs-suggest button svg { color: var(--cs-color-brand-ochre); }
 
 /* TypingIndicator */
-.cs-typing { display: inline-flex; align-items: center; gap: 5px; padding: 12px 16px; background: var(--cs-color-surface-raised); border: 1px solid var(--cs-color-border-default); border-radius: 14px; border-end-start-radius: 4px; }
+.cs-typing { display: inline-flex; justify-self: start; inline-size: fit-content; align-items: center; gap: 5px; padding: 12px 16px; background: var(--cs-color-surface-raised); border: 1px solid var(--cs-color-border-default); border-radius: 14px; border-end-start-radius: 4px; }
 .cs-typing span { inline-size: 7px; block-size: 7px; border-radius: 50%; background: var(--cs-color-text-muted); animation: cs-typing 1.2s var(--cs-ease-standard) infinite; }
 .cs-typing span:nth-child(2) { animation-delay: 0.18s; }
 .cs-typing span:nth-child(3) { animation-delay: 0.36s; }

@@ -104,10 +104,10 @@ Các dòng dùng màu `--cs-color-link` đã khai báo cho light hoặc dark. N�
 | tho · sand | liên kết trên tint (chữ thân) | #695300 / #FEF8E7 | 6.98:1 | ✓ |
 | tho · sand | liên kết trên nền kem nâng tham chiếu (chữ thân) | #695300 / #FBF4E9 | 6.77:1 | ✓ |
 | tho · sand | liên kết trên panel tối tham chiếu (chữ thân) | #F9E5AE / #221710 | 14.06:1 | ✓ |
-| tho | liên kết trên trắng (chữ thân) | #644A05 / #FFFFFF | 8.32:1 | ✓ |
-| tho | liên kết trên trang tham chiếu (chữ thân) | #644A05 / #FFFDF8 | 8.19:1 | ✓ |
-| tho | liên kết trên tint (chữ thân) | #644A05 / #FBF4E9 | 7.62:1 | ✓ |
-| tho | liên kết trên nền kem nâng tham chiếu (chữ thân) | #644A05 / #FBF4E9 | 7.62:1 | ✓ |
+| tho | liên kết trên trắng (chữ thân) | #744000 / #FFFFFF | 8.48:1 | ✓ |
+| tho | liên kết trên trang tham chiếu (chữ thân) | #744000 / #FFFDF8 | 8.34:1 | ✓ |
+| tho | liên kết trên tint (chữ thân) | #744000 / #FBF4E9 | 7.76:1 | ✓ |
+| tho | liên kết trên nền kem nâng tham chiếu (chữ thân) | #744000 / #FBF4E9 | 7.76:1 | ✓ |
 | tho | liên kết trên panel tối tham chiếu (chữ thân) | #FFD57A / #221710 | 12.56:1 | ✓ |
 | tho · clay | liên kết trên trắng (chữ thân) | #462402 / #FFFFFF | 13.87:1 | ✓ |
 | tho · clay | liên kết trên trang tham chiếu (chữ thân) | #462402 / #FFFDF8 | 13.65:1 | ✓ |
@@ -184,8 +184,8 @@ Ghép `--cs-accent-strong` với `--cs-accent-on-strong`: cả pack light và da
 |---|---|---|---|---|
 | tho · sand | sáng | #FFFFFF / #856A03 | 80.8 | ✓ |
 | tho · sand | tối | #FFFFFF / #80671A | 82.2 | ✓ |
-| tho | sáng | #FFFFFF / #916D11 | 78.4 | ✓ |
-| tho | tối | #FFFFFF / #6E5205 | 90.1 | ✓ |
+| tho | sáng | #FFFFFF / #A4631E | 78.4 | ✓ |
+| tho | tối | #FFFFFF / #7D480C | 90.5 | ✓ |
 | tho · clay | sáng | #FFFFFF / #5A3004 | 99.5 | ✓ |
 | tho · clay | tối | #FFFFFF / #5C3001 | 99.3 | ✓ |
 | hoa · plasma | sáng | #FFFFFF / #896163 | 81.7 | ✓ |
@@ -221,7 +221,7 @@ Các ngưỡng đề xuất trong `_audit/apca-dark-preview.html`: bright ≥ 75
 | Pack | bright | accent | on | ink |
 |---|---|---|---|---|
 | tho · sand | 90.5 | 76.1 | 82.2 | 87.4 |
-| tho | 81.9 | 64.7 | 90.1 | 81 |
+| tho | 81.9 | 64.7 | 90.5 | 81 |
 | tho · clay | 77.1 | 60.6 | 99.3 | 79.4 |
 | hoa · plasma | 89.4 | 75.1 | 82.8 | 86.4 |
 | hoa | 81.2 | 63.2 | 90.9 | 80.3 |

@@ -92,38 +92,6 @@
     },
     {
       "path": "guidelines/colors-surfaces.html",
-      "kind": "inline-style",
-      "context": "(div class=sw) background:#E7D9C6",
-      "hex": "#E7D9C6",
-      "count": 1,
-      "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
-    },
-    {
-      "path": "guidelines/colors-surfaces.html",
-      "kind": "inline-style",
-      "context": "(div class=sw) background:#FBF4E9",
-      "hex": "#FBF4E9",
-      "count": 1,
-      "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
-    },
-    {
-      "path": "guidelines/colors-surfaces.html",
-      "kind": "inline-style",
-      "context": "(div class=sw) background:#FFFDF8",
-      "hex": "#FFFDF8",
-      "count": 1,
-      "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
-    },
-    {
-      "path": "guidelines/colors-surfaces.html",
-      "kind": "inline-style",
-      "context": "(div class=sw) background:#FFFFFF",
-      "hex": "#FFFFFF",
-      "count": 1,
-      "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
-    },
-    {
-      "path": "guidelines/colors-surfaces.html",
       "kind": "text",
       "context": "#E7D9C6",
       "hex": "#E7D9C6",
@@ -156,59 +124,11 @@
     },
     {
       "path": "guidelines/colors-text.html",
-      "kind": "inline-style",
-      "context": "(div class=t) color:#45210E",
-      "hex": "#45210E",
-      "count": 2,
-      "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
-    },
-    {
-      "path": "guidelines/colors-text.html",
-      "kind": "inline-style",
-      "context": "(div class=t) color:#6E3B0E",
-      "hex": "#6E3B0E",
+      "kind": "text",
+      "context": "#5E4436",
+      "hex": "#5E4436",
       "count": 1,
-      "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
-    },
-    {
-      "path": "guidelines/colors-text.html",
-      "kind": "inline-style",
-      "context": "(div class=t) color:#6E5A4C",
-      "hex": "#6E5A4C",
-      "count": 1,
-      "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
-    },
-    {
-      "path": "guidelines/colors-text.html",
-      "kind": "inline-style",
-      "context": "(span class=chip) background:#45210E",
-      "hex": "#45210E",
-      "count": 2,
-      "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
-    },
-    {
-      "path": "guidelines/colors-text.html",
-      "kind": "inline-style",
-      "context": "(span class=chip) background:#6E3B0E",
-      "hex": "#6E3B0E",
-      "count": 1,
-      "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
-    },
-    {
-      "path": "guidelines/colors-text.html",
-      "kind": "inline-style",
-      "context": "(span class=chip) background:#6E5A4C",
-      "hex": "#6E5A4C",
-      "count": 1,
-      "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
-    },
-    {
-      "path": "guidelines/colors-text.html",
-      "kind": "inline-style",
-      "context": "(span class=chip) color:#fff",
-      "hex": "#FFF",
-      "count": 1,
-      "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
+      "reason": "Literal token/color specimen; source spelling must match the illustrated value."
     },
     {
       "path": "guidelines/colors-text.html",
@@ -223,14 +143,6 @@
       "kind": "text",
       "context": "#6E3B0E · links",
       "hex": "#6E3B0E",
-      "count": 1,
-      "reason": "Literal token/color specimen; source spelling must match the illustrated value."
-    },
-    {
-      "path": "guidelines/colors-text.html",
-      "kind": "text",
-      "context": "#6E5A4C",
-      "hex": "#6E5A4C",
       "count": 1,
       "reason": "Literal token/color specimen; source spelling must match the illustrated value."
     },
@@ -279,30 +191,6 @@
       "kind": "stylesheet",
       "context": ".doc .bar | color:#fff",
       "hex": "#FFF",
-      "count": 1,
-      "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
-    },
-    {
-      "path": "guidelines/elements-components.html",
-      "kind": "stylesheet",
-      "context": ".bar | background:#FBF4E9",
-      "hex": "#FBF4E9",
-      "count": 1,
-      "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
-    },
-    {
-      "path": "guidelines/elements-components.html",
-      "kind": "stylesheet",
-      "context": ".col | background:#fff",
-      "hex": "#FFF",
-      "count": 1,
-      "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
-    },
-    {
-      "path": "guidelines/elements-components.html",
-      "kind": "stylesheet",
-      "context": ".col | border:1px solid #E7D9C6",
-      "hex": "#E7D9C6",
       "count": 1,
       "reason": "Fixed guideline illustration, brand/material/surface or interaction specimen pairing in its exact CSS context; contrast changes require explicit reviewed policy updates."
     },

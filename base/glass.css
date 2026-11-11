@@ -130,3 +130,98 @@
   pointer-events: none; border: 0; box-shadow: none; background: transparent;
 }
 .cs-overlay-surface::before { display: none; }
+
+/* ---- 7. Perceptual-chroma semantic variant aliases (gold, champagne, silver, jade, leaf, ember, river, studio, ochre) ----
+ * Canonical [data-cs-element] rules in tokens/elements.css provide the base elemental tokens;
+ * these variant selectors boost primary CTA, active segment, selected row and badge vibrancy. */
+:is([data-cs-element="kim"][data-cs-variant="gold"], [data-cs-element="kim"][data-cs-variant="champagne"]) :is(.cs-button:not(.cs-button--secondary):not(.cs-button--tertiary):not(.cs-button--ghost):not(.cs-button--danger):not(.cs-button--danger-ghost), .cs-segmented button[aria-selected="true"], .cs-segmented button[aria-pressed="true"], .cs-segmented button[aria-checked="true"]) {
+  background: color-mix(in oklab, var(--cs-color-brand-ochre, #f4ba17) 64%, var(--cs-component-button-primary-bg, #374151));
+  border-color: color-mix(in oklab, var(--cs-color-brand-ochre, #f4ba17) 75%, var(--cs-color-border-default));
+}
+:is([data-cs-element="kim"][data-cs-variant="gold"], [data-cs-element="kim"][data-cs-variant="champagne"]) :is(.cs-item.is-selected, .cs-datagrid tr.is-selected td, .cs-table tr.is-selected td, tr.cs-item.is-selected > td) {
+  background: color-mix(in oklab, var(--cs-color-brand-ochre, #f4ba17) 20%, var(--cs-color-surface-panel));
+  border-color: color-mix(in oklab, var(--cs-color-brand-ochre, #f4ba17) 72%, var(--cs-color-border-default));
+}
+:is([data-cs-element="moc"][data-cs-variant="jade"], [data-cs-element="moc"][data-cs-variant="leaf"]) :is(.cs-button:not(.cs-button--secondary):not(.cs-button--tertiary):not(.cs-button--ghost):not(.cs-button--danger):not(.cs-button--danger-ghost), .cs-segmented button[aria-selected="true"], .cs-segmented button[aria-pressed="true"], .cs-segmented button[aria-checked="true"]) {
+  background: color-mix(in oklab, #109464 58%, var(--cs-component-button-primary-bg, #1f5c3a));
+}
+:is([data-cs-element="moc"][data-cs-variant="jade"], [data-cs-element="moc"][data-cs-variant="leaf"]) :is(.cs-item.is-selected, .cs-datagrid tr.is-selected td, .cs-table tr.is-selected td, tr.cs-item.is-selected > td) {
+  background: color-mix(in oklab, #109464 20%, var(--cs-color-surface-panel));
+  border-color: color-mix(in oklab, #109464 72%, var(--cs-color-border-default));
+}
+[data-cs-element="hoa"][data-cs-variant="ember"] :is(.cs-button:not(.cs-button--secondary):not(.cs-button--tertiary):not(.cs-button--ghost):not(.cs-button--danger):not(.cs-button--danger-ghost), .cs-segmented button[aria-selected="true"], .cs-segmented button[aria-pressed="true"], .cs-segmented button[aria-checked="true"]) {
+  background: color-mix(in oklab, #e04819 55%, var(--cs-component-button-primary-bg, #992515));
+}
+[data-cs-element="thuy"][data-cs-variant="river"] :is(.cs-button:not(.cs-button--secondary):not(.cs-button--tertiary):not(.cs-button--ghost):not(.cs-button--danger):not(.cs-button--danger-ghost), .cs-segmented button[aria-selected="true"], .cs-segmented button[aria-pressed="true"], .cs-segmented button[aria-checked="true"]) {
+  background: color-mix(in oklab, #0284c7 55%, var(--cs-component-button-primary-bg, #0d5a8a));
+}
+
+/* ---- 8. Style pack: matte-paper (opaque crisp paper/ledger surfaces, zero backdrop blur) ----
+ * Consumes the exact 10 --cs-accent-* roles and nested theme tokens; nested [data-cs-style="liquid-glass"]
+ * cleanly restores frosted glass composition. */
+[data-cs-style="matte-paper"] :is(.cs-surface-whisper, .cs-surface-light, .cs-surface-standard, .cs-glass-card, .cs-surface-heavy, .cs-overlay-surface) {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+[data-cs-style="matte-paper"] .cs-surface-whisper {
+  background: var(--cs-color-surface-page, #fffdf8);
+  border: 1px solid var(--cs-color-border-default, #e7d9c6);
+}
+[data-cs-style="matte-paper"] :is(.cs-surface-light, .cs-surface-standard, .cs-glass-card) {
+  background: var(--cs-color-surface-panel, #ffffff);
+  border: 1px solid var(--cs-color-border-default, #e7d9c6);
+  box-shadow: var(--cs-shadow-xs);
+}
+[data-cs-style="matte-paper"] .cs-surface-heavy {
+  background: var(--cs-color-surface-raised, #fbf4e9);
+  border: 1px solid var(--cs-color-border-default, #e7d9c6);
+  box-shadow: var(--cs-shadow-sm);
+}
+[data-cs-style="matte-paper"] :is(.cs-surface-standard, .cs-surface-heavy, .cs-glass-card)::before {
+  display: none;
+}
+[data-cs-style="matte-paper"] .cs-card:not(.cs-card--flat) {
+  box-shadow: var(--cs-shadow-xs);
+}
+[data-cs-style="matte-paper"] .cs-aurora {
+  background-image: linear-gradient(180deg, color-mix(in oklab, var(--cs-accent, var(--cs-color-brand-ochre)) 18%, var(--cs-color-brand-umber)), var(--cs-color-brand-umber));
+}
+[data-cs-style="matte-paper"] [data-cs-style="liquid-glass"] .cs-surface-whisper {
+  background: var(--cs-glass-whisper-bg);
+  border: 0;
+  -webkit-backdrop-filter: blur(var(--cs-glass-whisper-blur, 8px)) saturate(var(--cs-glass-whisper-saturate, 110%));
+  backdrop-filter: blur(var(--cs-glass-whisper-blur, 8px)) saturate(var(--cs-glass-whisper-saturate, 110%));
+}
+[data-cs-style="matte-paper"] [data-cs-style="liquid-glass"] .cs-surface-light {
+  background: var(--cs-glass-light-bg);
+  border-color: var(--cs-glass-light-border);
+  box-shadow: none;
+  -webkit-backdrop-filter: blur(var(--cs-glass-light-blur, 12px)) saturate(var(--cs-glass-light-saturate, 130%));
+  backdrop-filter: blur(var(--cs-glass-light-blur, 12px)) saturate(var(--cs-glass-light-saturate, 130%));
+}
+[data-cs-style="matte-paper"] [data-cs-style="liquid-glass"] :is(.cs-surface-standard, .cs-glass-card) {
+  background: var(--cs-glass-standard-bg);
+  border-color: var(--cs-glass-standard-border);
+  box-shadow: var(--cs-shadow-sm);
+  -webkit-backdrop-filter: blur(var(--cs-glass-standard-blur, 16px)) saturate(var(--cs-glass-standard-saturate, 150%));
+  backdrop-filter: blur(var(--cs-glass-standard-blur, 16px)) saturate(var(--cs-glass-standard-saturate, 150%));
+}
+[data-cs-style="matte-paper"] [data-cs-style="liquid-glass"] .cs-surface-heavy {
+  background: var(--cs-glass-heavy-bg);
+  border-color: var(--cs-glass-heavy-border);
+  box-shadow: var(--cs-shadow-lg);
+  -webkit-backdrop-filter: blur(var(--cs-glass-heavy-blur, 24px)) saturate(var(--cs-glass-heavy-saturate, 180%));
+  backdrop-filter: blur(var(--cs-glass-heavy-blur, 24px)) saturate(var(--cs-glass-heavy-saturate, 180%));
+}
+[data-cs-style="matte-paper"] [data-cs-style="liquid-glass"] :is(.cs-surface-standard, .cs-surface-heavy, .cs-glass-card)::before {
+  display: block;
+}
+[data-cs-style="matte-paper"] [data-cs-style="liquid-glass"] .cs-card:not(.cs-card--flat) {
+  box-shadow: var(--cs-shadow-sm);
+}
+[data-cs-style="matte-paper"] [data-cs-style="liquid-glass"] .cs-aurora {
+  background-image:
+    radial-gradient(90% 120% at 12% -10%, color-mix(in oklab, var(--cs-accent, var(--cs-color-brand-ochre)) 46%, transparent), transparent 55%),
+    radial-gradient(70% 90% at 88% 8%, color-mix(in oklab, var(--cs-accent-grad-b, #ffcf5c) 32%, transparent), transparent 60%),
+    radial-gradient(120% 120% at 50% 120%, color-mix(in oklab, #1a1108 60%, transparent), transparent 60%);
+}

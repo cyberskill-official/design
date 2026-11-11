@@ -60,13 +60,13 @@ await withBrowserFixture(async page=>{
    const el=document.getElementById(id);el.style.color='var(--cs-color-text-muted)';
    return [id,{token:getComputedStyle(el).getPropertyValue('--cs-color-text-muted').trim(),color:getComputedStyle(el).color,scheme:getComputedStyle(el).colorScheme}];
   })));
-  const standard=colorScheme==='dark'?'#E9D6C2':'#3F2D21';
+  const standard=colorScheme==='dark'?'#E9D6C2':'#5E4436';
   const high=colorScheme==='dark'?'#F5EAD9':'#45210E';
   assert.equal(result.standard.token,standard);
   assert.equal(result.high.token,high);
   assert.equal(result.live.token,contrast==='more'?high:standard);
   assert.equal(result.live.scheme,colorScheme);
-  assert.equal(result.standard.color,colorScheme==='dark'?'rgb(233, 214, 194)':'rgb(63, 45, 33)');
+  assert.equal(result.standard.color,colorScheme==='dark'?'rgb(233, 214, 194)':'rgb(94, 68, 54)');
  }
  }
 }, {browserName});

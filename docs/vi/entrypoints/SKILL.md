@@ -81,7 +81,7 @@ Các bất biến của doctrine (suy ra từ nguồn):
 | Ngôn ngữ | Ưu tiên tiếng Việt; mỗi chuỗi giao diện có cặp EN + VN |
 | Ngưỡng tiếp cận tối thiểu | APCA Lc ≥ 75 cho văn bản nội dung; không bao giờ bỏ vòng tiêu điểm; vùng chạm ≥ 44px |
 | Các trục | Theme × Element × Language × Style (độc lập) |
-| Gói phong cách | liquid-glass (gói duy nhất; không khai báo ≡ mặc định) |
+| Gói phong cách | liquid-glass (mặc định; không khai báo ≡ mặc định) · matte-paper |
 
 - **static-html** — `styles.css`; [hướng dẫn](../../../DESIGN.md). Dùng lớp .cs-*; .dc.html còn cần trình thông dịch được cung cấp hoặc runtime hiểu ngữ pháp đã được kiểm chứng.
 - **react** — `@cyberskill/design`; [hướng dẫn](../../../docs/consuming.md). ESM đã biên dịch với peer React; @cyberskill/design/source tường minh là JSX thô. Không cam kết CommonJS.

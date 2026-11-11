@@ -32,7 +32,7 @@
     <section style="position:relative;width:100%;aspect-ratio:16/9;background:var(--cs-color-surface-panel);color:var(--cs-color-text-primary);border-radius:var(--cs-radius-lg);overflow:hidden;box-shadow:var(--cs-shadow-xl);padding:64px 88px;display:flex;flex-direction:column;justify-content:center">
       <div style="font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;color:var(--cs-color-text-accent)">{{ s2kicker }}</div>
       <h2 style="font-size:44px;font-weight:800;letter-spacing:-0.02em;margin:10px 0 40px">{{ s2h }}</h2>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:40px">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:40px;align-items:start;font-variant-numeric:tabular-nums">
         <div><div style="font-size:56px;font-weight:800;color:var(--cs-color-text-accent);line-height:1;letter-spacing:-0.02em">+31%</div><div style="font-size:18px;color:var(--cs-color-text-muted);margin-top:10px">{{ k1 }}</div></div>
         <div><div style="font-size:56px;font-weight:800;color:var(--cs-color-text-accent);line-height:1;letter-spacing:-0.02em">−1.8s</div><div style="font-size:18px;color:var(--cs-color-text-muted);margin-top:10px">{{ k2 }}</div></div>
         <div><div style="font-size:56px;font-weight:800;color:var(--cs-color-text-accent);line-height:1;letter-spacing:-0.02em">0</div><div style="font-size:18px;color:var(--cs-color-text-muted);margin-top:10px">{{ k3 }}</div></div>
@@ -66,7 +66,7 @@
 
     <section style="position:relative;width:100%;aspect-ratio:16/9;background:var(--cs-color-brand-umber);color:#FFFDF8;border-radius:var(--cs-radius-lg);overflow:hidden;box-shadow:var(--cs-shadow-xl);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 88px">
       <img data-cs-official-logo="" class="cs-logo" width="66" height="66" role="img" alt="CyberSkill" title="CyberSkill">
-      <h2 style="font-size:50px;font-weight:800;letter-spacing:-0.02em;color:var(--cs-accent-strong);margin:24px 0 10px">{{ closeH }}</h2>
+      <h2 style="font-size:50px;font-weight:800;letter-spacing:-0.02em;color:var(--cs-accent-bright);margin:24px 0 10px">{{ closeH }}</h2>
       <p style="font-size:22px;opacity:0.9;margin:0 0 8px;max-width:860px">{{ closeP }}</p>
       <p style="font-size:17px;opacity:0.7;margin:0">vu@cyberskill.world · Status Hub</p>
       <sc-if value="{{ showNumbers }}"><div style="position:absolute;bottom:40px;right:88px;font-family:var(--cs-font-family-mono);font-size:14px;color:var(--cs-accent-bright)">05 / 05</div></sc-if>

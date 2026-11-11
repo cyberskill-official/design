@@ -4,7 +4,7 @@
 
 [![Design System Gates](https://github.com/cyberskill-official/design/actions/workflows/design-system-gates.yml/badge.svg)](https://github.com/cyberskill-official/design/actions/workflows/design-system-gates.yml)
 
-Hệ thống thiết kế ấm áp, chuẩn doanh nghiệp, **ưu tiên tiếng Việt** cho **CyberSkill** — studio phần mềm Sài Gòn (thành lập 2020) biến *điều ước* rõ ràng thành phần mềm hoạt động. Neo trên **Umber** và **Ochre**, dẫn dắt bởi thần đèn vàng **Lumi**, mọi bề mặt giải quyết bốn trục độc lập: **Theme** (light · dark · system) × **Element** (bản sắc sản phẩm Ngũ Hành: Kim · Mộc · Thủy · Hỏa · Thổ, 15 biến thể) × **Language** (EN · VI) × **Style** (`data-cs-style` — gói duy nhất **liquid-glass**; không khai báo ≡ mặc định). Phía sử dụng chỉ cần liên kết một tệp: **`styles.css`** (`dist/styles.css` là cùng closure được làm phẳng thành một tệp cho các môi trường không theo chuỗi `@import` như bộ hiển thị thẻ và một số sandbox; sinh lại bằng `npm run build:css` sau khi sửa `tokens/` hoặc `base/`).
+Hệ thống thiết kế ấm áp, chuẩn doanh nghiệp, **ưu tiên tiếng Việt** cho **CyberSkill** — studio phần mềm Sài Gòn (thành lập 2020) biến *điều ước* rõ ràng thành phần mềm hoạt động. Neo trên **Umber** và **Ochre**, dẫn dắt bởi thần đèn vàng **Lumi**, mọi bề mặt giải quyết bốn trục độc lập: **Theme** (light · dark · system) × **Element** (bản sắc sản phẩm Ngũ Hành: Kim · Mộc · Thủy · Hỏa · Thổ, 15 biến thể) × **Language** (VI · EN) × **Style** (`data-cs-style` — **liquid-glass** mặc định, không khai báo ≡ mặc định · **matte-paper** bề mặt giấy mờ đặc sắc nét). Phía sử dụng chỉ cần liên kết một tệp: **`styles.css`** (`dist/styles.css` là cùng closure được làm phẳng thành một tệp cho các môi trường không theo chuỗi `@import` như bộ hiển thị thẻ và một số sandbox; sinh lại bằng `npm run build:css` sau khi sửa `tokens/` hoặc `base/`).
 
 ---
 
@@ -31,7 +31,7 @@ Hệ thống thiết kế ấm áp, chuẩn doanh nghiệp, **ưu tiên tiếng 
 | `docs/consumer-grant.md` | Văn bản cấp quyền sử dụng gói npm (danh mục CyberSkill; UNLICENSED + sản phẩm được nêu tên) |
 | `docs/conventions.md` | Cách mở rộng hệ thống (ngữ pháp đặt tên, danh sách kiểm tra, bốn trục) |
 | `docs/release-notes.md` | Điểm nổi bật sản phẩm được biên tập (không phải changelog) |
-| `docs/design-styles.md` | Các trục kiểu trực tiếp (Theme × Element × Language × Style) và cách xử lý liquid-glass cố định |
+| `docs/design-styles.md` | Các trục kiểu trực tiếp (Theme × Element × Language × Style) và hai gói vật liệu bề mặt (liquid-glass · matte-paper) |
 | `docs/products.md` | Registry sản phẩm → hành (**đã khóa** — không tự đặt phân bổ) |
 | `docs/contrast-report.md` | Quét APCA Ngũ Hành được sinh — 0 lỗi tại ngưỡng nhãn UI Lc ≥ 60. Người soạn nội dung theo ngưỡng chặt hơn Lc ≥ 75 (xem Bất biến nền tảng); dòng Lc ≥ 60 của phép quét là cặp accent/nhãn, không phải văn bản nội dung. |
 | `docs/template-schema-v2.md` | Đặc tả slot nội dung có kiểu cho template — tùy chọn áp dụng, máy có thể kiểm tra |
@@ -71,7 +71,7 @@ Hệ thống thiết kế ấm áp, chuẩn doanh nghiệp, **ưu tiên tiếng 
 | Ngôn ngữ | Ưu tiên tiếng Việt; mỗi chuỗi giao diện có cặp EN + VN |
 | Ngưỡng tiếp cận tối thiểu | APCA Lc ≥ 75 cho văn bản nội dung; không bao giờ bỏ vòng tiêu điểm; vùng chạm ≥ 44px |
 | Các trục | Theme × Element × Language × Style (độc lập) |
-| Gói phong cách | liquid-glass (gói duy nhất; không khai báo ≡ mặc định) |
+| Gói phong cách | liquid-glass (mặc định; không khai báo ≡ mặc định) · matte-paper |
 <!-- END DOCTRINE IMMUTABLES -->
 
 ---
@@ -96,7 +96,7 @@ Hệ thống thiết kế ấm áp, chuẩn doanh nghiệp, **ưu tiên tiếng 
 
 ## Nền tảng thị giác
 
-- **Bảng màu — đất ấm, không lạnh.** Umber `#45210E` làm nền tảng mọi thứ (chính là màu chữ chính); Ochre `#F4BA17` là accent duy nhất — CTA trên nền tối, vòng tiêu điểm, điểm nhấn, thần đèn. Bề mặt là giấy ấm: page `#FFFDF8`, panel `#FFFFFF`, raised `#FBF4E9`. Mọi màu trung tính ngả về umber — viền `#E7D9C6`, chữ mờ `#3F2D21`. Màu ngữ nghĩa (success `#166534`, danger `#B42318`, warning `#92400E`, info `#1D4ED8`) dùng tiết chế và không bao giờ là tín hiệu duy nhất. **Tối đa một accent trên mỗi bề mặt** — bề mặt lõi dùng Ochre; *sản phẩm* có thể thay bằng accent Ngũ Hành, không thêm sắc thứ hai cạnh nó. Không dùng gradient tím xanh.
+- **Bảng màu — đất ấm, không lạnh.** Umber `#45210E` làm nền tảng mọi thứ (chính là màu chữ chính); Ochre `#F4BA17` là accent duy nhất — CTA trên nền tối, vòng tiêu điểm, điểm nhấn, thần đèn. Bề mặt là giấy ấm: page `#FFFDF8`, panel `#FFFFFF`, raised `#FBF4E9`. Mọi màu trung tính ngả về umber — viền `#E7D9C6`, chữ mờ `#5E4436`. Màu ngữ nghĩa (success `#166534`, danger `#B42318`, warning `#92400E`, info `#1D4ED8`) dùng tiết chế và không bao giờ là tín hiệu duy nhất. **Tối đa một accent trên mỗi bề mặt** — bề mặt lõi dùng Ochre; *sản phẩm* có thể thay bằng accent Ngũ Hành, không thêm sắc thứ hai cạnh nó. Không dùng gradient tím xanh.
 - **Chữ.** UI: **Be Vietnam Pro** (300–800; họ chữ ưu tiên tiếng Việt) — mặc định trên mọi bề mặt, gồm cả tiêu đề. Display/tiêu đề lớn: **Space Grotesk** (biến thiên 300–700), font **tùy chọn** của `--cs-font-family-display`; không thành phần nào trỏ đến nó trước khi scope chọn `.cs-display-face`, chuyển `--cs-heading-family` và giữ văn bản nội dung ở font UI. Mã/dữ liệu: **JetBrains Mono**. Tiêu đề display đậm (800 ở font UI; trong `.cs-display-face`, Space Grotesk tối đa 700), giãn ký tự chặt (−0.02em); nội dung 400/500 ở 1.5. Dòng dẫn chữ hoa giãn 0.08–0.12em. Thang cỡ chạy từ xs 12 → 5xl 60 trên nền 16px.
 - **Khoảng cách và bố cục.** Lưới cơ sở 4px; padding section từ 64 đến 96px; max-width nội dung khoảng 1200–1320px. Khoảng trắng rộng rãi, tĩnh tại.
 - **Bo góc và thẻ.** Bán kính: sm 4, md 8 (mặc định), **lg 14 (thẻ/panel)**, full 999 (pill, input, chip). Thẻ mặc định = panel trắng, viền ấm 1px `#E7D9C6`, bán kính 14px, bóng ấm mềm. Không dùng thẻ có viền trái tô màu.

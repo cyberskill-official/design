@@ -42,7 +42,7 @@ Kiểm sâu, không điểm danh bề mặt. Phủ **cả tập và mọi trạn
 | Ngôn ngữ | Việt Nam trước; mọi chuỗi UI gửi cặp EN + VN |
 | Sàn a11y | APCA Lc ≥ 75 chữ thân; không bao giờ gỡ focus ring; mục tiêu chạm ≥ 44px |
 | Trục | Theme × Element × Language × Style (độc lập) |
-| Gói Style | liquid-glass (gói duy nhất; vắng ≡ mặc định) |
+| Gói Style | liquid-glass (mặc định; vắng ≡ mặc định) · matte-paper |
 
 Một accent mỗi bề mặt. Trạng thái ngữ nghĩa và chỉ báo focus tổ hợp (viền text-primary + hào quang ochre) không bao giờ elemental. Lumi luôn vàng trong mọi element.
 

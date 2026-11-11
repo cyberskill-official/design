@@ -60,7 +60,7 @@ Doctrine immutables (source-derived):
 | Language | Vietnamese-first; every UI string ships an EN + VN pair |
 | Accessibility floor | APCA Lc ≥ 75 body text; focus rings never removed; ≥ 44px touch targets |
 | Axes | Theme × Element × Language × Style (independent) |
-| Style pack | liquid-glass (sole pack; absent ≡ default) |
+| Style pack | liquid-glass (default; absent ≡ default) · matte-paper |
 
 - **static-html** — `styles.css`; [guide](DESIGN.md). Use .cs-* classes; .dc.html additionally requires the shipped interpreter or a verified grammar-aware runtime.
 - **react** — `@cyberskill/design`; [guide](docs/consuming.md). Compiled ESM with peer React; explicit @cyberskill/design/source is raw JSX. CommonJS is not promised.

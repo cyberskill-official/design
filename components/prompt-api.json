@@ -3,8 +3,8 @@
   "interpretation": "Canonical definition/default-key references and generated prompt inventory, not a second type system, behavioral specification, accessibility certification or acceptance record.",
   "sourceHashes": {
     "components/api-index.json": "cdca2a8f225147e27ca8b385023ffe6ba5628b614720cd658c94f5c833f53336",
-    "components/contracts.json": "3fe12bafaf9da02f9148279601e4bc8f4af4cb87710e19703a53f80f5acbdc30",
-    "_ds_manifest.json": "e7307c53e9b0995b1aec89ddda00abed4674a6f11790ac5c9e89e34f1730fb61",
+    "components/contracts.json": "14a0329adba81f3aec465683ebceab787c99ce36c06322393b03985e486367e2",
+    "_ds_manifest.json": "3f2c5cbf7b5673c94f51927ad38ed6fe2eff8d7ab11319773b84fef5634238d8",
     "scripts/generate-component-contracts.mjs": "a94d0d58b3d0b6f629bf2cdc2a53bdfc8b43b8fa1479434b770f0cd8dc53187c",
     "scripts/lib/component-export.mjs": "9f6fd3df4a9e0366fef8c384a0926e050bd8fbcb3887bf5e6ffaed5c0622cd15",
     "scripts/generate-prompt-api.mjs": "e67709ad813a46330d2825912334244050422c16f05021890cc6b41b73acd602"

@@ -1126,7 +1126,7 @@ public enum CSControlsBatchStyleModel {
   public static let terminalDotHex = "#5b4331"
   public static let terminalBgHex = "#1a1108"
   public static let terminalFgHex = "#f5ead9"
-  public static let terminalMutedHex = "#c9b7a3"
+  public static let terminalMutedHex = "#e9d6c2"
   public static func anchorMinWidth() -> Double { 180 }
   public static func anchorBorderWidth() -> Double { 2 }
   public static func anchorTitleFontSize() -> Double { 10.5 }

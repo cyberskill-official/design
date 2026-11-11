@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "modeSourceHash": "000a8946ad723babc725af6f7638260e08cbd2d285f25a0a86d233dd1dd121b2",
-  "modeIndexSha256": "04c40f1136728bd52ce700613515f7c5711a286317e4f1619f7857aee588f4aa",
-  "modeDocumentsSha256": "5b1a6af2c87ce7224e364c342868f429447eb66465cc0dd3b4d79d2fe8a855b1",
+  "modeSourceHash": "ba57a6e7e3074469c4627169f9a63774675ac5a2aabbde6d698668d611c17387",
+  "modeIndexSha256": "8a905dfbaffd9eb5b83df913ed0e64fb7ff1d4815e9a4ee84a6489cd54b4d4f6",
+  "modeDocumentsSha256": "8346bc22f9da95cd74294d4359e7f6962482c07851bb9c99e2a122a54bba9b44",
   "modeCount": 256,
   "typedTokensPerMode": 194,
-  "uniqueTypedValues": 432,
+  "uniqueTypedValues": 436,
   "uniqueValueRows": 128,
   "omittedTokensPerMode": 12,
   "uniqueOmissions": 235,
@@ -22,19 +22,19 @@
   "targets": [
     {
       "path": "tokens/native/CSModes.swift",
-      "bytes": 233423,
-      "sha256": "c1e56c7ec5666f66bd867c06eac826b095d7245843a7308cfcd9f3e756d77919"
+      "bytes": 233833,
+      "sha256": "b0969c1d0fcdf5412c43a457df17fc4833230e799ff9ecf8997e68b86ab999b9"
     },
     {
       "path": "tokens/native/CSModes.kt",
-      "bytes": 215811,
-      "sha256": "6f905135b53cdbe42ee0f210c8afba6d932a814b3d371afba3dcc870f8fd2d67"
+      "bytes": 216221,
+      "sha256": "11136a6940e28096953e70d71dfd3c8f034efed4e226467722b9184cb76b9e48"
     },
     {
       "path": "tokens/native/cs_modes.dart",
-      "bytes": 205543,
-      "sha256": "548b58abc27ae2a83134082645ba51e2b974a7225d931bedc648e845527496c5"
+      "bytes": 205885,
+      "sha256": "940b0193baa371bf23b1c22459836de2aa61520254915e41170cd5e19b2c3000"
     }
   ],
-  "generatedSourceBytes": 654777
+  "generatedSourceBytes": 655939
 }

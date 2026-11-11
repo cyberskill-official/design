@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v2.8.0 · source sha256 6da8cd3627ad355d…
+// release v2.8.0 · source sha256 738212f89aeb6e32…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
@@ -19,7 +19,7 @@ object CSTokens {
   val colorTextPrimary = Color(0xFF45210E)
   val colorTextInverse = Color(0xFFFFFFFF)
   val colorTextAccent = Color(0xFF6E3B0E)
-  val colorTextMuted = Color(0xFF3F2D21)
+  val colorTextMuted = Color(0xFF5E4436)
   val colorSemanticSuccess = Color(0xFF166534)
   val colorSemanticDanger = Color(0xFFB42318)
   val colorSemanticWarning = Color(0xFF92400E)
@@ -81,7 +81,7 @@ object CSTokens {
   val componentTextfieldPaddingXAlias = 12.dp
   val componentTextfieldMinHeightAlias = 44.dp
   val accent = Color(0xFFF4BA17)
-  val accentStrong = Color(0xFF916D11)
+  val accentStrong = Color(0xFFA4631E)
   val accentBright = Color(0xFFF4BA17)
   val accentOn = Color(0xFF45210E)
   val accentTint = Color(0xFFFBF4E9)
@@ -112,9 +112,9 @@ object CSTokens {
   val glassHeavyOpacity = "90%"
   val shadowXs = "0 1px 2px rgba(69, 33, 14, 0.06)"
   val shadowSm = "0 1px 3px rgba(69, 33, 14, 0.04), 0 8px 24px rgba(69, 33, 14, 0.06)"
-  val shadowMd = "0 12px 30px rgba(31, 19, 11, 0.18)"
+  val shadowMd = "0 12px 30px rgba(69, 33, 14, 0.14)"
   val shadowLg = "0 20px 60px rgba(69, 33, 14, 0.18)"
-  val shadowXl = "0 24px 80px rgba(31, 19, 11, 0.26)"
+  val shadowXl = "0 24px 80px rgba(69, 33, 14, 0.24)"
   val durationInstantMs = 80
   val durationFastMs = 120
   val durationBaseMs = 200
@@ -321,7 +321,7 @@ object CSTokens {
   val colorTextAccentThoSandLight = Color(0xFF695300)
   val colorLinkThoSandLight = Color(0xFF695300)
   val accentThoLight = Color(0xFFF4BA17)
-  val accentStrongThoLight = Color(0xFF916D11)
+  val accentStrongThoLight = Color(0xFFA4631E)
   val accentBrightThoLight = Color(0xFFF4BA17)
   val accentOnThoLight = Color(0xFF45210E)
   val accentOnStrongThoLight = Color(0xFFFFFFFF)
@@ -331,7 +331,7 @@ object CSTokens {
   val accentGradAThoLight = Color(0xFFF4BA17)
   val accentGradBThoLight = Color(0xFFC4B78F)
   val colorTextAccentThoLight = Color(0xFF6E3B0E)
-  val colorLinkThoLight = Color(0xFF644A05)
+  val colorLinkThoLight = Color(0xFF744000)
   val accentThoClayLight = Color(0xFF723E06)
   val accentStrongThoClayLight = Color(0xFF5A3004)
   val accentBrightThoClayLight = Color(0xFFF2C5A3)
@@ -503,7 +503,7 @@ object CSTokens {
   val colorTextAccentThoSandDark = Color(0xFFF9E5AE)
   val colorLinkThoSandDark = Color(0xFFF9E5AE)
   val accentThoDark = Color(0xFFE9B321)
-  val accentStrongThoDark = Color(0xFF6E5205)
+  val accentStrongThoDark = Color(0xFF7D480C)
   val accentBrightThoDark = Color(0xFFFDD378)
   val accentOnThoDark = Color(0xFFF5EAD9)
   val accentOnStrongThoDark = Color(0xFFFFFFFF)

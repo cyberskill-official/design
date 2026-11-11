@@ -268,6 +268,56 @@ try {
       };
     });
 
+    // Gen-3 / Round-3 component-name CSS hook aliases, legal .cs-doc-* primitives, & perceptual variant aliases
+    const r3Probe = document.createElement('div');
+    r3Probe.innerHTML = `
+      <button id="r3-select-trigger" class="cs-select__trigger is-invalid" type="button">Select</button>
+      <div id="r3-review-gate" class="cs-human-review-gate"><span class="cs-human-review-gate__risk">Risk</span></div>
+      <div id="r3-input-otp" class="cs-input-otp is-invalid"><input type="text" value="8" readonly></div>
+      <div class="cs-datagrid"><table class="cs-table"><tbody><tr id="r3-tr-item" class="cs-item is-selected"><td id="r3-td-item">Cell</td></tr></tbody></table></div>
+      <article id="r3-doc-sheet" class="cs-doc-sheet">
+        <div id="r3-doc-motto" class="cs-doc-motto">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</div>
+        <div id="r3-doc-sec" class="cs-doc-section-bar">ĐIỀU 1</div>
+        <span id="r3-doc-field" class="cs-doc-field">125.000.000 ₫</span>
+      </article>
+      <div id="r3-kim-gold" data-cs-element="kim" data-cs-variant="gold"><button id="r3-kim-gold-btn" class="cs-button cs-button--primary" type="button">Gold</button></div>
+      <div id="r3-moc-jade" data-cs-element="moc" data-cs-variant="jade"><button id="r3-moc-jade-btn" class="cs-button cs-button--primary" type="button">Jade</button></div>
+    `;
+    s1.appendChild(r3Probe);
+    const dangerProbe = document.createElement('span');
+    dangerProbe.style.color = 'var(--cs-color-semantic-danger)';
+    const warnProbe = document.createElement('span');
+    warnProbe.style.color = 'var(--cs-color-semantic-warning)';
+    r3Probe.appendChild(dangerProbe);
+    r3Probe.appendChild(warnProbe);
+    const expectedDanger = getComputedStyle(dangerProbe).color;
+    const expectedWarning = getComputedStyle(warnProbe).color;
+    const selTrig = document.getElementById('r3-select-trigger');
+    const revGate = document.getElementById('r3-review-gate');
+    const otpInp = document.querySelector('#r3-input-otp input');
+    const trItem = document.getElementById('r3-tr-item');
+    const tdItem = document.getElementById('r3-td-item');
+    const docSheet = document.getElementById('r3-doc-sheet');
+    const docSec = document.getElementById('r3-doc-sec');
+    const docField = document.getElementById('r3-doc-field');
+    const kimGoldBtn = document.getElementById('r3-kim-gold-btn');
+    const mocJadeBtn = document.getElementById('r3-moc-jade-btn');
+    const r3Checks = {
+      selectTriggerMinH: selTrig.getBoundingClientRect().height,
+      selectTriggerDangerOk: getComputedStyle(selTrig).borderTopColor === expectedDanger,
+      reviewGateWarnOk: getComputedStyle(revGate).borderTopColor === expectedWarning,
+      otpInputW: Math.round(otpInp.getBoundingClientRect().width),
+      otpInputH: Math.round(otpInp.getBoundingClientRect().height),
+      otpDangerOk: getComputedStyle(otpInp).borderTopColor === expectedDanger,
+      trItemDisplay: getComputedStyle(trItem).display,
+      tdItemSelectedBg: getComputedStyle(tdItem).backgroundColor,
+      docSheetMaxW: getComputedStyle(docSheet).maxInlineSize,
+      docSecBorderStartW: parseFloat(getComputedStyle(docSec).borderInlineStartWidth),
+      docFieldBorderEndStyle: getComputedStyle(docField).borderBlockEndStyle,
+      kimGoldDiffersFromMocJade: getComputedStyle(kimGoldBtn).backgroundColor !== getComputedStyle(mocJadeBtn).backgroundColor,
+    };
+    r3Probe.remove();
+
     return {
       imgCount: document.querySelectorAll('img').length,
       svgLogoCount: document.querySelectorAll('svg[viewBox="0 0 64 64"]').length,
@@ -282,6 +332,7 @@ try {
       clearBtnMinDim: Math.min(clearBtnRect.width, clearBtnRect.height),
       dockMinHeight: Math.min(...dockRects.map((r) => r.height)),
       invalidControls,
+      r3Checks,
     };
   });
 
@@ -302,6 +353,39 @@ try {
       `Expected semantic danger border on invalid Gen-2 control #${ctl.id} (${ctl.actual} vs ${ctl.expected})`,
     );
   }
+  assert(gen2.r3Checks.selectTriggerMinH >= 44 && gen2.r3Checks.selectTriggerDangerOk, 'Expected .cs-select__trigger >= 44px with invalid danger border');
+  assert(gen2.r3Checks.reviewGateWarnOk, 'Expected .cs-human-review-gate alias to resolve semantic warning border');
+  assert(gen2.r3Checks.otpInputW === 44 && gen2.r3Checks.otpInputH === 52 && gen2.r3Checks.otpDangerOk, 'Expected .cs-input-otp input 44x52px with invalid danger border');
+  assert.equal(gen2.r3Checks.trItemDisplay, 'table-row', 'Expected tr.cs-item to preserve display: table-row inside tables');
+  assert.equal(gen2.r3Checks.docSheetMaxW, '860px', 'Expected .cs-doc-sheet max-inline-size 860px');
+  assert.equal(gen2.r3Checks.docSecBorderStartW, 3, 'Expected .cs-doc-section-bar 3px accent start border');
+  assert.equal(gen2.r3Checks.docFieldBorderEndStyle, 'dotted', 'Expected .cs-doc-field dotted bottom border');
+  assert.equal(gen2.r3Checks.kimGoldDiffersFromMocJade, true, 'Expected kim/gold and moc/jade variant aliases to produce distinct primary button fills');
+  for (const v of ['sand', 'clay', 'plasma', 'lava', 'mist', 'ocean', 'bamboo', 'forest', 'titanium', 'steel', 'gold', 'jade', 'ember', 'river', 'studio']) {
+    assert(designMd.includes(`"${v}"`), `Expected DESIGN.md to document data-cs-variant "${v}"`);
+  }
+
+  // 4. Verify 100% JSX className .cs-* hook coverage in components/css-index.json
+  const cssIndex = JSON.parse(readFileSync(resolve(root, 'components/css-index.json'), 'utf8'));
+  const nonClassTokens = new Set([
+    'cs-accent', 'cs-accent-grad-b', 'cs-accent-strong', 'cs-color-border-default',
+    'cs-color-semantic-danger', 'cs-color-semantic-danger-text', 'cs-color-semantic-success',
+    'cs-color-semantic-success-text', 'cs-color-semantic-warning', 'cs-color-semantic-warning-text',
+    'cs-color-surface-panel', 'cs-color-text-muted', 'cs-color-text-primary', 'cs-color-text-secondary',
+    'cs-density', 'cs-element', 'cs-focusable', 'cs-font-family-ui', 'cs-ov', 'cs-overlay-material',
+    'cs-overlay-root', 'cs-variant', 'cs-alert-dialog-layer',
+  ]);
+  const unmatchedClassHooks = cssIndex.components.flatMap((c) =>
+    c.hooks.filter((h) => h.stylesheets.length === 0 && !nonClassTokens.has(h.name)).map((h) => `${c.sourcePath}:${h.name}`),
+  );
+  assert.deepEqual(unmatchedClassHooks, [], `Expected 100% JSX className hook coverage in base/*.css, missing: ${unmatchedClassHooks.join(', ')}`);
+
+  // 5. Verify zero horizontal clipping on guidelines/motion.html and components/forms/forms-2.card.html
+  await page.goto(`${baseUrl}/guidelines/motion.html`, { waitUntil: 'load' });
+  const motionClips = await page.evaluate(() =>
+    [...document.querySelectorAll('.lbl, .v')].filter((el) => el.scrollWidth > el.clientWidth + 1).length,
+  );
+  assert.equal(motionClips, 0, `Expected 0 clipped labels in guidelines/motion.html, got ${motionClips}`);
 
   console.log(
     `PASS audit benchmark non-regression: 129/129 D1-D20 checks (10.0/10), 64/64 core baseline checks (10.0/10), 192/192 32-scope contrast cells >= 3:1, 3/3 Gen-2 complex stress-test screens verified, 0 watch items`,

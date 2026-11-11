@@ -2057,7 +2057,7 @@
     },
     {
       "name": "--cs-color-text-muted",
-      "value": "#3F2D21",
+      "value": "#5E4436",
       "kind": "color",
       "definedIn": "tokens/colors.css",
       "scope": "[data-theme=\"light\"], [data-theme=\"system\"], :root",
@@ -3703,7 +3703,7 @@
     },
     {
       "name": "--cs-shadow-md",
-      "value": "0 12px 30px rgba(31, 19, 11, 0.18)",
+      "value": "0 12px 30px rgba(69, 33, 14, 0.14)",
       "kind": "shadow",
       "definedIn": "tokens/elevation.css",
       "important": false,
@@ -3721,7 +3721,7 @@
     },
     {
       "name": "--cs-shadow-xl",
-      "value": "0 24px 80px rgba(31, 19, 11, 0.26)",
+      "value": "0 24px 80px rgba(69, 33, 14, 0.24)",
       "kind": "shadow",
       "definedIn": "tokens/elevation.css",
       "important": false,
@@ -4479,7 +4479,7 @@
     },
     {
       "name": "--cs-accent-strong",
-      "value": "#916D11",
+      "value": "#A4631E",
       "kind": "color",
       "definedIn": "tokens/elements.css",
       "important": false,
@@ -4565,8 +4565,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 932,
-      "sourceLine": 771
+      "declarationOrder": 962,
+      "sourceLine": 801
     },
     {
       "name": "--cs-color-brand-ochre",
@@ -4575,8 +4575,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 933,
-      "sourceLine": 772
+      "declarationOrder": 963,
+      "sourceLine": 802
     },
     {
       "name": "--cs-color-surface-page",
@@ -4585,8 +4585,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 934,
-      "sourceLine": 773
+      "declarationOrder": 964,
+      "sourceLine": 803
     },
     {
       "name": "--cs-color-surface-panel",
@@ -4595,8 +4595,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 935,
-      "sourceLine": 774
+      "declarationOrder": 965,
+      "sourceLine": 804
     },
     {
       "name": "--cs-color-surface-raised",
@@ -4605,8 +4605,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 936,
-      "sourceLine": 775
+      "declarationOrder": 966,
+      "sourceLine": 805
     },
     {
       "name": "--cs-color-text-primary",
@@ -4615,8 +4615,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 937,
-      "sourceLine": 776
+      "declarationOrder": 967,
+      "sourceLine": 806
     },
     {
       "name": "--cs-color-text-inverse",
@@ -4625,8 +4625,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 938,
-      "sourceLine": 777
+      "declarationOrder": 968,
+      "sourceLine": 807
     },
     {
       "name": "--cs-color-text-accent",
@@ -4635,8 +4635,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 939,
-      "sourceLine": 778
+      "declarationOrder": 969,
+      "sourceLine": 808
     },
     {
       "name": "--cs-color-text-muted",
@@ -4645,8 +4645,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 940,
-      "sourceLine": 779
+      "declarationOrder": 970,
+      "sourceLine": 809
     },
     {
       "name": "--cs-color-semantic-success",
@@ -4655,8 +4655,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 941,
-      "sourceLine": 780
+      "declarationOrder": 971,
+      "sourceLine": 810
     },
     {
       "name": "--cs-color-semantic-danger",
@@ -4665,8 +4665,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 942,
-      "sourceLine": 781
+      "declarationOrder": 972,
+      "sourceLine": 811
     },
     {
       "name": "--cs-color-semantic-warning",
@@ -4675,8 +4675,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 943,
-      "sourceLine": 782
+      "declarationOrder": 973,
+      "sourceLine": 812
     },
     {
       "name": "--cs-color-semantic-info",
@@ -4685,8 +4685,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 944,
-      "sourceLine": 783
+      "declarationOrder": 974,
+      "sourceLine": 813
     },
     {
       "name": "--cs-color-semantic-success-fg",
@@ -4695,8 +4695,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 945,
-      "sourceLine": 784
+      "declarationOrder": 975,
+      "sourceLine": 814
     },
     {
       "name": "--cs-color-semantic-danger-fg",
@@ -4705,8 +4705,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 946,
-      "sourceLine": 785
+      "declarationOrder": 976,
+      "sourceLine": 815
     },
     {
       "name": "--cs-color-semantic-warning-fg",
@@ -4715,8 +4715,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 947,
-      "sourceLine": 786
+      "declarationOrder": 977,
+      "sourceLine": 816
     },
     {
       "name": "--cs-color-semantic-info-fg",
@@ -4725,8 +4725,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 948,
-      "sourceLine": 787
+      "declarationOrder": 978,
+      "sourceLine": 817
     },
     {
       "name": "--cs-color-semantic-success-text",
@@ -4735,8 +4735,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 949,
-      "sourceLine": 788
+      "declarationOrder": 979,
+      "sourceLine": 818
     },
     {
       "name": "--cs-color-semantic-danger-text",
@@ -4745,8 +4745,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 950,
-      "sourceLine": 789
+      "declarationOrder": 980,
+      "sourceLine": 819
     },
     {
       "name": "--cs-color-semantic-warning-text",
@@ -4755,8 +4755,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 951,
-      "sourceLine": 790
+      "declarationOrder": 981,
+      "sourceLine": 820
     },
     {
       "name": "--cs-color-semantic-info-text",
@@ -4765,8 +4765,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 952,
-      "sourceLine": 791
+      "declarationOrder": 982,
+      "sourceLine": 821
     },
     {
       "name": "--cs-doc-ink",
@@ -4775,8 +4775,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 953,
-      "sourceLine": 792
+      "declarationOrder": 983,
+      "sourceLine": 822
     },
     {
       "name": "--cs-doc-slate",
@@ -4785,8 +4785,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 954,
-      "sourceLine": 793
+      "declarationOrder": 984,
+      "sourceLine": 823
     },
     {
       "name": "--cs-doc-fill",
@@ -4795,8 +4795,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 955,
-      "sourceLine": 794
+      "declarationOrder": 985,
+      "sourceLine": 824
     },
     {
       "name": "--cs-doc-fill-ink",
@@ -4805,8 +4805,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 956,
-      "sourceLine": 795
+      "declarationOrder": 986,
+      "sourceLine": 825
     },
     {
       "name": "--cs-color-accent-ochre",
@@ -4815,8 +4815,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 957,
-      "sourceLine": 796
+      "declarationOrder": 987,
+      "sourceLine": 826
     },
     {
       "name": "--cs-color-border-default",
@@ -4825,8 +4825,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 958,
-      "sourceLine": 797
+      "declarationOrder": 988,
+      "sourceLine": 827
     },
     {
       "name": "--cs-color-link",
@@ -4835,8 +4835,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 959,
-      "sourceLine": 798
+      "declarationOrder": 989,
+      "sourceLine": 828
     },
     {
       "name": "--cs-color-link-hover",
@@ -4845,8 +4845,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 960,
-      "sourceLine": 799
+      "declarationOrder": 990,
+      "sourceLine": 829
     },
     {
       "name": "--cs-component-button-primary-bg",
@@ -4855,8 +4855,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 961,
-      "sourceLine": 800
+      "declarationOrder": 991,
+      "sourceLine": 830
     },
     {
       "name": "--cs-component-button-primary-fg",
@@ -4865,8 +4865,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 962,
-      "sourceLine": 801
+      "declarationOrder": 992,
+      "sourceLine": 831
     },
     {
       "name": "--cs-component-textfield-border-default",
@@ -4875,8 +4875,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 963,
-      "sourceLine": 802
+      "declarationOrder": 993,
+      "sourceLine": 832
     },
     {
       "name": "--cs-shadow-xs",
@@ -4885,8 +4885,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 964,
-      "sourceLine": 803
+      "declarationOrder": 994,
+      "sourceLine": 833
     },
     {
       "name": "--cs-shadow-sm",
@@ -4895,8 +4895,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 965,
-      "sourceLine": 804
+      "declarationOrder": 995,
+      "sourceLine": 834
     },
     {
       "name": "--cs-shadow-md",
@@ -4905,8 +4905,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 966,
-      "sourceLine": 805
+      "declarationOrder": 996,
+      "sourceLine": 835
     },
     {
       "name": "--cs-shadow-lg",
@@ -4915,8 +4915,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 967,
-      "sourceLine": 806
+      "declarationOrder": 997,
+      "sourceLine": 836
     },
     {
       "name": "--cs-shadow-xl",
@@ -4925,8 +4925,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 968,
-      "sourceLine": 807
+      "declarationOrder": 998,
+      "sourceLine": 837
     },
     {
       "name": "--cs-accent",
@@ -4935,8 +4935,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 969,
-      "sourceLine": 808
+      "declarationOrder": 999,
+      "sourceLine": 838
     },
     {
       "name": "--cs-accent-strong",
@@ -4945,8 +4945,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 970,
-      "sourceLine": 809
+      "declarationOrder": 1000,
+      "sourceLine": 839
     },
     {
       "name": "--cs-accent-bright",
@@ -4955,8 +4955,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 971,
-      "sourceLine": 810
+      "declarationOrder": 1001,
+      "sourceLine": 840
     },
     {
       "name": "--cs-accent-on",
@@ -4965,8 +4965,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 972,
-      "sourceLine": 811
+      "declarationOrder": 1002,
+      "sourceLine": 841
     },
     {
       "name": "--cs-accent-on-strong",
@@ -4975,8 +4975,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 973,
-      "sourceLine": 812
+      "declarationOrder": 1003,
+      "sourceLine": 842
     },
     {
       "name": "--cs-accent-tint",
@@ -4985,8 +4985,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 974,
-      "sourceLine": 813
+      "declarationOrder": 1004,
+      "sourceLine": 843
     },
     {
       "name": "--cs-accent-ink",
@@ -4995,8 +4995,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 975,
-      "sourceLine": 814
+      "declarationOrder": 1005,
+      "sourceLine": 844
     },
     {
       "name": "--cs-accent-glow",
@@ -5005,8 +5005,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 976,
-      "sourceLine": 815
+      "declarationOrder": 1006,
+      "sourceLine": 845
     },
     {
       "name": "--cs-accent-grad-a",
@@ -5015,8 +5015,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 977,
-      "sourceLine": 816
+      "declarationOrder": 1007,
+      "sourceLine": 846
     },
     {
       "name": "--cs-accent-grad-b",
@@ -5025,8 +5025,8 @@
       "definedIn": "tokens/elements.css",
       "scope": ":is(:root, [data-theme], [data-cs-element], [data-cs-contrast], [data-theme][data-cs-element][data-cs-variant])",
       "important": false,
-      "declarationOrder": 978,
-      "sourceLine": 817
+      "declarationOrder": 1008,
+      "sourceLine": 847
     },
     {
       "name": "--cs-style-pack",
@@ -5034,7 +5034,7 @@
       "kind": "css-expression",
       "definedIn": "tokens/styles.css",
       "important": false,
-      "declarationOrder": 979,
+      "declarationOrder": 1009,
       "sourceLine": 10
     },
     {
@@ -5044,8 +5044,18 @@
       "definedIn": "tokens/styles.css",
       "scope": "[data-cs-style=\"liquid-glass\"]",
       "important": false,
-      "declarationOrder": 980,
+      "declarationOrder": 1010,
       "sourceLine": 14
+    },
+    {
+      "name": "--cs-style-pack",
+      "value": "matte-paper",
+      "kind": "css-expression",
+      "definedIn": "tokens/styles.css",
+      "scope": "[data-cs-style=\"matte-paper\"]",
+      "important": false,
+      "declarationOrder": 1011,
+      "sourceLine": 18
     },
     {
       "name": "--cs-density-space-1",
@@ -5053,7 +5063,7 @@
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "important": false,
-      "declarationOrder": 981,
+      "declarationOrder": 1012,
       "sourceLine": 10
     },
     {
@@ -5062,7 +5072,7 @@
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "important": false,
-      "declarationOrder": 982,
+      "declarationOrder": 1013,
       "sourceLine": 11
     },
     {
@@ -5071,7 +5081,7 @@
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "important": false,
-      "declarationOrder": 983,
+      "declarationOrder": 1014,
       "sourceLine": 12
     },
     {
@@ -5080,7 +5090,7 @@
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "important": false,
-      "declarationOrder": 984,
+      "declarationOrder": 1015,
       "sourceLine": 13
     },
     {
@@ -5089,7 +5099,7 @@
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "important": false,
-      "declarationOrder": 985,
+      "declarationOrder": 1016,
       "sourceLine": 14
     },
     {
@@ -5098,7 +5108,7 @@
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "important": false,
-      "declarationOrder": 986,
+      "declarationOrder": 1017,
       "sourceLine": 15
     },
     {
@@ -5107,7 +5117,7 @@
       "kind": "dimension",
       "definedIn": "tokens/theme-attributes.css",
       "important": false,
-      "declarationOrder": 987,
+      "declarationOrder": 1018,
       "sourceLine": 16
     },
     {
@@ -5117,7 +5127,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 988,
+      "declarationOrder": 1019,
       "sourceLine": 21
     },
     {
@@ -5127,7 +5137,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 989,
+      "declarationOrder": 1020,
       "sourceLine": 22
     },
     {
@@ -5137,7 +5147,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 990,
+      "declarationOrder": 1021,
       "sourceLine": 23
     },
     {
@@ -5147,7 +5157,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 991,
+      "declarationOrder": 1022,
       "sourceLine": 24
     },
     {
@@ -5157,7 +5167,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 992,
+      "declarationOrder": 1023,
       "sourceLine": 25
     },
     {
@@ -5167,7 +5177,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 993,
+      "declarationOrder": 1024,
       "sourceLine": 26
     },
     {
@@ -5177,7 +5187,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 994,
+      "declarationOrder": 1025,
       "sourceLine": 27
     },
     {
@@ -5187,7 +5197,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 995,
+      "declarationOrder": 1026,
       "sourceLine": 29
     },
     {
@@ -5197,7 +5207,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 996,
+      "declarationOrder": 1027,
       "sourceLine": 30
     },
     {
@@ -5207,7 +5217,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 997,
+      "declarationOrder": 1028,
       "sourceLine": 31
     },
     {
@@ -5217,7 +5227,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 998,
+      "declarationOrder": 1029,
       "sourceLine": 32
     },
     {
@@ -5227,7 +5237,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 999,
+      "declarationOrder": 1030,
       "sourceLine": 33
     },
     {
@@ -5237,7 +5247,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 1000,
+      "declarationOrder": 1031,
       "sourceLine": 34
     },
     {
@@ -5247,7 +5257,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 1001,
+      "declarationOrder": 1032,
       "sourceLine": 35
     },
     {
@@ -5257,7 +5267,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 1002,
+      "declarationOrder": 1033,
       "sourceLine": 36
     },
     {
@@ -5267,7 +5277,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 1003,
+      "declarationOrder": 1034,
       "sourceLine": 37
     },
     {
@@ -5277,7 +5287,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 1004,
+      "declarationOrder": 1035,
       "sourceLine": 38
     },
     {
@@ -5287,7 +5297,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 1005,
+      "declarationOrder": 1036,
       "sourceLine": 39
     },
     {
@@ -5297,7 +5307,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 1006,
+      "declarationOrder": 1037,
       "sourceLine": 40
     },
     {
@@ -5307,7 +5317,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 1007,
+      "declarationOrder": 1038,
       "sourceLine": 41
     },
     {
@@ -5317,7 +5327,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 1008,
+      "declarationOrder": 1039,
       "sourceLine": 43
     },
     {
@@ -5327,7 +5337,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 1009,
+      "declarationOrder": 1040,
       "sourceLine": 44
     },
     {
@@ -5337,7 +5347,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 1010,
+      "declarationOrder": 1041,
       "sourceLine": 45
     },
     {
@@ -5347,7 +5357,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 1011,
+      "declarationOrder": 1042,
       "sourceLine": 46
     },
     {
@@ -5357,7 +5367,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 1012,
+      "declarationOrder": 1043,
       "sourceLine": 48
     },
     {
@@ -5367,7 +5377,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 1013,
+      "declarationOrder": 1044,
       "sourceLine": 49
     },
     {
@@ -5377,7 +5387,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 1014,
+      "declarationOrder": 1045,
       "sourceLine": 50
     },
     {
@@ -5387,7 +5397,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"compact\"]",
       "important": false,
-      "declarationOrder": 1015,
+      "declarationOrder": 1046,
       "sourceLine": 51
     },
     {
@@ -5397,7 +5407,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1016,
+      "declarationOrder": 1047,
       "sourceLine": 59
     },
     {
@@ -5407,7 +5417,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1017,
+      "declarationOrder": 1048,
       "sourceLine": 60
     },
     {
@@ -5417,7 +5427,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1018,
+      "declarationOrder": 1049,
       "sourceLine": 61
     },
     {
@@ -5427,7 +5437,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1019,
+      "declarationOrder": 1050,
       "sourceLine": 62
     },
     {
@@ -5437,7 +5447,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1020,
+      "declarationOrder": 1051,
       "sourceLine": 63
     },
     {
@@ -5447,7 +5457,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1021,
+      "declarationOrder": 1052,
       "sourceLine": 64
     },
     {
@@ -5457,7 +5467,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1022,
+      "declarationOrder": 1053,
       "sourceLine": 65
     },
     {
@@ -5467,7 +5477,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1023,
+      "declarationOrder": 1054,
       "sourceLine": 66
     },
     {
@@ -5477,7 +5487,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1024,
+      "declarationOrder": 1055,
       "sourceLine": 67
     },
     {
@@ -5487,7 +5497,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1025,
+      "declarationOrder": 1056,
       "sourceLine": 68
     },
     {
@@ -5497,7 +5507,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1026,
+      "declarationOrder": 1057,
       "sourceLine": 69
     },
     {
@@ -5507,7 +5517,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1027,
+      "declarationOrder": 1058,
       "sourceLine": 70
     },
     {
@@ -5517,7 +5527,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1028,
+      "declarationOrder": 1059,
       "sourceLine": 71
     },
     {
@@ -5527,7 +5537,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1029,
+      "declarationOrder": 1060,
       "sourceLine": 72
     },
     {
@@ -5537,7 +5547,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1030,
+      "declarationOrder": 1061,
       "sourceLine": 73
     },
     {
@@ -5547,7 +5557,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1031,
+      "declarationOrder": 1062,
       "sourceLine": 74
     },
     {
@@ -5557,7 +5567,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1032,
+      "declarationOrder": 1063,
       "sourceLine": 75
     },
     {
@@ -5567,7 +5577,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1033,
+      "declarationOrder": 1064,
       "sourceLine": 76
     },
     {
@@ -5577,7 +5587,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1034,
+      "declarationOrder": 1065,
       "sourceLine": 77
     },
     {
@@ -5587,7 +5597,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1035,
+      "declarationOrder": 1066,
       "sourceLine": 78
     },
     {
@@ -5597,7 +5607,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1036,
+      "declarationOrder": 1067,
       "sourceLine": 79
     },
     {
@@ -5607,7 +5617,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1037,
+      "declarationOrder": 1068,
       "sourceLine": 80
     },
     {
@@ -5617,7 +5627,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1038,
+      "declarationOrder": 1069,
       "sourceLine": 81
     },
     {
@@ -5627,7 +5637,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1039,
+      "declarationOrder": 1070,
       "sourceLine": 82
     },
     {
@@ -5637,7 +5647,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1040,
+      "declarationOrder": 1071,
       "sourceLine": 83
     },
     {
@@ -5647,7 +5657,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1041,
+      "declarationOrder": 1072,
       "sourceLine": 84
     },
     {
@@ -5657,7 +5667,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1042,
+      "declarationOrder": 1073,
       "sourceLine": 85
     },
     {
@@ -5667,7 +5677,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-density=\"comfortable\"]",
       "important": false,
-      "declarationOrder": 1043,
+      "declarationOrder": 1074,
       "sourceLine": 86
     },
     {
@@ -5677,7 +5687,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-contrast=\"high\"]",
       "important": false,
-      "declarationOrder": 1044,
+      "declarationOrder": 1075,
       "sourceLine": 92
     },
     {
@@ -5687,7 +5697,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-cs-contrast=\"high\"]",
       "important": false,
-      "declarationOrder": 1045,
+      "declarationOrder": 1076,
       "sourceLine": 93
     },
     {
@@ -5697,7 +5707,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-theme=\"dark\"][data-cs-contrast=\"high\"],\n[data-cs-contrast=\"high\"][data-theme=\"dark\"]",
       "important": false,
-      "declarationOrder": 1046,
+      "declarationOrder": 1077,
       "sourceLine": 98
     },
     {
@@ -5707,7 +5717,7 @@
       "definedIn": "tokens/theme-attributes.css",
       "scope": "[data-theme=\"dark\"][data-cs-contrast=\"high\"],\n[data-cs-contrast=\"high\"][data-theme=\"dark\"]",
       "important": false,
-      "declarationOrder": 1047,
+      "declarationOrder": 1078,
       "sourceLine": 99
     },
     {
@@ -5723,7 +5733,7 @@
         }
       ],
       "important": false,
-      "declarationOrder": 1048,
+      "declarationOrder": 1079,
       "sourceLine": 105
     },
     {
@@ -5739,7 +5749,7 @@
         }
       ],
       "important": false,
-      "declarationOrder": 1049,
+      "declarationOrder": 1080,
       "sourceLine": 106
     },
     {
@@ -5749,7 +5759,7 @@
       "definedIn": "base/typography.css",
       "scope": ".cs-display-face",
       "important": false,
-      "declarationOrder": 1050,
+      "declarationOrder": 1081,
       "sourceLine": 25
     },
     {
@@ -5759,8 +5769,8 @@
       "definedIn": "base/controls.css",
       "scope": ".cs-terminal",
       "important": false,
-      "declarationOrder": 1053,
-      "sourceLine": 355
+      "declarationOrder": 1084,
+      "sourceLine": 371
     },
     {
       "name": "--cs-term-bar",
@@ -5769,8 +5779,8 @@
       "definedIn": "base/controls.css",
       "scope": ".cs-terminal",
       "important": false,
-      "declarationOrder": 1054,
-      "sourceLine": 356
+      "declarationOrder": 1085,
+      "sourceLine": 372
     },
     {
       "name": "--cs-term-dot",
@@ -5779,8 +5789,8 @@
       "definedIn": "base/controls.css",
       "scope": ".cs-terminal",
       "important": false,
-      "declarationOrder": 1055,
-      "sourceLine": 357
+      "declarationOrder": 1086,
+      "sourceLine": 373
     },
     {
       "name": "--cs-term-bg",
@@ -5789,8 +5799,8 @@
       "definedIn": "base/controls.css",
       "scope": ".cs-terminal",
       "important": false,
-      "declarationOrder": 1056,
-      "sourceLine": 358
+      "declarationOrder": 1087,
+      "sourceLine": 374
     },
     {
       "name": "--cs-term-fg",
@@ -5799,18 +5809,18 @@
       "definedIn": "base/controls.css",
       "scope": ".cs-terminal",
       "important": false,
-      "declarationOrder": 1057,
-      "sourceLine": 359
+      "declarationOrder": 1088,
+      "sourceLine": 375
     },
     {
       "name": "--cs-term-muted",
-      "value": "#c9b7a3",
+      "value": "#e9d6c2",
       "kind": "css-expression",
       "definedIn": "base/controls.css",
       "scope": ".cs-terminal",
       "important": false,
-      "declarationOrder": 1058,
-      "sourceLine": 360
+      "declarationOrder": 1089,
+      "sourceLine": 376
     },
     {
       "name": "--cs-code-bg",
@@ -5819,8 +5829,8 @@
       "definedIn": "base/collections.css",
       "scope": ".cs-code",
       "important": false,
-      "declarationOrder": 1059,
-      "sourceLine": 81
+      "declarationOrder": 1090,
+      "sourceLine": 84
     },
     {
       "name": "--cs-code-fg",
@@ -5829,8 +5839,8 @@
       "definedIn": "base/collections.css",
       "scope": ".cs-code",
       "important": false,
-      "declarationOrder": 1060,
-      "sourceLine": 82
+      "declarationOrder": 1091,
+      "sourceLine": 85
     },
     {
       "name": "--cs-code-border",
@@ -5839,18 +5849,18 @@
       "definedIn": "base/collections.css",
       "scope": ".cs-code",
       "important": false,
-      "declarationOrder": 1061,
-      "sourceLine": 83
+      "declarationOrder": 1092,
+      "sourceLine": 86
     },
     {
       "name": "--cs-code-muted",
-      "value": "#c9b7a3",
+      "value": "#e9d6c2",
       "kind": "css-expression",
       "definedIn": "base/collections.css",
       "scope": ".cs-code",
       "important": false,
-      "declarationOrder": 1062,
-      "sourceLine": 84
+      "declarationOrder": 1093,
+      "sourceLine": 87
     },
     {
       "name": "--cs-glass-whisper-bg",
@@ -5859,7 +5869,7 @@
       "definedIn": "base/glass.css",
       "scope": ":root, [data-theme], [data-cs-element], [data-element], [data-cs-contrast]",
       "important": false,
-      "declarationOrder": 1066,
+      "declarationOrder": 1097,
       "sourceLine": 15
     },
     {
@@ -5869,7 +5879,7 @@
       "definedIn": "base/glass.css",
       "scope": ":root, [data-theme], [data-cs-element], [data-element], [data-cs-contrast]",
       "important": false,
-      "declarationOrder": 1067,
+      "declarationOrder": 1098,
       "sourceLine": 16
     },
     {
@@ -5879,7 +5889,7 @@
       "definedIn": "base/glass.css",
       "scope": ":root, [data-theme], [data-cs-element], [data-element], [data-cs-contrast]",
       "important": false,
-      "declarationOrder": 1068,
+      "declarationOrder": 1099,
       "sourceLine": 17
     },
     {
@@ -5889,7 +5899,7 @@
       "definedIn": "base/glass.css",
       "scope": ":root, [data-theme], [data-cs-element], [data-element], [data-cs-contrast]",
       "important": false,
-      "declarationOrder": 1069,
+      "declarationOrder": 1100,
       "sourceLine": 18
     },
     {
@@ -5899,7 +5909,7 @@
       "definedIn": "base/glass.css",
       "scope": ":root, [data-theme], [data-cs-element], [data-element], [data-cs-contrast]",
       "important": false,
-      "declarationOrder": 1070,
+      "declarationOrder": 1101,
       "sourceLine": 19
     },
     {
@@ -5909,7 +5919,7 @@
       "definedIn": "base/glass.css",
       "scope": ":root, [data-theme], [data-cs-element], [data-element], [data-cs-contrast]",
       "important": false,
-      "declarationOrder": 1071,
+      "declarationOrder": 1102,
       "sourceLine": 20
     },
     {
@@ -5919,7 +5929,7 @@
       "definedIn": "base/glass.css",
       "scope": ":root, [data-theme], [data-cs-element], [data-element], [data-cs-contrast]",
       "important": false,
-      "declarationOrder": 1072,
+      "declarationOrder": 1103,
       "sourceLine": 21
     },
     {
@@ -5929,7 +5939,7 @@
       "definedIn": "base/glass.css",
       "scope": ":root, [data-theme], [data-cs-element], [data-element], [data-cs-contrast]",
       "important": false,
-      "declarationOrder": 1073,
+      "declarationOrder": 1104,
       "sourceLine": 22
     }
   ],

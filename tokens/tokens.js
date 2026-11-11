@@ -8,11 +8,11 @@ export const tokens = {
     "declarationGraph": {
       "path": "declarations.json",
       "schemaVersion": 1,
-      "sha256": "e79b29b1657f546e91ba25be46d417ea1f6c5acc8b1a7f694b91b28293cf3749",
-      "declarations": 1074,
-      "publicDeclarations": 391,
+      "sha256": "7df624c9a2c773f4eb5d0b830e2103b4cc18f947c86ef8a1e3c41841bc53df64",
+      "declarations": 1105,
+      "publicDeclarations": 392,
       "publicNames": 216,
-      "privateDeclarations": 683
+      "privateDeclarations": 713
     }
   },
   "root": {
@@ -25,7 +25,7 @@ export const tokens = {
       "--cs-color-text-primary": "#45210E",
       "--cs-color-text-inverse": "#FFFFFF",
       "--cs-color-text-accent": "#6E3B0E",
-      "--cs-color-text-muted": "#3F2D21",
+      "--cs-color-text-muted": "#5E4436",
       "--cs-color-semantic-success": "#166534",
       "--cs-color-semantic-danger": "#B42318",
       "--cs-color-semantic-warning": "#92400E",
@@ -91,7 +91,7 @@ export const tokens = {
     },
     "accent": {
       "--cs-accent": "#F4BA17",
-      "--cs-accent-strong": "#916D11",
+      "--cs-accent-strong": "#A4631E",
       "--cs-accent-bright": "#F4BA17",
       "--cs-accent-on": "#45210E",
       "--cs-accent-tint": "#FBF4E9",
@@ -128,9 +128,9 @@ export const tokens = {
     "shadow": {
       "--cs-shadow-xs": "0 1px 2px rgba(69, 33, 14, 0.06)",
       "--cs-shadow-sm": "0 1px 3px rgba(69, 33, 14, 0.04), 0 8px 24px rgba(69, 33, 14, 0.06)",
-      "--cs-shadow-md": "0 12px 30px rgba(31, 19, 11, 0.18)",
+      "--cs-shadow-md": "0 12px 30px rgba(69, 33, 14, 0.14)",
       "--cs-shadow-lg": "0 20px 60px rgba(69, 33, 14, 0.18)",
-      "--cs-shadow-xl": "0 24px 80px rgba(31, 19, 11, 0.26)"
+      "--cs-shadow-xl": "0 24px 80px rgba(69, 33, 14, 0.24)"
     },
     "duration": {
       "--cs-duration-instant": "80ms",
@@ -335,7 +335,7 @@ export const tokens = {
     },
     "tho": {
       "--cs-accent": "#F4BA17",
-      "--cs-accent-strong": "#916D11",
+      "--cs-accent-strong": "#A4631E",
       "--cs-accent-bright": "#F4BA17",
       "--cs-accent-on": "#45210E",
       "--cs-accent-on-strong": "#FFFFFF",
@@ -345,7 +345,7 @@ export const tokens = {
       "--cs-accent-grad-a": "#F4BA17",
       "--cs-accent-grad-b": "#C4B78F",
       "--cs-color-text-accent": "#6E3B0E",
-      "--cs-color-link": "#644A05"
+      "--cs-color-link": "#744000"
     },
     "tho.clay": {
       "--cs-accent": "#723E06",

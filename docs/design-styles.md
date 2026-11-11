@@ -1,13 +1,13 @@
 # Design styles
 
-The live styling axes are **Theme × Element × Language × Style**. Style’s sole pack today is **liquid-glass**. An absent style attribute selects that pack. Unmarked descendants inherit their nearest theme and element scopes; the neutral root defaults to light with the studio brand anchors. Published on Storybook **Docs** at `design.cyberskill.world`.
+The live styling axes are **Theme × Element × Language × Style**. Style ships two surface material packs: **liquid-glass** (default; an absent style attribute selects it) and **matte-paper** (opaque crisp paper surfaces with zero backdrop blur). Unmarked descendants inherit their nearest theme and element scopes; the neutral root defaults to light with the studio brand anchors. Published on Storybook **Docs** at `design.cyberskill.world`.
 
 | Axis | How to set it | What it changes |
 |---|---|---|
 | **Theme** | `data-theme="light"`, `"dark"` or `"system"`; absence inherits the nearest scope (light at the neutral root) | light/dark semantic colours (product UI axis). Explicit light resets a dark ancestor. System follows the OS light/dark preference through `prefers-color-scheme`; Storybook toolbar and Atomic View expose all three values |
 | **Element** | `data-cs-element` + optional `data-cs-variant` | Ngũ Hành product identity (**15 packs** = 5 elements × soft/middle/deep) |
-| **Language** | `lang` / Language tweak | EN · VI built-in copy, Vietnamese by default; optional `ja` is a bounded Pagination spike, not full Japanese coverage |
-| **Style** | `data-cs-style` (optional; absent ≡ `liquid-glass`) | Surface material pack. Sole pack today: **liquid-glass** (`tokens/styles.css` + `base/glass.css`) |
+| **Language** | `lang` / Language tweak | EN · VI built-in copy (`vi` default on UI surfaces); programmatic `ja` remains an internal Pagination i18n spike, not a UI toolbar locale |
+| **Style** | `data-cs-style` (optional; absent ≡ `liquid-glass`) | Surface material pack: **liquid-glass** (default frosted optical blur) · **matte-paper** (opaque crisp paper surfaces, `tokens/styles.css` + `base/glass.css`) |
 
 ## Element colour contract
 
@@ -24,11 +24,12 @@ Source of truth: [`tokens/element-seeds.json`](../tokens/element-seeds.json) →
 | **Never remap** | composite focus indicator (text-primary contour + ochre halo) · semantic status colours |
 | **Geometry gate** | [`_audit/element-geometry.html`](../_audit/element-geometry.html) — intensity sync · variant distinctness · hue identity |
 
-## Style pack — liquid-glass
+## Style packs — liquid-glass & matte-paper
 
-- Liquid-glass materials (`cs-surface-*`) are the default surface language.
+- **liquid-glass** (`cs-surface-*`, default when `data-cs-style` is absent) is the optical frosted-glass surface language.
+- **matte-paper** (`data-cs-style="matte-paper"`) removes backdrop blur, switches `.cs-surface-*` and `.cs-card` / `.cs-dialog` / `.cs-drawer` / `.cs-popover__panel` / `.cs-menu__list` to crisp opaque `--cs-color-surface-panel` / `--cs-color-surface-raised` fills with `1px` solid `--cs-color-border-default` borders and tactile flat elevation (`--cs-shadow-xs`), ideal for legal/editorial instruments, dense ERP tables, and SOC War-Rooms; a nested `[data-cs-style="liquid-glass"]` restores optical blur.
 - Radius, shadow, and glass tokens come from `tokens/elevation.css` + `base/glass.css`; the Style axis contract lives in [`tokens/styles.css`](../tokens/styles.css).
-- Gate: [`_audit/style-contract.html`](../_audit/style-contract.html) — allowlists `liquid-glass` only.
+- Gate: [`_audit/style-contract.html`](../_audit/style-contract.html) — allowlists `liquid-glass` and `matte-paper`.
 - Rejected by doctrine: neon/cyberpunk cold hues, memphis playfulness, full skeuomorphism, emoji in UI chrome.
 - Type families are fixed and token-named: Be Vietnam Pro (UI) · Space Grotesk (`--cs-font-family-display`, opt-in headline face) · JetBrains Mono (code). The display face is a **role a scope may opt into** with `.cs-display-face`, not a product axis.
 
@@ -40,7 +41,7 @@ Prefer:
 3. A documented pattern in `docs/conventions.md` + a specimen card when the pattern should be reusable.
 4. A new **`data-cs-style`** pack only after an Expansion Rule pass — see [`docs/benchmark-rubric.md`](benchmark-rubric.md) style-expansion checklist. Styles consume the same 10 accent roles (incl. `on-strong`); they must not invent parallel Element packs.
 
-Do not invent a fifth product axis, and do not add a second Style pack without the Expansion Rule checklist.
+Do not invent a fifth product axis, and do not add an unreviewed Style pack without the Expansion Rule checklist.
 
 ## Internal theme switches
 
@@ -53,7 +54,7 @@ Maintain the authored generator and run `npm run tokens:generate` and `npm run t
 
 ## Density and public spacing roles
 
-`data-cs-density="compact"` currently affects Button and shared `.cs-field__control` metrics. The latter is used by TextField, Textarea, Select, NativeSelect and Mentions. Component tokens carry these overrides directly; the separate `--cs-density-*` utility exports do not establish broader component adoption. Existing coarse-pointer target floors remain in force.
+`data-cs-density="compact"` tightens Button, shared `.cs-field__control` metrics (TextField, Textarea, Select, NativeSelect, Mentions), and container rhythm across `.cs-card`, `.cs-table`, `.cs-dialog`, `.cs-field`, `.cs-review-gate`, `.cs-alert`, `.cs-toast`, `.cs-tag`, `.cs-tab`, `.cs-menu`, `.cs-stat`, and `.cs-divider` (with nested `[data-cs-density="comfortable"]` reset). Existing `>= 44px` coarse-pointer target floors remain strictly in force. `data-cs-contrast="high"` (and `prefers-contrast: more`) reinforces text/border tokens plus form controls, glass surface borders, and table/datagrid cell dividers.
 
 Spacing roles can replace a literal only when they express the same layout role. The current remediations verify unchanged geometry plus actual token intervention for controls and collection layouts. Border widths, font sizes, fixed geometry and touch targets are not automatically spacing-token candidates. A `px` census therefore measures literals, not defects.
 

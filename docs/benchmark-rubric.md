@@ -28,7 +28,7 @@ Self-audit checklist for evolving CyberSkill Design System — external standard
 
 ## Style expansion checklist (`data-cs-style`)
 
-Sole pack today: **liquid-glass** (`tokens/styles.css`, gate `_audit/style-contract.html`). When adding a style pack beyond liquid-glass:
+Live packs: **liquid-glass** (default; absent ≡ default) and **matte-paper** (`tokens/styles.css` + `base/glass.css`, gate `_audit/style-contract.html`). When adding another style pack:
 
 1. Token overlay that **consumes** the existing 10 `--cs-accent-*` roles, including `--cs-accent-on-strong` (do not invent parallel Element packs).
 2. Specimen card + Storybook / Atomic View wiring if the style is product-selectable.

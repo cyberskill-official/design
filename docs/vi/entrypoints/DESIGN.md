@@ -21,7 +21,7 @@ gate: "_audit/design-md-parity.html (window.__designmd)"
 
 - **Khẩu hiệu:** *Turn Your Will Into Real — Hiện Thực Hoá Ý Chí*.
 - **Điểm neo bất biến:** Umber `#45210E` (màu thương hiệu chính) · Ochre `#F4BA17` (màu nhấn). Không ánh xạ lại; chỉ báo focus kết hợp (đường viền text-primary + quầng ochre) là dấu hiệu nhận diện khả năng tiếp cận của toàn studio.
-- **Bốn trục:** Chủ đề (sáng · tối · theo hệ thống) × Nguyên tố (Ngũ Hành — Kim · Mộc · Thủy · Hỏa · Thổ, 15 gói nguyên tố×biến thể) × Ngôn ngữ (EN · VI) × Phong cách (`data-cs-style` — chỉ có gói **liquid-glass**; không khai báo ≡ mặc định).
+- **Bốn trục:** Chủ đề (sáng · tối · theo hệ thống) × Nguyên tố (Ngũ Hành — Kim · Mộc · Thủy · Hỏa · Thổ, 15 gói nguyên tố×biến thể) × Ngôn ngữ (EN · VI) × Phong cách (`data-cs-style` — **liquid-glass** mặc định, không khai báo ≡ mặc định · **matte-paper** bề mặt giấy mờ đặc sắc nét).
 - **Phạm vi ngôn ngữ:** ưu tiên tiếng Việt; chuỗi của thành phần đã đăng ký phải có cặp EN + VI. Khả năng ngôn ngữ của từng mẫu được khai báo riêng; nội dung do bên dùng cung cấp cần được dịch và rà soát riêng. Giữ đầy đủ dấu; cặp ngôn ngữ được khai báo không chứng nhận chất lượng dịch hay cách phát âm của trình đọc màn hình.
 - **Không đặt chữ trên sắc độ trung gian `-accent`:** dùng `-bright` hoặc `-tint`, hoặc kết hợp nền `-strong` với `--cs-accent-on-strong` cho văn bản nội dung. `-accent` dành cho thanh, đường viền, phần tô tiến trình và mảng màu lớn không chứa chữ.
 - **Ngưỡng khả năng tiếp cận:** APCA Lc ≥ 75 cho văn bản nội dung · vùng chạm ≥ 44px · không loại bỏ vòng focus · tôn trọng `prefers-reduced-motion` / `prefers-contrast`.
@@ -45,7 +45,7 @@ Màu ngữ nghĩa cốt lõi. Giá trị tối là phần ghi đè `[data-theme=
 | `--cs-color-text-primary` | `#45210E` | `#f5ead9` |
 | `--cs-color-text-inverse` | `#FFFFFF` | `#1a1108` |
 | `--cs-color-text-accent` | `#6E3B0E` | `#FECD5D` |
-| `--cs-color-text-muted` | `#3F2D21` | `#E9D6C2` |
+| `--cs-color-text-muted` | `#5E4436` | `#E9D6C2` |
 | `--cs-color-semantic-success` | `#166534` | `#4ADE80` |
 | `--cs-color-semantic-danger` | `#B42318` | `#FC9895` |
 | `--cs-color-semantic-warning` | `#92400E` | `#FBBF24` |
@@ -76,7 +76,7 @@ Gói màu nhấn mặc định = Thổ (nguyên tố của studio). Toàn bộ 1
 | Token | Giá trị |
 |---|---|
 | `--cs-accent` | `#F4BA17` |
-| `--cs-accent-strong` | `#916D11` |
+| `--cs-accent-strong` | `#A4631E` |
 | `--cs-accent-bright` | `#F4BA17` |
 | `--cs-accent-on` | `#45210E` |
 | `--cs-accent-tint` | `#FBF4E9` |
@@ -297,9 +297,9 @@ Giá trị bóng là chuỗi CSS box-shadow nguyên gốc từ `$extensions["com
 |---|---|---|
 | `--cs-shadow-xs` | `0 1px 2px rgba(69, 33, 14, 0.06)` | `0 1px 2px rgba(0, 0, 0, 0.40)` |
 | `--cs-shadow-sm` | `0 1px 3px rgba(69, 33, 14, 0.04), 0 8px 24px rgba(69, 33, 14, 0.06)` | `0 1px 3px rgba(0, 0, 0, 0.34), 0 8px 24px rgba(0, 0, 0, 0.42)` |
-| `--cs-shadow-md` | `0 12px 30px rgba(31, 19, 11, 0.18)` | `0 12px 30px rgba(0, 0, 0, 0.50)` |
+| `--cs-shadow-md` | `0 12px 30px rgba(69, 33, 14, 0.14)` | `0 12px 30px rgba(0, 0, 0, 0.50)` |
 | `--cs-shadow-lg` | `0 20px 60px rgba(69, 33, 14, 0.18)` | `0 20px 60px rgba(0, 0, 0, 0.55)` |
-| `--cs-shadow-xl` | `0 24px 80px rgba(31, 19, 11, 0.26)` | `0 24px 80px rgba(0, 0, 0, 0.62)` |
+| `--cs-shadow-xl` | `0 24px 80px rgba(69, 33, 14, 0.24)` | `0 24px 80px rgba(0, 0, 0, 0.62)` |
 
 ### Thang chiều sâu và vật liệu Liquid Glass
 
@@ -432,7 +432,7 @@ Bố cục dựa trên nhịp không gian `4px` (`--cs-space-1` đến `--cs-spa
 
 ## Hướng dẫn prompt cho Agent và khung khởi tạo
 
-- **Thuộc tính gốc (`<html>`):** đặt `lang="vi"` (hoặc `lang="en"`), `data-theme="light"` (`"dark"` | `"system"`), tùy chọn `data-cs-element="tho"` (`"kim"` | `"moc"` | `"thuy"` | `"hoa"` | `"tho"`), tùy chọn `data-cs-density="comfortable"` (`"compact"`), và tùy chọn `data-cs-contrast="high"`.
+- **Thuộc tính gốc (`<html>`):** đặt `lang="vi"` (hoặc `lang="en"`), `data-theme="light"` (`"dark"` | `"system"`), tùy chọn `data-cs-element="tho"` cùng `data-cs-variant` chính xác (`tho` `#45210E`/`#F4BA17`: mặc định/không khai báo, `"sand"`, `"clay"`, bí danh `"studio"`/`"ochre"`; `hoa` `#992515`/`#F26C4F`: mặc định/không khai báo, `"plasma"`, `"lava"`, bí danh `"ember"`; `thuy` `#0D5A8A`/`#58B4E8`: mặc định/không khai báo, `"mist"`, `"ocean"`, bí danh `"river"`; `moc` `#1F5C3A`/`#62C389`: mặc định/không khai báo, `"bamboo"`, `"forest"`, bí danh `"jade"`/`"leaf"`; `kim` `#374151`/`#D6DCE5`: mặc định/không khai báo, `"titanium"`, `"steel"`, bí danh `"gold"`/`"champagne"`/`"silver"`), tùy chọn `data-cs-style="liquid-glass"` (`"matte-paper"` cho bề mặt biên tập/mật độ cao đặc không nhòe kính), tùy chọn `data-cs-density="comfortable"` (`"compact"`), và tùy chọn `data-cs-contrast="standard"` (`"high"`). Các bí danh lớp CSS theo tên thành phần (`.cs-review-gate` / `.cs-human-review-gate`, `.cs-otp` / `.cs-input-otp`, `.cs-select` / `.cs-select__trigger`, và `.cs-datagrid tr.is-selected` / `tr.cs-item.is-selected`) cùng các lớp tài liệu pháp lý (`.cs-doc-sheet`, `.cs-doc-motto`, `.cs-doc-section-bar`, `.cs-doc-blank`, `.cs-doc-field`) được định kiểu tự nhiên.
 - **Chọn runtime:** nạp `styles.css` (hoặc `styles.layered.css`) cho HTML tĩnh `.cs-*`; nhập `@cyberskill/design` (`dist/esm/_esm/react.mjs`) cho React ESM đã biên dịch hoặc `@cyberskill/design/source` (`_esm/react.mjs`) cho JSX nguồn; chỉ dùng `templates/_vendor/support.js` khi xem trước tài liệu `.dc.html`.
 - **Danh sách kiểm tra khi viết prompt cho AI:** nêu rõ (1) runtime đích (`static-html` hay `react`), (2) chủ đề và nguyên tố Ngũ Hành (`data-theme`, `data-cs-element`), (3) cặp nội dung song ngữ (`vi` + `en` giữ nguyên dấu tiếng Việt), (4) khung chứa đáp ứng (`max-width: var(--cs-container-xl)` hoặc `.cs-cq`), và (5) căn chỉnh chữ số dạng bảng (`.cs-tabular` / `.cs-table__cell--numeric`) cho chỉ số và bảng.
 - **Tham chiếu nhanh màu sắc và token:** Màu thương hiệu chính Umber `#45210E` (`--cs-color-brand-umber`) · Màu nhấn Ochre `#F4BA17` (`--cs-color-brand-ochre`) · Nền trang `#FFFDF8` / tối `#1a1108` (`--cs-color-surface-page`) · Nền bảng `#FFFFFF` / tối `#221710` (`--cs-color-surface-panel`) · Nền nổi `#FBF4E9` / tối `#2b1e14` (`--cs-color-surface-raised`) · Viền mặc định `#E7D9C6` / tối `#4a3a2c` (`--cs-color-border-default`).

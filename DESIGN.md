@@ -21,7 +21,7 @@ gate: "_audit/design-md-parity.html (window.__designmd)"
 
 - **Slogan:** *Turn Your Will Into Real — Hiện Thực Hoá Ý Chí*.
 - **Immutable anchors:** Umber `#45210E` (primary brand) · Ochre `#F4BA17` (accent). Never remap; the composite focus indicator (text-primary contour + ochre halo) is a studio-wide accessibility signature.
-- **Four axes:** Theme (light · dark · system) × Element (Ngũ Hành — Kim · Mộc · Thủy · Hỏa · Thổ, 15 element×variant packs) × Language (EN · VI) × Style (`data-cs-style` — sole pack **liquid-glass**; absent ≡ default).
+- **Four axes:** Theme (light · dark · system) × Element (Ngũ Hành — Kim · Mộc · Thủy · Hỏa · Thổ, 15 element×variant packs) × Language (EN · VI) × Style (`data-cs-style` — **liquid-glass** default, absent ≡ default · **matte-paper** opaque crisp paper surfaces).
 - **Language scope:** Vietnamese-first; registered component strings require EN + VI pairs. Template language capabilities are declared per template, and consumer-provided content needs its own translation and review. Preserve diacritics; declared pairs do not certify translation quality or screen-reader pronunciation.
 - **Text never sits on the mid-tone `-accent`:** use `-bright` or `-tint`, or pair a `-strong` fill with `--cs-accent-on-strong` for body text. `-accent` is for bars, borders, progress fills, and large non-text fills.
 - **Accessibility floor:** APCA Lc ≥ 75 body text · ≥ 44px touch targets · focus rings never removed · honour `prefers-reduced-motion` / `prefers-contrast`.
@@ -45,7 +45,7 @@ Core semantic colours. Dark values are the `[data-theme="dark"]` overrides (the 
 | `--cs-color-text-primary` | `#45210E` | `#f5ead9` |
 | `--cs-color-text-inverse` | `#FFFFFF` | `#1a1108` |
 | `--cs-color-text-accent` | `#6E3B0E` | `#FECD5D` |
-| `--cs-color-text-muted` | `#3F2D21` | `#E9D6C2` |
+| `--cs-color-text-muted` | `#5E4436` | `#E9D6C2` |
 | `--cs-color-semantic-success` | `#166534` | `#4ADE80` |
 | `--cs-color-semantic-danger` | `#B42318` | `#FC9895` |
 | `--cs-color-semantic-warning` | `#92400E` | `#FBBF24` |
@@ -76,7 +76,7 @@ Default accent pack = Thổ (the studio's own element). All 15 element×variant 
 | Token | Value |
 |---|---|
 | `--cs-accent` | `#F4BA17` |
-| `--cs-accent-strong` | `#916D11` |
+| `--cs-accent-strong` | `#A4631E` |
 | `--cs-accent-bright` | `#F4BA17` |
 | `--cs-accent-on` | `#45210E` |
 | `--cs-accent-tint` | `#FBF4E9` |
@@ -297,9 +297,9 @@ Shadow values are the raw CSS box-shadow strings from `$extensions["com.cyberski
 |---|---|---|
 | `--cs-shadow-xs` | `0 1px 2px rgba(69, 33, 14, 0.06)` | `0 1px 2px rgba(0, 0, 0, 0.40)` |
 | `--cs-shadow-sm` | `0 1px 3px rgba(69, 33, 14, 0.04), 0 8px 24px rgba(69, 33, 14, 0.06)` | `0 1px 3px rgba(0, 0, 0, 0.34), 0 8px 24px rgba(0, 0, 0, 0.42)` |
-| `--cs-shadow-md` | `0 12px 30px rgba(31, 19, 11, 0.18)` | `0 12px 30px rgba(0, 0, 0, 0.50)` |
+| `--cs-shadow-md` | `0 12px 30px rgba(69, 33, 14, 0.14)` | `0 12px 30px rgba(0, 0, 0, 0.50)` |
 | `--cs-shadow-lg` | `0 20px 60px rgba(69, 33, 14, 0.18)` | `0 20px 60px rgba(0, 0, 0, 0.55)` |
-| `--cs-shadow-xl` | `0 24px 80px rgba(31, 19, 11, 0.26)` | `0 24px 80px rgba(0, 0, 0, 0.62)` |
+| `--cs-shadow-xl` | `0 24px 80px rgba(69, 33, 14, 0.24)` | `0 24px 80px rgba(0, 0, 0, 0.62)` |
 
 ### Depth scale & Liquid Glass materials
 
@@ -432,7 +432,7 @@ Layouts compose on a `4px` spatial rhythm (`--cs-space-1` to `--cs-space-24`) wi
 
 ## Agent prompt guide & starter blueprint
 
-- **Root attributes (`<html>`):** set `lang="vi"` (or `lang="en"`), `data-theme="light"` (`"dark"` | `"system"`), optional `data-cs-element="tho"` (`"kim"` | `"moc"` | `"thuy"` | `"hoa"` | `"tho"`), optional `data-cs-density="comfortable"` (`"compact"`), and optional `data-cs-contrast="high"`.
+- **Root attributes (`<html>`):** set `lang="vi"` (or `lang="en"`), `data-theme="light"` (`"dark"` | `"system"`), optional `data-cs-element="tho"` with its exact `data-cs-variant` (`tho` `#45210E`/`#F4BA17`: default/absent, `"sand"`, `"clay"`, alias `"studio"`/`"ochre"`; `hoa` `#992515`/`#F26C4F`: default/absent, `"plasma"`, `"lava"`, alias `"ember"`; `thuy` `#0D5A8A`/`#58B4E8`: default/absent, `"mist"`, `"ocean"`, alias `"river"`; `moc` `#1F5C3A`/`#62C389`: default/absent, `"bamboo"`, `"forest"`, alias `"jade"`/`"leaf"`; `kim` `#374151`/`#D6DCE5`: default/absent, `"titanium"`, `"steel"`, alias `"gold"`/`"champagne"`/`"silver"`), optional `data-cs-style="liquid-glass"` (`"matte-paper"` for zero-blur opaque editorial/dense surfaces), optional `data-cs-density="comfortable"` (`"compact"`), and optional `data-cs-contrast="standard"` (`"high"`). Component-name CSS hook aliases (`.cs-review-gate` / `.cs-human-review-gate`, `.cs-otp` / `.cs-input-otp`, `.cs-select` / `.cs-select__trigger`, and `.cs-datagrid tr.is-selected` / `tr.cs-item.is-selected`) and legal document primitives (`.cs-doc-sheet`, `.cs-doc-motto`, `.cs-doc-section-bar`, `.cs-doc-blank`, `.cs-doc-field`) are styled natively.
 - **Runtime selection:** load `styles.css` (or `styles.layered.css`) for static `.cs-*` HTML; import `@cyberskill/design` (`dist/esm/_esm/react.mjs`) for compiled React ESM or `@cyberskill/design/source` (`_esm/react.mjs`) for raw JSX; use `templates/_vendor/support.js` only when previewing `.dc.html` documents.
 - **Prompting checklist for AI generators:** specify (1) target runtime (`static-html` vs `react`), (2) theme and Ngũ Hành element (`data-theme`, `data-cs-element`), (3) bilingual copy pair (`vi` + `en` with full Vietnamese diacritics), (4) responsive container (`max-width: var(--cs-container-xl)` or `.cs-cq`), and (5) tabular numeral alignment (`.cs-tabular` / `.cs-table__cell--numeric`) for metrics and tables.
 - **Quick color & token reference:** Primary brand Umber `#45210E` (`--cs-color-brand-umber`) · Accent Ochre `#F4BA17` (`--cs-color-brand-ochre`) · Page canvas `#FFFDF8` / dark `#1a1108` (`--cs-color-surface-page`) · Panel `#FFFFFF` / dark `#221710` (`--cs-color-surface-panel`) · Raised `#FBF4E9` / dark `#2b1e14` (`--cs-color-surface-raised`) · Default border `#E7D9C6` / dark `#4a3a2c` (`--cs-color-border-default`).

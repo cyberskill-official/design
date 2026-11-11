@@ -342,14 +342,13 @@ const preview = {
     language: {
       name: 'Language',
       description:
-        'lang attribute — BCP-47 primary subtags (en · vi required; ja = TASK-IMP-026 spike)',
+        'lang attribute — BCP-47 primary subtags (vi · en)',
       defaultValue: 'vi',
       toolbar: {
         icon: 'globe',
         items: [
-          { value: 'en', title: 'English' },
           { value: 'vi', title: 'Tiếng Việt' },
-          { value: 'ja', title: '日本語 (spike)' },
+          { value: 'en', title: 'English' },
         ],
         dynamicTitle: true,
       },
@@ -382,11 +381,14 @@ const preview = {
     },
     style: {
       name: 'Style',
-      description: 'data-cs-style surface pack (sole pack today: liquid-glass)',
+      description: 'data-cs-style surface pack (liquid-glass default · matte-paper)',
       defaultValue: 'liquid-glass',
       toolbar: {
         icon: 'mirror',
-        items: [{ value: 'liquid-glass', title: 'Liquid glass' }],
+        items: [
+          { value: 'liquid-glass', title: 'Liquid glass' },
+          { value: 'matte-paper', title: 'Matte paper' },
+        ],
         dynamicTitle: true,
       },
     },

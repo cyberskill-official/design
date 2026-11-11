@@ -104,7 +104,7 @@ Theo dõi vận hành — không phải marketing sản phẩm, không phải ba
 
 7. **Hình học màu Element** (Th7 2026; thanh palette owner Th7 2026) — **30** bộ mặc định (5 × soft/middle/deep × light/dark) từ `tokens/element-seeds.json` (`npm run tokens:elements`): soft = pastel wash, middle = mặc định đồng bộ cường độ (Thổ middle ghim ochre logo), deep = anh em tối hơn rõ trong cùng họ hue; role hài hòa; khóa hue light↔dark; sàn APCA dark. Gate geometry yêu cầu cả minΔE và minΔL cộng L đơn điệu. Tên variant công khai không đổi. Hard gate: `_audit/element-geometry.html`. Rubric: `docs/benchmark-rubric.md`.
 
-8. **Trục Style (`data-cs-style`)** (Th7 2026) — Trục sản phẩm thứ tư; sole pack live **liquid-glass** (vắng ≡ liquid-glass). Hợp đồng: `tokens/styles.css` + hard gate `_audit/style-contract.html`. Pack Style tương lai có thể mở rộng vô hạn, mỗi pack một ngôn ngữ phối màu riêng — chỉ qua owner + checklist Expansion Rule trong `docs/benchmark-rubric.md` (không invent pack tùy tiện).
+8. **Trục Style (`data-cs-style`)** (Th7 2026; mở rộng Th11 2026) — Trục sản phẩm thứ tư; hai pack hiện hành **liquid-glass** (mặc định; vắng ≡ liquid-glass) và **matte-paper** (bề mặt giấy mờ đặc sắc nét, không làm mờ nền, dành cho không gian biên tập/dày dữ liệu). Hợp đồng: `tokens/styles.css` + `base/glass.css` + hard gate `_audit/style-contract.html`. Pack Style tương lai chỉ mở rộng qua owner + checklist Expansion Rule trong `docs/benchmark-rubric.md` (không invent pack tùy tiện).
 
 9. **Identity Lab đã gỡ** (Th7 2026) — Lựa chọn owner: xóa `ui_kits/status-hub/identity-lab.html` và mọi tham chiếu product/docs/Storybook. Demo trục nằm ở Storybook toolbar Theme × Element × Language × Style, Atomic View, và specimen Elements Geometry. Các trục Theme × Element × Language × Style **vẫn là** hạ tầng sản phẩm (template, token, kit trung thành Thổ). Không hồi sinh Lab dưới tên khác nếu chưa có quyết định mới.
 
@@ -130,7 +130,7 @@ Quy tắc:
 
 Bản ghi chuẩn: [`docs/decisions/locale-architecture.md`](../decisions/locale-architecture.md) (EN).
 
-- Language vẫn là trục sản phẩm (Theme × Element × Language × Style). Giá trị là primary language subtag (`en` · `vi` · spike `ja`), không phải trục locale lồng, chưa dùng full region tag.
+- Language vẫn là trục sản phẩm (Theme × Element × Language × Style). Trên bề mặt UI chỉ hiển thị `vi` · `en` (`vi` mặc định); `ja` giữ làm spike fallback BCP-47 nội bộ cho Pagination, không đưa lên thanh công cụ UI.
 - Registry giữ cặp EN·VI bắt buộc; bảng spike tùy chọn phải khớp key `en` khi có.
 - Mặc định tiếng Việt trước không đổi (`lang` trống → `vi`). Plural/ICU và biến thể vùng là follow-on.
 

@@ -22,7 +22,9 @@
         },
         {
           "name": "cs-ai-disclosure__details",
-          "stylesheets": []
+          "stylesheets": [
+            "base/components.css"
+          ]
         },
         {
           "name": "cs-ai-disclosure__panel",
@@ -212,6 +214,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -225,6 +228,7 @@
           "name": "cs-button--secondary",
           "stylesheets": [
             "base/components.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -263,6 +267,7 @@
         "base/a11y.css",
         "base/components.css",
         "base/controls.css",
+        "base/glass.css",
         "base/interaction.css"
       ]
     },
@@ -275,6 +280,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -328,6 +334,7 @@
         "base/ai.css",
         "base/components.css",
         "base/controls.css",
+        "base/glass.css",
         "base/interaction.css"
       ]
     },
@@ -390,6 +397,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -401,11 +409,15 @@
         },
         {
           "name": "cs-button__icon",
-          "stylesheets": []
+          "stylesheets": [
+            "base/components.css"
+          ]
         },
         {
           "name": "cs-button__label",
-          "stylesheets": []
+          "stylesheets": [
+            "base/components.css"
+          ]
         },
         {
           "name": "cs-button__spinner",
@@ -418,6 +430,7 @@
         "base/a11y.css",
         "base/components.css",
         "base/controls.css",
+        "base/glass.css",
         "base/interaction.css"
       ]
     },
@@ -565,13 +578,16 @@
         {
           "name": "cs-card",
           "stylesheets": [
-            "base/data.css"
+            "base/data.css",
+            "base/glass.css",
+            "base/responsive.css"
           ]
         },
         {
           "name": "cs-card--flat",
           "stylesheets": [
-            "base/data.css"
+            "base/data.css",
+            "base/glass.css"
           ]
         },
         {
@@ -612,7 +628,9 @@
         }
       ],
       "stylesheets": [
-        "base/data.css"
+        "base/data.css",
+        "base/glass.css",
+        "base/responsive.css"
       ]
     },
     {
@@ -803,7 +821,9 @@
         },
         {
           "name": "cs-comment__avatar",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-comment__body",
@@ -918,7 +938,8 @@
         {
           "name": "cs-item",
           "stylesheets": [
-            "base/collections.css"
+            "base/collections.css",
+            "base/glass.css"
           ]
         },
         {
@@ -959,7 +980,8 @@
         }
       ],
       "stylesheets": [
-        "base/collections.css"
+        "base/collections.css",
+        "base/glass.css"
       ]
     },
     {
@@ -1041,7 +1063,9 @@
       "hooks": [
         {
           "name": "cs-masonry",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-masonry__item",
@@ -1095,6 +1119,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -1102,6 +1127,7 @@
           "name": "cs-button--secondary",
           "stylesheets": [
             "base/components.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -1147,6 +1173,7 @@
         "base/a11y.css",
         "base/components.css",
         "base/controls.css",
+        "base/glass.css",
         "base/interaction.css"
       ]
     },
@@ -1375,10 +1402,14 @@
         },
         {
           "name": "cs-watermark",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         }
       ],
-      "stylesheets": []
+      "stylesheets": [
+        "base/controls.css"
+      ]
     },
     {
       "sourcePath": "components/datatable/DataGrid.jsx",
@@ -1390,12 +1421,16 @@
         {
           "name": "cs-datagrid",
           "stylesheets": [
-            "base/controls.css"
+            "base/a11y.css",
+            "base/controls.css",
+            "base/glass.css"
           ]
         },
         {
           "name": "cs-datagrid--virtual",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-datagrid__check",
@@ -1412,7 +1447,9 @@
         },
         {
           "name": "cs-datagrid__pinned",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-datagrid__selcol",
@@ -1444,8 +1481,10 @@
         {
           "name": "cs-table",
           "stylesheets": [
+            "base/a11y.css",
             "base/components.css",
-            "base/controls.css"
+            "base/controls.css",
+            "base/glass.css"
           ]
         },
         {
@@ -1462,7 +1501,8 @@
       "stylesheets": [
         "base/a11y.css",
         "base/components.css",
-        "base/controls.css"
+        "base/controls.css",
+        "base/glass.css"
       ]
     },
     {
@@ -1477,8 +1517,10 @@
         {
           "name": "cs-table",
           "stylesheets": [
+            "base/a11y.css",
             "base/components.css",
-            "base/controls.css"
+            "base/controls.css",
+            "base/glass.css"
           ]
         },
         {
@@ -1505,6 +1547,7 @@
         "base/a11y.css",
         "base/components.css",
         "base/controls.css",
+        "base/glass.css",
         "base/responsive.css"
       ]
     },
@@ -1520,8 +1563,10 @@
         {
           "name": "cs-table",
           "stylesheets": [
+            "base/a11y.css",
             "base/components.css",
-            "base/controls.css"
+            "base/controls.css",
+            "base/glass.css"
           ]
         },
         {
@@ -1561,6 +1606,7 @@
         "base/a11y.css",
         "base/components.css",
         "base/controls.css",
+        "base/glass.css",
         "base/responsive.css"
       ]
     },
@@ -1573,13 +1619,15 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
         {
           "name": "cs-button--ghost",
           "stylesheets": [
-            "base/components.css"
+            "base/components.css",
+            "base/glass.css"
           ]
         },
         {
@@ -2099,6 +2147,7 @@
         {
           "name": "cs-combobox",
           "stylesheets": [
+            "base/a11y.css",
             "base/controls.css"
           ]
         },
@@ -2151,6 +2200,7 @@
         {
           "name": "cs-datepicker__field",
           "stylesheets": [
+            "base/a11y.css",
             "base/controls.css"
           ]
         },
@@ -2162,6 +2212,7 @@
         }
       ],
       "stylesheets": [
+        "base/a11y.css",
         "base/controls.css"
       ]
     },
@@ -2247,6 +2298,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -2254,6 +2306,7 @@
           "name": "cs-button--secondary",
           "stylesheets": [
             "base/components.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -2284,31 +2337,45 @@
         },
         {
           "name": "cs-form-array",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-array__row",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-array__rows",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-wizard",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-wizard__body",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-wizard__nav",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-wizard__steps",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form__summary",
@@ -2345,6 +2412,7 @@
         "base/a11y.css",
         "base/components.css",
         "base/controls.css",
+        "base/glass.css",
         "base/interaction.css"
       ]
     },
@@ -2515,7 +2583,9 @@
         },
         {
           "name": "cs-native-select-field",
-          "stylesheets": []
+          "stylesheets": [
+            "base/forms.css"
+          ]
         },
         {
           "name": "cs-native-select__chevron",
@@ -2651,13 +2721,15 @@
           "name": "cs-segmented",
           "stylesheets": [
             "base/a11y.css",
-            "base/controls.css"
+            "base/controls.css",
+            "base/glass.css"
           ]
         }
       ],
       "stylesheets": [
         "base/a11y.css",
-        "base/controls.css"
+        "base/controls.css",
+        "base/glass.css"
       ]
     },
     {
@@ -2702,6 +2774,7 @@
         {
           "name": "cs-select",
           "stylesheets": [
+            "base/a11y.css",
             "base/forms.css",
             "base/interaction.css"
           ]
@@ -2751,7 +2824,9 @@
         },
         {
           "name": "cs-switch__label",
-          "stylesheets": []
+          "stylesheets": [
+            "base/forms.css"
+          ]
         },
         {
           "name": "cs-switch__track",
@@ -2904,6 +2979,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -2911,6 +2987,7 @@
           "name": "cs-button--secondary",
           "stylesheets": [
             "base/components.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -2951,6 +3028,7 @@
         "base/a11y.css",
         "base/components.css",
         "base/controls.css",
+        "base/glass.css",
         "base/interaction.css"
       ]
     },
@@ -2990,10 +3068,14 @@
       "hooks": [
         {
           "name": "cs-icon",
-          "stylesheets": []
+          "stylesheets": [
+            "base/components.css"
+          ]
         }
       ],
-      "stylesheets": []
+      "stylesheets": [
+        "base/components.css"
+      ]
     },
     {
       "sourcePath": "components/logo/Logo.jsx",
@@ -3167,7 +3249,9 @@
       "hooks": [
         {
           "name": "cs-hotkeys",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-hotkeys__card",
@@ -3447,11 +3531,13 @@
         {
           "name": "cs-steps",
           "stylesheets": [
+            "base/responsive.css",
             "base/shell.css"
           ]
         }
       ],
       "stylesheets": [
+        "base/responsive.css",
         "base/shell.css"
       ]
     },
@@ -3556,11 +3642,15 @@
         },
         {
           "name": "cs-alert-dialog__cancel",
-          "stylesheets": []
+          "stylesheets": [
+            "base/components.css"
+          ]
         },
         {
           "name": "cs-alert-dialog__confirm",
-          "stylesheets": []
+          "stylesheets": [
+            "base/components.css"
+          ]
         },
         {
           "name": "cs-button",
@@ -3568,6 +3658,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -3575,18 +3666,22 @@
           "name": "cs-button--danger",
           "stylesheets": [
             "base/components.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
         {
           "name": "cs-button--ghost",
           "stylesheets": [
-            "base/components.css"
+            "base/components.css",
+            "base/glass.css"
           ]
         },
         {
           "name": "cs-button--md",
-          "stylesheets": []
+          "stylesheets": [
+            "base/components.css"
+          ]
         },
         {
           "name": "cs-button--primary",
@@ -3816,13 +3911,15 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
         {
           "name": "cs-button--ghost",
           "stylesheets": [
-            "base/components.css"
+            "base/components.css",
+            "base/glass.css"
           ]
         },
         {
@@ -3868,6 +3965,7 @@
         "base/a11y.css",
         "base/components.css",
         "base/controls.css",
+        "base/glass.css",
         "base/interaction.css"
       ]
     },
@@ -3908,13 +4006,15 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
         {
           "name": "cs-button--ghost",
           "stylesheets": [
-            "base/components.css"
+            "base/components.css",
+            "base/glass.css"
           ]
         },
         {
@@ -3927,6 +4027,7 @@
           "name": "cs-button--secondary",
           "stylesheets": [
             "base/components.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -3939,7 +4040,9 @@
         },
         {
           "name": "cs-tour",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-tour__bar",
@@ -3982,6 +4085,7 @@
         "base/a11y.css",
         "base/components.css",
         "base/controls.css",
+        "base/glass.css",
         "base/interaction.css"
       ]
     },

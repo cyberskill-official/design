@@ -573,8 +573,8 @@
     {
       "path": "templates/email-safe/email-announcement.html",
       "kind": "inline-style",
-      "context": "(p class=muted) color:#6e5a4c",
-      "hex": "#6E5A4C",
+      "context": "(p class=muted) color:#5E4436",
+      "hex": "#5E4436",
       "count": 4,
       "reason": "Email-client compatibility: this exact inlined palette/VML declaration is self-contained and cannot depend on CSS custom properties."
     },
@@ -709,8 +709,8 @@
     {
       "path": "templates/email-safe/email-announcement.html",
       "kind": "stylesheet",
-      "context": "@media (prefers-color-scheme: dark) > .muted | color:#c9b7a3!important",
-      "hex": "#C9B7A3",
+      "context": "@media (prefers-color-scheme: dark) > .muted | color:#E9D6C2!important",
+      "hex": "#E9D6C2",
       "count": 1,
       "reason": "Email-client compatibility: this exact inlined palette/VML declaration is self-contained and cannot depend on CSS custom properties."
     },
@@ -845,8 +845,8 @@
     {
       "path": "templates/email-safe/email-dunning.html",
       "kind": "inline-style",
-      "context": "(p class=muted) color:#6e5a4c",
-      "hex": "#6E5A4C",
+      "context": "(p class=muted) color:#5E4436",
+      "hex": "#5E4436",
       "count": 2,
       "reason": "Email-client compatibility: this exact inlined palette/VML declaration is self-contained and cannot depend on CSS custom properties."
     },
@@ -901,8 +901,8 @@
     {
       "path": "templates/email-safe/email-dunning.html",
       "kind": "inline-style",
-      "context": "(td class=muted) color:#6e5a4c",
-      "hex": "#6E5A4C",
+      "context": "(td class=muted) color:#5E4436",
+      "hex": "#5E4436",
       "count": 2,
       "reason": "Email-client compatibility: this exact inlined palette/VML declaration is self-contained and cannot depend on CSS custom properties."
     },
@@ -1005,8 +1005,8 @@
     {
       "path": "templates/email-safe/email-dunning.html",
       "kind": "stylesheet",
-      "context": "@media (prefers-color-scheme: dark) > .muted | color:#c9b7a3!important",
-      "hex": "#C9B7A3",
+      "context": "@media (prefers-color-scheme: dark) > .muted | color:#E9D6C2!important",
+      "hex": "#E9D6C2",
       "count": 1,
       "reason": "Email-client compatibility: this exact inlined palette/VML declaration is self-contained and cannot depend on CSS custom properties."
     },
@@ -1117,8 +1117,8 @@
     {
       "path": "templates/email-safe/email-investor.html",
       "kind": "inline-style",
-      "context": "(p class=muted) color:#6e5a4c",
-      "hex": "#6E5A4C",
+      "context": "(p class=muted) color:#5E4436",
+      "hex": "#5E4436",
       "count": 4,
       "reason": "Email-client compatibility: this exact inlined palette/VML declaration is self-contained and cannot depend on CSS custom properties."
     },
@@ -1253,8 +1253,8 @@
     {
       "path": "templates/email-safe/email-investor.html",
       "kind": "stylesheet",
-      "context": "@media (prefers-color-scheme: dark) > .muted | color:#c9b7a3!important",
-      "hex": "#C9B7A3",
+      "context": "@media (prefers-color-scheme: dark) > .muted | color:#E9D6C2!important",
+      "hex": "#E9D6C2",
       "count": 1,
       "reason": "Email-client compatibility: this exact inlined palette/VML declaration is self-contained and cannot depend on CSS custom properties."
     },
@@ -1373,8 +1373,8 @@
     {
       "path": "templates/email-safe/email-launch.html",
       "kind": "inline-style",
-      "context": "(p class=muted) color:#6e5a4c",
-      "hex": "#6E5A4C",
+      "context": "(p class=muted) color:#5E4436",
+      "hex": "#5E4436",
       "count": 4,
       "reason": "Email-client compatibility: this exact inlined palette/VML declaration is self-contained and cannot depend on CSS custom properties."
     },
@@ -1509,8 +1509,8 @@
     {
       "path": "templates/email-safe/email-launch.html",
       "kind": "stylesheet",
-      "context": "@media (prefers-color-scheme: dark) > .muted | color:#c9b7a3!important",
-      "hex": "#C9B7A3",
+      "context": "@media (prefers-color-scheme: dark) > .muted | color:#E9D6C2!important",
+      "hex": "#E9D6C2",
       "count": 1,
       "reason": "Email-client compatibility: this exact inlined palette/VML declaration is self-contained and cannot depend on CSS custom properties."
     },
@@ -1637,8 +1637,8 @@
     {
       "path": "templates/email-safe/email-newsletter.html",
       "kind": "inline-style",
-      "context": "(p class=muted) color:#6e5a4c",
-      "hex": "#6E5A4C",
+      "context": "(p class=muted) color:#5E4436",
+      "hex": "#5E4436",
       "count": 5,
       "reason": "Email-client compatibility: this exact inlined palette/VML declaration is self-contained and cannot depend on CSS custom properties."
     },
@@ -1765,8 +1765,8 @@
     {
       "path": "templates/email-safe/email-newsletter.html",
       "kind": "stylesheet",
-      "context": "@media (prefers-color-scheme: dark) > .muted | color:#c9b7a3!important",
-      "hex": "#C9B7A3",
+      "context": "@media (prefers-color-scheme: dark) > .muted | color:#E9D6C2!important",
+      "hex": "#E9D6C2",
       "count": 1,
       "reason": "Email-client compatibility: this exact inlined palette/VML declaration is self-contained and cannot depend on CSS custom properties."
     },
@@ -1885,8 +1885,8 @@
     {
       "path": "templates/email-safe/email-status.html",
       "kind": "inline-style",
-      "context": "(p class=muted) color:#6e5a4c",
-      "hex": "#6E5A4C",
+      "context": "(p class=muted) color:#5E4436",
+      "hex": "#5E4436",
       "count": 4,
       "reason": "Email-client compatibility: this exact inlined palette/VML declaration is self-contained and cannot depend on CSS custom properties."
     },
@@ -2021,8 +2021,8 @@
     {
       "path": "templates/email-safe/email-status.html",
       "kind": "stylesheet",
-      "context": "@media (prefers-color-scheme: dark) > .muted | color:#c9b7a3!important",
-      "hex": "#C9B7A3",
+      "context": "@media (prefers-color-scheme: dark) > .muted | color:#E9D6C2!important",
+      "hex": "#E9D6C2",
       "count": 1,
       "reason": "Email-client compatibility: this exact inlined palette/VML declaration is self-contained and cannot depend on CSS custom properties."
     },
@@ -2141,8 +2141,8 @@
     {
       "path": "templates/email-safe/email-transactional.html",
       "kind": "inline-style",
-      "context": "(p class=muted) color:#6e5a4c",
-      "hex": "#6E5A4C",
+      "context": "(p class=muted) color:#5E4436",
+      "hex": "#5E4436",
       "count": 4,
       "reason": "Email-client compatibility: this exact inlined palette/VML declaration is self-contained and cannot depend on CSS custom properties."
     },
@@ -2277,8 +2277,8 @@
     {
       "path": "templates/email-safe/email-transactional.html",
       "kind": "stylesheet",
-      "context": "@media (prefers-color-scheme: dark) > .muted | color:#c9b7a3!important",
-      "hex": "#C9B7A3",
+      "context": "@media (prefers-color-scheme: dark) > .muted | color:#E9D6C2!important",
+      "hex": "#E9D6C2",
       "count": 1,
       "reason": "Email-client compatibility: this exact inlined palette/VML declaration is self-contained and cannot depend on CSS custom properties."
     },
@@ -2361,14 +2361,6 @@
       "hex": "#EFE6D8",
       "count": 1,
       "reason": "Fixed neutral document/email pasteboard outside the paper; no equivalent public token exists across all theme/element scopes."
-    },
-    {
-      "path": "templates/email/Email-VN-standalone.html",
-      "kind": "inline-style",
-      "context": "(span) color:#fff",
-      "hex": "#FFF",
-      "count": 1,
-      "reason": "Fixed white ink on an authored brand/image/chrome fill; adaptive text-inverse changes by theme and is not equivalent."
     },
     {
       "path": "templates/email/Email.dc.html",
@@ -2813,10 +2805,10 @@
     {
       "path": "templates/marketing-newsletter/MarketingNewsletter.dc.html",
       "kind": "inline-style",
-      "context": "(a class=cs-touch-target) color:#FFFDF8",
+      "context": "(a class=cs-touch-target) background:#FFFDF8",
       "hex": "#FFFDF8",
-      "count": 4,
-      "reason": "Fixed cream ink on the immutable Umber fill; adaptive inverse/page tokens would change the existing pairing in Dark."
+      "count": 2,
+      "reason": "Fixed cream button surface on the immutable Umber closing card paired with brand-umber ink so CTA contrast holds across Light and Dark."
     },
     {
       "path": "templates/marketing-newsletter/MarketingNewsletter.dc.html",

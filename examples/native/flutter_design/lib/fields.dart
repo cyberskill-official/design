@@ -1214,11 +1214,11 @@ String csCommentCopy(String key, String? language) {
 const csCodeBgHex = '#2b1e14';
 const csCodeFgHex = '#f5ead9';
 const csCodeBorderHex = '#4a3a2c';
-const csCodeMutedHex = '#c9b7a3';
+const csCodeMutedHex = '#e9d6c2';
 const csCodeBgColor = CSColorValue(CSColorSpace.srgb, [0x2B / 255.0, 0x1E / 255.0, 0x14 / 255.0], 1);
 const csCodeFgColor = CSColorValue(CSColorSpace.srgb, [0xF5 / 255.0, 0xEA / 255.0, 0xD9 / 255.0], 1);
 const csCodeBorderColor = CSColorValue(CSColorSpace.srgb, [0x4A / 255.0, 0x3A / 255.0, 0x2C / 255.0], 1);
-const csCodeMutedColor = CSColorValue(CSColorSpace.srgb, [0xC9 / 255.0, 0xB7 / 255.0, 0xA3 / 255.0], 1);
+const csCodeMutedColor = CSColorValue(CSColorSpace.srgb, [0xE9 / 255.0, 0xD6 / 255.0, 0xC2 / 255.0], 1);
 double csCodeBorderWidth() => 1;
 double csCodeBarPaddingY() => 8;
 double csCodeBarPaddingX() => 14;

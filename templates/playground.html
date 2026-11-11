@@ -6,8 +6,9 @@
 <title>CyberSkill — playground</title>
 <style>
   body{margin:0;font-family:var(--cs-font-family-ui);background:var(--cs-color-surface-page);color:var(--cs-color-text-primary)}
-  .bar{position:sticky;top:1px;z-index:10;background:color-mix(in oklab,var(--cs-color-surface-panel) 90%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--cs-color-border-default);padding:12px max(24px,calc((100% - 900px)/2));display:flex;gap:20px;flex-wrap:wrap;align-items:center}
-  @media (prefers-reduced-transparency: reduce){.bar{backdrop-filter:none;background:var(--cs-color-surface-panel)}}
+  .bar{position:sticky;top:1px;z-index:10;background:color-mix(in oklab,var(--cs-color-surface-panel) 90%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--cs-color-border-default);padding:12px max(24px,calc((100% - 900px)/2));display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+  @media (prefers-reduced-transparency: reduce){.bar{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--cs-color-surface-panel)}}
+  [data-cs-style="matte-paper"] .bar{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--cs-color-surface-panel)}
   .bar h1{font-size:15px;margin:0}
   .grp{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
   .grp .k{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--cs-color-text-muted);margin-right:2px}
@@ -59,8 +60,8 @@ const stage=document.getElementById('stage');
 const AX={
   theme:[["Light",""],["Dark","dark"],["System","system"]],
   element:[["Thổ","tho|"],["Thổ·clay","tho|clay"],["Thổ·sand","tho|sand"],["Hỏa","hoa|"],["Hỏa·lava","hoa|lava"],["Hỏa·plasma","hoa|plasma"],["Thủy","thuy|"],["Thủy·ocean","thuy|ocean"],["Thủy·mist","thuy|mist"],["Mộc","moc|"],["Mộc·bamboo","moc|bamboo"],["Mộc·forest","moc|forest"],["Kim","kim|"],["Kim·steel","kim|steel"],["Kim·titanium","kim|titanium"]],
-  language:[["English","en"],["Tiếng Việt","vi"]],
-  style:[["Liquid glass","liquid-glass"]]};
+  language:[["Tiếng Việt","vi"],["English","en"]],
+  style:[["Liquid glass","liquid-glass"],["Matte paper","matte-paper"]]};
 function build(axis, apply){
   const box=document.getElementById(axis);
   AX[axis].forEach(([label,val],i)=>{

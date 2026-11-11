@@ -47,11 +47,16 @@ assert(preview.includes('data-cs-variant'), 'decorator wires data-cs-variant');
 assert(preview.includes('data-cs-style'), 'decorator wires data-cs-style');
 assert(/language:[\s\S]*?defaultValue:\s*['"]vi['"]/.test(preview), 'Language toolbar defaults to vi (FIND-010)');
 assert(preview.includes("globals.language || 'vi'") || preview.includes('globals.language || "vi"'), 'decorator language fallback is vi');
-assert(/style:\s*\{/.test(preview) && preview.includes("value: 'liquid-glass'"), 'Style toolbar includes liquid-glass');
+const languageToolbarBlock = preview.match(/language:\s*\{[\s\S]*?toolbar:\s*\{[\s\S]*?items:\s*\[([\s\S]*?)\]/);
+assert(languageToolbarBlock, 'Language toolbar items array present');
+const languageToolbarValueCount = (languageToolbarBlock[1].match(/value:\s*['"][^'"]+['"]/g) || []).length;
+assert(languageToolbarValueCount === 2, `Language toolbar has exactly 2 locales (vi, en), got ${languageToolbarValueCount}`);
+assert(!languageToolbarBlock[1].includes("'ja'"), 'Language toolbar omits ja spike from UI');
+assert(/style:\s*\{/.test(preview) && preview.includes("value: 'liquid-glass'") && preview.includes("value: 'matte-paper'"), 'Style toolbar includes liquid-glass and matte-paper');
 const styleToolbarBlock = preview.match(/style:\s*\{[\s\S]*?toolbar:\s*\{[\s\S]*?items:\s*\[([\s\S]*?)\]/);
 assert(styleToolbarBlock, 'Style toolbar items array present');
 const styleToolbarValueCount = (styleToolbarBlock[1].match(/value:\s*['"][^'"]+['"]/g) || []).length;
-assert(styleToolbarValueCount === 1, `Style toolbar has exactly 1 pack, got ${styleToolbarValueCount}`);
+assert(styleToolbarValueCount === 2, `Style toolbar has exactly 2 packs, got ${styleToolbarValueCount}`);
 const themeToolbarBlock = preview.match(/theme:\s*\{[\s\S]*?toolbar:\s*\{[\s\S]*?items:\s*\[([\s\S]*?)\]/);
 assert(themeToolbarBlock, 'Theme toolbar items array present');
 for (const pack of ['light', 'dark', 'system']) {
@@ -228,11 +233,11 @@ assert(/data-cs-style/.test(conventionsEn), 'docs/conventions.md names data-cs-s
 
 const atomicView = readFileSync(join(root, 'guidelines/atomic-view.html'), 'utf8');
 assert(/value="system"/.test(atomicView) && />System</.test(atomicView), 'Atomic View Theme includes system');
-assert(/value="liquid-glass"/.test(atomicView) && /ctl">Style/.test(atomicView), 'Atomic View Style control present');
+assert(/value="liquid-glass"/.test(atomicView) && /value="matte-paper"/.test(atomicView) && /ctl">Style/.test(atomicView), 'Atomic View Style control includes liquid-glass and matte-paper');
 
 const playground = readFileSync(join(root, 'templates/playground.html'), 'utf8');
 assert(/\["System","system"\]/.test(playground), 'playground Theme includes System');
-assert(/style:\[\["Liquid glass","liquid-glass"\]\]/.test(playground), 'playground Style sole pack');
+assert(/style:\[\["Liquid glass","liquid-glass"\],\["Matte paper","matte-paper"\]\]/.test(playground), 'playground Style packs');
 
 const decisions = readFileSync(join(root, 'docs/decisions.md'), 'utf8');
 assert(/Storybook is the single live hub/i.test(decisions), 'decision §4 Storybook hub');

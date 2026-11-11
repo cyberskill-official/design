@@ -5,7 +5,7 @@
   "sourceHashes": {
     "_audit/a11y-gate.html": "68c798ba1261c5bca4da7eefd67a045ba3048711a5f8a9fe9d35eacb4e8b06da",
     "_audit/component-behavior-test.html": "5d1a1dafba237dcec4144e2dd0059f7fdce54306d9b42bc7af09030d11fbcb5b",
-    "_ds_manifest.json": "e7307c53e9b0995b1aec89ddda00abed4674a6f11790ac5c9e89e34f1730fb61",
+    "_ds_manifest.json": "3f2c5cbf7b5673c94f51927ad38ed6fe2eff8d7ab11319773b84fef5634238d8",
     "components/_i18n/i18n.js": "ea69f4f438162cf0e9770d529ec3b9f1107183885c71aa83f2ceff3763a34d2f",
     "components/_i18n/strings.js": "ffedd19ed9eacd22223e1387ab7eedca5cb385182d9a4ada469ef2711a0bae73",
     "components/_utils/cx.js": "ad6a747ea116bb2521a5cfa094580d2259d841ac9965d10310e83e8e839bab42",
@@ -53,7 +53,7 @@
     "components/button/FloatingActionButton.d.ts": "ef227b7981571aa815ca1d874db3458feb33428a79aef949ee770d8ecc13ee00",
     "components/button/FloatingActionButton.jsx": "2c13907fa52c618377dd1aab15c46f73b2ce22c563b54bf0f5aefb16e3829943",
     "components/button/FloatingActionButton.prompt.md": "7a5ae660de398911d5bdfd736984974a62220fc6f6d0ee2e31561a3d381209ed",
-    "components/contracts.json": "3fe12bafaf9da02f9148279601e4bc8f4af4cb87710e19703a53f80f5acbdc30",
+    "components/contracts.json": "14a0329adba81f3aec465683ebceab787c99ce36c06322393b03985e486367e2",
     "components/data/Accordion.d.ts": "0c5b1140bba3076f0642ae9c23701fbdae406e01f9a08a7beb7ddaeac8aa903f",
     "components/data/Accordion.jsx": "2bd0ed6b7ddb3daa85f941a0260ef3f08a7a261de3336eabff49c6cade44791b",
     "components/data/Accordion.prompt.md": "3e1ed56757fa588a6d1e1422710ab0734452c2f0856d1dffe816e99c34640b6b",
@@ -704,7 +704,9 @@
         },
         {
           "name": "cs-ai-disclosure__details",
-          "stylesheets": []
+          "stylesheets": [
+            "base/components.css"
+          ]
         },
         {
           "name": "cs-ai-disclosure__panel",
@@ -2858,11 +2860,15 @@
         },
         {
           "name": "cs-alert-dialog__cancel",
-          "stylesheets": []
+          "stylesheets": [
+            "base/components.css"
+          ]
         },
         {
           "name": "cs-alert-dialog__confirm",
-          "stylesheets": []
+          "stylesheets": [
+            "base/components.css"
+          ]
         },
         {
           "name": "cs-button",
@@ -2870,6 +2876,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -2877,18 +2884,22 @@
           "name": "cs-button--danger",
           "stylesheets": [
             "base/components.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
         {
           "name": "cs-button--ghost",
           "stylesheets": [
-            "base/components.css"
+            "base/components.css",
+            "base/glass.css"
           ]
         },
         {
           "name": "cs-button--md",
-          "stylesheets": []
+          "stylesheets": [
+            "base/components.css"
+          ]
         },
         {
           "name": "cs-button--primary",
@@ -6469,6 +6480,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -6480,11 +6492,15 @@
         },
         {
           "name": "cs-button__icon",
-          "stylesheets": []
+          "stylesheets": [
+            "base/components.css"
+          ]
         },
         {
           "name": "cs-button__label",
-          "stylesheets": []
+          "stylesheets": [
+            "base/components.css"
+          ]
         },
         {
           "name": "cs-button__spinner",
@@ -8290,13 +8306,16 @@
         {
           "name": "cs-card",
           "stylesheets": [
-            "base/data.css"
+            "base/data.css",
+            "base/glass.css",
+            "base/responsive.css"
           ]
         },
         {
           "name": "cs-card--flat",
           "stylesheets": [
-            "base/data.css"
+            "base/data.css",
+            "base/glass.css"
           ]
         },
         {
@@ -8641,13 +8660,16 @@
         {
           "name": "cs-card",
           "stylesheets": [
-            "base/data.css"
+            "base/data.css",
+            "base/glass.css",
+            "base/responsive.css"
           ]
         },
         {
           "name": "cs-card--flat",
           "stylesheets": [
-            "base/data.css"
+            "base/data.css",
+            "base/glass.css"
           ]
         },
         {
@@ -8979,13 +9001,16 @@
         {
           "name": "cs-card",
           "stylesheets": [
-            "base/data.css"
+            "base/data.css",
+            "base/glass.css",
+            "base/responsive.css"
           ]
         },
         {
           "name": "cs-card--flat",
           "stylesheets": [
-            "base/data.css"
+            "base/data.css",
+            "base/glass.css"
           ]
         },
         {
@@ -9378,13 +9403,16 @@
         {
           "name": "cs-card",
           "stylesheets": [
-            "base/data.css"
+            "base/data.css",
+            "base/glass.css",
+            "base/responsive.css"
           ]
         },
         {
           "name": "cs-card--flat",
           "stylesheets": [
-            "base/data.css"
+            "base/data.css",
+            "base/glass.css"
           ]
         },
         {
@@ -16424,6 +16452,7 @@
         {
           "name": "cs-combobox",
           "stylesheets": [
+            "base/a11y.css",
             "base/controls.css"
           ]
         },
@@ -18356,7 +18385,9 @@
         },
         {
           "name": "cs-comment__avatar",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-comment__body",
@@ -20903,12 +20934,16 @@
         {
           "name": "cs-datagrid",
           "stylesheets": [
-            "base/controls.css"
+            "base/a11y.css",
+            "base/controls.css",
+            "base/glass.css"
           ]
         },
         {
           "name": "cs-datagrid--virtual",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-datagrid__check",
@@ -20925,7 +20960,9 @@
         },
         {
           "name": "cs-datagrid__pinned",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-datagrid__selcol",
@@ -20957,8 +20994,10 @@
         {
           "name": "cs-table",
           "stylesheets": [
+            "base/a11y.css",
             "base/components.css",
-            "base/controls.css"
+            "base/controls.css",
+            "base/glass.css"
           ]
         },
         {
@@ -21994,8 +22033,10 @@
         {
           "name": "cs-table",
           "stylesheets": [
+            "base/a11y.css",
             "base/components.css",
-            "base/controls.css"
+            "base/controls.css",
+            "base/glass.css"
           ]
         },
         {
@@ -22580,6 +22621,7 @@
         {
           "name": "cs-datepicker__field",
           "stylesheets": [
+            "base/a11y.css",
             "base/controls.css"
           ]
         },
@@ -23774,13 +23816,15 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
         {
           "name": "cs-button--ghost",
           "stylesheets": [
-            "base/components.css"
+            "base/components.css",
+            "base/glass.css"
           ]
         },
         {
@@ -28995,6 +29039,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -29002,6 +29047,7 @@
           "name": "cs-button--secondary",
           "stylesheets": [
             "base/components.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -29032,31 +29078,45 @@
         },
         {
           "name": "cs-form-array",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-array__row",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-array__rows",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-wizard",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-wizard__body",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-wizard__nav",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-wizard__steps",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form__summary",
@@ -29846,6 +29906,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -29853,6 +29914,7 @@
           "name": "cs-button--secondary",
           "stylesheets": [
             "base/components.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -29883,31 +29945,45 @@
         },
         {
           "name": "cs-form-array",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-array__row",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-array__rows",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-wizard",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-wizard__body",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-wizard__nav",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-wizard__steps",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form__summary",
@@ -30585,6 +30661,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -30592,6 +30669,7 @@
           "name": "cs-button--secondary",
           "stylesheets": [
             "base/components.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -30622,31 +30700,45 @@
         },
         {
           "name": "cs-form-array",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-array__row",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-array__rows",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-wizard",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-wizard__body",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-wizard__nav",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-wizard__steps",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form__summary",
@@ -31484,6 +31576,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -31491,6 +31584,7 @@
           "name": "cs-button--secondary",
           "stylesheets": [
             "base/components.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -31521,31 +31615,45 @@
         },
         {
           "name": "cs-form-array",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-array__row",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-array__rows",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-wizard",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-wizard__body",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-wizard__nav",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form-wizard__steps",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-form__summary",
@@ -32299,7 +32407,9 @@
       "fileScopedClassHooks": [
         {
           "name": "cs-hotkeys",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-hotkeys__card",
@@ -33433,6 +33543,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -33446,6 +33557,7 @@
           "name": "cs-button--secondary",
           "stylesheets": [
             "base/components.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -33907,7 +34019,9 @@
       "fileScopedClassHooks": [
         {
           "name": "cs-icon",
-          "stylesheets": []
+          "stylesheets": [
+            "base/components.css"
+          ]
         }
       ],
       "authoredSemantics": {
@@ -37260,7 +37374,8 @@
         {
           "name": "cs-item",
           "stylesheets": [
-            "base/collections.css"
+            "base/collections.css",
+            "base/glass.css"
           ]
         },
         {
@@ -40470,7 +40585,9 @@
       "fileScopedClassHooks": [
         {
           "name": "cs-masonry",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-masonry__item",
@@ -44548,7 +44665,9 @@
         },
         {
           "name": "cs-native-select-field",
-          "stylesheets": []
+          "stylesheets": [
+            "base/forms.css"
+          ]
         },
         {
           "name": "cs-native-select__chevron",
@@ -47969,13 +48088,15 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
         {
           "name": "cs-button--ghost",
           "stylesheets": [
-            "base/components.css"
+            "base/components.css",
+            "base/glass.css"
           ]
         },
         {
@@ -49808,6 +49929,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -54462,7 +54584,8 @@
           "name": "cs-segmented",
           "stylesheets": [
             "base/a11y.css",
-            "base/controls.css"
+            "base/controls.css",
+            "base/glass.css"
           ]
         }
       ],
@@ -55296,6 +55419,7 @@
         {
           "name": "cs-select",
           "stylesheets": [
+            "base/a11y.css",
             "base/forms.css",
             "base/interaction.css"
           ]
@@ -57122,6 +57246,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -57129,6 +57254,7 @@
           "name": "cs-button--secondary",
           "stylesheets": [
             "base/components.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -59538,6 +59664,7 @@
         {
           "name": "cs-steps",
           "stylesheets": [
+            "base/responsive.css",
             "base/shell.css"
           ]
         }
@@ -59995,7 +60122,9 @@
         },
         {
           "name": "cs-switch__label",
-          "stylesheets": []
+          "stylesheets": [
+            "base/forms.css"
+          ]
         },
         {
           "name": "cs-switch__track",
@@ -69168,13 +69297,15 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
         {
           "name": "cs-button--ghost",
           "stylesheets": [
-            "base/components.css"
+            "base/components.css",
+            "base/glass.css"
           ]
         },
         {
@@ -69187,6 +69318,7 @@
           "name": "cs-button--secondary",
           "stylesheets": [
             "base/components.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -69199,7 +69331,9 @@
         },
         {
           "name": "cs-tour",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         },
         {
           "name": "cs-tour__bar",
@@ -69870,6 +70004,7 @@
             "base/a11y.css",
             "base/components.css",
             "base/controls.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -69877,6 +70012,7 @@
           "name": "cs-button--secondary",
           "stylesheets": [
             "base/components.css",
+            "base/glass.css",
             "base/interaction.css"
           ]
         },
@@ -72061,8 +72197,10 @@
         {
           "name": "cs-table",
           "stylesheets": [
+            "base/a11y.css",
             "base/components.css",
-            "base/controls.css"
+            "base/controls.css",
+            "base/glass.css"
           ]
         },
         {
@@ -72866,7 +73004,9 @@
         },
         {
           "name": "cs-watermark",
-          "stylesheets": []
+          "stylesheets": [
+            "base/controls.css"
+          ]
         }
       ],
       "authoredSemantics": {

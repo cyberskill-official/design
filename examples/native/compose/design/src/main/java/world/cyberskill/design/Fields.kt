@@ -882,11 +882,11 @@ fun csCommentCopy(key: String, language: String?): String {
 const val csCodeBgHex = "#2b1e14"
 const val csCodeFgHex = "#f5ead9"
 const val csCodeBorderHex = "#4a3a2c"
-const val csCodeMutedHex = "#c9b7a3"
+const val csCodeMutedHex = "#e9d6c2"
 val csCodeBgColor = CSColorValue(CSColorSpace.SRGB, listOf(0x2B / 255.0, 0x1E / 255.0, 0x14 / 255.0), 1.0)
 val csCodeFgColor = CSColorValue(CSColorSpace.SRGB, listOf(0xF5 / 255.0, 0xEA / 255.0, 0xD9 / 255.0), 1.0)
 val csCodeBorderColor = CSColorValue(CSColorSpace.SRGB, listOf(0x4A / 255.0, 0x3A / 255.0, 0x2C / 255.0), 1.0)
-val csCodeMutedColor = CSColorValue(CSColorSpace.SRGB, listOf(0xC9 / 255.0, 0xB7 / 255.0, 0xA3 / 255.0), 1.0)
+val csCodeMutedColor = CSColorValue(CSColorSpace.SRGB, listOf(0xE9 / 255.0, 0xD6 / 255.0, 0xC2 / 255.0), 1.0)
 fun csCodeBorderWidth() = 1.dp
 fun csCodeBarPaddingY() = 8.dp
 fun csCodeBarPaddingX() = 14.dp

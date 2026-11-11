@@ -17,7 +17,7 @@ export function tokenCoverage(graph,dtcg){
     const declarations=graph.declarations.filter(d=>d.name===name&&d.visibility==='public').map(d=>{
       let representation={kind:'css-expression',css:d.value};
       try{representation={kind:'literal-color',type:'color',value:d.value==='transparent'?{colorSpace:'srgb',components:[0,0,0],alpha:0}:colorFromCss(d.value)};}catch{}
-      if(name==='--cs-style-pack'&&d.value==='liquid-glass')representation={kind:'style-pack-identifier',value:d.value};
+      if(name==='--cs-style-pack'&&(d.value==='liquid-glass'||d.value==='matte-paper'))representation={kind:'style-pack-identifier',value:d.value};
       return {order:d.order,sourcePath:d.sourcePath,line:d.line,context:d.context,important:d.important,css:d.value,representation};
     });
     const base=paths.get(name)||null;

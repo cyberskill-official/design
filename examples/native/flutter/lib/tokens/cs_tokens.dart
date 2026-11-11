@@ -1,6 +1,6 @@
 // CyberSkill Design System — native design tokens.
 // GENERATED from tokens/tokens.dtcg.json — do not hand-edit; regenerate on token change.
-// release v2.8.0 · source sha256 6da8cd3627ad355d…
+// release v2.8.0 · source sha256 738212f89aeb6e32…
 // conversions: rem→px at 16 · em→…Em relative doubles · rgba alpha→ARGB byte (round(a*255)) · durations in ms
 // dark element packs: see $extensions.overrides.elementsDark
 // provenance: tokens/provenance.json · parity gate: _audit/token-pipeline-test.html
@@ -17,7 +17,7 @@ class CSTokens {
   static const Color colorTextPrimary = Color(0xFF45210E);
   static const Color colorTextInverse = Color(0xFFFFFFFF);
   static const Color colorTextAccent = Color(0xFF6E3B0E);
-  static const Color colorTextMuted = Color(0xFF3F2D21);
+  static const Color colorTextMuted = Color(0xFF5E4436);
   static const Color colorSemanticSuccess = Color(0xFF166534);
   static const Color colorSemanticDanger = Color(0xFFB42318);
   static const Color colorSemanticWarning = Color(0xFF92400E);
@@ -79,7 +79,7 @@ class CSTokens {
   static const double componentTextfieldPaddingXAlias = 12;
   static const double componentTextfieldMinHeightAlias = 44;
   static const Color accent = Color(0xFFF4BA17);
-  static const Color accentStrong = Color(0xFF916D11);
+  static const Color accentStrong = Color(0xFFA4631E);
   static const Color accentBright = Color(0xFFF4BA17);
   static const Color accentOn = Color(0xFF45210E);
   static const Color accentTint = Color(0xFFFBF4E9);
@@ -110,9 +110,9 @@ class CSTokens {
   static const String glassHeavyOpacity = "90%";
   static const String shadowXs = "0 1px 2px rgba(69, 33, 14, 0.06)";
   static const String shadowSm = "0 1px 3px rgba(69, 33, 14, 0.04), 0 8px 24px rgba(69, 33, 14, 0.06)";
-  static const String shadowMd = "0 12px 30px rgba(31, 19, 11, 0.18)";
+  static const String shadowMd = "0 12px 30px rgba(69, 33, 14, 0.14)";
   static const String shadowLg = "0 20px 60px rgba(69, 33, 14, 0.18)";
-  static const String shadowXl = "0 24px 80px rgba(31, 19, 11, 0.26)";
+  static const String shadowXl = "0 24px 80px rgba(69, 33, 14, 0.24)";
   static const double durationInstantMs = 80;
   static const double durationFastMs = 120;
   static const double durationBaseMs = 200;
@@ -319,7 +319,7 @@ class CSTokens {
   static const Color colorTextAccentThoSandLight = Color(0xFF695300);
   static const Color colorLinkThoSandLight = Color(0xFF695300);
   static const Color accentThoLight = Color(0xFFF4BA17);
-  static const Color accentStrongThoLight = Color(0xFF916D11);
+  static const Color accentStrongThoLight = Color(0xFFA4631E);
   static const Color accentBrightThoLight = Color(0xFFF4BA17);
   static const Color accentOnThoLight = Color(0xFF45210E);
   static const Color accentOnStrongThoLight = Color(0xFFFFFFFF);
@@ -329,7 +329,7 @@ class CSTokens {
   static const Color accentGradAThoLight = Color(0xFFF4BA17);
   static const Color accentGradBThoLight = Color(0xFFC4B78F);
   static const Color colorTextAccentThoLight = Color(0xFF6E3B0E);
-  static const Color colorLinkThoLight = Color(0xFF644A05);
+  static const Color colorLinkThoLight = Color(0xFF744000);
   static const Color accentThoClayLight = Color(0xFF723E06);
   static const Color accentStrongThoClayLight = Color(0xFF5A3004);
   static const Color accentBrightThoClayLight = Color(0xFFF2C5A3);
@@ -501,7 +501,7 @@ class CSTokens {
   static const Color colorTextAccentThoSandDark = Color(0xFFF9E5AE);
   static const Color colorLinkThoSandDark = Color(0xFFF9E5AE);
   static const Color accentThoDark = Color(0xFFE9B321);
-  static const Color accentStrongThoDark = Color(0xFF6E5205);
+  static const Color accentStrongThoDark = Color(0xFF7D480C);
   static const Color accentBrightThoDark = Color(0xFFFDD378);
   static const Color accentOnThoDark = Color(0xFFF5EAD9);
   static const Color accentOnStrongThoDark = Color(0xFFFFFFFF);

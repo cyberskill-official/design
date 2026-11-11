@@ -1,9 +1,9 @@
 /* Style axis — data-cs-style packs.
  *
- * Sole pack today: liquid-glass ≡ current elevation + base/glass.css materials.
- * Absent attribute ≡ liquid-glass (same default pattern as light theme / Thổ middle).
- * Future packs override glass scalars / material composition only and must consume
- * the existing 10 --cs-accent-* roles (including on-strong) — never invent parallel Element packs.
+ * Supported packs:
+ * - liquid-glass (default; absent ≡ liquid-glass) — frosted optical depth + base/glass.css materials.
+ * - matte-paper — opaque crisp paper/ledger surfaces with zero backdrop blur for dense/editorial views.
+ * All style packs consume the existing 10 --cs-accent-* roles (including on-strong) — never invent parallel Element packs.
  */
 
 :root {
@@ -12,4 +12,8 @@
 
 [data-cs-style="liquid-glass"] {
   --cs-style-pack: liquid-glass; /* @kind other */
+}
+
+[data-cs-style="matte-paper"] {
+  --cs-style-pack: matte-paper; /* @kind other */
 }
