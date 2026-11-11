@@ -57,7 +57,7 @@
     "accent-text": {
       "$type": "color",
       "$value": "#8B6902",
-      "$description": "Gold used as text on light surfaces"
+      "$description": "Gold used as text. Passes 4.5:1 on background and panel, not on raised"
     },
     "success": {
       "$type": "color",

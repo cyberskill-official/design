@@ -76,7 +76,10 @@ const PAIRS = [
   ['warning-foreground', 'warning', 4.5, 'Filled warning'], ['info-foreground', 'info', 4.5, 'Filled info'], ['primary', 'primary-soft', 4.5, 'Active nav item'],
   ['success', 'raised', 4.5, 'Success text on raised'], ['warning', 'raised', 4.5, 'Warning text on raised'], ['destructive', 'raised', 4.5, 'Error text on raised'], ['info', 'raised', 4.5, 'Info text on raised'],
   ['input', 'background', 3, 'Input border on page'], ['input', 'raised', 3, 'Input border on raised'], ['foreground', 'raised', 7, 'Text on raised'],
+  ['accent-text', 'panel', 4.5, 'Gold as text on cards'], // not on raised: no gold dark enough for that stays 12 ΔE from warning
 ];
+// Soft badges draw the tone's text on an 8% tint of it over --panel (badge.css); keep the two in step.
+const TINTED = [['success', 'success'], ['warning', 'warning'], ['destructive', 'destructive'], ['info', 'info'], ['accent-text', 'accent']];
 const BAND = { light: [0.43, 0.77], dark: [0.48, 0.67] };
 const failures = [], checks = { light: [], dark: [] };
 for (const mode of ['light', 'dark']) {
@@ -84,6 +87,10 @@ for (const mode of ['light', 'dark']) {
   for (const [fg, bg, need, label] of PAIRS) {
     const r = contrast(t[fg], t[bg]); checks[mode].push({ label, fg, bg, ratio: +r.toFixed(2), need });
     if (r < need) failures.push(`${mode}: ${label} ${t[fg]} on ${t[bg]} = ${r.toFixed(2)} < ${need}`);
+  }
+  for (const [fg, tint] of TINTED) {
+    const bg = mix(t[tint], t.panel, 0.08), r = contrast(t[fg], bg); checks[mode].push({ label: `${fg} on its soft tint`, fg, bg: `${tint} 8%`, ratio: +r.toFixed(2), need: 4.5 });
+    if (r < 4.5) failures.push(`${mode}: ${fg} text on its soft tint ${bg} = ${r.toFixed(2)} < 4.5`);
   }
   const status = { success: t.success, warning: t.warning, error: t.destructive };
   const names = Object.keys(status);

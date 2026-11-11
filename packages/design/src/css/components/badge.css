@@ -14,7 +14,7 @@
   border: 1px solid color-mix(in srgb, var(--_c) 28%, var(--panel));
   border-radius: var(--radius-full);
   /* soft: a light tint; text mixed toward the foreground keeps it at 4.5:1 or more in both themes */
-  background: color-mix(in srgb, var(--_c) 10%, var(--panel));
+  background: color-mix(in srgb, var(--_c) 8%, var(--panel)); /* 8%: red text on a 10% tint is 4.4:1; build-tokens.mjs gates this */
   color: color-mix(in srgb, var(--_t) 85%, var(--foreground));
   font: 500 13px/1 var(--font-sans);
   font-variant-numeric: tabular-nums;

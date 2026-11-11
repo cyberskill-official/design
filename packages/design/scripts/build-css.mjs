@@ -3,7 +3,7 @@
 import { readFileSync, readdirSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { transform, browserslistToTargets } from 'lightningcss';
+import { transform } from 'lightningcss';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const css = join(root, 'src', 'css');
@@ -28,7 +28,4 @@ const { code, warnings } = transform({ filename: 'styles.css', code: Buffer.from
 for (const w of warnings) console.warn('css warning:', w.message);
 const tokens = readFileSync(join(dist, 'tokens.css'), 'utf8');
 writeFileSync(join(dist, 'styles.css'), tokens + '\n' + code.toString());
-const min = transform({ filename: 'styles.min.css', code: Buffer.from(tokens + code.toString()), minify: true, targets });
-writeFileSync(join(dist, 'styles.min.css'), min.code);
 console.log(`✓ styles.css: base + ${components.length} component stylesheets`);
-void browserslistToTargets;
