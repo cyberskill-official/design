@@ -7,13 +7,13 @@ description: Move an app from the Umber & Ochre system (2.x) to Ink & Gold (3.0)
 
 ## Staying on 2.x for now
 
-Pin the last 2.x release from npm:
+Pin 2.x from npm. The caret keeps every later 2.x release and never jumps to 3.0:
 
 ```json
-"@cyberskill/design": "2.8.0"
+"@cyberskill/design": "^2.8.0"
 ```
 
-Apps that installed straight from GitHub (`github:cyberskill-official/design` or the old `design-system` name) must move to npm. Since 3.0 the repository root is a workspace, not a package, so a GitHub install no longer gives you a working package. If the app's lockfile points at an older commit, pin that exact commit to keep the code it builds with today; finance, for example, is on `3edeb1350c2e48761bee18f7c10c323e6103ff7d`, a 1.0-era build, so moving it to 2.8.0 is itself an upgrade to test:
+Apps that installed straight from GitHub (`github:cyberskill-official/design` or the old `design-system` name) must move to npm. Since 3.0 the repository root is a workspace, not a package, so a GitHub install no longer gives you a working package. If the app's lockfile points at an older commit, pin that exact commit to keep the code it builds with today; finance, for example, is on `3edeb1350c2e48761bee18f7c10c323e6103ff7d`, a 1.0-era build, so moving it to the latest 2.x is itself an upgrade to test:
 
 ```json
 "@cyberskill/design": "github:cyberskill-official/design#3edeb1350c2e48761bee18f7c10c323e6103ff7d"
@@ -23,7 +23,7 @@ Apps that installed straight from GitHub (`github:cyberskill-official/design` or
 
 1. **Install 3.x** and import the styles (see [Get started](/docs/get-started)). Load the fonts yourself: 3.0 ships no font files (2.x self-hosted them).
 2. **Swap tokens** with the tables below, then delete the app's own copies of those values.
-3. **Move the app in one go, or route by route.** 2.x and 3.0 share about 50 class names (`.cs-button`, `.cs-dialog`, `.cs-card`, `.cs-field`, `.cs-table`…), so a page that loads both stylesheets restyles each version's components with the other's CSS. Either switch the whole app at once, or keep each route on one stylesheet. To keep 2.x code during the move, install it under an alias: `"cs2": "npm:@cyberskill/design@2.8.0"`.
+3. **Move the app in one go, or route by route.** 2.x and 3.0 share about 50 class names (`.cs-button`, `.cs-dialog`, `.cs-card`, `.cs-field`, `.cs-table`…), so a page that loads both stylesheets restyles each version's components with the other's CSS. Either switch the whole app at once, or keep each route on one stylesheet. To keep 2.x code during the move, install it under an alias: `"cs2": "npm:@cyberskill/design@^2.8.0"`.
 4. **Rename components** with the table below.
 5. **Check focus and layers**: the focus ring and z-index scale changed (see below).
 6. **Run your accessibility checks** in light and dark.
