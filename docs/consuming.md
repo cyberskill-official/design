@@ -1,6 +1,6 @@
 # Consuming & upgrading the CyberSkill Design System
 
-**Source checkout:** VERSION **<!-- cs-source-version:checkout -->2.8.0<!-- /cs-source-version -->** is local source identity, not a registry-availability claim. For an unpublished candidate, validate the reviewed local package tarball or source checkout. Registry commands below refer to published stable 2.8.0 (and the dated ADOPT-001 1.7.2 sibling inventory) and are not automatically updated by preparation. Preparation does not authorize publication.
+**Source checkout:** VERSION **<!-- cs-source-version:checkout -->2.9.0<!-- /cs-source-version -->** is local source identity, not a registry-availability claim. For an unpublished candidate, validate the reviewed local package tarball or source checkout. Registry commands below refer to published stable 2.8.0 (and the dated ADOPT-001 1.7.2 sibling inventory) and are not automatically updated by preparation. Preparation does not authorize publication.
 
 How any project — human-driven or agent-driven — adopts this HTML-first design system, and how to take updates safely. Published on Storybook **Docs** at `design.cyberskill.world`.
 
