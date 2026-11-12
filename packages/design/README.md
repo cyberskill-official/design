@@ -54,7 +54,7 @@ Fonts: load Manrope, Be Vietnam Pro and JetBrains Mono (`next/font/google` in Ne
 | `@cyberskill/design/tokens.css` | CSS variables only | – |
 | `@cyberskill/design/tailwind.css` | Tailwind v4 theme | `tailwindcss@4` |
 | `@cyberskill/design/tokens` | Typed token object (and `tokens.json`) | – |
-| `@cyberskill/design/charts` | Chart presets | `recharts@3` |
+| `@cyberskill/design/charts` | Chart presets | `recharts@^3.8` |
 | `@cyberskill/design/table` | Data table | `@tanstack/react-table@9`, `@tanstack/react-virtual@3` |
 | `@cyberskill/design/forms` | React Hook Form helpers | `react-hook-form@7` |
 | `@cyberskill/design/date` | Calendar, date, range and time pickers | `react-day-picker@10`, `date-fns@4` |

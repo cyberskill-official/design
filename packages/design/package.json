@@ -110,7 +110,7 @@
     "react-day-picker": "^10.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.50.0",
-    "recharts": "^3.0.0"
+    "recharts": "^3.8.0"
   },
   "peerDependenciesMeta": {
     "@tanstack/react-table": {
@@ -165,5 +165,8 @@
     "vite": "^8.3.8",
     "vitest": "^5.1.0",
     "zod": "^4.6.7"
+  },
+  "engines": {
+    "node": ">=20.9"
   }
 }
