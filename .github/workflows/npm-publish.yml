@@ -144,7 +144,8 @@ jobs:
           PUBLICATION_PACKAGE_FILENAME: ${{ steps.identity.outputs.package_filename }}
         # All prepublish/source/unit/browser gates ran in the read-only job on these exact bytes.
         # Tarball hooks cannot execute new source or rebuild a different artifact in the OIDC job.
-        run: npm publish "$RUNNER_TEMP/validated-publication/$PUBLICATION_PACKAGE_FILENAME" --ignore-scripts --provenance --access public
+        # legacy branch: 2.x fixes publish under the `legacy` dist-tag so they can never take `latest` from 3.x
+        run: npm publish "$RUNNER_TEMP/validated-publication/$PUBLICATION_PACKAGE_FILENAME" --ignore-scripts --provenance --access public --tag legacy
       - name: Create or update GitHub Release for the published tag
         if: steps.registry.outputs.published == 'false'
         env:
