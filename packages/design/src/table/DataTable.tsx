@@ -170,6 +170,14 @@ export function DataTable<TData extends object>({
   useLayoutEffect(() => {
     if (pageSize && pageIndex > lastPage) table.setPageIndex(lastPage);
   }, [table, pageSize, pageIndex, lastPage]);
+  // A new sort order starts at page 1 (autoResetPageIndex is off, so this is ours to do).
+  const sortKey = JSON.stringify(table.state.sorting);
+  const lastSort = useRef(sortKey);
+  useLayoutEffect(() => {
+    if (lastSort.current === sortKey) return;
+    lastSort.current = sortKey;
+    table.setPageIndex(0);
+  }, [table, sortKey]);
   const from = total ? pageIndex * size + 1 : 0;
   const to = Math.min(pageIndex * size + rows.length, total);
   const scrolls = maxHeight != null;

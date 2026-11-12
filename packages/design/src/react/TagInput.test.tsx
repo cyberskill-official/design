@@ -46,6 +46,22 @@ describe('TagInput', () => {
     expect(input).toHaveValue('oops, AN@acme.vn');
   });
 
+  it('refused tags waiting in the input are tried one by one on Enter, never as one combined tag, and not on every keystroke', async () => {
+    const onReject = vi.fn();
+    render(<TagInput label="Emails" defaultValue={['an@acme.vn']} validate={t => t.includes('@')} onReject={onReject} />);
+    const input = screen.getByRole('textbox', { name: 'Emails' });
+    input.focus();
+    paste(input, 'oops, AN@acme.vn,');
+    await expect.poll(() => (input as HTMLInputElement).value).toBe('oops, AN@acme.vn');
+    onReject.mockClear();
+    await userEvent.type(input, 'x');
+    expect(onReject).not.toHaveBeenCalled();
+    await userEvent.keyboard('{Enter}');
+    expect(chips()).toEqual(['an@acme.vn', 'AN@acme.vnx']);
+    expect(onReject.mock.calls).toEqual([['oops', 'invalid']]);
+    expect(input).toHaveValue('oops');
+  });
+
   it('a paste without separators just inserts the text', async () => {
     render(<TagInput label="Emails" />);
     const input = screen.getByRole('textbox', { name: 'Emails' });

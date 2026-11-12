@@ -74,7 +74,7 @@ Pass `name` to submit the value with a plain `<form>`: a hidden input holds `yyy
 | Prop | Type | Default | Description |
 |---|---|---|---|
 | `label` | `ReactNode` | – | Visible label (required) |
-| `value / defaultValue` | `Date \| null` | `null` | Controlled or uncontrolled date. A new value replaces any typed text; once controlled, undefined (a form reset) empties the field. A form reset, or the value set to undefined or null from outside, drops typed and invalid text |
+| `value / defaultValue` | `Date \| null` | `null` | Controlled or uncontrolled date. A new value replaces any typed text; once controlled, undefined (a form reset) empties the field. A form reset, or the value set to undefined or null from outside, drops typed and invalid text. A reset that changes nothing (React Hook Form defaultValues of null, after invalid text) cannot be seen: change the picker key on reset |
 | `onValueChange` | `(date: Date \| null) => void` | – | Called with a picked or valid typed date, or null when cleared or when the typed text is invalid |
 | `name` | `string` | – | Submits a hidden input with yyyy-MM-dd (empty while invalid) |
 | `inputRef / onBlur` | `Ref / FocusEventHandler` | – | Go to the visible input, for React Hook Form field.ref and field.onBlur |

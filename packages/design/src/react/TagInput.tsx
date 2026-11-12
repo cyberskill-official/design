@@ -30,6 +30,7 @@ export type TagInputProps = Omit<InputProps, 'value' | 'defaultValue' | 'onValue
 
 const NONE: string[] = [];
 const SEPARATORS = /[,\r\n]/;
+const separators = (text: string) => text.split(SEPARATORS).length;
 const sameTag = (a: string, b: string) => a.normalize().toLowerCase() === b.normalize().toLowerCase();
 
 /** Free-text chips (emails, keywords). Enter or a comma adds the text, a paste with commas or new lines adds several, Backspace in the empty input removes the last chip. */
@@ -98,8 +99,9 @@ export function TagInput({
             className="cs-multi-select-input"
             value={draft}
             onValueChange={text => {
-              // a typed comma (also from phone keyboards that send no key events) adds what comes before it
-              if (!SEPARATORS.test(text)) return setDraft(text);
+              // a typed comma (also from phone keyboards that send no key events) adds what comes before it; refused
+              // tags waiting in the input (they hold commas) are not tried again on every keystroke
+              if (separators(text) <= separators(draft)) return setDraft(text);
               const parts = text.split(SEPARATORS);
               const rest = parts.pop()!;
               setDraft([add(parts), rest].filter(Boolean).join(', '));
@@ -109,12 +111,12 @@ export function TagInput({
               if (event.defaultPrevented || event.nativeEvent.isComposing) return; // Vietnamese IME: Enter confirms the word
               if (event.key === 'Enter' && draft.trim()) {
                 event.preventDefault(); // adds the tag instead of submitting the form
-                setDraft(add([draft]));
+                setDraft(add(draft.split(SEPARATORS)));
               } else if (event.key === 'Backspace' && !draft && tags.length && !disabled) change(tags.slice(0, -1));
             }}
             onBlur={event => {
               onBlur?.(event);
-              if (draft.trim()) setDraft(add([draft])); // leaving the field (e.g. clicking Submit) keeps what was typed
+              if (draft.trim()) setDraft(add(draft.split(SEPARATORS))); // leaving the field (e.g. clicking Submit) keeps what was typed
             }}
             onPaste={event => {
               onPaste?.(event);

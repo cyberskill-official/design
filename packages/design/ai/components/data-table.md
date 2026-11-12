@@ -91,7 +91,7 @@ const [opened, setOpened] = useState<Invoice | null>(null);
 | `sorting / onSortingChange` | `SortingState / OnChangeFn` | – | Controlled sort state; pass both |
 | `selectable` | `boolean` | `false` | Adds the checkbox column |
 | `rowSelection / onRowSelectionChange` | `RowSelectionState / OnChangeFn` | – | Controlled selection keyed by row id; pass both |
-| `pageSize` | `number` | – | Paginates on the client and shows the footer; changing it re-pages. New data keeps the page, or moves to the last page when that one is gone |
+| `pageSize` | `number` | – | Paginates on the client and shows the footer; changing it re-pages. New data keeps the page (or moves to the last page when that one is gone); a new sort order starts at page 1. Filtering data yourself: pass key={query} so each search starts at page 1 |
 | `virtualized` | `boolean` | `false` | Renders only rows in view |
 | `maxHeight` | `number \| string` | `480 when virtualized` | Scroll height; the header stays pinned |
 | `emptyState` | `ReactNode` | `'No results'` | Shown when there are no rows |

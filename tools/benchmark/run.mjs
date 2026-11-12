@@ -193,6 +193,8 @@ async function measure(page, cdp, story, theme, touchPage) {
       const fails = L360.targets.filter(t => t.level === 'fail'), small = L360.targets;
       for (let n = 0; n < L360.targetCount - fails.length; n++) record(results, 'D5', { pass: true, key: `${id}|ok${n}` });
       for (const t of fails) record(results, 'D5', { pass: false, key: `${id}|target "${t.label}" ${t.path}`, detail: `${t.w}x${t.h}` });
+      // and with a mouse: 24px applies there too, without the `pointer: coarse` enlargements
+      for (const t of L0.targets.filter(t => t.level === 'fail')) record(results, 'D5', { pass: false, key: `${id}|mouse target "${t.label}" ${t.path}`, detail: `${t.w}x${t.h}` });
       for (let n = 0; n < L360.targetCount - small.length; n++) record(results, 'D10', { pass: true, key: `${id}|ok${n}` });
       for (const t of small) record(results, 'D10', { pass: false, key: `${id}|target "${t.label}" ${t.path}`, detail: `${t.w}x${t.h}` });
       // reloaded at 320px, so play functions open their popups at that width (a resize leaves them where they were)
@@ -210,8 +212,16 @@ async function measure(page, cdp, story, theme, touchPage) {
 
       const s0 = await page.evaluate(P.textSizes);
       await cdp.send('Page.setFontSizes', { fontSizes: { standard: 32, fixed: 26 } });
-      await page.evaluate(() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))));
-      const s1 = await page.evaluate(P.textSizes), Lfs = await page.evaluate(layoutChecks, { w: 1280, h: 800, fold: [] });
+      // the new size reaches the page's text a few frames later, sometimes many (an open popup): wait until some text
+      // has grown instead of a fixed two frames; text that never grows is the failure this dimension reports
+      let s1 = [];
+      for (let n = 0; n < 20; n++) {
+        await page.evaluate(() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))));
+        s1 = await page.evaluate(P.textSizes);
+        if (!s0.length || s1.some((x, i) => s0[i] && x.size > s0[i].size)) break;
+        await page.waitForTimeout(50);
+      }
+      const Lfs = await page.evaluate(layoutChecks, { w: 1280, h: 800, fold: [] });
       await cdp.send('Page.setFontSizes', { fontSizes: { standard: 16, fixed: 13 } });
       const fixed = s0.filter((x, n) => s1[n] && s1[n].text === x.text && s1[n].size < x.size * 1.8).map(x => `${x.size}px "${x.text}"`);
       const fsLost = newly(Lfs, L0);

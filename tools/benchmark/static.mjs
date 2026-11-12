@@ -12,13 +12,15 @@ const kebab = s => s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
 const HOOKS = /\b(useState|useEffect|useLayoutEffect|useInsertionEffect|useRef|useContext|useReducer|useCallback|useMemo|useId|useSyncExternalStore|useTransition|useDeferredValue|useOptimistic|useActionState|useImperativeHandle|createContext)\b/;
 const OPTIONAL_PEERS = /^(recharts|@tanstack\/|react-hook-form|react-day-picker|date-fns)/;
 const ENTRIES = ['index', 'charts', 'table', 'forms', 'date', 'utils'];
-const SERVER_SAFE = ['Kbd', 'Spinner', 'Skeleton', 'EmptyState', 'Badge', 'Stat', 'Stepper', 'Breadcrumbs', 'Prose']; // keep in step with tsdown.config.ts
+// one list, kept in the build config that acts on it
+const serverSafe = pkg => readFileSync(join(pkg, 'tsdown.config.ts'), 'utf8').match(/SERVER_SAFE = \[([^\]]+)\]/)[1].match(/\w+/g);
 
 /** D20: 'use client' where hooks or Base UI run, never on an entry barrel; the core entry stays free of optional peers. */
 export function serverComponents(results, pkg) {
   const dist = join(pkg, 'dist');
   const mods = walk(dist, f => f.endsWith('.js'));
   const code = new Map(mods.map(f => [f, readFileSync(f, 'utf8')]));
+  const SERVER_SAFE = serverSafe(pkg);
   const isClient = src => /^\s*(\/\/[^\n]*\n\s*)*['"]use client['"]/.test(src);
   for (const [f, src] of code) {
     const rel = relative(dist, f), entry = ENTRIES.some(e => rel === `${e}.js`);

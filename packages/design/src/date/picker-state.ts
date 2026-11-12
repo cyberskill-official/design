@@ -12,6 +12,8 @@ export function isPickable(date: Date, min?: Date, max?: Date, disabled?: Matche
  * Controlled (`value` defined, `null` included) or uncontrolled (`defaultValue`) state, Base UI style. Once controlled,
  * a later `undefined` (React Hook Form's `reset()` without defaultValues) means empty, not the last value kept inside.
  * `resets` counts outside resets: `value` turning `undefined`, or `null` without this field having just sent `null`.
+ * shortcut: a reset from `null` to `null` (React Hook Form `defaultValues: { date: null }` after invalid text) changes no
+ * prop, so nothing is seen; the app changes the picker's `key` on reset. Upgrade to a `resetKey` prop if apps ask.
  */
 export function useControllable<T>(value: T | null | undefined, defaultValue: T | null, onChange?: (value: T | null) => void) {
   const [current, setInner] = useControllableState<T | null>(value, defaultValue, null);

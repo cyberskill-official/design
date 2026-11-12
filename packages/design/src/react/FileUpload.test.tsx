@@ -134,7 +134,7 @@ describe('FileUpload', () => {
     expect(onAdd).toHaveBeenLastCalledWith([expect.objectContaining({ name: 'notes.txt' })]);
     unmount();
     render(<FileUpload label="Photos" multiple accept="image/*,.PDF" onAdd={onAdd} />);
-    drop(screen.getByRole('button', { name: /Photos/ }), [file('IMG_0001.HEIC', 10, ''), file('SCAN.PDF', 10, 'application/pdf'), file('notes.txt', 10, 'text/plain')]);
+    drop(screen.getByRole('button', { name: /Photos/ }), [file('IMG_0001.HEIC', 10, ''), file('SCAN.PDF', 10, 'application/pdf'), file('notes.txt', 10, 'text/plain'), file('report', 10, '')]);
     expect(onAdd).toHaveBeenLastCalledWith([expect.objectContaining({ name: 'IMG_0001.HEIC' }), expect.objectContaining({ name: 'SCAN.PDF' })]);
   });
 

@@ -61,13 +61,14 @@ export type InputProps = Omit<BaseInput.Props, 'className' | 'size'> & {
 };
 
 /** Text input. Use inside `Field` (or `TextField`) so it gets a label. */
-export function Input({ size = 'md', startAdornment, endAdornment, className, ...props }: InputProps) {
+export function Input({ size = 'md', startAdornment, endAdornment, className, style, ...props }: InputProps) {
   // One structure with or without adornments: an adornment that appears while typing (a spinner, a check) must not
-  // remount the input, which would drop focus, the caret and uncontrolled text.
+  // remount the input, which would drop focus, the caret and uncontrolled text. `className` and `style` go to the box
+  // (the visible border), everything else to the input (a Base UI state-function `style` too: it reads the input's state).
   return (
-    <span className="cs-input-group" data-size={size}>
+    <span className={cx('cs-input-group', className)} style={typeof style === 'function' ? undefined : style} data-size={size}>
       {startAdornment && <span className="cs-input-adornment" data-side="start">{startAdornment}</span>}
-      <BaseInput {...props} data-size={size} className={cx('cs-input', className)} />
+      <BaseInput {...props} style={typeof style === 'function' ? style : undefined} data-size={size} className="cs-input" />
       {endAdornment && <span className="cs-input-adornment" data-side="end">{endAdornment}</span>}
     </span>
   );

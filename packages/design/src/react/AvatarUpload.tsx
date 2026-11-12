@@ -69,7 +69,10 @@ export function AvatarUpload({
     if (!file) return;
     const url = URL.createObjectURL(file);
     setPreview(url);
-    return () => URL.revokeObjectURL(url);
+    return () => {
+      URL.revokeObjectURL(url);
+      setPreview(undefined); // never render a revoked URL
+    };
   }, [file]);
 
   // With a name, the hidden input holds the shown file, so a native form submits it.

@@ -1,4 +1,4 @@
-import { eachDayOfInterval, isSameDay } from 'date-fns';
+import { addDays, isSameDay } from 'date-fns';
 import type { Locale } from 'date-fns';
 import { useState, useSyncExternalStore } from 'react';
 import type { DateRange, Matcher } from 'react-day-picker';
@@ -57,7 +57,12 @@ export function DateRangePicker({ value, defaultValue = null, onValueChange, for
   const toText = (r: DateRangeValue) => `${formatDate(r.from, format, locale)}${SEPARATOR}${formatDate(r.to, format, locale)}`;
   // One rule for typed ranges, presets and clicks: both ends (with excludeDisabled every day) must be pickable.
   const pickable = (d: Date) => isPickable(d, min, max, disabledDates);
-  const allowed = (from: Date, to: Date) => pickable(from) && pickable(to) && (!excludeDisabled || eachDayOfInterval({ start: from, end: to }).every(pickable));
+  const allowed = (from: Date, to: Date) => {
+    if (!pickable(from) || !pickable(to)) return false;
+    // min and max are covered by the ends; only `disabledDates` can sit in between. Stops at the first disabled day.
+    if (excludeDisabled && disabledDates) for (let d = addDays(from, 1); d < to; d = addDays(d, 1)) if (!pickable(d)) return false;
+    return true;
+  };
   // The range comes back in order.
   const toRange = (a?: Date | null, b?: Date | null): DateRangeValue | null => {
     if (!a || !b) return null;

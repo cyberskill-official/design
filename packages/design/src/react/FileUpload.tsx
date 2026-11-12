@@ -77,8 +77,8 @@ export function accepts(file: File, accept?: string) {
     const rule = raw.trim().toLowerCase();
     if (rule === '*/*') return true;
     if (rule.startsWith('.')) return name.endsWith(rule);
-    // No type means the browser cannot tell (HEIC photos on Windows, say): the server checks it anyway, so don't refuse it.
-    if (rule.endsWith('/*')) return !type || type.startsWith(rule.slice(0, -1));
+    // No type means the browser cannot tell (HEIC photos on Windows): go by the extension of the newer photo formats.
+    if (rule.endsWith('/*')) return type ? type.startsWith(rule.slice(0, -1)) : rule === 'image/*' && /\.(heic|heif|avif)$/.test(name);
     return rule !== '' && type === rule;
   });
 }

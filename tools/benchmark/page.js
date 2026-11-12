@@ -189,7 +189,7 @@ export function forcedColorChecks() {
     const icons = [...el.querySelectorAll('svg')].filter(B.visible).length;
     // the state may be painted by the item's first child (a calendar day button) or by a sibling laid over it (the tabs indicator)
     const kid = el.firstElementChild ? getComputedStyle(el.firstElementChild).backgroundColor : '', er = el.getBoundingClientRect();
-    const over = [...(el.parentElement?.children ?? [])].filter(s => s !== el && !s.matches('button, a, [role="tab"]') && B.visible(s)).some(s => { const r = s.getBoundingClientRect(); return r.right > er.left && r.left < er.right && r.bottom >= er.top - 2 && r.top <= er.bottom + 2; });
+    const over = [...(el.parentElement?.children ?? [])].filter(s => s !== el && !s.matches('button, a, [role="tab"]') && B.visible(s)).some(s => { const r = s.getBoundingClientRect(), outer = B.bgBehind(el.parentElement); if (B.ratio(B.blend(B.rgba(getComputedStyle(s).backgroundColor), outer), outer) < 3) return false; /* it must paint, not just overlap */ return r.right > er.left && r.left < er.right && r.bottom >= er.top - 2 && r.top <= er.bottom + 2; });
     return [cs.borderTopWidth, cs.borderBottomWidth, cs.borderLeftWidth, cs.borderTopColor, cs.borderBottomColor, cs.outlineStyle, cs.outlineColor, cs.backgroundColor, cs.color, cs.textDecorationLine, icons, pseudo('::before'), pseudo('::after'), cs.boxShadow, kid, over].join('|');
   };
   const on = '[aria-checked="true"], [aria-selected="true"], [aria-pressed="true"], [data-checked], [data-pressed], [aria-current="page"]';
