@@ -13,6 +13,7 @@ import {
   Form,
   Link,
   OtpField,
+  PasswordField,
   Separator,
   TextField,
 } from '@cyberskill/design';
@@ -52,7 +53,7 @@ export function SignInPattern() {
               }}
             >
               <TextField label="Work email" name="email" type="email" autoComplete="email" placeholder="name@company.com" required />
-              <TextField label="Password" name="password" type="password" autoComplete="current-password" required minLength={8} />
+              <PasswordField label="Password" name="password" required minLength={8} />
               <div className="pt-auth-row">
                 <Checkbox label="Remember me for 30 days" name="remember" />
                 <Link href="#forgot">Forgot password?</Link>

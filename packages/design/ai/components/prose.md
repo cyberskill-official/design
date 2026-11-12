@@ -1,0 +1,68 @@
+# Prose
+
+> Styles raw HTML or rendered Markdown, such as AI answers and help articles, with the house type and tokens.
+
+```tsx
+import { Prose } from '@cyberskill/design';
+```
+
+Wrap HTML you did not write element by element in `Prose`: an AI assistant's answer, a help article from a CMS, Markdown rendered by `marked` or `react-markdown`. It styles headings, paragraphs, lists, quotes, links, inline and block code, tables, rules and images, with even spacing between blocks and none above the first or below the last. Long words, URLs and IDs wrap. Do not use it for app UI built from components; they bring their own styles.
+
+`Prose` has no hooks, so it renders in a Server Component. Sanitise HTML from users or models (for example with DOMPurify) before passing it in.
+
+## Docs and long answers
+
+```tsx
+<Prose dangerouslySetInnerHTML={{ __html: sanitizedHtml }} />
+```
+
+## Chat bubbles and side panels
+
+`size="sm"` sets 14px text and tighter spacing.
+
+```tsx
+<Prose size="sm">
+  <p>Here is a reply you can send as is:</p>
+  <ol>
+    <li>Hi Mai, sorry about the double charge on your October invoice.</li>
+    <li>We refunded the extra $240.00 today (refund ID <code>RF-20931</code>).</li>
+  </ol>
+</Prose>
+```
+
+## Wide tables
+
+A table wider than the column scrolls sideways inside its own box, so the page never scrolls. A scrolling box must be reachable from the keyboard: Chrome, Edge and Firefox make it focusable on their own, Safari does not. Give tables `tabindex="0"` when you render them, for example with react-markdown:
+
+```tsx
+<Prose>
+  <Markdown components={{ table: (props) => <table tabIndex={0} {...props} /> }}>{answer}</Markdown>
+</Prose>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `size` | `'sm' \| 'md'` | `'md'` | 16px text for docs and long answers, 14px for chat bubbles and side panels |
+| `children` | `ReactNode` | – | Rendered Markdown or HTML elements |
+| `dangerouslySetInnerHTML` | `{ __html: string }` | – | Raw HTML; sanitise it first |
+| `className` | `string` | – | Merged with cs-prose |
+
+All other `div` props (`id`, `lang`, `aria-*`, `ref`…) pass through.
+
+## Accessibility
+
+- Text, code and table headers use the foreground and muted tokens, at least 4.5:1 on page, card and raised backgrounds in both themes.
+- Links keep the house link style: underlined (never color alone) with the 2px focus ring.
+- Headings keep the levels you pass in; start at the level that fits the page (an answer under a page `h1` usually starts at `h2`).
+- Code blocks wrap long lines instead of scrolling, so nothing needs a scrollbar to read. Wide tables scroll; see above for keyboard access.
+
+## Exact types
+
+```ts
+export type ProseProps = ComponentProps<'div'> & {
+  /** `md` (default) for docs and long answers, `sm` for chat bubbles and side panels. */
+  size?: 'sm' | 'md';
+};
+```

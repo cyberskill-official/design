@@ -5,6 +5,8 @@
 A hardening pass over every component, plus fonts that ship with the package.
 
 **New**
+- Four components: `PasswordField` (show/hide toggle), `TagInput` (free-text chips: Enter, comma or paste adds; duplicates and invalid entries are refused), `AvatarUpload` (one image with a round preview, replace and remove) and `Prose` (styles Markdown and AI answers: headings, lists, code, tables, links).
+- Kbd, Spinner, Skeleton, EmptyState, Badge, Stat, Stepper, Breadcrumbs and Prose have no `'use client'`: used from a Server Component they ship and hydrate no JavaScript.
 - `@cyberskill/design/fonts.css`: Be Vietnam Pro, Manrope and JetBrains Mono, self-hosted (Latin and Vietnamese). It raises Be Vietnam Pro's ascent, so text inputs no longer cut the top mark off stacked Vietnamese capitals (Ẫ showed as Â).
 - Text and control sizes are in rem, so they grow with the reader's browser font size.
 - Windows contrast themes (forced colors): selected, pressed and current items use the system highlight, and the switch has an edge.

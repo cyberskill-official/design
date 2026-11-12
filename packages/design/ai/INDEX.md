@@ -36,6 +36,7 @@ Fonts: load Manrope, Be Vietnam Pro and JetBrains Mono (with the `vietnamese` su
 | Alert Dialog | A modal confirmation for destructive or irreversible actions. The backdrop does not dismiss it, and an async confirm shows a loading button until it finishes. | `AlertDialog, AlertDialogContent, AlertDialogTrigger, Button` | `components/alert-dialog.md` |
 | Autocomplete | A search input with a suggestion list. Free text is allowed; suggestions fill it in. | `Autocomplete, Field` | `components/autocomplete.md` |
 | Avatar | A person's photo with an initials fallback, and an overlapping group with a "+N" count. | `Avatar, AvatarGroup` | `components/avatar.md` |
+| Avatar upload | Pick one image, see it in a round preview, then replace or remove it. | `AvatarUpload` | `components/avatar-upload.md` |
 | Badge | Short status or count label. Seven tones, three variants, two sizes. Status tones always carry an icon. | `Badge` | `components/badge.md` |
 | Breadcrumbs | Shows where the current page sits in the hierarchy, with a link to each level above it. | `Breadcrumbs, Link` | `components/breadcrumbs.md` |
 | Button | Triggers an action. Seven variants, three sizes, loading and icon-only forms. | `Button, ButtonGroup, IconButton` | `components/button.md` |
@@ -67,9 +68,11 @@ Fonts: load Manrope, Be Vietnam Pro and JetBrains Mono (with the `vietnamese` su
 | Number field | A labelled number input with − and + steppers, limits, steps and locale-aware formatting. | `NumberField` | `components/number-field.md` |
 | OTP field | One-time code input with one box per character, paste support and an onComplete callback. | `OtpField` | `components/otp-field.md` |
 | Pagination | Moves through pages of a table or list, with previous and next buttons and page numbers that collapse into ellipses. | `Pagination` | `components/pagination.md` |
+| Password field | A labelled password input with a show/hide toggle that keeps focus and the caret in the input. | `PasswordField` | `components/password-field.md` |
 | Popover | A small panel anchored to a button, for details or a short form that should not leave the page. | `Button, IconButton, Popover, PopoverContent, PopoverTrigger, TextField` | `components/popover.md` |
 | Preview Card | A hover card that previews a person, project or link while the pointer rests on it or the link has keyboard focus. | `PreviewCard, PreviewCardContent, PreviewCardTrigger` | `components/preview-card.md` |
 | Progress | A labelled bar for a task in progress, with a warning threshold and an indeterminate state. Meter shows a known amount such as quota used. | `Meter, Progress` | `components/progress.md` |
+| Prose | Styles raw HTML or rendered Markdown, such as AI answers and help articles, with the house type and tokens. | `Prose` | `components/prose.md` |
 | Radio group | Pick exactly one option from a short list that stays visible. | `Radio, RadioGroup` | `components/radio-group.md` |
 | Scroll area | A scrollable box with thin, theme-aware scrollbars that keyboard users can scroll too. | `ScrollArea` | `components/scroll-area.md` |
 | Search field | A labelled search input with a search icon, a clear button, Escape to clear, and optional loading and shortcut hints. | `SearchField` | `components/search-field.md` |
@@ -86,6 +89,7 @@ Fonts: load Manrope, Be Vietnam Pro and JetBrains Mono (with the `vietnamese` su
 | Table | Static, styled data table with density, stripes, a sticky header and right-aligned numbers. | `Badge, Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow` | `components/table.md` |
 | Tabs | Switch between views of the same object without leaving the page. A primary underline marks the active tab. | `Tabs, TabsList, TabsPanel, TabsTab` | `components/tabs.md` |
 | Tag | Compact label for categories, versions or plans. Optionally removable. | `Tag` | `components/tag.md` |
+| Tag input | Free-text values typed or pasted as removable chips, for email lists and keywords. | `TagInput, TagRejectReason` | `components/tag-input.md` |
 | Text field | Single and multi-line text input with label, help text, errors and adornments. | `Input, TextField, Textarea` | `components/text-field.md` |
 | Theme Scope | Applies light or dark to one part of the page, including the menus, selects and dialogs opened from inside it. | `Button, Menu, MenuContent, MenuItem, MenuTrigger, SideNav, SideNavItem, ThemeScope` | `components/theme-scope.md` |
 | Time picker | Labelled time field. Type 9:30, 21:30 or 930, or choose from a list every 15 minutes. | `TimePicker` from `@cyberskill/design/date` | `components/time-picker.md` |

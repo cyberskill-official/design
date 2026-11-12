@@ -218,10 +218,6 @@ html > body[data-scroll-locked] {
 .pt-msg-user { justify-self: end; max-width: min(85%, 560px); padding: var(--space-3) var(--space-4); border-radius: var(--radius-lg) var(--radius-lg) var(--radius-sm) var(--radius-lg); background: var(--primary-soft); color: var(--foreground); }
 .pt-msg-ai { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-3); max-width: 720px; }
 .pt-msg-ai-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-3); min-width: 0; padding: var(--space-4); border: 1px solid var(--border); border-radius: var(--radius-sm) var(--radius-lg) var(--radius-lg) var(--radius-lg); background: var(--panel); }
-.pt-msg-ai-body p { margin: 0; }
-.pt-msg-ai-body ol, .pt-msg-ai-body ul { margin: 0; padding-inline-start: var(--space-5); display: grid; gap: var(--space-1); }
-.pt-msg-ai-body ol { list-style: decimal; }
-.pt-msg-ai-body ul { list-style: disc; }
 .pt-chat-title { display: grid; flex: 1 1 0; min-width: 0; }
 /* one row of prompts that scrolls sideways, so the conversation keeps its height on phones */
 .pt-prompts { display: flex; gap: var(--space-2); overflow-x: auto; scrollbar-width: none; padding: 2px; margin: -2px; }

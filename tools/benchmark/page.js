@@ -335,7 +335,9 @@ export function focusSnapshot(i) {
   const el = document.querySelector(`[data-bench-tab="${i}"]`); if (!el) return null;
   const chain = []; for (let e = el, k = 0; e && e !== document.body && k < 4; e = e.parentElement, k++) chain.push(e);
   return chain.map(e => { const cs = getComputedStyle(e), b = getComputedStyle(e, '::before'), a = getComputedStyle(e, '::after'), r = e.getBoundingClientRect();
-    return { sig: [cs.outlineStyle, cs.outlineWidth, cs.outlineColor, cs.boxShadow, cs.borderTopColor, cs.borderBottomColor, cs.backgroundColor, b.content, b.boxShadow, b.borderTopColor, b.outlineStyle, a.content, a.boxShadow, a.borderTopColor, a.outlineStyle].join('|'), rect: { x: r.left, y: r.top, w: r.width, h: r.height } }; });
+    return { sig: [cs.outlineStyle, cs.outlineWidth, cs.outlineColor, cs.boxShadow, cs.borderTopColor, cs.borderBottomColor, cs.backgroundColor, b.content, b.boxShadow, b.borderTopColor, b.outlineStyle, a.content, a.boxShadow, a.borderTopColor, a.outlineStyle].join('|'), rect: { x: r.left, y: r.top, w: r.width, h: r.height },
+      // an inline link that wraps is ringed line by line: its perimeter is the sum of its line boxes, not its bounding box
+      lines: [...e.getClientRects()].filter(q => q.width && q.height).map(q => [q.width, q.height]) }; });
 }
 
 /** Between screenshots of a region focused (a) and not (b): pixels whose color changed by 3:1 (2.4.13), and pixels that changed and stand 3:1 against the background (1.4.11). */

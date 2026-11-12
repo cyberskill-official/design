@@ -13,3 +13,5 @@ export { Table, TableCaption, TableHeader, TableBody, TableRow, TableHead, Table
 export type { TableProps, TableCaptionProps, TableHeaderProps, TableBodyProps, TableRowProps, TableHeadProps, TableCellProps } from '../Table';
 export { Link } from '../Link';
 export type { LinkProps } from '../Link';
+export { Prose } from '../Prose';
+export type { ProseProps } from '../Prose';

@@ -1,0 +1,5 @@
+/* The box is .cs-input-group (field.css); chips and the text input reuse the .cs-multi-select-* styles (multi-select.css). */
+.cs-tag-input {
+  cursor: text;
+  &[data-disabled] { background: var(--raised); cursor: not-allowed; }
+}

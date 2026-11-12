@@ -1,0 +1,11 @@
+/* Label, help and error text reuse .cs-field-* (field.css); the preview is an Avatar (avatar.css), the actions are Buttons. */
+.cs-avatar-upload-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3) var(--space-4); }
+.cs-avatar.cs-avatar-upload-preview { --_size: 4rem; --_font: 700 1.25rem/1 var(--font-display); }
+/* takes the rest of the row and wraps its own buttons; only drops under the preview when under 10rem is left */
+.cs-avatar-upload-actions { display: flex; flex: 1 1 10rem; flex-wrap: wrap; gap: var(--space-2); min-width: 0; }
+
+/* In error the trigger's edge turns red, like a text field's, so the state never rests on the message alone */
+.cs-button.cs-avatar-upload-trigger[aria-invalid='true'] { --_border: var(--destructive); }
+
+/* No box of its own, so the empty live region adds no gap but stays in the accessibility tree */
+.cs-avatar-upload-errors { display: contents; }

@@ -108,7 +108,7 @@ async function focusChange(page, i) {
   const a = await page.evaluate(P.focusSnapshot, i); await blur(); const b = await page.evaluate(P.focusSnapshot, i);
   if (!a || !b) return null;
   // the control is the largest element whose style changed with focus (a wrapper drawing the ring), within reason
-  const cap = 4 * Math.max(a[0].rect.w * a[0].rect.h, 1600);
+  const cap = 16 * Math.max(a[0].rect.w * a[0].rect.h, 1600); // a small input in a wide chip box still counts the box as its control
   const depth = a.reduce((best, x, k) => (x.sig !== b[k]?.sig && x.rect.w * x.rect.h <= cap && x.rect.w * x.rect.h > a[best].rect.w * a[best].rect.h ? k : best), 0);
   const control = a[depth].rect, rs = [a[0].rect, ...a.filter((x, k) => x.sig !== b[k]?.sig && x.rect.w * x.rect.h <= cap).map(x => x.rect)], vw = 1280, vh = 800;
   const x0 = Math.max(0, Math.floor(Math.min(...rs.map(r => r.x)) - 12)), y0 = Math.max(0, Math.floor(Math.min(...rs.map(r => r.y)) - 12));
@@ -119,7 +119,8 @@ async function focusChange(page, i) {
   const on = (await page.screenshot({ clip })).toString('base64'); await blur();
   const off = (await page.screenshot({ clip })).toString('base64');
   const px = await page.evaluate(P.pixelDiff, [`data:image/png;base64,${on}`, `data:image/png;base64,${off}`]);
-  return { n3: Math.round(px.n3 / DPR ** 2), aa: Math.round(px.aa / DPR ** 2), control, visible }; // in CSS pixels
+  const lines = depth === 0 && a[0].lines.length > 1 ? a[0].lines : [[control.w, control.h]];
+  return { n3: Math.round(px.n3 / DPR ** 2), aa: Math.round(px.aa / DPR ** 2), control, lines, visible }; // in CSS pixels
 }
 
 async function focusDims(page, story, theme, stops, limit, dims) {
@@ -130,7 +131,8 @@ async function focusDims(page, story, theme, stops, limit, dims) {
     const name = n > 1 ? `${s.label} #${n}` : s.label; // two controls with one name (a valid and an invalid field) stay apart
     // AA: a changed area the size of a 1px outline (rounded corners allowed for) standing 3:1 on the background.
     // AAA 2.4.13: a 2px outline's area changed by 3:1 between focused and not.
-    const { w, h } = f.control, one = 0.8 * 2 * (w + h), two = 0.9 * (4 * w + 4 * h - 16) /* a 2px line just inside the edge also counts */, size = `${Math.round(w)}x${Math.round(h)}`;
+    const { w, h } = f.control, per = f.lines.reduce((s, [lw, lh]) => s + 2 * (lw + lh), 0);
+    const one = 0.8 * per, two = 0.9 * (2 * per - 16 * f.lines.length) /* a 2px line just inside the edge also counts */, size = `${Math.round(w)}x${Math.round(h)}`;
     const key = `${story.id}|${theme}|focus "${name}"`;
     if (dims.includes('D3')) record(results, 'D3', { pass: f.aa >= one && f.visible, key, detail: f.visible ? `${f.aa}px of focus indicator at 3:1 on the background around a ${size} control, needs ${Math.round(one)}` : 'covered by other content' });
     if (dims.includes('D9')) record(results, 'D9', { pass: f.n3 >= two, key, detail: `${f.n3}px changed by 3:1 around a ${size} control, needs ${Math.round(two)}` });

@@ -68,7 +68,8 @@ export type FileUploadProps = {
 
 let nextId = 0;
 
-function accepts(file: File, accept?: string) {
+/** Whether `file` matches an `accept` string (".pdf,image/*"). Shared with AvatarUpload. */
+export function accepts(file: File, accept?: string) {
   if (!accept) return true;
   const name = file.name.toLowerCase();
   const type = file.type.toLowerCase();

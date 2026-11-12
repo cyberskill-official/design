@@ -20,3 +20,7 @@ export type { SearchFieldProps } from '../SearchField';
 export { FileUpload } from '../FileUpload';
 export { formatFileSize } from '../../utils/format'; // from the pure module, so it stays server-safe
 export type { FileUploadProps, FileUploadItem } from '../FileUpload';
+export { TagInput } from '../TagInput';
+export type { TagInputProps, TagRejectReason } from '../TagInput';
+export { AvatarUpload } from '../AvatarUpload';
+export type { AvatarUploadProps } from '../AvatarUpload';

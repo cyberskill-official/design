@@ -5,10 +5,11 @@ import type { ReactNode } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { Plus, Trash } from '@phosphor-icons/react';
 import {
-  Accordion, AccordionItem, AccordionPanel, AccordionTrigger, Alert, Autocomplete, Badge, Breadcrumbs, Button, Card, CardContent,
+  Accordion, AccordionItem, AccordionPanel, AccordionTrigger, Alert, Autocomplete, AvatarUpload, Badge, Breadcrumbs, Button, Card, CardContent,
   CardDescription, CardHeader, CardTitle, Checkbox, CheckboxGroup, ComboboxField, EmptyState, Field, FileUpload, MultiSelectField,
-  NumberField, OtpField, Pagination, Popover, PopoverContent, PopoverTrigger, Radio, RadioGroup, SearchField, SegmentedControl,
-  SelectField, Slider, Stat, Stepper, Switch, Tabs, TabsList, TabsPanel, TabsTab, Tag, TextField, Textarea, ThemeScope, Toggle,
+  NumberField, OtpField, Pagination, PasswordField, Popover, PopoverContent, PopoverTrigger, Prose, Radio, RadioGroup, SearchField,
+  SegmentedControl, SelectField, Slider, Stat, Stepper, Switch, Tabs, TabsList, TabsPanel, TabsTab, Tag, TagInput, TextField, Textarea,
+  ThemeScope, Toggle,
 } from '../react';
 import { DatePicker, DateRangePicker, DateTimePicker, TimePicker } from '../date';
 
@@ -51,6 +52,8 @@ export const VietnameseText: Story = {
         <ComboboxField label="Khu vực" items={viItems} defaultValue="ha-noi" />
         <MultiSelectField label="Kỹ năng" items={viItems} defaultValue={['ha-noi']} />
         <SearchField label="Tìm kiếm" defaultValue="Ữ Ẫ ặ ỵ" />
+        {(['sm', 'md', 'lg'] as const).map(size => <PasswordField key={size} size={size} label={`Mật khẩu ${size}`} defaultValue="Ữ Ẫ ặ ỵ" defaultVisible hidePasswordLabel="Ẩn mật khẩu" />)}
+        {(['sm', 'md', 'lg'] as const).map(size => <TagInput key={size} size={size} label={`Từ khoá ${size}`} defaultValue={['Ổn định Ữ', 'Ẵ ặ ọ ỵ']} removeLabel={t => `Xoá ${t}`} />)}
       </Row>
       <Row label="Lựa chọn">
         <Checkbox label={VI} defaultChecked />
@@ -83,6 +86,9 @@ export const VietnameseText: Story = {
         </Card>
         <Stat label="Người dùng Ữ" value="Ổn định" hint="so với tháng trước ặ ỵ" style={{ width: 240 }} />
         <EmptyState size="sm" title="Chưa có dữ liệu Ữ" description="Thêm nguồn đầu tiên ặ ọ ỵ." />
+        {(['sm', 'md'] as const).map(size => (
+          <Prose key={size} size={size} style={{ width: 280 }} dangerouslySetInnerHTML={{ __html: `<h3>Ổn định Ữ Ẫ</h3><p>${VI}, <code>Ỗ ặ</code> và <a href="#vi">liên kết Ữ ỵ</a>.</p><ul><li>Hằng tháng Ữ ỵ</li></ul><blockquote><p>Ẵ ặ ọ ỵ</p></blockquote>` }} />
+        ))}
       </Row>
     </div>
   ),
@@ -119,6 +125,8 @@ export const LongContent: Story = {
           </Tabs>
           <Accordion><AccordionItem value="a"><AccordionTrigger>{LONG_VI}</AccordionTrigger><AccordionPanel>{EMAIL}</AccordionPanel></AccordionItem></Accordion>
           <Stepper aria-label={`Steps ${width}`} steps={[{ title: LONG_VI, description: TOKEN, status: 'current' }, { title: EMAIL, status: 'upcoming' }]} />
+          <TagInput label={LONG_VI} defaultValue={[EMAIL, TOKEN, LONG_VI]} />
+          <Prose dangerouslySetInnerHTML={{ __html: `<h2>${LONG_VI}</h2><p>${EMAIL} <code>${TOKEN}</code> <a href="#t">${TOKEN}</a></p><pre><code>${TOKEN}-${EMAIL}</code></pre><table tabindex="0"><tr><th>${TOKEN}</th><td>${EMAIL}</td></tr></table>` }} />
         </div>
       ))}
     </div>
@@ -133,6 +141,7 @@ const pair = (name: string, valid: ReactNode, invalid: ReactNode) => (
   </div>
 );
 const items = [{ value: 'a', label: 'Option A' }, { value: 'b', label: 'Option B' }];
+const PHOTO = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII='; // 1×1 PNG
 const ERR = 'Fix this field.';
 
 /** Every form control, valid next to invalid: the invalid one is announced (aria-invalid), linked to visible error text, and visibly different. */
@@ -146,6 +155,9 @@ export const InvalidStates: Story = {
       {pair('MultiSelect', <MultiSelectField label="Skills" items={items} />, <MultiSelectField label="Skills" items={items} error={ERR} />)}
       {pair('Autocomplete', <Field label="City"><Autocomplete items={['Hà Nội', 'Huế']} /></Field>, <Field label="City" error={ERR}><Autocomplete items={['Hà Nội', 'Huế']} /></Field>)}
       {pair('SearchField', <SearchField label="Search" />, <SearchField label="Search" error={ERR} />)}
+      {pair('PasswordField', <PasswordField label="Password" defaultValue="secret" />, <PasswordField label="Password" defaultValue="secret" error={ERR} />)}
+      {pair('TagInput', <TagInput label="Keywords" defaultValue={['a']} />, <TagInput label="Keywords" defaultValue={['a']} error={ERR} />)}
+      {pair('AvatarUpload', <AvatarUpload label="Photo" fallback="AN" />, <AvatarUpload label="Photo" fallback="AN" error={ERR} />)}
       {pair('NumberField', <NumberField label="Seats" defaultValue={5} />, <NumberField label="Seats" defaultValue={5} error={ERR} />)}
       {pair('OtpField', <OtpField label="Code" length={4} />, <OtpField label="Code" length={4} error={ERR} />)}
       {pair('DatePicker', <DatePicker label="Start date" />, <DatePicker label="Start date" error={ERR} />)}
@@ -184,6 +196,9 @@ export const DisabledStates: Story = {
       {twin('Combobox', <ComboboxField label="Region" items={items} defaultValue="a" />, <ComboboxField label="Region" items={items} defaultValue="a" disabled />)}
       {twin('MultiSelect', <MultiSelectField label="Skills" items={items} defaultValue={['a']} />, <MultiSelectField label="Skills" items={items} defaultValue={['a']} disabled />)}
       {twin('SearchField', <SearchField label="Search" defaultValue="tokens" />, <SearchField label="Search" defaultValue="tokens" disabled />)}
+      {twin('PasswordField', <PasswordField label="Password" defaultValue="secret" />, <PasswordField label="Password" defaultValue="secret" disabled />)}
+      {twin('TagInput', <TagInput label="Keywords" defaultValue={['a']} />, <TagInput label="Keywords" defaultValue={['a']} disabled />)}
+      {twin('AvatarUpload', <AvatarUpload label="Photo" defaultValue={PHOTO} />, <AvatarUpload label="Photo" defaultValue={PHOTO} disabled />)}
       {twin('NumberField', <NumberField label="Seats" defaultValue={5} min={1} />, <NumberField label="Seats" defaultValue={5} min={1} disabled />)}
       {/* at its minimum, only the decrement button is disabled */}
       {twin('NumberField at min', <NumberField label="Seats" defaultValue={5} min={1} />, <NumberField label="Seats" defaultValue={1} min={1} />)}
