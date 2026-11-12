@@ -51,26 +51,26 @@ Fill by role, not by hue. `soft` is a tinted surface, `soft-hover` its hover, `l
 | `magenta` | `--magenta-*` | #F4ECF4 / #292136 | #EDE1ED / #35253C | #DEC7DD / #4D2C49 | #5D3366 / #C28AAC | #773B79 / #B56893 |
 | `violet` | `--violet-*` | #F8F2FA / #2A2848 | #F3E9F7 / #372E57 | #E9D7F1 / #503C75 | #73538E / #C6A2EE | #9565AF / #BA88EB |
 
-Category tones (blue, amber, teal, magenta, violet) are tint and icon only: never text on their solid color (`--chart-1`…`--chart-5`). **Surfaces:** `--wash` #E9EBEF / #171E2A, `--accent-deep` #DCA112 / #F2AE1C; on the one ink surface per view `--ink-lit` #1B3663 / #1B3663, `--on-ink` #FFFFFF / #FFFFFF, `--on-ink-muted` #B8C2D3 / #B8C2D3. **Gradients** (for `background:`): `--gradient-ink`, `--gradient-wash`, `--gradient-gold`, `--gradient-aurora`.
+Category tones (blue, amber, teal, magenta, violet) are tint and icon only: never text on their solid color (`--chart-1`…`--chart-5`). **Surfaces:** `--wash` #E9EBEF / #171E2A, `--accent-deep` #DCA112 / #F2AE1C. **Ink surface** (one per view): a dark scope painted with `--gradient-ink` (brand ink to `--ink-deep` #0E1B33). Use `Card surface="ink"`, or set `data-theme="dark"` on the element with that background, so everything on it takes the dark tokens; the build checks text, status colors and control edges on it. **Gradients** (for `background:`): `--gradient-ink`, `--gradient-wash`, `--gradient-gold`, `--gradient-aurora`.
 
 ## Motion recipes
 
-Animate only through these, one per property: `transition: background-color var(--motion-state), transform var(--motion-release)`. Reduced motion is handled for you because the recipes are redefined under it. In React use `transitions` and `springs` from `@cyberskill/design/motion`. Which recipe for what: `motion.md`.
+Animate only through these, one per property: `transition: background-color var(--motion-state), transform var(--motion-release)`. Size and position (`width`, `height`, `top`, `inset`, `margin`…) only on `--motion-move` or `--motion-pop-in`. Reduced motion is handled for you: `tokens.css` redefines the recipes under `prefers-reduced-motion: reduce`. In React use `transitions` and `springs` from `@cyberskill/design/motion`. Which recipe for what: `motion.md`.
 
-| Recipe | Duration and curve |
-|---|---|
-| `--motion-state` | 120ms, `--ease-standard` |
-| `--motion-fade` | 180ms, `--ease-out` |
-| `--motion-press` | 80ms, `--ease-out` |
-| `--motion-release` | 386ms, `--spring-snappy` (spring) |
-| `--motion-move` | 386ms, `--spring-snappy` (spring) |
-| `--motion-pop-in` | 180ms, `--ease-out` |
-| `--motion-pop-out` | 120ms, `--ease-out` |
-| `--motion-modal-in` | 406ms, `--spring-smooth` (spring) |
-| `--motion-modal-out` | 180ms, `--ease-out` |
-| `--motion-sheet-in` | 500ms, `--ease-sheet` |
-| `--motion-sheet-out` | 280ms, `--ease-sheet` |
-| `--motion-reveal` | 500ms, `--ease-out` |
-| `--motion-celebrate` | 584ms, `--spring-bouncy` (spring) |
+| Recipe | Duration and curve | Under reduced motion |
+|---|---|---|
+| `--motion-state` | 120ms, `--ease-standard` | kept |
+| `--motion-fade` | 180ms, `--ease-enter` | kept |
+| `--motion-press` | 80ms, `--ease-enter` | ends at once |
+| `--motion-release` | 386ms, `--spring-snappy` (spring) | ends at once |
+| `--motion-move` | 386ms, `--spring-snappy` (spring) | ends at once |
+| `--motion-pop-in` | 180ms, `--ease-enter` | ends at once |
+| `--motion-pop-out` | 120ms, `--ease-enter` | kept |
+| `--motion-modal-in` | 406ms, `--spring-smooth` (spring) | a 180ms fade |
+| `--motion-modal-out` | 180ms, `--ease-enter` | kept |
+| `--motion-sheet-in` | 500ms, `--ease-sheet` | ends at once |
+| `--motion-sheet-out` | 280ms, `--ease-sheet` | ends at once |
+| `--motion-reveal` | 500ms, `--ease-enter` | a 180ms fade |
+| `--motion-celebrate` | 584ms, `--spring-bouncy` (spring) | ends at once |
 
 **Start values:** `--motion-press-scale` 0.97, `--motion-pop-scale` 0.96, `--motion-modal-scale` 0.96, `--motion-rise` 8px, `--motion-stagger` 40ms. Build start and end transforms from these (`transform: scale(var(--motion-pop-scale))`); reduced motion sets the scales to 1 and the distances to 0.

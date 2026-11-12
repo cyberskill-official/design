@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
-import { useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 import { renderToString } from 'react-dom/server';
 import { SegmentedControl } from './SegmentedControl';
 import { expectAccessibleInThemes } from '../test/a11y';
@@ -91,6 +91,23 @@ describe('SegmentedControl', () => {
     rerender(<div style={{ width: 160 }}><SegmentedControl label="View" items={views} defaultValue="board" /></div>);
     await expect.poll(() => under(thumb, board())).toBe(true);
     expect(board().offsetWidth).toBeLessThan(100);
+  });
+
+  it('measured inside a hidden container, it waits: the pressed segment keeps its selection, and the thumb appears in place once shown', async () => {
+    // a slow slide, so a thumb springing in from the left edge would still be on its way when checked
+    const { container } = render(
+      <div hidden data-testid="box">
+        <SegmentedControl label="View" items={views} defaultValue="timeline" style={{ '--motion-move': '10s linear' } as CSSProperties} />
+      </div>,
+    );
+    const thumb = container.querySelector<HTMLElement>('.cs-segmented-control-thumb')!;
+    expect(thumb).toHaveAttribute('hidden');
+    const timeline = container.querySelector<HTMLElement>('[data-pressed]')!;
+    expect(getComputedStyle(timeline).backgroundColor).not.toBe('rgba(0, 0, 0, 0)');
+    screen.getByTestId('box').hidden = false;
+    await expect.poll(() => thumb.hasAttribute('hidden')).toBe(false);
+    expect(under(thumb, timeline)).toBe(true);
+    expect(thumb.getAnimations()).toHaveLength(0);
   });
 
   it('renders the thumb hidden on the server, so the pressed segment shows the selection until it is measured', () => {

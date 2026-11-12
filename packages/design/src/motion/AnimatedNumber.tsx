@@ -11,7 +11,7 @@ export type AnimatedNumberProps = Omit<ComponentProps<'span'>, 'children'> & {
    * digits and `value` to screen readers, so hydration does not jump; without JavaScript the visible digits stay at `from`.
    */
   from?: number;
-  /** Locale for `Intl.NumberFormat`, e.g. `'vi-VN'`. Defaults to the browser's. */
+  /** Locale for `Intl.NumberFormat`, e.g. `'vi-VN'`. Defaults to `'en-US'`, not the runtime's locale, so server and browser render the same digits. */
   locale?: Intl.LocalesArgument;
   /** `Intl.NumberFormat` options: currency, percent, compact notation, fraction digits. */
   format?: Intl.NumberFormatOptions;
@@ -22,7 +22,7 @@ export type AnimatedNumberProps = Omit<ComponentProps<'span'>, 'children'> & {
  * `value` as is and counts only when it changes, or on mount with `from`. Screen readers get the final value only,
  * never the ticking digits. With reduced motion it shows the final value at once. Digits are tabular, so the width holds.
  */
-export function AnimatedNumber({ value, from, locale, format, className, style, ...props }: AnimatedNumberProps) {
+export function AnimatedNumber({ value, from, locale = 'en-US', format, className, style, ...props }: AnimatedNumberProps) {
   const formatter = new Intl.NumberFormat(locale, format);
   const text = formatter.format(value);
   const digits = useRef<HTMLSpanElement>(null);

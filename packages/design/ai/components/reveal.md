@@ -8,7 +8,7 @@ import { Card, CardDescription, CardHeader, CardTitle, Reveal, Stagger } from '@
 
 Use a reveal for the first load of a page or a panel: the main content arrives instead of popping in. Use it once, on the few blocks that matter, at most six; never on scroll, on every card, or when data refreshes. For an element moving between places, an exit animation or a count-up, see [Motion](/docs/components/motion).
 
-It is plain CSS (the `reveal` recipe), so it works in Server Components and without JavaScript, and a server-rendered page never restarts it on hydration.
+It is plain CSS (the `reveal` recipe), so it works in Server Components and without JavaScript, and a server-rendered page never restarts it on hydration. Because it is a CSS animation, it plays again whenever its container goes from hidden to shown, such as a tab panel that stays mounted. Put it on content that mounts once.
 
 ```tsx
 import { Reveal, Stagger } from '@cyberskill/design';
@@ -63,7 +63,7 @@ Reveals its `Reveal` children one after another, 40ms apart. From the seventh it
 
 ## Accessibility
 
-- **Reduced motion.** The content appears at once: no fade, no rise, no stagger.
+- **Reduced motion.** The content appears at once: no fade, no rise, no stagger and no `delay`.
 - **Nothing is hidden by the markup.** The content is in the page from the first render, so search, screen readers and pages without JavaScript get it. It is only transparent while it plays.
 - **Keyboard.** Reveal takes no focus and keeps the reading and focus order of its content.
 
@@ -85,7 +85,7 @@ export type CardDescriptionProps = ComponentProps<'p'>;
 export type CardHeaderProps = ComponentProps<'div'>;
 export type CardTitleProps = useRender.ComponentProps<'h3'>;
 export type RevealProps = ComponentProps<'div'> & {
-  /** Extra wait before it starts, in milliseconds. Added to its Stagger step. */
+  /** Extra wait before it starts, in milliseconds. Added to its Stagger step; dropped under reduced motion. */
   delay?: number;
   /** Another element instead of the `div`, e.g. `<li />` inside a Stagger list or `<section />`. */
   render?: RenderElement;

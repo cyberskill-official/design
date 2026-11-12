@@ -3,6 +3,7 @@
 import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import { join, dirname, relative, basename } from 'node:path';
 import { record } from './score.mjs';
+import { cssRules, stylesheetMotionProblems, REDUCED_MEDIA, SIZE_RECIPES } from '../../packages/design/bin/motion-rules.mjs';
 
 const walk = (dir, test, acc = []) => {
   for (const e of readdirSync(dir)) { const f = join(dir, e); if (statSync(f).isDirectory()) walk(f, test, acc); else if (test(f)) acc.push(f); }
@@ -96,72 +97,37 @@ export function tokenDiscipline(results, pkg) {
   }
 }
 
-/** Every rule of a stylesheet, nested ones and those inside @media included: its selector chain, its own selector and declarations. */
-export function cssRules(css) {
-  const text = css.replace(/\/\*[\s\S]*?\*\//g, m => m.replace(/[^\n]/g, ' '));
-  const lineOf = i => text.slice(0, i).split('\n').length;
-  const rules = [], stack = [];
-  let start = 0;
-  for (let i = 0; i < text.length; i++) {
-    const ch = text[i];
-    if (ch !== '{' && ch !== '}' && ch !== ';') continue;
-    const seg = text.slice(start, i), own = seg.trim(), line = lineOf(start + seg.search(/\S|$/));
-    if (ch === '{') { const r = { selector: [...stack.map(s => s.own), own].join(' '), own, line, decls: [] }; rules.push(r); stack.push(r); }
-    else {
-      const k = own.indexOf(':');
-      if (k > 0 && stack.length) stack.at(-1).decls.push({ prop: own.slice(0, k).trim(), value: own.slice(k + 1).trim(), line });
-      if (ch === '}') stack.pop();
-    }
-    start = i + 1;
-  }
-  return rules;
-}
-
-const splitTop = v => { const out = []; let depth = 0, cur = ''; for (const ch of v) { if (ch === '(') depth++; if (ch === ')') depth--; if (ch === ',' && !depth) { out.push(cur.trim()); cur = ''; } else cur += ch; } return [...out, cur.trim()].filter(Boolean); };
-// what travels on screen: reduced motion keeps --motion-state and --motion-fade, so these must never ride them
-const MOVES = /^(transform|translate|scale|rotate|top|right|bottom|left|inset(-[\w-]+)?|(min-|max-)?(width|height|inline-size|block-size)|margin(-[\w-]+)?|padding(-[\w-]+)?)$/;
-// the one exception check-css.mjs also allows: a gesture scaling a duration by a runtime value (a hard flick closes a drawer faster)
-const GESTURE = /^calc\(\s*var\(--(?!duration-|ease-|spring-|motion-)[\w-]+(\s*,[^()]*)?\)\s*\*\s*var\(--duration-[\w-]+\)\s*\)$/;
-
-/** Why one transition declaration is off the recipes, or '' when it is fine. */
-function transitionProblem({ prop, value }) {
-  if (prop === 'transition-property') return /(^|,)\s*all\s*(,|$)/.test(value) ? 'transition-property: all' : '';
-  if (prop === 'transition-duration' && GESTURE.test(value)) return '';
-  if (prop !== 'transition') return /^0m?s$/.test(value) || value.includes('var(--motion-') ? '' : `${prop}: ${value} is not a recipe`; // longhands may only switch motion off
-  if (value === 'none') return '';
-  for (const item of splitTop(value)) {
-    const m = /^([a-z-]+)\s+var\(--motion-([\w-]+)\)$/.exec(item);
-    if (/^all\b/.test(item)) return 'transition: all';
-    if (!m) return `"${item}" is not one property on a --motion-* recipe`;
-    if (MOVES.test(m[1]) && /^(state|fade)$/.test(m[2])) return `${m[1]} on --motion-${m[2]}, which reduced motion keeps`;
-  }
-  return '';
-}
-
 /**
- * D24: component CSS animates only through the --motion-* recipes, so reduced motion (redefined once in motion.css) reaches
- * every component. motion.css must bring each recipe that springs or runs past D12's 200ms down to 200ms or less, and set
- * every start value (scales to 1, distances and stagger to 0).
+ * D24: component CSS animates only through the --motion-* recipes (the rules shared with the CSS lint and `check`), so
+ * reduced motion, generated once into tokens.css, reaches every component. Under @media (prefers-reduced-motion: reduce)
+ * on :root, tokens.css must end every "instant" recipe (and the size recipes) at once, bring every other recipe that
+ * springs or runs past D12's 200ms to 200ms or less, and neutralize every start value; motion.css must stop keyframes.
  */
 export function motionDiscipline(results, pkg) {
-  const css = join(pkg, 'src/css');
-  for (const f of walk(join(css, 'components'), f => f.endsWith('.css'))) {
-    const bad = cssRules(readFileSync(f, 'utf8')).flatMap(r => r.decls.filter(d => /^transition(-property|-duration|-timing-function|-delay)?$/.test(d.prop)).map(d => [d.line, transitionProblem(d)])).filter(([, why]) => why);
-    record(results, 'D24', { pass: bad.length === 0, key: `${relative(pkg, f)} transitions run on recipes`, detail: bad.slice(0, 3).map(([n, why]) => `line ${n}: ${why}`).join('; ') });
+  for (const f of walk(join(pkg, 'src/css/components'), f => f.endsWith('.css'))) {
+    const bad = stylesheetMotionProblems(readFileSync(f, 'utf8'));
+    record(results, 'D24', { pass: bad.length === 0, key: `${relative(pkg, f)} animates on recipes`, detail: bad.slice(0, 3).map(p => `line ${p.line}: ${p.message.split(';')[0]}`).join('; ') });
   }
-  const F = JSON.parse(readFileSync(join(pkg, 'tokens/foundations.json'), 'utf8'));
+  const T = JSON.parse(readFileSync(join(pkg, 'dist/tokens.json'), 'utf8'));
   const ms = v => { const m = /^(\d*\.?\d+)(ms|s)$/.exec(v ?? ''); return m ? +m[1] * (m[2] === 's' ? 1000 : 1) : null; };
-  const reduced = new Map(cssRules(readFileSync(join(css, 'motion.css'), 'utf8')).filter(r => /prefers-reduced-motion:\s*reduce/.test(r.selector)).flatMap(r => r.decls.map(d => [d.prop, d.value])));
-  const quick = v => { const [d, curve = ''] = v.split(/\s+/); const t = ms(d) ?? ms(F.duration[/^var\(--duration-([\w-]+)\)$/.exec(d)?.[1]]); return t != null && t <= 200 && !/spring|linear\(/.test(curve); };
-  for (const [name, r] of Object.entries(F.motion)) {
-    if (name.startsWith('$') || (typeof r !== 'string' && ms(F.duration[r[0]]) <= 200)) continue; // a spring, or longer than 200ms
-    const v = reduced.get(`--motion-${name}`);
-    record(results, 'D24', { pass: v != null && quick(v), key: `reduced motion shortens --motion-${name}`, detail: v == null ? 'motion.css does not redefine it under prefers-reduced-motion: reduce' : `redefined as ${v}, which springs or runs past 200ms` });
+  const reduced = new Map(cssRules(readFileSync(join(pkg, 'dist/tokens.css'), 'utf8')).filter(r => r.chain.length === 2 && REDUCED_MEDIA.test(r.chain[0]) && r.own === ':root').flatMap(r => r.decls.map(d => [d.prop, d.value])));
+  const timeOf = v => { const [d, curve = ''] = v.split(/\s+/); return { t: ms(d) ?? ms(T.duration[/^var\(--duration-([\w-]+)\)$/.exec(d)?.[1]]), spring: /spring|linear\(/.test(curve) }; };
+  const instant = new Set([...(T.motionReduced?.instant ?? []), ...SIZE_RECIPES]);
+  for (const [name, r] of Object.entries(T.motion)) {
+    const long = typeof r === 'string' || ms(T.duration[r[0]]) > 200; // a spring, or past 200ms
+    if (!long && !instant.has(name)) continue;
+    const v = reduced.get(`--motion-${name}`), { t, spring } = v == null ? {} : timeOf(v);
+    const ok = v != null && t != null && !spring && t <= (instant.has(name) ? 1 : 200);
+    record(results, 'D24', { pass: ok, key: `reduced motion shortens --motion-${name}`, detail: v == null ? 'tokens.css does not redefine it under @media (prefers-reduced-motion: reduce) on :root' : `redefined as ${v}, needs ${instant.has(name) ? 'to end at once (1ms)' : '200ms or less without a spring'}` });
   }
-  for (const name of Object.keys(F['motion-value']).filter(k => !k.startsWith('$'))) {
+  for (const name of Object.keys(T.motionValue)) {
     const v = reduced.get(`--motion-${name}`), still = name.endsWith('-scale') ? v === '1' : /^0(px|ms|s|rem)?$/.test(v ?? '');
-    record(results, 'D24', { pass: still, key: `reduced motion neutralizes --motion-${name}`, detail: v == null ? 'motion.css does not redefine it under prefers-reduced-motion: reduce' : `redefined as ${v}, needs ${name.endsWith('-scale') ? '1' : '0'}` });
+    record(results, 'D24', { pass: still, key: `reduced motion neutralizes --motion-${name}`, detail: v == null ? 'tokens.css does not redefine it under @media (prefers-reduced-motion: reduce) on :root' : `redefined as ${v}, needs ${name.endsWith('-scale') ? '1' : '0'}` });
   }
+  // keyframes cannot read a recipe's reduced value, so motion.css ends them: one run, at once, without a delay
+  const blanket = cssRules(readFileSync(join(pkg, 'src/css/motion.css'), 'utf8')).find(r => r.chain.length === 2 && REDUCED_MEDIA.test(r.chain[0]) && /cs-/.test(r.own));
+  const get = p => blanket?.decls.find(d => d.prop === p)?.value;
+  record(results, 'D24', { pass: !!blanket && ms(get('animation-duration')) <= 1 && ms(get('animation-delay')) === 0 && get('animation-iteration-count') === '1', key: 'reduced motion ends keyframe animations (motion.css)', detail: blanket ? `animation-duration ${get('animation-duration')}, animation-delay ${get('animation-delay')}, animation-iteration-count ${get('animation-iteration-count')}: needs 1ms or less, 0ms and 1` : 'no rule on cs- classes under @media (prefers-reduced-motion: reduce)' });
 }
 
 // gold (--accent) fills what is on, done or key in these stylesheets; gold on white is 1.8:1, so each fill needs an --accent-text edge
@@ -215,12 +181,16 @@ export function colorRoles(results, pkg) {
     }
     record(results, 'D25', { pass: bad.length === 0, key: `${relative(pkg, f)} puts no text on a solid category color`, detail: bad.slice(0, 3).join('; ') });
   }
-  // a fill is a background, or a --_ variable a later rule paints with; its edge sits in the same rule
-  const edge = d => /^(border|outline|box-shadow|--_)/.test(d.prop) && d.value.includes('var(--accent-text)');
+  // A gold fill is a background painted with --accent (color-mix over it included), directly or through a --_ variable the
+  // stylesheet assigns it to. Its edge must be painted in the same rule: a border, outline or shadow using --accent-text.
   for (const name of GOLD_FILLED) {
     const f = join(comp, `${name}.css`), rules = existsSync(f) ? cssRules(readFileSync(f, 'utf8')) : [];
-    const fills = rules.filter(r => r.decls.some(d => /^(background(-color)?|--_[\w-]+)$/.test(d.prop) && /^var\(--(accent|gradient-gold)\)$/.test(d.value)));
-    record(results, 'D25', { pass: fills.length > 0, key: `${name}.css fills with gold`, detail: existsSync(f) ? 'no rule fills with var(--accent)' : 'no such stylesheet' });
-    for (const r of fills) record(results, 'D25', { pass: r.decls.some(edge), key: `${name}.css "${r.selector}" gold fill has an --accent-text edge`, detail: `line ${r.line}: no border, outline or box-shadow on var(--accent-text) next to the gold fill` });
+    const assigned = new Map();
+    for (const d of rules.flatMap(r => r.decls)) if (d.prop.startsWith('--_')) assigned.set(d.prop, [...(assigned.get(d.prop) ?? []), d.value]);
+    const uses = (value, token, seen = new Set()) => value.includes(`var(${token})`) || [...value.matchAll(/var\((--_[\w-]+)/g)].some(([, v]) => !seen.has(v) && seen.add(v) && (assigned.get(v) ?? []).some(a => uses(a, token, seen)));
+    const gold = v => uses(v, '--accent') || uses(v, '--gradient-gold');
+    const fills = rules.filter(r => r.decls.some(d => /^background(-color)?$/.test(d.prop) && gold(d.value)));
+    record(results, 'D25', { pass: fills.length > 0, key: `${name}.css fills with gold`, detail: existsSync(f) ? 'no rule paints a background with var(--accent)' : 'no such stylesheet' });
+    for (const r of fills) record(results, 'D25', { pass: r.decls.some(d => /^(border|outline|box-shadow)(-[a-z-]+)?$/.test(d.prop) && uses(d.value, '--accent-text')), key: `${name}.css "${r.selector}" gold fill has an --accent-text edge`, detail: `line ${r.line}: no border, outline or box-shadow painted with var(--accent-text) next to the gold fill` });
   }
 }

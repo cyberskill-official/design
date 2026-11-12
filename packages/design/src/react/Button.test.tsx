@@ -48,11 +48,28 @@ describe('Button', () => {
     expect(screen.getByRole('button', { name: 'Save' })).not.toHaveAttribute('data-tone');
   });
 
-  it('secondary is a soft ink fill with no outline', () => {
-    render(<><Button variant="secondary">Talk to sales</Button><span data-testid="soft" style={{ background: 'var(--primary-soft)' }} /></>);
+  it('secondary is a soft ink fill with an ink hairline', () => {
+    render(<><Button variant="secondary">Talk to sales</Button><span data-testid="soft" style={{ background: 'var(--primary-soft)', borderColor: 'var(--primary-line)' }} /></>);
     const style = getComputedStyle(screen.getByRole('button'));
-    expect(style.backgroundColor).toBe(getComputedStyle(screen.getByTestId('soft')).backgroundColor);
-    expect(style.borderTopColor).toBe('rgba(0, 0, 0, 0)');
+    const want = getComputedStyle(screen.getByTestId('soft'));
+    expect([style.backgroundColor, style.borderTopColor]).toEqual([want.backgroundColor, want.borderTopColor]);
+  });
+
+  it('a group shares one hairline between neighbours and draws the pressed edge on top', () => {
+    render(
+      <>
+        <ButtonGroup label="View">
+          <Button variant="secondary" aria-pressed="false">List</Button>
+          <Button variant="secondary" aria-pressed="true">Board</Button>
+          <Button variant="secondary" aria-pressed="false">Timeline</Button>
+        </ButtonGroup>
+        <span data-testid="ink" style={{ borderColor: 'var(--primary)' }} />
+      </>,
+    );
+    const [list, board] = [screen.getByRole('button', { name: 'List' }), screen.getByRole('button', { name: 'Board' })];
+    expect(board.getBoundingClientRect().left).toBe(list.getBoundingClientRect().right - 1);
+    expect(getComputedStyle(board).borderTopColor).toBe(getComputedStyle(screen.getByTestId('ink')).borderTopColor);
+    expect(Number(getComputedStyle(board).zIndex)).toBeGreaterThan(0);
   });
 
   it('has no accessibility violations in light and dark', async () => {

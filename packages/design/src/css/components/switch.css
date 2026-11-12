@@ -31,12 +31,21 @@
 .cs-choice-label:hover .cs-switch:not([data-disabled], [data-checked]) { background: color-mix(in srgb, var(--input) 80%, var(--foreground)); }
 
 .cs-switch-thumb {
+  flex: none;
   width: 16px;
   height: 16px;
   border-radius: var(--radius-full);
   background: var(--panel);
   box-shadow: var(--shadow-sm);
-  transition: transform var(--motion-move), background-color var(--motion-state);
+  transition: transform var(--motion-move), width var(--motion-release), background-color var(--motion-state);
   &[data-checked] { transform: translateX(16px); background: var(--accent-foreground); }
   &[data-checked]:dir(rtl) { transform: translateX(-16px); }
+}
+/* Pressed (on the track or its label), the thumb stretches to 20px from the side it rests on; on, it shifts 4px less so its
+   far edge stays put. The track is a flex row, so right to left it grows from the right by itself. */
+.cs-choice-label:active .cs-switch:not([data-disabled]) > .cs-switch-thumb {
+  width: 20px;
+  transition: transform var(--motion-move), width var(--motion-press), background-color var(--motion-state);
+  &[data-checked] { transform: translateX(12px); }
+  &[data-checked]:dir(rtl) { transform: translateX(-12px); }
 }

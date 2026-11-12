@@ -54,6 +54,19 @@ describe('Avatar', () => {
     expect(screen.getByRole('img', { name: 'Chi Le' })).toHaveAttribute('data-tone', toneFor('Chi Le'));
   });
 
+  it('toneFor gives one name one tone in any Unicode form', () => {
+    const nfc = 'Nguyễn Văn An'.normalize('NFC');
+    const nfd = nfc.normalize('NFD');
+    expect(nfd).not.toBe(nfc);
+    expect(toneFor(nfd)).toBe(toneFor(nfc));
+  });
+
+  it("keeps an app's own data-tone when no tone is given", () => {
+    render(<><Avatar name="An Nguyen" data-tone="custom" /><Avatar name="Chi Le" data-tone="custom" tone="teal" /></>);
+    expect(screen.getByRole('img', { name: 'An Nguyen' })).toHaveAttribute('data-tone', 'custom');
+    expect(screen.getByRole('img', { name: 'Chi Le' })).toHaveAttribute('data-tone', 'teal');
+  });
+
   it('has no accessibility violations in light and dark', async () => {
     await expectAccessibleInThemes(
       <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>

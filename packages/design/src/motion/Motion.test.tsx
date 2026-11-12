@@ -76,6 +76,24 @@ describe('AnimatedNumber', () => {
     expect(n.querySelector('.cs-visually-hidden')!.textContent).toBe(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(1284000));
   });
 
+  it('without a locale prop, a server and a browser in different locales render the same digits', async () => {
+    const ui = <p><AnimatedNumber value={1284.5} /></p>;
+    const host = document.body.appendChild(document.createElement('div'));
+    host.innerHTML = renderToString(ui); // the server, in this runtime's locale
+    expect(host.textContent).toBe('1,284.51,284.5'); // en-US: visible digits, then the screen-reader copy
+
+    // the browser in Vietnamese: any Intl.NumberFormat without an explicit locale would format as vi-VN
+    const Real = Intl.NumberFormat;
+    vi.spyOn(Intl, 'NumberFormat').mockImplementation(function (locale?: Intl.LocalesArgument, options?: Intl.NumberFormatOptions) {
+      return new Real(locale ?? 'vi-VN', options);
+    } as typeof Intl.NumberFormat);
+    const errors = vi.spyOn(console, 'error');
+    const root = await act(async () => hydrateRoot(host, ui, { onRecoverableError: e => console.error(e) }));
+    expect(errors).not.toHaveBeenCalled(); // no hydration mismatch
+    expect(host.textContent).toBe('1,284.51,284.5');
+    act(() => root.unmount());
+  });
+
   it('renders its value on mount without counting', async () => {
     fullMotion();
     render(<h2>Learners <AnimatedNumber value={1284} locale="en-US" /></h2>);

@@ -59,7 +59,9 @@
 /* Sliding in from off-screen is movement no recipe value can shrink, so reduced motion fades the drawer in place. */
 @media (prefers-reduced-motion: reduce) {
   .cs-drawer, .cs-drawer[data-ending-style] { transition: opacity var(--motion-fade); }
-  .cs-drawer[data-swipe-direction][data-starting-style], .cs-drawer[data-swipe-direction][data-ending-style] { transform: none; opacity: 0; }
+  .cs-drawer[data-swipe-direction][data-starting-style], .cs-drawer[data-swipe-direction][data-ending-style] { opacity: 0; }
+  /* a drawer swiped away fades where the finger left it; only one that was not dragged drops its slide */
+  .cs-drawer[data-swipe-direction][data-starting-style], .cs-drawer[data-swipe-direction][data-ending-style]:not([data-swiping]) { transform: none; }
 }
 
 /* Grab handle: bottom sheets only. Decorative; swiping works anywhere on the sheet. */

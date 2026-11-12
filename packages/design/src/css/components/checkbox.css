@@ -84,11 +84,12 @@
 }
 .cs-choice-label:hover .cs-checkbox:not([data-disabled], [data-checked], [data-indeterminate], [data-invalid]) { border-color: var(--foreground); }
 
-/* Base UI mounts the indicator only while checked, so the tick pops in on its starting style and out on its ending style. */
+/* Base UI mounts the indicator only while checked: the tick (or dash) draws itself from its starting style and fades on its
+   ending style. --motion-pop-in is instant under reduced motion, so there it simply appears. */
 .cs-checkbox-indicator {
   display: inline-flex;
-  transition: opacity var(--motion-fade), transform var(--motion-pop-in);
-  &[data-starting-style], &[data-ending-style] { opacity: 0; transform: scale(var(--motion-pop-scale)); }
-  &[data-ending-style] { transition: opacity var(--motion-pop-out), transform var(--motion-pop-out); }
-  & > svg { width: 12px; height: 12px; }
+  &[data-ending-style] { opacity: 0; transition: opacity var(--motion-pop-out); }
+  & > svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  & path { stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset var(--motion-pop-in); }
+  &[data-starting-style] path { stroke-dashoffset: 1; }
 }

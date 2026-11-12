@@ -30,13 +30,14 @@ export function SegmentedControl<Value extends string = string>({ items, value, 
   const thumbRef = useRef<HTMLSpanElement>(null);
   const [thumb, setThumb] = useState<{ x: number; width: number } | null>(null);
   // One thumb slides to the pressed segment. Measured before paint and again whenever a segment or the track resizes;
-  // until it is measured (and on the server) the thumb stays hidden and the pressed segment draws its own background.
+  // until it is measured (on the server, or at zero width inside a hidden container) the thumb stays hidden and the pressed
+  // segment draws its own background. Shown from hidden, it appears in place instead of sliding in from the edge.
   useLayoutEffect(() => {
     const root = thumbRef.current?.parentElement;
     if (!root) return;
     const place = () => {
       const item = root.querySelector<HTMLElement>(':scope > [data-pressed]');
-      setThumb(prev => (!item ? null : prev?.x === item.offsetLeft && prev.width === item.offsetWidth ? prev : { x: item.offsetLeft, width: item.offsetWidth }));
+      setThumb(prev => (!item?.offsetWidth ? null : prev?.x === item.offsetLeft && prev.width === item.offsetWidth ? prev : { x: item.offsetLeft, width: item.offsetWidth }));
     };
     place();
     const observer = new ResizeObserver(place);

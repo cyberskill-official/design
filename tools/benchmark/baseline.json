@@ -1,6 +1,6 @@
 {
  "note": "Advisory gaps accepted today. An advisory dimension fails when its score drops below the score here. Regenerate with npm run benchmark -- --update-baseline after fixing some.",
- "overall": 97.8,
+ "overall": 98.1,
  "scores": {
   "D1": 100,
   "D2": 100,
@@ -11,10 +11,10 @@
   "D7": 100,
   "D8": 100,
   "D9": 98.9,
-  "D10": 55.3,
-  "D11": 99.1,
+  "D10": 56.6,
+  "D11": 99.3,
   "D12": 100,
-  "D13": 95.6,
+  "D13": 96.5,
   "D14": 100,
   "D15": 100,
   "D16": 100,
@@ -24,7 +24,9 @@
   "D23": 100,
   "D20": 100,
   "D21": 100,
-  "D22": 100
+  "D22": 100,
+  "D24": 100,
+  "D25": 100
  },
  "advisory": {
   "D9": [
@@ -572,8 +574,6 @@
   ],
   "D11": [
    "benchmark--disabled-states|light|focus \"Monthly #2\" in forced colors",
-   "benchmark--long-content|state \"Tổng quan\" div.cs-tabs > div.cs-tabs-list > button.cs-tabs-tab",
-   "benchmark--vietnamese-text|state \"Tổng quan Ữ\" div.cs-tabs > div.cs-tabs-list > button.cs-tabs-tab",
    "date-calendar--disabled-dates|light|focus \"Go to the Previous Month\" in forced colors",
    "date-daterangepicker--with-presets|state \"Choose dates\" span.cs-input-group > span.cs-input-adornment > button.cs-button.cs-icon-button",
    "forms-radiogroup--disabled|light|focus \"Monthly\" in forced colors",
@@ -581,7 +581,6 @@
    "structure-themescope--dark-sidebar|light|focus \"Overview\" in forced colors"
   ],
   "D13": [
-   "benchmark--long-content|font size",
    "data-charts--bars|font size",
    "data-charts--lines|font size",
    "data-charts--pinned-colors|font size",
@@ -592,7 +591,6 @@
    "feedback-spinner--inline|font size",
    "forms-textfield--adornments|font size",
    "overlays-contextmenu--default|font size",
-   "pickers-combobox--async|font size",
    "structure-form--grouped-with-fieldsets|font size"
   ]
  }

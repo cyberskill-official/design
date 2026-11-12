@@ -30,7 +30,13 @@ npx @cyberskill/design check            # src, app, components, pages and styles
 npx @cyberskill/design check lib docs   # or the folders you name
 ```
 
-It lists every raw color (hex, `rgb()`, `oklch()`, Tailwind palette classes such as `bg-blue-500`), every raw transition or animation timing (`200ms`, `cubic-bezier()`, `transition: all`, Tailwind `duration-300`), and any second animation library in `package.json` (framer-motion, GSAP, react-spring…), each as `file:line` with what to use instead. It exits 1 when it finds any, so it can run in CI. Git-ignored files and build output are skipped; a line containing `cyberskill-design-allow` is a deliberate exception.
+It lists, as `file:line` with what to use instead:
+
+- every raw color where a color goes: hex, `rgb()` or `oklch()` in CSS, style objects, `fill`/`stroke`/`color` attributes and Tailwind arbitrary values, and palette classes such as `bg-blue-500`;
+- every transition or animation off the recipes: raw times and curves (`200ms`, `cubic-bezier()`), `transition: all` or a recipe with no property, size or position on the wrong recipe, Tailwind `duration-300`, `ease-linear`, `delay-700` and `duration-[900ms]`, and a Motion `transition={{ duration: … }}`. Declarations are read whole, however a formatter wraps them;
+- a second animation library in `package.json` (framer-motion, GSAP, react-spring…).
+
+It exits 1 when it finds any and 2 when it could not run, so CI can tell the two apart. Git-ignored files, build output, test files and Markdown are skipped, symlinks are never followed, and a line containing `cyberskill-design-allow` is a deliberate exception.
 
 ## Why it saves tokens
 

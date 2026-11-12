@@ -43,7 +43,7 @@ function FirstLoadStage() {
       title="First load"
       recipes="reveal · stagger"
       layout="col"
-      note={<><code>Stagger</code> and <code>Reveal</code> are plain CSS: up to six blocks rise 8 px, one after another, on <code>--motion-reveal</code> ({ms('reveal')}). <code>AnimatedNumber</code> from the motion entry counts the headline up. Once per page load, never on scroll.</>}
+      note={<><code>Stagger</code> and <code>Reveal</code> are plain CSS: up to six blocks rise 8 px, one after another, on <code>--motion-reveal</code> ({ms('reveal')}). <code>AnimatedNumber</code> from the motion entry counts the headline up. Once per page load, never on scroll; a Reveal plays again if its container is hidden and shown, so keep it on content that mounts once.</>}
     >
       <Stagger key={run} className="fd-reveal">
         <Reveal>
@@ -60,7 +60,7 @@ function FirstLoadStage() {
   );
 }
 
-/** The eight stages, built from the real components. Every one animates through the --motion-* recipes. */
+/** The stages, built from the real components. Every one animates through the --motion-* recipes. */
 export function MotionStages() {
   return (
     <ToastProvider>

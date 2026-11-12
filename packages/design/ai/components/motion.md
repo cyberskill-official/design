@@ -41,7 +41,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
 ## AnimatedNumber
 
-Renders `value` as is, and counts from the number on screen to a new `value` with an ease-out when it changes. The digits are tabular, so the width holds while it counts, and each frame keeps the final value's precision. Formatting is `Intl.NumberFormat`: pass `locale` and `format`.
+Renders `value` as is, and counts from the number on screen to a new `value` with an ease-out when it changes. The digits are tabular, so the width holds while it counts, and each frame keeps the final value's precision. Formatting is `Intl.NumberFormat`: pass `locale` and `format`. `locale` defaults to `'en-US'`, not the runtime's locale, so the server and the browser render the same digits; Vietnamese apps pass `locale="vi-VN"`.
 
 ```tsx
 const [learners, setLearners] = useState(1284);
@@ -125,7 +125,7 @@ Under `MotionProvider`, these follow reduced motion on their own: Motion skips m
 |---|---|---|---|
 | `value` | `number` | – | The number to show (required). A new value counts from the one on screen |
 | `from` | `number` | – | Count up from this number on mount. Without JavaScript the visible digits stay at from; screen readers always get value |
-| `locale` | `Intl.LocalesArgument` | `the browser's` | Locale for Intl.NumberFormat, e.g. 'vi-VN' |
+| `locale` | `Intl.LocalesArgument` | `'en-US'` | Locale for Intl.NumberFormat, e.g. 'vi-VN'. Fixed, not the runtime's, so server and browser agree |
 | `format` | `Intl.NumberFormatOptions` | – | Currency, percent, compact notation, fraction digits |
 | `…` | `span props` | – | className, style, ref, aria-*, data-* pass through |
 
@@ -182,7 +182,7 @@ export type AnimatedNumberProps = Omit<ComponentProps<'span'>, 'children'> & {
    * digits and `value` to screen readers, so hydration does not jump; without JavaScript the visible digits stay at `from`.
    */
   from?: number;
-  /** Locale for `Intl.NumberFormat`, e.g. `'vi-VN'`. Defaults to the browser's. */
+  /** Locale for `Intl.NumberFormat`, e.g. `'vi-VN'`. Defaults to `'en-US'`, not the runtime's locale, so server and browser render the same digits. */
   locale?: Intl.LocalesArgument;
   /** `Intl.NumberFormat` options: currency, percent, compact notation, fraction digits. */
   format?: Intl.NumberFormatOptions;

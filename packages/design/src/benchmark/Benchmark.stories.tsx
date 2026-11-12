@@ -3,9 +3,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ReactNode } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
-import { Plus, Trash } from '@phosphor-icons/react';
+import { Plus, Trash, UsersThree } from '@phosphor-icons/react';
 import {
-  Accordion, AccordionItem, AccordionPanel, AccordionTrigger, Alert, Autocomplete, AvatarUpload, Badge, Breadcrumbs, Button, Card, CardContent,
+  Accordion, AccordionItem, AccordionPanel, AccordionTrigger, Alert, Autocomplete, Avatar, AvatarUpload, Badge, Breadcrumbs, Button, Card, CardContent,
   CardDescription, CardHeader, CardTitle, Checkbox, CheckboxGroup, ComboboxField, EmptyState, Field, FileUpload, MultiSelectField,
   NumberField, OtpField, Pagination, PasswordField, Popover, PopoverContent, PopoverTrigger, Prose, Radio, RadioGroup, SearchField,
   SegmentedControl, SelectField, Slider, Stat, Stepper, Switch, Tabs, TabsList, TabsPanel, TabsTab, Tag, TagInput, TextField, Textarea,
@@ -36,6 +36,7 @@ export const VietnameseText: Story = {
       <Row label="Nút">
         {(['sm', 'md', 'lg'] as const).map(size => <Button key={size} size={size}>{VI}</Button>)}
         <Button variant="secondary" size="sm" iconStart={<Plus />}>Thêm ỗ ặ</Button>
+        <Button variant="soft" tone="success" size="sm">Duyệt Ữ ặ ỵ</Button>
       </Row>
       <Row label="Nhãn">
         <Badge size="sm">{VI}</Badge>
@@ -43,6 +44,8 @@ export const VietnameseText: Story = {
         <Badge tone="danger" variant="solid">Lỗi Ữ ỵ</Badge>
         <Tag>Thẻ Ữ ỵ</Tag>
         <Tag onRemove={noop} removeLabel="Xoá thẻ">Đã gỡ Ỗ ọ</Tag>
+        <Tag tone="teal" onRemove={noop} removeLabel="Xoá thẻ">Hỗ trợ Ữ ỵ</Tag>
+        <Avatar name="Ữ Ặ" tone="violet" />
       </Row>
       <Row label="Ô nhập">
         {(['sm', 'md', 'lg'] as const).map(size => <TextField key={size} size={size} label={`Họ tên ${size}`} defaultValue="Nguyễn Thị Ữ Ẫ ặ ỵ" />)}
@@ -85,6 +88,13 @@ export const VietnameseText: Story = {
           <CardContent>{VI}</CardContent>
         </Card>
         <Stat label="Người dùng Ữ" value="Ổn định" hint="so với tháng trước ặ ỵ" style={{ width: 240 }} />
+        <Stat label="Người dùng hoạt động hằng tháng Ữ Ẫ ặ ỵ" value="Ổn định" icon={<UsersThree />} tone="teal" delta={{ value: '+12% Ữ', trend: 'up' }} style={{ width: 240 }} />
+        <Card tone="accent" style={{ width: 280 }}>
+          <CardHeader><CardTitle>Gợi ý Ữ Ẫ</CardTitle><CardDescription>Soạn từ ba tin nhắn ặ ỵ</CardDescription></CardHeader>
+        </Card>
+        <Card surface="ink" style={{ width: 280 }}>
+          <CardHeader><CardTitle>Gói Ổn định Ữ</CardTitle><CardDescription>Đã dùng 84% chỗ ặ ọ ỵ</CardDescription></CardHeader>
+        </Card>
         <EmptyState size="sm" title="Chưa có dữ liệu Ữ" description="Thêm nguồn đầu tiên ặ ọ ỵ." />
         {(['sm', 'md'] as const).map(size => (
           <Prose key={size} size={size} style={{ width: 280 }} dangerouslySetInnerHTML={{ __html: `<h3>Ổn định Ữ Ẫ</h3><p>${VI}, <code>Ỗ ặ</code> và <a href="#vi">liên kết Ữ ỵ</a>.</p><ul><li>Hằng tháng Ữ ỵ</li></ul><blockquote><p>Ẵ ặ ọ ỵ</p></blockquote>` }} />
@@ -107,11 +117,17 @@ export const LongContent: Story = {
         // minmax(0, 1fr): the column stays at the container's width, so a component that can't shrink shows up on its own
         <div key={width} data-bench="container" data-bench-width={width} style={{ width, display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 12, alignContent: 'start' }}>
           <Button>{LONG_VI}</Button>
+          <Button variant="soft" tone="accent">{LONG_VI}</Button>
           <Badge>{TOKEN}</Badge>
           <Tag>{EMAIL}</Tag>
+          <Tag tone="blue">{EMAIL}</Tag>
+          <Avatar name={LONG_VI} tone="amber" />
           <Alert tone="danger" title={LONG_VI} description={`Không gửi được tới ${EMAIL} cho hoá đơn ${TOKEN}.`} />
           <Card><CardHeader><CardTitle>{LONG_VI}</CardTitle><CardDescription>{TOKEN}</CardDescription></CardHeader></Card>
           <Stat label={LONG_VI} value="1.284.000.000 ₫" hint={EMAIL} />
+          <Stat label={LONG_VI} value="1.284.000.000 ₫" icon={<UsersThree />} tone="blue" delta={{ value: TOKEN, trend: 'down' }} hint={EMAIL} />
+          <Card tone="teal"><CardHeader><CardTitle>{LONG_VI}</CardTitle><CardDescription>{EMAIL}</CardDescription></CardHeader></Card>
+          <Card surface="ink"><CardHeader><CardTitle>{LONG_VI}</CardTitle><CardDescription>{TOKEN}</CardDescription></CardHeader></Card>
           <TextField label={LONG_VI} defaultValue={EMAIL} error={`${TOKEN} không hợp lệ`} />
           <SelectField label="Tài khoản" items={[{ value: 'a', label: EMAIL }]} defaultValue="a" />
           <Breadcrumbs label={`Breadcrumb ${width}`} items={[{ label: LONG_VI, href: '#' }, { label: TOKEN }]} />

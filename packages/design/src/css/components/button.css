@@ -50,7 +50,8 @@
   }
 
   /* variants */
-  &[data-variant='secondary'] { --_bg: var(--primary-soft); --_fg: var(--primary); --_hover: var(--primary-soft-hover); }
+  /* soft ink fill with a hairline of the same ink: the fill equals the selected-row tint, so the edge keeps the button visible there */
+  &[data-variant='secondary'] { --_bg: var(--primary-soft); --_fg: var(--primary); --_border: var(--primary-line); --_hover: var(--primary-soft-hover); }
   /* open or pressed (a popover or menu trigger): a soft fill alone is under 3:1 against the page, so the state gets an edge (WCAG 1.4.11) */
   &[data-variant='secondary']:is([data-pressed], [data-popup-open]) { --_border: var(--primary); }
   &[data-variant='soft']:is([data-pressed], [data-popup-open]) { --_border: var(--tone-text); }
@@ -91,13 +92,15 @@
 
 .cs-button-group {
   display: inline-flex;
-  gap: 1px; /* a hairline of the page between filled buttons */
-  & > .cs-button { border-radius: 0; }
-  & > .cs-button:first-child { border-start-start-radius: var(--radius-md); border-end-start-radius: var(--radius-md); }
+  /* neighbours overlap by their 1px hairline, so two buttons share one edge instead of doubling it */
+  & > .cs-button { border-radius: 0; margin-inline-start: -1px; }
+  & > .cs-button:first-child { border-start-start-radius: var(--radius-md); border-end-start-radius: var(--radius-md); margin-inline-start: 0; }
   & > .cs-button:last-child { border-start-end-radius: var(--radius-md); border-end-end-radius: var(--radius-md); }
-  & > .cs-button:focus-visible { z-index: 1; }
-  /* pressed: the panel lifts out of the soft fill with an edge at 3:1, so it differs from hover and from its neighbours (WCAG 1.4.11) */
-  & > .cs-button[aria-pressed='true'] { --_bg: var(--panel); --_fg: var(--primary); --_hover: var(--panel); box-shadow: inset 0 0 0 1px var(--primary); z-index: 1; }
+  & > .cs-button:focus-visible { z-index: 2; }
+  /* pressed: the panel lifts out of the soft fill with an ink edge at 3:1, drawn over the shared hairlines, so it differs
+     from hover and from its neighbours (WCAG 1.4.11) */
+  & > .cs-button[aria-pressed='true'] { --_bg: var(--panel); --_fg: var(--primary); --_hover: var(--panel); --_border: var(--primary); }
+  & > .cs-button:is([aria-pressed='true'], [data-pressed], [data-popup-open]) { z-index: 1; } /* their ink edge stays on top of the shared hairline */
 }
 
 .cs-button-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; padding-block: 0.5em; margin-block: -0.5em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */ }

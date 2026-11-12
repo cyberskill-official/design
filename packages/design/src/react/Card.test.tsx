@@ -21,6 +21,16 @@ function Example() {
   );
 }
 
+// WCAG contrast of two computed rgb() colors
+const ratio = (a: string, b: string) => {
+  const lum = (c: string) => {
+    const [r, g, bl] = c.match(/[\d.]+/g)!.slice(0, 3).map(v => +v / 255).map(v => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+    return 0.2126 * r! + 0.7152 * g! + 0.0722 * bl!;
+  };
+  const [hi, lo] = [lum(a), lum(b)].sort((x, y) => y - x);
+  return (hi! + 0.05) / (lo! + 0.05);
+};
+
 describe('Card', () => {
   it('renders a titled surface with an h3 by default', () => {
     render(<Example />);
@@ -71,9 +81,47 @@ describe('Card', () => {
     const ink = screen.getByTestId('ink');
     expect(ink).toHaveAttribute('data-theme', 'dark');
     expect(ink).not.toHaveAttribute('data-tone');
+    expect(getComputedStyle(ink).borderTopColor).not.toBe('rgba(0, 0, 0, 0)'); // an edge, so its deep end never melts into a dark page
     expect(getComputedStyle(ink).backgroundImage).toMatch(/^linear-gradient/);
     expect(screen.getByTestId('aurora')).not.toHaveAttribute('data-theme');
     expect(getComputedStyle(screen.getByTestId('aurora')).backgroundImage).toMatch(/radial-gradient/);
+  });
+
+  it("keeps an app's own data-tone and data-surface when the props are not given", () => {
+    render(<><Card data-testid="a" data-tone="custom" /><Card data-testid="b" data-surface="custom" /><Card data-testid="c" tone="teal" /></>);
+    expect(screen.getByTestId('a')).toHaveAttribute('data-tone', 'custom');
+    expect(screen.getByTestId('b')).toHaveAttribute('data-surface', 'custom');
+    expect(screen.getByTestId('c')).toHaveAttribute('data-tone', 'teal');
+    expect(screen.getByTestId('c')).not.toHaveAttribute('data-surface');
+  });
+
+  it('an interactive ink card draws its focus ring and hover edge inside, on the ink, on a light and a dark page', async () => {
+    for (const theme of ['light', 'dark'] as const) {
+      const host = document.createElement('div');
+      host.setAttribute('data-theme', theme);
+      host.style.padding = '16px';
+      document.body.appendChild(host);
+      render(
+        <Card interactive surface="ink" render={<a href="#plan" />}>
+          <CardTitle>{`Pro plan ${theme}`}</CardTitle>
+          <span data-testid={`ink-${theme}`} style={{ color: 'var(--brand-ink)', borderColor: 'var(--ink-deep)' }} />
+        </Card>,
+        { container: host },
+      );
+    }
+    for (const theme of ['light', 'dark'] as const) {
+      await userEvent.tab();
+      const card = screen.getByRole('link', { name: `Pro plan ${theme}` });
+      expect(document.activeElement).toBe(card);
+      const style = getComputedStyle(card);
+      const ink = getComputedStyle(screen.getByTestId(`ink-${theme}`));
+      expect(style.outlineStyle).toBe('solid');
+      expect(parseFloat(style.outlineOffset)).toBeLessThan(0);
+      expect(ratio(style.outlineColor, ink.color)).toBeGreaterThanOrEqual(3);
+      expect(ratio(style.outlineColor, ink.borderTopColor)).toBeGreaterThanOrEqual(3);
+      await userEvent.hover(card);
+      await expect.poll(() => getComputedStyle(card).boxShadow).toMatch(/inset/);
+    }
   });
 
   it('has no accessibility violations in light and dark', async () => {

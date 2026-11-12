@@ -10,7 +10,7 @@ const USES: Record<string, string> = {
   success: 'Success text and icons', warning: 'Warning text and icons', destructive: 'Errors, destructive actions', info: 'Information',
   'primary-soft': 'Selected rows, active nav', 'destructive-foreground': 'Text on destructive', 'success-foreground': 'Text on filled success',
   'warning-foreground': 'Text on filled warning', 'info-foreground': 'Text on filled info', ring: 'Focus ring',
-  wash: 'Top of the page wash', 'accent-deep': 'End of the gold gradient', 'ink-lit': 'End of the ink gradient', 'on-ink': 'Text on ink', 'on-ink-muted': 'Secondary text on ink',
+  wash: 'Top of the page wash', 'accent-deep': 'End of the gold gradient', 'ink-deep': 'End of the ink gradient',
 };
 
 function lum(hex: string) {
@@ -215,12 +215,13 @@ export function RadiusAndShadow() {
 }
 
 const Uses = ({ k }: { k: string }) => { const r = usedBy(k); return r.length ? <>{r.join(', ')}</> : <span className="fd-muted">No recipe</span>; };
+const REDUCED: Record<string, string> = tokens.motionReduced.value;
 const VALUE_USES: Record<string, string> = { 'press-scale': 'Scale while pressed', 'pop-scale': 'Where a popup grows from', 'modal-scale': 'Where a dialog grows from', rise: 'How far a revealed block rises', stagger: 'Gap between revealed blocks' };
 
 /** Every motion token with the recipes that use it, read from the token build. */
 export function MotionTokens() {
   return (
-    <div className="fd-table not-prose">
+    <div className="fd-table fd-motion-tokens not-prose">
       <table>
         <thead><tr><th>Token</th><th>Value</th><th>Used by</th></tr></thead>
         <tbody>
@@ -229,7 +230,7 @@ export function MotionTokens() {
           {Object.entries(tokens.spring).map(([k, s]) => (
             <tr key={k}><td className="fd-mono">--spring-{k}</td><td className="fd-mono">{s.duration}s, bounce {s.bounce} · settles in {s.settle}ms</td><td><Uses k={k} /></td></tr>
           ))}
-          {Object.entries(tokens.motionValue).map(([k, v]) => <tr key={k}><td className="fd-mono">--motion-{k}</td><td className="fd-mono">{v}</td><td>{VALUE_USES[k] ?? ''}</td></tr>)}
+          {Object.entries(tokens.motionValue).map(([k, v]) => <tr key={k}><td className="fd-mono">--motion-{k}</td><td className="fd-mono">{v} <span className="fd-muted">(reduced: {REDUCED[k]})</span></td><td>{VALUE_USES[k] ?? ''}</td></tr>)}
         </tbody>
       </table>
     </div>
@@ -294,7 +295,8 @@ export function Gradients() {
     <div className="fd-grads not-prose">
       {GRADIENTS.map(([k, text]) => (
         <figure key={k} className="fd-grad">
-          <div className="fd-grad-s" data-g={k} style={{ background: `var(--gradient-${k})` }}>{text}</div>
+          {/* the ink surface is a dark scope, as Card surface="ink" is */}
+          <div className="fd-grad-s" data-g={k} data-theme={k === 'ink' ? 'dark' : undefined} style={{ background: `var(--gradient-${k})` }}>{text}</div>
           <figcaption><code>--gradient-{k}</code></figcaption>
         </figure>
       ))}

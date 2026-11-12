@@ -29,7 +29,7 @@ function toInitials(name: string) {
 /** A person's photo with an initials fallback. Announced as an image named `name`; pass `aria-hidden` when the name is already shown beside it. */
 export function Avatar({ name, src, initials, size = 'md', tone, className, ...props }: AvatarProps) {
   return (
-    <BaseAvatar.Root {...props} role="img" aria-label={name} data-size={size} data-tone={tone} className={cx('cs-avatar', className)}>
+    <BaseAvatar.Root {...props} {...(tone && { 'data-tone': tone })} role="img" aria-label={name} data-size={size} className={cx('cs-avatar', className)}>
       {src && <BaseAvatar.Image src={src} alt="" className="cs-avatar-image" />}
       <BaseAvatar.Fallback className="cs-avatar-fallback">{initials ?? toInitials(name)}</BaseAvatar.Fallback>
     </BaseAvatar.Root>

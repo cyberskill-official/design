@@ -23,8 +23,9 @@ export function Card({ interactive, tone, surface, render, className, ...props }
     props: {
       ...props,
       'data-interactive': interactive || undefined,
-      'data-tone': surface ? undefined : tone,
-      'data-surface': surface,
+      // only set when the prop is given, so an app's own data-tone / data-surface passes through
+      ...(tone && !surface && { 'data-tone': tone }),
+      ...(surface && { 'data-surface': surface }),
       ...(surface === 'ink' && { 'data-theme': 'dark' }),
       className: cx('cs-card', className),
     },

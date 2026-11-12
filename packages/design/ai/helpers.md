@@ -52,7 +52,7 @@ Server Components: yes.
 
 ```ts
 import { toneFor } from '@cyberskill/design/utils';
-/** A stable category tone for a key such as a name or a tag: the same key always gets the same tone, on the server and in the browser. */
+/** A stable category tone for a key such as a name or a tag: the same key always gets the same tone, on the server and in the browser, whatever its Unicode form (NFC or NFD). */
 export declare function toneFor(key: string): CategoryTone;
 ```
 

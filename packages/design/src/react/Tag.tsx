@@ -16,7 +16,7 @@ export type TagProps = ComponentProps<'span'> & {
 export function Tag({ onRemove, removeLabel = 'Remove', tone, className, children, ...props }: TagProps) {
   const id = useId();
   return (
-    <span {...props} data-tone={tone} className={cx('cs-tag', className)}>
+    <span {...props} {...(tone && { 'data-tone': tone })} className={cx('cs-tag', className)}>
       <span id={id} className="cs-tag-label">{children}</span>
       {onRemove && (
         <button type="button" id={`${id}-remove`} className="cs-tag-remove" aria-label={removeLabel} aria-labelledby={`${id}-remove ${id}`} onClick={onRemove}>

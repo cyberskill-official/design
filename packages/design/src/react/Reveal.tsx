@@ -11,7 +11,7 @@ function renderAs(render: RenderElement | undefined, props: ComponentProps<'div'
 }
 
 export type RevealProps = ComponentProps<'div'> & {
-  /** Extra wait before it starts, in milliseconds. Added to its Stagger step. */
+  /** Extra wait before it starts, in milliseconds. Added to its Stagger step; dropped under reduced motion. */
   delay?: number;
   /** Another element instead of the `div`, e.g. `<li />` inside a Stagger list or `<section />`. */
   render?: RenderElement;

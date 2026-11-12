@@ -50,9 +50,21 @@ describe('Stat', () => {
     expect(container.querySelector('.cs-icon-tile')).toBeNull();
   });
 
-  it('draws the delta as a soft chip in the sentiment tint', () => {
-    render(<><Stat label="Churn" value="2.1%" delta={{ value: '−0.4 pts', trend: 'down', sentiment: 'positive' }} /><span data-testid="probe" style={{ background: 'var(--success-soft)' }} /></>);
-    expect(getComputedStyle(screen.getByText('−0.4 pts')).backgroundColor).toBe(getComputedStyle(screen.getByTestId('probe')).backgroundColor);
+  it('draws the delta as a soft chip: the base status color as text on its 8% tint, with the arrow', () => {
+    render(
+      <>
+        <Stat label="Churn" value="2.1%" delta={{ value: '−0.4 pts', trend: 'down', sentiment: 'positive' }} />
+        <Stat label="Latency" value="412 ms" delta={{ value: '+38 ms', trend: 'up', sentiment: 'negative' }} />
+        <span data-testid="good" style={{ background: 'color-mix(in srgb, var(--success) 8%, var(--panel))', color: 'var(--success)' }} />
+        <span data-testid="bad" style={{ background: 'color-mix(in srgb, var(--destructive) 8%, var(--panel))', color: 'var(--destructive)' }} />
+      </>,
+    );
+    for (const [text, probe] of [['−0.4 pts', 'good'], ['+38 ms', 'bad']] as const) {
+      const chip = getComputedStyle(screen.getByText(text));
+      const want = getComputedStyle(screen.getByTestId(probe));
+      expect([chip.backgroundColor, chip.color]).toEqual([want.backgroundColor, want.color]);
+      expect(screen.getByText(text).querySelector('svg')).not.toBeNull();
+    }
   });
 
   it('has no accessibility violations in light and dark', async () => {

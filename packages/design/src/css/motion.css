@@ -1,31 +1,12 @@
 /* Reader preferences, emitted unlayered after every component so they override component rules. */
 
-/* Browsers without linear() (Safari before 17.2) would drop the whole transition: give the springs a plain curve there. */
-@supports not (transition-timing-function: linear(0, 1)) {
-  :root { --spring-smooth: var(--ease-out); --spring-snappy: var(--ease-out); --spring-bouncy: var(--ease-out); }
-}
-
-/* Reduced motion: movement becomes a fade. Every recipe that moves something finishes at once, the start scales and
-   distances go to nothing, and what is left (color, opacity) stays under 200ms. Keyframe animations stop after one frame.
-   Components need no rule of their own as long as they animate through the --motion-* recipes (check-css.mjs enforces it). */
+/* Reduced motion: the recipes and start values are redefined with the tokens (tokens.css, generated from
+   tokens/foundations.json "motion-reduced"), so movement becomes a fade in components and in app CSS alike.
+   What is left for this file: keyframe animations run once, at once, with no delay (a delayed reveal must not hide its content). */
 @media (prefers-reduced-motion: reduce) {
-  :root {
-    --motion-press: 1ms linear;
-    --motion-release: 1ms linear;
-    --motion-move: 1ms linear;
-    --motion-sheet-in: 1ms linear;
-    --motion-sheet-out: 1ms linear;
-    --motion-celebrate: 1ms linear;
-    --motion-modal-in: var(--duration-base) var(--ease-out);
-    --motion-reveal: var(--duration-base) var(--ease-out);
-    --motion-press-scale: 1;
-    --motion-pop-scale: 1;
-    --motion-modal-scale: 1;
-    --motion-rise: 0px;
-    --motion-stagger: 0ms;
-  }
   :where([class^="cs-"], [class*=" cs-"], [class^="cs-"]::before, [class^="cs-"]::after) {
     animation-duration: 1ms;
+    animation-delay: 0ms;
     animation-iteration-count: 1;
   }
 }
@@ -50,4 +31,9 @@
   .cs-switch { border: 1px solid ButtonText; padding: 1px; }
   .cs-switch-thumb { forced-color-adjust: none; background: ButtonText; box-shadow: none; }
   .cs-switch[data-checked] .cs-switch-thumb { background: HighlightText; }
+  /* marks and fills drawn as backgrounds would turn Canvas on Canvas */
+  .cs-radio-indicator { forced-color-adjust: none; background: CanvasText; }
+  .cs-slider-indicator,
+  .cs-progress-indicator,
+  .cs-meter-indicator { forced-color-adjust: none; background: Highlight; box-shadow: none; }
 }

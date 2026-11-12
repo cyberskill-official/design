@@ -40,7 +40,7 @@ Every color comes in the same five roles. The token build derives them from the 
 - **soft** (`--<color>-soft`) is the fill behind tinted things: soft buttons, icon tiles, avatars, tags and tinted cards. **soft-hover** (`--<color>-soft-hover`) is the same fill under the pointer.
 - **line** (`--<color>-line`) is a tinted border or divider, such as the edge of a tinted card.
 - **solid** (`--<color>`, with `--<color>-foreground` on it) is a full fill, for the one key action or a filled status.
-- **text** (`--<color>-text`) is the color as text or an icon, on its soft fill or on a panel. Ink's text role is `--primary` and gold's is `--accent-text`.
+- **text** (`--<color>-text`) is for words and icons on the color's own tint or on a panel. Ink's text role is `--primary` and gold's is `--accent-text`. Status text outside a tint (an error under a field, a delta) keeps the base status color (`--success`, `--warning`, `--destructive`, `--info`) with its icon.
 - **icon** (`--<category>-icon`) is the glyph on a category's icon tile.
 
 The colors are ink (`--primary-*`), gold (`--accent-*`), the four status colors (`--success-*`, `--warning-*`, `--destructive-*`, `--info-*`; components call the last two `danger` and `info`) and five category tones: `blue`, `amber`, `teal`, `magenta` and `violet`, in chart order, each taking its base color from `--chart-1` … `--chart-5`.
@@ -59,7 +59,7 @@ Gold on white is only 1.8:1. So gold fills shapes that carry an ink mark (`--acc
 
 <ColorComponents />
 
-`Button` has `variant="soft"` with a `tone`, and `secondary` is now a soft ink fill instead of a grey outline. `IconTile` is new. `Avatar`, `Tag`, `Badge`, `Stat` and `Card` take a `tone`, `Stat` takes an `icon`, and `Card` takes `surface="ink"` or `surface="aurora"`. `Switch`, `Checkbox`, `Radio`, `Slider`, `Progress` and `Meter` fill with gold; pass `tone="primary"` to `Progress` or `Meter` for ink. `Alert` and `Toast` keep their status tones. In an app's own markup, `.cs-tone` with a `data-tone` attribute gives the same `--tone-*` variables.
+`Button` has `variant="soft"` with a `tone`, and `secondary` is now a soft ink fill with a `--primary-line` hairline instead of a grey outline. `IconTile` is new. `Avatar`, `Tag`, `Badge`, `Stat` and `Card` take a `tone`, `Stat` takes an `icon`, and `Card` takes `surface="ink"` or `surface="aurora"`. `Switch`, `Checkbox`, `Radio`, `Slider`, `Progress` and `Meter` fill with gold; pass `tone="primary"` to `Progress` or `Meter` for ink. `Alert` and `Toast` keep their status tones. In an app's own markup, `.cs-tone` with a `data-tone` attribute gives the same `--tone-*` variables.
 
 ```tsx
 <Stat label="Pass rate" value="86.4%" icon={<Trophy />} tone="teal" delta={{ value: '+2.1 pts', trend: 'up' }} />
@@ -76,7 +76,7 @@ Four tokens, used with `background:`, and no others. Use at most one per view, b
 
 | Token | Use it for |
 |---|---|
-| `--gradient-ink` | The one inverse surface on a view (`Card surface="ink"`) |
+| `--gradient-ink` | The one inverse surface on a view (`Card surface="ink"`): a dark scope, brand ink fading to `--ink-deep` |
 | `--gradient-wash` | The top of a page: a 6% ink wash fading into the canvas |
 | `--gradient-gold` | The key action on marketing pages only |
 | `--gradient-aurora` | AI answers and summaries (`Card surface="aurora"`): soft blue, teal and gold over the panel |
@@ -128,11 +128,14 @@ The token build checks every pairing in both themes, roles included, and fails i
 - Keep large areas quiet and let small things carry the strong color.
 - Keep a color's meaning the same on every screen and in both themes.
 - Use `--accent-text` for gold as text on light backgrounds. Bright gold is for fills.
+- Use the `-text` roles for words on a tint. Status meaning keeps the base status colors, always with its icon and its word.
+- Treat an ink card as a dark scope. Text, buttons, progress and meters, and status with its icon all sit on it safely: the build checks each on both ends of the ink gradient.
 
 ### Don't
 
 - No gold as decoration or as a status. No status color as decoration.
 - No category color for status, and no text on a solid category color.
+- No status carried by a tint alone. The gold, amber and warning tints sit close together, so a status always has its icon and its word.
 - No more than one ink surface and one gradient per view, and no gradient outside the four tokens.
 - No meaning carried by color alone. Add the icon and the word.
 - No white text on gold.

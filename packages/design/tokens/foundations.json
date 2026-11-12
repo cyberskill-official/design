@@ -142,8 +142,7 @@
     "standard": "cubic-bezier(0.2, 0, 0, 1)",
     "emphasized": "cubic-bezier(0.3, 0, 0, 1.2)",
     "exit": "cubic-bezier(0.4, 0, 1, 1)",
-    "out": "cubic-bezier(0.23, 1, 0.32, 1)",
-    "in-out": "cubic-bezier(0.77, 0, 0.175, 1)",
+    "enter": "cubic-bezier(0.23, 1, 0.32, 1)",
     "sheet": "cubic-bezier(0.32, 0.72, 0, 1)"
   },
   "spring": {
@@ -169,26 +168,26 @@
     ],
     "fade": [
       "base",
-      "out"
+      "enter"
     ],
     "press": [
       "instant",
-      "out"
+      "enter"
     ],
     "release": "snappy",
     "move": "snappy",
     "pop-in": [
       "base",
-      "out"
+      "enter"
     ],
     "pop-out": [
       "fast",
-      "out"
+      "enter"
     ],
     "modal-in": "smooth",
     "modal-out": [
       "base",
-      "out"
+      "enter"
     ],
     "sheet-in": [
       "slower",
@@ -200,7 +199,7 @@
     ],
     "reveal": [
       "slower",
-      "out"
+      "enter"
     ],
     "celebrate": "bouncy"
   },
@@ -211,6 +210,35 @@
     "modal-scale": "0.96",
     "rise": "8px",
     "stagger": "40ms"
+  },
+  "motion-reduced": {
+    "$description": "What reduced motion does to each recipe and start value. instant: anything that moves or resizes ends at once. fade: becomes a plain fade at the base duration. keep: color and opacity changes of 200ms or less stay as they are. The build fails if a recipe is in none of the lists.",
+    "instant": [
+      "press",
+      "release",
+      "move",
+      "pop-in",
+      "sheet-in",
+      "sheet-out",
+      "celebrate"
+    ],
+    "fade": [
+      "modal-in",
+      "reveal"
+    ],
+    "keep": [
+      "state",
+      "fade",
+      "pop-out",
+      "modal-out"
+    ],
+    "value": {
+      "press-scale": "1",
+      "pop-scale": "1",
+      "modal-scale": "1",
+      "rise": "0px",
+      "stagger": "0ms"
+    }
   },
   "z": {
     "sticky": 1100,

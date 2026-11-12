@@ -211,21 +211,11 @@
     "accent-deep": 0.8
   },
   "inverse": {
-    "$description": "The one inverse ink surface on a view. Same in both themes.",
-    "ink-lit": {
+    "$description": "The one inverse ink surface on a view (Card surface=\"ink\"): a dark scope painted with a gradient from brand ink to this deeper ink. The build checks dark text, status colors and control edges on both ends.",
+    "ink-deep": {
       "$type": "color",
-      "$value": "#1B3663",
+      "$value": "#0E1B33",
       "$description": "End of the ink gradient"
-    },
-    "on-ink": {
-      "$type": "color",
-      "$value": "#FFFFFF",
-      "$description": "Text on ink"
-    },
-    "on-ink-muted": {
-      "$type": "color",
-      "$value": "#B8C2D3",
-      "$description": "Secondary text on ink"
     }
   }
 }

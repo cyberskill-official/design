@@ -115,7 +115,9 @@ const builtTokens = join(dist, 'tokens.json');
 if (!existsSync(builtTokens)) { console.error('Missing dist/tokens.json; run scripts/build-tokens.mjs first.'); process.exit(1); }
 const T = JSON.parse(readFileSync(builtTokens, 'utf8'));
 const both = k => `${T.color.light[k]} / ${T.color.dark[k]}`;
-const recipeRows = Object.entries(T.motion).map(([k, r]) => `| \`--motion-${k}\` | ${Array.isArray(r) ? `${T.duration[r[0]]}, \`--ease-${r[1]}\`` : `${T.spring[r].settle}ms, \`--spring-${r}\` (spring)`} |`);
+// what reduced motion does to each recipe, from the build's own decision list (foundations.json "motion-reduced")
+const reducedOf = k => (T.motionReduced.instant.includes(k) ? 'ends at once' : T.motionReduced.fade.includes(k) ? `a ${T.duration.base} fade` : T.motionReduced.keep.includes(k) ? 'kept' : '–');
+const recipeRows = Object.entries(T.motion).map(([k, r]) => `| \`--motion-${k}\` | ${Array.isArray(r) ? `${T.duration[r[0]]}, \`--ease-${r[1]}\`` : `${T.spring[r].settle}ms, \`--spring-${r}\` (spring)`} | ${reducedOf(k)} |`);
 // data-tone names the destructive tone `danger`; primary's text role is --primary itself
 const TONE_ATTR = { destructive: 'danger' };
 const roleRows = ['primary', 'accent', 'success', 'warning', 'destructive', 'info', ...T.category].map(t => {
@@ -135,10 +137,10 @@ const tokensDoc = ['# Tokens (@cyberskill/design)', '', 'Use semantic tokens, ne
   '## Color roles', '',
   'Fill by role, not by hue. `soft` is a tinted surface, `soft-hover` its hover, `line` a tinted border, `text` text and icons on the tint (4.5:1), `icon` a category icon on the tint (3:1). Set `data-tone` on a toned component, or `class="cs-tone" data-tone="teal"` in app markup for `--tone`, `--tone-soft`, `--tone-line`, `--tone-text`, `--tone-icon`. Tailwind names match (`bg-success-soft`, `text-teal-text`). Which color for what: `color.md`. Light / dark:', '',
   '| `data-tone` | Tokens | soft | soft-hover | line | text | icon |', '|---|---|---|---|---|---|---|', ...roleRows, '',
-  `Category tones (${T.category.join(', ')}) are tint and icon only: never text on their solid color (\`--chart-1\`…\`--chart-5\`). **Surfaces:** \`--wash\` ${both('wash')}, \`--accent-deep\` ${both('accent-deep')}; on the one ink surface per view \`--ink-lit\` ${both('ink-lit')}, \`--on-ink\` ${both('on-ink')}, \`--on-ink-muted\` ${both('on-ink-muted')}. **Gradients** (for \`background:\`): \`--gradient-ink\`, \`--gradient-wash\`, \`--gradient-gold\`, \`--gradient-aurora\`.`, '',
+  `Category tones (${T.category.join(', ')}) are tint and icon only: never text on their solid color (\`--chart-1\`…\`--chart-5\`). **Surfaces:** \`--wash\` ${both('wash')}, \`--accent-deep\` ${both('accent-deep')}. **Ink surface** (one per view): a dark scope painted with \`--gradient-ink\` (brand ink to \`--ink-deep\` ${T.color.light['ink-deep']}). Use \`Card surface="ink"\`, or set \`data-theme="dark"\` on the element with that background, so everything on it takes the dark tokens; the build checks text, status colors and control edges on it. **Gradients** (for \`background:\`): \`--gradient-ink\`, \`--gradient-wash\`, \`--gradient-gold\`, \`--gradient-aurora\`.`, '',
   '## Motion recipes', '',
-  'Animate only through these, one per property: `transition: background-color var(--motion-state), transform var(--motion-release)`. Reduced motion is handled for you because the recipes are redefined under it. In React use `transitions` and `springs` from `@cyberskill/design/motion`. Which recipe for what: `motion.md`.', '',
-  '| Recipe | Duration and curve |', '|---|---|', ...recipeRows, '',
+  'Animate only through these, one per property: `transition: background-color var(--motion-state), transform var(--motion-release)`. Size and position (`width`, `height`, `top`, `inset`, `margin`…) only on `--motion-move` or `--motion-pop-in`. Reduced motion is handled for you: `tokens.css` redefines the recipes under `prefers-reduced-motion: reduce`. In React use `transitions` and `springs` from `@cyberskill/design/motion`. Which recipe for what: `motion.md`.', '',
+  '| Recipe | Duration and curve | Under reduced motion |', '|---|---|---|', ...recipeRows, '',
   `**Start values:** ${Object.entries(T.motionValue).map(([k, v]) => `\`--motion-${k}\` ${v}`).join(', ')}. Build start and end transforms from these (\`transform: scale(var(--motion-pop-scale))\`); reduced motion sets the scales to 1 and the distances to 0.`, ''].join('\n');
 files.set('tokens.md', tokensDoc);
 
@@ -168,9 +170,9 @@ files.set('INDEX.md', ['# @cyberskill/design: AI guide', '',
   '## Rules', '',
   '1. **Use a component before writing UI.** Find it in the table below. Only build custom UI when nothing fits, and then style it with tokens. **Add no other UI kit** (Radix, shadcn/ui, MUI, Chakra, Mantine, Ant Design, Headless UI): every part here is already built on Base UI, and a second kit brings its own look and focus handling.',
   '2. **Never hard-code colors, fonts or sizes.** Use CSS variables (`var(--primary)`) or the Tailwind names (`bg-primary text-primary-foreground border-border text-muted`). No hex, rgb or Tailwind palette colors like `blue-600`. **Read `color.md` before choosing any color:** fill by color role (`--success-soft`, `bg-teal-soft`, `data-tone`), and gold means on, done or key.',
-  '3. **Read `motion.md` before adding any animation.** Animate only through the `--motion-*` recipes (`transition: opacity var(--motion-fade)`) or `@cyberskill/design/motion`: no raw durations or curves, no `transition: all`, no other animation library (framer-motion, GSAP, react-spring).',
+  '3. **Read `motion.md` before adding any animation.** Animate only through the `--motion-*` recipes, one per property (`transition: opacity var(--motion-fade)`), or `@cyberskill/design/motion`: no raw durations or curves, no `transition: all` or bare recipe, size and position only on `--motion-move` or `--motion-pop-in`, no other animation library (framer-motion, GSAP, react-spring).',
   '4. **Flat named imports only**: `DialogContent`, never `Dialog.Content`. They work in React Server Component files.',
-  '5. **One primary button per view.** Gold fills what is on, done or key (a switch that is on, a checked box, a progress fill, a count) and at most one gold `accent` element per view (key action or AI moment). Gold stays rare: about 4% of a product screen.',
+  '5. **One primary button and one gold key action per view.** Checked controls, progress and counts are gold by design; do not add other gold. Gold stays rare: about 4% of a product screen.',
   '6. **Status needs icon + text**, never color alone: use `Badge` with a status `tone`, `Alert` or `toast`.',
   '7. **Every input has a visible label** (`TextField label=…`). Icon-only buttons need `label`. User-facing default strings (`closeLabel`, `previousLabel`…) are props: pass Vietnamese strings in Vietnamese UIs.',
   '8. **Charts, tables, forms, dates and motion are separate entry points** with optional peers: `@cyberskill/design/charts` (`recharts`), `/table` (`@tanstack/react-table`, `@tanstack/react-virtual`), `/forms` (`react-hook-form`), `/date` (`react-day-picker`, `date-fns`), `/motion` (`motion`). Install only what you import. Series colors come from the system in fixed order; do not pass your own colors.',

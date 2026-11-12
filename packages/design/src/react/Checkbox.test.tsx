@@ -36,6 +36,18 @@ describe('Checkbox', () => {
     await expect.poll(() => checked.querySelector('.cs-checkbox-indicator svg')).not.toBeNull();
   });
 
+  it('draws the tick and the dash as strokes that finish drawn', async () => {
+    render(<div style={{ display: 'grid', gap: 24 }}><Checkbox label="Tick" /><Checkbox label="Dash" indeterminate /></div>);
+    const tick = screen.getByRole('checkbox', { name: 'Tick' });
+    await userEvent.click(tick);
+    const path = await vi.waitFor(() => tick.querySelector<SVGPathElement>('.cs-checkbox-indicator path')!);
+    expect(path).toHaveAttribute('pathLength', '1');
+    await expect.poll(() => parseFloat(getComputedStyle(path).strokeDashoffset)).toBe(0);
+    const dash = screen.getByRole('checkbox', { name: 'Dash' }).querySelector('path')!;
+    expect(dash.getAttribute('d')).not.toBe(path.getAttribute('d'));
+    expect(getComputedStyle(dash).stroke).toBe(getComputedStyle(screen.getByRole('checkbox', { name: 'Dash' })).color);
+  });
+
   it('announces the mixed state', () => {
     render(<Checkbox label="Select all" indeterminate />);
     expect(screen.getByRole('checkbox', { name: 'Select all' })).toHaveAttribute('aria-checked', 'mixed');

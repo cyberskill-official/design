@@ -14,7 +14,7 @@ const baseUiParts = Object.keys(baseUiPkg.exports)
   .map(k => `@base-ui/react/${k.slice(2)}`);
 
 // A fresh object per project (Vitest names each browser instance after its project).
-// Reduced motion: overlays finish their fade-in before axe measures contrast.
+// Reduced motion plus src/test/settled.ts (the fades reduced motion keeps end at once): overlays are settled before axe measures contrast.
 const browser = () => ({
   enabled: true,
   headless: true,
@@ -28,12 +28,12 @@ export default defineConfig({
   optimizeDeps: { include: [...baseUiParts, '@phosphor-icons/react', '@phosphor-icons/react/ssr', 'recharts', '@tanstack/react-table', '@tanstack/react-virtual', 'react-day-picker', 'date-fns', 'react-hook-form', 'motion/react'] },
   test: {
     projects: [
-      { extends: true, test: { name: 'unit', include: ['src/**/*.test.{ts,tsx}'], setupFiles: ['./src/test/setup.ts'], browser: browser(), sequence: { groupOrder: 0 } } },
+      { extends: true, test: { name: 'unit', include: ['src/**/*.test.{ts,tsx}'], setupFiles: ['./src/test/setup.ts', './src/test/settled.ts'], browser: browser(), sequence: { groupOrder: 0 } } },
       {
         extends: true,
         plugins: [storybookTest({ configDir: fileURLToPath(new URL('./.storybook', import.meta.url)) })],
         // Interaction tests drive real popups; one file at a time keeps their timing deterministic.
-        test: { name: 'stories', browser: browser(), fileParallelism: false, sequence: { groupOrder: 1 } }, // after the unit project, not alongside it
+        test: { name: 'stories', setupFiles: ['./src/test/settled.ts'], browser: browser(), fileParallelism: false, sequence: { groupOrder: 1 } }, // after the unit project, not alongside it
       },
     ],
   },

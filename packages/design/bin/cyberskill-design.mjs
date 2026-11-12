@@ -4,12 +4,14 @@
 //   .claude/skills/cyberskill-design/SKILL.md, .cursor/rules/cyberskill-design.mdc, and a marked section in AGENTS.md.
 //   Only touches its own files and its own marked section; everything else in AGENTS.md is left as is.
 // npx @cyberskill/design check [paths…]
-//   Lists raw colors, raw motion and a second animation library in the app's own code. Exits 1 when it finds any.
-import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, statSync } from 'node:fs';
+//   Lists raw colors, raw motion and a second animation library in the app's own code. Exits 1 when it finds any,
+//   2 when it could not run.
+import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, lstatSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 import { spawnSync } from 'node:child_process';
+import { cssRules, motionProblems, isMotionProp, lineIndex } from './motion-rules.mjs';
 
 const USAGE = 'Usage: npx @cyberskill/design ai-setup [--dry-run] [--only claude,cursor,agents]\n       npx @cyberskill/design check [paths…]   (default: src, app, components, pages, styles)';
 const TARGETS = ['claude', 'cursor', 'agents'];
@@ -22,67 +24,125 @@ try {
 const { values, positionals } = parsed;
 if (values.help) { console.log(USAGE); process.exit(0); }
 
-/* ---------- check: the app's own code, line by line ---------- */
+/* ---------- check: the app's own code ---------- */
 const DEFAULT_DIRS = ['src', 'app', 'components', 'pages', 'styles'];
-const SKIP_DIRS = new Set(['node_modules', '.git', '.next', '.nuxt', '.svelte-kit', '.turbo', '.vercel', '.output', '.cache', 'dist', 'build', 'out', 'coverage', 'storybook-static']);
-const SOURCE = /\.(css|scss|sass|less|[cm]?[jt]sx?|mdx|html|vue|svelte|astro)$/;
-const STYLESHEET = /\.(css|scss|sass|less)$/;
+const SKIP_DIRS = new Set(['node_modules', '.git', '.next', '.nuxt', '.svelte-kit', '.turbo', '.vercel', '.output', '.cache', 'dist', 'build', 'out', 'coverage', 'storybook-static', '__tests__', '__mocks__']);
+// Markdown is prose and tests assert on colors, so neither is read
+const SOURCE = /\.(css|scss|less|[cm]?[jt]sx?|html|vue|svelte|astro)$/;
+const SKIP_FILE = /\.(test|spec)\.[cm]?[jt]sx?$|\.min\.|\.d\.ts$/;
+const STYLESHEET = /\.(css|scss|less)$/, MARKUP = /\.(html|vue|svelte|astro)$/;
 const ALLOW = 'cyberskill-design-allow';
 const ANIMATION_LIBS = /^(framer-motion|gsap|react-spring|@react-spring\/.+|animejs|@formkit\/auto-animate|popmotion)$/; // `motion` itself is the /motion entry's peer
 const COLOR_FIX = 'use a token (var(--primary), bg-primary) or a color role (var(--success-soft), bg-teal-soft, data-tone); see ai/color.md';
-const MOTION_FIX = 'use a --motion-* recipe (transition: opacity var(--motion-fade)) or @cyberskill/design/motion; see ai/motion.md';
+const MOTION_DOC = 'see ai/motion.md';
 const PALETTE = 'slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose';
 const UTILITY = 'bg|text|border(?:-[trblxyse])?|ring(?:-offset)?|outline|fill|stroke|from|via|to|decoration|divide|shadow|accent|caret|placeholder';
-// each entry: [pattern, what it found]; the first match on a line is reported (one color and one motion problem per line)
-const COLOR = [
-  [/(?<![\w-])(rgba?|hsla?|hwb|lab|lch|oklab|oklch)\(/i, m => `raw color ${m[1]}()`],
-  [new RegExp(`(?<![\\w-])(${UTILITY})-(${PALETTE})-(50|[1-9]00|950)(?![\\w-])`), m => `Tailwind palette color ${m[0]}`],
-  [new RegExp(`(?<![\\w-])(${UTILITY})-(white|black)(?![\\w-])`), m => `Tailwind palette color ${m[0]}`],
-  [/(?<![\w-])(color|background(?:-color|Color)?|border(?:-[a-z]+)*-color|borderColor|fill|stroke|outline-color)\s*:\s*['"]?(white|black|red|green|blue|gray|grey|orange|yellow|purple|pink)(?![\w-])/i, m => `named color ${m[2]}`],
-];
-// hex: anywhere in a stylesheet value; in code only as a whole string, a Tailwind arbitrary value or after a colon, so "#faq" links and "Issue #123" pass
-const HEX_CSS = /(?<![\w-])#[0-9a-f]{3,8}(?![\w-])/i;
-const HEX_CODE = /(['"`])#[0-9a-f]{3,8}\1|\[#[0-9a-f]{3,8}\]|:\s*#[0-9a-f]{3,8}(?![\w-])/i;
-const MOTION_DECL = /(?<![\w-])(transition|animation)(-duration|-timing-function|-property|-delay|Duration|TimingFunction|Property|Delay)?\s*:\s*([^;{}]*)/;
-const MOTION_RAW = [
-  [/(?<![\w-])all(?![\w-])/, () => 'transition: all animates every property, layout included'],
-  [/var\(--(duration|ease|spring)-[\w-]*\)/, m => `${m[0]} in a transition skips reduced motion`],
-  [/(?<![a-zA-Z0-9.-])(?=\d*\.?\d*[1-9])\d*\.?\d+m?s(?![\w-])/, m => `raw time ${m[0]}`],
-  [/(cubic-bezier|steps|linear)\(/, m => `raw curve ${m[1]}()`],
-  [/(?<![\w-])(ease-in-out|ease-in|ease-out|ease|linear|step-start|step-end)(?![\w-])/, m => `raw curve ${m[1]}`],
-];
-const MOTION_CLASS = [
-  [/(?<![\w-])transition\s*[:=]\s*\{\{?[^}]*\b(duration|ease|stiffness|damping|bounce|mass|visualDuration)\s*:/, m => `raw Motion transition (${m[1]}); use transitions.<recipe> from @cyberskill/design/motion`],
-  [/(?<![\w-])transition-all(?![\w-])/, () => 'Tailwind transition-all animates every property'],
-  [/(?<![\w-])duration-\d+(?![\w-])/, m => `Tailwind ${m[0]}`],
-  [/(?<![\w-])ease-(in-out|in|out)(?![\w-])/, m => `Tailwind ${m[0]}`],
-];
-const first = (rules, line) => { for (const [re, say] of rules) { const m = re.exec(line); if (m) return say(m); } return null; };
+const PALETTE_CLASS = new RegExp(`(?<![\\w-])(?:${UTILITY})-(?:(?:${PALETTE})-(?:50|[1-9]00|950)|white|black)(?![\\w-])`, 'g');
+// a property that takes a color: color, background, border, outline, fill, stroke, shadows, and every *-color / *Color
+const COLOR_KEY = /color$|^(background|border|outline|fill|stroke|box-?shadow|text-?shadow)/i;
+const NAMED = /(?<![\w-])(white|black|red|green|blue|gray|grey|orange|yellow|purple|pink)(?![\w-])/i;
+const rawColor = (value, named) => {
+  const v = value.replace(/url\([^)]*\)/g, ''); // url(#gradient) is a reference, not a color
+  return (/#[0-9a-f]{3,8}(?![\w-])/i.exec(v) ?? /(?<![\w-])(?:rgba?|hsla?|hwb|lab|lch|oklab|oklch)\(/i.exec(v) ?? (named ? NAMED.exec(v) : null))?.[0];
+};
+const kebab = k => k.replace(/^(Webkit|Moz|O|ms)(?=[A-Z])/, m => `-${m.toLowerCase()}`).replace(/[A-Z]/g, c => `-${c.toLowerCase()}`);
+// a style value only counts as motion when it has something timing-like in it: 'Xem tất cả' under a `transition` key is a label
+const TIMING = /\d*\.?\d+m?s(?![\w-])|var\(--|cubic-bezier\(|steps\(|(?<![\w-])(ease[\w-]*|linear|all)(?![\w-])/;
+const blank = m => m.replace(/[^\n]/g, ' ');
 
-function lineProblems(line, stylesheet) {
-  const out = [];
-  const valuePart = stylesheet ? line.slice(line.lastIndexOf('{') + 1) : line; // a selector like `#fade {` is not a color
-  const hex = (stylesheet ? HEX_CSS : HEX_CODE).exec(valuePart);
-  const color = hex ? `raw color ${hex[0].replace(/^[^#]*/, '').replace(/[^#0-9a-f]+$/i, '')}` : first(COLOR, line);
-  if (color) out.push(`${color}; ${COLOR_FIX}`);
-  const decl = MOTION_DECL.exec(line);
-  // shortcut: a loading loop is spotted by `infinite` on the same line, not elsewhere in its rule
-  const motion = (decl && !/(?<![\w-])infinite(?![\w-])/.test(line) && first(MOTION_RAW, decl[3])) || first(MOTION_CLASS, line);
-  if (motion) out.push(`${motion}; ${MOTION_FIX}`);
-  return out;
+/** Problems in one CSS declaration: a hex or color function in its value (a named color only where a color goes), motion off the recipes. */
+function declProblems(prop, value, line, ruleDecls, out) {
+  const c = rawColor(value, COLOR_KEY.test(prop));
+  if (c) out.push({ line, msg: `raw color ${c}; ${COLOR_FIX}` });
+  for (const m of motionProblems(prop, value, ruleDecls)) out.push({ line, msg: `${m}; ${MOTION_DOC}` });
 }
 
-function sourceFiles(cwd, paths) {
-  const keep = f => SOURCE.test(f) && !/\.min\./.test(f) && !f.split(/[\\/]/).some(p => SKIP_DIRS.has(p));
-  // git knows which files are ignored; outside a repo, walk the folders
+function cssProblems(text, out) {
+  for (const r of cssRules(text)) for (const d of r.decls) {
+    if (d.prop === '@apply') classProblems(d.value, () => d.line, out);
+    else declProblems(d.prop, d.value, d.line, r.decls, out);
+  }
+}
+
+/** Tailwind classes: palette colors, raw colors in arbitrary values, and timing that skips the recipes. */
+function classProblems(text, lineAt, out) {
+  for (const m of text.matchAll(PALETTE_CLASS)) out.push({ line: lineAt(m.index), msg: `Tailwind palette color ${m[0]}; ${COLOR_FIX}` });
+  for (const m of text.matchAll(/(?<![\w-])([a-z][\w-]*)-\[([^\]\s]+)\]/g)) {
+    const [cls, util, arg] = m, v = arg.replace(/_/g, ' ');
+    if (/^(duration|delay|ease)$/.test(util)) out.push({ line: lineAt(m.index), msg: `Tailwind ${cls} sets its own timing; use a recipe ([transition:opacity_var(--motion-fade)]); ${MOTION_DOC}` });
+    else if (rawColor(v, false)) out.push({ line: lineAt(m.index), msg: `raw color ${rawColor(v, false)} in ${cls}; ${COLOR_FIX}` });
+  }
+  for (const m of text.matchAll(/(?<![\w-])\[([a-z-]+):([^\]\s]+)\]/g)) declProblems(m[1], m[2].replace(/_/g, ' '), lineAt(m.index), [], out);
+  for (const m of text.matchAll(/(?<![\w-])(duration-\d+|delay-\d+|ease-(?:linear|in-out|in|out)|transition-all)(?![\w-])/g))
+    out.push({ line: lineAt(m.index), msg: `Tailwind ${m[1]} ${m[1] === 'transition-all' ? 'animates every property' : 'sets its own timing'}; use a recipe ([transition:opacity_var(--motion-fade)]); ${MOTION_DOC}` });
+}
+
+/** Code and markup: style objects, color attributes, style="…", Tailwind classes, Motion transition objects. */
+function codeProblems(text, out) {
+  const lineAt = lineIndex(text);
+  // style objects and CSS in template literals: `color: '#fff'`, `transition: 'opacity 200ms'` (not a union type `'a' | 'b'`)
+  for (const m of text.matchAll(/(?<![\w$.-])(['"]?)([A-Za-z-]+)\1\s*:\s*(['"`])((?:\\.|(?!\3)[^\\])*?)\3(?=\s*(?:[,;})\]]|$))/gm)) {
+    const prop = kebab(m[2]);
+    if (COLOR_KEY.test(prop) || (isMotionProp(prop) && TIMING.test(m[4]))) declProblems(prop, m[4], lineAt(m.index), [], out);
+  }
+  // a type annotation (`color: string;`, `transition: Transition;`) has no color and nothing timing-like, so it passes
+  for (const m of text.matchAll(/(?<![\w$.-])([a-z-]+)\s*:\s*([^;'"`{}<>]+);/g)) {
+    if (COLOR_KEY.test(m[1]) || (isMotionProp(m[1]) && TIMING.test(m[2]))) declProblems(m[1], m[2], lineAt(m.index), [], out);
+  }
+  for (const m of text.matchAll(/(?<![\w-])(fill|stroke|color|stop-?[cC]olor|flood-?[cC]olor|lighting-?[cC]olor|bgcolor)\s*=\s*\{?\s*(['"`])([^'"`]*)\2/g)) {
+    const c = rawColor(m[3], true);
+    if (c) out.push({ line: lineAt(m.index), msg: `raw color ${c} in ${m[1]}; ${COLOR_FIX}` });
+  }
+  for (const m of text.matchAll(/(?<![\w-])style\s*=\s*(['"])([^'"]*)\1/g))
+    for (const d of m[2].split(';')) { const k = d.indexOf(':'); if (k > 0) declProblems(d.slice(0, k).trim(), d.slice(k + 1).trim(), lineAt(m.index), [], out); }
+  classProblems(text, lineAt, out);
+  // Motion: transition={{ duration: 0.3 }} or a variant's transition: { … }, read to its closing brace across lines
+  for (const m of text.matchAll(/(?<![\w$.-])transition\s*(?:=\s*\{\s*\{|:\s*\{)/g)) {
+    let i = m.index + m[0].length, depth = 1;
+    for (; i < text.length && depth; i++) depth += text[i] === '{' ? 1 : text[i] === '}' ? -1 : 0;
+    const body = text.slice(m.index + m[0].length, i), k = /(?<![\w$])(duration|delay|ease|stiffness|damping|bounce|mass|visualDuration|repeatDelay)\s*:/.exec(body);
+    if (k) out.push({ line: lineAt(m.index + m[0].length + k.index), msg: `Motion transition sets ${k[1]} itself; use transitions.<recipe> or springs from @cyberskill/design/motion; ${MOTION_DOC}` });
+  }
+}
+
+function fileProblems(f, raw) {
+  const out = [];
+  let text = raw.replace(/\/\*[\s\S]*?\*\//g, blank);
+  if (STYLESHEET.test(f)) {
+    if (!f.endsWith('.css')) text = text.replace(/(^|[^:\\'"`\w(])\/\/[^\n]*/g, (m, p) => p + blank(m.slice(p.length))); // Sass and Less line comments
+    cssProblems(text, out);
+  } else {
+    text = text.replace(/<!--[\s\S]*?-->/g, blank).replace(/(^|[^:\\'"`\w(])\/\/[^\n]*/g, (m, p) => p + blank(m.slice(p.length)));
+    if (MARKUP.test(f)) {
+      // <style> blocks are CSS; the rest is markup and script
+      const styles = /(<style\b[^>]*>)([\s\S]*?)(<\/style>)/gi;
+      let css = blank(text); // same length and lines as the file, so line numbers hold
+      for (const m of text.matchAll(styles)) { const at = m.index + m[1].length; css = css.slice(0, at) + m[2] + css.slice(at + m[2].length); }
+      cssProblems(css, out);
+      text = text.replace(styles, (m, a, b, c) => a + blank(b) + c);
+    }
+    codeProblems(text, out);
+  }
+  const lines = raw.split('\n');
+  return out.filter(p => !lines[p.line - 1]?.includes(ALLOW));
+}
+
+/** Source files under the given paths: what git tracks or would add, or a walk that never follows a symlink. */
+function sourceFiles(cwd, paths, skipped) {
+  const keep = f => SOURCE.test(f) && !SKIP_FILE.test(f) && !f.split(/[\\/]/).some(p => SKIP_DIRS.has(p));
   const git = spawnSync('git', ['ls-files', '-z', '--cached', '--others', '--exclude-standard', '--', ...paths], { cwd, encoding: 'utf8' });
-  if (git.status === 0) return git.stdout.split('\0').filter(f => f && keep(f) && existsSync(join(cwd, f)));
+  if (git.status === 0) return git.stdout.split('\0').filter(f => f && keep(f));
   const out = [];
   const walk = rel => {
-    if (!statSync(join(cwd, rel)).isDirectory()) { if (keep(rel)) out.push(rel); return; }
-    for (const e of readdirSync(join(cwd, rel))) if (!SKIP_DIRS.has(e)) walk(join(rel, e));
+    let entries;
+    try { entries = readdirSync(join(cwd, rel), { withFileTypes: true }); } catch (e) { skipped.push(`${rel} (${e.code ?? e.message})`); return; }
+    for (const e of entries) {
+      const child = join(rel, e.name);
+      if (e.isDirectory() && !SKIP_DIRS.has(e.name)) walk(child);
+      else if (e.isFile() && keep(child)) out.push(child);
+    }
   };
-  paths.forEach(walk);
+  for (const p of paths) { const st = lstatSync(join(cwd, p)); if (st.isDirectory()) walk(p); else if (st.isFile() && keep(p)) out.push(p); }
   return out;
 }
 
@@ -91,34 +151,36 @@ function check(cwd, given) {
   if (missing.length) fail(`No such file or folder: ${missing.join(', ')}`);
   const paths = given.length ? given : DEFAULT_DIRS.filter(d => existsSync(join(cwd, d)));
   if (!paths.length) fail(`Nothing to check: no ${DEFAULT_DIRS.join(', ')} folder in ${cwd}. Pass the folders to check.`);
-  const problems = [];
-  const files = sourceFiles(cwd, paths);
+  const problems = [], skipped = [];
+  const files = sourceFiles(cwd, paths, skipped);
+  let read = 0;
   for (const f of files) {
-    const raw = readFileSync(join(cwd, f), 'utf8');
-    // block comments are blanked (lines kept), so a hex in a note is not a finding; the allow marker is read from the raw line
-    const code = raw.replace(/\/\*[\s\S]*?\*\//g, m => m.replace(/[^\n]/g, ' ')).split('\n');
-    raw.split('\n').forEach((line, i) => {
-      if (line.includes(ALLOW) || /^\s*\/\//.test(code[i])) return;
-      for (const p of lineProblems(code[i], STYLESHEET.test(f))) problems.push(`${f}:${i + 1}  ${p}`);
-    });
+    let raw;
+    try { if (!lstatSync(join(cwd, f)).isFile()) continue; raw = readFileSync(join(cwd, f), 'utf8'); } // a tracked symlink is not followed
+    catch (e) { skipped.push(`${f} (${e.code ?? e.message})`); continue; }
+    read++;
+    const seen = new Set();
+    for (const p of fileProblems(f, raw).sort((a, b) => a.line - b.line)) { const line = `${f}:${p.line}  ${p.msg}`; if (!seen.has(line)) { seen.add(line); problems.push(line); } }
   }
   const pkgFile = join(cwd, 'package.json');
   if (existsSync(pkgFile)) {
     const raw = readFileSync(pkgFile, 'utf8');
     let pkg;
-    try { pkg = JSON.parse(raw); } catch (e) { fail(`package.json is not valid JSON: ${e.message}`); }
+    try { pkg = JSON.parse(raw); } catch (e) { throw new Error(`package.json is not valid JSON: ${e.message}`); }
     const deps = new Set(['dependencies', 'devDependencies', 'optionalDependencies', 'peerDependencies'].flatMap(k => Object.keys(pkg[k] ?? {})));
     for (const name of [...deps].filter(d => ANIMATION_LIBS.test(d)))
       problems.push(`package.json:${raw.split('\n').findIndex(l => l.includes(`"${name}"`)) + 1}  ${name} is a second animation library; use @cyberskill/design/motion (its peer, motion, is the one allowed)`);
   }
-  if (problems.length) { console.log(`${problems.join('\n')}\n\n✗ ${problems.length} problem${problems.length > 1 ? 's' : ''} in ${files.length} files. Mark a deliberate exception with a ${ALLOW} comment on its line.`); return 1; }
-  console.log(`✓ ${files.length} files: colors through tokens and roles, motion through recipes, no second animation library`);
+  if (skipped.length) console.error(`! could not read ${skipped.length} file${skipped.length > 1 ? 's' : ''}, skipped: ${skipped.slice(0, 5).join(', ')}${skipped.length > 5 ? ', …' : ''}`);
+  if (problems.length) { console.log(`${problems.join('\n')}\n\n✗ ${problems.length} problem${problems.length > 1 ? 's' : ''} in ${read} files. Mark a deliberate exception with a ${ALLOW} comment on its line.`); return 1; }
+  console.log(`✓ ${read} files: colors through tokens and roles, motion through recipes, no second animation library`);
   return 0;
 }
 
 if (positionals[0] === 'check') {
   if (values['dry-run'] || values.only !== undefined) fail('check takes only paths.');
-  process.exit(check(process.cwd(), positionals.slice(1)));
+  // 1 means problems were found; 2 means the check itself could not run, so CI can tell the two apart
+  try { process.exit(check(process.cwd(), positionals.slice(1))); } catch (e) { console.error(`✗ check could not finish: ${e.message}`); process.exit(2); }
 }
 if (positionals.length !== 1 || positionals[0] !== 'ai-setup') fail(positionals.length ? `Unknown command: ${positionals.join(' ')}` : 'Missing command.');
 const dry = !!values['dry-run'];

@@ -15,7 +15,7 @@ Motion says what changed and where it went. It never decorates. Every transition
 
 ## Curves and springs
 
-Five durations, four curves and three springs. A spring is set the way Apple sets one: a duration and a bounce. Bounce 0 is the default, 0.15 is for things that move, and 0.3 is kept for one success moment.
+Five durations, three curves (standard, enter and sheet) and three springs. A spring is set the way Apple sets one: a duration and a bounce. Bounce 0 is the default, 0.15 is for things that move, and 0.3 is kept for one success moment.
 
 The token build samples each spring into a CSS `linear()` curve that runs for the spring's settling time, and writes the same spring as stiffness and damping for JavaScript, so CSS and the animation library move alike.
 
@@ -30,17 +30,17 @@ Apps and components never write milliseconds or curves. They pick a recipe, one 
 | Recipe | Use it for | In | Out | What moves |
 |---|---|---|---|---|
 | `--motion-state` | Hover, focus and checked: color, background, border, shadow, outline | 120ms standard | same | Color only |
-| `--motion-fade` | Opacity of anything that enters, backdrops included | 180ms ease-out | the popup's or dialog's out recipe | Opacity |
-| `--motion-press` / `--motion-release` | Anything tappable | 80ms ease-out | snappy spring | Scale to `--motion-press-scale` (0.97) |
+| `--motion-fade` | Opacity of anything that enters, backdrops included | 180ms enter | the popup's or dialog's out recipe | Opacity |
+| `--motion-press` / `--motion-release` | Anything tappable | 80ms enter | snappy spring | Scale to `--motion-press-scale` (0.97) |
 | `--motion-move` | Switch thumb, tab indicator, segment thumb, slider thumb, progress fill | snappy spring | same | Position |
-| `--motion-pop-in` / `--motion-pop-out` | Menu, select, combobox, popover, tooltip, preview card, pickers; accordion and collapsible height | 180ms ease-out | 120ms ease-out | Scale from `--motion-pop-scale` (0.96) at the trigger, fade |
-| `--motion-modal-in` / `--motion-modal-out` | Dialog, alert dialog, command menu | smooth spring | 180ms ease-out | Scale from `--motion-modal-scale` (0.96), fade, no slide |
+| `--motion-pop-in` / `--motion-pop-out` | Menu, select, combobox, command menu, popover, tooltip, preview card, pickers; accordion and collapsible height | 180ms enter | 120ms enter | Scale from `--motion-pop-scale` (0.96) at the trigger, fade |
+| `--motion-modal-in` / `--motion-modal-out` | Dialog, alert dialog | smooth spring | 180ms enter | Scale from `--motion-modal-scale` (0.96), fade, no slide |
 | `--motion-sheet-in` / `--motion-sheet-out` | Drawer, bottom sheet, side panel | 500ms sheet curve | 280ms sheet curve | Slide from its edge |
-| `--motion-reveal` | First load of a page or panel | 500ms ease-out, `--motion-stagger` (40ms) apart | none | Fade and rise `--motion-rise` (8px), six blocks at most |
+| `--motion-reveal` | First load of a page or panel | 500ms enter, `--motion-stagger` (40ms) apart | none | Fade and rise `--motion-rise` (8px), six blocks at most |
 | `--motion-celebrate` | One success: an exam passed, set-up finished | bouncy spring | none | One element, once |
 | none | Spinner, skeleton, indeterminate progress | linear loop | none | The only place `linear` is allowed |
 
-The springs: smooth is 0.3s with bounce 0 and settles in 406ms, snappy is 0.3s with bounce 0.15 and settles in 386ms, bouncy is 0.4s with bounce 0.3 and settles in 584ms. The durations: instant 80ms, fast 120ms, base 180ms, slow 280ms, slower 500ms.
+The springs: smooth is 0.3s with bounce 0 and settles in 406ms, snappy is 0.3s with bounce 0.15 and settles in 386ms, bouncy is 0.4s with bounce 0.3 and settles in 584ms. The durations: instant 80ms, fast 120ms, base 180ms, slow 280ms, slower 500ms. The curves: `--ease-standard` for color, `--ease-enter` (fast start, gentle stop) for anything that arrives or answers a press, `--ease-sheet` for sheets. `--ease-emphasized` and `--ease-exit` stay for older code; no recipe uses them.
 
 A popup, written the way every component writes it:
 
@@ -66,7 +66,7 @@ CSS first. Springs work in plain CSS through `linear()`, which every current bro
 | `@cyberskill/design/motion` | Drag and swipe with velocity, shared-element moves, exit animation for an app's own lists, a number that counts up. Built on Motion and reading the same tokens | An opt-in import. `motion` is an optional peer, like `recharts` for charts |
 | Page transitions | React's `<ViewTransition>` with the Next.js App Router | None: there is no wrapper to install |
 
-A first-load reveal needs no JavaScript: `Stagger` and `Reveal` come from the core entry and work in Server Components. The headline number counts up with `AnimatedNumber` from the `/motion` entry:
+A first-load reveal needs no JavaScript: `Stagger` and `Reveal` come from the core entry and work in Server Components. `Reveal` plays again whenever its container is hidden and shown, so put it on content that mounts once, never inside a tab panel or a collapsible. The headline number counts up with `AnimatedNumber` from the `/motion` entry:
 
 ```tsx
 import { Reveal, Stagger, Stat } from '@cyberskill/design';
@@ -99,7 +99,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 ### Do
 
 - Pick a recipe token, one per property. Never write raw milliseconds or a `cubic-bezier()` in app code.
-- Animate `transform` and `opacity` only.
+- Animate `transform` and `opacity`. Size or position only for an indicator that follows its target or a panel that opens, and then only on `--motion-move` or `--motion-pop-in`: both end at once under reduced motion.
 - Open from the trigger and leave the same way, faster.
 - Use CSS transitions, so a second click reverses the first.
 - Build start and end states from the value tokens (`--motion-press-scale`, `--motion-pop-scale`, `--motion-modal-scale`, `--motion-rise`), so reduced motion works with no extra rule.
@@ -110,22 +110,32 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 - No `linear` or `ease-in` on interface motion. `linear` is for loading loops only.
 - Nothing longer than 500ms, and most things under 300ms. A spring counts by its duration, not its settling tail.
 - No `transition: all`, and no `var(--duration-*)`, `var(--ease-*)`, raw times or raw curves inside a `transition`. The CSS check rejects them in the package.
-- No scaling from zero, and no animating `width`, `height`, `top` or `left`.
+- No scaling from zero.
 - No motion on keyboard shortcuts, typing, row selection or anything done all day.
 - No reveal on scroll and no decorative loops.
 - No second animation library in an app. Use the `/motion` entry.
 
 ## Reduced motion
 
-When the reader's system asks for reduced motion, movement becomes a fade. The package handles it once, in its stylesheet, by redefining the recipes and the values:
+When the reader's system asks for reduced motion, movement becomes a fade. It ships with the tokens: `tokens.css` redefines the recipes and the values under `prefers-reduced-motion: reduce`, so an app that imports only `tokens.css` gets it too.
 
-- `--motion-press`, `--motion-release`, `--motion-move`, `--motion-sheet-in`, `--motion-sheet-out` and `--motion-celebrate` finish at once.
+- `--motion-press`, `--motion-release`, `--motion-move`, `--motion-pop-in`, `--motion-sheet-in`, `--motion-sheet-out` and `--motion-celebrate` end at once: anything that moves or changes size.
 - `--motion-modal-in` and `--motion-reveal` become a 180ms fade.
+- `--motion-state`, `--motion-fade`, `--motion-pop-out` and `--motion-modal-out` stay as they are: color and opacity, all 180ms or less.
 - `--motion-press-scale`, `--motion-pop-scale` and `--motion-modal-scale` become 1, and `--motion-rise` and `--motion-stagger` become 0, so popups, dialogs and reveals fade in place.
-- Keyframe loops such as the spinner and skeleton stop after one frame.
-- Color and opacity keep their recipes, all under 200ms.
+- Keyframe animations in the package's stylesheet run once, at once, with no delay.
 
 A component gets this right only if it animates through the recipes and builds its start and end transforms from the value tokens. Drawers and sheets slide in from off-screen, so they add their own `@media (prefers-reduced-motion: reduce)` rule that fades instead. `Reveal` and `Stagger` show their content at once, and `AnimatedNumber` shows its final value without counting.
+
+To retime a component, override its recipe on `:root`, inside `prefers-reduced-motion: no-preference` so reduced motion still wins:
+
+```css
+@media (prefers-reduced-motion: no-preference) {
+  :root { --motion-pop-in: var(--duration-slow) var(--ease-enter); }
+}
+```
+
+The recipes are resolved on `:root`, so overriding `--duration-*` or `--ease-*` changes nothing, and a recipe set on a subtree does not reach the components (popups render at the end of the page, outside it).
 
 ## Layers
 

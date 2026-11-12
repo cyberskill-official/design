@@ -40,24 +40,15 @@ export function SpeedToggle() {
   );
 }
 
-/* ---------- the eight lanes ---------- */
+/* ---------- the lanes: linear for contrast, every curve a recipe uses, every spring ---------- */
 type Lane = { name: string; token: string; ms: number; css: string; kind: 'linear' | 'curve' | 'spring' };
 const SLOW_MS = parseFloat(tokens.duration.slow);
+const title = (k: string) => k[0]!.toUpperCase() + k.slice(1);
 // A curve runs at the duration of the first recipe that uses it; a spring for its settling time.
-const curve = (name: string, key: keyof typeof tokens.ease): Lane => {
-  const r = usedBy(key)[0];
-  return { name, token: `--ease-${key}`, ms: r ? recipe(r)[0] : SLOW_MS, css: tokens.ease[key], kind: 'curve' };
-};
-const springLane = (name: string, key: keyof typeof tokens.spring): Lane => ({ name, token: `--spring-${key}`, ms: tokens.spring[key].settle, css: tokens.spring[key].css, kind: 'spring' });
 const LANES: Lane[] = [
   { name: 'Linear', token: 'loading loops only', ms: SLOW_MS, css: 'linear', kind: 'linear' },
-  curve('Standard', 'standard'),
-  curve('Ease out', 'out'),
-  curve('Ease in-out', 'in-out'),
-  curve('Sheet', 'sheet'),
-  springLane('Spring smooth', 'smooth'),
-  springLane('Spring snappy', 'snappy'),
-  springLane('Spring bouncy', 'bouncy'),
+  ...(Object.entries(tokens.ease) as [string, string][]).filter(([k]) => usedBy(k).length).map(([k, css]): Lane => ({ name: title(k), token: `--ease-${k}`, ms: recipe(usedBy(k)[0]!)[0], css, kind: 'curve' })),
+  ...Object.entries(tokens.spring).map(([k, s]): Lane => ({ name: `Spring ${k}`, token: `--spring-${k}`, ms: s.settle, css: s.css, kind: 'spring' })),
 ];
 const timing = (ms: number, css: string) => ({ '--fd-ms': ms, '--fd-ease': css }) as CSSProperties;
 
@@ -67,7 +58,7 @@ export function CurveLab({ speedToggle = true }: { speedToggle?: boolean }) {
   return (
     <div className="fd-panel not-prose">
       <div className="fd-panel-head">
-        <h3 className="fd-panel-title">Same distance, eight ways</h3>
+        <h3 className="fd-panel-title">One distance, every curve in use</h3>
         <div className="fd-panel-actions">
           {speedToggle && <SpeedToggle />}
           <Button size="sm" iconStart={<Play />} onClick={() => setGo(!go)}>{go ? 'Reverse' : 'Play'}</Button>

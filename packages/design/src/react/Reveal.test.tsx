@@ -38,12 +38,20 @@ describe('Reveal', () => {
     }
   });
 
-  it('Stagger delays its children one stagger step apart, at most five steps, plus their own delay', () => {
-    // reduced motion sets the step to 0ms; give it back its full value to read the schedule
-    render(<div style={{ '--motion-stagger': '40ms' } as React.CSSProperties}><Stagger render={<ul />}>{items(8)}</Stagger><Stagger><Reveal>A</Reveal><Reveal delay={100}>B</Reveal></Stagger></div>);
+  it('with reduced motion a delayed Reveal is visible at once, not after its delay', async () => {
+    render(<Reveal delay={2000}>Team plan</Reveal>);
+    const el = screen.getByText('Team plan');
+    expect(getComputedStyle(el).animationDelay).toBe('0s');
+    await new Promise(r => setTimeout(r, 50));
+    expect(getComputedStyle(el).opacity).toBe('1');
+  });
+
+  it('Stagger gives its children one step each, at most five, and adds their own delay', () => {
+    // read the schedule from the steps: under reduced motion (the test browser) every computed delay is 0
+    render(<><Stagger render={<ul />}>{items(8)}</Stagger><Stagger><Reveal>A</Reveal><Reveal delay={100}>B</Reveal></Stagger></>);
     expect(screen.getByRole('list')).toHaveClass('cs-stagger');
-    expect(screen.getAllByRole('listitem').map(li => getComputedStyle(li).animationDelay)).toEqual(['0s', '0.04s', '0.08s', '0.12s', '0.16s', '0.2s', '0.2s', '0.2s']);
-    expect(getComputedStyle(screen.getByText('B')).animationDelay).toBe('0.14s');
+    expect(screen.getAllByRole('listitem').map(li => getComputedStyle(li).getPropertyValue('--_reveal-step') || '0')).toEqual(['0', '1', '2', '3', '4', '5', '5', '5']);
+    expect(getComputedStyle(screen.getByText('B')).getPropertyValue('--_reveal-delay')).toBe('100ms');
   });
 
   it('has no axe violations in light and dark', async () => {
