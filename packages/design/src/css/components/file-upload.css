@@ -16,7 +16,7 @@
   font: 500 0.875rem/1.25rem var(--font-sans);
   text-align: center;
   cursor: pointer;
-  transition: background-color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard);
+  transition: background-color var(--motion-state), border-color var(--motion-state);
 
   &:hover:not(:disabled, [aria-invalid='true']) { border-color: var(--foreground); }
   &:hover:not(:disabled) { background: var(--raised); }
@@ -76,4 +76,4 @@
 .cs-file-upload-item-done { color: var(--success); }
 
 .cs-file-upload-progress-track { height: 4px; overflow: hidden; border-radius: var(--radius-full); background: var(--border); }
-.cs-file-upload-progress-indicator { height: 100%; border-radius: inherit; background: var(--primary); transition: width var(--duration-base) var(--ease-standard); }
+.cs-file-upload-progress-indicator { height: 100%; border-radius: inherit; background: var(--primary); transition: width var(--motion-move); }

@@ -1,18 +1,19 @@
 // Generates packages/design/ai/: compact, exact docs for AI coding tools in apps that use this package.
-// Sources: the site's component pages (usage, examples, props, accessibility), the built .d.ts files (exact types)
-// and tokens/*.json. Run after tsdown. `--check` fails if the committed ai/ folder is stale (used in CI).
+// Sources: the site's component pages (usage, examples, props, accessibility), the motion and color foundations pages
+// (their rules), the built .d.ts files (exact types), tokens/*.json and the built dist/tokens.json. Run after tsdown.
+// `--check` fails if the committed ai/ folder is stale (used in CI).
 import { readFileSync, writeFileSync, readdirSync, mkdirSync, existsSync, rmSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const pkg = join(dirname(fileURLToPath(import.meta.url)), '..');
-const pages = join(pkg, '..', '..', 'apps', 'site', 'content', 'docs', 'components');
+const docs = join(pkg, '..', '..', 'apps', 'site', 'content', 'docs'), pages = join(docs, 'components');
 const out = join(pkg, 'ai');
 const check = process.argv.includes('--check');
 
 /* ---------- exports and exact types from the built declarations ---------- */
 // utils first, so helpers.md shows a pure helper's server-safe import.
-const ENTRIES = { '@cyberskill/design/utils': 'utils', '@cyberskill/design': 'index', '@cyberskill/design/charts': 'charts', '@cyberskill/design/table': 'table', '@cyberskill/design/forms': 'forms', '@cyberskill/design/date': 'date' };
+const ENTRIES = { '@cyberskill/design/utils': 'utils', '@cyberskill/design': 'index', '@cyberskill/design/charts': 'charts', '@cyberskill/design/table': 'table', '@cyberskill/design/forms': 'forms', '@cyberskill/design/date': 'date', '@cyberskill/design/motion': 'motion' };
 const dist = join(pkg, 'dist');
 const dts = {}, exportsOf = {}, localName = {};
 for (const [spec, file] of Object.entries(ENTRIES)) {
@@ -99,8 +100,30 @@ for (const slug of slugs) {
   index.push({ slug, title: p.title, description: p.description, imports: p.imports });
 }
 
+/* ---------- motion.md, color.md: the foundations pages' rules, read before any animation or color choice ---------- */
+for (const name of ['motion', 'color']) {
+  const file = join(docs, 'foundations', `${name}.mdx`), rel = `apps/site/content/docs/foundations/${name}.mdx`;
+  if (!existsSync(file)) { console.error(`✗ ${rel} is missing; ai/${name}.md is generated from it.`); process.exit(1); }
+  const p = parsePage(file);
+  if (!/^## Rules\s*$/m.test(p.md)) { console.error(`✗ ${rel} has no "## Rules" section; ai/${name}.md must carry the rules an AI follows.`); process.exit(1); }
+  files.set(`${name}.md`, [`# ${p.title} (@cyberskill/design)`, '', `> ${p.description}`, '', p.md, ''].join('\n'));
+}
+
 /* ---------- tokens ---------- */
 const C = JSON.parse(readFileSync(join(pkg, 'tokens', 'color.json'), 'utf8'));
+const builtTokens = join(dist, 'tokens.json');
+if (!existsSync(builtTokens)) { console.error('Missing dist/tokens.json; run scripts/build-tokens.mjs first.'); process.exit(1); }
+const T = JSON.parse(readFileSync(builtTokens, 'utf8'));
+const both = k => `${T.color.light[k]} / ${T.color.dark[k]}`;
+// what reduced motion does to each recipe, from the build's own decision list (foundations.json "motion-reduced")
+const reducedOf = k => (T.motionReduced.instant.includes(k) ? 'ends at once' : T.motionReduced.fade.includes(k) ? `a ${T.duration.base} fade` : T.motionReduced.keep.includes(k) ? 'kept' : '–');
+const recipeRows = Object.entries(T.motion).map(([k, r]) => `| \`--motion-${k}\` | ${Array.isArray(r) ? `${T.duration[r[0]]}, \`--ease-${r[1]}\`` : `${T.spring[r].settle}ms, \`--spring-${r}\` (spring)`} | ${reducedOf(k)} |`);
+// data-tone names the destructive tone `danger`; primary's text role is --primary itself
+const TONE_ATTR = { destructive: 'danger' };
+const roleRows = ['primary', 'accent', 'success', 'warning', 'destructive', 'info', ...T.category].map(t => {
+  const cell = (role, fallback) => (T.color.light[`${t}-${role}`] ? both(`${t}-${role}`) : fallback);
+  return `| \`${TONE_ATTR[t] ?? t}\` | \`--${t}-*\` | ${cell('soft', '–')} | ${cell('soft-hover', '–')} | ${cell('line', '–')} | ${cell('text', `\`--${t}\` ${both(t)}`)} | ${cell('icon', '–')} |`;
+});
 const tokenRows = Object.entries(C.light).filter(([k]) => !k.startsWith('$')).map(([k, v]) => `| \`--${k}\` | \`${k}\` | ${v.$value} / ${C.dark[k].$value} | ${v.$description ?? ''} |`);
 const tokensDoc = ['# Tokens (@cyberskill/design)', '', 'Use semantic tokens, never hex values. They switch with `data-theme` (`light` default, `dark`, `system`) on `<html>` or any element.', '',
   '| CSS variable | Tailwind color name | Light / Dark | Use |', '|---|---|---|---|', ...tokenRows,
@@ -110,7 +133,15 @@ const tokensDoc = ['# Tokens (@cyberskill/design)', '', 'Use semantic tokens, ne
   '| `--gold`, `--on-gold` | `gold`, `on-gold` | = `--accent`, `--accent-foreground` | Aliases |', '| `--muted-foreground` | – | = `--muted` | Alias (CSS only) |',
   `| \`--chart-1\`…\`--chart-5\` | \`chart-1\`… | ${C.chart.light.join(', ')} / ${C.chart.dark.join(', ')} | Chart series in fixed order: ${C.chart.names.join(', ')} |`, '',
   '**Type:** classes `cs-display`, `cs-h1`–`cs-h4`, `cs-body-lg`, `cs-body`, `cs-ui`, `cs-caption`, `cs-overline`, `cs-code`. Fonts `--font-display` (Manrope, headings), `--font-sans` (Be Vietnam Pro, body/UI), `--font-mono` (JetBrains Mono, data/code). Tailwind: `font-display`, `font-sans`, `font-mono`.',
-  '', '**Space:** `--space-1`…`--space-20` on a 4px scale (`--space-4` = 16px). **Radius:** `--radius-sm|md|lg|xl|full` (controls md, cards lg, dialogs xl). **Shadow:** `--shadow-sm|md|lg|overlay`. **Motion:** `--duration-fast|base|slow`, `--ease-standard|emphasized|exit`. **Layers:** `--z-dropdown|sticky|overlay|modal|toast|tooltip`. **Controls:** `--control-sm|md|lg` (32/40/48px), `--control-touch` (44px).', ''].join('\n');
+  '', '**Space:** `--space-1`…`--space-20` on a 4px scale (`--space-4` = 16px). **Radius:** `--radius-sm|md|lg|xl|full` (controls md, cards lg, dialogs xl). **Shadow:** `--shadow-sm|md|lg|overlay`. **Layers:** `--z-dropdown|sticky|overlay|modal|toast|tooltip`. **Controls:** `--control-sm|md|lg` (32/40/48px), `--control-touch` (44px).', '',
+  '## Color roles', '',
+  'Fill by role, not by hue. `soft` is a tinted surface, `soft-hover` its hover, `line` a tinted border, `text` text and icons on the tint (4.5:1), `icon` a category icon on the tint (3:1). Set `data-tone` on a toned component, or `class="cs-tone" data-tone="teal"` in app markup for `--tone`, `--tone-soft`, `--tone-line`, `--tone-text`, `--tone-icon`. Tailwind names match (`bg-success-soft`, `text-teal-text`). Which color for what: `color.md`. Light / dark:', '',
+  '| `data-tone` | Tokens | soft | soft-hover | line | text | icon |', '|---|---|---|---|---|---|---|', ...roleRows, '',
+  `Category tones (${T.category.join(', ')}) are tint and icon only: never text on their solid color (\`--chart-1\`…\`--chart-5\`). **Surfaces:** \`--wash\` ${both('wash')}, \`--accent-deep\` ${both('accent-deep')}. **Ink surface** (one per view): a dark scope painted with \`--gradient-ink\` (brand ink to \`--ink-deep\` ${T.color.light['ink-deep']}). Use \`Card surface="ink"\`, or set \`data-theme="dark"\` on the element with that background, so everything on it takes the dark tokens; the build checks text, status colors and control edges on it. **Gradients** (for \`background:\`): \`--gradient-ink\`, \`--gradient-wash\`, \`--gradient-gold\`, \`--gradient-aurora\`.`, '',
+  '## Motion recipes', '',
+  'Animate only through these, one per property: `transition: background-color var(--motion-state), transform var(--motion-release)`. Size and position (`width`, `height`, `top`, `inset`, `margin`…) only on `--motion-move` or `--motion-pop-in`. Reduced motion is handled for you: `tokens.css` redefines the recipes under `prefers-reduced-motion: reduce`. In React use `transitions` and `springs` from `@cyberskill/design/motion`. Which recipe for what: `motion.md`.', '',
+  '| Recipe | Duration and curve | Under reduced motion |', '|---|---|---|', ...recipeRows, '',
+  `**Start values:** ${Object.entries(T.motionValue).map(([k, v]) => `\`--motion-${k}\` ${v}`).join(', ')}. Build start and end transforms from these (\`transform: scale(var(--motion-pop-scale))\`); reduced motion sets the scales to 1 and the distances to 0.`, ''].join('\n');
 files.set('tokens.md', tokensDoc);
 
 /* ---------- helpers.md + every runtime export documented somewhere ---------- */
@@ -138,28 +169,31 @@ files.set('INDEX.md', ['# @cyberskill/design: AI guide', '',
   'Fonts: load Manrope, Be Vietnam Pro and JetBrains Mono (with the `vietnamese` subset) and set `--font-display`, `--font-sans`, `--font-mono` on `:root, [data-theme]`. Dark mode: `data-theme="dark"` on `<html>` or any container; `data-theme="system"` follows the OS. Without the attribute the page stays light.', '',
   '## Rules', '',
   '1. **Use a component before writing UI.** Find it in the table below. Only build custom UI when nothing fits, and then style it with tokens. **Add no other UI kit** (Radix, shadcn/ui, MUI, Chakra, Mantine, Ant Design, Headless UI): every part here is already built on Base UI, and a second kit brings its own look and focus handling.',
-  '2. **Never hard-code colors, fonts or sizes.** Use CSS variables (`var(--primary)`) or the Tailwind names (`bg-primary text-primary-foreground border-border text-muted`). No hex, rgb or Tailwind palette colors like `blue-600`.',
-  '3. **Flat named imports only**: `DialogContent`, never `Dialog.Content`. They work in React Server Component files.',
-  '4. **One primary button per view; at most one gold `accent` element** (key action or AI moment). Product screens keep gold under 3% of the screen.',
-  '5. **Status needs icon + text**, never color alone: use `Badge` with a status `tone`, `Alert` or `toast`.',
-  '6. **Every input has a visible label** (`TextField label=…`). Icon-only buttons need `label`. User-facing default strings (`closeLabel`, `previousLabel`…) are props: pass Vietnamese strings in Vietnamese UIs.',
-  '7. **Charts, tables, forms and dates are separate entry points** with optional peers: `@cyberskill/design/charts` (`recharts`), `/table` (`@tanstack/react-table`, `@tanstack/react-virtual`), `/forms` (`react-hook-form`), `/date` (`react-day-picker`, `date-fns`). Install only what you import. Series colors come from the system in fixed order; do not pass your own colors.',
-  '8. **Customize with `className`**, not by overriding internals. The package CSS sits in the `base` and `components` cascade layers, so plain app CSS and Tailwind utilities win without `!important`.',
-  '9. **Server Components:** import components from any entry as usual (each component is its own client module, so only what you use ships). Pure helpers run on the server too: `cx`, `formatFileSize`, `chartColor`, `seriesColor` (also in `@cyberskill/design/utils`, which holds no component code) and `formatDate`, `parseDate`, `formatTime`, `parseTime`, `DEFAULT_DATE_FORMAT` from `/date`. All helpers are in `helpers.md`.', '',
+  '2. **Never hard-code colors, fonts or sizes.** Use CSS variables (`var(--primary)`) or the Tailwind names (`bg-primary text-primary-foreground border-border text-muted`). No hex, rgb or Tailwind palette colors like `blue-600`. **Read `color.md` before choosing any color:** fill by color role (`--success-soft`, `bg-teal-soft`, `data-tone`), and gold means on, done or key.',
+  '3. **Read `motion.md` before adding any animation.** Animate only through the `--motion-*` recipes, one per property (`transition: opacity var(--motion-fade)`), or `@cyberskill/design/motion`: no raw durations or curves, no `transition: all` or bare recipe, size and position only on `--motion-move` or `--motion-pop-in`, no other animation library (framer-motion, GSAP, react-spring).',
+  '4. **Flat named imports only**: `DialogContent`, never `Dialog.Content`. They work in React Server Component files.',
+  '5. **One primary button and one gold key action per view.** Checked controls, progress and counts are gold by design; do not add other gold. Gold stays rare: about 4% of a product screen.',
+  '6. **Status needs icon + text**, never color alone: use `Badge` with a status `tone`, `Alert` or `toast`.',
+  '7. **Every input has a visible label** (`TextField label=…`). Icon-only buttons need `label`. User-facing default strings (`closeLabel`, `previousLabel`…) are props: pass Vietnamese strings in Vietnamese UIs.',
+  '8. **Charts, tables, forms, dates and motion are separate entry points** with optional peers: `@cyberskill/design/charts` (`recharts`), `/table` (`@tanstack/react-table`, `@tanstack/react-virtual`), `/forms` (`react-hook-form`), `/date` (`react-day-picker`, `date-fns`), `/motion` (`motion`). Install only what you import. Series colors come from the system in fixed order; do not pass your own colors.',
+  '9. **Customize with `className`**, not by overriding internals. The package CSS sits in the `base` and `components` cascade layers, so plain app CSS and Tailwind utilities win without `!important`.',
+  '10. **Server Components:** import components from any entry as usual (each component is its own client module, so only what you use ships). Pure helpers run on the server too: `cx`, `formatFileSize`, `chartColor`, `seriesColor`, `toneFor` (also in `@cyberskill/design/utils`, which holds no component code), `formatDate`, `parseDate`, `formatTime`, `parseTime`, `DEFAULT_DATE_FORMAT` from `/date`, and `springs` and `transitions` from `/motion`. All helpers are in `helpers.md`.',
+  '11. **Before you finish, run `npx @cyberskill/design check`.** It lists raw colors, raw motion and a second animation library, each with its fix.', '',
   '## Components', '', '| Component | Use it for | Import | Doc |', '|---|---|---|---|', ...table, '',
-  '## More', '', '- `tokens.md`: every token with light and dark values and its Tailwind name.', `- \`helpers.md\`: ${helperNames.join(', ')}.`, '- Live examples: https://design.cyberskill.world', ''].join('\n'));
+  '## More', '', '- `color.md` and `motion.md`: the rules for choosing a color and for any animation.', '- `tokens.md`: every token with light and dark values and its Tailwind name, the color roles and the motion recipes.', `- \`helpers.md\`: ${helperNames.join(', ')}.`, '- Live examples: https://design.cyberskill.world', ''].join('\n'));
 
 /* ---------- AI tool integrations shipped with the package ---------- */
-const skill = ['---', 'name: cyberskill-design', 'description: Use when building or changing UI in a project that depends on @cyberskill/design (CyberSkill Design System, Ink & Gold): choosing components, colors, tokens, typography, icons, charts, tables, forms or dark mode. Read node_modules/@cyberskill/design/ai/INDEX.md first, then only the component docs you need.', '---', '',
+const skill = ['---', 'name: cyberskill-design', 'description: Use when building or changing UI in a project that depends on @cyberskill/design (CyberSkill Design System, Ink & Gold): choosing components, colors, tokens, typography, icons, animation, charts, tables, forms or dark mode. Read node_modules/@cyberskill/design/ai/INDEX.md first, then only the component docs you need.', '---', '',
   '# CyberSkill Design System', '', '1. Read `node_modules/@cyberskill/design/ai/INDEX.md`: setup, rules and the table of every component with its import.',
   '2. For each component you will use, read `node_modules/@cyberskill/design/ai/components/<name>.md` (exact props and types, examples, accessibility). Do not read the others.',
-  '3. For colors, spacing, type or motion, read `node_modules/@cyberskill/design/ai/tokens.md`.',
-  '4. Follow the rules in INDEX.md exactly: components before custom UI, no other UI kit (Radix, shadcn/ui, MUI…), tokens only (no hex or Tailwind palette colors), flat imports, labels on every control, status with icon + text.',
-  '5. Do not read the package source or `dist/` to learn the API; the ai/ docs are generated from it and are exact.', ''].join('\n');
+  '3. Before adding any animation read `node_modules/@cyberskill/design/ai/motion.md`; before choosing any color read `ai/color.md`. Token values (color roles, motion recipes, spacing, type) are in `ai/tokens.md`.',
+  '4. Follow the rules in INDEX.md exactly: components before custom UI, no other UI kit (Radix, shadcn/ui, MUI…), tokens only (no hex or Tailwind palette colors), fill by color role, gold only for on, done or key, animate only through `--motion-*` recipes or `@cyberskill/design/motion`, flat imports, labels on every control, status with icon + text.',
+  '5. Do not read the package source or `dist/` to learn the API; the ai/ docs are generated from it and are exact.',
+  '6. Before you finish, run `npx @cyberskill/design check` and fix what it lists.', ''].join('\n');
 files.set('SKILL.md', skill);
 files.set('cursor-rule.mdc', ['---', 'description: CyberSkill Design System (@cyberskill/design): use its components and tokens for all UI', 'globs: ["**/*.tsx", "**/*.jsx", "**/*.css", "**/*.mdx"]', 'alwaysApply: false', '---', '',
-  'This project uses @cyberskill/design. Before writing or changing UI, read `node_modules/@cyberskill/design/ai/INDEX.md`, then only the `ai/components/<name>.md` files you need. Follow its rules: components before custom UI, no other UI kit (Radix, shadcn/ui, MUI…), tokens only (no hex or Tailwind palette colors), flat named imports, visible labels, status with icon + text.', ''].join('\n'));
-files.set('AGENTS-snippet.md', ['## UI: CyberSkill Design System', '', 'All UI uses `@cyberskill/design`. Before writing or changing UI, read `node_modules/@cyberskill/design/ai/INDEX.md` and then only the `ai/components/<name>.md` files you need. Rules: use a component before writing custom UI; add no other UI kit (Radix, shadcn/ui, MUI…); tokens only (no hex or Tailwind palette colors); flat named imports; every control has a visible label; status shows icon + text.', ''].join('\n'));
+  'This project uses @cyberskill/design. Before writing or changing UI, read `node_modules/@cyberskill/design/ai/INDEX.md`, then only the `ai/components/<name>.md` files you need. Read `ai/motion.md` before adding any animation and `ai/color.md` before choosing any color. Follow its rules: components before custom UI, no other UI kit (Radix, shadcn/ui, MUI…), tokens only (no hex or Tailwind palette colors), fill by color role, gold only for on, done or key, animate only through `--motion-*` recipes or `@cyberskill/design/motion`, flat named imports, visible labels, status with icon + text. Run `npx @cyberskill/design check` before you finish.', ''].join('\n'));
+files.set('AGENTS-snippet.md', ['## UI: CyberSkill Design System', '', 'All UI uses `@cyberskill/design`. Before writing or changing UI, read `node_modules/@cyberskill/design/ai/INDEX.md` and then only the `ai/components/<name>.md` files you need. Read `ai/motion.md` before adding any animation and `ai/color.md` before choosing any color. Rules: use a component before writing custom UI; add no other UI kit (Radix, shadcn/ui, MUI…); tokens only (no hex or Tailwind palette colors); fill by color role, gold only for on, done or key; animate only through `--motion-*` recipes or `@cyberskill/design/motion`; flat named imports; every control has a visible label; status shows icon + text. Run `npx @cyberskill/design check` before you finish.', ''].join('\n'));
 
 /* ---------- write or check ---------- */
 const stale = [];
@@ -171,4 +205,4 @@ if (check) {
 rmSync(out, { recursive: true, force: true });
 for (const [rel, content] of files) { const f = join(out, rel); mkdirSync(dirname(f), { recursive: true }); writeFileSync(f, content); }
 const tokensApprox = Math.round(files.get('INDEX.md').length / 4);
-console.log(`✓ ai/ docs: INDEX.md (~${tokensApprox} tokens), tokens.md, ${index.length} component docs, SKILL.md, cursor-rule.mdc, AGENTS-snippet.md`);
+console.log(`✓ ai/ docs: INDEX.md (~${tokensApprox} tokens), tokens.md, motion.md, color.md, ${index.length} component docs, SKILL.md, cursor-rule.mdc, AGENTS-snippet.md`);

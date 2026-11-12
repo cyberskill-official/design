@@ -18,6 +18,7 @@
   vertical-align: middle;
   user-select: none;
 
+  &[data-tone] { background: var(--tone-soft-hover); color: var(--tone-text); } /* tone map: tone.css */
   &[data-size='sm'] { --_size: 1.5rem; --_font: 700 0.75rem/1 var(--font-display); letter-spacing: 0; }
   &[data-size='lg'] { --_size: 2.5rem; --_font: 700 0.9375rem/1 var(--font-display); }
   &[data-overflow] { background: var(--raised); color: var(--foreground); font-variant-numeric: tabular-nums; }

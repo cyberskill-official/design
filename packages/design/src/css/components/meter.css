@@ -1,13 +1,16 @@
 .cs-meter {
-  --_fill: var(--primary);
+  /* gold by default with an --accent-text edge (gold on white is 1.8:1); tone="primary" is ink */
+  --_fill: var(--accent);
+  --_edge: var(--accent-text);
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: baseline;
   gap: var(--space-2) var(--space-3);
   min-width: 0;
 
-  &[data-tone='warning'] { --_fill: var(--warning); }
-  &[data-tone='danger'] { --_fill: var(--destructive); }
+  &[data-tone='primary'] { --_fill: var(--primary); --_edge: transparent; }
+  &[data-tone='warning'] { --_fill: var(--warning); --_edge: transparent; }
+  &[data-tone='danger'] { --_fill: var(--destructive); --_edge: transparent; }
 }
 
 .cs-meter-label { min-width: 0; font: 500 0.875rem/1.25rem var(--font-sans); color: var(--foreground); }
@@ -36,5 +39,6 @@
   height: 100%;
   border-radius: inherit;
   background: var(--_fill);
-  transition: width var(--duration-slow) var(--ease-standard), background-color var(--duration-base) var(--ease-standard);
+  box-shadow: inset 0 0 0 1px var(--_edge);
+  transition: width var(--motion-move), background-color var(--motion-state), box-shadow var(--motion-state);
 }

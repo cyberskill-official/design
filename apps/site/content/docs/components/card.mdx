@@ -1,9 +1,9 @@
 ---
 title: Card
-description: A surface that groups related content, with optional header, footer and a link style.
+description: A surface that groups related content, with optional header, footer, a link style, soft tones and brand surfaces.
 ---
 
-import { CardBasic, CardLinks } from '@/demos/card';
+import { CardBasic, CardLinks, CardSurfaces, CardTones } from '@/demos/card';
 
 Use a card to group one topic's content: a summary, a setting, a resource in a grid. Do not nest cards, and do not wrap a whole page section in one; a plain heading and spacing is calmer. For a single KPI use [Stat](/docs/components/stat).
 
@@ -33,7 +33,7 @@ Use a card to group one topic's content: a summary, a setting, a resource in a g
 
 ## Card as a link
 
-When the whole card goes somewhere, render it as the link and add `interactive` for the hover and focus styles. Use a Next.js `Link` the same way. Keep buttons out of a link card.
+When the whole card goes somewhere, render it as the link and add `interactive` for the hover and focus styles: the border darkens and, with a mouse, the card lifts 2px. Use a Next.js `Link` the same way. Keep buttons out of a link card.
 
 <Demo title="Link cards" layout="block">
   <CardLinks />
@@ -50,10 +50,55 @@ When the whole card goes somewhere, render it as the link and add `interactive` 
 <Card interactive render={<NextLink href="/settings/security" />}>…</Card>
 ```
 
+## Tones
+
+`tone` tints the card softly to say what it holds: `accent` for an AI suggestion, `warning` for a notice, a category tone for a team. Use it for one or two cards on a page, not a whole grid.
+
+<Demo title="Tones" layout="block">
+  <CardTones />
+</Demo>
+
+```tsx
+<Card tone="accent">
+  <CardHeader>
+    <CardTitle>Suggested reply</CardTitle>
+    <CardDescription>Drafted from the last three messages.</CardDescription>
+  </CardHeader>
+  <CardFooter>
+    <Button variant="soft" tone="accent" size="sm" iconStart={<Sparkle />}>Use draft</Button>
+  </CardFooter>
+</Card>
+<Card tone="warning">…</Card>
+```
+
+## Surfaces
+
+`surface` is for one brand moment per view, such as the plan card on a billing page. `ink` paints the ink gradient and renders the card's content in the dark theme, so text, buttons and badges inside take their dark colors on their own. `aurora` is a soft wash of blue, teal and gold in the page's theme. A surface overrides `tone`.
+
+<Demo title="Surfaces" layout="block">
+  <CardSurfaces />
+</Demo>
+
+```tsx
+<Card surface="ink">
+  <CardHeader>
+    <CardTitle>Pro plan</CardTitle>
+    <CardDescription>84% of this month's seats are in use.</CardDescription>
+  </CardHeader>
+  <CardFooter>
+    <Button size="sm">Upgrade</Button>
+    <Button variant="ghost" size="sm">Compare plans</Button>
+  </CardFooter>
+</Card>
+<Card surface="aurora">…</Card>
+```
+
 ## Props
 
 <PropsTable rows={[
-  ['interactive', 'boolean', 'false', 'Hover border and focus ring, for a card that is itself a link'],
+  ['interactive', 'boolean', 'false', 'Hover border, a 2px lift with a mouse and a focus ring, for a card that is itself a link'],
+  ['tone', "'primary' | 'accent' | 'success' | 'warning' | 'danger' | 'info' | 'blue' | 'amber' | 'teal' | 'magenta' | 'violet'", '–', 'Soft tinted card'],
+  ['surface', "'ink' | 'aurora'", '–', 'Brand surface; ink also renders the content in the dark theme. Overrides tone'],
   ['render', 'ReactElement', '–', 'Render as another element, e.g. <a href> or a Next.js Link'],
 ]} />
 
@@ -62,5 +107,7 @@ When the whole card goes somewhere, render it as the link and add `interactive` 
 ## Accessibility
 
 - A link card is one link: Tab focuses it, Enter follows it, and its accessible name is the card's text. Keep that text short; the title should lead.
+- On an ink card the focus ring and the hover edge are drawn just inside the card, on the ink, so they show on light and dark pages alike.
 - Choose the `CardTitle` heading level from the page outline, not from the size you want.
-- Hover and focus show a border change, not only a shadow, so they read in both themes.
+- Hover and focus show a border change, not only a shadow, so they read in both themes. The hover lift is off with reduced motion and on touch screens.
+- Text keeps 4.5:1 on every tone and surface: the ink card uses the dark theme's colors, checked like any dark page.

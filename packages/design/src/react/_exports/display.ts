@@ -9,9 +9,15 @@ export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 export type { CardProps, CardHeaderProps, CardTitleProps, CardDescriptionProps, CardContentProps, CardFooterProps } from '../Card';
 export { Stat } from '../Stat';
 export type { StatProps, StatDelta } from '../Stat';
+export { IconTile } from '../IconTile';
+export type { IconTileProps, IconTileSize } from '../IconTile';
+export { toneFor } from '../tone';
+export type { Tone, CategoryTone, StatusTone } from '../tone';
 export { Table, TableCaption, TableHeader, TableBody, TableRow, TableHead, TableCell } from '../Table';
 export type { TableProps, TableCaptionProps, TableHeaderProps, TableBodyProps, TableRowProps, TableHeadProps, TableCellProps } from '../Table';
 export { Link } from '../Link';
 export type { LinkProps } from '../Link';
 export { Prose } from '../Prose';
 export type { ProseProps } from '../Prose';
+export { Reveal, Stagger } from '../Reveal';
+export type { RevealProps, StaggerProps } from '../Reveal';

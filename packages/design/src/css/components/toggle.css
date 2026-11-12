@@ -1,7 +1,6 @@
-/* Off looks like a secondary button; on is tinted with the primary color. */
+/* Off is outlined; on is tinted with the primary color. */
 .cs-toggle {
   max-width: 100%;
-  &:active:not([data-disabled]) { transform: translateY(1px); }
   --_h: var(--control-md);
   position: relative;
   display: inline-flex;
@@ -19,9 +18,13 @@
   white-space: nowrap;
   cursor: pointer;
   user-select: none;
-  transition: background-color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
+  transition: background-color var(--motion-state), border-color var(--motion-state), color var(--motion-state), transform var(--motion-release);
 
   &:hover:not([data-disabled]) { background: var(--raised); }
+  &:active:not([data-disabled]) {
+    transform: scale(var(--motion-press-scale));
+    transition: background-color var(--motion-state), border-color var(--motion-state), color var(--motion-state), transform var(--motion-press);
+  }
   &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
   &[data-pressed] { border-color: var(--primary); background: var(--primary-soft); color: var(--primary); }
   &[data-pressed]:hover:not([data-disabled]) { background: color-mix(in srgb, var(--primary) 18%, var(--panel)); }

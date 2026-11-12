@@ -43,17 +43,21 @@
   transform: translateX(var(--toast-swipe-movement-x)) translateY(calc(var(--toast-swipe-movement-y) - (var(--toast-index) * var(--_peek)) - (var(--_shrink) * var(--_height)))) scale(var(--_scale));
   user-select: none;
   cursor: default;
-  transition: transform var(--duration-slow) var(--ease-standard), opacity var(--duration-slow) var(--ease-standard), height var(--duration-fast) var(--ease-standard);
+  transition: transform var(--motion-move), opacity var(--motion-fade), height var(--motion-pop-in);
 
   &[data-tone='success'] { --_tone: var(--success); }
   &[data-tone='warning'] { --_tone: var(--warning); }
   &[data-tone='danger'] { --_tone: var(--destructive); }
 
   &[data-expanded] { height: var(--toast-height); transform: translateX(var(--toast-swipe-movement-x)) translateY(var(--_offset-y)); }
-  &[data-starting-style], &[data-ending-style] { transform: translateY(150%); }
+  /* Enters by rising a short way on a spring and leaves quickly where it stands; reduced motion zeroes the rise and scale. */
+  &[data-starting-style], &[data-ending-style] { opacity: 0; transform: translateY(calc(var(--motion-rise) * 3)) scale(var(--motion-pop-scale)); }
+  &[data-expanded][data-ending-style] { transform: translateX(var(--toast-swipe-movement-x)) translateY(calc(var(--_offset-y) + var(--motion-rise) * 3)) scale(var(--motion-pop-scale)); }
   &[data-limited] { opacity: 0; }
   &[data-ending-style] {
-    opacity: 0;
+    transition: opacity var(--motion-modal-out), transform var(--motion-modal-out);
+    /* A swiped toast carries on off-screen; the sheet recipe drops that travel under reduced motion. */
+    &[data-swipe-direction] { transition: opacity var(--motion-modal-out), transform var(--motion-sheet-out); }
     &[data-swipe-direction='down'] { transform: translateY(calc(var(--toast-swipe-movement-y) + 150%)); }
     &[data-swipe-direction='right'] { transform: translateX(calc(var(--toast-swipe-movement-x) + 150%)) translateY(var(--_offset-y)); }
   }
@@ -69,7 +73,7 @@
   gap: var(--space-3);
   padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
   overflow: hidden;
-  transition: opacity var(--duration-base) var(--ease-standard);
+  transition: opacity var(--motion-fade);
   &[data-behind] { opacity: 0; }
   &[data-expanded] { opacity: 1; }
 }

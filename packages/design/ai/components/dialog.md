@@ -59,8 +59,10 @@ Use a dialog when the user must finish or dismiss something before going on: con
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
 export type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
   className?: string;
-  /** Visual style. `accent` (gold) is for one key action or AI moment per view. */
+  /** Visual style. `accent` (gold) is for one key action or AI moment per view. `secondary` is a soft ink fill; `soft` is the same fill in any `tone`. */
   variant?: ButtonVariant;
+  /** Tint of a `soft` button, e.g. `success` for Approve or `danger` for a quiet Remove. Ignored by other variants. */
+  tone?: 'primary' | 'accent' | StatusTone;
   size?: ButtonSize;
   /** Shows a spinner, keeps the button focusable and announces it as busy. */
   loading?: boolean;

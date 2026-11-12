@@ -11,6 +11,14 @@ describe('Meter', () => {
     expect(screen.getByText('30%')).toBeVisible();
   });
 
+  it('fills gold by default and ink with tone="primary"', () => {
+    const { rerender } = render(<Meter label="Storage" value={30} />);
+    expect(screen.getByRole('meter')).toHaveAttribute('data-tone', 'accent');
+    rerender(<Meter label="Storage" value={30} tone="primary" />);
+    expect(screen.getByRole('meter')).toHaveAttribute('data-tone', 'primary');
+    expect(screen.getByRole('meter').querySelector('svg')).toBeNull();
+  });
+
   it('valueLabel replaces the visible and spoken value', () => {
     render(<Meter label="API calls" value={720_000} max={1_000_000} valueLabel="720K of 1M" />);
     const meter = screen.getByRole('meter', { name: 'API calls' });
@@ -38,6 +46,7 @@ describe('Meter', () => {
     await expectAccessibleInThemes(
       <div style={{ display: 'grid', gap: 16, width: 320 }}>
         <Meter label="Storage" value={30} />
+        <Meter label="Seats" value={6} max={10} tone="primary" valueLabel="6 of 10" />
         <Meter label="API calls" value={850_000} max={1_000_000} warnAt={800_000} valueLabel="850K of 1M" />
         <Meter label="Seats" value={10} max={10} tone="danger" valueLabel="10 of 10" />
       </div>,

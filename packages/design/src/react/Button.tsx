@@ -1,14 +1,17 @@
 import { Button as BaseButton } from '@base-ui/react/button';
 import type { ReactNode } from 'react';
+import type { StatusTone } from './tone';
 import { cx } from '../utils/cx';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'accent' | 'danger' | 'quiet' | 'link';
+export type ButtonVariant = 'primary' | 'secondary' | 'soft' | 'ghost' | 'accent' | 'danger' | 'quiet' | 'link';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export type ButtonProps = Omit<BaseButton.Props, 'className'> & {
   className?: string;
-  /** Visual style. `accent` (gold) is for one key action or AI moment per view. */
+  /** Visual style. `accent` (gold) is for one key action or AI moment per view. `secondary` is a soft ink fill; `soft` is the same fill in any `tone`. */
   variant?: ButtonVariant;
+  /** Tint of a `soft` button, e.g. `success` for Approve or `danger` for a quiet Remove. Ignored by other variants. */
+  tone?: 'primary' | 'accent' | StatusTone;
   size?: ButtonSize;
   /** Shows a spinner, keeps the button focusable and announces it as busy. */
   loading?: boolean;
@@ -20,7 +23,7 @@ export type ButtonProps = Omit<BaseButton.Props, 'className'> & {
   fullWidth?: boolean;
 };
 
-export function Button({ variant = 'primary', size = 'md', loading = false, iconStart, iconEnd, fullWidth, className, children, disabled, ...props }: ButtonProps) {
+export function Button({ variant = 'primary', tone = 'primary', size = 'md', loading = false, iconStart, iconEnd, fullWidth, className, children, disabled, ...props }: ButtonProps) {
   return (
     <BaseButton
       {...props}
@@ -28,6 +31,7 @@ export function Button({ variant = 'primary', size = 'md', loading = false, icon
       focusableWhenDisabled={loading}
       aria-busy={loading || undefined}
       data-variant={variant}
+      data-tone={variant === 'soft' ? tone : undefined}
       data-size={size}
       data-loading={loading || undefined}
       data-full-width={fullWidth || undefined}

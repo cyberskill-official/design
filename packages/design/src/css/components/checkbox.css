@@ -64,8 +64,8 @@
   border: 1.5px solid var(--input);
   border-radius: var(--radius-sm);
   background: var(--panel);
-  color: var(--primary-foreground);
-  transition: background-color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard);
+  color: var(--accent-foreground);
+  transition: background-color var(--motion-state), border-color var(--motion-state);
 
   /* 44px touch target around the 18px box */
   &::before {
@@ -77,13 +77,19 @@
     transform: translate(-50%, -50%);
   }
   &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
-  &[data-checked], &[data-indeterminate] { background: var(--primary); border-color: var(--primary); }
+  /* gold fill, --accent-text edge: gold on white is 1.8:1, the edge keeps the 3:1 boundary (WCAG 1.4.11) */
+  &[data-checked], &[data-indeterminate] { background: var(--accent); border-color: var(--accent-text); }
   &[data-invalid]:not([data-checked]) { border-color: var(--destructive); }
   &[data-disabled] { opacity: 0.5; cursor: not-allowed; }
 }
 .cs-choice-label:hover .cs-checkbox:not([data-disabled], [data-checked], [data-indeterminate], [data-invalid]) { border-color: var(--foreground); }
 
+/* Base UI mounts the indicator only while checked: the tick (or dash) draws itself from its starting style and fades on its
+   ending style. --motion-pop-in is instant under reduced motion, so there it simply appears. */
 .cs-checkbox-indicator {
   display: inline-flex;
-  & > svg { width: 12px; height: 12px; }
+  &[data-ending-style] { opacity: 0; transition: opacity var(--motion-pop-out); }
+  & > svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  & path { stroke-dasharray: 1; stroke-dashoffset: 0; transition: stroke-dashoffset var(--motion-pop-in); }
+  &[data-starting-style] path { stroke-dashoffset: 1; }
 }

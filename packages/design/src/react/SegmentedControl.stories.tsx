@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Kanban, ListBullets, ChartBar } from '@phosphor-icons/react';
-import { expect, fn, userEvent, within } from 'storybook/test';
+import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 import { SegmentedControl } from './SegmentedControl';
 
 const views = [
@@ -29,6 +29,10 @@ export const Default: Story = {
     // Pressing the selected segment again keeps it selected.
     await userEvent.click(canvas.getByRole('button', { name: 'Board' }));
     await expect(canvas.getByRole('button', { name: 'Board' })).toHaveAttribute('aria-pressed', 'true');
+    // The one thumb has slid under the pressed segment.
+    const thumb = canvasElement.querySelector<HTMLElement>('.cs-segmented-control-thumb')!;
+    const board = canvas.getByRole('button', { name: 'Board' });
+    await waitFor(() => expect(Math.abs(thumb.getBoundingClientRect().left - board.getBoundingClientRect().left)).toBeLessThanOrEqual(1));
   },
 };
 

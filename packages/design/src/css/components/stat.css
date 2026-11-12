@@ -10,6 +10,15 @@
   border-radius: var(--radius-lg);
   background: var(--panel);
   color: var(--foreground);
+
+  /* with an icon, the tile sits beside the label and value; the rest spans the full width */
+  &:has(> .cs-stat-icon) {
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: var(--space-3);
+    & > * { grid-column: 1 / -1; }
+    & > .cs-stat-label, & > .cs-stat-value { grid-column: 1; }
+    & > .cs-stat-icon { grid-column: 2; grid-row: 1 / span 2; }
+  }
 }
 
 .cs-stat-label { font: 500 0.8125rem/1.125rem var(--font-sans); color: var(--muted); }
@@ -23,15 +32,19 @@
 
 .cs-stat-meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1) var(--space-2); font: 400 0.8125rem/1.125rem var(--font-sans); }
 
+/* a soft chip: the base status color as text on its 8% tint (the soft-badge mix, gated by build-tokens.mjs), which keeps red and
+   green further apart for color-blind readers than the -text roles; the arrow carries the direction */
 .cs-stat-delta {
   display: inline-flex;
   align-items: center;
   gap: 2px;
+  padding: 1px 7px 1px 5px;
+  border-radius: var(--radius-full);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
-  &[data-sentiment='positive'] { color: var(--success); }
-  &[data-sentiment='negative'] { color: var(--destructive); }
-  &[data-sentiment='neutral'] { color: var(--muted); }
+  &[data-sentiment='positive'] { background: color-mix(in srgb, var(--success) 8%, var(--panel)); color: var(--success); }
+  &[data-sentiment='negative'] { background: color-mix(in srgb, var(--destructive) 8%, var(--panel)); color: var(--destructive); }
+  &[data-sentiment='neutral'] { background: var(--raised); color: var(--muted); }
   & > svg { width: 16px; height: 16px; flex: none; }
 }
 

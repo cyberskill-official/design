@@ -60,7 +60,29 @@ describe('SideNav', () => {
     expect(onClick).toHaveBeenCalledOnce();
   });
 
+  it('draws the count badge in gold, on the current page too', () => {
+    render(
+      <>
+        <SideNav label="Main">
+          <SideNavItem href="#inbox" badge={12}>Inbox</SideNavItem>
+          <SideNavItem href="#alerts" badge={3} active>Alerts</SideNavItem>
+        </SideNav>
+        <span data-testid="probe" style={{ background: 'var(--accent)' }} />
+      </>,
+    );
+    const gold = getComputedStyle(screen.getByTestId('probe')).backgroundColor;
+    expect(getComputedStyle(screen.getByText('12')).backgroundColor).toBe(gold);
+    expect(getComputedStyle(screen.getByText('3')).backgroundColor).toBe(gold);
+  });
+
   it('has no accessibility violations in light and dark', async () => {
-    await expectAccessibleInThemes(<Example />);
+    await expectAccessibleInThemes(
+      <>
+        <Example />
+        <SideNav label="Secondary">
+          <SideNavItem href="#alerts" badge={3} active>Alerts</SideNavItem>
+        </SideNav>
+      </>,
+    );
   });
 });

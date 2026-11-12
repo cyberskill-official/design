@@ -1,5 +1,5 @@
 'use client';
-import { Button, Tag } from '@cyberskill/design';
+import { Button, Tag, toneFor } from '@cyberskill/design';
 import { useState } from 'react';
 
 const initial = ['SOC 2', 'ISO 27001', 'v2.4.1', 'Enterprise'];
@@ -10,6 +10,16 @@ export function TagStatic() {
       <Tag>SOC 2</Tag>
       <Tag>v2.4.1</Tag>
       <Tag>Enterprise</Tag>
+    </>
+  );
+}
+
+export function TagTones() {
+  return (
+    <>
+      {['Design', 'Finance', 'Support', 'Marketing', 'Research'].map((team) => (
+        <Tag key={team} tone={toneFor(team)}>{team}</Tag>
+      ))}
     </>
   );
 }

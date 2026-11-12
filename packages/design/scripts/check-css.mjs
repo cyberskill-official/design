@@ -4,6 +4,7 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
+import { stylesheetMotionProblems } from '../bin/motion-rules.mjs';
 
 const dir = process.env.CSS_DIR ?? join(dirname(fileURLToPath(import.meta.url)), '..', 'src', 'css'); // CSS_DIR: gate tests
 const files = ['base.css', 'motion.css', ...readdirSync(join(dir, 'components')).map(f => join('components', f))];
@@ -44,6 +45,14 @@ for (const f of files) {
       if (px) problems.push(`${at} text size in px; use rem (${+(px[1] / 16).toFixed(4)}rem) so it follows the reader's browser font size`);
     }
   });
+  if (f !== 'motion.css') checkMotion(f, text); // motion.css is the reduced-motion keyframe blanket: its 1ms is the point
 }
+
+// Motion goes through the --motion-* recipes, which tokens.css redefines for reduced motion. The rules are shared with
+// the benchmark (D24) and `npx @cyberskill/design check`; declarations are read whole, so a wrapped value is checked too.
+function checkMotion(f, text) {
+  for (const { line, message } of stylesheetMotionProblems(text)) problems.push(`${f}:${line} ${message}`);
+}
+
 if (problems.length) { console.error(problems.join('\n')); process.exit(1); }
-console.log(`✓ ${files.length} stylesheets use defined tokens only and keep text at 12px (11px mono) or larger`);
+console.log(`✓ ${files.length} stylesheets use defined tokens only, animate through --motion-* recipes and keep text at 12px (11px mono) or larger`);

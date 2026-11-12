@@ -1,13 +1,15 @@
 ---
 title: Button
-description: Triggers an action. Seven variants, three sizes, loading and icon-only forms.
+description: Triggers an action. Eight variants, soft tones, three sizes, loading and icon-only forms.
 ---
 
-import { ButtonGroupDemo, ButtonSizes, ButtonStates, ButtonVariants } from '@/demos/button';
+import { ButtonGroupDemo, ButtonSizes, ButtonSoft, ButtonStates, ButtonVariants } from '@/demos/button';
 
 Use a button for actions: save, deploy, delete, open a dialog. Use a link when the click only navigates. Keep **one primary button** per view and at most **one gold `accent` button** for the key moment (often AI).
 
 ## Variants
+
+`secondary` is a soft ink fill for the actions next to the primary one. Every button shrinks a little while pressed and springs back on release.
 
 <Demo title="Variants">
   <ButtonVariants />
@@ -21,6 +23,23 @@ Use a button for actions: save, deploy, delete, open a dialog. Use a link when t
 <Button variant="accent" iconStart={<Sparkle />}>Ask AI</Button>
 <Button variant="danger">Delete project</Button>
 <Button variant="link">View docs</Button>
+```
+
+## Soft tones
+
+`variant="soft"` is the secondary fill in a `tone`: a quiet action that still says what kind it is, such as Approve in green or a gold Suggest beside an AI result. `tone` only applies to `soft`. Keep the label explicit: the tint helps, the words carry the meaning.
+
+<Demo title="Soft">
+  <ButtonSoft />
+</Demo>
+
+```tsx
+<Button variant="soft">Details</Button>
+<Button variant="soft" tone="accent" iconStart={<Sparkle />}>Suggest</Button>
+<Button variant="soft" tone="success">Approve</Button>
+<Button variant="soft" tone="warning">Pause</Button>
+<Button variant="soft" tone="danger">Remove</Button>
+<Button variant="soft" tone="info">Learn more</Button>
 ```
 
 ## Sizes
@@ -51,6 +70,8 @@ Use a button for actions: save, deploy, delete, open a dialog. Use a link when t
 
 ## Button group
 
+The pressed button lifts out of the group as a panel with an ink edge.
+
 <Demo title="Group">
   <ButtonGroupDemo />
 </Demo>
@@ -65,7 +86,8 @@ Use a button for actions: save, deploy, delete, open a dialog. Use a link when t
 ## Props
 
 <PropsTable rows={[
-  ['variant', "'primary' | 'secondary' | 'ghost' | 'quiet' | 'accent' | 'danger' | 'link'", "'primary'", 'Visual style'],
+  ['variant', "'primary' | 'secondary' | 'soft' | 'ghost' | 'quiet' | 'accent' | 'danger' | 'link'", "'primary'", 'Visual style. secondary is a soft ink fill'],
+  ['tone', "'primary' | 'accent' | 'success' | 'warning' | 'danger' | 'info'", "'primary'", 'Tint of a soft button; ignored by other variants'],
   ['size', "'sm' | 'md' | 'lg'", "'md'", 'Height 32, 40 or 48px'],
   ['loading', 'boolean', 'false', 'Shows a spinner, stays focusable, sets aria-busy and ignores clicks'],
   ['iconStart / iconEnd', 'ReactNode', '–', 'Decorative icons before or after the label'],
@@ -79,4 +101,5 @@ Use a button for actions: save, deploy, delete, open a dialog. Use a link when t
 
 - Enter and Space activate. Disabled buttons are skipped by Tab, except `loading`, which stays focusable so focus never jumps.
 - Icon-only buttons are named by `label`; screen readers never hear "button" alone.
-- Every variant meets 4.5:1 text contrast in light and dark.
+- Every variant and soft tone meets 4.5:1 text contrast in light and dark.
+- The press shrink follows the reader's reduced-motion setting: with it on, buttons stay still.

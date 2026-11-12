@@ -17,8 +17,10 @@
   box-shadow: var(--shadow-overlay);
   outline: 0;
   transform: translateX(-50%);
-  transition: opacity var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-standard);
-  &[data-starting-style], &[data-ending-style] { opacity: 0; transform: translate(-50%, -8px) scale(0.98); }
+  /* opened from the keyboard, all day: the short pop, not the dialog spring */
+  transition: opacity var(--motion-fade), transform var(--motion-pop-in);
+  &[data-starting-style], &[data-ending-style] { opacity: 0; transform: translateX(-50%) scale(var(--motion-pop-scale)); }
+  &[data-ending-style] { transition: opacity var(--motion-pop-out), transform var(--motion-pop-out); }
 }
 
 .cs-command-menu-search {

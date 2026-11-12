@@ -1,15 +1,35 @@
 import { useRender } from '@base-ui/react/use-render';
 import type { ComponentProps } from 'react';
+import type { Tone } from './tone';
 import { cx } from '../utils/cx';
 
 export type CardProps = useRender.ComponentProps<'div'> & {
   /** Hover and focus styles for a card that is itself a link. Pair with `render={<a href="…" />}` (or a Next.js `Link`). */
   interactive?: boolean;
+  /** A soft tinted card in this tone, e.g. `accent` for an AI suggestion or `warning` for a notice. */
+  tone?: Tone;
+  /**
+   * A brand surface for one moment per view. `ink` paints the ink gradient and renders its content in the dark theme;
+   * `aurora` paints a soft multi-color wash. Overrides `tone`.
+   */
+  surface?: 'ink' | 'aurora';
 };
 
 /** Surface that groups related content. Compose with CardHeader, CardTitle, CardDescription, CardContent and CardFooter. */
-export function Card({ interactive, render, className, ...props }: CardProps) {
-  return useRender({ defaultTagName: 'div', render, props: { ...props, 'data-interactive': interactive || undefined, className: cx('cs-card', className) } });
+export function Card({ interactive, tone, surface, render, className, ...props }: CardProps) {
+  return useRender({
+    defaultTagName: 'div',
+    render,
+    props: {
+      ...props,
+      'data-interactive': interactive || undefined,
+      // only set when the prop is given, so an app's own data-tone / data-surface passes through
+      ...(tone && !surface && { 'data-tone': tone }),
+      ...(surface && { 'data-surface': surface }),
+      ...(surface === 'ink' && { 'data-theme': 'dark' }),
+      className: cx('cs-card', className),
+    },
+  });
 }
 
 export type CardHeaderProps = ComponentProps<'div'>;

@@ -60,6 +60,7 @@ jobs:
           if-no-files-found: ignore
 
   benchmark:
+    # The name is a required status check in main's branch protection: rename it there first, then here. It now measures 25 dimensions.
     name: Quality benchmark (23 dimensions, every story)
     runs-on: ubuntu-24.04
     steps:

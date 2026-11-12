@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, within } from 'storybook/test';
+import { ChartLineUp, CurrencyDollar, Timer, UsersThree } from '@phosphor-icons/react';
 import { Stat } from './Stat';
 
 const meta = {
@@ -13,6 +14,19 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = { render: args => <Stat {...args} style={{ maxWidth: 280 }} /> };
+
+/** An icon in a tinted tile helps a row of KPIs scan. Pick tones that mean something (gold for money, a category per area). */
+export const WithIcon: Story = {
+  globals: { theme: 'side-by-side' },
+  render: () => (
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 16 }}>
+      <Stat label="Monthly revenue" value="$48,210" icon={<CurrencyDollar />} tone="accent" delta={{ value: '+8.4%', trend: 'up' }} hint="vs. last month" />
+      <Stat label="Active users" value="1,284" icon={<UsersThree />} tone="blue" delta={{ value: '+12%', trend: 'up' }} hint="vs. last week" />
+      <Stat label="Conversion" value="3.9%" icon={<ChartLineUp />} tone="teal" delta={{ value: '+0', trend: 'up', sentiment: 'neutral' }} hint="no change" />
+      <Stat label="p95 latency" value="412 ms" icon={<Timer />} delta={{ value: '+38 ms', trend: 'up', sentiment: 'negative' }} hint="vs. yesterday" />
+    </div>
+  ),
+};
 
 export const Sentiments: Story = {
   globals: { theme: 'side-by-side' },

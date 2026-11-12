@@ -3,7 +3,7 @@ title: Tag
 description: Compact label for categories, versions or plans. Optionally removable.
 ---
 
-import { TagRemovable, TagStatic } from '@/demos/tag';
+import { TagRemovable, TagStatic, TagTones } from '@/demos/tag';
 
 Use a tag to label something with a category, version or plan: "SOC 2", "v2.4.1", "Enterprise". Add `onRemove` when the user can take it off, e.g. filters or selected values. For a status (Active, Failed) use a [Badge](/docs/components/badge).
 
@@ -17,6 +17,20 @@ Use a tag to label something with a category, version or plan: "SOC 2", "v2.4.1"
 <Tag>SOC 2</Tag>
 <Tag>v2.4.1</Tag>
 <Tag>Enterprise</Tag>
+```
+
+## Category tones
+
+`tone` tints a tag in a category color, e.g. one per team or project. Use the same tone for the same value everywhere; `toneFor(text)` picks a stable one from the text. Category tones are not statuses: for Active or Failed use a badge.
+
+<Demo title="Tones">
+  <TagTones />
+</Demo>
+
+```tsx
+<Tag tone="blue">Design</Tag>
+<Tag tone="teal">Support</Tag>
+<Tag tone={toneFor(team)}>{team}</Tag>
 ```
 
 ## Removable
@@ -42,6 +56,7 @@ const [tags, setTags] = useState(['SOC 2', 'ISO 27001', 'v2.4.1', 'Enterprise'])
 <PropsTable rows={[
   ['onRemove', '(event) => void', '–', 'Shows a remove (×) button and is called when it is pressed'],
   ['removeLabel', 'string', "'Remove'", 'First word of the remove button name; the tag text follows'],
+  ['tone', "'blue' | 'amber' | 'teal' | 'magenta' | 'violet'", '–', 'Category tint; neutral grey without it'],
 ]} />
 
 Other props go to the outer `<span>`.

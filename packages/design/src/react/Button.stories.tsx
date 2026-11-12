@@ -9,7 +9,8 @@ const meta = {
   tags: ['autodocs'],
   args: { children: 'Save changes', onClick: fn() },
   argTypes: {
-    variant: { control: 'inline-radio', options: ['primary', 'secondary', 'ghost', 'quiet', 'accent', 'danger', 'link'] },
+    variant: { control: 'inline-radio', options: ['primary', 'secondary', 'soft', 'ghost', 'quiet', 'accent', 'danger', 'link'] },
+    tone: { control: 'inline-radio', options: ['primary', 'accent', 'success', 'warning', 'danger', 'info'] },
     size: { control: 'inline-radio', options: ['sm', 'md', 'lg'] },
   },
 } satisfies Meta<typeof Button>;
@@ -34,6 +35,21 @@ export const Variants: Story = {
       <Button variant="accent" iconStart={<Sparkle />}>Ask AI</Button>
       <Button variant="danger">Delete project</Button>
       <Button variant="link">View docs</Button>
+    </div>
+  ),
+};
+
+/** `soft` is the secondary fill in any tone: a quiet action that still says what it does. Both themes, so the story test checks contrast in each. */
+export const Soft: Story = {
+  globals: { theme: 'side-by-side' },
+  render: () => (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+      <Button variant="soft">Details</Button>
+      <Button variant="soft" tone="accent" iconStart={<Sparkle />}>Suggest</Button>
+      <Button variant="soft" tone="success">Approve</Button>
+      <Button variant="soft" tone="warning">Pause</Button>
+      <Button variant="soft" tone="danger">Remove</Button>
+      <Button variant="soft" tone="info">Learn more</Button>
     </div>
   ),
 };

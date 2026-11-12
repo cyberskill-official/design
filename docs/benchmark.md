@@ -1,6 +1,6 @@
 # Quality benchmark
 
-`npm run benchmark` scores the design system on 23 dimensions and fails CI when one breaks. It replaces the 2.x
+`npm run benchmark` scores the design system on 25 dimensions and fails CI when one breaks. It replaces the 2.x
 "20D" benchmark. That one asserted exact CSS values on three fixture pages; this one measures what a person gets, on
 every Storybook story, in real Chromium, in light and dark.
 
@@ -65,11 +65,15 @@ measured on a 360px touch screen, so touch-only hit-area rules apply.
 
 ### The package (required)
 
+Measured on the source and built files, not in a browser.
+
 | | Dimension | Standard | Level | How it is measured |
 |---|---|---|---|---|
-| D20 | Server Components | React 19 RSC | required | 'use client' on every module that uses hooks and on no entry barrel; the core entry never imports an optional peer (Recharts, TanStack, React Hook Form, react-day-picker, date-fns). |
+| D20 | Server Components | React 19 RSC | required | 'use client' on every module that uses hooks and on no entry barrel; the core entry never imports an optional peer (Recharts, TanStack, React Hook Form, react-day-picker, date-fns, Motion). |
 | D21 | Docs parity | House rule | required | Every component has a story, a test file, a site page, a site demo and a generated AI doc. |
 | D22 | Token discipline | DTCG 2025.10 | required | Component CSS uses no raw colors; every token has a $value and a $type (its own or its group's). |
+| D24 | Motion discipline | House rule, WCAG 2.3.3 | required | Every transition and animation in component CSS (the rules `lint:css` and `check` share) runs on a `--motion-*` recipe, one property each: never `all` or a bare recipe; transform never on `--motion-state` or `--motion-fade`; size and position only on recipes that end at once under reduced motion; raw timing only in an infinite loading loop. Under `@media (prefers-reduced-motion: reduce)` on `:root`, the built `tokens.css` ends every instant recipe at once, brings every other recipe that springs or runs past 200ms to 200ms or less, and sets the scales to 1 and the distances and stagger to 0; `motion.css` ends keyframes (1ms, no delay, one run). |
+| D25 | Color roles | House rule, WCAG 1.4.11 | required | Every tone in the tone map (`tone.css`) resolves each role to a token defined in both themes; no stylesheet puts text on a solid category color; every gold fill in Switch, Checkbox, Radio, Slider, Progress, Meter and SideNav has an `--accent-text` edge in the same rule. |
 
 ## Stress-test stories
 
@@ -95,7 +99,7 @@ A new form control goes into InvalidStates; a new text-bearing component goes in
 | D6 scoped nested theme | D18 (Liquid Glass is not in 3.0) |
 | D7 DESIGN.md and asset contract | D21 docs parity, plus the generated AI docs check in CI |
 | D8 focus appearance and dual ring | D3 (AA) and D9 (AAA) |
-| D9 touch targets and motion safety | D5 (24px), D10 (44px), D12 |
+| D9 touch targets and motion safety | D5 (24px), D10 (44px), D12, D24 |
 | D10 high contrast, density, status parity | D11 forced colors, D19 |
 | D11 type scale, prose, tabular numerals | D13 reader font size (tabular numerals are not measured) |
 | D14 data, navigation, overlay stack; D15 and D17 reflow, container queries | D3, D4 and D6 on every story, D16 |

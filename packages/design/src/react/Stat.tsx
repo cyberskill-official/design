@@ -1,5 +1,7 @@
 import { ArrowDownRight, ArrowUpRight } from '@phosphor-icons/react/ssr'; // the context-free build: this component renders in Server Components
 import type { ComponentProps, ReactNode } from 'react';
+import { IconTile } from './IconTile';
+import type { Tone } from './tone';
 import { cx } from '../utils/cx';
 
 export type StatDelta = {
@@ -22,6 +24,10 @@ export type StatProps = Omit<ComponentProps<'div'>, 'children'> & {
   hint?: ReactNode;
   /** Slot under the figures, e.g. a sparkline. */
   children?: ReactNode;
+  /** Decorative icon in a tinted tile beside the label and value. */
+  icon?: ReactNode;
+  /** Tint of the icon tile. Defaults to `primary` (ink). */
+  tone?: Tone;
   /** Screen-reader text after a good-news delta, since its color alone carries the meaning. */
   positiveLabel?: string;
   /** Screen-reader text after a bad-news delta. */
@@ -29,12 +35,13 @@ export type StatProps = Omit<ComponentProps<'div'>, 'children'> & {
 };
 
 /** KPI tile: label, a large tabular figure, an optional change and a chart slot. */
-export function Stat({ label, value, delta, hint, positiveLabel = 'positive change', negativeLabel = 'negative change', className, children, ...props }: StatProps) {
+export function Stat({ label, value, delta, hint, icon, tone, positiveLabel = 'positive change', negativeLabel = 'negative change', className, children, ...props }: StatProps) {
   const Arrow = delta?.trend === 'down' ? ArrowDownRight : ArrowUpRight;
   const sentiment = delta?.sentiment ?? (delta?.trend === 'up' ? 'positive' : 'negative');
   const sentimentText = sentiment === 'positive' ? positiveLabel : sentiment === 'negative' ? negativeLabel : null;
   return (
     <div {...props} className={cx('cs-stat', className)}>
+      {icon != null && <IconTile tone={tone} className="cs-stat-icon">{icon}</IconTile>}
       <div className="cs-stat-label">{label}</div>
       <div className="cs-stat-value">{value}</div>
       {(delta || hint) && (

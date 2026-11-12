@@ -2,7 +2,6 @@ import { Checkbox as BaseCheckbox } from '@base-ui/react/checkbox';
 import { CheckboxGroup as BaseCheckboxGroup } from '@base-ui/react/checkbox-group';
 import { Field as BaseField } from '@base-ui/react/field';
 import { Fieldset as BaseFieldset } from '@base-ui/react/fieldset';
-import { Check, Minus } from '@phosphor-icons/react';
 import { createContext, useContext, type ReactNode } from 'react';
 import { cx } from '../utils/cx';
 
@@ -31,7 +30,12 @@ export function Checkbox({ label, description, error, className, disabled, ...pr
           <BaseCheckbox.Indicator
             className="cs-checkbox-indicator"
             render={(indicatorProps, state) => (
-              <span {...indicatorProps}>{state.indeterminate ? <Minus weight="bold" aria-hidden="true" /> : <Check weight="bold" aria-hidden="true" />}</span>
+              // strokes, not an icon font glyph, so the mark can draw itself (pathLength 1: the dash offset runs 1 to 0)
+              <span {...indicatorProps}>
+                <svg viewBox="0 0 12 12" aria-hidden="true">
+                  {state.indeterminate ? <path key="dash" d="M3 6h6" pathLength={1} /> : <path key="check" d="M2.5 6.25 5 8.75l4.5-5" pathLength={1} />}
+                </svg>
+              </span>
             )}
           />
         </BaseCheckbox.Root>

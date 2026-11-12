@@ -3,14 +3,15 @@ import type { ReactNode } from 'react';
 import { toneIcons } from './Alert';
 import { cx } from '../utils/cx';
 
-export type ProgressTone = 'primary' | 'warning' | 'danger';
+/** `accent` gold (default), `primary` ink, `warning` and `danger` add an icon and screen-reader text. */
+export type ProgressTone = 'accent' | 'primary' | 'warning' | 'danger';
 
 export type ProgressProps = Omit<BaseProgress.Root.Props, 'className' | 'children'> & {
   className?: string;
   /** Visible label, also the progress bar's accessible name. */
   label: ReactNode;
   tone?: ProgressTone;
-  /** Switches a `primary` bar to `warning` once `value` reaches this number (same scale as `max`). */
+  /** Switches an `accent` or `primary` bar to `warning` once `value` reaches this number (same scale as `max`). */
   warnAt?: number;
   /** Screen-reader text added to the name in the `warning` tone. */
   warningLabel?: string;
@@ -22,9 +23,9 @@ export type ProgressProps = Omit<BaseProgress.Root.Props, 'className' | 'childre
  * Labelled bar for a task that takes time (upload, export, import). `value={null}` shows an indeterminate bar.
  * For a static amount such as quota used, use `Meter`.
  */
-export function Progress({ label, tone = 'primary', warnAt, warningLabel = 'Warning', dangerLabel = 'Critical', className, value, ...props }: ProgressProps) {
-  const resolved = tone === 'primary' && warnAt != null && value != null && value >= warnAt ? 'warning' : tone;
-  const Icon = resolved === 'primary' ? null : toneIcons[resolved];
+export function Progress({ label, tone = 'accent', warnAt, warningLabel = 'Warning', dangerLabel = 'Critical', className, value, ...props }: ProgressProps) {
+  const resolved = (tone === 'accent' || tone === 'primary') && warnAt != null && value != null && value >= warnAt ? 'warning' : tone;
+  const Icon = resolved === 'warning' || resolved === 'danger' ? toneIcons[resolved] : null;
   const status = resolved === 'warning' ? warningLabel : resolved === 'danger' ? dangerLabel : null;
   return (
     <BaseProgress.Root {...props} value={value} data-tone={resolved} className={cx('cs-progress', className)}>

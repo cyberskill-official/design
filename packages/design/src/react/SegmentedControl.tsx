@@ -1,6 +1,6 @@
 import { Toggle as BaseToggle } from '@base-ui/react/toggle';
 import { ToggleGroup as BaseToggleGroup } from '@base-ui/react/toggle-group';
-import type { ReactNode } from 'react';
+import { useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { cx } from '../utils/cx';
 import { useControllableState } from '../utils/use-controllable';
 
@@ -27,6 +27,24 @@ export type SegmentedControlProps<Value extends string = string> = Omit<
 /** Switches between a few views or modes of the same content. Arrow keys move between segments. */
 export function SegmentedControl<Value extends string = string>({ items, value, defaultValue, onValueChange, size = 'md', label, className, ...props }: SegmentedControlProps<Value>) {
   const [selected, setUncontrolled] = useControllableState<Value | undefined>(value, defaultValue ?? items[0]?.value, undefined);
+  const thumbRef = useRef<HTMLSpanElement>(null);
+  const [thumb, setThumb] = useState<{ x: number; width: number } | null>(null);
+  // One thumb slides to the pressed segment. Measured before paint and again whenever a segment or the track resizes;
+  // until it is measured (on the server, or at zero width inside a hidden container) the thumb stays hidden and the pressed
+  // segment draws its own background. Shown from hidden, it appears in place instead of sliding in from the edge.
+  useLayoutEffect(() => {
+    const root = thumbRef.current?.parentElement;
+    if (!root) return;
+    const place = () => {
+      const item = root.querySelector<HTMLElement>(':scope > [data-pressed]');
+      setThumb(prev => (!item?.offsetWidth ? null : prev?.x === item.offsetLeft && prev.width === item.offsetWidth ? prev : { x: item.offsetLeft, width: item.offsetWidth }));
+    };
+    place();
+    const observer = new ResizeObserver(place);
+    observer.observe(root);
+    root.querySelectorAll(':scope > .cs-segmented-control-item').forEach(item => observer.observe(item));
+    return () => observer.disconnect();
+  }, [selected, items]);
   return (
     <BaseToggleGroup<Value>
       {...props}
@@ -41,6 +59,7 @@ export function SegmentedControl<Value extends string = string>({ items, value, 
       data-size={size}
       className={cx('cs-segmented-control', className)}
     >
+      <span ref={thumbRef} className="cs-segmented-control-thumb" aria-hidden="true" hidden={!thumb} style={thumb ? { width: thumb.width, translate: `${thumb.x}px 0` } : undefined} />
       {items.map(item => (
         <BaseToggle key={item.value} value={item.value} disabled={item.disabled} className="cs-segmented-control-item">
           <span className="cs-segmented-control-label">{item.label}</span>

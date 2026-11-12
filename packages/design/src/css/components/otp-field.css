@@ -20,7 +20,7 @@
   font: 600 1.25rem/1 var(--font-mono);
   text-align: center;
   caret-color: var(--primary);
-  transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+  transition: border-color var(--motion-state), box-shadow var(--motion-state);
 
   &:hover:not([data-disabled], [data-invalid]) { border-color: var(--foreground); }
   &:focus-visible { outline: 2px solid var(--ring); outline-offset: 0; }

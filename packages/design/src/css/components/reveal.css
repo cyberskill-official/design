@@ -1,0 +1,23 @@
+/* First-load reveal: fades in and rises var(--motion-rise), once. Plain CSS, so it plays without JavaScript and a
+   server-rendered page never restarts it on hydration. Reduced motion needs no rule here: motion.css ends the animation
+   at once and sets the rise and the stagger to 0. */
+/* backwards, not both: hidden while it waits its turn, and nothing held afterwards (a held translate would leave a
+   stacking context and trap position: fixed descendants). */
+.cs-reveal {
+  animation: cs-reveal var(--motion-reveal) backwards;
+  animation-delay: calc(var(--_reveal-delay, 0ms) + var(--_reveal-step, 0) * var(--motion-stagger));
+}
+
+/* Stagger: each child one step later, up to the sixth; later children start with the sixth. */
+.cs-stagger > .cs-reveal:nth-child(2) { --_reveal-step: 1; }
+.cs-stagger > .cs-reveal:nth-child(3) { --_reveal-step: 2; }
+.cs-stagger > .cs-reveal:nth-child(4) { --_reveal-step: 3; }
+.cs-stagger > .cs-reveal:nth-child(5) { --_reveal-step: 4; }
+.cs-stagger > .cs-reveal:nth-child(n + 6) { --_reveal-step: 5; }
+
+@keyframes cs-reveal {
+  from {
+    opacity: 0;
+    translate: 0 var(--motion-rise);
+  }
+}

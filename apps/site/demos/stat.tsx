@@ -1,4 +1,5 @@
 'use client';
+import { CurrencyDollar, Timer, UsersThree } from '@phosphor-icons/react';
 import { Stat } from '@cyberskill/design';
 
 const grid = { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: 16, width: '100%' } as const;
@@ -9,6 +10,16 @@ export function StatRow() {
       <Stat label="Monthly revenue" value="$48,210" delta={{ value: '+8.4%', trend: 'up' }} hint="vs. last month" />
       <Stat label="Churn" value="2.1%" delta={{ value: '−0.4 pts', trend: 'down', sentiment: 'positive' }} hint="vs. last month" />
       <Stat label="p95 latency" value="412 ms" delta={{ value: '+38 ms', trend: 'up', sentiment: 'negative' }} hint="vs. yesterday" />
+    </div>
+  );
+}
+
+export function StatIcons() {
+  return (
+    <div style={grid}>
+      <Stat label="Monthly revenue" value="$48,210" icon={<CurrencyDollar />} tone="accent" delta={{ value: '+8.4%', trend: 'up' }} hint="vs. last month" />
+      <Stat label="Active users" value="1,284" icon={<UsersThree />} tone="blue" delta={{ value: '+12%', trend: 'up' }} hint="vs. last week" />
+      <Stat label="p95 latency" value="412 ms" icon={<Timer />} delta={{ value: '+38 ms', trend: 'up', sentiment: 'negative' }} hint="vs. yesterday" />
     </div>
   );
 }

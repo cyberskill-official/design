@@ -16,6 +16,16 @@ Use a tag to label something with a category, version or plan: "SOC 2", "v2.4.1"
 <Tag>Enterprise</Tag>
 ```
 
+## Category tones
+
+`tone` tints a tag in a category color, e.g. one per team or project. Use the same tone for the same value everywhere; `toneFor(text)` picks a stable one from the text. Category tones are not statuses: for Active or Failed use a badge.
+
+```tsx
+<Tag tone="blue">Design</Tag>
+<Tag tone="teal">Support</Tag>
+<Tag tone={toneFor(team)}>{team}</Tag>
+```
+
 ## Removable
 
 The remove button is named after the tag ("Remove SOC 2"). Pass `removeLabel` in other languages.
@@ -36,6 +46,7 @@ const [tags, setTags] = useState(['SOC 2', 'ISO 27001', 'v2.4.1', 'Enterprise'])
 |---|---|---|---|
 | `onRemove` | `(event) => void` | – | Shows a remove (×) button and is called when it is pressed |
 | `removeLabel` | `string` | `'Remove'` | First word of the remove button name; the tag text follows |
+| `tone` | `'blue' \| 'amber' \| 'teal' \| 'magenta' \| 'violet'` | – | Category tint; neutral grey without it |
 
 Other props go to the outer `<span>`.
 
@@ -54,5 +65,7 @@ export type TagProps = ComponentProps<'span'> & {
   onRemove?: (event: MouseEvent<HTMLButtonElement>) => void;
   /** First word of the remove button's accessible name; the tag text follows ("Remove SOC 2"). Pass "Xóa" in Vietnamese UIs. */
   removeLabel?: string;
+  /** Category tint, e.g. one per team or project. `toneFor(text)` gives each value a stable tone. Defaults to neutral grey. */
+  tone?: CategoryTone;
 };
 ```

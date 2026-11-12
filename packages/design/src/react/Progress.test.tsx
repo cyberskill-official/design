@@ -10,13 +10,27 @@ describe('Progress', () => {
     expect(bar).toHaveAttribute('aria-valuenow', '50');
     expect(bar).toHaveAttribute('aria-valuemax', '200');
     expect(screen.getByText('25%')).toBeVisible();
-    expect(bar).toHaveAttribute('data-tone', 'primary');
+    expect(bar).toHaveAttribute('data-tone', 'accent');
+  });
+
+  it('fills gold by default and ink with tone="primary"', () => {
+    render(
+      <>
+        <Progress label="Gold" value={50} />
+        <Progress label="Ink" value={50} tone="primary" />
+        <span data-testid="accent" style={{ background: 'var(--accent)' }} />
+        <span data-testid="primary" style={{ background: 'var(--primary)' }} />
+      </>,
+    );
+    const fill = (name: string) => getComputedStyle(screen.getByRole('progressbar', { name }).querySelector('.cs-progress-indicator')!).backgroundColor;
+    expect(fill('Gold')).toBe(getComputedStyle(screen.getByTestId('accent')).backgroundColor);
+    expect(fill('Ink')).toBe(getComputedStyle(screen.getByTestId('primary')).backgroundColor);
   });
 
   it('switches to warning at warnAt and shows an icon, not just a color', () => {
     const { rerender } = render(<Progress label="Storage" value={79} warnAt={80} />);
     const bar = screen.getByRole('progressbar');
-    expect(bar).toHaveAttribute('data-tone', 'primary');
+    expect(bar).toHaveAttribute('data-tone', 'accent');
     expect(bar.querySelector('svg')).toBeNull();
     rerender(<Progress label="Storage" value={80} warnAt={80} />);
     expect(bar).toHaveAttribute('data-tone', 'warning');
@@ -51,6 +65,7 @@ describe('Progress', () => {
     await expectAccessibleInThemes(
       <div style={{ display: 'grid', gap: 16, width: 320 }}>
         <Progress label="Uploading" value={42} />
+        <Progress label="Syncing" value={42} tone="primary" />
         <Progress label="Storage" value={85} warnAt={80} />
         <Progress label="Import failed" value={60} tone="danger" />
         <Progress label="Preparing export" value={null} />

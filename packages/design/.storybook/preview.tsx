@@ -32,7 +32,9 @@ const preview: Preview = {
     layout: 'fullscreen',
     controls: { expanded: true, matchers: { color: /(background|color)$/i } },
     // Accessibility violations fail the story test, not just warn.
-    a11y: { test: 'error' },
+    // Base UI's focus guards are aria-hidden and focusable on purpose (they pass focus on); axe reports them on some runs
+    // while a popover is open, which made the NestedThemes story fail about one run in three.
+    a11y: { test: 'error', context: { exclude: ['[data-base-ui-focus-guard]'] } },
   },
 };
 

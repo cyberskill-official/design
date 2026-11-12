@@ -4,8 +4,9 @@
   z-index: var(--z-overlay);
   background: color-mix(in srgb, var(--brand-ink) 55%, transparent);
   backdrop-filter: blur(2px);
-  transition: opacity var(--duration-base) var(--ease-standard);
+  transition: opacity var(--motion-fade);
   &[data-starting-style], &[data-ending-style] { opacity: 0; }
+  &[data-ending-style] { transition: opacity var(--motion-modal-out); }
 }
 
 .cs-dialog {
@@ -27,11 +28,12 @@
   color: var(--foreground);
   box-shadow: var(--shadow-overlay);
   transform: translate(-50%, -50%);
-  transition: opacity var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-standard);
+  transition: opacity var(--motion-fade), transform var(--motion-modal-in);
 
   &[data-size='sm'] { --_w: 400px; }
   &[data-size='lg'] { --_w: 720px; }
-  &[data-starting-style], &[data-ending-style] { opacity: 0; transform: translate(-50%, calc(-50% + 8px)) scale(0.98); }
+  &[data-starting-style], &[data-ending-style] { opacity: 0; transform: translate(-50%, -50%) scale(var(--motion-modal-scale)); }
+  &[data-ending-style] { transition: opacity var(--motion-modal-out), transform var(--motion-modal-out); }
   &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
 }
 

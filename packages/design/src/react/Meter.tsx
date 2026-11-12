@@ -3,7 +3,8 @@ import type { ReactNode } from 'react';
 import { toneIcons } from './Alert';
 import { cx } from '../utils/cx';
 
-export type MeterTone = 'primary' | 'warning' | 'danger';
+/** `accent` gold (default), `primary` ink, `warning` and `danger` add an icon and screen-reader text. */
+export type MeterTone = 'accent' | 'primary' | 'warning' | 'danger';
 
 export type MeterProps = Omit<BaseMeter.Root.Props, 'className' | 'children'> & {
   className?: string;
@@ -12,7 +13,7 @@ export type MeterProps = Omit<BaseMeter.Root.Props, 'className' | 'children'> & 
   /** Text shown instead of the percentage, e.g. "720K of 1M". A string is also read by screen readers unless you pass `aria-valuetext`. */
   valueLabel?: ReactNode;
   tone?: MeterTone;
-  /** Switches a `primary` meter to `warning` once `value` reaches this number (same scale as `max`). */
+  /** Switches an `accent` or `primary` meter to `warning` once `value` reaches this number (same scale as `max`). */
   warnAt?: number;
   /** Screen-reader text added to the name in the `warning` tone. */
   warningLabel?: string;
@@ -21,9 +22,9 @@ export type MeterProps = Omit<BaseMeter.Root.Props, 'className' | 'children'> & 
 };
 
 /** Shows a known amount within a range, such as quota or storage used. For a task in progress, use `Progress`. */
-export function Meter({ label, valueLabel, tone = 'primary', warnAt, warningLabel = 'Warning', dangerLabel = 'Critical', className, value, ...props }: MeterProps) {
-  const resolved = tone === 'primary' && warnAt != null && value >= warnAt ? 'warning' : tone;
-  const Icon = resolved === 'primary' ? null : toneIcons[resolved];
+export function Meter({ label, valueLabel, tone = 'accent', warnAt, warningLabel = 'Warning', dangerLabel = 'Critical', className, value, ...props }: MeterProps) {
+  const resolved = (tone === 'accent' || tone === 'primary') && warnAt != null && value >= warnAt ? 'warning' : tone;
+  const Icon = resolved === 'warning' || resolved === 'danger' ? toneIcons[resolved] : null;
   const status = resolved === 'warning' ? warningLabel : resolved === 'danger' ? dangerLabel : null;
   return (
     <BaseMeter.Root

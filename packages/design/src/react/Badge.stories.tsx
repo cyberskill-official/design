@@ -3,7 +3,11 @@ import { Sparkle } from '@phosphor-icons/react';
 import { Badge, type BadgeTone } from './Badge';
 
 const tones: BadgeTone[] = ['neutral', 'primary', 'accent', 'success', 'warning', 'danger', 'info'];
-const labels: Record<BadgeTone, string> = { neutral: 'Draft', primary: 'Beta', accent: 'New', success: 'Active', warning: 'Trial ends soon', danger: 'Failed', info: 'Syncing' };
+const labels: Record<BadgeTone, string> = {
+  neutral: 'Draft', primary: 'Beta', accent: 'New', success: 'Active', warning: 'Trial ends soon', danger: 'Failed', info: 'Syncing',
+  blue: 'Design', amber: 'Finance', teal: 'Support', magenta: 'Marketing', violet: 'Research',
+};
+const categories: BadgeTone[] = ['blue', 'amber', 'teal', 'magenta', 'violet'];
 
 const meta = {
   title: 'Data Display/Badge',
@@ -11,7 +15,7 @@ const meta = {
   tags: ['autodocs'],
   args: { children: 'Active', tone: 'success', variant: 'soft', size: 'md' },
   argTypes: {
-    tone: { control: 'select', options: tones },
+    tone: { control: 'select', options: [...tones, ...categories] },
     variant: { control: 'inline-radio', options: ['soft', 'solid', 'outline'] },
     size: { control: 'inline-radio', options: ['sm', 'md'] },
   },
@@ -40,6 +44,20 @@ export const BothThemes: Story = {
       <Row variant="soft" />
       <Row variant="solid" />
       <Row variant="outline" />
+    </div>
+  ),
+};
+
+/** Category tones label a kind (team, project), not a status. They stay tinted in every variant. */
+export const Categories: Story = {
+  globals: { theme: 'side-by-side' },
+  render: () => (
+    <div style={{ display: 'grid', gap: 12 }}>
+      {(['soft', 'outline'] as const).map(variant => (
+        <div key={variant} style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+          {categories.map(tone => <Badge key={tone} tone={tone} variant={variant}>{labels[tone]}</Badge>)}
+        </div>
+      ))}
     </div>
   ),
 };

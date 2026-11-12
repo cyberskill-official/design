@@ -48,7 +48,7 @@
     text-decoration-thickness: 1px;
     text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
     text-underline-offset: 3px;
-    transition: text-decoration-color var(--duration-fast) var(--ease-standard);
+    transition: text-decoration-color var(--motion-state);
     &:hover { text-decoration-color: currentColor; text-decoration-thickness: 2px; }
     &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
   }

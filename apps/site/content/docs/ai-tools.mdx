@@ -9,7 +9,9 @@ description: The package ships its own compact guide so Claude Code, Cursor and 
 |---|---|
 | `ai/INDEX.md` | Setup, the rules, and every component with its import and doc file. One small file to read first. |
 | `ai/components/<name>.md` | One component: when to use it, examples, props, exact TypeScript types, accessibility. Read only the ones needed. |
-| `ai/tokens.md` | Every token with light and dark values and its Tailwind name. |
+| `ai/motion.md` | The motion rules: which `--motion-*` recipe for what, reduced motion, the `/motion` entry. Read before adding any animation. |
+| `ai/color.md` | The color rules: color roles and `data-tone`, what gold means, category tones. Read before choosing any color. |
+| `ai/tokens.md` | Every token with light and dark values and its Tailwind name, the color roles and the motion recipes. |
 | `ai/SKILL.md` | A Claude Code skill that points the agent at the files above. |
 | `ai/cursor-rule.mdc` | The same guidance as a Cursor rule. |
 
@@ -21,8 +23,23 @@ npx @cyberskill/design ai-setup
 
 This writes `.claude/skills/cyberskill-design/SKILL.md`, `.cursor/rules/cyberskill-design.mdc` and a marked section in `AGENTS.md` (other content in `AGENTS.md` is left alone). Run it again after upgrading the package; use `--dry-run` to preview or `--only claude,cursor,agents` to choose.
 
+## Check your code
+
+```bash
+npx @cyberskill/design check            # src, app, components, pages and styles
+npx @cyberskill/design check lib docs   # or the folders you name
+```
+
+It lists, as `file:line` with what to use instead:
+
+- every raw color where a color goes: hex, `rgb()` or `oklch()` in CSS, style objects, `fill`/`stroke`/`color` attributes and Tailwind arbitrary values, and palette classes such as `bg-blue-500`;
+- every transition or animation off the recipes: raw times and curves (`200ms`, `cubic-bezier()`), `transition: all` or a recipe with no property, size or position on the wrong recipe, Tailwind `duration-300`, `ease-linear`, `delay-700` and `duration-[900ms]`, and a Motion `transition={{ duration: … }}`. Declarations are read whole, however a formatter wraps them;
+- a second animation library in `package.json` (framer-motion, GSAP, react-spring…).
+
+It exits 1 when it finds any and 2 when it could not run, so CI can tell the two apart. Git-ignored files, build output, test files and Markdown are skipped, symlinks are never followed, and a line containing `cyberskill-design-allow` is a deliberate exception.
+
 ## Why it saves tokens
 
-An agent reads one short index, then only the component files it needs, instead of crawling `node_modules` or guessing from memory. The rules in the index (tokens only, flat imports, labels, status with icons) prevent the most common review comments.
+An agent reads one short index, then only the component files it needs, instead of crawling `node_modules` or guessing from memory. The rules in the index (tokens only, color roles, motion recipes, flat imports, labels, status with icons) prevent the most common review comments, and `check` catches what slips through.
 
 This site also publishes [`/llms.txt`](/llms.txt) and [`/llms-full.txt`](/llms-full.txt) for tools that read the web.

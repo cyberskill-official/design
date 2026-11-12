@@ -75,7 +75,10 @@ Mark number columns `numeric`: they align right with tabular mono figures so dig
 
 ```ts
 export type BadgeProps = ComponentProps<'span'> & {
-  /** Color meaning. `success`, `warning`, `danger` and `info` show a status icon by default. */
+  /**
+   * Color meaning. `success`, `warning`, `danger` and `info` show a status icon by default.
+   * Category tones (`blue`, `amber`, `teal`, `magenta`, `violet`) label a kind, not a status; they stay tinted even as `solid`.
+   */
   tone?: BadgeTone;
   /** `soft` tinted (default), `solid` filled, `outline` bordered. */
   variant?: BadgeVariant;

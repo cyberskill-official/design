@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { Avatar, AvatarGroup } from './Avatar';
+import { toneFor } from './tone';
 import { expectAccessibleInThemes } from '../test/a11y';
 
 // 1×1 PNG, so the image loads without the network.
@@ -42,9 +43,34 @@ describe('Avatar', () => {
     expect(group.children).toHaveLength(3);
   });
 
+  it('takes a tone; toneFor gives the same name the same category tone every time', () => {
+    const names = ['An Nguyen', 'Binh Tran', 'Chi Le', 'Dung Pham', 'Em Vo', 'Giang Ho', 'Trần Thị Linh', ''];
+    for (const name of names) {
+      expect(['blue', 'amber', 'teal', 'magenta', 'violet']).toContain(toneFor(name));
+      expect(toneFor(name)).toBe(toneFor(name));
+    }
+    expect(new Set(names.map(toneFor)).size).toBeGreaterThan(1);
+    render(<Avatar name="Chi Le" tone={toneFor('Chi Le')} />);
+    expect(screen.getByRole('img', { name: 'Chi Le' })).toHaveAttribute('data-tone', toneFor('Chi Le'));
+  });
+
+  it('toneFor gives one name one tone in any Unicode form', () => {
+    const nfc = 'Nguyễn Văn An'.normalize('NFC');
+    const nfd = nfc.normalize('NFD');
+    expect(nfd).not.toBe(nfc);
+    expect(toneFor(nfd)).toBe(toneFor(nfc));
+  });
+
+  it("keeps an app's own data-tone when no tone is given", () => {
+    render(<><Avatar name="An Nguyen" data-tone="custom" /><Avatar name="Chi Le" data-tone="custom" tone="teal" /></>);
+    expect(screen.getByRole('img', { name: 'An Nguyen' })).toHaveAttribute('data-tone', 'custom');
+    expect(screen.getByRole('img', { name: 'Chi Le' })).toHaveAttribute('data-tone', 'teal');
+  });
+
   it('has no accessibility violations in light and dark', async () => {
     await expectAccessibleInThemes(
       <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+        {(['primary', 'blue', 'amber', 'teal', 'magenta', 'violet'] as const).map(tone => <Avatar key={tone} name={`${tone} person`} tone={tone} />)}
         <Avatar name="An Nguyen" size="sm" />
         <Avatar name="Binh Tran" />
         <Avatar name="Chi Le" size="lg" />
