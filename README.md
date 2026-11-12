@@ -53,6 +53,7 @@ Full guide: [Get started](https://design.cyberskill.world/docs/get-started).
 | `packages/design` | The npm package `@cyberskill/design` |
 | `apps/site` | design.cyberskill.world (Next.js + Fumadocs, static export) |
 | `tools/audit` | Forensic visual audit |
+| `tools/benchmark` | Quality benchmark: 22 dimensions on every story ([docs/benchmark.md](docs/benchmark.md)) |
 | `examples/next-hello` | Smallest consumer app; CI installs the packed tarball into it |
 
 ```bash
@@ -61,6 +62,7 @@ npm run dev          # package in watch mode + site on http://localhost:3100
 npm run storybook    # component workbench on http://localhost:6006
 npm test             # component tests + stories in Chromium with axe
 npm run site:build && npm run audit:visual
+npm run build-storybook -w @cyberskill/design && npm run benchmark   # quality scorecard
 ```
 
 Contributing: read [AGENTS.md](AGENTS.md) (the rules for humans and AI agents) and [CONTRIBUTING.md](CONTRIBUTING.md).

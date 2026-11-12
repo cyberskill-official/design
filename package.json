@@ -22,6 +22,7 @@
     "typecheck": "npm run typecheck -w @cyberskill/design && npm run typecheck -w @cyberskill/site",
     "check:package": "npm run check:package -w @cyberskill/design",
     "audit:visual": "node tools/audit/run.mjs",
+    "benchmark": "node tools/benchmark/run.mjs",
     "changeset": "changeset",
     "version-packages": "changeset version && npm install --package-lock-only --ignore-scripts --no-audit --no-fund",
     "test:tools": "node --test tools/*.test.mjs"

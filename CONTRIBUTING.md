@@ -10,6 +10,7 @@
    npm run typecheck
    npm test
    npm run site:build && npm run audit:visual  # forensic visual audit
+   npm run build-storybook -w @cyberskill/design && npm run benchmark  # quality benchmark (docs/benchmark.md)
    npx changeset                               # describe anything that ships in the package
    ```
 

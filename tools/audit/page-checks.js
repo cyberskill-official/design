@@ -120,6 +120,7 @@ export function layoutChecks({ w, h, fold }) {
     if (Math.min(o.hitW, o.hitH) >= 24) return false;
     const [ox, oy] = centre(o); return (ox - cx) ** 2 + (oy - cy) ** 2 < 576;
   };
+  out.targetCount = hits.length;
   for (const h of hits) {
     const min = Math.min(h.hitW, h.hitH);
     if (min >= 44) continue;
