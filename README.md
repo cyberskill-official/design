@@ -70,7 +70,7 @@ Contributing: read [AGENTS.md](AGENTS.md) (the rules for humans and AI agents) a
 ## Versions
 
 - **3.x** (this branch): Ink & Gold.
-- **2.x**: Umber & Ochre, on the [`legacy`](https://github.com/cyberskill-official/design/tree/legacy) branch and the `legacy` npm tag. See [Migrating from 2.x](https://design.cyberskill.world/docs/migration).
+- **2.x**: Umber & Ochre, on the [`legacy`](https://github.com/cyberskill-official/design/tree/legacy) branch and the `legacy` npm tag. Docs and Storybook: [design.cyberskill.world/legacy](https://design.cyberskill.world/legacy/). See [Migrating from 2.x](https://design.cyberskill.world/docs/migration).
 
 ## License
 

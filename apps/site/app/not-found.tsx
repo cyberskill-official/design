@@ -19,8 +19,9 @@ export default function NotFound() {
           action={<Link href="/docs/">Browse the design system</Link>}
         />
         <p className="not-found-legacy">
-          Looking for the 2.x (Umber &amp; Ochre) docs or Storybook? They stay on the{' '}
-          <Link href="https://github.com/cyberskill-official/design/tree/legacy">legacy branch</Link>. Moving an app over:{' '}
+          Looking for the 2.x (Umber &amp; Ochre) docs or Storybook? They are at{' '}
+          {/* a plain link: /legacy/ is a separate static site, not a route of this app */}
+          <a href="/legacy/">design.cyberskill.world/legacy</a>. Moving an app over:{' '}
           <Link href="/docs/migration/">Migrating from&nbsp;2.x</Link>.
         </p>
       </main>

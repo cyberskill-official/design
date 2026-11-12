@@ -21,6 +21,15 @@ jobs:
         with: { node-version-file: .nvmrc, cache: npm }
       - run: npm ci
       - run: npm run site:build
+      # The 2.x docs and Storybook, frozen at 2.9.0, served at /legacy/. Built once from the v2.9.0 tag with a /legacy/
+      # asset base and attached to that release, so this job never has to install or build 2.x.
+      - name: 2.x docs at /legacy/
+        env: { GH_TOKEN: '${{ github.token }}' }
+        run: |
+          gh release download v2.9.0 --repo "$GITHUB_REPOSITORY" --pattern design-2.9.0-legacy-site.zip --dir "$RUNNER_TEMP"
+          mkdir -p apps/site/out/legacy
+          unzip -q "$RUNNER_TEMP/design-2.9.0-legacy-site.zip" -d apps/site/out/legacy
+          test -f apps/site/out/legacy/index.html
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9  # v5.0.0
         with: { path: apps/site/out }
   deploy:
