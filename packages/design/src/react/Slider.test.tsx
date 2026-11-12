@@ -3,6 +3,7 @@ import { userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { Slider } from './Slider';
 import { expectAccessibleInThemes } from '../test/a11y';
+import { withRuntimeLocale } from '../test/locale';
 
 describe('Slider', () => {
   it('labels the thumb, shows the value and steps with the keyboard', async () => {
@@ -14,6 +15,13 @@ describe('Slider', () => {
     await userEvent.keyboard('{ArrowRight}');
     expect(onValueChange).toHaveBeenLastCalledWith(50, expect.anything());
     expect(screen.getByText('50')).toBeVisible();
+  });
+
+  it('formats the shown value in en-US by default, whatever the runtime locale, so server and client HTML match', () => {
+    withRuntimeLocale('de-DE', () => {
+      render(<Slider label="Price" defaultValue={1234.5} max={5000} format={{ maximumFractionDigits: 3 }} />);
+      expect(screen.getByText('1,234.5')).toBeVisible();
+    });
   });
 
   it('range sliders name each thumb', async () => {

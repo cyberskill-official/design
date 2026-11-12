@@ -56,6 +56,23 @@ describe('SearchField', () => {
     expect(screen.getByText('q=')).toBeVisible();
   });
 
+  it('a controlled value reset to undefined (React Hook Form reset()) empties the field', async () => {
+    function Form() {
+      const [q, setQ] = useState<string | undefined>('abc');
+      return (
+        <>
+          <SearchField label="Search" value={q} onValueChange={setQ} />
+          <button type="button" onClick={() => setQ(undefined)}>Reset</button>
+        </>
+      );
+    }
+    render(<Form />);
+    const input = screen.getByRole('searchbox');
+    await userEvent.type(input, 'd');
+    await userEvent.click(screen.getByRole('button', { name: 'Reset' }));
+    expect(input).toHaveValue('');
+  });
+
   it('announces loading and shows the shortcut hint while empty; labels are overridable', async () => {
     render(<SearchField label="Tìm kiếm" shortcut="⌘K" loading loadingLabel="Đang tải" clearLabel="Xoá tìm kiếm" />);
     expect(screen.getByRole('status')).toHaveTextContent('Đang tải');

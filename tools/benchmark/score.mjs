@@ -1,18 +1,20 @@
 // Scoring for the quality benchmark: pass rates per dimension, what blocks, and the advisory ratchet.
 import { DIMENSIONS } from './dimensions.mjs';
 
-export const newResults = () => Object.fromEntries(DIMENSIONS.map(d => [d.id, { total: 0, fails: new Map() }]));
+export const newResults = () => Object.fromEntries(DIMENSIONS.map(d => [d.id, { total: 0, seen: new Set(), fails: new Map() }]));
 
 /** One measured subject. `key` must be stable between runs (story id, theme and a label, not coordinates). */
 export function record(results, dim, { pass, key, detail = '' }) {
   const r = results[dim];
   if (!r) throw new Error(`unknown dimension ${dim}`);
-  r.total++;
+  if (!r.seen.has(key)) { r.seen.add(key); r.total++; } // a subject measured twice counts once, as its failure does
   if (!pass && !r.fails.has(key)) r.fails.set(key, detail);
 }
 
 // An advisory score may dip this much below its baseline before it blocks: fonts render a pixel apart on Linux and macOS.
 export const TOLERANCE = 0.5;
+// New advisory failures tolerated for the same reason: 0.5% of the subjects, at least 2.
+export const newAllowed = total => Math.max(2, Math.floor(total * 0.005));
 
 /**
  * Required dimensions block on any failure. Advisory ones block when their score drops below the baseline's
@@ -27,7 +29,9 @@ export function score(results, baseline = { advisory: {} }, { partial = false } 
     const pct = r.total ? Math.round((1000 * (r.total - Math.min(failed, r.total))) / r.total) / 10 : null;
     // a partial run (--stories) leaves some dimensions unmeasured; a full run with nothing measured means a broken check
     const floor = baseline.scores?.[d.id];
-    const blocking = d.level === 'required' ? failed > 0 || (r.total === 0 && !partial) : !partial && pct != null && (floor == null ? failed > 0 : pct < floor - TOLERANCE);
+    // advisory: the score may not drop, and no more than a handful of failures may be new (a few items flip between
+    // Linux and macOS font rendering; a real regression adds many)
+    const blocking = (r.total === 0 && !partial) || (d.level === 'required' ? failed > 0 : !partial && pct != null && (floor == null ? failed > 0 : pct < floor - TOLERANCE || newFails.length > newAllowed(r.total)));
     return { ...d, total: r.total, failed, score: pct, newFails, fixed, blocking, fails: [...r.fails].map(([key, detail]) => ({ key, detail })) };
   });
   const scored = rows.filter(r => r.score != null);

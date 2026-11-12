@@ -25,7 +25,7 @@ const browser = () => ({
 // Two projects, both in real Chromium: component tests, and every Storybook story as a test (with a11y checks).
 export default defineConfig({
   plugins: [react()],
-  optimizeDeps: { include: [...baseUiParts, '@phosphor-icons/react', 'recharts', '@tanstack/react-table', '@tanstack/react-virtual', 'react-day-picker', 'date-fns', 'react-hook-form'] },
+  optimizeDeps: { include: [...baseUiParts, '@phosphor-icons/react', '@phosphor-icons/react/ssr', 'recharts', '@tanstack/react-table', '@tanstack/react-virtual', 'react-day-picker', 'date-fns', 'react-hook-form'] },
   test: {
     projects: [
       { extends: true, test: { name: 'unit', include: ['src/**/*.test.{ts,tsx}'], setupFiles: ['./src/test/setup.ts'], browser: browser(), sequence: { groupOrder: 0 } } },

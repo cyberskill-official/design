@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
+import { useState } from 'react';
 import { SegmentedControl } from './SegmentedControl';
 import { expectAccessibleInThemes } from '../test/a11y';
 
@@ -34,6 +35,22 @@ describe('SegmentedControl', () => {
     const { rerender } = render(<SegmentedControl label="View" items={views} value="list" />);
     rerender(<SegmentedControl label="View" items={views} value="timeline" />);
     expect(screen.getByRole('button', { name: 'Timeline' })).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  it('a controlled value reset to undefined (React Hook Form reset()) selects nothing, not the last click', async () => {
+    function Form() {
+      const [view, setView] = useState<string | undefined>('list');
+      return (
+        <>
+          <SegmentedControl label="View" items={views} value={view} onValueChange={setView} />
+          <button type="button" onClick={() => setView(undefined)}>Reset</button>
+        </>
+      );
+    }
+    render(<Form />);
+    await userEvent.click(screen.getByRole('button', { name: 'Board' }));
+    await userEvent.click(screen.getByRole('button', { name: 'Reset' }));
+    expect(screen.getByRole('button', { name: 'Board' })).toHaveAttribute('aria-pressed', 'false');
   });
 
   it('moves focus between segments with arrow keys', async () => {

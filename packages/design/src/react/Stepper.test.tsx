@@ -24,7 +24,7 @@ describe('Stepper', () => {
     expect(container.querySelectorAll('.cs-stepper-check')).toHaveLength(1);
   });
 
-  it('colors the bar by status: primary, accent, border', () => {
+  it('colors the bar by status: primary, gold dark enough to show in light mode (accent-text), border', () => {
     const { container } = render(<Stepper steps={steps} />);
     const bars = [...container.querySelectorAll('.cs-stepper-bar')].map(b => getComputedStyle(b).backgroundColor);
     const token = (name: string) => {
@@ -33,7 +33,7 @@ describe('Stepper', () => {
       container.appendChild(probe);
       return getComputedStyle(probe).backgroundColor;
     };
-    expect(bars).toEqual([token('primary'), token('accent'), token('border')]);
+    expect(bars).toEqual([token('primary'), token('accent-text'), token('border')]);
   });
 
   it('takes Vietnamese status labels and a vertical layout', () => {

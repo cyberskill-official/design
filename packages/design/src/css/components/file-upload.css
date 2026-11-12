@@ -13,12 +13,13 @@
   border-radius: var(--radius-lg);
   background: var(--panel);
   color: var(--foreground);
-  font: 500 14px/20px var(--font-sans);
+  font: 500 0.875rem/1.25rem var(--font-sans);
   text-align: center;
   cursor: pointer;
   transition: background-color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard);
 
-  &:hover:not(:disabled) { border-color: var(--foreground); background: var(--raised); }
+  &:hover:not(:disabled, [aria-invalid='true']) { border-color: var(--foreground); }
+  &:hover:not(:disabled) { background: var(--raised); }
   &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
   &[data-dragging] { border-style: solid; border-color: var(--primary); background: var(--primary-soft); }
   &[aria-invalid='true'] { border-color: var(--destructive); }
@@ -39,7 +40,7 @@
 .cs-file-upload-zone:hover:not(:disabled) .cs-file-upload-icon,
 .cs-file-upload-zone[data-dragging] .cs-file-upload-icon { background: var(--panel); }
 
-.cs-file-upload-hint { font: 400 13px/18px var(--font-sans); color: var(--muted); }
+.cs-file-upload-hint { font: 400 0.8125rem/1.125rem var(--font-sans); color: var(--muted); }
 
 /* No box of its own, so the empty live region adds no gap but stays in the accessibility tree */
 .cs-file-upload-errors { display: contents; }
@@ -60,15 +61,15 @@
 .cs-file-upload-item-icon { flex: none; width: 20px; height: 20px; color: var(--muted); }
 .cs-file-upload-item-body { display: grid; gap: 6px; flex: 1; min-width: 0; }
 .cs-file-upload-item-row { display: flex; align-items: baseline; gap: var(--space-2); min-width: 0; }
-.cs-file-upload-item-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 500 14px/20px var(--font-sans); color: var(--foreground); padding-block: 0.5em; margin-block: -0.5em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */ }
-.cs-file-upload-item-size { flex: none; font: 400 12px/18px var(--font-mono); color: var(--muted); }
+.cs-file-upload-item-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 500 0.875rem/1.25rem var(--font-sans); color: var(--foreground); padding-block: 0.5em; margin-block: -0.5em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */ }
+.cs-file-upload-item-size { flex: none; font: 400 0.75rem/1.125rem var(--font-mono); color: var(--muted); }
 
 .cs-file-upload-item-done,
 .cs-file-upload-item-error {
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
-  font: 500 13px/18px var(--font-sans);
+  font: 500 0.8125rem/1.125rem var(--font-sans);
   color: var(--destructive);
   & > svg { flex: none; width: 14px; height: 14px; }
 }

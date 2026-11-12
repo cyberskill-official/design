@@ -7,7 +7,7 @@
   --_h: var(--control-md);
   --_px: var(--space-4);
   --_gap: var(--space-2);
-  --_font: 600 14px/1 var(--font-sans);
+  --_font: 600 0.875rem/1 var(--font-sans);
 
   position: relative;
   display: inline-flex;
@@ -35,8 +35,8 @@
   &[data-full-width] { width: 100%; }
 
   /* sizes; sm and md keep a 44px touch target with an invisible hit area */
-  &[data-size='sm'] { --_h: var(--control-sm); --_px: var(--space-3); --_gap: 6px; --_font: 600 13px/1 var(--font-sans); border-radius: 7px; }
-  &[data-size='lg'] { --_h: var(--control-lg); --_px: var(--space-5); --_font: 600 15px/1 var(--font-sans); border-radius: var(--radius-lg); }
+  &[data-size='sm'] { --_h: var(--control-sm); --_px: var(--space-3); --_gap: 6px; --_font: 600 0.8125rem/1 var(--font-sans); border-radius: 7px; }
+  &[data-size='lg'] { --_h: var(--control-lg); --_px: var(--space-5); --_font: 600 0.9375rem/1 var(--font-sans); border-radius: var(--radius-lg); }
   &[data-size='sm']::before, &[data-size='md']::before {
     content: '';
     position: absolute;
@@ -87,7 +87,8 @@
   & > .cs-button:first-child { border-start-start-radius: var(--radius-md); border-end-start-radius: var(--radius-md); margin-inline-start: 0; }
   & > .cs-button:last-child { border-start-end-radius: var(--radius-md); border-end-end-radius: var(--radius-md); }
   & > .cs-button:focus-visible { z-index: 1; }
-  & > .cs-button[aria-pressed='true'] { --_bg: var(--raised); }
+  /* pressed: a tint plus an edge at 3:1, so it differs from hover and from its neighbours (WCAG 1.4.11) */
+  & > .cs-button[aria-pressed='true'] { --_bg: var(--primary-soft); --_fg: var(--primary); box-shadow: inset 0 0 0 1px var(--primary); z-index: 1; }
 }
 
 .cs-button-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; padding-block: 0.5em; margin-block: -0.5em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */ }

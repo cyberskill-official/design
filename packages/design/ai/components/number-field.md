@@ -44,7 +44,7 @@ Use a number field for quantities people adjust in small steps: seats, replicas,
 | `onValueChange` | `(value: number \| null, details) => void` | – | Called as the value changes |
 | `min / max` | `number` | – | Limits; the steppers disable at the ends |
 | `step / largeStep` | `number` | `1 / 10` | Arrow keys and buttons step by step; Shift+Arrow by largeStep |
-| `format / locale` | `Intl.NumberFormatOptions / string` | – | How the number is shown, e.g. VND currency |
+| `format / locale` | `Intl.NumberFormatOptions / string` | `– / 'en-US'` | How the number is shown and read, e.g. VND currency with vi-VN. The locale is fixed by default so server and browser HTML match |
 | `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Height 32, 40 or 48px |
 | `decrementLabel / incrementLabel` | `string` | `'Decrease' / 'Increase'` | Accessible names of the − and + buttons |
 | `description / error / optionalLabel` | `ReactNode` | – | Help text, an error that marks it invalid, and an "Optional" marker |
@@ -76,6 +76,7 @@ export type NumberFieldProps = Omit<BaseUI.NumberField.Root.Props, 'className'> 
   /**
    * Locale for showing and reading the number, e.g. `"vi-VN"`. Typed and pasted text is read with this locale's
    * separators, so with `vi-VN` a pasted `1,000,000` (English grouping) becomes 1000: the comma is the Vietnamese decimal mark.
+   * Fixed to `en-US` by default (not the runtime locale), so server and client render the same text.
    */
   locale?: BaseUI.NumberField.Root.Props['locale'];
   /** `Intl.NumberFormat` options, e.g. `{ style: 'currency', currency: 'VND' }`. Parsing follows `locale`, not `format`. */

@@ -82,6 +82,8 @@ export type TimePickerProps = Pick<FieldProps, 'label' | 'hideLabel' | 'descript
   placeholder?: string;
   /** Shown when the typed text is not a time or is outside min/max. */
   invalidMessage?: ReactNode;
+  /** Marks the field invalid without a message of its own, when the message is shown elsewhere. */
+  invalid?: boolean;
   /** Submits the value with a native form (hidden input, `HH:mm`; empty while there is no valid time). */
   name?: string;
   /** Ref to the visible text input, e.g. React Hook Form's `field.ref` so a failed submit focuses it. */

@@ -62,7 +62,7 @@ Turn off built-in filtering with `filter={null}`, fetch in `onInputValueChange` 
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
-| `items` | `{ value, label, description?, disabled? }[]` | – | Options in display order (required). label is shown, filtered on and put in the input |
+| `items` | `{ value, label, description?, disabled? }[]` | – | Options in display order (required). label is shown, filtered on and put in the input; the chosen value keeps its label when async results no longer hold it |
 | `children` | `(item) => ReactNode` | – | Custom content for each option; the check mark and description stay |
 | `value / defaultValue` | `string \| null` | – | Chosen item value, controlled or initial |
 | `onValueChange` | `(value, details) => void` | – | Called when an option is picked or cleared |

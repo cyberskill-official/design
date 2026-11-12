@@ -1,5 +1,5 @@
 // Guards component CSS: colors only through tokens, every var(--x) defined, no !important, no tiny text.
-// Minimum size: 12px for text, 11px when the rule uses the mono font (codes, labels).
+// Minimum size: 12px for text, 11px when the rule uses the mono font (codes, labels). Sizes are written in rem, never px.
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -33,12 +33,15 @@ for (const f of files) {
     const mono = /var\(--font-mono\)/.test(code);
     const min = mono ? 11 : 12;
     // font-size: 10px | 0.6rem | font: 500 10px/1 …
-    for (const m of code.matchAll(/font(?:-size)?\s*:\s*([^;]+)/g)) {
+    // font-size, the font shorthand, and custom properties that hold one (--_font: 600 14px/1 …)
+    for (const m of code.matchAll(/(?:font(?:-size)?|--[\w-]+)\s*:\s*((?:\d{3} )?\d[^;]*)/g)) {
+      if (m[0].startsWith('--') && !/^\d{3} /.test(m[1])) continue;
       const value = m[1];
       const px = value.match(/(?:^|\s)(\d+(?:\.\d+)?)px(?=\s*(?:\/|;|$|\s))/);
       const rem = value.match(/(?:^|\s)(\d*\.?\d+)r?em(?=\s*(?:\/|;|$|\s))/);
       const size = px ? +px[1] : rem ? +rem[1] * 16 : null;
       if (size !== null && size < min) problems.push(`${at} text size ${size}px is below the ${min}px minimum${mono ? ' for mono' : ''}`);
+      if (px) problems.push(`${at} text size in px; use rem (${+(px[1] / 16).toFixed(4)}rem) so it follows the reader's browser font size`);
     }
   });
 }

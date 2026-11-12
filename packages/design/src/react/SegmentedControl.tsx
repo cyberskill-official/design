@@ -1,7 +1,8 @@
 import { Toggle as BaseToggle } from '@base-ui/react/toggle';
 import { ToggleGroup as BaseToggleGroup } from '@base-ui/react/toggle-group';
-import { useState, type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { cx } from '../utils/cx';
+import { useControllableState } from '../utils/use-controllable';
 
 export type SegmentedControlItem<Value extends string = string> = { value: Value; label: ReactNode; disabled?: boolean };
 
@@ -25,8 +26,7 @@ export type SegmentedControlProps<Value extends string = string> = Omit<
 
 /** Switches between a few views or modes of the same content. Arrow keys move between segments. */
 export function SegmentedControl<Value extends string = string>({ items, value, defaultValue, onValueChange, size = 'md', label, className, ...props }: SegmentedControlProps<Value>) {
-  const [uncontrolled, setUncontrolled] = useState(defaultValue ?? items[0]?.value);
-  const selected = value ?? uncontrolled;
+  const [selected, setUncontrolled] = useControllableState<Value | undefined>(value, defaultValue ?? items[0]?.value, undefined);
   return (
     <BaseToggleGroup<Value>
       {...props}

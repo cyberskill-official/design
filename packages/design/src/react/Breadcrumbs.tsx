@@ -1,4 +1,4 @@
-import { CaretRight } from '@phosphor-icons/react';
+import { CaretRight } from '@phosphor-icons/react/ssr'; // the context-free build: this component renders in Server Components
 import { Children, type HTMLAttributes, type ReactNode } from 'react';
 import { cx } from '../utils/cx';
 

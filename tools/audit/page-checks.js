@@ -73,13 +73,18 @@ export function layoutChecks({ w, h, fold }) {
   const boxOf = el => { for (let e = el; e && e !== document.body; e = e.parentElement) if (isBox(e)) return e; return document.body; };
   const ignored = el => !!el.closest('[data-audit-ignore],.cs-visually-hidden,[aria-hidden="true"]');
 
-  const texts = [];
+  const texts = [], inkCtx = document.createElement('canvas').getContext('2d');
   const tw = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, { acceptNode: n => (n.nodeValue.trim() ? 1 : 2) });
   for (let n; (n = tw.nextNode());) {
     const el = n.parentElement; if (!el || el.closest('script,style,template,noscript') || !visible(el) || ignored(el)) continue;
     const rg = document.createRange(); rg.selectNodeContents(n);
     const rects = [...rg.getClientRects()].filter(r => r.width && r.height); if (!rects.length) continue;
     const u = rects.reduce((a, r) => ({ l: Math.min(a.l, r.left), t: Math.min(a.t, r.top), r: Math.max(a.r, r.right), b: Math.max(a.b, r.bottom) }), { l: 1e9, t: 1e9, r: -1e9, b: -1e9 });
+    // Vertically, judge the ink, not the font's line box: a font with a tall ascent (ours is raised so inputs keep
+    // stacked Vietnamese marks) has a box bigger than anything it draws.
+    const fcs = getComputedStyle(el); inkCtx.font = `${fcs.fontStyle} ${fcs.fontWeight} ${fcs.fontSize} ${fcs.fontFamily}`;
+    const tm = inkCtx.measureText(n.nodeValue);
+    u.t += Math.max(0, tm.fontBoundingBoxAscent - tm.actualBoundingBoxAscent); u.b -= Math.max(0, tm.fontBoundingBoxDescent - tm.actualBoundingBoxDescent);
     const txt = n.nodeValue.trim().slice(0, 40), c = clipper(el);
     const ellipsis = getComputedStyle(el).textOverflow === 'ellipsis' && el.scrollWidth > el.clientWidth + 1;
     if (ellipsis) out.clipped.push({ k: mark(el, 'clipped'), text: txt, px: el.scrollWidth - el.clientWidth, path: path(el), why: 'truncated with ellipsis' });

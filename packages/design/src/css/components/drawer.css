@@ -85,7 +85,7 @@
   align-content: start;
   gap: var(--space-4);
   padding: 0 var(--space-6) var(--space-6);
-  font: 400 15px/22px var(--font-sans);
+  font: 400 0.9375rem/1.375rem var(--font-sans);
 }
 
 .cs-drawer-footer {

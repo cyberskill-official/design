@@ -4,7 +4,17 @@ The package license is **UNLICENSED** (see `LICENSE` and `docs/consumer-grant.md
 
 ## Bundled in the npm package
 
-None. The build keeps every dependency external (`deps.neverBundle` in `packages/design/tsdown.config.ts`), so the tarball holds only CyberSkill code, tokens, CSS, logo files and docs.
+No code. The build keeps every dependency external (`deps.neverBundle` in `packages/design/tsdown.config.ts`), so the tarball holds only CyberSkill code, tokens, CSS, logo files, docs and the three typefaces below.
+
+**Fonts** (`fonts/*.woff2`, loaded by `@cyberskill/design/fonts.css`), unmodified Latin and Vietnamese subsets from Fontsource 5.3.0, each under the [SIL Open Font License 1.1](https://openfontlicense.org):
+
+| Typeface | Copyright |
+|---|---|
+| Be Vietnam Pro | 2021 The Be Vietnam Pro Project Authors (https://github.com/bettergui/BeVietnamPro) |
+| Manrope | 2019 The Manrope Project Authors (https://github.com/sharanda/manrope) |
+| JetBrains Mono | 2020 The JetBrains Mono Project Authors (https://github.com/JetBrains/JetBrainsMono) |
+
+The license texts ship next to the files (`fonts/LICENSE-*.txt`).
 
 ## Installed alongside it by npm
 

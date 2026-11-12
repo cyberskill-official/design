@@ -33,8 +33,8 @@ CyberSkill Design System 3.x: Ink & Gold tokens, accessible React components and
 - Colors only through tokens: `var(--primary)`, `var(--border)`, `color-mix(in srgb, var(--destructive) 12%, var(--panel))`. **No hex, rgb() or hsl() literals.** Shadows: `var(--shadow-md)`.
 - Class prefix `cs-`; parts as `cs-<block>-<part>` (`cs-dialog-title`). Native CSS nesting is fine.
 - Spacing `var(--space-*)`, radius `var(--radius-*)`, motion `var(--duration-*)` + `var(--ease-*)`, layers `var(--z-*)`.
-- Text: `var(--font-sans)` for UI, `var(--font-display)` for headings inside components (dialog titles, stat values), `var(--font-mono)` for codes and numbers in tables. Minimum font size 12px (11px for mono labels).
-- Focus: `outline: 2px solid var(--ring); outline-offset: 2px` on `:focus-visible`.
+- Text: `var(--font-sans)` for UI, `var(--font-display)` for headings inside components (dialog titles, stat values), `var(--font-mono)` for codes and numbers in tables. Sizes in rem (`0.875rem`, never px, so text follows the reader's browser font size); minimum 12px (11px for mono labels).
+- Focus: `outline: 2px solid var(--ring); outline-offset: 2px` on `:focus-visible`. Text fields use the same ring with `outline-offset: 0` (it hugs the border); never a border-color change or glow alone.
 - Animation uses Base UI's `[data-starting-style]` / `[data-ending-style]` with `transition`, not keyframes. Reduced motion is handled globally.
 - No `!important`. Never set colors in a way that only works in one theme; every token flips with `data-theme`.
 

@@ -13,9 +13,10 @@ export type SelectSize = 'sm' | 'md' | 'lg';
 
 const isGroup = <Value,>(entry: SelectItem<Value> | SelectGroup<Value>): entry is SelectGroup<Value> => 'items' in entry && Array.isArray(entry.items);
 
-function renderItem<Value>(item: SelectItem<Value>) {
+// Keyed by position: values may be objects, which all stringify to "[object Object]".
+function renderItem<Value>(item: SelectItem<Value>, index: number) {
   return (
-    <BaseSelect.Item key={String(item.value)} value={item.value} disabled={item.disabled} className="cs-select-item">
+    <BaseSelect.Item key={index} value={item.value} disabled={item.disabled} className="cs-select-item">
       <BaseSelect.ItemText className="cs-select-item-text">{item.label}</BaseSelect.ItemText>
       <BaseSelect.ItemIndicator className="cs-select-item-indicator">
         <Check aria-hidden="true" />
@@ -62,7 +63,7 @@ export function Select<Value = string>({ items, placeholder, size = 'md', classN
                     {entry.items.map(renderItem)}
                   </BaseSelect.Group>
                 ) : (
-                  renderItem(entry)
+                  renderItem(entry, i)
                 ),
               )}
             </BaseSelect.List>

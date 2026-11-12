@@ -27,7 +27,7 @@
   cursor: pointer;
   &:hover:not([data-disabled]) { background: var(--raised); color: var(--foreground); }
   &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
-  &[data-disabled] { cursor: not-allowed; }
+  &[data-disabled] { opacity: 0.5; cursor: not-allowed; }
   & > svg { width: 16px; height: 16px; }
 }
 .cs-input-group[data-size='lg'] .cs-combobox-action > svg { width: 20px; height: 20px; }
@@ -62,7 +62,7 @@
 }
 
 .cs-combobox-group + .cs-combobox-group { margin-top: var(--space-1); padding-top: var(--space-1); border-top: 1px solid var(--border); }
-.cs-combobox-group-label { padding: var(--space-2) var(--space-3) var(--space-1); font: 600 12px/16px var(--font-sans); color: var(--muted); }
+.cs-combobox-group-label { padding: var(--space-2) var(--space-3) var(--space-1); font: 600 0.75rem/1rem var(--font-sans); color: var(--muted); }
 
 .cs-combobox-item {
   display: grid;
@@ -72,7 +72,7 @@
   min-height: 36px;
   padding: 0 var(--space-2) 0 var(--space-3);
   border-radius: 6px;
-  font: 400 14px/20px var(--font-sans);
+  font: 400 0.875rem/1.25rem var(--font-sans);
   cursor: pointer;
   outline: 0;
   user-select: none;
@@ -81,11 +81,11 @@
   &[data-selected] .cs-combobox-item-label { font-weight: 600; }
   &[data-disabled] { color: var(--muted); cursor: not-allowed; }
 }
-.cs-combobox-popup[data-size='sm'] .cs-combobox-item { min-height: var(--control-sm); font-size: 13px; }
-.cs-combobox-popup[data-size='lg'] .cs-combobox-item { min-height: var(--control-touch); font-size: 15px; }
+.cs-combobox-popup[data-size='sm'] .cs-combobox-item { min-height: var(--control-sm); font-size: 0.8125rem; }
+.cs-combobox-popup[data-size='lg'] .cs-combobox-item { min-height: var(--control-touch); font-size: 0.9375rem; }
 
 .cs-combobox-item-text { grid-column: 1; display: grid; min-width: 0; padding-block: 6px; }
-.cs-combobox-item-description { font: 400 13px/18px var(--font-sans); color: var(--muted); }
+.cs-combobox-item-description { font: 400 0.8125rem/1.125rem var(--font-sans); color: var(--muted); }
 
 .cs-combobox-item-indicator {
   grid-column: 2;
@@ -99,7 +99,7 @@
   align-items: center;
   gap: var(--space-2);
   padding: var(--space-3);
-  font: 400 14px/20px var(--font-sans);
+  font: 400 0.875rem/1.25rem var(--font-sans);
   color: var(--muted);
 }
 

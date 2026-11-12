@@ -3,6 +3,28 @@ title: Changelog
 description: Release notes for @cyberskill/design 3.x.
 ---
 
+## 3.1.0 (12 November 2026)
+
+A hardening pass over every component. Upgrading from 3.0.0: read "Check when upgrading" below.
+
+- **New components:** `PasswordField`, `TagInput`, `AvatarUpload` and `Prose` (styles Markdown and AI answers).
+- **Fonts in the package:** `import '@cyberskill/design/fonts.css'` self-hosts Be Vietnam Pro, Manrope and JetBrains Mono (Latin and Vietnamese). With it, text inputs no longer cut the top mark off stacked Vietnamese capitals (Ẫ showed as Â).
+- **Focus and states:** text fields, selects and OTP inputs show the standard 2px focus ring; an invalid field keeps its red edge on hover; disabled buttons inside fields look disabled.
+- **Forms:** a form reset clears chips, segments, search terms and half-typed dates; FileUpload submits with a native form or Server Action (`name`); date pickers no longer show the server's time zone.
+- **Tables and pickers:** DataTable keeps its page when data is refetched; Combobox and MultiSelect keep the chosen label when async results change.
+- **Lighter:** Kbd, Spinner, Skeleton, EmptyState, Badge, Stat, Stepper, Breadcrumbs and Prose ship no JavaScript when used from a Server Component.
+- **Accessibility:** text and control sizes follow the reader's browser font size (rem); selected and pressed items stay visible in Windows contrast themes; right-to-left fixes.
+
+**Check when upgrading from 3.0.0**
+
+- Sizes are in rem. An app that sets its own root font size (`html { font-size: 62.5% }`) gets smaller text and controls: set the root back to 100% or override the `--text-*` and `--control-*` tokens.
+- `Input` and `TextField` always render the `cs-input-group` box. `className` and `style` go to that box; app CSS that styles `.cs-input` as the bordered box must target `.cs-input-group`.
+- NumberField and Slider use `locale="en-US"` unless you pass one, for shown and typed text: a typed `1,5` is 15. Vietnamese apps pass `locale="vi-VN"`.
+- DataTable no longer jumps to page 1 when `data` changes. If you filter `data` yourself, pass `key={query}`.
+- Peer `recharts` is `^3.8.0`; Node 20.9 or newer.
+
+The full list is in the package's [CHANGELOG](https://github.com/cyberskill-official/design/blob/main/packages/design/CHANGELOG.md).
+
 ## 3.0.0 (12 November 2026)
 
 Ink & Gold: a rebuild of the CyberSkill Design System. 3.0 shares no components or class names with 2.x; see [Migrating from 2.x](/docs/migration). The 2.x docs stay at [design.cyberskill.world/legacy](https://design.cyberskill.world/legacy/).
@@ -12,4 +34,4 @@ Ink & Gold: a rebuild of the CyberSkill Design System. 3.0 shares no components 
 - **Smaller apps:** charts, tables, forms and dates load only from their own entry points; an app using two components ships about 6 KB of component JavaScript.
 - **Quality:** every component is tested in a real browser with accessibility checks in both themes, and a 23-dimension quality benchmark runs on every story in light and dark.
 - **AI tools:** short docs per component, a Claude Code skill and a Cursor rule ship with the package; `npx @cyberskill/design ai-setup` installs them.
-- **Known gap:** text inputs cut the top mark of stacked Vietnamese capitals (Ẫ shows as Â) because the browser clips input text at Be Vietnam Pro's ascent. A font fix is planned for 3.1.
+- **Known gap:** text inputs cut the top mark of stacked Vietnamese capitals (Ẫ shows as Â) because the browser clips input text at Be Vietnam Pro's ascent. Fixed in 3.1.0 by `@cyberskill/design/fonts.css`.

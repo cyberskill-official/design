@@ -54,6 +54,7 @@ test('CSS check fails on raw colors, undefined tokens, !important and tiny text'
     '.a { color: #ff0000; }', '.b { background: color-mix(in srgb, rgb(255 0 0) 50%, var(--panel)); }', '.c { color: red; }',
     '.d { font: 500 9px/1 var(--font-sans); }', '.e { font-size: 0.5rem; }', '.f { font-size: 11px; }', '.g { margin: 0 !important; }',
     '.h { border: 1px solid var(--borders); }', '.i { color: var(--app-text, inherit); border-color: var(--panel); }',
+    '.j { font: 500 14px/1 var(--font-sans); }', '.k { font-size: 0.875rem; }',
   ].join('\n'));
   const tokens = join(dir, 'tokens.css');
   writeFileSync(tokens, ':root { --panel: #fff; --font-sans: sans-serif; }');
@@ -62,4 +63,6 @@ test('CSS check fails on raw colors, undefined tokens, !important and tiny text'
   for (const line of [1, 2, 3, 4, 5, 6, 7, 8]) assert.match(r.stderr, new RegExp(`bad\\.css:${line} `), `line ${line} not flagged`);
   assert.match(r.stderr, /var\(--borders\) is not defined/);
   assert.doesNotMatch(r.stderr, /bad\.css:9 /, 'a var() with a fallback, or a defined token, is fine');
+  assert.match(r.stderr, /bad\.css:10 text size in px; use rem \(0\.875rem\)/);
+  assert.doesNotMatch(r.stderr, /bad\.css:11 /, 'rem sizes are fine');
 });

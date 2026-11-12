@@ -9,7 +9,7 @@
   background: var(--foreground);
   color: var(--background);
   box-shadow: var(--shadow-md);
-  font: 500 13px/18px var(--font-sans);
+  font: 500 0.8125rem/1.125rem var(--font-sans);
   text-wrap: pretty;
   transform-origin: var(--transform-origin);
   transition: opacity var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-standard);

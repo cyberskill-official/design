@@ -30,6 +30,8 @@ export type TimePickerProps = Pick<FieldProps, 'label' | 'hideLabel' | 'descript
   placeholder?: string;
   /** Shown when the typed text is not a time or is outside min/max. */
   invalidMessage?: ReactNode;
+  /** Marks the field invalid without a message of its own, when the message is shown elsewhere. */
+  invalid?: boolean;
   /** Submits the value with a native form (hidden input, `HH:mm`; empty while there is no valid time). */
   name?: string;
   /** Ref to the visible text input, e.g. React Hook Form's `field.ref` so a failed submit focuses it. */
@@ -41,9 +43,10 @@ export type TimePickerProps = Pick<FieldProps, 'label' | 'hideLabel' | 'descript
 const digits = (s: string) => s.replace(/\D/g, '');
 
 /** Labelled time field: type `9:30`, `21:30` or `930`, or choose from a list of times every `step` minutes. */
-export function TimePicker({ label, hideLabel, description, error, optionalLabel, required, disabled, className, value, defaultValue = null, onValueChange, step = 15, min, max, hourCycle = 24, locale, placeholder = hourCycle === 24 ? 'hh:mm' : 'h:mm', invalidMessage = 'Enter a valid time', name, inputRef, onBlur }: TimePickerProps) {
-  const [current, setCurrent] = useControllable(value, defaultValue, onValueChange);
+export function TimePicker({ label, hideLabel, description, error, invalid: markedInvalid, optionalLabel, required, disabled, className, value, defaultValue = null, onValueChange, step = 15, min, max, hourCycle = 24, locale, placeholder = hourCycle === 24 ? 'hh:mm' : 'h:mm', invalidMessage = 'Enter a valid time', name, inputRef, onBlur }: TimePickerProps) {
+  const [current, setCurrent, resets] = useControllable(value, defaultValue, onValueChange);
   const highlighted = useRef<Slot | undefined>(undefined);
+  const groupRef = useRef<HTMLDivElement>(null);
   // Normalised so "9:00" and "09:00" compare the same ("HH:mm" strings sort like times).
   const lo = (min && parseTime(min)) || '00:00';
   const hi = (max && parseTime(max)) || '23:59';
@@ -59,7 +62,7 @@ export function TimePicker({ label, hideLabel, description, error, optionalLabel
   }, [lo, hi, step, hourCycle, locale]);
 
   const shown = current ? formatTime(current, hourCycle, locale) : '';
-  const { draft, setDraft, invalid, setInvalid } = useDraft(shown);
+  const { draft, setDraft, invalid, setInvalid } = useDraft(shown, resets, groupRef);
   const text = draft ?? shown;
   // A typed off-step time (09:37) stays the value even though the list has no row for it.
   const selected = current ? (slots.find(s => s.value === current) ?? { value: current, label: shown }) : null;
@@ -83,7 +86,7 @@ export function TimePicker({ label, hideLabel, description, error, optionalLabel
   const outOfRange = current != null && (current < lo || current > hi);
 
   return (
-    <Field label={label} hideLabel={hideLabel} description={description} optionalLabel={optionalLabel} required={required} disabled={disabled} error={error ?? (invalid || outOfRange ? invalidMessage : undefined)} className={cx('cs-time-picker', className)}>
+    <Field label={label} hideLabel={hideLabel} description={description} optionalLabel={optionalLabel} required={required} disabled={disabled} invalid={markedInvalid || undefined} error={error ?? (invalid || outOfRange ? invalidMessage : undefined)} className={cx('cs-time-picker', className)}>
       {/* Combobox, not Autocomplete: its selected item is highlighted and scrolled into view when the list opens.
           The input text is ours (inputValue) so free typing like "9:37" works; it is parsed on blur and Enter. */}
       <Combobox.Root
@@ -104,7 +107,7 @@ export function TimePicker({ label, hideLabel, description, error, optionalLabel
           return query === shown || !q || [item.value, item.label].some(s => digits(s).startsWith(q) || digits(s).startsWith(`0${q}`));
         }}
       >
-        <Combobox.InputGroup className="cs-input-group">
+        <Combobox.InputGroup ref={groupRef} className="cs-input-group">
           <Combobox.Input
             ref={inputRef}
             className="cs-input"

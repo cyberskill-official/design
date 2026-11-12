@@ -69,7 +69,7 @@ const [price, setPrice] = useState<number | readonly number[]>([2_000_000, 8_000
   ['thumbLabels', 'string[]', '–', 'Accessible name per thumb. Required for a range and for a slider without label'],
   ['showValue', 'boolean', 'true with label', 'Show the formatted value(s) beside the label'],
   ['marks', '(number | { value, label? })[]', '–', 'Tick marks; those with a label get text under the track'],
-  ['format / locale', 'Intl.NumberFormatOptions / string', '–', 'How values are shown and announced'],
+  ['format / locale', 'Intl.NumberFormatOptions / string', "– / 'en-US'", 'How values are shown and announced; the locale is fixed by default so server and browser HTML match'],
   ['disabled / name', 'boolean / string', '–', 'Form semantics'],
 ]} />
 

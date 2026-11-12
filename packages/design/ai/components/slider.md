@@ -59,7 +59,7 @@ const [price, setPrice] = useState<number | readonly number[]>([2_000_000, 8_000
 | `thumbLabels` | `string[]` | – | Accessible name per thumb. Required for a range and for a slider without label |
 | `showValue` | `boolean` | `true with label` | Show the formatted value(s) beside the label |
 | `marks` | `(number \| { value, label? })[]` | – | Tick marks; those with a label get text under the track |
-| `format / locale` | `Intl.NumberFormatOptions / string` | – | How values are shown and announced |
+| `format / locale` | `Intl.NumberFormatOptions / string` | `– / 'en-US'` | How values are shown and announced; the locale is fixed by default so server and browser HTML match |
 | `disabled / name` | `boolean / string` | – | Form semantics |
 
 Other Base UI root props (`largeStep`, `minStepsBetweenValues`, `thumbCollisionBehavior`, `onValueCommitted`…) pass through.
@@ -88,5 +88,7 @@ export type SliderProps = Omit<BaseUI.Slider.Root.Props, 'className' | 'children
   thumbLabels?: string[];
   /** Tick marks along the track; marks with a `label` also get text under it. */
   marks?: SliderMark[];
+  /** Locale of the shown value. Fixed to `en-US` by default (not the runtime locale), so server and client render the same text. */
+  locale?: BaseUI.Slider.Root.Props['locale'];
 };
 ```

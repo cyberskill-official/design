@@ -1,6 +1,6 @@
 {
   "name": "@cyberskill/design",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "CyberSkill Design System: Ink & Gold tokens, accessible React components and chart presets for CyberSkill products.",
   "keywords": [
     "cyberskill",
@@ -34,6 +34,7 @@
   "files": [
     "dist",
     "assets",
+    "fonts",
     "tokens",
     "ai",
     "bin",
@@ -77,6 +78,8 @@
     "./styles.css": "./dist/styles.css",
     "./tokens.css": "./dist/tokens.css",
     "./tailwind.css": "./dist/tailwind.css",
+    "./fonts.css": "./fonts/fonts.css",
+    "./fonts/*": "./fonts/*",
     "./assets/*": "./assets/*",
     "./package.json": "./package.json"
   },
@@ -91,7 +94,7 @@
     "test:watch": "concurrently -k -n css,vitest -c yellow,cyan \"node --watch-path=src/css scripts/build-css.mjs\" \"vitest\"",
     "typecheck": "tsc --noEmit",
     "lint:css": "node scripts/check-css.mjs",
-    "check:package": "npm pack --dry-run && publint && attw --pack . --profile esm-only --exclude-entrypoints ./styles.css ./tokens.css ./tailwind.css",
+    "check:package": "npm pack --dry-run && publint && attw --pack . --profile esm-only --exclude-entrypoints ./styles.css ./tokens.css ./tailwind.css ./fonts.css",
     "storybook": "concurrently -k -n css,storybook -c yellow,magenta \"node --watch-path=src/css scripts/build-css.mjs\" \"storybook dev -p 6006 --no-open\"",
     "build-storybook": "storybook build -o storybook-static",
     "check:ai-docs": "node scripts/build-ai-docs.mjs --check",
@@ -110,7 +113,7 @@
     "react-day-picker": "^10.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.50.0",
-    "recharts": "^3.0.0"
+    "recharts": "^3.8.0"
   },
   "peerDependenciesMeta": {
     "@tanstack/react-table": {
@@ -165,5 +168,8 @@
     "vite": "^8.3.8",
     "vitest": "^5.1.0",
     "zod": "^4.6.7"
+  },
+  "engines": {
+    "node": ">=20.9"
   }
 }

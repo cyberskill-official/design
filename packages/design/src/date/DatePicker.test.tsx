@@ -1,4 +1,7 @@
-import { cleanup, render, screen, within } from '@testing-library/react';
+import { act, cleanup, render, screen, within } from '@testing-library/react';
+import { useState, type ReactElement } from 'react';
+import { hydrateRoot, type Root } from 'react-dom/client';
+import { renderToString } from 'react-dom/server';
 import { userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { DatePicker } from './DatePicker';
@@ -7,6 +10,27 @@ import { expectAccessibleInThemes } from '../test/a11y';
 import { expectOpenAccessibleInThemes } from './test-helpers';
 
 const march15 = new Date(2026, 2, 15);
+
+/** Server-renders `ui` into the page, checks it, hydrates it and checks again; fails on any hydration error. */
+async function serverThenHydrate(ui: ReactElement, onServer: (container: HTMLElement) => void, onClient: (container: HTMLElement) => void) {
+  const errors = vi.spyOn(console, 'error').mockImplementation(() => {});
+  const container = document.createElement('div');
+  let root: Root | undefined;
+  try {
+    container.innerHTML = renderToString(ui);
+    document.body.append(container);
+    onServer(container);
+    await act(async () => {
+      root = hydrateRoot(container, ui, { onRecoverableError: error => console.error(error) });
+    });
+    expect(errors.mock.calls.map(c => String(c[0]).slice(0, 400))).toEqual([]);
+    onClient(container);
+  } finally {
+    act(() => root?.unmount());
+    container.remove();
+    errors.mockRestore();
+  }
+}
 
 describe('DatePicker', () => {
   it('renders a labelled text input showing the value as dd/MM/yyyy', () => {
@@ -79,6 +103,61 @@ describe('DatePicker', () => {
     rerender(ui(undefined));
     expect(input).toHaveValue('');
     expect(new FormData(container.querySelector('form')!).get('start')).toBe('');
+  });
+
+  it('a controlled reset to undefined after invalid text (React Hook Form reset()) drops the text and the error', async () => {
+    function Form() {
+      const [value, setValue] = useState<Date | null | undefined>(march15);
+      return (
+        <>
+          <DatePicker label="Start date" value={value} onValueChange={setValue} />
+          <button type="button" onClick={() => setValue(undefined)}>Reset</button>
+        </>
+      );
+    }
+    render(<Form />);
+    const input = screen.getByRole('textbox', { name: 'Start date' });
+    await userEvent.clear(input);
+    await userEvent.type(input, '31/02/2026');
+    await userEvent.tab();
+    expect(input).toHaveValue('31/02/2026'); // its own invalid commit (null) keeps the text
+    expect(input).toHaveAttribute('aria-invalid', 'true');
+    await userEvent.click(screen.getByRole('button', { name: 'Reset' }));
+    expect(input).toHaveValue('');
+    expect(input).not.toHaveAttribute('aria-invalid');
+  });
+
+  it('a form reset drops invalid typed text and its error', async () => {
+    render(<form><DatePicker label="Start date" /><button type="reset">Reset</button></form>);
+    const input = screen.getByRole('textbox', { name: 'Start date' });
+    await userEvent.type(input, '31/02/2026');
+    await userEvent.tab();
+    expect(input).toHaveAttribute('aria-invalid', 'true');
+    await userEvent.click(screen.getByRole('button', { name: 'Reset' }));
+    await expect.poll(() => (input as HTMLInputElement).value).toBe('');
+    expect(input).not.toHaveAttribute('aria-invalid');
+  });
+
+  it('server HTML carries no date text (the server may be in another time zone); it shows once hydrated', async () => {
+    const form = (c: HTMLElement) => new FormData(c.querySelector('form')!);
+    await serverThenHydrate(
+      <form><DatePicker label="Start date" name="start" defaultValue={march15} /></form>,
+      c => {
+        expect(c.querySelector('input:not([type="hidden"])')).toHaveValue('');
+        expect(form(c).get('start')).toBe('');
+      },
+      c => {
+        expect(screen.getByRole('textbox', { name: 'Start date' })).toHaveValue('15/03/2026');
+        expect(form(c).get('start')).toBe('2026-03-15');
+      },
+    );
+  });
+
+  it('passes labels to the calendar', async () => {
+    render(<DatePicker label="Start date" defaultValue={march15} labels={{ labelDayButton: (date, m) => `Ngày ${date.getDate()}${m.selected ? ', đã chọn' : ''}` }} />);
+    await userEvent.click(screen.getByRole('button', { name: 'Choose date' }));
+    await screen.findByRole('dialog');
+    expect(document.activeElement).toHaveAccessibleName('Ngày 15, đã chọn');
   });
 
   it('forwards inputRef and onBlur to the visible input, after the text is checked', async () => {
@@ -235,6 +314,53 @@ describe('DateTimePicker', () => {
     await userEvent.tab();
     expect(time).not.toHaveAttribute('aria-invalid');
     expect(onValueChange).toHaveBeenLastCalledWith(new Date(2026, 2, 16, 8, 0));
+  });
+
+  it('a form reset drops a half-filled date', async () => {
+    render(<form><DateTimePicker label="Meeting starts" /><button type="reset">Reset</button></form>);
+    const date = screen.getByRole('textbox', { name: 'Date' });
+    await userEvent.type(date, '15/03/2026');
+    await userEvent.tab();
+    await userEvent.click(screen.getByRole('button', { name: 'Reset' }));
+    await expect.poll(() => (date as HTMLInputElement).value).toBe('');
+  });
+
+  it('a controlled reset to undefined (React Hook Form reset()) drops a half-filled date and invalid time text', async () => {
+    function Form() {
+      const [value, setValue] = useState<Date | null | undefined>(null);
+      return (
+        <>
+          <DateTimePicker label="Meeting starts" value={value} onValueChange={setValue} />
+          <button type="button" onClick={() => setValue(undefined)}>Reset</button>
+        </>
+      );
+    }
+    render(<Form />);
+    const date = screen.getByRole('textbox', { name: 'Date' });
+    const time = screen.getByRole('combobox', { name: 'Time' });
+    await userEvent.type(date, '15/03/2026');
+    await userEvent.tab();
+    await userEvent.type(time, '25:00');
+    await userEvent.tab();
+    expect(time).toHaveAttribute('aria-invalid', 'true');
+    await userEvent.click(screen.getByRole('button', { name: 'Reset' }));
+    expect(screen.getByRole('textbox', { name: 'Date' })).toHaveValue('');
+    expect(screen.getByRole('combobox', { name: 'Time' })).toHaveValue('');
+    expect(screen.getByRole('combobox', { name: 'Time' })).not.toHaveAttribute('aria-invalid');
+  });
+
+  it('server HTML carries no time text (the server may be in another time zone); it shows once hydrated', async () => {
+    await serverThenHydrate(
+      <form><DateTimePicker label="Meeting starts" name="start" defaultValue={new Date(2026, 2, 15, 14, 45)} /></form>,
+      c => {
+        expect([...c.querySelectorAll<HTMLInputElement>('input.cs-input')].map(i => i.value)).toEqual(['', '']); // date, time
+        expect(new FormData(c.querySelector('form')!).get('start')).toBe('');
+      },
+      c => {
+        expect(screen.getByRole('combobox', { name: 'Time' })).toHaveValue('14:45');
+        expect(new FormData(c.querySelector('form')!).get('start')).toBe('2026-03-15T14:45');
+      },
+    );
   });
 
   it('submits one yyyy-MM-ddTHH:mm value under name and forwards inputRef to the date input', () => {

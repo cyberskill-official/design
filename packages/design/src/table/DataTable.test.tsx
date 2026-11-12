@@ -124,6 +124,36 @@ describe('DataTable', () => {
     expect(next).toBeDisabled();
   });
 
+  it('keeps the page when new data arrives (a refetch)', async () => {
+    const { rerender } = render(<DataTable label="Invoices" columns={columns} data={invoices} pageSize={10} />);
+    await userEvent.click(screen.getByRole('button', { name: 'Page 3' }));
+    rerender(<DataTable label="Invoices" columns={columns} data={[...invoices]} pageSize={10} />);
+    await new Promise(requestAnimationFrame); // TanStack queues its auto reset
+    expect(screen.getByText('21–25 of 25')).toBeVisible();
+  });
+
+  it('a new sort order starts at page 1', async () => {
+    render(<DataTable label="Invoices" columns={columns} data={invoices} pageSize={10} />);
+    await userEvent.click(screen.getByRole('button', { name: 'Page 3' }));
+    await userEvent.click(screen.getByRole('button', { name: /Total/ }));
+    await expect.poll(() => screen.queryByText('1–10 of 25')).not.toBeNull();
+  });
+
+  it('deleting the rows of the last page moves to the new last page', async () => {
+    const { rerender } = render(<DataTable label="Invoices" columns={columns} data={invoices} pageSize={10} />);
+    await userEvent.click(screen.getByRole('button', { name: 'Page 3' }));
+    rerender(<DataTable label="Invoices" columns={columns} data={invoices.slice(0, 20)} pageSize={10} />);
+    expect(screen.getByText('11–20 of 20')).toBeVisible();
+    expect(screen.getByRole('button', { name: 'Page 2' })).toHaveAttribute('aria-current', 'page');
+    rerender(<DataTable label="Invoices" columns={columns} data={[]} pageSize={10} />);
+    expect(screen.getByText('0–0 of 0')).toBeVisible();
+  });
+
+  it('passes statusLabel to the pagination', () => {
+    render(<DataTable label="Invoices" columns={columns} data={invoices} pageSize={10} statusLabel={(p, n) => `Trang ${p} / ${n}`} />);
+    expect(screen.getByText('Trang 1 / 3')).toBeInTheDocument();
+  });
+
   it('follows a new pageSize', () => {
     const { rerender } = render(<DataTable label="Invoices" columns={columns} data={invoices} pageSize={10} />);
     expect(bodyRows()).toHaveLength(10);

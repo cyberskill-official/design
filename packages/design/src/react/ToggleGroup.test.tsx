@@ -45,6 +45,15 @@ describe('ToggleGroup', () => {
     expect(pressed()).toEqual(['Active']);
   });
 
+  it('names an icon-only item by a caller aria-label', () => {
+    render(
+      <ToggleGroup label="Định dạng chữ">
+        <ToggleGroupItem value="bold" icon={<TextB />} aria-label="In đậm" />
+      </ToggleGroup>,
+    );
+    expect(screen.getByRole('button', { name: 'In đậm' })).toBeVisible();
+  });
+
   it('arrow keys move focus inside the group and Space toggles', async () => {
     render(<Formatting />);
     screen.getByRole('button', { name: 'Bold' }).focus();

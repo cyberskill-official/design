@@ -43,6 +43,14 @@ describe('Combobox', () => {
     await expect.poll(() => screen.queryAllByRole('option').map(o => o.textContent?.normalize())).toEqual(['Đặng Thu Hà']);
   });
 
+  it('keeps the chosen label when async results no longer contain it', () => {
+    const { rerender } = render(<Combobox aria-label="Assignee" items={[{ value: 'u1', label: 'Anna' }]} value="u1" filter={null} />);
+    const input = screen.getByRole('combobox', { name: 'Assignee' });
+    expect(input).toHaveValue('Anna');
+    rerender(<Combobox aria-label="Assignee" items={[{ value: 'u2', label: 'Bình' }]} value="u1" filter={null} />);
+    expect(input).toHaveValue('Anna');
+  });
+
   it('reopening after a choice lists every option again', async () => {
     render(<Combobox aria-label="Region" items={regions} />);
     await userEvent.type(screen.getByRole('combobox', { name: 'Region' }), 'sing');

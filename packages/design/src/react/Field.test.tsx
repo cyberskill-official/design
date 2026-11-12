@@ -45,10 +45,29 @@ describe('TextField', () => {
       </div>,
     );
     const label = screen.getByText('Name').getBoundingClientRect();
-    const input = screen.getByLabelText('Name').getBoundingClientRect();
+    const input = screen.getByLabelText('Name').closest('.cs-input-group')!.getBoundingClientRect(); // the visible box
     expect(label.height).toBe(20);
     expect(input.top - label.bottom).toBe(6);
     expect(input.height).toBe(40);
+  });
+
+  it('className and style size the visible box, with or without adornments', () => {
+    render(<div style={{ width: 600 }}><TextField label="Code" className="narrow" style={{ width: 128 }} /></div>);
+    const box = screen.getByLabelText('Code').closest('.cs-input-group') as HTMLElement;
+    expect(box).toHaveClass('narrow');
+    expect(box.getBoundingClientRect().width).toBe(128);
+    expect(screen.getByLabelText('Code')).not.toHaveClass('narrow');
+  });
+
+  it('keeps focus and typed text when an adornment appears', async () => {
+    const { rerender } = render(<TextField label="Handle" />);
+    const input = screen.getByLabelText('Handle') as HTMLInputElement;
+    input.focus();
+    input.value = 'ryan';
+    rerender(<TextField label="Handle" endAdornment={<span>checking</span>} />);
+    expect(screen.getByLabelText('Handle')).toBe(input);
+    expect(document.activeElement).toBe(input);
+    expect(input.value).toBe('ryan');
   });
 
   it('has no accessibility violations in light and dark', async () => {

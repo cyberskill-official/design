@@ -25,9 +25,14 @@ const unknown = [...only].filter(t => !TARGETS.includes(t));
 if (unknown.length || only.size === 0) fail(`--only takes ${TARGETS.join(', ')}${unknown.length ? `; got ${unknown.join(', ')}` : ''}.`);
 
 const ai = join(dirname(fileURLToPath(import.meta.url)), '..', 'ai');
-if (!existsSync(join(ai, 'INDEX.md'))) fail('AI docs not found in the installed package.');
+// every source is checked before anything is written, so a broken install never leaves a half-done setup
+const SOURCES = { claude: 'SKILL.md', cursor: 'cursor-rule.mdc', agents: 'AGENTS-snippet.md' };
+const missing = ['INDEX.md', ...[...only].map(t => SOURCES[t])].filter(f => !existsSync(join(ai, f)));
+if (missing.length) fail(`AI docs not found in the installed package (${missing.join(', ')}).`);
 
 const cwd = process.cwd();
+// Run from a home folder it would install a user-wide skill and a ~/AGENTS.md. A project has a package.json.
+if (!existsSync(join(cwd, 'package.json'))) fail(`No package.json in ${cwd}. Run this from your project's root folder.`);
 const write = (rel, content) => {
   const f = join(cwd, rel), same = existsSync(f) && readFileSync(f, 'utf8') === content;
   console.log(`${same ? '=' : dry ? '~' : '✓'} ${rel}${same ? ' (up to date)' : dry ? ' (would write)' : ''}`);

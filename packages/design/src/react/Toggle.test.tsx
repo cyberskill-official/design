@@ -25,6 +25,11 @@ describe('Toggle', () => {
     expect(toggle).toHaveAttribute('aria-pressed', 'false');
   });
 
+  it('keeps a caller aria-label on an icon-only toggle', () => {
+    render(<Toggle icon={<TextB />} aria-label="In đậm" />);
+    expect(screen.getByRole('button', { name: 'In đậm' })).toBeVisible();
+  });
+
   it('swaps to pressedIcon while pressed', async () => {
     render(<Toggle icon={<Star data-testid="off" />} pressedIcon={<Star weight="fill" data-testid="on" />} label="Favorite" />);
     expect(screen.getByTestId('on')).not.toBeVisible();

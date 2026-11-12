@@ -9,3 +9,5 @@ export { Switch } from '../Switch';
 export type { SwitchProps } from '../Switch';
 export { SegmentedControl } from '../SegmentedControl';
 export type { SegmentedControlProps, SegmentedControlItem } from '../SegmentedControl';
+export { PasswordField } from '../PasswordField';
+export type { PasswordFieldProps } from '../PasswordField';

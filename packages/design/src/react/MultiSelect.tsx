@@ -1,8 +1,8 @@
 import { Combobox as BaseCombobox } from '@base-ui/react/combobox';
 import { CaretUpDown, X } from '@phosphor-icons/react';
-import { useState } from 'react';
 import { cx } from '../utils/cx';
 import { includesFolded } from '../utils/search';
+import { useControllableState } from '../utils/use-controllable';
 import { ComboboxPopup, renderComboboxItem, useComboboxItems, type ComboboxItem, type ComboboxProps } from './Combobox';
 import { Field, type FieldProps } from './Field';
 
@@ -28,6 +28,8 @@ export type MultiSelectProps<Item extends ComboboxItem = ComboboxItem> = Omit<
     removeLabel?: (label: string) => string;
   };
 
+const NONE: string[] = [];
+
 /** Searchable multi-choice picker. Chosen values show as removable chips in the input; Backspace removes the last one. */
 export function MultiSelect<Item extends ComboboxItem = ComboboxItem>({
   items,
@@ -48,11 +50,9 @@ export function MultiSelect<Item extends ComboboxItem = ComboboxItem>({
   'aria-label': ariaLabel,
   ...props
 }: MultiSelectProps<Item>) {
-  const collection = useComboboxItems(items);
+  const { collection, labelOf } = useComboboxItems(items);
   // Mirror the value so `max` can disable options and chips can show labels, controlled or not.
-  const [uncontrolled, setUncontrolled] = useState(defaultValue ?? []);
-  const selected = value ?? uncontrolled;
-  const labelOf = (v: string) => items.find(item => item.value === v)?.label ?? v;
+  const [selected, setUncontrolled] = useControllableState(value, defaultValue ?? NONE, NONE);
   const full = max != null && selected.length >= max;
   const chips = maxChips == null ? selected : selected.slice(0, maxChips);
   const hidden = selected.length - chips.length;
@@ -60,6 +60,7 @@ export function MultiSelect<Item extends ComboboxItem = ComboboxItem>({
   return (
     <BaseCombobox.Root
       filter={(item: Item, query: string) => includesFolded(item.label, query)}
+      itemToStringLabel={labelOf}
       {...props}
       multiple
       items={collection}

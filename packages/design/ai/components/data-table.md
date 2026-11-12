@@ -8,6 +8,10 @@ import { DataTable, RowSelectionState } from '@cyberskill/design/table';
 
 For records people scan, sort and act on: invoices, users, deployments. It lives in its own entry, so apps without tables never load TanStack:
 
+```bash
+npm install @tanstack/react-table @tanstack/react-virtual
+```
+
 ```tsx
 import { DataTable, createDataTableColumnHelper } from '@cyberskill/design/table';
 ```
@@ -87,7 +91,7 @@ const [opened, setOpened] = useState<Invoice | null>(null);
 | `sorting / onSortingChange` | `SortingState / OnChangeFn` | – | Controlled sort state; pass both |
 | `selectable` | `boolean` | `false` | Adds the checkbox column |
 | `rowSelection / onRowSelectionChange` | `RowSelectionState / OnChangeFn` | – | Controlled selection keyed by row id; pass both |
-| `pageSize` | `number` | – | Paginates on the client and shows the footer; changing it re-pages |
+| `pageSize` | `number` | – | Paginates on the client and shows the footer; changing it re-pages. New data keeps the page (or moves to the last page when that one is gone); a new sort order starts at page 1. Filtering data yourself: pass key={query} so each search starts at page 1 |
 | `virtualized` | `boolean` | `false` | Renders only rows in view |
 | `maxHeight` | `number \| string` | `480 when virtualized` | Scroll height; the header stays pinned |
 | `emptyState` | `ReactNode` | `'No results'` | Shown when there are no rows |
@@ -95,6 +99,7 @@ const [opened, setOpened] = useState<Invoice | null>(null);
 | `selectAllLabel / selectRowLabel` | `string / (row) => string` | `'Select all rows' ('… on this page' with pageSize) / 'Select row'` | Checkbox names |
 | `previousPageLabel / nextPageLabel` | `string` | `'Previous page' / 'Next page'` | Previous and next button names |
 | `pageLabel` | `(page: number) => string` | ``Page ${n}`` | Name of each page button, e.g. (n) => `Trang ${n}` |
+| `statusLabel` | `(page, pageCount) => string` | ``Page ${p} of ${n}`` | Read out in the compact ‹ 3 / 6 › pagination, e.g. (p, n) => `Trang ${p} / ${n}` |
 | `paginationLabel` | `string` | ``${label} pages`` | Name of the pagination landmark, e.g. "Invoices pages" |
 | `formatRange` | `(from, to, total) => string` | `'1–10 of 214'` | Footer range text |
 
@@ -153,5 +158,7 @@ export type DataTableProps<TData extends object> = Omit<HTMLAttributes<HTMLDivEl
   pageLabel?: PaginationProps['pageLabel'];
   /** Footer range text. Defaults to "1–10 of 214". */
   formatRange?: (from: number, to: number, total: number) => string;
+  /** Read out for the compact `‹ 3 / 6 ›` pagination, e.g. `(p, n) => \`Trang ${p} / ${n}\``. */
+  statusLabel?: PaginationProps['statusLabel'];
 };
 ```

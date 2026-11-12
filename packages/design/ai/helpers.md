@@ -168,13 +168,13 @@ export declare function parseTime(text: string): string | null;
 
 ## rangePresets
 
-Client components only.
+Server Components: yes.
 
 ```ts
 import { rangePresets } from '@cyberskill/design/date';
 /** The four common presets: Today, Last 7 days, Last 30 days, This month (1st to today). Override labels for Vietnamese:
  * `rangePresets({ today: 'Hôm nay', last7Days: '7 ngày qua', last30Days: '30 ngày qua', thisMonth: 'Tháng này' })`.
- * Call it while rendering so "today" stays current.
+ * Call it while rendering so "today" stays current. Pure, so Server Components can call it too.
  */
 export declare function rangePresets(labels?: Partial<RangePresetLabels>, today?: Date): DateRangePreset[];
 ```

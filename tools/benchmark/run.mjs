@@ -65,6 +65,8 @@ async function ready(page, story, theme, viewport = { width: 1280, height: 800 }
   const phase = await page.waitForFunction(() => { const p = window.__STORYBOOK_PREVIEW__?.currentRender?.phase; return ['finished', 'completed', 'errored', 'aborted'].includes(p) && p; }, null, { timeout: 20000 }).then(h => h.jsonValue()).catch(() => 'timeout');
   // Google Fonts loads the Vietnamese subset only when a glyph needs it; load it now, so text is measured in the real font
   await page.evaluate(() => Promise.all(['400 16px "Be Vietnam Pro"', '500 16px "Be Vietnam Pro"', '600 16px "Be Vietnam Pro"', '700 16px "Be Vietnam Pro"', '800 16px Manrope', '700 16px Manrope'].map(f => document.fonts.load(f, 'ẪỖỮẴặọỵ').catch(() => {}))).then(() => document.fonts.ready));
+  // measuring a fallback font would quietly pass or fail the wrong things
+  if (!(await page.evaluate(() => ['Be Vietnam Pro', 'Manrope'].every(n => [...document.fonts].some(f => f.family.replace(/["']/g, '') === n && f.status === 'loaded'))))) throw new Error('the design system fonts did not load');
   await page.addStyleTag({ content: '*, *::before, *::after { caret-color: transparent !important; }' });
   await page.mouse.move(1, 1);
   return phase;
@@ -106,7 +108,7 @@ async function focusChange(page, i) {
   const a = await page.evaluate(P.focusSnapshot, i); await blur(); const b = await page.evaluate(P.focusSnapshot, i);
   if (!a || !b) return null;
   // the control is the largest element whose style changed with focus (a wrapper drawing the ring), within reason
-  const cap = 4 * Math.max(a[0].rect.w * a[0].rect.h, 1600);
+  const cap = 16 * Math.max(a[0].rect.w * a[0].rect.h, 1600); // a small input in a wide chip box still counts the box as its control
   const depth = a.reduce((best, x, k) => (x.sig !== b[k]?.sig && x.rect.w * x.rect.h <= cap && x.rect.w * x.rect.h > a[best].rect.w * a[best].rect.h ? k : best), 0);
   const control = a[depth].rect, rs = [a[0].rect, ...a.filter((x, k) => x.sig !== b[k]?.sig && x.rect.w * x.rect.h <= cap).map(x => x.rect)], vw = 1280, vh = 800;
   const x0 = Math.max(0, Math.floor(Math.min(...rs.map(r => r.x)) - 12)), y0 = Math.max(0, Math.floor(Math.min(...rs.map(r => r.y)) - 12));
@@ -117,7 +119,8 @@ async function focusChange(page, i) {
   const on = (await page.screenshot({ clip })).toString('base64'); await blur();
   const off = (await page.screenshot({ clip })).toString('base64');
   const px = await page.evaluate(P.pixelDiff, [`data:image/png;base64,${on}`, `data:image/png;base64,${off}`]);
-  return { n3: Math.round(px.n3 / DPR ** 2), aa: Math.round(px.aa / DPR ** 2), control, visible }; // in CSS pixels
+  const lines = depth === 0 && a[0].lines.length > 1 ? a[0].lines : [[control.w, control.h]];
+  return { n3: Math.round(px.n3 / DPR ** 2), aa: Math.round(px.aa / DPR ** 2), control, lines, visible }; // in CSS pixels
 }
 
 async function focusDims(page, story, theme, stops, limit, dims) {
@@ -128,7 +131,8 @@ async function focusDims(page, story, theme, stops, limit, dims) {
     const name = n > 1 ? `${s.label} #${n}` : s.label; // two controls with one name (a valid and an invalid field) stay apart
     // AA: a changed area the size of a 1px outline (rounded corners allowed for) standing 3:1 on the background.
     // AAA 2.4.13: a 2px outline's area changed by 3:1 between focused and not.
-    const { w, h } = f.control, one = 0.8 * 2 * (w + h), two = 0.9 * (4 * w + 4 * h + 16), size = `${Math.round(w)}x${Math.round(h)}`;
+    const { w, h } = f.control, per = f.lines.reduce((s, [lw, lh]) => s + 2 * (lw + lh), 0);
+    const one = 0.8 * per, two = 0.9 * (2 * per - 16 * f.lines.length) /* a 2px line just inside the edge also counts */, size = `${Math.round(w)}x${Math.round(h)}`;
     const key = `${story.id}|${theme}|focus "${name}"`;
     if (dims.includes('D3')) record(results, 'D3', { pass: f.aa >= one && f.visible, key, detail: f.visible ? `${f.aa}px of focus indicator at 3:1 on the background around a ${size} control, needs ${Math.round(one)}` : 'covered by other content' });
     if (dims.includes('D9')) record(results, 'D9', { pass: f.n3 >= two, key, detail: `${f.n3}px changed by 3:1 around a ${size} control, needs ${Math.round(two)}` });
@@ -137,7 +141,7 @@ async function focusDims(page, story, theme, stops, limit, dims) {
 }
 
 const tones = [];
-async function measure(page, cdp, story, theme) {
+async function measure(page, cdp, story, theme, touchPage) {
   const errors = [];
   const onErr = e => errors.push(String(e.message ?? e).split('\n')[0].slice(0, 160));
   const onCon = m => { if (m.type() === 'error' && !NOISE.test(m.text() + (m.location()?.url ?? ''))) errors.push(m.text().split('\n')[0].slice(0, 160)); };
@@ -146,6 +150,7 @@ async function measure(page, cdp, story, theme) {
     let phase = await ready(page, story, theme);
     if (!['finished', 'completed'].includes(phase)) { errors.length = 0; phase = await ready(page, story, theme); } // a play function that lost a race under load gets one more try
     const id = story.id, k = s => `${id}|${theme}|${s}`;
+    const stress = id.startsWith('benchmark-'); // the stress-test stories are measured in full: every Tab stop, not a sample
     const c = await page.evaluate(colorChecks);
     for (const g of c.text) if (!g.exempt && !g.image) record(results, 'D1', { pass: g.ratio >= g.need, key: k(`"${g.sample}" ${g.fg} on ${g.bg}`), detail: `${g.ratio}:1, needs ${g.need} (${g.path})` });
     for (const x of await page.evaluate(P.controlBoundaries)) record(results, 'D2', { pass: x.ratio >= 3, key: k(`${x.kind} boundary ${x.path}`), detail: `${x.ratio}:1 against its surroundings ("${x.label}")` });
@@ -168,16 +173,28 @@ async function measure(page, cdp, story, theme) {
         record(results, 'D17', { pass: x.announced, key: `${x.name} is announced invalid`, detail: 'no aria-invalid="true" on the control' });
         record(results, 'D17', { pass: x.linked, key: `${x.name} error text is linked`, detail: 'error text not referenced by aria-describedby or aria-errormessage, or not visible' });
         record(results, 'D17', { pass: x.dE >= 15 && x.ratio >= 3, key: `${x.name} boundary changes`, detail: `ΔE ${x.dE} (needs 15), ${x.ratio}:1 on the page (needs 3) at ${x.box}` });
+        if (!x.hasBox) continue;
+        // hovering (which sticks after a tap on touch screens) must not put the normal edge back
+        const before = await page.evaluate(P.boxEdge, x.name);
+        await page.hover(`[data-bench-box="${x.name}"]`, { force: true }); await page.evaluate(P.settle);
+        const after = await page.evaluate(P.boxEdge, x.name);
+        await page.mouse.move(1, 1); await page.evaluate(P.settle);
+        const moved = Math.max(...before.map((v, n) => Math.abs(v - after[n])));
+        record(results, 'D17', { pass: moved <= 8, key: `${x.name} keeps its error edge on hover`, detail: 'the edge changes color on hover' });
       }
+      for (const x of await page.evaluate(P.disabledChecks)) record(results, 'D17', { pass: x.pass, key: `disabled ${x.key}`, detail: x.detail });
       const motion = await page.evaluate(P.runningMotion);
       record(results, 'D12', { pass: motion.length === 0, key: `${id}|motion`, detail: motion.slice(0, 3).map(m => `${m.name} ${m.duration}ms ×${m.iterations} (${m.path})`).join('; ') });
 
       const L0 = await page.evaluate(layoutChecks, { w: 1280, h: 800, fold: [] });
-      await page.setViewportSize({ width: 360, height: 780 });
-      const L360 = await page.evaluate(layoutChecks, { w: 360, h: 780, fold: [] });
+      // a phone: 360px wide with a touch screen, so `@media (pointer: coarse)` hit-area rules apply as they do on real phones
+      await ready(touchPage, story, theme, { width: 360, height: 780 });
+      const L360 = await touchPage.evaluate(layoutChecks, { w: 360, h: 780, fold: [] });
       const fails = L360.targets.filter(t => t.level === 'fail'), small = L360.targets;
       for (let n = 0; n < L360.targetCount - fails.length; n++) record(results, 'D5', { pass: true, key: `${id}|ok${n}` });
       for (const t of fails) record(results, 'D5', { pass: false, key: `${id}|target "${t.label}" ${t.path}`, detail: `${t.w}x${t.h}` });
+      // and with a mouse: 24px applies there too, without the `pointer: coarse` enlargements
+      for (const t of L0.targets.filter(t => t.level === 'fail')) record(results, 'D5', { pass: false, key: `${id}|mouse target "${t.label}" ${t.path}`, detail: `${t.w}x${t.h}` });
       for (let n = 0; n < L360.targetCount - small.length; n++) record(results, 'D10', { pass: true, key: `${id}|ok${n}` });
       for (const t of small) record(results, 'D10', { pass: false, key: `${id}|target "${t.label}" ${t.path}`, detail: `${t.w}x${t.h}` });
       // reloaded at 320px, so play functions open their popups at that width (a resize leaves them where they were)
@@ -195,8 +212,16 @@ async function measure(page, cdp, story, theme) {
 
       const s0 = await page.evaluate(P.textSizes);
       await cdp.send('Page.setFontSizes', { fontSizes: { standard: 32, fixed: 26 } });
-      await page.evaluate(() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))));
-      const s1 = await page.evaluate(P.textSizes), Lfs = await page.evaluate(layoutChecks, { w: 1280, h: 800, fold: [] });
+      // the new size reaches the page's text a few frames later, sometimes many (an open popup): wait until some text
+      // has grown instead of a fixed two frames; text that never grows is the failure this dimension reports
+      let s1 = [];
+      for (let n = 0; n < 20; n++) {
+        await page.evaluate(() => new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r))));
+        s1 = await page.evaluate(P.textSizes);
+        if (!s0.length || s1.some((x, i) => s0[i] && x.size > s0[i].size)) break;
+        await page.waitForTimeout(50);
+      }
+      const Lfs = await page.evaluate(layoutChecks, { w: 1280, h: 800, fold: [] });
       await cdp.send('Page.setFontSizes', { fontSizes: { standard: 16, fixed: 13 } });
       const fixed = s0.filter((x, n) => s1[n] && s1[n].text === x.text && s1[n].size < x.size * 1.8).map(x => `${x.size}px "${x.text}"`);
       const fsLost = newly(Lfs, L0);
@@ -206,8 +231,8 @@ async function measure(page, cdp, story, theme) {
       const fc = await page.evaluate(P.forcedColorChecks);
       for (const x of fc.boundaries) record(results, 'D11', { pass: x.pass, key: `${id}|boundary "${x.label}" ${x.path}`, detail: 'no visible border or outline in forced colors' });
       for (const x of fc.states) record(results, 'D11', { pass: x.pass, key: `${id}|state "${x.label}" ${x.path}`, detail: 'looks the same as its unselected sibling in forced colors' });
-      const fw = await tabWalk(page, 8);
-      await focusDims(page, story, theme, fw.stops, 3, ['D11']);
+      const fw = await tabWalk(page, stress ? 60 : 8);
+      await focusDims(page, story, theme, fw.stops, stress ? Infinity : 3, ['D11']);
       await page.emulateMedia({ forcedColors: 'none' });
     }
 
@@ -216,7 +241,7 @@ async function measure(page, cdp, story, theme) {
       record(results, 'D4', { pass: !walk.trap, key: `${id}|no keyboard trap`, detail: 'Tab cycles inside a part of the page that is not a modal dialog' });
       for (const x of await page.evaluate(P.reach)) record(results, 'D4', { pass: x.reached, key: `${id}|"${x.label}" ${x.path}`, detail: 'not reachable with Tab or arrow keys' });
     }
-    await focusDims(page, story, theme, walk.stops, 10, ['D3', 'D9']);
+    await focusDims(page, story, theme, walk.stops, stress ? Infinity : 10, ['D3', 'D9']);
     record(results, 'D14', { pass: ['finished', 'completed'].includes(phase) && errors.length === 0, key: k('renders cleanly'), detail: phase !== 'finished' && phase !== 'completed' ? `story ${phase}` : errors.slice(0, 2).join('; ') });
   } finally {
     page.off('pageerror', onErr); page.off('console', onCon);
@@ -233,16 +258,19 @@ await Promise.all(Array.from({ length: workers }, async () => {
   const page = await ctx.newPage();
   await page.addInitScript(P.benchHelpers);
   const cdp = await ctx.newCDPSession(page);
+  const touchCtx = await browser.newContext({ viewport: { width: 360, height: 780 }, deviceScaleFactor: 1, hasTouch: true, isMobile: true, reducedMotion: 'reduce' });
+  const touchPage = await touchCtx.newPage();
+  await touchPage.addInitScript(P.benchHelpers);
   for (let job; (job = queue.shift());) {
     const [story, theme] = job;
-    try { await measure(page, cdp, story, theme); }
+    try { await measure(page, cdp, story, theme, touchPage); }
     catch (e) {
-      try { await measure(page, cdp, story, theme); } // one retry: a timing hiccup is not a finding
+      try { await measure(page, cdp, story, theme, touchPage); } // one retry: a timing hiccup is not a finding
       catch (e2) { record(results, 'D14', { pass: false, key: `${story.id}|${theme}|benchmark could measure it`, detail: String(e2.message).split('\n')[0].slice(0, 160) }); }
     }
     if (++done % 50 === 0) console.log(`  ${done}/${stories.length * 2} story renders measured`);
   }
-  await ctx.close();
+  await ctx.close(); await touchCtx.close();
 }));
 await browser.close(); server.close();
 

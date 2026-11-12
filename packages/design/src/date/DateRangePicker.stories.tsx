@@ -2,7 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { vi } from 'react-day-picker/locale';
 import { expect, screen, userEvent, waitFor, within } from 'storybook/test';
-import { DateRangePicker, rangePresets, type DateRangeValue } from './DateRangePicker';
+import { DateRangePicker } from './DateRangePicker';
+import { rangePresets, type DateRangeValue } from './utils';
 
 const today = new Date(2026, 2, 18);
 

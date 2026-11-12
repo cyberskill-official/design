@@ -1,0 +1,99 @@
+# Avatar upload
+
+> Pick one image, see it in a round preview, then replace or remove it.
+
+```tsx
+import { AvatarUpload } from '@cyberskill/design';
+```
+
+Use an avatar upload for a profile photo or a team logo: one image, shown the way it will appear. The button opens the system file picker; the picked image shows in the preview straight away, before anything is uploaded. Files of the wrong type or over `maxSize` are refused with a message under the field. For documents or several files, use the file upload.
+
+## Basic
+
+With `name`, the picked file is submitted with a native form or a Server Action (multipart), like a file input.
+
+```tsx
+<AvatarUpload label="Profile photo" description="PNG, JPEG or WebP, up to 2 MB." fallback="TL" maxSize={2 * 1024 * 1024} name="avatar" />
+```
+
+## Existing photo
+
+Pass the URL of the current photo as `value`. `onValueChange` receives the picked `File`, or `null` when the photo is removed; upload the file (or clear the photo) in your own code. A URL value submits nothing with a form, so handle removal through `onValueChange`.
+
+```tsx
+const [photo, setPhoto] = useState<File | string | null>(user.photoUrl);
+<AvatarUpload label="Team logo" value={photo} onValueChange={setPhoto} fallback="NW" maxSize={1024 * 1024} />
+```
+
+## States and Vietnamese text
+
+```tsx
+<AvatarUpload label="Profile photo" fallback="TL" error="Add a photo so teammates recognise you." />
+<AvatarUpload label="Locked" defaultValue={photoUrl} disabled />
+<AvatarUpload
+  label="Ảnh đại diện"
+  chooseLabel="Chọn ảnh"
+  replaceLabel="Đổi ảnh"
+  removeLabel="Xoá ảnh"
+  maxSize={2 * 1024 * 1024}
+  tooLargeMessage={(f, max) => `${f.name} lớn hơn ${max}.`}
+  wrongTypeMessage={(f) => `${f.name} không phải ảnh PNG, JPEG hay WebP.`}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `label` | `ReactNode` | – | Visible label of the group (required) |
+| `description / error` | `ReactNode` | – | Help text and a form error, both linked to the button |
+| `value / defaultValue` | `File \| string \| null` | `null` | The photo: a picked File or the URL of the current one. A controlled value set back to undefined means none |
+| `onValueChange` | `(file: File \| null) => void` | – | Called with the picked file, or null on remove |
+| `accept` | `string` | `'image/png,image/jpeg,image/webp'` | Allowed types, checked again after picking |
+| `maxSize` | `number` | – | Largest file in bytes; write 2 * 1024 * 1024 for "2 MB" |
+| `tooLargeMessage` | `(file, maxSize: string) => string` | ``${name} is larger than ${max}.`` | maxSize arrives formatted, e.g. "2 MB" |
+| `wrongTypeMessage` | `(file) => string` | ``${name} is not an accepted file type.`` | Shown for a file outside accept |
+| `chooseLabel / replaceLabel / removeLabel` | `string` | `'Choose photo' / 'Replace photo' / 'Remove photo'` | Button text |
+| `fallback` | `string` | – | Initials shown while there is no photo |
+| `name` | `string` | – | Submits the picked file with a native form |
+| `disabled` | `boolean` | `false` | Disables picking and removing |
+
+## Accessibility
+
+- The field is a group named by its label. "Choose photo" (then "Replace photo") is a real button that opens the file picker from the keyboard; its description is the help text and any error.
+- A refused file is never dropped silently: the message appears under the field in a polite live region, the button gets `aria-invalid` and its border turns red.
+- After "Remove photo", focus moves to the button that picks a new one.
+- The preview is decorative (hidden from screen readers); the button text already says whether a photo is set.
+
+## Exact types
+
+```ts
+export type AvatarUploadProps = {
+  /** Visible label of the group, e.g. "Profile photo". */
+  label: ReactNode;
+  description?: ReactNode;
+  /** Error for the field (from a form library). A refused file gets its own message. */
+  error?: ReactNode;
+  /** The photo, controlled: a picked File, the URL of the current photo, or null for none. */
+  value?: File | string | null;
+  defaultValue?: File | string | null;
+  /** Called with the picked file, or null when the photo is removed. */
+  onValueChange?: (file: File | null) => void;
+  /** Same syntax as the native attribute. */
+  accept?: string;
+  /** Largest allowed file in bytes, e.g. `2 * 1024 * 1024` for "2 MB". */
+  maxSize?: number;
+  /** `maxSize` arrives formatted by `formatFileSize`, e.g. "2 MB". */
+  tooLargeMessage?: (file: File, maxSize: string) => string;
+  wrongTypeMessage?: (file: File) => string;
+  chooseLabel?: string;
+  replaceLabel?: string;
+  removeLabel?: string;
+  /** Initials shown while there is no photo, e.g. "TL". */
+  fallback?: string;
+  /** Submits the picked file with a native form or a Server Action (multipart) under this name. A URL value submits nothing. */
+  name?: string;
+  disabled?: boolean;
+  className?: string;
+};
+```

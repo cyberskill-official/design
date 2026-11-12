@@ -1,6 +1,6 @@
 import { Combobox as BaseCombobox } from '@base-ui/react/combobox';
 import { CaretUpDown, Check, X } from '@phosphor-icons/react';
-import { useMemo, type FocusEventHandler, type ReactNode, type Ref } from 'react';
+import { useMemo, useState, type FocusEventHandler, type ReactNode, type Ref } from 'react';
 import { cx } from '../utils/cx';
 import { includesFolded } from '../utils/search';
 import { Field, type FieldProps } from './Field';
@@ -47,10 +47,18 @@ export type ComboboxProps<Item extends ComboboxItem = ComboboxItem> = Omit<BaseC
     clearLabel?: string;
   };
 
-/** Wraps `items` so `value` / `onValueChange` use `item.value` while the list renders whole items. */
+/**
+ * Wraps `items` so `value` / `onValueChange` use `item.value` while the list renders whole items. `labelOf` remembers the
+ * label of every item seen, so a chosen value keeps its label once async results (`items={results}`) no longer hold it.
+ */
 export function useComboboxItems<Item extends ComboboxItem>(items: Item[]) {
-  // `as never`: with a generic Item, TypeScript cannot evaluate Base UI's "no group-shaped items" check.
-  return useMemo(() => BaseCombobox.createItems<Item, string>(items as never, { getValue: item => item.value, getLabel: item => item.label }), [items]);
+  const [seen] = useState(() => new Map<string, string>());
+  return useMemo(() => {
+    for (const item of items) seen.set(item.value, item.label);
+    // `as never`: with a generic Item, TypeScript cannot evaluate Base UI's "no group-shaped items" check.
+    const collection = BaseCombobox.createItems<Item, string>(items as never, { getValue: item => item.value, getLabel: item => item.label });
+    return { collection, labelOf: (value: string) => seen.get(value) ?? value };
+  }, [items, seen]);
 }
 
 /** One option row: label, optional description, check mark when selected. Shared with MultiSelect. */
@@ -111,9 +119,10 @@ export function Combobox<Item extends ComboboxItem = ComboboxItem>({
   'aria-label': ariaLabel,
   ...props
 }: ComboboxProps<Item>) {
-  const collection = useComboboxItems(items);
+  const { collection, labelOf } = useComboboxItems(items);
   return (
-    <BaseCombobox.Root filter={(item: Item, query: string) => includesFolded(item.label, query)} {...props} items={collection}>
+    // itemToStringLabel: Base UI's fallback for a value outside `items`.
+    <BaseCombobox.Root filter={(item: Item, query: string) => includesFolded(item.label, query)} itemToStringLabel={labelOf} {...props} items={collection}>
       <BaseCombobox.InputGroup data-size={size} className={cx('cs-input-group', 'cs-combobox', className)}>
         <BaseCombobox.Input ref={ref} onBlur={onBlur} aria-label={ariaLabel} placeholder={placeholder} data-size={size} className="cs-input" />
         <span className="cs-combobox-actions">

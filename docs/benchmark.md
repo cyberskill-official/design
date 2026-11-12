@@ -12,16 +12,18 @@ npm run benchmark -- --update-baseline             # after fixing advisory gaps,
 ```
 
 It prints a scorecard (also written to the CI job summary) and writes `tools/benchmark/out/report.json` with every
-failure. The stories are loaded from the Storybook build, which imports `dist/styles.css`, so it measures the
-stylesheet exactly as apps get it (cascade layers and reduced-motion rules included).
+failure. The stories are loaded from the Storybook build, which imports `dist/styles.css` and the package's `fonts.css`, so it
+measures the stylesheet and fonts exactly as apps get them. The run fails if the fonts did not load. Target sizes are
+measured on a 360px touch screen, so touch-only hit-area rules apply.
 
 ## How it scores
 
 - Each dimension measures many subjects (a text run, a Tab stop, a control, a story) and scores the share that pass.
   The overall score is the mean of the dimension scores.
-- **Required** dimensions fail the run on any failure: WCAG 2.2 AA, the CyberSkill rules (except D23) and the package checks.
+- **Required** dimensions fail the run on any failure: WCAG 2.2 AA, the CyberSkill rules and the package checks.
 - **Advisory** dimensions (AAA and best practice) are a ratchet: the run fails when one scores lower than in
-  `tools/benchmark/baseline.json` (with half a point of tolerance for font rendering between Linux and macOS).
+  `tools/benchmark/baseline.json` (with half a point of tolerance for font rendering between Linux and macOS), when
+  more than a handful of its failures are new (0.5% of what it measures), or when it measures nothing.
   The report lists failures that are new and baseline entries that now pass.
 
 ## Dimensions
@@ -56,10 +58,10 @@ stylesheet exactly as apps get it (cascade layers and reduced-motion rules inclu
 | D14 | Dark mode and clean render | House rule | required | Every story renders in light and dark without errors, and dark mode has no light patches (an opaque light surface left from light mode). |
 | D15 | Vietnamese diacritics | House rule | required | The ink of every glyph, stacked marks included (Ẫ Ỗ Ữ ặ ỵ), stays inside the box that clips it, in every story (textarea values included). |
 | D16 | Long content | House rule | required | Long Vietnamese and English text, IDs and emails at 240 and 320px: no component grows past its container and no text spills out. |
-| D17 | Invalid states | WCAG 3.3.1, 1.4.1 | required | Every form control in error is announced (aria-invalid), linked to visible error text, and its boundary changes visibly (ΔE 15+, 3:1 against the page). |
+| D17 | Invalid and disabled states | WCAG 3.3.1, 1.4.1 | required | Every form control in error is announced (aria-invalid), linked to visible error text, and its boundary changes visibly (ΔE 15+, 3:1 against the page), also while hovered. Every disabled control, and each disabled button inside it, looks different from its enabled twin. |
 | D18 | Theme scoping | House rule | required | A ThemeScope inside a page of the other theme gets its own theme, and so do popups opened from inside it. |
 | D19 | Status colors | WCAG 1.4.1 | required | Rendered status tones stay apart: ΔE 15+ for normal vision, 8+ for protan and deutan vision. Each carries an icon and text. |
-| D23 | Vietnamese in input fields | House rule | advisory | Single-line inputs clip their value to the font's ascent and descent, so stacked capitals (Ẫ, Ỗ) need a font whose ascent clears them. Be Vietnam Pro's (1.0em) does not; its marks reach 1.16em. |
+| D23 | Vietnamese in input fields | House rule | required | Single-line inputs clip their value to the font's ascent and descent, so stacked capitals (Ẫ, Ỗ) need a font whose ascent clears them. The package's fonts.css raises Be Vietnam Pro's ascent for this; the check fails if that override is lost. |
 
 ### The package (required)
 
@@ -76,7 +78,7 @@ applies to (`packages/design/src/benchmark/Benchmark.stories.tsx`), marked with 
 
 - **VietnameseText**: every text-bearing component at every size with stacked marks (Ẫ Ỗ Ữ Ẵ ặ ọ ỵ). Feeds D15 and D23.
 - **LongContent**: long Vietnamese and English text, IDs and emails at 240 and 320px. Feeds D16.
-- **InvalidStates**: each form control valid next to invalid. Feeds D17.
+- **InvalidStates** and **DisabledStates**: each form control valid next to invalid, and enabled next to disabled. Feed D17.
 - **NestedThemes**: a dark ThemeScope in a light page and the reverse, with a popup opened inside. Feeds D18.
 - **StatusTones**: every status tone in Badge (each variant) and Alert. Feeds D19.
 
@@ -88,7 +90,7 @@ A new form control goes into InvalidStates; a new text-bearing component goes in
 |---|---|
 | D1 dark-mode tint safety, D3 Umber surface separation | D14 (no light patches), D1 and D2 in dark |
 | D2 32-scope non-text contrast | D2, on every story and state |
-| D4 13-control invalid-state parity | D17 |
+| D4 13-control invalid-state parity | D17 (17 controls, plus disabled states) |
 | D5 Vietnamese diacritic clearance | D15, on every story plus the stress test |
 | D6 scoped nested theme | D18 (Liquid Glass is not in 3.0) |
 | D7 DESIGN.md and asset contract | D21 docs parity, plus the generated AI docs check in CI |

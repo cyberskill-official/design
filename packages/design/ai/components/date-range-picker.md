@@ -66,6 +66,8 @@ import { vi } from 'react-day-picker/locale';
 | `numberOfMonths` | `number` | `2 wide, 1 narrow` | Months side by side |
 | `format / locale` | `string / Locale` | `'dd/MM/yyyy' / English` | As in Date picker |
 | `min / max / disabledDates` | `Date / Matcher` | – | Allowed days; typed ranges outside them are invalid |
+| `excludeDisabled` | `boolean` | `false` | Also reject ranges that span a disallowed day: such typed text and presets are invalid, and a second click across one starts a new range there |
+| `labels` | `Partial<Labels>` | `from locale` | Calendar screen-reader labels, as in Date picker |
 | `invalidMessage` | `ReactNode` | `'Enter a valid date'` | Shown for text that is not two allowed dates |
 | `clearLabel / openLabel` | `string` | `'Clear dates' / 'Choose dates'` | Names of the × and calendar buttons |
 
@@ -95,6 +97,13 @@ export type DateRangePickerProps = Omit<PickerFieldProps, 'placeholder' | 'name'
   max?: Date;
   disabledDates?: Matcher | Matcher[];
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  /**
+   * Reject ranges that span a day outside `min` / `max` or in `disabledDates` (e.g. a booking across a closed day): typed
+   * text and presets that do are invalid, and a second click that would span one starts a new range there instead.
+   */
+  excludeDisabled?: boolean;
+  /** Calendar screen-reader labels (react-day-picker `labels`), e.g. `labelDayButton` for the "Today" and "selected" words. */
+  labels?: CalendarProps['labels'];
   /** Quick picks beside the calendar, e.g. `rangePresets()`. A preset with a start or end outside `min`, `max` or `disabledDates` is disabled. */
   presets?: DateRangePreset[];
   /** Accessible name of the presets group. */

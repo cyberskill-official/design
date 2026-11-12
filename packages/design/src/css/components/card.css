@@ -10,7 +10,7 @@
   background: var(--panel);
   color: var(--foreground);
   box-shadow: var(--shadow-sm);
-  font: 400 14px/21px var(--font-sans);
+  font: 400 0.875rem/1.3125rem var(--font-sans);
   text-decoration: none;
 
   &[data-interactive] {
@@ -22,7 +22,7 @@
 }
 
 .cs-card-header { display: grid; gap: var(--space-1); min-width: 0; }
-.cs-card-title { margin: 0; font: 700 16px/22px var(--font-display); letter-spacing: -0.01em; color: var(--foreground); text-wrap: balance; }
-.cs-card-description { margin: 0; font: 400 14px/20px var(--font-sans); color: var(--muted); text-wrap: pretty; }
+.cs-card-title { margin: 0; font: 700 1rem/1.375rem var(--font-display); letter-spacing: -0.01em; color: var(--foreground); text-wrap: balance; }
+.cs-card-description { margin: 0; font: 400 0.875rem/1.25rem var(--font-sans); color: var(--muted); text-wrap: pretty; }
 .cs-card-content { display: grid; gap: var(--space-3); min-width: 0; }
 .cs-card-footer { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-top: auto; }

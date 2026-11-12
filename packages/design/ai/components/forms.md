@@ -92,7 +92,8 @@ Text inputs take `{...field}` directly. Other controls use their own value props
 |---|---|---|---|
 | `control / name` | `Control / field path` | – | From useForm (required) |
 | `rules` | `RegisterOptions` | – | React Hook Form validation rules, when you don’t use a resolver |
-| `render` | `({ field, fieldState, formState, error }) => ReactElement` | – | Renders the field; error is fieldState.error?.message |
+| `render` | `({ field, fieldState, formState, error }) => ReactElement` | – | Renders the field; error is fieldState.error?.message, or invalidLabel when the rule has no message |
+| `invalidLabel` | `string` | `'Invalid value'` | Error text for a failed rule without a message, e.g. required: true |
 | `defaultValue / shouldUnregister / disabled` | `–` | – | Same as Controller |
 
 ## Accessibility
@@ -137,5 +138,7 @@ export type TextFieldProps = Omit<InputProps, 'children'> & Pick<FieldProps, 'la
 };
 export type FormFieldProps<TFieldValues extends FieldValues = FieldValues, TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>, TTransformedValues = TFieldValues> = Omit<ControllerProps<TFieldValues, TName, TTransformedValues>, 'render'> & {
   render: (props: FormFieldRenderProps<TFieldValues, TName, TTransformedValues>) => ReactElement;
+  /** Error text for a failed rule without a message (`required: true`), so the field never turns invalid with no words. */
+  invalidLabel?: string;
 };
 ```

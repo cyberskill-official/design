@@ -23,17 +23,28 @@ export type ChartA11yProps = { role: 'img'; 'aria-labelledby': string; 'aria-des
 
 export type ChartLegendItem = { label: ReactNode; color: string; value?: ReactNode };
 
+// One formatter per locale and style: charts ask on every render and building an Intl.NumberFormat is slow.
+const formatters = new Map<string, ValueFormatter>();
+function cachedFormatter(locale: Intl.LocalesArgument, options: Intl.NumberFormatOptions): ValueFormatter {
+  const key = `${String(locale)} ${JSON.stringify(options)}`;
+  let format = formatters.get(key);
+  if (!format) {
+    const nf = new Intl.NumberFormat(locale, options);
+    format = v => nf.format(v);
+    formatters.set(key, format);
+  }
+  return format;
+}
+
 /** Default value format in `locale`. A fixed locale (not the runtime one) keeps server and client HTML identical. */
 export function numberFormatter(locale: Intl.LocalesArgument = 'en-US'): ValueFormatter {
-  const full = new Intl.NumberFormat(locale, { maximumFractionDigits: 2 });
-  return v => full.format(v);
+  return cachedFormatter(locale, { maximumFractionDigits: 2 });
 }
 export const formatNumber: ValueFormatter = numberFormatter();
 /** Axis ticks: in full under 10,000, compact (10K) on an axis that reaches it. One style per axis. */
 export function axisFormatterFor(max: number, locale: Intl.LocalesArgument = 'en-US'): ValueFormatter {
   if (Math.abs(max) < 10_000) return numberFormatter(locale);
-  const compact = new Intl.NumberFormat(locale, { notation: 'compact', maximumFractionDigits: 1 });
-  return v => compact.format(v);
+  return cachedFormatter(locale, { notation: 'compact', maximumFractionDigits: 1 });
 }
 
 export const valueOf = (row: object, key: string) => (row as Record<string, unknown>)[key];

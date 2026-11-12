@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 
 const bin = join(dirname(fileURLToPath(import.meta.url)), '..', 'bin', 'cyberskill-design.mjs');
 const run = (cwd, ...args) => spawnSync(process.execPath, [bin, ...args], { cwd, encoding: 'utf8' });
-const tmp = () => mkdtempSync(join(tmpdir(), 'cs-cli-'));
+const tmp = () => { const dir = mkdtempSync(join(tmpdir(), 'cs-cli-')); writeFileSync(join(dir, 'package.json'), '{}'); return dir; };
 
 test('installs all three and is idempotent, keeping the rest of AGENTS.md', () => {
   const dir = tmp();
@@ -41,6 +41,14 @@ test('rejects unknown commands, flags and targets', () => {
     assert.match(r.stderr, /Usage:/);
   }
   assert.ok(!existsSync(join(dir, '.claude')));
+});
+
+test('refuses to run outside a project (no package.json), writing nothing', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'cs-cli-home-'));
+  const r = run(dir, 'ai-setup');
+  assert.equal(r.status, 1);
+  assert.match(r.stderr, /No package\.json/);
+  assert.ok(!existsSync(join(dir, '.claude')) && !existsSync(join(dir, 'AGENTS.md')));
 });
 
 test('refuses a broken marker section without writing anything', () => {

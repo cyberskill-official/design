@@ -5,6 +5,7 @@ import {
   Badge,
   Button,
   CopyButton,
+  Prose,
   SkeletonText,
   Spinner,
   Tag,
@@ -118,12 +119,15 @@ export function AiAssistantPattern() {
                     </>
                   ) : (
                     <>
-                      <p>{m.text}</p>
-                      {m.points && (
-                        <ol>
-                          {m.points.map((p) => <li key={p}>{p}</li>)}
-                        </ol>
-                      )}
+                      {/* the answer as a model would return it, rendered from Markdown; Prose styles the raw elements */}
+                      <Prose size="sm">
+                        <p>{m.text}</p>
+                        {m.points && (
+                          <ol>
+                            {m.points.map((p) => <li key={p}>{p}</li>)}
+                          </ol>
+                        )}
+                      </Prose>
                       {m.sources && (
                         <div className="pt-row" role="group" aria-label="Sources">
                           <BookOpenText size={16} aria-hidden className="pt-muted" />

@@ -1,8 +1,32 @@
-/* Reduced motion: emitted unlayered after every component, so it overrides their transitions and animations. */
+/* Reader preferences, emitted unlayered after every component so they override component rules. */
+
+/* Reduced motion: transitions and animations finish at once. */
 @media (prefers-reduced-motion: reduce) {
-  :where([class^="cs-"], [class*=" cs-"], [class^="cs-"]::before, [class^="cs-"]::after) {
+  :where([class^="cs-"], [class*=" cs-"], [class^="cs-"]::before, [class^="cs-"]::after, .cs-data-table tr) {
     transition-duration: 1ms;
     animation-duration: 1ms;
     animation-iteration-count: 1;
   }
+}
+
+/* Forced colors (Windows contrast themes) drop backgrounds and shadows, which is how selected states are drawn.
+   Selected, pressed and current items take the system highlight; the switch gets an edge. System colors only. */
+@media (forced-colors: active) {
+  .cs-calendar-selected .cs-calendar-day-button,
+  .cs-toggle[data-pressed],
+  .cs-segmented-control-item[data-pressed],
+  .cs-button-group > .cs-button[aria-pressed='true'],
+  .cs-date-range-presets > .cs-button[aria-pressed='true'],
+  .cs-pagination [aria-current='page'],
+  .cs-side-nav-item[aria-current='page'],
+  .cs-switch[data-checked] {
+    forced-color-adjust: none;
+    border-color: Highlight;
+    background: Highlight;
+    color: HighlightText;
+  }
+  .cs-tabs-indicator { forced-color-adjust: none; background: Highlight; }
+  .cs-switch { border: 1px solid ButtonText; padding: 1px; }
+  .cs-switch-thumb { forced-color-adjust: none; background: ButtonText; box-shadow: none; }
+  .cs-switch[data-checked] .cs-switch-thumb { background: HighlightText; }
 }

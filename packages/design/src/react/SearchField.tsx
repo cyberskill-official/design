@@ -1,9 +1,9 @@
 import { MagnifyingGlass, X } from '@phosphor-icons/react';
-import { useState } from 'react';
 import { Field, Input, type FieldProps, type InputProps } from './Field';
 import { Kbd } from './Kbd';
 import { Spinner } from './Spinner';
 import { cx } from '../utils/cx';
+import { useControllableState } from '../utils/use-controllable';
 
 export type SearchFieldProps = Omit<InputProps, 'type' | 'value' | 'defaultValue' | 'onValueChange' | 'startAdornment' | 'endAdornment'> &
   Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error'> & {
@@ -30,8 +30,7 @@ export function SearchField({
   label, hideLabel, description, error, value, defaultValue = '', onValueChange, clearLabel = 'Clear search', loading = false, loadingLabel = 'Loading',
   shortcut, size = 'md', disabled, name, fieldClassName, onKeyDown, ...inputProps
 }: SearchFieldProps) {
-  const [uncontrolled, setUncontrolled] = useState(defaultValue);
-  const text = value ?? uncontrolled;
+  const [text, setUncontrolled] = useControllableState(value, defaultValue, '');
   const change = (next: string) => {
     setUncontrolled(next);
     onValueChange?.(next);
