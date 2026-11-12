@@ -1,6 +1,7 @@
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
+import { useState } from 'react';
 import { TimePicker } from './TimePicker';
 import { expectAccessibleInThemes } from '../test/a11y';
 import { expectOpenAccessibleInThemes } from './test-helpers';
@@ -123,6 +124,49 @@ describe('TimePicker', () => {
     expect(input).toHaveAttribute('aria-invalid', 'true');
     rerender(<TimePicker label="Start time" value="09:00" />);
     expect(input).toHaveValue('09:00');
+    expect(input).not.toHaveAttribute('aria-invalid');
+  });
+
+  it('Enter with no highlighted time commits the typed text and keeps focus', async () => {
+    const onValueChange = vi.fn();
+    render(<TimePicker label="Start time" onValueChange={onValueChange} />);
+    const input = screen.getByRole('combobox', { name: 'Start time' });
+    await userEvent.type(input, '9:37{Enter}');
+    expect(onValueChange).toHaveBeenLastCalledWith('09:37');
+    expect(input).toHaveValue('09:37');
+    expect(input).toHaveFocus();
+  });
+
+  it('a controlled reset to undefined after invalid text (React Hook Form reset()) drops the text and the error', async () => {
+    function Form() {
+      const [value, setValue] = useState<string | null | undefined>('09:30');
+      return (
+        <>
+          <TimePicker label="Start time" value={value} onValueChange={setValue} />
+          <button type="button" onClick={() => setValue(undefined)}>Reset</button>
+        </>
+      );
+    }
+    render(<Form />);
+    const input = screen.getByRole('combobox', { name: 'Start time' });
+    await userEvent.clear(input);
+    await userEvent.type(input, '25:00');
+    await userEvent.tab();
+    expect(input).toHaveValue('25:00');
+    expect(input).toHaveAttribute('aria-invalid', 'true');
+    await userEvent.click(screen.getByRole('button', { name: 'Reset' }));
+    expect(input).toHaveValue('');
+    expect(input).not.toHaveAttribute('aria-invalid');
+  });
+
+  it('a form reset drops invalid typed text and its error', async () => {
+    render(<form><TimePicker label="Start time" /><button type="reset">Reset</button></form>);
+    const input = screen.getByRole('combobox', { name: 'Start time' });
+    await userEvent.type(input, '25:00');
+    await userEvent.tab();
+    expect(input).toHaveAttribute('aria-invalid', 'true');
+    await userEvent.click(screen.getByRole('button', { name: 'Reset' }));
+    await expect.poll(() => (input as HTMLInputElement).value).toBe('');
     expect(input).not.toHaveAttribute('aria-invalid');
   });
 

@@ -11,20 +11,20 @@
   display: inline-flex;
   align-items: baseline;
   gap: 4px;
-  font: 600 14px/20px var(--font-sans);
+  font: 600 0.875rem/1.25rem var(--font-sans);
   color: var(--foreground);
   &[data-disabled] { color: var(--muted); }
 }
 .cs-field-required { color: var(--destructive); }
 .cs-field-optional { margin-inline-start: 4px; font-weight: 400; color: var(--muted); }
 
-.cs-field-description { margin: 0; font: 400 13px/18px var(--font-sans); color: var(--muted); }
+.cs-field-description { margin: 0; font: 400 0.8125rem/1.125rem var(--font-sans); color: var(--muted); }
 .cs-field-error {
   display: flex;
   align-items: flex-start;
   gap: 6px;
   margin: 0;
-  font: 500 13px/18px var(--font-sans);
+  font: 500 0.8125rem/1.125rem var(--font-sans);
   color: var(--destructive);
   /* 16px icon centred on the first 18px line; the text wraps beside it */
   & > svg { flex: none; width: 16px; height: 16px; margin-block-start: 1px; }
@@ -42,25 +42,26 @@
   border-radius: var(--radius-md);
   background: var(--panel);
   color: var(--foreground);
-  font: 400 15px/20px var(--font-sans);
+  font: 400 0.9375rem/1.25rem var(--font-sans);
   transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
 
   &::placeholder { color: var(--muted); opacity: 1; }
-  &:hover:not([data-disabled]) { border-color: var(--foreground); }
-  &:focus-visible, &:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 22%, transparent); }
+  /* not when invalid: hover (which sticks after a tap on touch screens) must never hide the red edge */
+  &:hover:not([data-disabled], [data-invalid]) { border-color: var(--foreground); }
+  /* Text fields: the house ring, hugging the border (offset 0) so neighbours in a tight form never clip it */
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 0; }
   &[data-invalid] { border-color: var(--destructive); }
-  /* the border is already red, so focus adds a solid ring: a faint glow alone is not a visible focus indicator */
-  &[data-invalid]:focus { box-shadow: 0 0 0 1px var(--destructive), 0 0 0 4px color-mix(in srgb, var(--destructive) 20%, transparent); }
+  &[data-invalid]:focus-visible { outline-color: var(--destructive); }
   &[data-disabled] { background: var(--raised); color: var(--muted); cursor: not-allowed; }
-  &[data-size='sm'] { --_h: var(--control-sm); font-size: 14px; }
-  &[data-size='lg'] { --_h: var(--control-lg); font-size: 16px; padding: 0 var(--space-4); }
+  &[data-size='sm'] { --_h: var(--control-sm); font-size: 0.875rem; }
+  &[data-size='lg'] { --_h: var(--control-lg); font-size: 1rem; padding: 0 var(--space-4); }
 }
 
 .cs-textarea {
   height: auto;
   min-height: calc(var(--control-md) * 2);
   padding: 10px var(--space-3);
-  line-height: 22px;
+  line-height: 1.375rem;
   resize: vertical;
 }
 
@@ -77,15 +78,19 @@
   overflow: hidden;
   transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
 
-  &:hover { border-color: var(--foreground); }
-  &:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 22%, transparent); }
+  &:hover:not([data-disabled], :has([data-invalid], [data-disabled])) { border-color: var(--foreground); }
+  /* the group draws the ring for its input; buttons inside it draw their own */
+  &:has(> .cs-input:focus-visible, .cs-multi-select-input:focus-visible) { outline: 2px solid var(--ring); outline-offset: 0; }
   &:has([data-invalid]) { border-color: var(--destructive); }
-  &:has([data-invalid]):focus-within { box-shadow: 0 0 0 1px var(--destructive), 0 0 0 4px color-mix(in srgb, var(--destructive) 20%, transparent); }
+  &:has(> .cs-input[data-disabled]) { background: var(--raised); cursor: not-allowed; }
+  &:has([data-invalid]):has(> .cs-input:focus-visible, .cs-multi-select-input:focus-visible) { outline-color: var(--destructive); }
   &[data-size='sm'] { --_h: var(--control-sm); }
   &[data-size='lg'] { --_h: var(--control-lg); }
 
-  & > .cs-input { height: 100%; border: 0; border-radius: 0; box-shadow: none; background: transparent; }
-  & > .cs-input:focus { box-shadow: none; }
+  & > .cs-input { height: 100%; border: 0; border-radius: 0; background: transparent; }
+  & > .cs-input:focus-visible { outline: none; }
+  /* the group clips overflow, so icon buttons inside it (date and time pickers) draw their ring inset */
+  & .cs-icon-button:focus-visible { outline-offset: -2px; }
 }
 .cs-input-adornment {
   display: inline-flex;
@@ -93,8 +98,10 @@
   flex: none;
   padding: 0 var(--space-3);
   color: var(--muted);
-  font: 500 13px/1 var(--font-mono);
+  font: 500 0.8125rem/1 var(--font-mono);
   & > svg { width: 16px; height: 16px; }
   &[data-side='start'] { padding-inline-end: 0; }
   &[data-side='end'] { padding-inline-start: 0; }
 }
+
+.cs-input-group[data-size='lg'] .cs-input-adornment > svg { width: 20px; height: 20px; } /* 20px icons in lg controls */

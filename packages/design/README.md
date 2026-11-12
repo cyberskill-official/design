@@ -43,7 +43,7 @@ export function Invite() {
 }
 ```
 
-Fonts: load Manrope, Be Vietnam Pro and JetBrains Mono (`next/font/google` in Next.js). Dark mode: `data-theme="dark"` (or `system`) on `<html>` or any element; `ThemeScope` themes one part of a page, popups included.
+Fonts: `@import '@cyberskill/design/fonts.css';` loads Be Vietnam Pro, Manrope and JetBrains Mono from the package (Latin and Vietnamese, tuned so inputs never clip Ẫ or Ỗ). Dark mode: `data-theme="dark"` (or `system`) on `<html>` or any element; `ThemeScope` themes one part of a page, popups included.
 
 ## Entry points
 
@@ -53,6 +53,7 @@ Fonts: load Manrope, Be Vietnam Pro and JetBrains Mono (`next/font/google` in Ne
 | `@cyberskill/design/styles.css` | Tokens + base + component CSS | – |
 | `@cyberskill/design/tokens.css` | CSS variables only | – |
 | `@cyberskill/design/tailwind.css` | Tailwind v4 theme | `tailwindcss@4` |
+| `@cyberskill/design/fonts.css` | The three typefaces, self-hosted (Latin + Vietnamese) | – |
 | `@cyberskill/design/tokens` | Typed token object (and `tokens.json`) | – |
 | `@cyberskill/design/charts` | Chart presets | `recharts@^3.8` |
 | `@cyberskill/design/table` | Data table | `@tanstack/react-table@9`, `@tanstack/react-virtual@3` |

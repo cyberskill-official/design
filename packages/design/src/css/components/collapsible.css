@@ -19,7 +19,7 @@
   border-radius: var(--radius-md);
   background: transparent;
   color: var(--foreground);
-  font: 600 14px/20px var(--font-sans);
+  font: 600 0.875rem/1.25rem var(--font-sans);
   cursor: pointer;
   transition: background-color var(--duration-fast) var(--ease-standard);
 
@@ -45,7 +45,7 @@
   align-self: stretch;
   height: var(--collapsible-panel-height);
   overflow: hidden;
-  font: 400 14px/22px var(--font-sans);
+  font: 400 0.875rem/1.375rem var(--font-sans);
   transition: height var(--duration-base) var(--ease-standard);
   &[data-starting-style], &[data-ending-style] { height: 0; }
 }

@@ -187,7 +187,10 @@ export function forcedColorChecks() {
   const sig = el => {
     const cs = getComputedStyle(el), pseudo = p => { const s = getComputedStyle(el, p); return s.content === 'none' ? '' : [s.content, s.width, s.height, s.backgroundColor, s.borderTopWidth, s.borderTopColor, s.borderBottomWidth].join(); };
     const icons = [...el.querySelectorAll('svg')].filter(B.visible).length;
-    return [cs.borderTopWidth, cs.borderBottomWidth, cs.borderLeftWidth, cs.borderTopColor, cs.borderBottomColor, cs.outlineStyle, cs.outlineColor, cs.backgroundColor, cs.color, cs.textDecorationLine, icons, pseudo('::before'), pseudo('::after'), cs.boxShadow].join('|');
+    // the state may be painted by the item's first child (a calendar day button) or by a sibling laid over it (the tabs indicator)
+    const kid = el.firstElementChild ? getComputedStyle(el.firstElementChild).backgroundColor : '', er = el.getBoundingClientRect();
+    const over = [...(el.parentElement?.children ?? [])].filter(s => s !== el && !s.matches('button, a, [role="tab"]') && B.visible(s)).some(s => { const r = s.getBoundingClientRect(); return r.right > er.left && r.left < er.right && r.bottom >= er.top - 2 && r.top <= er.bottom + 2; });
+    return [cs.borderTopWidth, cs.borderBottomWidth, cs.borderLeftWidth, cs.borderTopColor, cs.borderBottomColor, cs.outlineStyle, cs.outlineColor, cs.backgroundColor, cs.color, cs.textDecorationLine, icons, pseudo('::before'), pseudo('::after'), cs.boxShadow, kid, over].join('|');
   };
   const on = '[aria-checked="true"], [aria-selected="true"], [aria-pressed="true"], [data-checked], [data-pressed], [aria-current="page"]';
   for (const el of document.querySelectorAll(on)) {
@@ -244,7 +247,31 @@ export function invalidChecks() {
     const a = boxOf(v), b = boxOf(inv);
     let dE = 0, ratio = 0;
     if (a && b) { const outer = B.bgBehind(b.parentElement), ca = B.blend(B.rgba(getComputedStyle(a).borderTopColor), outer), cb = B.blend(B.rgba(getComputedStyle(b).borderTopColor), outer); dE = B.dE(ca, cb); ratio = B.ratio(cb, outer); }
-    out.push({ name, announced: flagged.length > 0, linked, dE: +dE.toFixed(1), ratio: +ratio.toFixed(2), box: b ? B.path(b) : 'no bordered box found' });
+    if (b) b.setAttribute('data-bench-box', name); // the runner hovers it next
+    out.push({ name, announced: flagged.length > 0, linked, dE: +dE.toFixed(1), ratio: +ratio.toFixed(2), box: b ? B.path(b) : 'no bordered box found', hasBox: !!b });
+  }
+  return out;
+}
+
+/** D17: the edge color of a marked invalid box, read while the runner hovers it. */
+export function boxEdge(name) {
+  const b = document.querySelector(`[data-bench-box="${name}"]`); if (!b) return null;
+  return window.__bench.blend(window.__bench.rgba(getComputedStyle(b).borderTopColor), window.__bench.bgBehind(b.parentElement));
+}
+
+/** D17: each disabled control, and each disabled button inside it, must look different from its enabled twin (not only change the cursor). */
+export function disabledChecks() {
+  const B = window.__bench, out = [];
+  const sel = 'button, input:not([type=hidden]):not([aria-hidden="true"]), textarea, [role="combobox"], [role="checkbox"], [role="radio"], [role="switch"], [role="slider"], [class*="-thumb"]';
+  // what is painted: text color, the background showing through (a borderless input shows its group's), edge, opacity
+  const look = el => { const cs = getComputedStyle(el); let o = 1; for (let e = el; e && e.nodeType === 1; e = e.parentElement) o *= +getComputedStyle(e).opacity; return [cs.color, B.hex(B.bgBehind(el)), cs.borderTopColor, o.toFixed(2)].join('|'); };
+  const off = el => !!el.closest('[disabled], [data-disabled], [aria-disabled="true"]');
+  for (const on of document.querySelectorAll('[data-bench-twin][data-bench-state="enabled"]')) {
+    const name = on.getAttribute('data-bench-twin'), dis = document.querySelector(`[data-bench-twin="${name}"][data-bench-state="disabled"]`); if (!dis) continue;
+    const a = [...on.querySelectorAll(sel)].filter(B.visible), d = [...dis.querySelectorAll(sel)].filter(B.visible);
+    let any = false;
+    d.forEach((el, i) => { if (!off(el) || !a[i]) return; any = true; out.push({ key: `${name}: ${B.label(el) || el.tagName.toLowerCase()} #${i}`, pass: look(el) !== look(a[i]), detail: `${B.path(el)} looks the same as when enabled` }); });
+    if (!any) out.push({ key: `${name}: has a disabled control`, pass: false, detail: 'nothing in the disabled twin is marked disabled' });
   }
   return out;
 }

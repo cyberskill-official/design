@@ -62,7 +62,8 @@ export type InputProps = Omit<BaseInput.Props, 'className' | 'size'> & {
 
 /** Text input. Use inside `Field` (or `TextField`) so it gets a label. */
 export function Input({ size = 'md', startAdornment, endAdornment, className, ...props }: InputProps) {
-  if (!startAdornment && !endAdornment) return <BaseInput {...props} data-size={size} className={cx('cs-input', className)} />;
+  // One structure with or without adornments: an adornment that appears while typing (a spinner, a check) must not
+  // remount the input, which would drop focus, the caret and uncontrolled text.
   return (
     <span className="cs-input-group" data-size={size}>
       {startAdornment && <span className="cs-input-adornment" data-side="start">{startAdornment}</span>}

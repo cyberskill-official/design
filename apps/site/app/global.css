@@ -3,14 +3,9 @@
 @import 'fumadocs-ui/css/preset.css';
 @import '@cyberskill/design/tailwind.css';
 @import '@cyberskill/design/styles.css';
+@import '@cyberskill/design/fonts.css';
 
 
-/* Fonts come from next/font; point the system's font tokens at them. */
-:root, [data-theme] {
-  --font-display: var(--font-site-display), 'Be Vietnam Pro', ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-site-sans), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono: var(--font-site-mono), ui-monospace, 'SF Mono', Menlo, monospace;
-}
 
 /* Fumadocs chrome wears the Ink & Gold tokens in both themes. */
 :root, .dark, [data-theme] {

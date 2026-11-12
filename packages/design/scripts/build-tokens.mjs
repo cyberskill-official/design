@@ -122,6 +122,8 @@ const ramps = { ink: ramp(C.brand.ink.$value.toUpperCase()), gold: ramp(C.brand.
 
 /* ---------- emit ---------- */
 const px = n => (n === 0 ? '0' : `${n}px`);
+// Text and control sizes are emitted in rem (16px = 1rem), so they grow with the reader's browser font size.
+const rem = n => `${+(n / 16).toFixed(4)}rem`;
 const colorVars = t => Object.entries(t).map(([k, v]) => `  --${k}: ${v};`);
 const chartVars = list => list.map((h, i) => `  --chart-${i + 1}: ${h};`);
 const shadowVars = s => Object.entries(s).map(([k, v]) => `  --shadow-${k}: ${v};`);
@@ -131,14 +133,14 @@ const aliases = ['  --card: var(--panel);', '  --card-foreground: var(--foregrou
 const themeBlock = mode => [...colorVars(theme[mode]), ...chartVars(chart[mode]), ...shadowVars(F.shadow[mode]), ...aliases];
 const constants = [
   ...Object.entries(F.font).map(([k, v]) => `  --font-${k}: ${v.$value};`),
-  ...Object.entries(F.text).flatMap(([k, t]) => [`  --text-${k}-size: ${t.size}px;`, `  --text-${k}-line: ${t.line}px;`, `  --text-${k}-weight: ${t.weight};`, `  --text-${k}-tracking: ${t.tracking};`, `  --text-${k}-family: var(--font-${t.family});`]),
+  ...Object.entries(F.text).flatMap(([k, t]) => [`  --text-${k}-size: ${rem(t.size)};`, `  --text-${k}-line: ${rem(t.line)};`, `  --text-${k}-weight: ${t.weight};`, `  --text-${k}-tracking: ${t.tracking};`, `  --text-${k}-family: var(--font-${t.family});`]),
   ...Object.entries(F.space).map(([k, v]) => `  --space-${k}: ${px(v)};`),
   '  --space-xs: var(--space-1);', '  --space-sm: var(--space-2);', '  --space-md: var(--space-4);', '  --space-lg: var(--space-6);', '  --space-xl: var(--space-8);', '  --space-2xl: var(--space-12);', '  --space-3xl: var(--space-16);',
   ...Object.entries(F.radius).map(([k, v]) => `  --radius-${k}: ${px(v)};`),
   ...Object.entries(F.duration).map(([k, v]) => `  --duration-${k}: ${v};`),
   ...Object.entries(F.ease).map(([k, v]) => `  --ease-${k}: ${v};`),
   ...Object.entries(F.z).map(([k, v]) => `  --z-${k}: ${v};`),
-  ...Object.entries(F.control).map(([k, v]) => `  --control-${k}: ${px(v)};`),
+  ...Object.entries(F.control).map(([k, v]) => `  --control-${k}: ${rem(v)};`),
   `  --brand-ink: ${C.brand.ink.$value};`, `  --brand-gold: ${C.brand.gold.$value};`,
   ...Object.entries(ramps).flatMap(([name, r]) => r.map(s => `  --${name}-${s.step}: ${s.hex};`)),
 ];

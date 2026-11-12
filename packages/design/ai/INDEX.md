@@ -9,7 +9,8 @@ CyberSkill Design System (Ink & Gold). Read this file first, then open only the 
 @import 'tailwindcss';
 @import '@cyberskill/design/tailwind.css';
 @import '@cyberskill/design/styles.css';
-/* no Tailwind: only the styles.css line */
+@import '@cyberskill/design/fonts.css'; /* the three typefaces, self-hosted; needed for Vietnamese capitals in inputs */
+/* no Tailwind: drop the first two lines */
 ```
 
 Fonts: load Manrope, Be Vietnam Pro and JetBrains Mono (with the `vietnamese` subset) and set `--font-display`, `--font-sans`, `--font-mono` on `:root, [data-theme]`. Dark mode: `data-theme="dark"` on `<html>` or any container; `data-theme="system"` follows the OS. Without the attribute the page stays light.

@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Area, AreaChart as RAreaChart, Bar, BarChart as RBarChart, BarStack, CartesianGrid, Line, LineChart as RLineChart, Tooltip, XAxis, YAxis, type LabelProps, type TooltipContentProps } from 'recharts';
 import { axisFormatterFor, ChartFrame, ChartTooltipCard, formatValue, numberFormatter, seriesColor, valueOf, type ChartFrameProps, type ChartSeries, type ValueFormatter } from './ChartFrame';
 
@@ -11,18 +12,19 @@ export type CartesianChartProps = Omit<ChartFrameProps, 'children' | 'legendMark
 const MARGIN = { top: 8, right: 8, bottom: 0, left: 0 };
 const ACTIVE_DOT = { r: 4, strokeWidth: 2, className: 'cs-chart-active-dot' };
 
+/** How far from zero the y-axis reaches, so all-negative data gets compact ticks too. */
 function maxValue(data: readonly object[], series: readonly ChartSeries[], stacked: boolean) {
   let max = 0;
   for (const row of data) {
     const values = series.map(s => Number(valueOf(row, s.key)) || 0);
-    max = Math.max(max, stacked ? values.reduce((a, b) => a + b, 0) : Math.max(...values));
+    max = Math.max(max, stacked ? Math.abs(values.reduce((a, b) => a + b, 0)) : Math.max(...values.map(Math.abs)));
   }
   return max;
 }
 
 /** Grid, one x-axis, one y-axis and the token tooltip, shared by every cartesian preset. Recharts 3 accepts wrapped children. */
 function CartesianChrome({ data, series, xKey, stacked, locale, valueFormatter, axisFormatter }: { data: readonly object[]; series: readonly ChartSeries[]; xKey: string; stacked: boolean; locale?: Intl.LocalesArgument; valueFormatter: ValueFormatter; axisFormatter?: ValueFormatter }) {
-  const tick = axisFormatter ?? axisFormatterFor(maxValue(data, series, stacked), locale);
+  const tick = useMemo(() => axisFormatter ?? axisFormatterFor(maxValue(data, series, stacked), locale), [axisFormatter, data, series, stacked, locale]);
   return (
     <>
       <CartesianGrid vertical={false} />
@@ -51,7 +53,7 @@ function endLabel(text: string, lastIndex: number) {
     return <text x={x + 8} y={y} dy="0.35em" className="cs-chart-direct-label">{text}</text>;
   };
 }
-const labelRoom = (series: readonly ChartSeries[]) => Math.max(...series.map(s => s.label.length)) * 7 + 16;
+const labelRoom = (series: readonly ChartSeries[]) => Math.max(0, ...series.map(s => s.label.length)) * 7 + 16;
 
 export type BarChartProps = CartesianChartProps & {
   /** Stack the series in one bar per category instead of grouping them side by side. */

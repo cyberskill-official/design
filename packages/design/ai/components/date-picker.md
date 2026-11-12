@@ -74,7 +74,7 @@ Pass `name` to submit the value with a plain `<form>`: a hidden input holds `yyy
 | Prop | Type | Default | Description |
 |---|---|---|---|
 | `label` | `ReactNode` | – | Visible label (required) |
-| `value / defaultValue` | `Date \| null` | `null` | Controlled or uncontrolled date. A new value replaces any typed text; once controlled, undefined (a form reset) empties the field |
+| `value / defaultValue` | `Date \| null` | `null` | Controlled or uncontrolled date. A new value replaces any typed text; once controlled, undefined (a form reset) empties the field. A form reset, or the value set to undefined or null from outside, drops typed and invalid text |
 | `onValueChange` | `(date: Date \| null) => void` | – | Called with a picked or valid typed date, or null when cleared or when the typed text is invalid |
 | `name` | `string` | – | Submits a hidden input with yyyy-MM-dd (empty while invalid) |
 | `inputRef / onBlur` | `Ref / FocusEventHandler` | – | Go to the visible input, for React Hook Form field.ref and field.onBlur |
@@ -83,6 +83,7 @@ Pass `name` to submit the value with a plain `<form>`: a hidden input holds `yyy
 | `min / max` | `Date` | – | First and last allowed day |
 | `disabledDates` | `Matcher \| Matcher[]` | – | More days that cannot be picked |
 | `weekStartsOn` | `0–6` | `1 (Monday)` | First day of the week |
+| `labels` | `Partial<Labels>` | `from locale` | Calendar screen-reader labels (react-day-picker), e.g. labelDayButton for the "Today" and "selected" words |
 | `invalidMessage` | `ReactNode` | `'Enter a valid date'` | Shown for text that is not an allowed date |
 | `description / error` | `ReactNode` | – | Help text; an error from your form overrides invalidMessage |
 | `clearLabel / openLabel` | `string` | `'Clear date' / 'Choose date'` | Names of the × and calendar buttons; openLabel also names the popup |
@@ -102,6 +103,8 @@ Pass `name` to submit the value with a plain `<form>`: a hidden input holds `yyy
 ```ts
 export type FormFieldProps<TFieldValues extends FieldValues = FieldValues, TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>, TTransformedValues = TFieldValues> = Omit<ControllerProps<TFieldValues, TName, TTransformedValues>, 'render'> & {
   render: (props: FormFieldRenderProps<TFieldValues, TName, TTransformedValues>) => ReactElement;
+  /** Error text for a failed rule without a message (`required: true`), so the field never turns invalid with no words. */
+  invalidLabel?: string;
 };
 export type DatePickerProps = PickerFieldProps & {
   value?: Date | null;
@@ -118,8 +121,10 @@ export type DatePickerProps = PickerFieldProps & {
   disabledDates?: Matcher | Matcher[];
   /** 0 Sunday … 6 Saturday. Default Monday. */
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  /** Calendar screen-reader labels (react-day-picker `labels`), e.g. `labelDayButton` for the "Today" and "selected" words. */
+  labels?: CalendarProps['labels'];
 };
-export type DateTimePickerProps = Pick<DatePickerProps, 'format' | 'locale' | 'min' | 'max' | 'disabledDates' | 'weekStartsOn' | 'invalidMessage' | 'clearLabel' | 'openLabel' | 'onBlur'> & Pick<TimePickerProps, 'step' | 'hourCycle'> & {
+export type DateTimePickerProps = Pick<DatePickerProps, 'format' | 'locale' | 'min' | 'max' | 'disabledDates' | 'weekStartsOn' | 'labels' | 'invalidMessage' | 'clearLabel' | 'openLabel' | 'onBlur'> & Pick<TimePickerProps, 'step' | 'hourCycle'> & {
   className?: string;
   /** Group label, e.g. "Meeting starts". */
   label: ReactNode;

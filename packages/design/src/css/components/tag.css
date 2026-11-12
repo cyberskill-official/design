@@ -10,13 +10,13 @@
   border-radius: var(--radius-sm);
   background: var(--raised);
   color: var(--foreground);
-  font: 500 13px/1 var(--font-sans);
+  font: 500 0.8125rem/1 var(--font-sans);
   vertical-align: middle;
   &:has(.cs-tag-remove) { padding-inline-end: 2px; }
 }
 
 /* line-height above 1: overflow (for the ellipsis) would otherwise cut descenders like g and y */
-.cs-tag-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 18px; padding-block: 0.5em; margin-block: -0.5em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */ }
+.cs-tag-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 1.125rem; padding-block: 0.5em; margin-block: -0.5em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */ }
 
 .cs-tag-remove {
   position: relative;
@@ -32,9 +32,10 @@
   color: var(--muted);
   cursor: pointer;
   transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
-  /* 44px touch target, leaning right so a tap on the label never removes the tag */
-  &::before { content: ''; position: absolute; inset: -13px -18px -13px -8px; }
-  &:hover { background: color-mix(in srgb, var(--foreground) 10%, var(--raised)); color: var(--foreground); }
+  /* 44px touch target, leaning away from the label (in either text direction) so a tap on the label never removes the tag */
+  &::before { content: ''; position: absolute; inset-block: -13px; inset-inline: -8px -18px; }
+  &:hover:not(:disabled) { background: color-mix(in srgb, var(--foreground) 10%, var(--raised)); color: var(--foreground); }
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
   &:focus-visible { outline: 2px solid var(--ring); outline-offset: 1px; }
   & > svg { width: 12px; height: 12px; }
 }

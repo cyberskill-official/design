@@ -1,6 +1,6 @@
 import { render, screen, within } from '@testing-library/react';
 import { userEvent } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { AreaChart, BarChart, chartColor, DonutChart, LineChart, seriesColor, Sparkline } from './index';
 import { expectAccessibleInThemes, expectNoA11yViolations } from '../test/a11y';
 
@@ -71,6 +71,28 @@ describe('Charts', () => {
     await userEvent.keyboard('{ArrowRight}');
     await expect.poll(() => document.querySelector('.cs-chart-tooltip')?.textContent ?? '').toMatch(/users/);
     expect(document.querySelector('.cs-chart-tooltip')).toMatchTextContent(/Web.*Mobile/);
+  });
+
+  it('an all-negative axis gets compact ticks like a positive one', async () => {
+    const losses = [{ month: 'Jan', net: -42000 }, { month: 'Feb', net: -18000 }];
+    const { container } = render(<BarChart title="Net" data={losses} series={[{ key: 'net', label: 'Net' }]} xKey="month" />);
+    // y-axis ticks: every axis label but the months
+    const ticks = () => [...container.querySelectorAll('.recharts-cartesian-axis-tick-value')].map(t => t.textContent ?? '').filter(t => !['Jan', 'Feb', '0'].includes(t));
+    await expect.poll(() => ticks().length).toBeGreaterThan(1);
+    expect(ticks().every(t => /^-\d+K$/.test(t)), ticks().join(' ')).toBe(true);
+  });
+
+  it('draws a line chart with no series (all filtered out) inside its box', async () => {
+    const errors = vi.spyOn(console, 'error').mockImplementation(() => {});
+    try {
+      const { container } = render(<LineChart title="Trend" data={data} series={[]} xKey="month" />);
+      await expect.poll(() => container.querySelectorAll('.recharts-cartesian-grid line').length).toBeGreaterThan(0);
+      const widths = [...container.querySelectorAll('.recharts-cartesian-grid-horizontal line')].map(l => Number(l.getAttribute('x2')) - Number(l.getAttribute('x1')));
+      expect(widths.every(w => Number.isFinite(w) && w > 0), widths.join(' ')).toBe(true);
+      expect(errors.mock.calls.map(c => String(c[0]).slice(0, 200))).toEqual([]);
+    } finally {
+      errors.mockRestore();
+    }
   });
 
   it('donut shows the total in the center and each slice share in the legend', async () => {

@@ -19,31 +19,13 @@ React 19 is required. Charts, tables and form helpers are optional and need thei
 @import '@cyberskill/design/styles.css';
 ```
 
-Load the three fonts with `next/font` and point the tokens at them:
-
-```tsx title="app/layout.tsx"
-import { Be_Vietnam_Pro, JetBrains_Mono, Manrope } from 'next/font/google';
-
-const display = Manrope({ subsets: ['latin', 'vietnamese'], weight: ['600', '700', '800'], variable: '--font-app-display' });
-const sans = Be_Vietnam_Pro({ subsets: ['latin', 'vietnamese'], weight: ['400', '500', '600', '700'], variable: '--font-app-sans' });
-const mono = JetBrains_Mono({ subsets: ['latin', 'vietnamese'], variable: '--font-app-mono' });
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="vi" data-theme="light" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
-      <body>{children}</body>
-    </html>
-  );
-}
-```
+Load the three typefaces (Be Vietnam Pro, Manrope, JetBrains Mono) from the package. They are self-hosted, split into Latin and Vietnamese files the browser fetches only when needed, and tuned so stacked Vietnamese capitals (Ẫ, Ỗ) are never cut off in text inputs:
 
 ```css title="app/globals.css"
-:root, [data-theme] {
-  --font-display: var(--font-app-display), sans-serif;
-  --font-sans: var(--font-app-sans), sans-serif;
-  --font-mono: var(--font-app-mono), monospace;
-}
+@import '@cyberskill/design/fonts.css';
 ```
+
+Loading the fonts another way (`next/font`, a CDN) also works, since the tokens only name the families, but then inputs clip those capitals unless you add the same `ascent-override` yourself.
 
 Tailwind utilities now speak the system: `bg-primary text-primary-foreground`, `border-border`, `text-muted`, `font-display`, `rounded-lg`, `bg-chart-1`.
 

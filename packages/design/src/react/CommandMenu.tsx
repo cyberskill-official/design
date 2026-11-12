@@ -1,7 +1,7 @@
 import { Autocomplete } from '@base-ui/react/autocomplete';
 import { Dialog as BaseDialog } from '@base-ui/react/dialog';
 import { MagnifyingGlass } from '@phosphor-icons/react';
-import { createContext, useContext, useEffect, useLayoutEffect, useRef, useState, type Dispatch, type ReactNode, type SetStateAction } from 'react';
+import { createContext, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState, type Dispatch, type ReactNode, type SetStateAction } from 'react';
 import { cx } from '../utils/cx';
 import { includesFolded } from '../utils/search';
 import { ThemedPortal } from './ThemeScope';
@@ -82,7 +82,8 @@ function CommandSearch({ label, placeholder, emptyLabel, close, children }: Pick
     setMatching(prev => (prev?.join('\n') === values.join('\n') ? prev : values));
   });
 
-  const context: CommandMenuContextValue = { matches: text => includesFolded(text, query), close };
+  // Memoized: a new `matching` (read back after each render) must not re-render every item through the context.
+  const context = useMemo<CommandMenuContextValue>(() => ({ matches: text => includesFolded(text, query), close }), [query, close]);
   return (
     <Autocomplete.Root
       open

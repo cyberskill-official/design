@@ -1,6 +1,6 @@
 import { Progress as BaseProgress } from '@base-ui/react/progress';
 import { CheckCircle, File as FileIcon, UploadSimple, Warning, WarningCircle, X } from '@phosphor-icons/react';
-import { useId, useRef, useState, type DragEvent, type ReactNode } from 'react';
+import { useEffect, useId, useRef, useState, type DragEvent, type ReactNode } from 'react';
 import { cx } from '../utils/cx';
 import { formatFileSize } from '../utils/format';
 import { IconButton } from './Button';
@@ -35,6 +35,11 @@ export type FileUploadProps = {
   /** Most files the list may hold (with `multiple`). Files past it are rejected with `maxFilesMessage`. */
   maxFiles?: number;
   disabled?: boolean;
+  /**
+   * Submits the listed files with a native form or a Server Action (multipart) under this name. Uncontrolled only:
+   * with `files`, you upload them yourself.
+   */
+  name?: string;
   /** Controlled list (e.g. with upload progress). Omit to let the component keep the picked files. */
   files?: FileUploadItem[];
   /** Called with the files that passed `accept`, `maxSize` and `maxFiles`. A file already listed (same name, size and last-modified time) is skipped. */
@@ -69,8 +74,10 @@ function accepts(file: File, accept?: string) {
   const type = file.type.toLowerCase();
   return accept.split(',').some(raw => {
     const rule = raw.trim().toLowerCase();
+    if (rule === '*/*') return true;
     if (rule.startsWith('.')) return name.endsWith(rule);
-    if (rule.endsWith('/*')) return type.startsWith(rule.slice(0, -1));
+    // No type means the browser cannot tell (HEIC photos on Windows, say): the server checks it anyway, so don't refuse it.
+    if (rule.endsWith('/*')) return !type || type.startsWith(rule.slice(0, -1));
     return rule !== '' && type === rule;
   });
 }
@@ -86,6 +93,7 @@ export function FileUpload({
   maxSize,
   maxFiles,
   disabled,
+  name,
   files,
   onAdd,
   onRemove,
@@ -108,6 +116,16 @@ export function FileUpload({
   const [dragging, setDragging] = useState(false);
   const list = files ?? own;
   const canRemove = files == null || onRemove != null;
+  // Uncontrolled with a name: the input holds the listed files, so a native form submits them.
+  const submits = files == null && name != null;
+  const syncInput = (items: FileUploadItem[]) => {
+    const dt = new DataTransfer();
+    for (const item of items) if (item.file) dt.items.add(item.file);
+    if (inputRef.current) inputRef.current.files = dt.files;
+  };
+  useEffect(() => {
+    if (submits) syncInput(own);
+  }, [own, submits]);
 
   function add(picked: FileList | null) {
     if (!picked || disabled) return;
@@ -116,7 +134,8 @@ export function FileUpload({
     const problems: string[] = [];
     const kept = multiple ? list.length : 0; // without multiple, a pick replaces the list
     for (const file of Array.from(picked)) {
-      if (list.some(({ file: f }) => f && f.name === file.name && f.size === file.size && f.lastModified === file.lastModified)) continue; // already listed
+      // already listed; a controlled item without `file` is matched by name and size
+      if (list.some(item => (item.file ? item.file.name === file.name && item.file.size === file.size && item.file.lastModified === file.lastModified : item.name === file.name && item.size === file.size))) continue;
       if (!accepts(file, accept)) problems.push(wrongTypeMessage(file));
       else if (maxSize != null && file.size > maxSize) problems.push(tooLargeMessage(file, formatFileSize(maxSize, locale)));
       else if (maxFiles != null && kept + ok.length >= maxFiles) problems.push(maxFilesMessage(file, maxFiles));
@@ -180,9 +199,11 @@ export function FileUpload({
         accept={accept}
         multiple={multiple}
         disabled={disabled}
+        name={submits ? name : undefined}
         onChange={e => {
           add(e.target.files);
-          e.target.value = ''; // so picking the same file again still fires change
+          if (submits) syncInput(own); // the picker replaced the input's files: put the list back (new ones follow on render)
+          else e.target.value = ''; // so picking the same file again still fires change
         }}
       />
       {description && <p id={`${id}-description`} className="cs-field-description">{description}</p>}

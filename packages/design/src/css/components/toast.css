@@ -83,7 +83,7 @@
 }
 
 .cs-toast-text { display: grid; gap: 2px; flex: 1; min-width: 0; padding-block: 1px; }
-.cs-toast-title { margin: 0; font: 600 14px/20px var(--font-sans); color: var(--foreground); }
-.cs-toast-description { margin: 0; font: 400 13px/18px var(--font-sans); color: var(--muted); }
+.cs-toast-title { margin: 0; font: 600 0.875rem/1.25rem var(--font-sans); color: var(--foreground); }
+.cs-toast-description { margin: 0; font: 400 0.8125rem/1.125rem var(--font-sans); color: var(--muted); }
 .cs-toast-action { justify-self: start; margin-top: var(--space-2); }
-.cs-toast-close { flex: none; margin: -4px -4px -4px 0; }
+.cs-toast-close { flex: none; margin-block: -4px; margin-inline: 0 -4px; }

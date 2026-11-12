@@ -36,4 +36,5 @@
   box-shadow: var(--shadow-sm);
   transition: transform var(--duration-fast) var(--ease-standard);
   &[data-checked] { transform: translateX(16px); }
+  &[data-checked]:dir(rtl) { transform: translateX(-16px); }
 }

@@ -1,6 +1,26 @@
 // Pure date helpers (date-fns only, no React): safe to call in Server Components via '@cyberskill/design/date'.
-import { format as formatFns, isValid, parse } from 'date-fns';
+import { format as formatFns, isValid, parse, startOfDay, startOfMonth, subDays } from 'date-fns';
 import type { Locale } from 'date-fns';
+
+export type DateRangeValue = { from: Date; to: Date };
+export type DateRangePreset = { label: string; value: DateRangeValue };
+export type RangePresetLabels = { today: string; last7Days: string; last30Days: string; thisMonth: string };
+
+/**
+ * The four common presets: Today, Last 7 days, Last 30 days, This month (1st to today). Override labels for Vietnamese:
+ * `rangePresets({ today: 'Hôm nay', last7Days: '7 ngày qua', last30Days: '30 ngày qua', thisMonth: 'Tháng này' })`.
+ * Call it while rendering so "today" stays current. Pure, so Server Components can call it too.
+ */
+export function rangePresets(labels: Partial<RangePresetLabels> = {}, today: Date = new Date()): DateRangePreset[] {
+  const l = { today: 'Today', last7Days: 'Last 7 days', last30Days: 'Last 30 days', thisMonth: 'This month', ...labels };
+  const day = startOfDay(today);
+  return [
+    { label: l.today, value: { from: day, to: day } },
+    { label: l.last7Days, value: { from: subDays(day, 6), to: day } },
+    { label: l.last30Days, value: { from: subDays(day, 29), to: day } },
+    { label: l.thisMonth, value: { from: startOfMonth(day), to: day } },
+  ];
+}
 
 /** Default display format for dates: Vietnamese and British order, `31/12/2026`. */
 export const DEFAULT_DATE_FORMAT = 'dd/MM/yyyy';

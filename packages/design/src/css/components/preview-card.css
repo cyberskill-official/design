@@ -24,7 +24,7 @@
   background: var(--panel);
   color: var(--foreground);
   box-shadow: var(--shadow-lg);
-  font: 400 14px/20px var(--font-sans);
+  font: 400 0.875rem/1.25rem var(--font-sans);
   transform-origin: var(--transform-origin);
   transition: opacity var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-standard);
   &[data-starting-style], &[data-ending-style] { opacity: 0; transform: scale(0.97); }

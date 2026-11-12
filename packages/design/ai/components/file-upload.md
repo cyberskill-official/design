@@ -60,7 +60,8 @@ Every message is a prop, and sizes follow `locale`.
 | Prop | Type | Default | Description |
 |---|---|---|---|
 | `label` | `ReactNode` | – | Visible label (required) |
-| `accept` | `string` | – | Native syntax, e.g. ".pdf,image/*"; also checked for dropped files |
+| `accept` | `string` | – | Native syntax, e.g. ".pdf,image/*"; also checked for dropped files. A file the browser gives no type passes image/*-style rules |
+| `name` | `string` | – | Uncontrolled: submits the listed files with a native form or Server Action under this name |
 | `multiple` | `boolean` | `false` | Allow several files; otherwise a new pick replaces the old one |
 | `maxSize` | `number` | – | Largest file in bytes, e.g. 5 * 1024 * 1024 for 5 MB |
 | `files` | `FileUploadItem[]` | – | Controlled list: { id, name, size, progress?, error?, file? } |
@@ -104,6 +105,11 @@ export type FileUploadProps = {
   /** Most files the list may hold (with `multiple`). Files past it are rejected with `maxFilesMessage`. */
   maxFiles?: number;
   disabled?: boolean;
+  /**
+   * Submits the listed files with a native form or a Server Action (multipart) under this name. Uncontrolled only:
+   * with `files`, you upload them yourself.
+   */
+  name?: string;
   /** Controlled list (e.g. with upload progress). Omit to let the component keep the picked files. */
   files?: FileUploadItem[];
   /** Called with the files that passed `accept`, `maxSize` and `maxFiles`. A file already listed (same name, size and last-modified time) is skipped. */

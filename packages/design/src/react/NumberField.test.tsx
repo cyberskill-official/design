@@ -3,6 +3,7 @@ import { userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { NumberField } from './NumberField';
 import { expectAccessibleInThemes } from '../test/a11y';
+import { withRuntimeLocale } from '../test/locale';
 
 describe('NumberField', () => {
   it('is labelled and steps with the − and + buttons within min and max', async () => {
@@ -29,6 +30,13 @@ describe('NumberField', () => {
     render(<NumberField label="Budget" locale="vi-VN" format={{ style: 'currency', currency: 'VND' }} defaultValue={1500000} incrementLabel="Tăng" decrementLabel="Giảm" />);
     expect(screen.getByRole('textbox', { name: 'Budget' })).toHaveValue(new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(1500000));
     expect(screen.getByRole('button', { name: 'Tăng' })).toBeVisible();
+  });
+
+  it('formats in en-US by default, whatever the runtime locale, so server and client HTML match', () => {
+    withRuntimeLocale('de-DE', () => {
+      render(<NumberField label="Amount" defaultValue={1234.5} format={{ maximumFractionDigits: 3 }} />);
+      expect(screen.getByRole('textbox', { name: 'Amount' })).toHaveValue('1,234.5');
+    });
   });
 
   it('wires description and error to the input', () => {

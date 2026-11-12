@@ -1,7 +1,7 @@
 import { Popover } from '@base-ui/react/popover';
 import { CalendarBlank, X } from '@phosphor-icons/react';
 import { useRef, useState, type FocusEventHandler, type ReactNode, type Ref } from 'react';
-import { useDraft } from './picker-state';
+import { useDraft, useHydrated } from './picker-state';
 import { IconButton } from '../react/Button';
 import { Field, Input, type FieldProps } from '../react/Field';
 import { cx } from '../utils/cx';
@@ -9,6 +9,8 @@ import { ThemedPortal } from '../react/ThemeScope';
 
 /** Field props every date picker shares. */
 export type PickerFieldProps = Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error' | 'optionalLabel' | 'required' | 'disabled'> & {
+  /** Marks the field invalid without a message of its own, when the message is shown elsewhere (DateTimePicker does this for its two inputs). */
+  invalid?: boolean;
   className?: string;
   /** Input placeholder. Defaults to the display format, e.g. `dd/mm/yyyy`. */
   placeholder?: string;
@@ -28,6 +30,8 @@ export type PickerFieldProps = Pick<FieldProps, 'label' | 'hideLabel' | 'descrip
 
 type Props<T> = Omit<PickerFieldProps, 'name'> & {
   value: T | null;
+  /** Outside resets from useControllable: each one drops typed text and the invalid state. */
+  resets: number;
   /** Hidden inputs for native form submission, `{ name: value }`. */
   formFields?: Record<string, string>;
   /** Called with a parsed value, or `null` when cleared or when the typed text is invalid. */
@@ -43,11 +47,12 @@ type Props<T> = Omit<PickerFieldProps, 'name'> & {
  * Internal: labelled text input + clear + calendar button + Base UI Popover. Typed text is parsed on blur and Enter;
  * invalid text stays in the field with `invalidMessage` and commits `null`, so a form never keeps the old value.
  */
-export function PickerField<T>({ value, formFields, onCommit, toText, fromText, children, label, hideLabel, description, error, optionalLabel, required, disabled, className, placeholder, invalidMessage = 'Enter a valid date', clearLabel = 'Clear date', openLabel = 'Choose date', inputRef: externalRef, onBlur }: Props<T>) {
+export function PickerField<T>({ value, resets, formFields, onCommit, toText, fromText, children, label, hideLabel, description, error, invalid: markedInvalid, optionalLabel, required, disabled, className, placeholder, invalidMessage = 'Enter a valid date', clearLabel = 'Clear date', openLabel = 'Choose date', inputRef: externalRef, onBlur }: Props<T>) {
   const [open, setOpen] = useState(false);
-  const shown = value == null ? '' : toText(value);
-  const { draft, setDraft, invalid, setInvalid } = useDraft(shown);
+  const hydrated = useHydrated();
   const inputRef = useRef<HTMLInputElement>(null);
+  const shown = value == null || !hydrated ? '' : toText(value);
+  const { draft, setDraft, invalid, setInvalid } = useDraft(shown, resets, inputRef);
   const popupRef = useRef<HTMLDivElement>(null);
   const text = draft ?? shown;
 
@@ -72,7 +77,7 @@ export function PickerField<T>({ value, formFields, onCommit, toText, fromText, 
   };
 
   return (
-    <Field label={label} hideLabel={hideLabel} description={description} optionalLabel={optionalLabel} required={required} disabled={disabled} error={error ?? (invalid ? invalidMessage : undefined)} className={cx('cs-date-picker', className)}>
+    <Field label={label} hideLabel={hideLabel} description={description} optionalLabel={optionalLabel} required={required} disabled={disabled} invalid={markedInvalid || undefined} error={error ?? (invalid ? invalidMessage : undefined)} className={cx('cs-date-picker', className)}>
       <Popover.Root open={open} onOpenChange={setOpen}>
         <Input
           ref={setInputRef}
@@ -114,7 +119,7 @@ export function PickerField<T>({ value, formFields, onCommit, toText, fromText, 
           </Popover.Positioner>
         </ThemedPortal>
       </Popover.Root>
-      {formFields && Object.entries(formFields).map(([n, v]) => <input key={n} type="hidden" name={n} value={v} disabled={disabled} />)}
+      {formFields && Object.entries(formFields).map(([n, v]) => <input key={n} type="hidden" name={n} value={hydrated ? v : ''} disabled={disabled} />)}
     </Field>
   );
 }

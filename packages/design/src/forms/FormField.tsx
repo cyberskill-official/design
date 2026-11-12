@@ -10,7 +10,7 @@ export type FormFieldRenderProps<
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
   TTransformedValues = TFieldValues,
 > = ControllerRender<TFieldValues, TName, TTransformedValues> & {
-  /** The field's validation message, ready for a component's `error` prop. `undefined` while valid. */
+  /** The field's validation message, ready for a component's `error` prop (`invalidLabel` when the rule has none). `undefined` while valid. */
   error: string | undefined;
 };
 
@@ -20,6 +20,8 @@ export type FormFieldProps<
   TTransformedValues = TFieldValues,
 > = Omit<ControllerProps<TFieldValues, TName, TTransformedValues>, 'render'> & {
   render: (props: FormFieldRenderProps<TFieldValues, TName, TTransformedValues>) => ReactElement;
+  /** Error text for a failed rule without a message (`required: true`), so the field never turns invalid with no words. */
+  invalidLabel?: string;
 };
 
 /**
@@ -30,6 +32,6 @@ export function FormField<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
   TTransformedValues = TFieldValues,
->({ render, ...props }: FormFieldProps<TFieldValues, TName, TTransformedValues>) {
-  return <Controller {...props} render={renderProps => render({ ...renderProps, error: renderProps.fieldState.error?.message })} />;
+>({ render, invalidLabel = 'Invalid value', ...props }: FormFieldProps<TFieldValues, TName, TTransformedValues>) {
+  return <Controller {...props} render={renderProps => render({ ...renderProps, error: renderProps.fieldState.error ? renderProps.fieldState.error.message || invalidLabel : undefined })} />;
 }

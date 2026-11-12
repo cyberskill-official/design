@@ -1,7 +1,8 @@
 import { cleanup, render, screen, within } from '@testing-library/react';
 import { userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
-import { DateRangePicker, rangePresets } from './DateRangePicker';
+import { DateRangePicker } from './DateRangePicker';
+import { rangePresets } from './utils';
 import { expectAccessibleInThemes } from '../test/a11y';
 import { expectOpenAccessibleInThemes } from './test-helpers';
 
@@ -98,6 +99,39 @@ describe('DateRangePicker', () => {
     expect(onValueChange).toHaveBeenLastCalledWith(null);
     expect(input).toHaveValue('20/03/2026');
     expect([...new FormData(form).entries()]).toEqual([['stay[from]', ''], ['stay[to]', '']]);
+  });
+
+  it('excludeDisabled rejects a typed range that spans a disabled day', async () => {
+    const onValueChange = vi.fn();
+    const closed = new Date(2026, 2, 5);
+    const { rerender } = render(<DateRangePicker label="Stay" disabledDates={closed} onValueChange={onValueChange} />);
+    const input = screen.getByRole('textbox', { name: 'Stay' });
+    await userEvent.type(input, '03/03/2026 – 08/03/2026{Enter}');
+    expect(onValueChange).toHaveBeenLastCalledWith({ from: new Date(2026, 2, 3), to: new Date(2026, 2, 8) }); // off: only the ends count
+    rerender(<DateRangePicker label="Stay" disabledDates={closed} onValueChange={onValueChange} excludeDisabled />);
+    await userEvent.clear(input);
+    await userEvent.type(input, '02/03/2026 – 09/03/2026');
+    await userEvent.tab();
+    expect(input).toHaveAttribute('aria-invalid', 'true');
+    expect(onValueChange).toHaveBeenLastCalledWith(null);
+  });
+
+  it('excludeDisabled: a second click that would span a disabled day starts a new range there', async () => {
+    const onValueChange = vi.fn();
+    render(<DateRangePicker label="Stay" defaultValue={{ from: new Date(2026, 2, 10), to: new Date(2026, 2, 12) }} disabledDates={new Date(2026, 2, 5)} excludeDisabled onValueChange={onValueChange} />);
+    await userEvent.click(screen.getByRole('button', { name: 'Choose dates' }));
+    const dialog = await screen.findByRole('dialog');
+    await userEvent.click(within(dialog).getByRole('button', { name: /, 3 March 2026/ }));
+    await userEvent.click(within(dialog).getByRole('button', { name: /, 8 March 2026/ }));
+    expect(onValueChange).not.toHaveBeenCalled();
+    await userEvent.click(within(dialog).getByRole('button', { name: /, 9 March 2026/ }));
+    expect(onValueChange).toHaveBeenLastCalledWith({ from: new Date(2026, 2, 8), to: new Date(2026, 2, 9) });
+  });
+
+  it('passes labels to the calendar', async () => {
+    render(<DateRangePicker label="Stay" defaultValue={march} labels={{ labelDayButton: date => `Ngày ${date.getDate()}` }} />);
+    await userEvent.click(screen.getByRole('button', { name: 'Choose dates' }));
+    expect(within(await screen.findByRole('dialog')).getAllByRole('button', { name: 'Ngày 20' }).length).toBeGreaterThan(0);
   });
 
   it('rangePresets computes Today, Last 7 days, Last 30 days and This month from today', () => {

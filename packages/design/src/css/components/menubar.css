@@ -20,11 +20,11 @@
   border-radius: var(--radius-md);
   background: transparent;
   color: var(--foreground);
-  font: 500 14px/20px var(--font-sans);
+  font: 500 0.875rem/1.25rem var(--font-sans);
   cursor: default;
   user-select: none;
 
-  &:hover, &[data-popup-open] { background: var(--raised); }
+  &:hover:not([data-disabled]), &[data-popup-open] { background: var(--raised); }
   &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
   &[data-disabled] { opacity: 0.5; cursor: not-allowed; }
   @media (pointer: coarse) { height: var(--control-touch); }

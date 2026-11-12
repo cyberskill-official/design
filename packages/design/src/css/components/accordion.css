@@ -27,7 +27,7 @@
   border-radius: 0;
   background: transparent;
   color: var(--foreground);
-  font: 600 15px/22px var(--font-sans);
+  font: 600 0.9375rem/1.375rem var(--font-sans);
   text-align: start;
   cursor: pointer;
   transition: background-color var(--duration-fast) var(--ease-standard);
@@ -62,7 +62,7 @@
 
 .cs-accordion-content {
   padding: 0 var(--space-4) var(--space-4);
-  font: 400 14px/22px var(--font-sans);
+  font: 400 0.875rem/1.375rem var(--font-sans);
   color: var(--muted);
   & > :first-child { margin-top: 0; }
   & > :last-child { margin-bottom: 0; }

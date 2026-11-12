@@ -14,20 +14,20 @@
   border-radius: var(--radius-md);
   background: var(--panel);
   color: var(--foreground);
-  font: 400 15px/20px var(--font-sans);
+  font: 400 0.9375rem/1.25rem var(--font-sans);
   text-align: start;
   cursor: pointer;
   user-select: none;
   transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
 
-  &:hover:not([data-disabled]) { border-color: var(--foreground); }
-  &:focus-visible { outline: none; border-color: var(--ring); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ring) 22%, transparent); }
+  &:hover:not([data-disabled], [data-invalid]) { border-color: var(--foreground); }
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 0; }
   &[data-popup-open] { border-color: var(--primary); }
   &[data-invalid] { border-color: var(--destructive); }
-  &[data-invalid]:focus-visible { box-shadow: 0 0 0 1px var(--destructive), 0 0 0 4px color-mix(in srgb, var(--destructive) 20%, transparent); }
+  &[data-invalid]:focus-visible { outline-color: var(--destructive); }
   &[data-disabled] { background: var(--raised); color: var(--muted); cursor: not-allowed; }
-  &[data-size='sm'] { --_h: var(--control-sm); font-size: 14px; }
-  &[data-size='lg'] { --_h: var(--control-lg); font-size: 16px; padding-inline-start: var(--space-4); }
+  &[data-size='sm'] { --_h: var(--control-sm); font-size: 0.875rem; }
+  &[data-size='lg'] { --_h: var(--control-lg); font-size: 1rem; padding-inline-start: var(--space-4); }
 }
 
 .cs-select-value {
@@ -53,6 +53,7 @@
 .cs-select-popup {
   box-sizing: border-box;
   min-width: var(--anchor-width);
+  max-width: var(--available-width);
   overflow: hidden;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -83,7 +84,7 @@
   min-height: var(--_h);
   padding: 0 var(--space-2) 0 var(--space-3);
   border-radius: 6px;
-  font: 400 14px/20px var(--font-sans);
+  font: 400 0.875rem/1.25rem var(--font-sans);
   cursor: pointer;
   outline: 0;
   user-select: none;
@@ -92,10 +93,10 @@
   &[data-selected] { font-weight: 600; }
   &[data-disabled] { color: var(--muted); cursor: not-allowed; }
 }
-.cs-select-popup[data-size='sm'] .cs-select-item { --_h: var(--control-sm); font-size: 13px; }
-.cs-select-popup[data-size='lg'] .cs-select-item { --_h: var(--control-touch); font-size: 15px; }
+.cs-select-popup[data-size='sm'] .cs-select-item { --_h: var(--control-sm); font-size: 0.8125rem; }
+.cs-select-popup[data-size='lg'] .cs-select-item { --_h: var(--control-touch); font-size: 0.9375rem; }
 
-.cs-select-item-text { grid-column: 1; min-width: 0; }
+.cs-select-item-text { grid-column: 1; min-width: 0; overflow-wrap: anywhere; }
 
 .cs-select-item-indicator {
   grid-column: 2;
@@ -105,4 +106,4 @@
 }
 
 .cs-select-group:not(:first-child) { margin-top: var(--space-1); padding-top: var(--space-1); border-top: 1px solid var(--border); }
-.cs-select-group-label { padding: var(--space-2) var(--space-3) var(--space-1); font: 600 12px/16px var(--font-sans); color: var(--muted); cursor: default; user-select: none; }
+.cs-select-group-label { padding: var(--space-2) var(--space-3) var(--space-1); font: 600 0.75rem/1rem var(--font-sans); color: var(--muted); cursor: default; user-select: none; }

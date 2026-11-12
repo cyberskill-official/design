@@ -17,7 +17,7 @@ export type ToggleProps = Omit<BaseToggle.Props, 'className'> & {
 export function Toggle({ size = 'md', icon, pressedIcon, label, className, children, ...props }: ToggleProps) {
   const iconOnly = children == null;
   return (
-    <BaseToggle {...props} aria-label={iconOnly ? label : undefined} data-size={size} data-icon-only={iconOnly || undefined} className={cx('cs-toggle', className)}>
+    <BaseToggle aria-label={iconOnly ? label : undefined} {...props} data-size={size} data-icon-only={iconOnly || undefined} className={cx('cs-toggle', className)}>
       {icon != null && (
         <span className="cs-toggle-icon" data-swap={pressedIcon != null || undefined} aria-hidden="true">
           {icon}

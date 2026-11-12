@@ -145,6 +145,49 @@ describe('FormField', () => {
     expect(onSubmit).toHaveBeenCalledTimes(1);
   });
 
+  it('a rule without a message still shows words: invalidLabel', async () => {
+    function Form({ invalidLabel }: { invalidLabel?: string }) {
+      const { control, handleSubmit } = useForm<{ name: string }>({ defaultValues: { name: '' } });
+      return (
+        <form noValidate onSubmit={handleSubmit(() => {})}>
+          <FormField control={control} name="name" rules={{ required: true }} invalidLabel={invalidLabel} render={({ field, error }) => <TextField label="Name" {...field} error={error} />} />
+          <Button type="submit">Save</Button>
+        </form>
+      );
+    }
+    const { unmount } = render(<Form />);
+    await userEvent.click(screen.getByRole('button', { name: 'Save' }));
+    await expect.poll(() => screen.getByLabelText('Name').getAttribute('aria-invalid')).toBe('true');
+    expect(screen.getByLabelText('Name')).toHaveAccessibleDescription('Invalid value');
+    unmount();
+    render(<Form invalidLabel="Giá trị không hợp lệ" />);
+    await userEvent.click(screen.getByRole('button', { name: 'Save' }));
+    await expect.poll(() => screen.queryByText('Giá trị không hợp lệ')).not.toBeNull();
+  });
+
+  it('DatePicker: reset() without defaultValues drops invalid typed text', async () => {
+    function Form() {
+      const { control, reset } = useForm<{ start: Date | null }>();
+      return (
+        <form noValidate>
+          <FormField control={control} name="start" render={({ field }) => <DatePicker label="Start date" value={field.value} onValueChange={field.onChange} onBlur={field.onBlur} inputRef={field.ref} />} />
+          <Button onClick={() => reset()}>Reset</Button>
+        </form>
+      );
+    }
+    render(<Form />);
+    const input = screen.getByRole('textbox', { name: 'Start date' });
+    await userEvent.type(input, '15/03/2026');
+    await userEvent.tab();
+    await userEvent.clear(input);
+    await userEvent.type(input, '31/02/2026');
+    await userEvent.tab();
+    expect(input).toHaveAttribute('aria-invalid', 'true');
+    await userEvent.click(screen.getByRole('button', { name: 'Reset' }));
+    await expect.poll(() => (input as HTMLInputElement).value).toBe('');
+    expect(input).not.toHaveAttribute('aria-invalid');
+  });
+
   it('has no accessibility violations in light and dark', async () => {
     await expectAccessibleInThemes(<InviteForm onSubmit={() => {}} />);
     await expectAccessibleInThemes(<BookingForm onSubmit={() => {}} />);

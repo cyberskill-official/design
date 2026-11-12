@@ -1,6 +1,6 @@
 .cs-avatar {
-  --_size: 32px;
-  --_font: 700 13px/1 var(--font-display);
+  --_size: 2rem;
+  --_font: 700 0.8125rem/1 var(--font-display);
 
   position: relative;
   display: inline-grid;
@@ -18,8 +18,8 @@
   vertical-align: middle;
   user-select: none;
 
-  &[data-size='sm'] { --_size: 24px; --_font: 700 12px/1 var(--font-display); letter-spacing: 0; }
-  &[data-size='lg'] { --_size: 40px; --_font: 700 15px/1 var(--font-display); }
+  &[data-size='sm'] { --_size: 1.5rem; --_font: 700 0.75rem/1 var(--font-display); letter-spacing: 0; }
+  &[data-size='lg'] { --_size: 2.5rem; --_font: 700 0.9375rem/1 var(--font-display); }
   &[data-overflow] { background: var(--raised); color: var(--foreground); font-variant-numeric: tabular-nums; }
 }
 

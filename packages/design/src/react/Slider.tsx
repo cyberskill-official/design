@@ -17,17 +17,19 @@ export type SliderProps = Omit<BaseSlider.Root.Props, 'className' | 'children'> 
   thumbLabels?: string[];
   /** Tick marks along the track; marks with a `label` also get text under it. */
   marks?: SliderMark[];
+  /** Locale of the shown value. Fixed to `en-US` by default (not the runtime locale), so server and client render the same text. */
+  locale?: BaseSlider.Root.Props['locale'];
 };
 
 /** Single value or range (pass an array to `value`/`defaultValue`). Arrow keys step, Page Up/Down take large steps. */
-export function Slider({ label, showValue = label != null, thumbLabels, marks, min = 0, max = 100, value, defaultValue, className, ...props }: SliderProps) {
+export function Slider({ label, showValue = label != null, thumbLabels, marks, min = 0, max = 100, value, defaultValue, locale = 'en-US', className, ...props }: SliderProps) {
   const initial = value ?? defaultValue;
   const thumbs = Array.isArray(initial) ? initial.length : 1;
   const points = marks?.map(m => (typeof m === 'number' ? { value: m, label: undefined } : m));
   const at = (v: number) => `${((v - min) / (max - min)) * 100}%`;
   const labelled = points?.filter(p => p.label != null) ?? [];
   return (
-    <BaseSlider.Root {...props} min={min} max={max} value={value} defaultValue={defaultValue} className={cx('cs-slider', className)}>
+    <BaseSlider.Root {...props} locale={locale} min={min} max={max} value={value} defaultValue={defaultValue} className={cx('cs-slider', className)}>
       {(label != null || showValue) && (
         <div className="cs-slider-header">
           {label != null && <BaseSlider.Label className="cs-slider-label">{label}</BaseSlider.Label>}

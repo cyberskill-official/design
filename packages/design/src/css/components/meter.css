@@ -10,13 +10,13 @@
   &[data-tone='danger'] { --_fill: var(--destructive); }
 }
 
-.cs-meter-label { min-width: 0; font: 500 14px/20px var(--font-sans); color: var(--foreground); }
+.cs-meter-label { min-width: 0; font: 500 0.875rem/1.25rem var(--font-sans); color: var(--foreground); }
 
 .cs-meter-value {
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
-  font: 500 13px/20px var(--font-mono);
+  font: 500 0.8125rem/1.25rem var(--font-mono);
   font-variant-numeric: tabular-nums;
   color: var(--muted);
   & > svg { width: 16px; height: 16px; color: var(--_fill); }

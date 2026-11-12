@@ -27,7 +27,7 @@
   &:hover:not([data-disabled]) { background: var(--raised); color: var(--foreground); }
   /* Inset: the group clips overflow */
   &:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; }
-  &[data-disabled] { color: var(--muted); cursor: not-allowed; }
+  &[data-disabled] { opacity: 0.5; cursor: not-allowed; }
   & > svg { width: 16px; height: 16px; }
 }
 .cs-number-field-group[data-size='lg'] .cs-number-field-step > svg { width: 20px; height: 20px; }

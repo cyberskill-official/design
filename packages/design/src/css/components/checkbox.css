@@ -13,7 +13,7 @@
   display: inline-flex;
   align-items: flex-start;
   gap: var(--_gap);
-  font: 500 14px/20px var(--font-sans);
+  font: 500 0.875rem/1.25rem var(--font-sans);
   color: var(--foreground);
   cursor: pointer;
   &[data-disabled] { color: var(--muted); cursor: not-allowed; }
@@ -24,7 +24,7 @@
 .cs-choice-error {
   margin: 0;
   padding-inline-start: calc(var(--_box) + var(--_gap));
-  font: 400 13px/18px var(--font-sans);
+  font: 400 0.8125rem/1.125rem var(--font-sans);
   color: var(--muted);
 }
 .cs-choice-error { font-weight: 500; color: var(--destructive); }
@@ -45,11 +45,11 @@
 }
 .cs-choice-group-legend {
   padding: 0;
-  font: 600 14px/20px var(--font-sans);
+  font: 600 0.875rem/1.25rem var(--font-sans);
   color: var(--foreground);
   &[data-disabled] { color: var(--muted); }
 }
-.cs-choice-group-description { margin: calc(var(--space-2) * -1) 0 0; font: 400 13px/18px var(--font-sans); color: var(--muted); }
+.cs-choice-group-description { margin: calc(var(--space-2) * -1) 0 0; font: 400 0.8125rem/1.125rem var(--font-sans); color: var(--muted); }
 
 /* Checkbox box */
 .cs-checkbox {
@@ -81,7 +81,7 @@
   &[data-invalid]:not([data-checked]) { border-color: var(--destructive); }
   &[data-disabled] { opacity: 0.5; cursor: not-allowed; }
 }
-.cs-choice-label:hover .cs-checkbox:not([data-disabled], [data-checked], [data-indeterminate]) { border-color: var(--foreground); }
+.cs-choice-label:hover .cs-checkbox:not([data-disabled], [data-checked], [data-indeterminate], [data-invalid]) { border-color: var(--foreground); }
 
 .cs-checkbox-indicator {
   display: inline-flex;

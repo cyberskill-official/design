@@ -8,9 +8,9 @@
 }
 
 .cs-slider-header { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-3); }
-.cs-slider-label { font: 600 14px/20px var(--font-sans); color: var(--foreground); }
+.cs-slider-label { font: 600 0.875rem/1.25rem var(--font-sans); color: var(--foreground); }
 .cs-slider[data-disabled] .cs-slider-label { color: var(--muted); }
-.cs-slider-value { font: 500 13px/20px var(--font-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.cs-slider-value { font: 500 0.8125rem/1.25rem var(--font-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
 
 .cs-slider-control {
   display: flex;
@@ -61,7 +61,7 @@
 .cs-slider-mark-label {
   position: absolute;
   top: 0;
-  font: 500 12px/18px var(--font-sans);
+  font: 500 0.75rem/1.125rem var(--font-sans);
   color: var(--muted);
   white-space: nowrap;
 }

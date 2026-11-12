@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
+import { useState } from 'react';
 import { MultiSelect, MultiSelectField } from './MultiSelect';
 import { expectAccessibleInThemes, expectNoA11yViolations } from '../test/a11y';
 
@@ -29,6 +30,33 @@ describe('MultiSelect', () => {
     await expect.poll(() => screen.queryByRole('listbox')).toBeNull();
     expect(screen.getByRole('button', { name: 'Remove TypeScript' })).toBeVisible();
     expect(screen.getByRole('button', { name: 'Remove Go' })).toBeVisible();
+  });
+
+  it('a controlled value reset to undefined (React Hook Form reset()) removes every chip', async () => {
+    function Form() {
+      const [picked, setPicked] = useState<string[] | undefined>([]);
+      return (
+        <>
+          <MultiSelect aria-label="Skills" items={skills} value={picked} onValueChange={setPicked} />
+          <button type="button" onClick={() => setPicked(undefined)}>Reset</button>
+        </>
+      );
+    }
+    render(<Form />);
+    await userEvent.click(screen.getByRole('combobox', { name: 'Skills' }));
+    await userEvent.click(await screen.findByRole('option', { name: 'Go' }));
+    await userEvent.keyboard('{Escape}');
+    await expect.poll(() => screen.queryByRole('listbox')).toBeNull();
+    expect(screen.getByRole('button', { name: 'Remove Go' })).toBeVisible();
+    await userEvent.click(screen.getByRole('button', { name: 'Reset' }));
+    expect(screen.queryByRole('button', { name: 'Remove Go' })).toBeNull();
+  });
+
+  it('keeps chip labels for values no longer in async results', () => {
+    const { rerender } = render(<MultiSelect aria-label="People" items={[{ value: 'u1', label: 'Anna' }]} value={['u1']} filter={null} />);
+    expect(screen.getByRole('button', { name: 'Remove Anna' })).toBeVisible();
+    rerender(<MultiSelect aria-label="People" items={[{ value: 'u2', label: 'Bình' }]} value={['u1']} filter={null} />);
+    expect(screen.getByRole('button', { name: 'Remove Anna' })).toBeVisible();
   });
 
   it('matches decomposed (NFD) Vietnamese labels typed without accents', async () => {

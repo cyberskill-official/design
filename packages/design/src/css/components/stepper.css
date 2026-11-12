@@ -4,6 +4,7 @@
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 7.5rem), 1fr));
   gap: var(--space-3);
   margin: 0;
+  overflow-wrap: anywhere; /* long step names and IDs wrap inside their step */
   padding: 0;
   list-style: none;
   &[data-orientation='vertical'] { grid-template-columns: none; gap: var(--space-1); }
@@ -30,7 +31,7 @@
   border-radius: var(--radius-full);
   background: var(--border);
   .cs-stepper-step[data-status='complete'] & { background: var(--primary); }
-  .cs-stepper-step[data-status='current'] & { background: var(--accent); }
+  .cs-stepper-step[data-status='current'] & { background: var(--accent-text); }
   .cs-stepper[data-orientation='vertical'] & { margin: 0; }
 }
 
@@ -39,7 +40,7 @@
   align-items: center;
   gap: 6px;
   color: var(--muted);
-  font: 500 14px/20px var(--font-sans);
+  font: 500 0.875rem/1.25rem var(--font-sans);
   .cs-stepper-step:is([data-status='complete'], [data-status='current']) & { color: var(--foreground); }
   .cs-stepper-step[data-status='current'] & { font-weight: 700; }
 }
@@ -47,6 +48,6 @@
 
 .cs-stepper-description {
   color: var(--muted);
-  font: 400 13px/18px var(--font-sans);
+  font: 400 0.8125rem/1.125rem var(--font-sans);
   .cs-stepper[data-orientation='vertical'] & { grid-column: 2; }
 }

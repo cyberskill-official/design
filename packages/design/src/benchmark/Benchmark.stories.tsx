@@ -5,12 +5,12 @@ import type { ReactNode } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { Plus, Trash } from '@phosphor-icons/react';
 import {
-  Alert, Autocomplete, Badge, Breadcrumbs, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Checkbox,
-  ComboboxField, EmptyState, Field, FileUpload, MultiSelectField, NumberField, OtpField, Pagination, Popover, PopoverContent,
-  PopoverTrigger, Radio, RadioGroup, SearchField, SegmentedControl, SelectField, Stat, Switch, Tabs, TabsList, TabsPanel, TabsTab,
-  Tag, TextField, Textarea, ThemeScope,
+  Accordion, AccordionItem, AccordionPanel, AccordionTrigger, Alert, Autocomplete, Badge, Breadcrumbs, Button, Card, CardContent,
+  CardDescription, CardHeader, CardTitle, Checkbox, CheckboxGroup, ComboboxField, EmptyState, Field, FileUpload, MultiSelectField,
+  NumberField, OtpField, Pagination, Popover, PopoverContent, PopoverTrigger, Radio, RadioGroup, SearchField, SegmentedControl,
+  SelectField, Slider, Stat, Stepper, Switch, Tabs, TabsList, TabsPanel, TabsTab, Tag, TextField, Textarea, ThemeScope, Toggle,
 } from '../react';
-import { DatePicker, DateRangePicker, TimePicker } from '../date';
+import { DatePicker, DateRangePicker, DateTimePicker, TimePicker } from '../date';
 
 const meta = { title: 'Benchmark', tags: ['!autodocs'], parameters: { layout: 'fullscreen' } } satisfies Meta;
 export default meta;
@@ -57,6 +57,15 @@ export const VietnameseText: Story = {
         <Switch label="Tự động Ữ ỵ" defaultChecked />
         <RadioGroup label="Chu kỳ" defaultValue="a"><Radio value="a" label="Hằng tháng Ữ ỵ" /><Radio value="b" label="Hằng năm Ặ ọ" /></RadioGroup>
         <SegmentedControl label="Chế độ xem" items={[{ value: 'a', label: 'Danh sách Ữ' }, { value: 'b', label: 'Bảng ặ ỵ' }]} defaultValue="a" />
+        {(['sm', 'md', 'lg'] as const).map(size => <Toggle key={size} size={size} defaultPressed={size === 'md'}>Ghim Ữ Ẫ ỵ</Toggle>)}
+      </Row>
+      <Row label="Cấu trúc">
+        <div style={{ width: 320 }}>
+          <Accordion defaultValue={['a']}>
+            <AccordionItem value="a"><AccordionTrigger>Hỏi đáp Ữ Ẫ ặ ỵ</AccordionTrigger><AccordionPanel>Ổn định ặ ọ ỵ</AccordionPanel></AccordionItem>
+          </Accordion>
+        </div>
+        <Stepper aria-label="Thiết lập" steps={[{ title: 'Kết nối Ữ Ẫ', description: 'Đã đồng bộ ặ ỵ', status: 'complete' }, { title: 'Huấn luyện Ỗ', status: 'current' }]} />
       </Row>
       <Row label="Điều hướng">
         <Tabs defaultValue="a">
@@ -102,6 +111,14 @@ export const LongContent: Story = {
           <Breadcrumbs label={`Breadcrumb ${width}`} items={[{ label: LONG_VI, href: '#' }, { label: TOKEN }]} />
           <Pagination label={`Pagination ${width}`} page={7} pageCount={42} onPageChange={noop} />
           <EmptyState size="sm" title={LONG_VI} description={TOKEN} />
+          <Toggle>{LONG_VI}</Toggle>
+          <SegmentedControl label={`Chế độ ${width}`} items={[{ value: 'a', label: LONG_VI }, { value: 'b', label: TOKEN }]} defaultValue="a" />
+          <Tabs defaultValue="a">
+            <TabsList aria-label={`Tabs ${width}`}>{['Tổng quan', 'Doanh thu', 'Chi nhánh', 'Hoá đơn'].map((t, n) => <TabsTab key={t} value={n ? t : 'a'}>{t}</TabsTab>)}</TabsList>
+            <TabsPanel value="a">{EMAIL}</TabsPanel>
+          </Tabs>
+          <Accordion><AccordionItem value="a"><AccordionTrigger>{LONG_VI}</AccordionTrigger><AccordionPanel>{EMAIL}</AccordionPanel></AccordionItem></Accordion>
+          <Stepper aria-label={`Steps ${width}`} steps={[{ title: LONG_VI, description: TOKEN, status: 'current' }, { title: EMAIL, status: 'upcoming' }]} />
         </div>
       ))}
     </div>
@@ -139,8 +156,59 @@ export const InvalidStates: Story = {
         <RadioGroup label="Billing"><Radio value="m" label="Monthly" /><Radio value="y" label="Yearly" /></RadioGroup>,
         <RadioGroup label="Billing" error={ERR}><Radio value="m" label="Monthly" /><Radio value="y" label="Yearly" /></RadioGroup>)}
       {pair('FileUpload', <FileUpload label="Attachments" />, <FileUpload label="Attachments" error={ERR} />)}
+      {pair('DateTimePicker', <DateTimePicker label="Starts" />, <DateTimePicker label="Starts" error={ERR} />)}
+      {pair('CheckboxGroup',
+        <CheckboxGroup label="Channels"><Checkbox value="e" label="Email" /><Checkbox value="s" label="SMS" /></CheckboxGroup>,
+        <CheckboxGroup label="Channels" error={ERR}><Checkbox value="e" label="Email" /><Checkbox value="s" label="SMS" /></CheckboxGroup>)}
     </div>
   ),
+};
+
+/* ---------- Disabled states: each control enabled and disabled, side by side ---------- */
+const twin = (name: string, enabled: ReactNode, disabled: ReactNode) => (
+  <div key={name} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))', gap: 16, marginBottom: 16, maxWidth: 720 }}>
+    <div data-bench-twin={name} data-bench-state="enabled">{enabled}</div>
+    <div data-bench-twin={name} data-bench-state="disabled">{disabled}</div>
+  </div>
+);
+
+/** Every control enabled next to disabled: a disabled control (and each button inside it) must look different, not only change the cursor. */
+export const DisabledStates: Story = {
+  render: () => (
+    <div>
+      {twin('Button', <Button>Save</Button>, <Button disabled>Save</Button>)}
+      {twin('Toggle', <Toggle>Pin</Toggle>, <Toggle disabled>Pin</Toggle>)}
+      {twin('TextField', <TextField label="Name" defaultValue="An" />, <TextField label="Name" defaultValue="An" disabled />)}
+      {twin('Textarea', <Textarea label="Notes" defaultValue="Hi" />, <Textarea label="Notes" defaultValue="Hi" disabled />)}
+      {twin('Select', <SelectField label="Plan" items={items} defaultValue="a" />, <SelectField label="Plan" items={items} defaultValue="a" disabled />)}
+      {twin('Combobox', <ComboboxField label="Region" items={items} defaultValue="a" />, <ComboboxField label="Region" items={items} defaultValue="a" disabled />)}
+      {twin('MultiSelect', <MultiSelectField label="Skills" items={items} defaultValue={['a']} />, <MultiSelectField label="Skills" items={items} defaultValue={['a']} disabled />)}
+      {twin('SearchField', <SearchField label="Search" defaultValue="tokens" />, <SearchField label="Search" defaultValue="tokens" disabled />)}
+      {twin('NumberField', <NumberField label="Seats" defaultValue={5} min={1} />, <NumberField label="Seats" defaultValue={5} min={1} disabled />)}
+      {/* at its minimum, only the decrement button is disabled */}
+      {twin('NumberField at min', <NumberField label="Seats" defaultValue={5} min={1} />, <NumberField label="Seats" defaultValue={1} min={1} />)}
+      {twin('DatePicker', <DatePicker label="Start date" />, <DatePicker label="Start date" disabled />)}
+      {twin('TimePicker', <TimePicker label="Start time" />, <TimePicker label="Start time" disabled />)}
+      {twin('Checkbox', <Checkbox label="I accept" />, <Checkbox label="I accept" disabled />)}
+      {twin('Switch', <Switch label="Auto-deploy" />, <Switch label="Auto-deploy" disabled />)}
+      {twin('RadioGroup',
+        <RadioGroup label="Billing"><Radio value="m" label="Monthly" /><Radio value="y" label="Yearly" /></RadioGroup>,
+        <RadioGroup label="Billing" disabled><Radio value="m" label="Monthly" /><Radio value="y" label="Yearly" /></RadioGroup>)}
+      {twin('SegmentedControl',
+        <SegmentedControl label="View" items={[{ value: 'a', label: 'List' }, { value: 'b', label: 'Board' }]} defaultValue="a" />,
+        <SegmentedControl label="View" items={[{ value: 'a', label: 'List' }, { value: 'b', label: 'Board' }]} defaultValue="a" disabled />)}
+      {twin('Slider', <Slider label="Volume" defaultValue={40} />, <Slider label="Volume" defaultValue={40} disabled />)}
+    </div>
+  ),
+};
+
+/** A select with long options, opened: the popup stays inside a phone screen (measured by the 320px reflow check). */
+export const OpenSelectLongOptions: Story = {
+  render: () => <div style={{ maxWidth: 280 }}><SelectField label="Tài khoản" items={[{ value: 'a', label: EMAIL }, { value: 'b', label: `${LONG_VI} ${TOKEN}` }]} /></div>,
+  play: async ({ canvasElement }) => {
+    await userEvent.click(within(canvasElement).getByRole('combobox', { name: 'Tài khoản' }));
+    await waitFor(() => expect(document.querySelector('[role="listbox"]')).toBeTruthy());
+  },
 };
 
 /* ---------- Nested themes: a dark scope in a light page (and the reverse), with a popup opened inside ---------- */

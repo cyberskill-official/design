@@ -19,6 +19,7 @@ export type NumberFieldProps = Omit<BaseNumberField.Root.Props, 'className'> &
     /**
      * Locale for showing and reading the number, e.g. `"vi-VN"`. Typed and pasted text is read with this locale's
      * separators, so with `vi-VN` a pasted `1,000,000` (English grouping) becomes 1000: the comma is the Vietnamese decimal mark.
+     * Fixed to `en-US` by default (not the runtime locale), so server and client render the same text.
      */
     locale?: BaseNumberField.Root.Props['locale'];
     /** `Intl.NumberFormat` options, e.g. `{ style: 'currency', currency: 'VND' }`. Parsing follows `locale`, not `format`. */
@@ -45,11 +46,12 @@ export function NumberField({
   ref,
   decrementLabel = 'Decrease',
   incrementLabel = 'Increase',
+  locale = 'en-US',
   ...props
 }: NumberFieldProps) {
   return (
     <Field label={label} hideLabel={hideLabel} description={description} error={error} optionalLabel={optionalLabel} required={required} disabled={disabled} name={name} className={fieldClassName}>
-      <BaseNumberField.Root {...props} required={required} disabled={disabled} name={name} className="cs-number-field">
+      <BaseNumberField.Root {...props} locale={locale} required={required} disabled={disabled} name={name} className="cs-number-field">
         <BaseNumberField.Group data-size={size} className={cx('cs-input-group', 'cs-number-field-group', className)}>
           <BaseNumberField.Decrement aria-label={decrementLabel} className="cs-number-field-step">
             <Minus aria-hidden="true" />

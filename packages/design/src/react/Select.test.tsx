@@ -31,6 +31,19 @@ describe('Select', () => {
     expect(trigger).toHaveTextContent('Team');
   });
 
+  it('lists object values without key collisions', async () => {
+    const errors = vi.spyOn(console, 'error').mockImplementation(() => {});
+    try {
+      const people = [{ value: { id: 1 }, label: 'Lan' }, { value: { id: 2 }, label: 'Minh' }];
+      render(<Select aria-label="Owner" items={people} isItemEqualToValue={(a, b) => a.id === b.id} />);
+      await userEvent.click(screen.getByRole('combobox', { name: 'Owner' }));
+      expect((await screen.findAllByRole('option')).map(o => o.textContent)).toEqual(['Lan', 'Minh']);
+      expect(errors.mock.calls.map(c => String(c[0])).filter(m => m.includes('same key'))).toEqual([]);
+    } finally {
+      errors.mockRestore();
+    }
+  });
+
   it('marks the selected option and supports the keyboard', async () => {
     render(<Select aria-label="Plan" items={plans} defaultValue="business" />);
     const trigger = screen.getByRole('combobox', { name: 'Plan' });

@@ -5,7 +5,7 @@ import {
   type ColumnDef, type OnChangeFn, type RowSelectionState, type SortFn, type SortingState,
 } from '@tanstack/react-table';
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { useEffect, useMemo, useRef, type HTMLAttributes, type KeyboardEvent, type MouseEvent, type ReactNode } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, type HTMLAttributes, type KeyboardEvent, type MouseEvent, type ReactNode } from 'react';
 import { Pagination, type PaginationProps } from '../react/Pagination';
 import { cx } from '../utils/cx';
 
@@ -86,6 +86,8 @@ export type DataTableProps<TData extends object> = Omit<HTMLAttributes<HTMLDivEl
   pageLabel?: PaginationProps['pageLabel'];
   /** Footer range text. Defaults to "1–10 of 214". */
   formatRange?: (from: number, to: number, total: number) => string;
+  /** Read out for the compact `‹ 3 / 6 ›` pagination, e.g. `(p, n) => \`Trang ${p} / ${n}\``. */
+  statusLabel?: PaginationProps['statusLabel'];
 };
 
 const leafCount = (defs: readonly object[]): number => defs.reduce<number>((n, d) => n + ('columns' in d && Array.isArray(d.columns) ? leafCount(d.columns) : 1), 0);
@@ -110,6 +112,7 @@ const selectColumn: DataTableColumnDef<object> = {
 };
 
 const defaultRange = (from: number, to: number, total: number) => `${from}–${to} of ${total}`;
+const defaultSelectRowLabel = () => 'Select row';
 
 // What a click inside a clickable row may land on and still belong to a control, not the row (the row itself matches [tabindex]).
 const CONTROLS = 'a[href], button, input, select, textarea, label, summary, [role="button"], [role="checkbox"], [role="switch"], [role="link"], [role="menuitem"], [contenteditable="true"], [tabindex]';
@@ -118,12 +121,13 @@ const CONTROLS = 'a[href], button, input, select, textarea, label, summary, [rol
 export function DataTable<TData extends object>({
   columns, data, label, getRowId, density = 'default', sorting, onSortingChange, selectable = false, rowSelection, onRowSelectionChange,
   pageSize, virtualized = false, maxHeight = virtualized ? 480 : undefined, emptyState = 'No results', onRowClick,
-  selectAllLabel = pageSize ? 'Select all rows on this page' : 'Select all rows', selectRowLabel = () => 'Select row', previousPageLabel = 'Previous page', nextPageLabel = 'Next page',
-  paginationLabel = `${label} pages`, pageLabel, formatRange = defaultRange, className, ...props
+  selectAllLabel = pageSize ? 'Select all rows on this page' : 'Select all rows', selectRowLabel = defaultSelectRowLabel, previousPageLabel = 'Previous page', nextPageLabel = 'Next page',
+  paginationLabel = `${label} pages`, pageLabel, statusLabel, formatRange = defaultRange, className, ...props
 }: DataTableProps<TData>) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const allColumns = useMemo(() => (selectable ? [selectColumn as DataTableColumnDef<TData>, ...columns] : columns), [columns, selectable]);
+  const meta = useMemo(() => ({ selectAllLabel, selectRowLabel }), [selectAllLabel, selectRowLabel]);
 
   // TanStack treats a present-but-undefined option as set, so controlled pairs are only added when given.
   const table = useTable({
@@ -132,8 +136,9 @@ export function DataTable<TData extends object>({
     data,
     ...(getRowId && { getRowId }),
     enableRowSelection: selectable,
-    meta: { selectAllLabel, selectRowLabel },
+    meta,
     manualPagination: !pageSize,
+    autoResetPageIndex: false, // new data (a refetch, a deleted row) keeps the page; see the clamp below
     initialState: { pagination: { pageIndex: 0, pageSize: pageSize ?? 10 } },
     state: { ...(sorting && { sorting }), ...(rowSelection && { rowSelection }) },
     ...(onSortingChange && { onSortingChange }),
@@ -160,6 +165,11 @@ export function DataTable<TData extends object>({
 
   const { pageIndex, pageSize: size } = table.state.pagination;
   const total = table.getRowCount();
+  // Fewer rows than the current page needs (rows deleted on the last page): go to the new last page, before paint.
+  const lastPage = Math.max(0, table.getPageCount() - 1);
+  useLayoutEffect(() => {
+    if (pageSize && pageIndex > lastPage) table.setPageIndex(lastPage);
+  }, [table, pageSize, pageIndex, lastPage]);
   const from = total ? pageIndex * size + 1 : 0;
   const to = Math.min(pageIndex * size + rows.length, total);
   const scrolls = maxHeight != null;
@@ -245,7 +255,7 @@ export function DataTable<TData extends object>({
           <span className="cs-data-table-range" aria-live="polite">{formatRange(from, to, total)}</span>
           <Pagination
             page={pageIndex + 1} pageCount={Math.max(1, table.getPageCount())} onPageChange={page => table.setPageIndex(page - 1)}
-            label={paginationLabel} previousLabel={previousPageLabel} nextLabel={nextPageLabel} pageLabel={pageLabel}
+            label={paginationLabel} previousLabel={previousPageLabel} nextLabel={nextPageLabel} pageLabel={pageLabel} statusLabel={statusLabel}
           />
         </div>
       )}

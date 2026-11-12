@@ -120,6 +120,44 @@ describe('FileUpload', () => {
     expect(zone).toHaveAttribute('aria-invalid', 'true');
   });
 
+  it('skips a file already in a controlled list that has no File objects (matched by name and size)', () => {
+    const onAdd = vi.fn();
+    render(<FileUpload label="Documents" multiple files={[{ id: '1', name: 'report.pdf', size: 10 }]} onAdd={onAdd} />);
+    drop(screen.getByRole('button', { name: /Documents/ }), [file('report.pdf', 10, 'application/pdf'), file('report.pdf', 11, 'application/pdf')]);
+    expect(onAdd).toHaveBeenCalledWith([expect.objectContaining({ size: 11 })]);
+  });
+
+  it('accept: "*/*" takes any file, and a file the browser could not type passes image/*', () => {
+    const onAdd = vi.fn();
+    const { unmount } = render(<FileUpload label="Anything" multiple accept="*/*" onAdd={onAdd} />);
+    drop(screen.getByRole('button', { name: /Anything/ }), [file('notes.txt', 10, 'text/plain')]);
+    expect(onAdd).toHaveBeenLastCalledWith([expect.objectContaining({ name: 'notes.txt' })]);
+    unmount();
+    render(<FileUpload label="Photos" multiple accept="image/*,.PDF" onAdd={onAdd} />);
+    drop(screen.getByRole('button', { name: /Photos/ }), [file('IMG_0001.HEIC', 10, ''), file('SCAN.PDF', 10, 'application/pdf'), file('notes.txt', 10, 'text/plain')]);
+    expect(onAdd).toHaveBeenLastCalledWith([expect.objectContaining({ name: 'IMG_0001.HEIC' }), expect.objectContaining({ name: 'SCAN.PDF' })]);
+  });
+
+  it('name: a native form submits the listed files, also after a removal and a repeated pick', async () => {
+    const { container } = render(<form><FileUpload label="Attachments" multiple name="attachments" /></form>);
+    const form = container.querySelector('form')!;
+    const submitted = () => new FormData(form).getAll('attachments').map(f => (f as File).name);
+    // Picks the same File objects again (userEvent.upload would make new ones with a new lastModified).
+    const pick = (files: File[]) => {
+      const dataTransfer = new DataTransfer();
+      files.forEach(f => dataTransfer.items.add(f));
+      input().files = dataTransfer.files;
+      input().dispatchEvent(new Event('change', { bubbles: true }));
+    };
+    const [a, b] = [file('a.pdf', 10, 'application/pdf'), file('b.png', 10, 'image/png')];
+    pick([a, b]);
+    await expect.poll(submitted).toEqual(['a.pdf', 'b.png']);
+    pick([a]); // already listed: the picker replaced the input's files, the list puts them back
+    await expect.poll(submitted).toEqual(['a.pdf', 'b.png']);
+    await userEvent.click(screen.getByRole('button', { name: 'Remove a.pdf' }));
+    await expect.poll(submitted).toEqual(['b.png']);
+  });
+
   it('field and rejection errors carry a hidden warning icon before the text', async () => {
     render(<FileUpload label="Documents" error="Add at least one document." />);
     const message = screen.getByText('Add at least one document.').closest('.cs-field-error')!;

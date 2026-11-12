@@ -17,14 +17,14 @@
   border-radius: var(--radius-md);
   background: var(--panel);
   color: var(--foreground);
-  font: 600 20px/1 var(--font-mono);
+  font: 600 1.25rem/1 var(--font-mono);
   text-align: center;
   caret-color: var(--primary);
   transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
 
-  &:hover:not([data-disabled]) { border-color: var(--foreground); }
-  &:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 22%, transparent); }
+  &:hover:not([data-disabled], [data-invalid]) { border-color: var(--foreground); }
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 0; }
   &[data-invalid] { border-color: var(--destructive); }
-  &[data-invalid]:focus { box-shadow: 0 0 0 1px var(--destructive), 0 0 0 4px color-mix(in srgb, var(--destructive) 20%, transparent); }
+  &[data-invalid]:focus-visible { outline-color: var(--destructive); }
   &[data-disabled] { background: var(--raised); color: var(--muted); cursor: not-allowed; }
 }

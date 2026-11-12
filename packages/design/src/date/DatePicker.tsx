@@ -1,6 +1,6 @@
 import type { Locale } from 'date-fns';
 import type { Matcher } from 'react-day-picker';
-import { Calendar } from './Calendar';
+import { Calendar, type CalendarProps } from './Calendar';
 import { PickerField, type PickerFieldProps } from './PickerField';
 import { DEFAULT_DATE_FORMAT, FORM_DATE_FORMAT, formatDate, parseDate } from './utils';
 import { isPickable, useControllable } from './picker-state';
@@ -20,16 +20,19 @@ export type DatePickerProps = PickerFieldProps & {
   disabledDates?: Matcher | Matcher[];
   /** 0 Sunday … 6 Saturday. Default Monday. */
   weekStartsOn?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+  /** Calendar screen-reader labels (react-day-picker `labels`), e.g. `labelDayButton` for the "Today" and "selected" words. */
+  labels?: CalendarProps['labels'];
 };
 
 /** Labelled date field: type `15/03/2026` or pick from a calendar popup (calendar button or Alt+ArrowDown). */
-export function DatePicker({ value, defaultValue = null, onValueChange, format = DEFAULT_DATE_FORMAT, locale, min, max, disabledDates, weekStartsOn, placeholder = format.toLowerCase(), name, ...props }: DatePickerProps) {
-  const [current, setCurrent] = useControllable(value, defaultValue, onValueChange);
+export function DatePicker({ value, defaultValue = null, onValueChange, format = DEFAULT_DATE_FORMAT, locale, min, max, disabledDates, weekStartsOn, labels, placeholder = format.toLowerCase(), name, ...props }: DatePickerProps) {
+  const [current, setCurrent, resets] = useControllable(value, defaultValue, onValueChange);
   return (
     <PickerField
       {...props}
       placeholder={placeholder}
       value={current}
+      resets={resets}
       formFields={name ? { [name]: current ? formatDate(current, FORM_DATE_FORMAT) : '' } : undefined}
       onCommit={setCurrent}
       toText={d => formatDate(d, format, locale)}
@@ -39,7 +42,7 @@ export function DatePicker({ value, defaultValue = null, onValueChange, format =
       }}
     >
       {select => (
-        <Calendar mode="single" required selected={current ?? undefined} defaultMonth={current ?? undefined} onSelect={select} locale={locale} minDate={min} maxDate={max} disabled={disabledDates} weekStartsOn={weekStartsOn} />
+        <Calendar mode="single" required selected={current ?? undefined} defaultMonth={current ?? undefined} onSelect={select} locale={locale} minDate={min} maxDate={max} disabled={disabledDates} weekStartsOn={weekStartsOn} labels={labels} />
       )}
     </PickerField>
   );
