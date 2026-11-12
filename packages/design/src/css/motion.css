@@ -1,9 +1,30 @@
 /* Reader preferences, emitted unlayered after every component so they override component rules. */
 
-/* Reduced motion: transitions and animations finish at once. */
+/* Browsers without linear() (Safari before 17.2) would drop the whole transition: give the springs a plain curve there. */
+@supports not (transition-timing-function: linear(0, 1)) {
+  :root { --spring-smooth: var(--ease-out); --spring-snappy: var(--ease-out); --spring-bouncy: var(--ease-out); }
+}
+
+/* Reduced motion: movement becomes a fade. Every recipe that moves something finishes at once, the start scales and
+   distances go to nothing, and what is left (color, opacity) stays under 200ms. Keyframe animations stop after one frame.
+   Components need no rule of their own as long as they animate through the --motion-* recipes (check-css.mjs enforces it). */
 @media (prefers-reduced-motion: reduce) {
-  :where([class^="cs-"], [class*=" cs-"], [class^="cs-"]::before, [class^="cs-"]::after, .cs-data-table tr) {
-    transition-duration: 1ms;
+  :root {
+    --motion-press: 1ms linear;
+    --motion-release: 1ms linear;
+    --motion-move: 1ms linear;
+    --motion-sheet-in: 1ms linear;
+    --motion-sheet-out: 1ms linear;
+    --motion-celebrate: 1ms linear;
+    --motion-modal-in: var(--duration-base) var(--ease-out);
+    --motion-reveal: var(--duration-base) var(--ease-out);
+    --motion-press-scale: 1;
+    --motion-pop-scale: 1;
+    --motion-modal-scale: 1;
+    --motion-rise: 0px;
+    --motion-stagger: 0ms;
+  }
+  :where([class^="cs-"], [class*=" cs-"], [class^="cs-"]::before, [class^="cs-"]::after) {
     animation-duration: 1ms;
     animation-iteration-count: 1;
   }

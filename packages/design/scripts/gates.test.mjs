@@ -36,6 +36,10 @@ const cases = [
   ['non-neighbouring chart colors too alike', c => { c.chart.light[4] = c.chart.light[0]; }, /chart 1 vs 5/],
   ['a missing dark chart color', c => { c.chart.dark.pop(); }, /must all have 5 entries/],
   ['a token missing in dark', c => { delete c.dark.info; }, /tokens differ from light/],
+  ['a category text role too weak for its tint', c => { c.role.text.category = 1; }, /text role on its soft/],
+  ['a tint too heavy for its text role', c => { c.role['soft-hover'].light = 0.5; }, /on its soft-hover tint/],
+  ['unreadable secondary text on ink', c => { c.inverse['on-ink-muted'].$value = '#5A6577'; }, /Secondary text on ink/],
+  ['a category list shorter than the chart palette', c => { c.category.names.pop(); }, /one per chart color/],
 ];
 for (const [name, mutate, message] of cases) {
   test(`fails on ${name}`, () => {
