@@ -3,10 +3,13 @@ title: Changelog
 description: Release notes for @cyberskill/design 3.x.
 ---
 
-## 3.0.0 (unreleased)
+## 3.0.0 (12 November 2026)
 
-- Ink & Gold tokens with light and dark themes, checked for WCAG contrast and color-blind-safe status and chart colors.
-- Manrope, Be Vietnam Pro and JetBrains Mono type system.
-- React components on Base UI, plain CSS in cascade layers, Tailwind v4 theme.
-- Optional entry points for charts (Recharts), data tables (TanStack) and forms (React Hook Form).
-- Forensic visual audit in CI.
+Ink & Gold: a rebuild of the CyberSkill Design System. 3.0 shares no components or class names with 2.x; see [Migrating from 2.x](/docs/migration). The 2.x docs stay at [design.cyberskill.world/legacy](https://design.cyberskill.world/legacy/).
+
+- **Brand:** Ink & Gold tokens in light and dark, with Manrope, Be Vietnam Pro and JetBrains Mono. The build fails on any text below WCAG contrast and on status or chart colors too alike for color-blind readers.
+- **Components:** about 65 on Base UI, including calendar, date, range and time pickers, combobox, autocomplete, multi-select, file upload, data table, charts and React Hook Form helpers. Flat named exports that work from React Server Components.
+- **Smaller apps:** charts, tables, forms and dates load only from their own entry points; an app using two components ships about 6 KB of component JavaScript.
+- **Quality:** every component is tested in a real browser with accessibility checks in both themes, and a 23-dimension quality benchmark runs on every story in light and dark.
+- **AI tools:** short docs per component, a Claude Code skill and a Cursor rule ship with the package; `npx cyberskill-design ai-setup` installs them.
+- **Known gap:** text inputs cut the top mark of stacked Vietnamese capitals (Ẫ shows as Â) because the browser clips input text at Be Vietnam Pro's ascent. A font fix is planned for 3.1.
