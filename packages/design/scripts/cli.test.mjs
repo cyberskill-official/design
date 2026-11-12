@@ -1,4 +1,4 @@
-// `npx cyberskill-design ai-setup`: run with `node --test scripts/*.test.mjs`.
+// `npx @cyberskill/design ai-setup`: run with `node --test scripts/*.test.mjs`.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';

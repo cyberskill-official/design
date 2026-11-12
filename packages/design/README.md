@@ -66,8 +66,8 @@ Fonts: load Manrope, Be Vietnam Pro and JetBrains Mono (`next/font/google` in Ne
 The package ships its own AI guide in `ai/`: `INDEX.md` (setup, rules, every component with its import), one short file per component with exact types, `tokens.md`, a Claude Code skill and a Cursor rule. Install them into your project:
 
 ```bash
-npx cyberskill-design ai-setup            # .claude/skills, .cursor/rules, AGENTS.md section
-npx cyberskill-design ai-setup --dry-run  # preview
+npx @cyberskill/design ai-setup            # .claude/skills, .cursor/rules, AGENTS.md section
+npx @cyberskill/design ai-setup --dry-run  # preview
 ```
 
 ## Links

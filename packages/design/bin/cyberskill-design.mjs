@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// npx cyberskill-design ai-setup [--dry-run] [--only claude,cursor,agents]
+// npx @cyberskill/design ai-setup [--dry-run] [--only claude,cursor,agents]
 // Installs the AI guidance shipped in node_modules/@cyberskill/design/ai into the current project:
 //   .claude/skills/cyberskill-design/SKILL.md, .cursor/rules/cyberskill-design.mdc, and a marked section in AGENTS.md.
 // Only touches its own files and its own marked section; everything else in AGENTS.md is left as is.
@@ -8,7 +8,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 
-const USAGE = 'Usage: npx cyberskill-design ai-setup [--dry-run] [--only claude,cursor,agents]';
+const USAGE = 'Usage: npx @cyberskill/design ai-setup [--dry-run] [--only claude,cursor,agents]';
 const TARGETS = ['claude', 'cursor', 'agents'];
 const fail = msg => { console.error(`${msg}\n${USAGE}`); process.exit(1); };
 

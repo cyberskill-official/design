@@ -10,7 +10,7 @@
   - **Components:** about 65 on Base UI, covering every Base UI part plus calendar, date, range and time pickers, combobox, autocomplete, multi-select, file upload, data table, charts and React Hook Form helpers. Flat named exports that work from React Server Components.
   - **Smaller apps:** optional peers (Recharts, TanStack, React Hook Form, react-day-picker) load only from their own entry points; an app using two components ships about 6 KB of component JavaScript.
   - **Quality:** every component is tested in a real browser with accessibility checks in both themes, and a 23-dimension benchmark runs on every story.
-  - **AI tools:** short docs per component, a Claude Code skill and a Cursor rule ship in `ai/`; `npx cyberskill-design ai-setup` installs them.
+  - **AI tools:** short docs per component, a Claude Code skill and a Cursor rule ship in `ai/`; `npx @cyberskill/design ai-setup` installs them.
   - **Breaking:** 3.0 shares no components or class names with 2.x. See https://design.cyberskill.world/docs/migration. 2.x stays on npm under the `legacy` tag and its docs at https://design.cyberskill.world/legacy/.
 
 ### Patch Changes

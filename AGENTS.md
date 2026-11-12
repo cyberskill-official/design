@@ -49,7 +49,7 @@ CyberSkill Design System 3.x: Ink & Gold tokens, accessible React components and
 
 ## AI docs shipped to consumers
 
-`packages/design/ai/` is **generated** by `scripts/build-ai-docs.mjs` from the site pages and the built `.d.ts` files: `INDEX.md`, `components/<name>.md`, `tokens.md`, `helpers.md`, `SKILL.md`, `cursor-rule.mdc`, `AGENTS-snippet.md`. Never edit it by hand: change the component's site page or JSDoc, run the build, commit the result. CI fails when it is stale, and the build fails when a component appears in no page's code sample (so its doc would be missing). Apps install the skill and rules with `npx cyberskill-design ai-setup`.
+`packages/design/ai/` is **generated** by `scripts/build-ai-docs.mjs` from the site pages and the built `.d.ts` files: `INDEX.md`, `components/<name>.md`, `tokens.md`, `helpers.md`, `SKILL.md`, `cursor-rule.mdc`, `AGENTS-snippet.md`. Never edit it by hand: change the component's site page or JSDoc, run the build, commit the result. CI fails when it is stale, and the build fails when a component appears in no page's code sample (so its doc would be missing). Apps install the skill and rules with `npx @cyberskill/design ai-setup`.
 
 ## Before you finish
 
