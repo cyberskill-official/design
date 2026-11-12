@@ -53,7 +53,7 @@ a.cs-menu-item { cursor: pointer; }
 .cs-menu-submenu-caret { flex: none; width: 16px; height: 16px; margin-inline-start: var(--space-2); color: var(--muted); }
 [dir='rtl'] .cs-menu-submenu-caret { transform: scaleX(-1); }
 
-.cs-menu-item-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-block: 0.35em; margin-block: -0.35em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */ }
+.cs-menu-item-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-block: 0.5em; margin-block: -0.5em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */ }
 
 .cs-menu-item-shortcut {
   flex: none;

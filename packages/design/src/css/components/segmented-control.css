@@ -53,4 +53,4 @@
 .cs-segmented-control[data-size='lg'] .cs-segmented-control-item { padding: 0 var(--space-4); font-size: 15px; border-radius: var(--radius-md); }
 .cs-segmented-control[data-size='lg'] .cs-segmented-control-item svg { width: 20px; height: 20px; }
 
-.cs-segmented-control-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; padding-block: 0.35em; margin-block: -0.35em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */ }
+.cs-segmented-control-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; padding-block: 0.5em; margin-block: -0.5em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */ }

@@ -46,4 +46,4 @@
 .cs-badge[data-size='sm'] .cs-badge-icon > svg { width: 12px; height: 12px; }
 
 /* Long IDs truncate inside the container instead of overflowing it */
-.cs-badge-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; padding-block: 0.35em; margin-block: -0.35em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */ }
+.cs-badge-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; padding-block: 0.5em; margin-block: -0.5em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */ }

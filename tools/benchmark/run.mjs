@@ -63,7 +63,8 @@ async function ready(page, story, theme, viewport = { width: 1280, height: 800 }
   await page.emulateMedia({ forcedColors: 'none', reducedMotion: 'reduce' });
   await page.goto(`${base}/iframe.html?id=${story.id}&viewMode=story&globals=theme:${theme}`, { waitUntil: 'load' });
   const phase = await page.waitForFunction(() => { const p = window.__STORYBOOK_PREVIEW__?.currentRender?.phase; return ['finished', 'completed', 'errored', 'aborted'].includes(p) && p; }, null, { timeout: 20000 }).then(h => h.jsonValue()).catch(() => 'timeout');
-  await page.evaluate(() => document.fonts.ready);
+  // Google Fonts loads the Vietnamese subset only when a glyph needs it; load it now, so text is measured in the real font
+  await page.evaluate(() => Promise.all(['400 16px "Be Vietnam Pro"', '500 16px "Be Vietnam Pro"', '600 16px "Be Vietnam Pro"', '700 16px "Be Vietnam Pro"', '800 16px Manrope', '700 16px Manrope'].map(f => document.fonts.load(f, 'ẪỖỮẴặọỵ').catch(() => {}))).then(() => document.fonts.ready));
   await page.addStyleTag({ content: '*, *::before, *::after { caret-color: transparent !important; }' });
   await page.mouse.move(1, 1);
   return phase;

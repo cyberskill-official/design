@@ -60,7 +60,7 @@
 .cs-file-upload-item-icon { flex: none; width: 20px; height: 20px; color: var(--muted); }
 .cs-file-upload-item-body { display: grid; gap: 6px; flex: 1; min-width: 0; }
 .cs-file-upload-item-row { display: flex; align-items: baseline; gap: var(--space-2); min-width: 0; }
-.cs-file-upload-item-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 500 14px/20px var(--font-sans); color: var(--foreground); padding-block: 0.35em; margin-block: -0.35em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */ }
+.cs-file-upload-item-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 500 14px/20px var(--font-sans); color: var(--foreground); padding-block: 0.5em; margin-block: -0.5em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */ }
 .cs-file-upload-item-size { flex: none; font: 400 12px/18px var(--font-mono); color: var(--muted); }
 
 .cs-file-upload-item-done,
