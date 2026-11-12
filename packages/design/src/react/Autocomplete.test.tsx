@@ -23,6 +23,12 @@ describe('Autocomplete', () => {
     expect(onValueChange).toHaveBeenLastCalledWith('Hải Phòng', expect.anything());
   });
 
+  it('names its open list after the input when there is no visible label (axe aria-input-field-name)', async () => {
+    render(<Autocomplete aria-label="City" items={cities} />);
+    await userEvent.type(screen.getByRole('combobox', { name: 'City' }), 'h');
+    expect(await screen.findByRole('listbox', { name: 'City' })).toBeVisible();
+  });
+
   it('keeps free text that matches nothing', async () => {
     render(<Autocomplete aria-label="City" items={cities} emptyText="Không tìm thấy" />);
     const input = screen.getByRole('combobox', { name: 'City' });

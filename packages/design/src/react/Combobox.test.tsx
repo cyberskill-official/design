@@ -12,6 +12,12 @@ const regions = [
 ];
 
 describe('Combobox', () => {
+  it('names its open list after the input when there is no visible label', async () => {
+    render(<Combobox aria-label="Region" items={regions} />);
+    await userEvent.type(screen.getByRole('combobox', { name: 'Region' }), 's');
+    expect(await screen.findByRole('listbox', { name: 'Region' })).toBeVisible();
+  });
+
   it('filters as you type and stores the item value', async () => {
     const onValueChange = vi.fn();
     render(<ComboboxField label="Region" items={regions} placeholder="Search regions" onValueChange={onValueChange} />);

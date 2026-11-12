@@ -104,7 +104,8 @@ export function Autocomplete({
         <BaseAutocomplete.Positioner className="cs-combobox-positioner" side="bottom" align="start" sideOffset={4}>
           <BaseAutocomplete.Popup className="cs-combobox-popup" data-size={size}>
             <BaseAutocomplete.Empty>{emptyText != null && <div className="cs-combobox-message">{emptyText}</div>}</BaseAutocomplete.Empty>
-            <BaseAutocomplete.List className="cs-combobox-list">
+            {/* named after the input: Base UI names the list from a Field label only */}
+            <BaseAutocomplete.List aria-label={ariaLabel} className="cs-combobox-list">
               {(entry: AutocompleteItem | AutocompleteGroup) =>
                 isGroup(entry) ? (
                   <BaseAutocomplete.Group key={entry.label} items={entry.items} className="cs-combobox-group">

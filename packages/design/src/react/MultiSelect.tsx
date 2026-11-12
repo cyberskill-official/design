@@ -99,7 +99,7 @@ export function MultiSelect<Item extends ComboboxItem = ComboboxItem>({
           </BaseCombobox.Trigger>
         </span>
       </BaseCombobox.InputGroup>
-      <ComboboxPopup size={size} emptyText={emptyText}>
+      <ComboboxPopup size={size} emptyText={emptyText} label={ariaLabel}>
         {(item: Item) => renderComboboxItem(item, children, item.disabled || (full && !selected.includes(item.value)))}
       </ComboboxPopup>
     </BaseCombobox.Root>

@@ -15,6 +15,7 @@
 
 ### Patch Changes
 
+- Combobox, MultiSelect and Autocomplete name their open list after the input when they are used with `aria-label` and no visible label (screen readers announced an unnamed list).
 - ebb87e3: Fixes found by the new quality benchmark (`npm run benchmark`, see docs/benchmark.md):
   
   - Selects, tags, chips, menu items and truncated labels no longer cut off stacked Vietnamese marks (Ỗ showed as Ô). Text inputs still do: the browser clips input text to the font's ascent, so that needs a font-level fix.

@@ -68,10 +68,11 @@ export function renderComboboxItem<Item extends ComboboxItem>(item: Item, childr
   );
 }
 
-type ComboboxPopupProps = { size: ComboboxSize; emptyText: ReactNode; loading?: boolean; loadingText?: ReactNode; children: BaseCombobox.List.Props['children'] };
+// label: the input's aria-label. Base UI names the list from a Field label only, so without one the list would be unnamed.
+type ComboboxPopupProps = { size: ComboboxSize; emptyText: ReactNode; loading?: boolean; loadingText?: ReactNode; label?: string; children: BaseCombobox.List.Props['children'] };
 
 /** The floating list with empty and loading messages. Shared with MultiSelect. */
-export function ComboboxPopup({ size, emptyText, loading, loadingText, children }: ComboboxPopupProps) {
+export function ComboboxPopup({ size, emptyText, loading, loadingText, label, children }: ComboboxPopupProps) {
   return (
     <ThemedPortal part={BaseCombobox.Portal}>
       <BaseCombobox.Positioner className="cs-combobox-positioner" side="bottom" align="start" sideOffset={4}>
@@ -86,7 +87,7 @@ export function ComboboxPopup({ size, emptyText, loading, loadingText, children 
             )}
           </BaseCombobox.Status>
           <BaseCombobox.Empty>{!loading && emptyText != null && <div className="cs-combobox-message">{emptyText}</div>}</BaseCombobox.Empty>
-          <BaseCombobox.List className="cs-combobox-list">{children}</BaseCombobox.List>
+          <BaseCombobox.List aria-label={label} className="cs-combobox-list">{children}</BaseCombobox.List>
         </BaseCombobox.Popup>
       </BaseCombobox.Positioner>
     </ThemedPortal>
@@ -124,7 +125,7 @@ export function Combobox<Item extends ComboboxItem = ComboboxItem>({
           </BaseCombobox.Trigger>
         </span>
       </BaseCombobox.InputGroup>
-      <ComboboxPopup size={size} emptyText={emptyText} loading={loading} loadingText={loadingText}>
+      <ComboboxPopup size={size} emptyText={emptyText} loading={loading} loadingText={loadingText} label={ariaLabel}>
         {(item: Item) => renderComboboxItem(item, children)}
       </ComboboxPopup>
     </BaseCombobox.Root>
