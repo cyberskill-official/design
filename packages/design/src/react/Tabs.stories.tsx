@@ -32,7 +32,8 @@ export const Horizontal: Story = {
     await userEvent.click(canvas.getByRole('tab', { name: 'Overview' }));
     await userEvent.keyboard('{ArrowRight}{Enter}');
     await expect(canvas.getByRole('tab', { name: 'Sources' })).toHaveAttribute('aria-selected', 'true');
-    await expect(canvas.getByRole('tabpanel')).toHaveTextContent('14 training sources');
+    // by name: the panel being left stays in the page (inert) for a moment while it closes
+    await expect(canvas.getByRole('tabpanel', { name: 'Sources' })).toHaveTextContent('14 training sources');
   },
 };
 
