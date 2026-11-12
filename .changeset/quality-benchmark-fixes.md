@@ -4,7 +4,7 @@
 
 Fixes found by the new quality benchmark (`npm run benchmark`, see docs/benchmark.md):
 
-- Text inputs, selects, tags, chips, menu items and truncated labels no longer cut off stacked Vietnamese marks (Ẫ showed as Â, Ỗ as Ô).
+- Selects, tags, chips, menu items and truncated labels no longer cut off stacked Vietnamese marks (Ỗ showed as Ô). Text inputs still do: the browser clips input text to the font's ascent, so that needs a font-level fix.
 - Buttons, badges and segmented controls truncate a long label inside a narrow container instead of overflowing it; alerts, stats and field text wrap long IDs and emails.
 - Focusing a field that has an error now shows a solid ring; before, only a faint glow changed.
 - MultiSelect: pressing Escape with the list closed no longer deletes every chosen value.

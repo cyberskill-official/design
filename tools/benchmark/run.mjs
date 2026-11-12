@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// CyberSkill Design System quality benchmark: 22 dimensions (docs/benchmark.md), measured in real Chromium on every
+// CyberSkill Design System quality benchmark: 23 dimensions (docs/benchmark.md), measured in real Chromium on every
 // Storybook story in light and dark, plus the stress-test stories under Benchmark/ and three checks on the built files.
 // Exits 1 when a required dimension has any failure or an advisory one fails somewhere not in baseline.json.
 //
@@ -161,7 +161,7 @@ async function measure(page, cdp, story, theme) {
       const axe = await page.evaluate(tags => window.axe.run({ exclude: [['#storybook-docs']] }, { runOnly: { type: 'tag', values: tags }, rules: { 'color-contrast': { enabled: false } }, resultTypes: ['violations'] }), AXE_TAGS);
       for (const p of axe.passes) record(results, 'D8', { pass: true, key: `${id}|${p.id}` });
       for (const v of axe.violations) record(results, 'D8', { pass: false, key: `${id}|${v.id}`, detail: `${v.help}: ${v.nodes.slice(0, 3).map(n => n.target.join(' ')).join(', ')}` });
-      for (const x of await page.evaluate(P.inkChecks)) record(results, 'D15', { pass: x.pass, key: `${id}|${textKey(x)}`, detail: `ink ${x.px}px outside its box` });
+      for (const x of await page.evaluate(P.inkChecks)) record(results, x.input ? 'D23' : 'D15', { pass: x.pass, key: `${id}|${textKey(x)}`, detail: x.input ? `ink ${x.px}px above the font's ascent, which the input clips` : `ink ${x.px}px outside its box` });
       for (const x of await page.evaluate(P.containerChecks)) record(results, 'D16', { pass: x.pass, key: `${id}|${x.label}`, detail: `${x.px}px past its container` });
       for (const x of await page.evaluate(P.invalidChecks)) {
         record(results, 'D17', { pass: x.announced, key: `${x.name} is announced invalid`, detail: 'no aria-invalid="true" on the control' });

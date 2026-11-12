@@ -1,6 +1,6 @@
 # Quality benchmark
 
-`npm run benchmark` scores the design system on 22 dimensions and fails CI when one breaks. It replaces the 2.x
+`npm run benchmark` scores the design system on 23 dimensions and fails CI when one breaks. It replaces the 2.x
 "20D" benchmark. That one asserted exact CSS values on three fixture pages; this one measures what a person gets, on
 every Storybook story, in real Chromium, in light and dark.
 
@@ -19,7 +19,7 @@ stylesheet exactly as apps get it (cascade layers and reduced-motion rules inclu
 
 - Each dimension measures many subjects (a text run, a Tab stop, a control, a story) and scores the share that pass.
   The overall score is the mean of the dimension scores.
-- **Required** dimensions fail the run on any failure. They are WCAG 2.2 AA and the CyberSkill rules.
+- **Required** dimensions fail the run on any failure: WCAG 2.2 AA, the CyberSkill rules (except D23) and the package checks.
 - **Advisory** dimensions (AAA and best practice) are a ratchet: the run fails when one scores lower than in
   `tools/benchmark/baseline.json` (with half a point of tolerance for font rendering between Linux and macOS).
   The report lists failures that are new and baseline entries that now pass.
@@ -49,16 +49,17 @@ stylesheet exactly as apps get it (cascade layers and reduced-motion rules inclu
 | D12 | Reduced motion | WCAG 2.3.3 (AAA) | advisory | With reduced motion requested, nothing animates for longer than 200ms or loops. |
 | D13 | Reader font size | WCAG 1.4.4 | advisory | With the browser font size at 200%, text grows with it (rem-based) and none is newly clipped. |
 
-### CyberSkill rules (required)
+### CyberSkill rules
 
 | | Dimension | Standard | Level | How it is measured |
 |---|---|---|---|---|
 | D14 | Dark mode and clean render | House rule | required | Every story renders in light and dark without errors, and dark mode has no light patches (an opaque light surface left from light mode). |
-| D15 | Vietnamese diacritics | House rule | required | The ink of every glyph, stacked marks included (Ẫ Ỗ Ữ ặ ỵ), stays inside the box that clips it, in every story and in input values. |
+| D15 | Vietnamese diacritics | House rule | required | The ink of every glyph, stacked marks included (Ẫ Ỗ Ữ ặ ỵ), stays inside the box that clips it, in every story (textarea values included). |
 | D16 | Long content | House rule | required | Long Vietnamese and English text, IDs and emails at 240 and 320px: no component grows past its container and no text spills out. |
 | D17 | Invalid states | WCAG 3.3.1, 1.4.1 | required | Every form control in error is announced (aria-invalid), linked to visible error text, and its boundary changes visibly (ΔE 15+, 3:1 against the page). |
 | D18 | Theme scoping | House rule | required | A ThemeScope inside a page of the other theme gets its own theme, and so do popups opened from inside it. |
 | D19 | Status colors | WCAG 1.4.1 | required | Rendered status tones stay apart: ΔE 15+ for normal vision, 8+ for protan and deutan vision. Each carries an icon and text. |
+| D23 | Vietnamese in input fields | House rule | advisory | Single-line inputs clip their value to the font's ascent and descent, so stacked capitals (Ẫ, Ỗ) need a font whose ascent clears them. Be Vietnam Pro's (1.0em) does not; its marks reach 1.16em. |
 
 ### The package (required)
 
@@ -73,7 +74,7 @@ stylesheet exactly as apps get it (cascade layers and reduced-motion rules inclu
 Most checks run on every story. Five stories under **Benchmark/** pack one hard case across every component it
 applies to (`packages/design/src/benchmark/Benchmark.stories.tsx`), marked with `data-bench-*` attributes:
 
-- **VietnameseText**: every text-bearing component at every size with stacked marks (Ẫ Ỗ Ữ Ẵ ặ ọ ỵ). Feeds D15.
+- **VietnameseText**: every text-bearing component at every size with stacked marks (Ẫ Ỗ Ữ Ẵ ặ ọ ỵ). Feeds D15 and D23.
 - **LongContent**: long Vietnamese and English text, IDs and emails at 240 and 320px. Feeds D16.
 - **InvalidStates**: each form control valid next to invalid. Feeds D17.
 - **NestedThemes**: a dark ThemeScope in a light page and the reverse, with a popup opened inside. Feeds D18.

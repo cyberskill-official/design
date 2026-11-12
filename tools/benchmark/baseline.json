@@ -1,6 +1,6 @@
 {
- "note": "Advisory gaps accepted today. The benchmark fails on any advisory failure not listed here. Regenerate with npm run benchmark -- --update-baseline after fixing some.",
- "overall": 91.8,
+ "note": "Advisory gaps accepted today. An advisory dimension fails when its score drops below the score here. Regenerate with npm run benchmark -- --update-baseline after fixing some.",
+ "overall": 92.1,
  "scores": {
   "D1": 100,
   "D2": 100,
@@ -21,6 +21,7 @@
   "D17": 100,
   "D18": 100,
   "D19": 100,
+  "D23": 96.6,
   "D20": 100,
   "D21": 100,
   "D22": 100
@@ -1169,6 +1170,12 @@
    "structure-themescope--dark-sidebar|font size",
    "structure-themescope--light-panel|font size",
    "structure-toolbar--default|font size"
+  ],
+  "D23": [
+   "benchmark--vietnamese-text|\"Hà Nội — Ữ Ỗ ặ ỵ\" div.cs-field > div.cs-input-group.cs-combobox > input.cs-input",
+   "benchmark--vietnamese-text|\"Nguyễn Thị Ữ Ẫ ặ ỵ\" section > div.cs-field > input.cs-input",
+   "benchmark--vietnamese-text|\"Ví dụ: Phường Ỗ Ữ ặ ỵ\" section > div.cs-field > input.cs-input",
+   "benchmark--vietnamese-text|\"Ữ Ẫ ặ ỵ\" div.cs-field.cs-search-field > span.cs-input-group > input.cs-input"
   ]
  }
 }

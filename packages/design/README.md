@@ -11,8 +11,8 @@ The CyberSkill Design System: Ink & Gold tokens, accessible React components, ch
 
 - **60+ components** on [Base UI](https://base-ui.com): forms, pickers (combobox, multi-select, date, range and time), overlays, navigation, data table, charts.
 - **Tokens** in light and dark, as CSS variables, a Tailwind v4 theme and a typed object. The build fails if any color pair drops below its contrast rule.
-- **Vietnamese first:** stacked marks (Ẫ, Ỗ) are never clipped, search ignores accents, every user-facing string is a prop.
-- **Checked on every release:** a 22-dimension quality benchmark runs on every story in light and dark (WCAG 2.2 AA, focus, keyboard, reflow, forced colors, Vietnamese text).
+- **Vietnamese first:** search ignores accents, every user-facing string is a prop, and stacked marks (Ẫ, Ỗ) are checked in every component.
+- **Checked on every release:** a 23-dimension quality benchmark runs on every story in light and dark (WCAG 2.2 AA, focus, keyboard, reflow, forced colors, Vietnamese text).
 - **Server Components ready:** flat named exports, `'use client'` only where it is needed, optional peers in their own entry points.
 
 ## Install

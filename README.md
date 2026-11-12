@@ -53,7 +53,7 @@ Full guide: [Get started](https://design.cyberskill.world/docs/get-started).
 | `packages/design` | The npm package `@cyberskill/design` |
 | `apps/site` | design.cyberskill.world (Next.js + Fumadocs, static export) |
 | `tools/audit` | Forensic visual audit |
-| `tools/benchmark` | Quality benchmark: 22 dimensions on every story ([docs/benchmark.md](docs/benchmark.md)) |
+| `tools/benchmark` | Quality benchmark: 23 dimensions on every story ([docs/benchmark.md](docs/benchmark.md)) |
 | `examples/next-hello` | Smallest consumer app; CI installs the packed tarball into it |
 
 ```bash

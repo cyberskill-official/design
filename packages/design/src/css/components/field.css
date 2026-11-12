@@ -42,8 +42,7 @@
   border-radius: var(--radius-md);
   background: var(--panel);
   color: var(--foreground);
-  /* 1.6: an input clips its text to the line box, and stacked Vietnamese marks (Ẫ, Ỗ) need 1.58em */
-  font: 400 15px/1.6 var(--font-sans);
+  font: 400 15px/20px var(--font-sans);
   transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
 
   &::placeholder { color: var(--muted); opacity: 1; }

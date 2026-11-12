@@ -59,7 +59,7 @@ npm run lint:css -w @cyberskill/design
 npm run test:gates -w @cyberskill/design  # proves the token, CSS and CLI gates reject bad input
 npm run typecheck -w @cyberskill/design
 npm run test -w @cyberskill/design
-npm run build-storybook -w @cyberskill/design && npm run benchmark  # 22-dimension quality benchmark, every story
+npm run build-storybook -w @cyberskill/design && npm run benchmark  # 23-dimension quality benchmark, every story
 ```
 
 The benchmark ([docs/benchmark.md](docs/benchmark.md)) fails on any WCAG 2.2 AA or house-rule failure. A new form control also goes into the `InvalidStates` stress-test story, and a new text-bearing component into `VietnameseText` and `LongContent` (`packages/design/src/benchmark/Benchmark.stories.tsx`).

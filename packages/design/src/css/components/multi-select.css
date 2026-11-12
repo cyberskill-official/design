@@ -74,7 +74,7 @@
   border: 0;
   background: transparent;
   color: var(--foreground);
-  font: 400 15px/1.6 var(--font-sans); /* as .cs-input: room for stacked Vietnamese marks */
+  font: 400 15px/20px var(--font-sans);
   outline: 0;
   &::placeholder { color: var(--muted); opacity: 1; }
   &[data-disabled] { cursor: not-allowed; }

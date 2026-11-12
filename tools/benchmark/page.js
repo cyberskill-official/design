@@ -133,10 +133,12 @@ export function inkChecks() {
     const lh = cs.lineHeight === 'normal' ? font : px(cs.lineHeight);
     let top, H;
     if (el.tagName === 'TEXTAREA') { top = r.top + el.clientTop; H = Infinity; } // first line, clipped by the padding box top
-    else { H = Math.min(cH, Math.max(lh, font)); top = cTop + (cH - H) / 2; } // the inner line box, centered in the content box
+    // A single-line input clips its text to the font's own ascent and descent, whatever the line height
+    // (checked in Chrome: line height, padding and overflow change nothing; a font with a taller ascent does).
+    else { H = Math.min(cH, font); top = cTop + (cH - H) / 2; }
     const lineTop = el.tagName === 'TEXTAREA' ? cTop + (lh - font) / 2 : top + (H - font) / 2, base = lineTop + m.fontBoundingBoxAscent;
     const worst = Math.max(top - (base - m.actualBoundingBoxAscent), H === Infinity ? 0 : base + m.actualBoundingBoxDescent - (top + H));
-    out.push({ text: text.slice(0, 32), px: +worst.toFixed(1), path: B.path(el), pass: worst <= 0.5 });
+    out.push({ text: text.slice(0, 32), px: +worst.toFixed(1), path: B.path(el), pass: worst <= 0.5, input: el.tagName === 'INPUT' });
   }
   return out;
 }
