@@ -7,7 +7,7 @@ const meta = {
   component: Meter,
   tags: ['autodocs'],
   args: { label: 'API calls this month', value: 720_000, max: 1_000_000, valueLabel: '720K of 1M' },
-  argTypes: { tone: { control: 'inline-radio', options: ['primary', 'warning', 'danger'] } },
+  argTypes: { tone: { control: 'inline-radio', options: ['accent', 'primary', 'warning', 'danger'] } },
   render: args => <div style={{ width: '100%', maxWidth: 360 }}><Meter {...args} /></div>,
 } satisfies Meta<typeof Meter>;
 
@@ -24,5 +24,8 @@ export const Usage: Story = {
 export const Percentage: Story = { args: { label: 'Storage', value: 38, max: 100, valueLabel: undefined } };
 
 export const NearLimit: Story = { args: { value: 860_000, valueLabel: '860K of 1M', warnAt: 800_000 } };
+
+/** Ink instead of the default gold, for a quiet meter among many. */
+export const Ink: Story = { args: { label: 'Seats', value: 6, max: 10, valueLabel: '6 of 10', tone: 'primary' } };
 
 export const AtLimit: Story = { args: { label: 'Seats', value: 10, max: 10, valueLabel: '10 of 10', tone: 'danger' } };

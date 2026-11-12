@@ -2,12 +2,14 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { expect, fn, userEvent, within } from 'storybook/test';
 import { Tag } from './Tag';
+import { toneFor } from './tone';
 
 const meta = {
   title: 'Data Display/Tag',
   component: Tag,
   tags: ['autodocs'],
   args: { children: 'SOC 2' },
+  argTypes: { tone: { control: 'select', options: [undefined, 'blue', 'amber', 'teal', 'magenta', 'violet'] } },
 } satisfies Meta<typeof Tag>;
 
 export default meta;
@@ -31,6 +33,16 @@ function TagList() {
     </div>
   );
 }
+
+/** Category tints, one per team. `toneFor(text)` picks a stable tone from the text itself. */
+export const Tones: Story = {
+  globals: { theme: 'side-by-side' },
+  render: () => (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+      {['Design', 'Finance', 'Support', 'Marketing', 'Research'].map(team => <Tag key={team} tone={toneFor(team)} onRemove={() => {}}>{team}</Tag>)}
+    </div>
+  ),
+};
 
 export const List: Story = {
   globals: { theme: 'side-by-side' },

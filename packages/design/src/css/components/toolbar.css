@@ -48,7 +48,7 @@
   white-space: nowrap;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
+  transition: background-color var(--motion-state), color var(--motion-state);
 
   /* 44px touch target around the 32px visual */
   &::before { content: ''; position: absolute; inset: 50% 0 auto; height: var(--control-touch); min-width: var(--control-touch); transform: translateY(-50%); }

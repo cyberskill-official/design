@@ -25,6 +25,7 @@ export function ProgressStates() {
   return (
     <div style={{ display: 'grid', gap: 20, width: 360, maxWidth: '100%' }}>
       <Progress label="Importing contacts" value={64} />
+      <Progress label="Syncing calendar" value={48} tone="primary" />
       <Progress label="Storage" value={86} warnAt={80} />
       <Progress label="Import stopped" value={30} tone="danger" />
       <Progress label="Preparing export" value={null} />

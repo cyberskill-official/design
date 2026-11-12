@@ -1,6 +1,6 @@
 # Stat
 
-> KPI tile with a label, a large tabular figure, an optional change and a chart slot.
+> KPI tile with a label, a large tabular figure, an optional icon, a change chip and a chart slot.
 
 ```tsx
 import { Stat } from '@cyberskill/design';
@@ -10,13 +10,25 @@ Use a stat for a headline number on a dashboard: revenue, active users, error ra
 
 ## Change and sentiment
 
-`delta.trend` sets the arrow, `delta.sentiment` the color. Sentiment defaults to positive for up and negative for down; set it for metrics where down is good (churn, latency, cost).
+`delta.trend` sets the arrow, `delta.sentiment` the color of its soft chip (green, red or grey). Sentiment defaults to positive for up and negative for down; set it for metrics where down is good (churn, latency, cost).
 
 ```tsx
 <Stat label="Monthly revenue" value="$48,210" delta={{ value: '+8.4%', trend: 'up' }} hint="vs. last month" />
 <Stat label="Churn" value="2.1%" delta={{ value: '−0.4 pts', trend: 'down', sentiment: 'positive' }} hint="vs. last month" />
 <Stat label="p95 latency" value="412 ms" delta={{ value: '+38 ms', trend: 'up', sentiment: 'negative' }} hint="vs. yesterday" />
 ```
+
+## With an icon
+
+`icon` puts an [icon tile](/docs/components/icon-tile) beside the label and value; `tone` tints it (ink by default). Give each area its own tone and keep it across the dashboard, e.g. gold for money.
+
+```tsx
+<Stat label="Monthly revenue" value="$48,210" icon={<CurrencyDollar />} tone="accent" delta={{ value: '+8.4%', trend: 'up' }} hint="vs. last month" />
+<Stat label="Active users" value="1,284" icon={<UsersThree />} tone="blue" delta={{ value: '+12%', trend: 'up' }} hint="vs. last week" />
+<Stat label="p95 latency" value="412 ms" icon={<Timer />} delta={{ value: '+38 ms', trend: 'up', sentiment: 'negative' }} hint="vs. yesterday" />
+```
+
+Stat stays a Server Component: pass icons from `@phosphor-icons/react/ssr` when you render it on the server.
 
 ## With a sparkline
 
@@ -36,12 +48,14 @@ Children render under the figures. Give the chart a text alternative.
 | `value` | `ReactNode` | – | Required. The formatted figure, shown in the display font with tabular numbers |
 | `delta` | `{ value, trend: 'up' \| 'down', sentiment?: 'positive' \| 'negative' \| 'neutral' }` | – | Change shown as an arrow and text, colored by sentiment |
 | `hint` | `ReactNode` | – | Context such as "vs. last month" |
+| `icon` | `ReactNode` | – | Decorative icon in a tinted tile beside the label and value |
+| `tone` | `'primary' \| 'accent' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'blue' \| 'amber' \| 'teal' \| 'magenta' \| 'violet'` | `'primary'` | Tint of the icon tile |
 | `children` | `ReactNode` | – | Slot under the figures, e.g. a sparkline |
 | `positiveLabel / negativeLabel` | `string` | `'positive change' / 'negative change'` | Visually hidden text after the change, e.g. "tích cực" / "tiêu cực" |
 
 ## Accessibility
 
-- Label, value, change and hint are plain text, read in that order.
+- Label, value, change and hint are plain text, read in that order. The icon tile is hidden from screen readers.
 - The change is never color alone: the arrow shows the direction and the text carries the sign ("+8.4%", "−0.4 pts"). Write the sign in `delta.value`.
 - Whether the change is good news is also text: screen readers hear "−0.4 pts (positive change)" for churn. Neutral changes add nothing. Pass `positiveLabel` and `negativeLabel` in Vietnamese UIs.
 - Format numbers before passing them (`Intl.NumberFormat('vi-VN')` in Vietnamese UIs).
@@ -61,6 +75,10 @@ export type StatProps = Omit<ComponentProps<'div'>, 'children'> & {
   hint?: ReactNode;
   /** Slot under the figures, e.g. a sparkline. */
   children?: ReactNode;
+  /** Decorative icon in a tinted tile beside the label and value. */
+  icon?: ReactNode;
+  /** Tint of the icon tile. Defaults to `primary` (ink). */
+  tone?: Tone;
   /** Screen-reader text after a good-news delta, since its color alone carries the meaning. */
   positiveLabel?: string;
   /** Screen-reader text after a bad-news delta. */

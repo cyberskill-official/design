@@ -26,6 +26,19 @@ export function BadgeTones() {
   );
 }
 
+export function BadgeCategories() {
+  return (
+    <>
+      <Badge tone="blue">Design</Badge>
+      <Badge tone="amber">Finance</Badge>
+      <Badge tone="teal">Support</Badge>
+      <Badge tone="magenta">Marketing</Badge>
+      <Badge tone="violet">Research</Badge>
+      <Badge tone="teal" variant="outline">Support</Badge>
+    </>
+  );
+}
+
 export function BadgeSizes() {
   return (
     <>

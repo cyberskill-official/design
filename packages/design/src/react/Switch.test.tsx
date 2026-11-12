@@ -32,6 +32,15 @@ describe('Switch', () => {
     expect(parseFloat(hit.height)).toBeGreaterThanOrEqual(44);
   });
 
+  it('is gold when on, edged in --accent-text so it keeps a 3:1 boundary', () => {
+    render(<><Switch label="On" defaultChecked /><span data-testid="probe" style={{ background: 'var(--accent)', borderColor: 'var(--accent-text)' }} /></>);
+    const track = getComputedStyle(screen.getByRole('switch'));
+    const probe = getComputedStyle(screen.getByTestId('probe'));
+    expect(track.backgroundColor).toBe(probe.backgroundColor);
+    expect(track.borderTopColor).toBe(probe.borderTopColor);
+    expect(track.borderTopStyle).toBe('solid');
+  });
+
   it('has no accessibility violations in light and dark', async () => {
     await expectAccessibleInThemes(
       <div style={{ display: 'grid', gap: 16 }}>

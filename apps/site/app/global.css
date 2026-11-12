@@ -151,7 +151,7 @@ html > body[data-scroll-locked] {
 .home-panel { display: grid; gap: 16px; padding: 24px; border-radius: var(--radius-xl); border: 1px solid var(--border); background: var(--background); color: var(--foreground); }
 .home-row { display: flex; flex-wrap: wrap; gap: 8px; }
 .home-sections { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 16px; }
-.home-card { display: grid; gap: 8px; padding: 22px; border-radius: var(--radius-lg); border: 1px solid var(--border); background: var(--panel); color: var(--foreground); text-decoration: none; transition: border-color var(--duration-fast) var(--ease-standard); }
+.home-card { display: grid; gap: 8px; padding: 22px; border-radius: var(--radius-lg); border: 1px solid var(--border); background: var(--panel); color: var(--foreground); text-decoration: none; transition: border-color var(--motion-state); }
 .home-card:hover { border-color: var(--primary); }
 .home-card h2 { margin: 0; font: 800 20px var(--font-display); letter-spacing: -0.015em; }
 .home-card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 22px; }

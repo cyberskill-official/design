@@ -1,5 +1,6 @@
 import { Avatar as BaseAvatar } from '@base-ui/react/avatar';
 import { Children, cloneElement, isValidElement, type ComponentProps, type ReactElement } from 'react';
+import type { CategoryTone } from './tone';
 import { cx } from '../utils/cx';
 
 export type AvatarSize = 'sm' | 'md' | 'lg';
@@ -14,6 +15,8 @@ export type AvatarProps = Omit<BaseAvatar.Root.Props, 'className' | 'children'> 
   initials?: string;
   /** `sm` 24px, `md` 32px (default), `lg` 40px. */
   size?: AvatarSize;
+  /** Tint of the initials. Defaults to `primary` (ink). `toneFor(name)` gives each person a stable category tone. */
+  tone?: CategoryTone | 'primary';
 };
 
 /** First letters of the first and last word: "Trần Thị Linh" → "TL". */
@@ -24,9 +27,9 @@ function toInitials(name: string) {
 }
 
 /** A person's photo with an initials fallback. Announced as an image named `name`; pass `aria-hidden` when the name is already shown beside it. */
-export function Avatar({ name, src, initials, size = 'md', className, ...props }: AvatarProps) {
+export function Avatar({ name, src, initials, size = 'md', tone, className, ...props }: AvatarProps) {
   return (
-    <BaseAvatar.Root {...props} role="img" aria-label={name} data-size={size} className={cx('cs-avatar', className)}>
+    <BaseAvatar.Root {...props} role="img" aria-label={name} data-size={size} data-tone={tone} className={cx('cs-avatar', className)}>
       {src && <BaseAvatar.Image src={src} alt="" className="cs-avatar-image" />}
       <BaseAvatar.Fallback className="cs-avatar-fallback">{initials ?? toInitials(name)}</BaseAvatar.Fallback>
     </BaseAvatar.Root>

@@ -4,7 +4,7 @@ import { Star } from '@phosphor-icons/react';
 import { Badge, type BadgeTone } from './Badge';
 import { expectAccessibleInThemes } from '../test/a11y';
 
-const tones: BadgeTone[] = ['neutral', 'primary', 'accent', 'success', 'warning', 'danger', 'info'];
+const tones: BadgeTone[] = ['neutral', 'primary', 'accent', 'success', 'warning', 'danger', 'info', 'blue', 'amber', 'teal', 'magenta', 'violet'];
 
 describe('Badge', () => {
   it('renders its text with tone, variant and size as data attributes', () => {
@@ -31,6 +31,13 @@ describe('Badge', () => {
     );
     expect(screen.getByText('Draft').closest('.cs-badge')?.querySelector('.cs-badge-icon')).toBeNull();
     expect(screen.getByText('Featured').closest('.cs-badge')?.querySelector('.cs-badge-icon svg')).not.toBeNull();
+  });
+
+  it('category tones have no status icon and stay tinted as solid', () => {
+    render(<><Badge tone="teal" variant="solid">Support</Badge><span data-testid="probe" style={{ background: 'var(--teal-soft)' }} /></>);
+    const badge = screen.getByText('Support').closest('.cs-badge')!;
+    expect(badge.querySelector('.cs-badge-icon')).toBeNull();
+    expect(getComputedStyle(badge).backgroundColor).toBe(getComputedStyle(screen.getByTestId('probe')).backgroundColor);
   });
 
   it('truncates a long label inside a narrow container instead of overflowing it', () => {

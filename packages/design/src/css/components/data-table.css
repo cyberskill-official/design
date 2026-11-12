@@ -26,7 +26,7 @@
     color: var(--muted);
     white-space: nowrap;
   }
-  & tbody tr { transition: background-color var(--duration-fast) var(--ease-standard); }
+  & tbody tr { transition: background-color var(--motion-state); }
   & tbody tr:hover { background: color-mix(in srgb, var(--raised) 60%, var(--panel)); }
   & tbody tr[data-selected] { background: var(--primary-soft); }
   & tbody tr[data-clickable] { cursor: pointer; }

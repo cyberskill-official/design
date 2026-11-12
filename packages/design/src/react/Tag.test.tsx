@@ -34,9 +34,15 @@ describe('Tag', () => {
     expect(parseFloat(hit.height)).toBeGreaterThanOrEqual(44);
   });
 
+  it('takes a category tone', () => {
+    render(<Tag tone="violet">Research</Tag>);
+    expect(screen.getByText('Research').closest('.cs-tag')).toHaveAttribute('data-tone', 'violet');
+  });
+
   it('has no accessibility violations in light and dark', async () => {
     await expectAccessibleInThemes(
-      <div style={{ display: 'flex', gap: 8 }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+        {(['blue', 'amber', 'teal', 'magenta', 'violet'] as const).map(tone => <Tag key={tone} tone={tone} onRemove={() => {}}>{tone}</Tag>)}
         <Tag>Enterprise</Tag>
         <Tag onRemove={() => {}}>SOC 2</Tag>
         <Tag onRemove={() => {}}>ISO 27001</Tag>

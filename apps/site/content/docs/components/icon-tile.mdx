@@ -1,0 +1,74 @@
+---
+title: Icon tile
+description: A soft tinted square holding one icon, in any status, brand or category tone. Renders in Server Components.
+---
+
+import { IconTileInList, IconTileSizes, IconTileTones } from '@/demos/icon-tile';
+
+Use an icon tile to give a row, a setting or a KPI a recognisable mark: a teal tile for the support team, a gold one for billing. The tint says what kind of thing it is; the icon says which. Do not use it as a button (it has no interaction) or for a status on its own: a status still needs text, as in a [badge](/docs/components/badge). For a person, use an [avatar](/docs/components/avatar). [Stat](/docs/components/stat) draws one for you with its `icon` prop.
+
+## Tones
+
+`primary` (ink, the default) and `accent` (gold) are brand tones; `success`, `warning`, `danger` and `info` are status tones; `blue`, `amber`, `teal`, `magenta` and `violet` are category tones for things that differ only by kind. Pick a tone that means something, and keep the same tone for the same thing across the product. `toneFor(key)` from `@cyberskill/design/utils` gives any key a stable category tone.
+
+<Demo title="Tones">
+  <IconTileTones />
+</Demo>
+
+```tsx
+<IconTile><Lightning /></IconTile>
+<IconTile tone="accent"><Lightning /></IconTile>
+<IconTile tone="success"><Lightning /></IconTile>
+<IconTile tone="teal"><Lightning /></IconTile>
+<IconTile tone={toneFor(team.name)}><UsersThree /></IconTile>
+```
+
+## Sizes
+
+`sm` is 28px with a 16px icon, `md` 36px with 18px, `lg` 44px with 22px. Pass the icon as children; its size is set for you.
+
+<Demo title="Sizes">
+  <IconTileSizes />
+</Demo>
+
+```tsx
+<IconTile size="sm" tone="blue"><ChartLineUp /></IconTile>
+<IconTile size="md" tone="blue"><ChartLineUp /></IconTile>
+<IconTile size="lg" tone="blue"><ChartLineUp /></IconTile>
+```
+
+## In a list
+
+A tile is decorative unless it adds something the text does not say. When it does, name it with `aria-label` and it is announced as an image.
+
+<Demo title="Settings list" layout="block">
+  <IconTileInList />
+</Demo>
+
+```tsx
+<li>
+  <IconTile tone="teal"><UsersThree /></IconTile>
+  <div>Members</div>
+</li>
+<li>
+  <IconTile tone="warning" aria-label="Needs attention"><Warning /></IconTile>
+  <div>Usage</div>
+</li>
+```
+
+## Props
+
+<PropsTable rows={[
+  ['tone', "'primary' | 'accent' | 'success' | 'warning' | 'danger' | 'info' | 'blue' | 'amber' | 'teal' | 'magenta' | 'violet'", "'primary'", 'Tint behind the icon and the icon color'],
+  ['size', "'sm' | 'md' | 'lg'", "'md'", '28, 36 or 44px square'],
+  ['children', 'ReactNode', '–', 'The icon, e.g. a Phosphor icon'],
+  ['aria-label', 'string', '–', 'Names the tile and makes it an image for screen readers; without it the tile is hidden from them'],
+]} />
+
+Other props go to the `<span>`. It uses no hooks or handlers, so it renders in a Server Component without shipping JavaScript (use icons from `@phosphor-icons/react/ssr` there).
+
+## Accessibility
+
+- Without `aria-label` the tile is `aria-hidden`: screen readers skip it and read the text beside it.
+- With `aria-label` it is a `role="img"` named by the label. Use that only when the tile carries meaning the text does not.
+- Every icon color stands 3:1 or more on its tint in light and dark. Category tones never carry text on their solid color.

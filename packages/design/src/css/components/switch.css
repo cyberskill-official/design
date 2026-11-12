@@ -7,11 +7,13 @@
   flex: none;
   width: 36px;
   height: 20px;
-  padding: 2px;
+  padding: 1px;
+  /* a real border: gold on white is 1.8:1, so the on track keeps its 3:1 boundary in the --accent-text edge (WCAG 1.4.11) */
+  border: 1px solid transparent;
   border-radius: var(--radius-full);
   background: var(--input);
   cursor: pointer;
-  transition: background-color var(--duration-fast) var(--ease-standard);
+  transition: background-color var(--motion-state), border-color var(--motion-state);
 
   /* 44px touch target around the 36x20 track */
   &::before {
@@ -23,7 +25,7 @@
     transform: translate(-50%, -50%);
   }
   &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
-  &[data-checked] { background: var(--primary); }
+  &[data-checked] { background: var(--accent); border-color: var(--accent-text); }
   &[data-disabled] { opacity: 0.5; cursor: not-allowed; }
 }
 .cs-choice-label:hover .cs-switch:not([data-disabled], [data-checked]) { background: color-mix(in srgb, var(--input) 80%, var(--foreground)); }
@@ -34,7 +36,7 @@
   border-radius: var(--radius-full);
   background: var(--panel);
   box-shadow: var(--shadow-sm);
-  transition: transform var(--duration-fast) var(--ease-standard);
-  &[data-checked] { transform: translateX(16px); }
+  transition: transform var(--motion-move), background-color var(--motion-state);
+  &[data-checked] { transform: translateX(16px); background: var(--accent-foreground); }
   &[data-checked]:dir(rtl) { transform: translateX(-16px); }
 }

@@ -1,0 +1,100 @@
+/* One map from data-tone to the --tone-* roles, shared by every toned component (IconTile, Button soft, Avatar, Tag, Badge, Card).
+   .cs-tone gives app markup the same variables. No data-tone is primary (ink).
+   --tone fills, --tone-on is text on that fill, --tone-soft tints, --tone-line edges a tint, --tone-text and --tone-icon sit on the tint.
+   Category tones have no --tone-on: text never sits on a solid category color. */
+:where(.cs-tone, [data-tone]) {
+  --tone: var(--primary);
+  --tone-on: var(--primary-foreground);
+  --tone-soft: var(--primary-soft);
+  --tone-soft-hover: var(--primary-soft-hover);
+  --tone-line: var(--primary-line);
+  --tone-text: var(--primary);
+  --tone-icon: var(--primary);
+}
+
+/* Each tone selector opens its own line: the CSS check reads a word after a colon as a raw color. */
+[data-tone='accent'] {
+  --tone: var(--accent);
+  --tone-on: var(--accent-foreground);
+  --tone-soft: var(--accent-soft);
+  --tone-soft-hover: var(--accent-soft-hover);
+  --tone-line: var(--accent-line);
+  --tone-text: var(--accent-text);
+  --tone-icon: var(--accent-text);
+}
+[data-tone='success'] {
+  --tone: var(--success);
+  --tone-on: var(--success-foreground);
+  --tone-soft: var(--success-soft);
+  --tone-soft-hover: var(--success-soft-hover);
+  --tone-line: var(--success-line);
+  --tone-text: var(--success-text);
+  --tone-icon: var(--success);
+}
+[data-tone='warning'] {
+  --tone: var(--warning);
+  --tone-on: var(--warning-foreground);
+  --tone-soft: var(--warning-soft);
+  --tone-soft-hover: var(--warning-soft-hover);
+  --tone-line: var(--warning-line);
+  --tone-text: var(--warning-text);
+  --tone-icon: var(--warning);
+}
+[data-tone='danger'] {
+  --tone: var(--destructive);
+  --tone-on: var(--destructive-foreground);
+  --tone-soft: var(--destructive-soft);
+  --tone-soft-hover: var(--destructive-soft-hover);
+  --tone-line: var(--destructive-line);
+  --tone-text: var(--destructive-text);
+  --tone-icon: var(--destructive);
+}
+[data-tone='info'] {
+  --tone: var(--info);
+  --tone-on: var(--info-foreground);
+  --tone-soft: var(--info-soft);
+  --tone-soft-hover: var(--info-soft-hover);
+  --tone-line: var(--info-line);
+  --tone-text: var(--info-text);
+  --tone-icon: var(--info);
+}
+[data-tone='blue'] {
+  --tone: var(--chart-1);
+  --tone-soft: var(--blue-soft);
+  --tone-soft-hover: var(--blue-soft-hover);
+  --tone-line: var(--blue-line);
+  --tone-text: var(--blue-text);
+  --tone-icon: var(--blue-icon);
+}
+[data-tone='amber'] {
+  --tone: var(--chart-2);
+  --tone-soft: var(--amber-soft);
+  --tone-soft-hover: var(--amber-soft-hover);
+  --tone-line: var(--amber-line);
+  --tone-text: var(--amber-text);
+  --tone-icon: var(--amber-icon);
+}
+[data-tone='teal'] {
+  --tone: var(--chart-3);
+  --tone-soft: var(--teal-soft);
+  --tone-soft-hover: var(--teal-soft-hover);
+  --tone-line: var(--teal-line);
+  --tone-text: var(--teal-text);
+  --tone-icon: var(--teal-icon);
+}
+[data-tone='magenta'] {
+  --tone: var(--chart-4);
+  --tone-soft: var(--magenta-soft);
+  --tone-soft-hover: var(--magenta-soft-hover);
+  --tone-line: var(--magenta-line);
+  --tone-text: var(--magenta-text);
+  --tone-icon: var(--magenta-icon);
+}
+[data-tone='violet'] {
+  --tone: var(--chart-5);
+  --tone-soft: var(--violet-soft);
+  --tone-soft-hover: var(--violet-soft-hover);
+  --tone-line: var(--violet-line);
+  --tone-text: var(--violet-text);
+  --tone-icon: var(--violet-icon);
+}

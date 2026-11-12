@@ -2,8 +2,15 @@ import { render, screen } from '@testing-library/react';
 import { userEvent } from 'vitest/browser';
 import { describe, expect, it, vi } from 'vitest';
 import { useState } from 'react';
+import { renderToString } from 'react-dom/server';
 import { SegmentedControl } from './SegmentedControl';
 import { expectAccessibleInThemes } from '../test/a11y';
+
+// offsetLeft/offsetWidth (immune to an opening dialog's scale) round to whole pixels, so allow one
+const under = (thumb: HTMLElement, item: HTMLElement) => {
+  const [t, i] = [thumb.getBoundingClientRect(), item.getBoundingClientRect()];
+  return Math.abs(t.left - i.left) <= 1 && Math.abs(t.width - i.width) <= 1;
+};
 
 const views = [
   { value: 'list', label: 'List' },
@@ -60,6 +67,36 @@ describe('SegmentedControl', () => {
     expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Board' }));
     await userEvent.keyboard('{Enter}');
     expect(screen.getByRole('button', { name: 'Board' })).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  it('one thumb sits under the pressed segment and slides to the next one', async () => {
+    const { container } = render(<SegmentedControl label="View" items={views} />);
+    const thumb = container.querySelector<HTMLElement>('.cs-segmented-control-thumb')!;
+    expect(thumb).toBeVisible();
+    expect(thumb).toHaveAttribute('aria-hidden', 'true');
+    expect(under(thumb, screen.getByRole('button', { name: 'List' }))).toBe(true);
+    // the thumb draws the selection now, so the pressed segment drops its own background
+    expect(getComputedStyle(screen.getByRole('button', { name: 'List' })).backgroundColor).toBe('rgba(0, 0, 0, 0)');
+    await userEvent.click(screen.getByRole('button', { name: 'Timeline' }));
+    await expect.poll(() => under(thumb, screen.getByRole('button', { name: 'Timeline' }))).toBe(true);
+  });
+
+  it('keeps the thumb on the pressed segment when a label or the track size changes', async () => {
+    const { container, rerender } = render(<div style={{ width: 400 }}><SegmentedControl label="View" items={views} defaultValue="board" /></div>);
+    const thumb = container.querySelector<HTMLElement>('.cs-segmented-control-thumb')!;
+    const board = () => screen.getByRole('button', { name: /Board/ });
+    rerender(<div style={{ width: 400 }}><SegmentedControl label="View" items={views.map(v => (v.value === 'board' ? { ...v, label: 'Board with a longer name' } : v))} defaultValue="board" /></div>);
+    await expect.poll(() => under(thumb, board())).toBe(true);
+    expect(board().offsetWidth).toBeGreaterThan(150);
+    rerender(<div style={{ width: 160 }}><SegmentedControl label="View" items={views} defaultValue="board" /></div>);
+    await expect.poll(() => under(thumb, board())).toBe(true);
+    expect(board().offsetWidth).toBeLessThan(100);
+  });
+
+  it('renders the thumb hidden on the server, so the pressed segment shows the selection until it is measured', () => {
+    const html = renderToString(<SegmentedControl label="View" items={views} />);
+    expect(html).toMatch(/<span[^>]*class="cs-segmented-control-thumb"[^>]*hidden=""/);
+    expect(html).toMatch(/aria-pressed="true"[^>]*data-pressed=""|data-pressed=""[^>]*aria-pressed="true"/);
   });
 
   it('keeps a 44px touch target on each segment', () => {

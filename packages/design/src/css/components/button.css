@@ -25,10 +25,13 @@
   text-decoration: none;
   cursor: pointer;
   user-select: none;
-  transition: background-color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-standard);
+  transition: background-color var(--motion-state), border-color var(--motion-state), color var(--motion-state), transform var(--motion-release);
 
   &:hover:not([data-disabled]) { background: var(--_hover); }
-  &:active:not([data-disabled]) { transform: translateY(1px); }
+  &:active:not([data-disabled], [data-variant='link']) {
+    transform: scale(var(--motion-press-scale));
+    transition: background-color var(--motion-state), border-color var(--motion-state), color var(--motion-state), transform var(--motion-press);
+  }
   &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
   &[data-disabled]:not([data-loading]) { cursor: not-allowed; opacity: 0.5; }
   &[data-loading] { cursor: progress; }
@@ -47,7 +50,12 @@
   }
 
   /* variants */
-  &[data-variant='secondary'] { --_bg: var(--panel); --_fg: var(--foreground); --_border: var(--input); --_hover: var(--raised); }
+  &[data-variant='secondary'] { --_bg: var(--primary-soft); --_fg: var(--primary); --_hover: var(--primary-soft-hover); }
+  /* open or pressed (a popover or menu trigger): a soft fill alone is under 3:1 against the page, so the state gets an edge (WCAG 1.4.11) */
+  &[data-variant='secondary']:is([data-pressed], [data-popup-open]) { --_border: var(--primary); }
+  &[data-variant='soft']:is([data-pressed], [data-popup-open]) { --_border: var(--tone-text); }
+  /* soft: tint and text from the tone map (tone.css); Button always sets data-tone on it */
+  &[data-variant='soft'] { --_bg: var(--tone-soft); --_fg: var(--tone-text); --_hover: var(--tone-soft-hover); }
   &[data-variant='ghost'] { --_bg: transparent; --_fg: var(--foreground); --_hover: var(--raised); }
   &[data-variant='quiet'] { --_bg: var(--raised); --_fg: var(--foreground); --_hover: color-mix(in srgb, var(--raised) 80%, var(--foreground)); }
   &[data-variant='accent'] { --_bg: var(--accent); --_fg: var(--accent-foreground); --_hover: color-mix(in srgb, var(--accent) 88%, var(--foreground)); }
@@ -83,12 +91,13 @@
 
 .cs-button-group {
   display: inline-flex;
-  & > .cs-button { border-radius: 0; margin-inline-start: -1px; }
-  & > .cs-button:first-child { border-start-start-radius: var(--radius-md); border-end-start-radius: var(--radius-md); margin-inline-start: 0; }
+  gap: 1px; /* a hairline of the page between filled buttons */
+  & > .cs-button { border-radius: 0; }
+  & > .cs-button:first-child { border-start-start-radius: var(--radius-md); border-end-start-radius: var(--radius-md); }
   & > .cs-button:last-child { border-start-end-radius: var(--radius-md); border-end-end-radius: var(--radius-md); }
   & > .cs-button:focus-visible { z-index: 1; }
-  /* pressed: a tint plus an edge at 3:1, so it differs from hover and from its neighbours (WCAG 1.4.11) */
-  & > .cs-button[aria-pressed='true'] { --_bg: var(--primary-soft); --_fg: var(--primary); box-shadow: inset 0 0 0 1px var(--primary); z-index: 1; }
+  /* pressed: the panel lifts out of the soft fill with an edge at 3:1, so it differs from hover and from its neighbours (WCAG 1.4.11) */
+  & > .cs-button[aria-pressed='true'] { --_bg: var(--panel); --_fg: var(--primary); --_hover: var(--panel); box-shadow: inset 0 0 0 1px var(--primary); z-index: 1; }
 }
 
 .cs-button-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; padding-block: 0.5em; margin-block: -0.5em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */ }

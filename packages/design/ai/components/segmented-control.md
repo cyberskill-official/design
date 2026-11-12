@@ -58,7 +58,8 @@ const [view, setView] = useState('board');
 - The control is a group named by `label`; each segment is a toggle button with `aria-pressed`.
 - Tab focuses the selected segment; arrow keys move between segments, Enter or Space selects.
 - Pressing the selected segment again keeps it selected, so there is never an empty state.
-- Each segment has a 44px touch area. The selected segment differs by surface, shadow and text weight, not only color.
+- Each segment has a 44px touch area. The selected segment differs by surface, edge and shadow, not only color.
+- The selection is one thumb that slides to the new segment; with reduced motion it moves at once. Until it is measured (on the server and the first frame) the selected segment draws its own surface, so nothing flashes.
 
 ## Exact types
 

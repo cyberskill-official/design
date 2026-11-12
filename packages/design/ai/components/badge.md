@@ -1,6 +1,6 @@
 # Badge
 
-> Short status or count label. Seven tones, three variants, two sizes. Status tones always carry an icon.
+> Short status, count or category label. Status, brand and category tones, three variants, two sizes. Status tones always carry an icon.
 
 ```tsx
 import { Badge } from '@cyberskill/design';
@@ -20,6 +20,16 @@ Use a badge to show the state of something next to it: a deployment is **Active*
 <Badge tone="warning">Trial ends soon</Badge>
 <Badge tone="danger" variant="solid">Failed</Badge>
 <Badge tone="info" variant="outline">Syncing</Badge>
+```
+
+## Category tones
+
+`blue`, `amber`, `teal`, `magenta` and `violet` label a kind (a team, a plan, a region), not a status, so they show no icon. They stay a tint even with `variant="solid"`: text never sits on a solid category color.
+
+```tsx
+<Badge tone="blue">Design</Badge>
+<Badge tone="amber">Finance</Badge>
+<Badge tone="teal" variant="outline">Support</Badge>
 ```
 
 ## Sizes
@@ -46,7 +56,7 @@ Use a badge to show the state of something next to it: a deployment is **Active*
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
-| `tone` | `'neutral' \| 'primary' \| 'accent' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'neutral'` | Color meaning. Status tones add an icon |
+| `tone` | `'neutral' \| 'primary' \| 'accent' \| 'success' \| 'warning' \| 'danger' \| 'info' \| 'blue' \| 'amber' \| 'teal' \| 'magenta' \| 'violet'` | `'neutral'` | Color meaning. Status tones add an icon; category tones stay tinted |
 | `variant` | `'soft' \| 'solid' \| 'outline'` | `'soft'` | Tinted, filled or bordered |
 | `size` | `'sm' \| 'md'` | `'md'` | Height 20 or 24px |
 | `icon` | `ReactNode \| false` | – | Decorative icon before the text. Replaces the status icon; false removes it on non-status tones |
@@ -64,7 +74,10 @@ Other props go to the `<span>`.
 
 ```ts
 export type BadgeProps = ComponentProps<'span'> & {
-  /** Color meaning. `success`, `warning`, `danger` and `info` show a status icon by default. */
+  /**
+   * Color meaning. `success`, `warning`, `danger` and `info` show a status icon by default.
+   * Category tones (`blue`, `amber`, `teal`, `magenta`, `violet`) label a kind, not a status; they stay tinted even as `solid`.
+   */
   tone?: BadgeTone;
   /** `soft` tinted (default), `solid` filled, `outline` bordered. */
   variant?: BadgeVariant;

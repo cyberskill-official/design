@@ -16,6 +16,26 @@ describe('Checkbox', () => {
     expect(onCheckedChange).toHaveBeenCalledWith(true, expect.anything());
   });
 
+  it('fills gold with an --accent-text edge when checked or mixed, and the tick leaves after unchecking', async () => {
+    render(
+      <div style={{ display: 'grid', gap: 24 }}>
+        <Checkbox label="Checked" defaultChecked />
+        <Checkbox label="Mixed" indeterminate />
+        <span data-testid="probe" style={{ background: 'var(--accent)', borderColor: 'var(--accent-text)' }} />
+      </div>,
+    );
+    const probe = getComputedStyle(screen.getByTestId('probe'));
+    for (const name of ['Checked', 'Mixed']) {
+      const box = getComputedStyle(screen.getByRole('checkbox', { name }));
+      expect([box.backgroundColor, box.borderTopColor]).toEqual([probe.backgroundColor, probe.borderTopColor]);
+    }
+    const checked = screen.getByRole('checkbox', { name: 'Checked' });
+    await userEvent.click(checked);
+    await expect.poll(() => checked.querySelector('.cs-checkbox-indicator')).toBeNull();
+    await userEvent.click(checked);
+    await expect.poll(() => checked.querySelector('.cs-checkbox-indicator svg')).not.toBeNull();
+  });
+
   it('announces the mixed state', () => {
     render(<Checkbox label="Select all" indeterminate />);
     expect(screen.getByRole('checkbox', { name: 'Select all' })).toHaveAttribute('aria-checked', 'mixed');

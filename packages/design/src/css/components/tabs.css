@@ -32,7 +32,7 @@
   font: 500 0.875rem/1.25rem var(--font-sans);
   white-space: nowrap;
   cursor: pointer;
-  transition: color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard);
+  transition: color var(--motion-state), background-color var(--motion-state);
 
   &:hover:not([data-disabled]) { color: var(--foreground); background: var(--raised); }
   &[data-active] { color: var(--foreground); font-weight: 600; }
@@ -54,7 +54,7 @@
   border-radius: var(--radius-full);
   background: var(--primary);
   translate: var(--active-tab-left) 0;
-  transition: translate var(--duration-base) var(--ease-standard), width var(--duration-base) var(--ease-standard), height var(--duration-base) var(--ease-standard);
+  transition: translate var(--motion-move), width var(--motion-move), height var(--motion-move);
   &[data-orientation='vertical'] { left: auto; right: 0; bottom: auto; top: 0; width: 2px; height: var(--active-tab-height); translate: 0 var(--active-tab-top); }
 }
 

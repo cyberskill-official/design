@@ -18,10 +18,11 @@ The value text is a percentage of `max`. Pass `value={null}` when the amount is 
 
 ## Tones and states
 
-`warnAt` turns a bar amber once the value reaches it; `tone="danger"` marks a failure. Both add an icon beside the value (also on an indeterminate bar) and the status to the name screen readers hear ("Storage, Warning"), so the change does not rest on color alone.
+Bars are gold by default; `tone="primary"` makes one ink, for a quiet bar among many. `warnAt` turns a bar amber once the value reaches it; `tone="danger"` marks a failure. Both add an icon beside the value (also on an indeterminate bar) and the status to the name screen readers hear ("Storage, Warning"), so the change does not rest on color alone.
 
 ```tsx
 <Progress label="Importing contacts" value={64} />
+<Progress label="Syncing calendar" value={48} tone="primary" />
 <Progress label="Storage" value={86} warnAt={80} />
 <Progress label="Import stopped" value={30} tone="danger" />
 <Progress label="Preparing export" value={null} />
@@ -45,8 +46,8 @@ The value text is a percentage of `max`. Pass `value={null}` when the amount is 
 | `label` | `ReactNode` | – | Visible label and accessible name (required) |
 | `value` | `number \| null` | – | Current value. null makes Progress indeterminate (Meter needs a number) |
 | `min / max` | `number` | `0 / 100` | Range of the value |
-| `tone` | `'primary' \| 'warning' \| 'danger'` | `'primary'` | Bar color; warning and danger add an icon |
-| `warnAt` | `number` | – | Switches a primary bar to warning once value reaches it |
+| `tone` | `'accent' \| 'primary' \| 'warning' \| 'danger'` | `'accent'` | Bar color: gold, ink, or a status; warning and danger add an icon |
+| `warnAt` | `number` | – | Switches a gold or ink bar to warning once value reaches it |
 | `warningLabel / dangerLabel` | `string` | `'Warning' / 'Critical'` | Status added to the accessible name in those tones, e.g. "Cảnh báo" / "Nghiêm trọng" |
 | `valueLabel` | `ReactNode` | – | Meter only: visible value text, e.g. "720K of 1M" |
 | `format / locale` | `Intl.NumberFormatOptions / string` | – | Format the value text, e.g. compact numbers or vi-VN |
@@ -57,7 +58,8 @@ The value text is a percentage of `max`. Pass `value={null}` when the amount is 
 - Progress is a `progressbar` and Meter a `meter`, each named by its label; screen readers read the value text (or `valueLabel`).
 - In the warning and danger tones the name also carries the status, from visually hidden text: "Storage, Warning, 86%". Pass `warningLabel` and `dangerLabel` in Vietnamese UIs.
 - The indeterminate bar slides; with reduced motion it becomes a still, faint full-width bar that does not look like a value.
-- The bar meets 3:1 against its track in light and dark; value text meets 4.5:1.
+- The bar meets 3:1 against its track in light and dark (the gold bar through its darker gold edge); value text meets 4.5:1.
+- The fill glides to a new value; with reduced motion it jumps.
 
 ## Exact types
 
@@ -70,7 +72,7 @@ export type MeterProps = Omit<BaseUI.Meter.Root.Props, 'className' | 'children'>
   /** Text shown instead of the percentage, e.g. "720K of 1M". A string is also read by screen readers unless you pass `aria-valuetext`. */
   valueLabel?: ReactNode;
   tone?: MeterTone;
-  /** Switches a `primary` meter to `warning` once `value` reaches this number (same scale as `max`). */
+  /** Switches an `accent` or `primary` meter to `warning` once `value` reaches this number (same scale as `max`). */
   warnAt?: number;
   /** Screen-reader text added to the name in the `warning` tone. */
   warningLabel?: string;
@@ -82,7 +84,7 @@ export type ProgressProps = Omit<BaseUI.Progress.Root.Props, 'className' | 'chil
   /** Visible label, also the progress bar's accessible name. */
   label: ReactNode;
   tone?: ProgressTone;
-  /** Switches a `primary` bar to `warning` once `value` reaches this number (same scale as `max`). */
+  /** Switches an `accent` or `primary` bar to `warning` once `value` reaches this number (same scale as `max`). */
   warnAt?: number;
   /** Screen-reader text added to the name in the `warning` tone. */
   warningLabel?: string;

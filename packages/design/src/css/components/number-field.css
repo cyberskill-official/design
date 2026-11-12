@@ -23,7 +23,7 @@
   background: transparent;
   color: var(--muted);
   cursor: pointer;
-  transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
+  transition: background-color var(--motion-state), color var(--motion-state);
   &:hover:not([data-disabled]) { background: var(--raised); color: var(--foreground); }
   /* Inset: the group clips overflow */
   &:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; }

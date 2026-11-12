@@ -16,9 +16,9 @@
   color: var(--foreground);
   box-shadow: var(--shadow-lg);
   transform-origin: var(--transform-origin);
-  transition: opacity var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-standard);
-  &[data-starting-style], &[data-ending-style] { opacity: 0; transform: translateY(-6px); }
-  &[data-side='top'][data-starting-style], &[data-side='top'][data-ending-style] { transform: translateY(6px); }
+  transition: opacity var(--motion-fade), transform var(--motion-pop-in);
+  &[data-starting-style], &[data-ending-style] { opacity: 0; transform: scale(var(--motion-pop-scale)); }
+  &[data-ending-style] { transition: opacity var(--motion-pop-out), transform var(--motion-pop-out); }
   &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
 }
 

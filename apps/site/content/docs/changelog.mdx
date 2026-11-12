@@ -3,6 +3,23 @@ title: Changelog
 description: Release notes for @cyberskill/design 3.x.
 ---
 
+## 3.2.0 (unreleased)
+
+Motion and color that every app inherits. Upgrading from 3.1.0: read "Check when upgrading" below.
+
+- **Motion recipes:** components and apps pick a recipe (`--motion-press`, `--motion-move`, `--motion-pop-in`…), never milliseconds or curves. Springs are defined by a duration and a bounce and ship as tokens. See [Motion](/docs/foundations/motion).
+- **Every component moves through them:** buttons answer on pointer-down, thumbs and indicators travel on a spring, menus grow from their trigger, dialogs leave faster than they arrive.
+- **Reduced motion** keeps the fade and drops the movement, in every component and in app code that uses the recipes.
+- **Color roles:** every tone has `soft`, `soft-hover`, `line` and `text` tokens, checked for contrast by the token build. Five category tones (blue, amber, teal, magenta, violet) match the chart palette. See [Color](/docs/foundations/color).
+- **New:** `IconTile`, `Reveal` and `Stagger`, `Button` `variant="soft"` with `tone`, `tone` on Avatar, Stat, Card, Tag and Badge, `Card` `surface="ink"`, four gradient tokens, and the optional `@cyberskill/design/motion` entry (`MotionProvider`, `AnimatedNumber`).
+- **For app repositories:** `npx @cyberskill/design check` fails on raw colors, raw motion and a second animation library; `ai-setup` now points AI tools at the motion and color rules.
+
+**Check when upgrading from 3.1.0**
+
+- The `secondary` button is a soft ink fill, not a grey outline.
+- Checked controls are gold: Switch, Checkbox, Radio, the Slider range, Progress and Meter. `Progress` and `Meter` take `tone="primary"` for the ink fill.
+- App CSS that overrides `--duration-*` or `--ease-*` to retime components must override the `--motion-*` recipes instead.
+
 ## 3.1.0 (12 November 2026)
 
 A hardening pass over every component. Upgrading from 3.0.0: read "Check when upgrading" below.

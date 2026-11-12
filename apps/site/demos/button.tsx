@@ -17,6 +17,19 @@ export function ButtonVariants() {
   );
 }
 
+export function ButtonSoft() {
+  return (
+    <>
+      <Button variant="soft">Details</Button>
+      <Button variant="soft" tone="accent" iconStart={<Sparkle />}>Suggest</Button>
+      <Button variant="soft" tone="success">Approve</Button>
+      <Button variant="soft" tone="warning">Pause</Button>
+      <Button variant="soft" tone="danger">Remove</Button>
+      <Button variant="soft" tone="info">Learn more</Button>
+    </>
+  );
+}
+
 export function ButtonSizes() {
   return (
     <>

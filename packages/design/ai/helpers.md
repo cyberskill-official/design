@@ -46,6 +46,16 @@ export declare const seriesColor: (s: {
 }, index: number) => string;
 ```
 
+## toneFor
+
+Server Components: yes.
+
+```ts
+import { toneFor } from '@cyberskill/design/utils';
+/** A stable category tone for a key such as a name or a tag: the same key always gets the same tone, on the server and in the browser. */
+export declare function toneFor(key: string): CategoryTone;
+```
+
 ## useCommandMenuShortcut
 
 Client components only.
@@ -177,5 +187,25 @@ import { rangePresets } from '@cyberskill/design/date';
  * Call it while rendering so "today" stays current. Pure, so Server Components can call it too.
  */
 export declare function rangePresets(labels?: Partial<RangePresetLabels>, today?: Date): DateRangePreset[];
+```
+
+## springs
+
+Server Components: yes.
+
+```ts
+import { springs } from '@cyberskill/design/motion';
+/** The token springs (Apple's duration and bounce) as stiffness and damping: `transition={springs.snappy}`. */
+export declare const springs: Record<SpringName, SpringTransition>;
+```
+
+## transitions
+
+Server Components: yes.
+
+```ts
+import { transitions } from '@cyberskill/design/motion';
+/** The CSS motion recipes (`--motion-pop-in` …) for Motion: `transition={transitions.popIn}`. */
+export declare const transitions: Record<RecipeName, SpringTransition | TweenTransition>;
 ```
 

@@ -31,4 +31,46 @@ Use semantic tokens, never hex values. They switch with `data-theme` (`light` de
 
 **Type:** classes `cs-display`, `cs-h1`–`cs-h4`, `cs-body-lg`, `cs-body`, `cs-ui`, `cs-caption`, `cs-overline`, `cs-code`. Fonts `--font-display` (Manrope, headings), `--font-sans` (Be Vietnam Pro, body/UI), `--font-mono` (JetBrains Mono, data/code). Tailwind: `font-display`, `font-sans`, `font-mono`.
 
-**Space:** `--space-1`…`--space-20` on a 4px scale (`--space-4` = 16px). **Radius:** `--radius-sm|md|lg|xl|full` (controls md, cards lg, dialogs xl). **Shadow:** `--shadow-sm|md|lg|overlay`. **Motion:** `--duration-fast|base|slow`, `--ease-standard|emphasized|exit`. **Layers:** `--z-dropdown|sticky|overlay|modal|toast|tooltip`. **Controls:** `--control-sm|md|lg` (32/40/48px), `--control-touch` (44px).
+**Space:** `--space-1`…`--space-20` on a 4px scale (`--space-4` = 16px). **Radius:** `--radius-sm|md|lg|xl|full` (controls md, cards lg, dialogs xl). **Shadow:** `--shadow-sm|md|lg|overlay`. **Layers:** `--z-dropdown|sticky|overlay|modal|toast|tooltip`. **Controls:** `--control-sm|md|lg` (32/40/48px), `--control-touch` (44px).
+
+## Color roles
+
+Fill by role, not by hue. `soft` is a tinted surface, `soft-hover` its hover, `line` a tinted border, `text` text and icons on the tint (4.5:1), `icon` a category icon on the tint (3:1). Set `data-tone` on a toned component, or `class="cs-tone" data-tone="teal"` in app markup for `--tone`, `--tone-soft`, `--tone-line`, `--tone-text`, `--tone-icon`. Tailwind names match (`bg-success-soft`, `text-teal-text`). Which color for what: `color.md`. Light / dark:
+
+| `data-tone` | Tokens | soft | soft-hover | line | text | icon |
+|---|---|---|---|---|---|---|
+| `primary` | `--primary-*` | #E3E5E8 / #2B3341 | #D9DCE0 / #444C5A | #B9BDC5 / #666E7B | `--primary` #14243D / #E6ECF5 | – |
+| `accent` | `--accent-*` | #FEF8E8 / #353426 | #FDF4DA / #474025 | #FCEAB9 / #6C5A22 | #8B6902 / #F4BA17 | – |
+| `success` | `--success-*` | #E6F2ED / #193839 | #D7EAE2 / #1D4741 | #B4D7C9 / #256552 | #086745 / #64DAA4 | – |
+| `warning` | `--warning-*` | #F2ECE6 / #342A2A | #EAE0D6 / #45322A | #D7C5B3 / #68422B | #653509 / #EA9456 | – |
+| `danger` | `--destructive-*` | #FAEBEB / #362439 | #F7DEE0 / #492941 | #F0C2C4 / #6E3352 | #A62D38 / #F677A4 | – |
+| `info` | `--info-*` | #E9EFF8 / #23324B | #DBE5F4 / #2C3E5C | #BCCEEA / #3E577F | #1C4F9C / #97BEFD | – |
+| `blue` | `--blue-*` | #E9F4FE / #1A2A3F | #DCEDFE / #1F324A | #BEDEFD / #294261 | #1D61A7 / #8BAACE | #2279CF / #6B94C1 |
+| `amber` | `--amber-*` | #F9F3E6 / #262923 | #F5ECD7 / #313020 | #ECDCB4 / #473E19 | #795E16 / #B8A564 | #9D740E / #A78D33 |
+| `teal` | `--teal-*` | #E6F6F6 / #132F35 | #D7F0F0 / #14393C | #B3E4E3 / #154E48 | #086D73 / #6EBDAA | #05898A / #45AD90 |
+| `magenta` | `--magenta-*` | #F4ECF4 / #292136 | #EDE1ED / #35253C | #DEC7DD / #4D2C49 | #5D3366 / #C28AAC | #773B79 / #B56893 |
+| `violet` | `--violet-*` | #F8F2FA / #2A2848 | #F3E9F7 / #372E57 | #E9D7F1 / #503C75 | #73538E / #C6A2EE | #9565AF / #BA88EB |
+
+Category tones (blue, amber, teal, magenta, violet) are tint and icon only: never text on their solid color (`--chart-1`…`--chart-5`). **Surfaces:** `--wash` #E9EBEF / #171E2A, `--accent-deep` #DCA112 / #F2AE1C; on the one ink surface per view `--ink-lit` #1B3663 / #1B3663, `--on-ink` #FFFFFF / #FFFFFF, `--on-ink-muted` #B8C2D3 / #B8C2D3. **Gradients** (for `background:`): `--gradient-ink`, `--gradient-wash`, `--gradient-gold`, `--gradient-aurora`.
+
+## Motion recipes
+
+Animate only through these, one per property: `transition: background-color var(--motion-state), transform var(--motion-release)`. Reduced motion is handled for you because the recipes are redefined under it. In React use `transitions` and `springs` from `@cyberskill/design/motion`. Which recipe for what: `motion.md`.
+
+| Recipe | Duration and curve |
+|---|---|
+| `--motion-state` | 120ms, `--ease-standard` |
+| `--motion-fade` | 180ms, `--ease-out` |
+| `--motion-press` | 80ms, `--ease-out` |
+| `--motion-release` | 386ms, `--spring-snappy` (spring) |
+| `--motion-move` | 386ms, `--spring-snappy` (spring) |
+| `--motion-pop-in` | 180ms, `--ease-out` |
+| `--motion-pop-out` | 120ms, `--ease-out` |
+| `--motion-modal-in` | 406ms, `--spring-smooth` (spring) |
+| `--motion-modal-out` | 180ms, `--ease-out` |
+| `--motion-sheet-in` | 500ms, `--ease-sheet` |
+| `--motion-sheet-out` | 280ms, `--ease-sheet` |
+| `--motion-reveal` | 500ms, `--ease-out` |
+| `--motion-celebrate` | 584ms, `--spring-bouncy` (spring) |
+
+**Start values:** `--motion-press-scale` 0.97, `--motion-pop-scale` 0.96, `--motion-modal-scale` 0.96, `--motion-rise` 8px, `--motion-stagger` 40ms. Build start and end transforms from these (`transform: scale(var(--motion-pop-scale))`); reduced motion sets the scales to 1 and the distances to 0.

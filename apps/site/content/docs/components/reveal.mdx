@@ -1,0 +1,75 @@
+---
+title: Reveal
+description: Fades a page's main content in and lifts it 8px on first load, once. Stagger reveals a short list one item after another. Plain CSS.
+---
+
+import { RevealDemo, StaggerDemo } from '@/demos/reveal';
+
+Use a reveal for the first load of a page or a panel: the main content arrives instead of popping in. Use it once, on the few blocks that matter, at most six; never on scroll, on every card, or when data refreshes. For an element moving between places, an exit animation or a count-up, see [Motion](/docs/components/motion).
+
+It is plain CSS (the `reveal` recipe), so it works in Server Components and without JavaScript, and a server-rendered page never restarts it on hydration.
+
+```tsx
+import { Reveal, Stagger } from '@cyberskill/design';
+```
+
+## Reveal
+
+A `div` by default; `render` swaps in another element and keeps that element's own props. `delay` adds a wait in milliseconds.
+
+<Demo title="Reveal" layout="center">
+  <RevealDemo />
+</Demo>
+
+```tsx
+<Reveal>
+  <Card>
+    <CardHeader>
+      <CardTitle>Team plan</CardTitle>
+      <CardDescription>Shared projects, reviews and progress reports for up to 50 learners.</CardDescription>
+    </CardHeader>
+  </Card>
+</Reveal>
+```
+
+## Stagger
+
+Reveals its `Reveal` children one after another, 40ms apart. From the seventh item on they appear with the sixth, so a long list never keeps the reader waiting. For a list, render the `Stagger` as a `ul` and each `Reveal` as an `li`.
+
+<Demo title="Staggered list" layout="center">
+  <StaggerDemo />
+</Demo>
+
+```tsx
+<Stagger render={<ul />}>
+  {lessons.map((lesson) => (
+    <Reveal key={lesson.id} render={<li />}>
+      <Card><CardHeader><CardTitle>{lesson.title}</CardTitle></CardHeader></Card>
+    </Reveal>
+  ))}
+</Stagger>
+```
+
+## Props
+
+### Reveal
+
+<PropsTable rows={[
+  ['delay', 'number', '0', 'Extra wait before it starts, in milliseconds. Added to its Stagger step'],
+  ['render', 'ReactElement', '–', 'Another element instead of the div, e.g. <section /> or <li /> inside a Stagger list. Its own props are kept'],
+  ['…', 'div props', '–', 'className, style, ref, aria-*, data-* pass through'],
+]} />
+
+### Stagger
+
+<PropsTable rows={[
+  ['children', 'ReactNode', '–', 'Reveal items; each starts 40ms after the one before, up to the sixth'],
+  ['render', 'ReactElement', '–', 'Another element instead of the div, e.g. <ul />'],
+  ['…', 'div props', '–', 'className, style, ref, aria-*, data-* pass through'],
+]} />
+
+## Accessibility
+
+- **Reduced motion.** The content appears at once: no fade, no rise, no stagger.
+- **Nothing is hidden by the markup.** The content is in the page from the first render, so search, screen readers and pages without JavaScript get it. It is only transparent while it plays.
+- **Keyboard.** Reveal takes no focus and keeps the reading and focus order of its content.

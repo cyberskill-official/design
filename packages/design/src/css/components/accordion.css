@@ -30,7 +30,7 @@
   font: 600 0.9375rem/1.375rem var(--font-sans);
   text-align: start;
   cursor: pointer;
-  transition: background-color var(--duration-fast) var(--ease-standard);
+  transition: background-color var(--motion-state);
 
   &:hover:not([data-disabled]) { background: var(--raised); }
   &:focus-visible { position: relative; z-index: 1; outline: 2px solid var(--ring); outline-offset: 2px; }
@@ -48,7 +48,7 @@
   width: 16px;
   height: 16px;
   color: var(--muted);
-  transition: transform var(--duration-base) var(--ease-standard);
+  transition: transform var(--motion-move);
   [data-panel-open] > & { transform: rotate(180deg); }
 }
 
@@ -56,7 +56,7 @@
   box-sizing: border-box;
   height: var(--accordion-panel-height);
   overflow: hidden;
-  transition: height var(--duration-base) var(--ease-standard);
+  transition: height var(--motion-pop-in);
   /* The panel clips at its top edge, where the first line starts: stacked Vietnamese marks (Ổ, Ẫ) reach above that
      line and lost their top mark. The panel starts 4px higher (over the trigger's empty bottom padding, letting clicks
      through) and the content 4px lower, so nothing moves and the marks have room. */

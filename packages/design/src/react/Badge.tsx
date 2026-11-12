@@ -1,8 +1,9 @@
 import { CheckCircle, Info, Warning, XCircle } from '@phosphor-icons/react/ssr'; // the context-free build: this component renders in Server Components
 import type { ComponentProps, ReactNode } from 'react';
+import type { CategoryTone } from './tone';
 import { cx } from '../utils/cx';
 
-export type BadgeTone = 'neutral' | 'primary' | 'accent' | 'success' | 'warning' | 'danger' | 'info';
+export type BadgeTone = 'neutral' | 'primary' | 'accent' | 'success' | 'warning' | 'danger' | 'info' | CategoryTone;
 export type BadgeVariant = 'soft' | 'solid' | 'outline';
 
 // Status tones always carry an icon: their meaning never rests on color alone.
@@ -14,7 +15,10 @@ const STATUS_ICONS: Partial<Record<BadgeTone, ReactNode>> = {
 };
 
 export type BadgeProps = ComponentProps<'span'> & {
-  /** Color meaning. `success`, `warning`, `danger` and `info` show a status icon by default. */
+  /**
+   * Color meaning. `success`, `warning`, `danger` and `info` show a status icon by default.
+   * Category tones (`blue`, `amber`, `teal`, `magenta`, `violet`) label a kind, not a status; they stay tinted even as `solid`.
+   */
   tone?: BadgeTone;
   /** `soft` tinted (default), `solid` filled, `outline` bordered. */
   variant?: BadgeVariant;

@@ -48,7 +48,7 @@
   font: 500 0.875rem/1 var(--font-sans);
   font-variant-numeric: tabular-nums;
   cursor: pointer;
-  transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
+  transition: background-color var(--motion-state), color var(--motion-state);
 
   /* 44px touch area: half the 12px gap on each side (32 + 12), so neighbours never overlap */
   &::before { content: ''; position: absolute; inset: calc((var(--control-sm) - var(--control-touch)) / 2) calc(var(--space-3) / -2); }

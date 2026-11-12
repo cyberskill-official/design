@@ -12,7 +12,7 @@ The CyberSkill Design System: Ink & Gold tokens, accessible React components, ch
 - **60+ components** on [Base UI](https://base-ui.com): forms, pickers (combobox, multi-select, date, range and time), overlays, navigation, data table, charts.
 - **Tokens** in light and dark, as CSS variables, a Tailwind v4 theme and a typed object. The build fails if any color pair drops below its contrast rule.
 - **Vietnamese first:** search ignores accents, every user-facing string is a prop, and stacked marks (Ẫ, Ỗ) are checked in every component.
-- **Checked on every release:** a 23-dimension quality benchmark runs on every story in light and dark (WCAG 2.2 AA, focus, keyboard, reflow, forced colors, Vietnamese text).
+- **Checked on every release:** a 25-dimension quality benchmark runs on every story in light and dark (WCAG 2.2 AA, focus, keyboard, reflow, forced colors, Vietnamese text, motion and color rules).
 - **Server Components ready:** flat named exports, `'use client'` only where it is needed, optional peers in their own entry points.
 
 ## Install
@@ -59,16 +59,23 @@ Fonts: `@import '@cyberskill/design/fonts.css';` loads Be Vietnam Pro, Manrope a
 | `@cyberskill/design/table` | Data table | `@tanstack/react-table@9`, `@tanstack/react-virtual@3` |
 | `@cyberskill/design/forms` | React Hook Form helpers | `react-hook-form@7` |
 | `@cyberskill/design/date` | Calendar, date, range and time pickers | `react-day-picker@10`, `date-fns@4` |
+| `@cyberskill/design/motion` | Reveal, stagger, a counting number, and the recipes as Motion transitions | `motion@12+` |
 | `@cyberskill/design/utils` | Pure helpers (`cx`, `formatFileSize`, chart colors), safe in Server Components | – |
 | `@cyberskill/design/assets/*` | Logos and icons | – |
 
+## Motion and color
+
+- **Motion:** components animate through `--motion-*` recipes, springs included, in plain CSS. Use them in your own CSS too (`transition: opacity var(--motion-fade), transform var(--motion-pop-in)`): under reduced motion the tokens turn movement into a fade. For reveals, counting numbers and gestures, import from `@cyberskill/design/motion`; add no other animation library.
+- **Color roles:** each tone (primary, accent, success, warning, danger, info, and the categories blue, amber, teal, magenta, violet) has `-soft`, `-soft-hover`, `-line` and `-text` (categories also `-icon`) in both themes. Use `bg-teal-soft text-teal-text`, `var(--success-soft)`, or `data-tone` on a toned component. Category tones are tint and icon only. Gold means on, done or key.
+
 ## For AI coding tools
 
-The package ships its own AI guide in `ai/`: `INDEX.md` (setup, rules, every component with its import), one short file per component with exact types, `tokens.md`, a Claude Code skill and a Cursor rule. Install them into your project:
+The package ships its own AI guide in `ai/`: `INDEX.md` (setup, rules, every component with its import), one short file per component with exact types, `motion.md` and `color.md` (the rules for any animation or color), `tokens.md`, a Claude Code skill and a Cursor rule. Install them into your project, and check your code against the same rules:
 
 ```bash
 npx @cyberskill/design ai-setup            # .claude/skills, .cursor/rules, AGENTS.md section
 npx @cyberskill/design ai-setup --dry-run  # preview
+npx @cyberskill/design check               # raw colors, raw motion, a second animation library (src, app, components, pages, styles)
 ```
 
 ## Links

@@ -20,13 +20,13 @@
   color: var(--foreground);
   box-shadow: var(--shadow-overlay);
   outline: 0;
-  transition: transform var(--duration-slow) var(--ease-standard);
+  transition: transform var(--motion-sheet-in);
 
   &[data-size='sm'] { --_w: 320px; --_h: 50dvh; }
   &[data-size='lg'] { --_w: 560px; --_h: 92dvh; }
   &[data-swiping] { transition-duration: 0ms; }
-  /* A fast flick closes faster. */
-  &[data-ending-style] { transition-duration: calc(var(--drawer-swipe-strength, 1) * var(--duration-slow)); }
+  /* after [data-swiping]: a released swipe carries both, and must still animate out */
+  &[data-ending-style] { transition: transform var(--motion-sheet-out); transition-duration: calc(var(--drawer-swipe-strength, 1) * var(--duration-slow)); /* a hard flick closes it faster */ }
 
   &[data-swipe-direction='right'], &[data-swipe-direction='left'] {
     width: min(var(--_w), calc(100vw - var(--space-10)));
@@ -54,6 +54,12 @@
     transform: translateY(var(--drawer-swipe-movement-y, 0px));
     &[data-starting-style], &[data-ending-style] { transform: translateY(100%); }
   }
+}
+
+/* Sliding in from off-screen is movement no recipe value can shrink, so reduced motion fades the drawer in place. */
+@media (prefers-reduced-motion: reduce) {
+  .cs-drawer, .cs-drawer[data-ending-style] { transition: opacity var(--motion-fade); }
+  .cs-drawer[data-swipe-direction][data-starting-style], .cs-drawer[data-swipe-direction][data-ending-style] { transform: none; opacity: 0; }
 }
 
 /* Grab handle: bottom sheets only. Decorative; swiping works anywhere on the sheet. */

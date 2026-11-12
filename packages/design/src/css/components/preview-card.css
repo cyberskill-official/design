@@ -26,6 +26,7 @@
   box-shadow: var(--shadow-lg);
   font: 400 0.875rem/1.25rem var(--font-sans);
   transform-origin: var(--transform-origin);
-  transition: opacity var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-standard);
-  &[data-starting-style], &[data-ending-style] { opacity: 0; transform: scale(0.97); }
+  transition: opacity var(--motion-fade), transform var(--motion-pop-in);
+  &[data-starting-style], &[data-ending-style] { opacity: 0; transform: scale(var(--motion-pop-scale)); }
+  &[data-ending-style] { transition: opacity var(--motion-pop-out), transform var(--motion-pop-out); }
 }

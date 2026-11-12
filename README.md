@@ -42,8 +42,10 @@ Full guide: [Get started](https://design.cyberskill.world/docs/get-started).
 |---|---|
 | **Tokens** | One JSON source for color, type, space, radius, shadow and motion. The build fails if text contrast drops below WCAG targets or two colors with different meanings look alike, including to color-blind readers. |
 | **Components** | Built on [Base UI](https://base-ui.com) for keyboard, focus and screen reader behavior. Plain CSS in cascade layers: works with or without Tailwind and in Server Components. |
-| **Charts, tables, forms, dates** | Optional entry points on Recharts, TanStack Table, React Hook Form and react-day-picker; apps that don't use them never load them. |
-| **AI-ready** | The package ships compact docs for AI coding tools (`ai/INDEX.md`, one file per component, a Claude Code skill and a Cursor rule). Run `npx @cyberskill/design ai-setup` in your app. |
+| **Motion** | Every component moves through `--motion-*` recipes (springs included, in plain CSS), and reduced motion is handled once, in the tokens. App CSS that uses the recipes gets the same. `@cyberskill/design/motion` adds reveals, counting numbers and gestures on Motion. |
+| **Color roles** | Each tone (ink, gold, the four statuses, five categories) has soft, line, text and icon roles in both themes, contrast-checked by the build: `bg-teal-soft text-teal-text`, or `data-tone` on a component. Gold means on, done or key. |
+| **Charts, tables, forms, dates, motion** | Optional entry points on Recharts, TanStack Table, React Hook Form, react-day-picker and Motion; apps that don't use them never load them. |
+| **AI-ready** | The package ships compact docs for AI coding tools (`ai/INDEX.md`, one file per component, a Claude Code skill and a Cursor rule). Run `npx @cyberskill/design ai-setup` in your app, and `npx @cyberskill/design check` to list raw colors, raw motion and a second animation library in your code. |
 | **Quality gates** | Every component is tested in a real browser with axe in light and dark, and every story also runs as a browser test with axe. The build fails on any broken contrast or color-distinctness rule. A forensic visual audit checks rendered contrast, clipping, overlap and touch targets on every site page in both themes. |
 
 ## Repository
@@ -53,7 +55,7 @@ Full guide: [Get started](https://design.cyberskill.world/docs/get-started).
 | `packages/design` | The npm package `@cyberskill/design` |
 | `apps/site` | design.cyberskill.world (Next.js + Fumadocs, static export) |
 | `tools/audit` | Forensic visual audit |
-| `tools/benchmark` | Quality benchmark: 23 dimensions on every story ([docs/benchmark.md](docs/benchmark.md)) |
+| `tools/benchmark` | Quality benchmark: 25 dimensions on every story ([docs/benchmark.md](docs/benchmark.md)) |
 | `examples/next-hello` | Smallest consumer app; CI installs the packed tarball into it |
 
 ```bash

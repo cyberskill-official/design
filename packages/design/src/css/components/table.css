@@ -60,7 +60,7 @@
 .cs-table-cell[data-numeric] { font-family: var(--font-mono); font-size: 0.8125rem; }
 
 .cs-table-body > .cs-table-row {
-  transition: background-color var(--duration-fast) var(--ease-standard);
+  transition: background-color var(--motion-state);
   &:hover { background: color-mix(in srgb, var(--raised) 70%, var(--panel)); }
   /* selected: tint plus an edge bar, so it does not rest on color alone */
   &[data-selected] { background: var(--primary-soft); }

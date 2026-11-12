@@ -20,6 +20,16 @@ Use an avatar to show who owns, edited or is assigned to something. It shows ini
 <Avatar name="Broken photo" size="lg" src="/missing.png" initials="BP" />
 ```
 
+## Tones
+
+Initials are ink on a soft ink tint by default. `tone` tints them in a category color, which makes a list of people easier to tell apart. `toneFor(name)` (from `@cyberskill/design` or `/utils`) gives each name the same tone every time, on the server and in the browser.
+
+```tsx
+<Avatar name="An Nguyen" tone={toneFor('An Nguyen')} />
+<Avatar name="Chi Le" tone="teal" />
+<Avatar name="Trần Thị Linh" tone="primary" />
+```
+
 ## Group
 
 `max` limits how many avatars show; the rest collapse into a "+N" bubble. The group sets one `size` for every avatar, and each avatar gets a ring in the page background color so overlaps stay readable.
@@ -43,12 +53,14 @@ Use an avatar to show who owns, edited or is assigned to something. It shows ini
 | `src` | `string` | – | Photo URL. Initials show until it loads, and if it fails |
 | `initials` | `string` | – | Override the initials taken from name |
 | `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | 24, 32 or 40px |
+| `tone` | `'primary' \| 'blue' \| 'amber' \| 'teal' \| 'magenta' \| 'violet'` | `'primary'` | Tint of the initials; toneFor(name) picks a stable one |
 
 `AvatarGroup` takes `label` (names the group), `max`, `size` and `overflowLabel` (`(count) => string`, default `` n => `${n} more` ``; pass Vietnamese, e.g. `` n => `${n} người khác` ``).
 
 ## Accessibility
 
 - Each avatar is announced as an image named `name`, whether the photo or the initials show.
+- Initials keep 4.5:1 on every tone's tint in light and dark. The tone is decoration: never let it be the only way to tell people apart.
 - When the name is already printed next to the avatar, pass `aria-hidden` so screen readers do not hear it twice.
 - The "+N" bubble is announced as "N more" (or your `overflowLabel`). List everyone in full somewhere reachable, e.g. a members page or a tooltip on a button.
 - Give the group a `label` when nothing nearby says who these people are.
@@ -67,6 +79,8 @@ export type AvatarProps = Omit<BaseUI.Avatar.Root.Props, 'className' | 'children
   initials?: string;
   /** `sm` 24px, `md` 32px (default), `lg` 40px. */
   size?: AvatarSize;
+  /** Tint of the initials. Defaults to `primary` (ink). `toneFor(name)` gives each person a stable category tone. */
+  tone?: CategoryTone | 'primary';
 };
 export type AvatarGroupProps = ComponentProps<'div'> & {
   /** Names the group for screen readers, e.g. "Project members". */

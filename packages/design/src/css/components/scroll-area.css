@@ -18,7 +18,7 @@
   padding: 2px;
   border-radius: var(--radius-full);
   opacity: 0;
-  transition: opacity var(--duration-base) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard);
+  transition: opacity var(--motion-fade), background-color var(--motion-state);
 
   &[data-orientation='vertical'] { width: 10px; box-sizing: border-box; }
   &[data-orientation='horizontal'] { height: 10px; box-sizing: border-box; }
@@ -33,7 +33,7 @@
   flex: 1;
   border-radius: var(--radius-full);
   background: color-mix(in srgb, var(--muted) 55%, transparent);
-  transition: background-color var(--duration-fast) var(--ease-standard);
+  transition: background-color var(--motion-state);
   .cs-scroll-area-scrollbar:hover > &, &:active { background: var(--muted); }
 }
 

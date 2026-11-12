@@ -7,7 +7,7 @@ const meta = {
   component: Progress,
   tags: ['autodocs'],
   args: { label: 'Uploading 3 files', value: 42 },
-  argTypes: { tone: { control: 'inline-radio', options: ['primary', 'warning', 'danger'] } },
+  argTypes: { tone: { control: 'inline-radio', options: ['accent', 'primary', 'warning', 'danger'] } },
   render: args => <div style={{ width: '100%', maxWidth: 360 }}><Progress {...args} /></div>,
 } satisfies Meta<typeof Progress>;
 
@@ -25,6 +25,7 @@ export const Tones: Story = {
   render: () => (
     <div style={{ display: 'grid', gap: 20, width: '100%', maxWidth: 360 }}>
       <Progress label="Importing contacts" value={64} />
+      <Progress label="Syncing calendar" value={48} tone="primary" />
       <Progress label="Storage" value={86} warnAt={80} />
       <Progress label="Import stopped" value={30} tone="danger" />
     </div>

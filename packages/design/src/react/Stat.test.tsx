@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+import { CurrencyDollar, UsersThree } from '@phosphor-icons/react';
 import { Stat } from './Stat';
 import { expectAccessibleInThemes } from '../test/a11y';
 
@@ -38,9 +39,27 @@ describe('Stat', () => {
     expect(screen.getByRole('img', { name: 'Requests over 30 days' }).parentElement).toHaveClass('cs-stat-chart');
   });
 
+  it('icon renders a decorative tile in the given tone beside the label and value', () => {
+    const { container, rerender } = render(<Stat label="Active users" value="1,284" icon={<UsersThree />} tone="teal" />);
+    const tile = container.querySelector('.cs-icon-tile')!;
+    expect(tile).toHaveAttribute('data-tone', 'teal');
+    expect(tile).toHaveAttribute('aria-hidden', 'true');
+    const label = screen.getByText('Active users').getBoundingClientRect();
+    expect(tile.getBoundingClientRect().left).toBeGreaterThanOrEqual(label.right);
+    rerender(<Stat label="Active users" value="1,284" />);
+    expect(container.querySelector('.cs-icon-tile')).toBeNull();
+  });
+
+  it('draws the delta as a soft chip in the sentiment tint', () => {
+    render(<><Stat label="Churn" value="2.1%" delta={{ value: '−0.4 pts', trend: 'down', sentiment: 'positive' }} /><span data-testid="probe" style={{ background: 'var(--success-soft)' }} /></>);
+    expect(getComputedStyle(screen.getByText('−0.4 pts')).backgroundColor).toBe(getComputedStyle(screen.getByTestId('probe')).backgroundColor);
+  });
+
   it('has no accessibility violations in light and dark', async () => {
     await expectAccessibleInThemes(
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+        <Stat label="Revenue" value="$48,210" icon={<CurrencyDollar />} tone="accent" delta={{ value: '+8.4%', trend: 'up' }} />
+        <Stat label="Members" value="42" icon={<UsersThree />} />
         <Stat label="Monthly revenue" value="$48,210" delta={{ value: '+8.4%', trend: 'up' }} hint="vs. last month" />
         <Stat label="Error rate" value="0.42%" delta={{ value: '+0.1 pts', trend: 'up', sentiment: 'negative' }} hint="vs. last week" />
         <Stat label="Seats" value="128" delta={{ value: '0', trend: 'up', sentiment: 'neutral' }} hint="no change" />

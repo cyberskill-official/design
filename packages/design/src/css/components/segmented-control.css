@@ -1,6 +1,8 @@
 .cs-segmented-control {
   --_h: var(--control-md);
   --_pad: 3px;
+  --_radius: 6px;
+  position: relative;
   box-sizing: border-box;
   display: inline-flex;
   max-width: 100%; /* in a narrow container the segments shrink and their labels truncate */
@@ -11,8 +13,25 @@
   border-radius: var(--radius-md);
   background: var(--raised);
 
-  &[data-size='sm'] { --_h: var(--control-sm); }
-  &[data-size='lg'] { --_h: var(--control-lg); --_pad: 4px; border-radius: var(--radius-lg); }
+  &[data-size='sm'] { --_h: var(--control-sm); --_radius: 5px; }
+  &[data-size='lg'] { --_h: var(--control-lg); --_pad: 4px; --_radius: var(--radius-md); border-radius: var(--radius-lg); }
+}
+
+/* The selection: one thumb under the segments that slides to the pressed one (SegmentedControl measures it).
+   Its --input border is the 3:1 edge of the selection on the track (WCAG 1.4.11). */
+.cs-segmented-control-thumb {
+  position: absolute;
+  inset-block: var(--_pad);
+  left: 0;
+  box-sizing: border-box;
+  border: 1px solid var(--input);
+  border-radius: var(--_radius);
+  background: var(--panel);
+  box-shadow: var(--shadow-sm);
+  pointer-events: none;
+  transition: translate var(--motion-move), width var(--motion-move);
+  /* a disabled selection fades with its segment (the segment's own opacity does not reach the thumb under it) */
+  .cs-segmented-control[data-disabled] > &, .cs-segmented-control:has(> .cs-segmented-control-item[data-pressed][data-disabled]) > & { opacity: 0.5; }
 }
 
 .cs-segmented-control-item {
@@ -26,14 +45,14 @@
   margin: 0;
   padding: 0 var(--space-3);
   border: 0;
-  border-radius: 6px;
+  border-radius: var(--_radius);
   background: transparent;
   color: var(--muted);
   font: 500 0.875rem/1 var(--font-sans);
   white-space: nowrap;
   cursor: pointer;
   user-select: none;
-  transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+  transition: color var(--motion-state);
 
   /* 44px touch target: the segment is shorter than the track */
   &::before {
@@ -44,13 +63,15 @@
     transform: translateY(-50%);
   }
   &:hover:not([data-disabled], [data-pressed]) { color: var(--foreground); }
+  /* before the thumb is measured (server render, first frame) the pressed segment draws the selection itself */
   &[data-pressed] { background: var(--panel); color: var(--foreground); box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--input); } /* --input: the selected segment's edge stands 3:1 on the track (WCAG 1.4.11) */
+  .cs-segmented-control-thumb:not([hidden]) ~ &[data-pressed] { background: transparent; box-shadow: none; }
   &:focus-visible { z-index: 1; outline: 2px solid var(--ring); outline-offset: 2px; }
   &[data-disabled] { opacity: 0.5; cursor: not-allowed; }
   & svg { flex: none; width: 16px; height: 16px; }
 }
-.cs-segmented-control[data-size='sm'] .cs-segmented-control-item { padding: 0 10px; font-size: 0.8125rem; border-radius: 5px; }
-.cs-segmented-control[data-size='lg'] .cs-segmented-control-item { padding: 0 var(--space-4); font-size: 0.9375rem; border-radius: var(--radius-md); }
+.cs-segmented-control[data-size='sm'] .cs-segmented-control-item { padding: 0 10px; font-size: 0.8125rem; }
+.cs-segmented-control[data-size='lg'] .cs-segmented-control-item { padding: 0 var(--space-4); font-size: 0.9375rem; }
 .cs-segmented-control[data-size='lg'] .cs-segmented-control-item svg { width: 20px; height: 20px; }
 
 .cs-segmented-control-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; padding-block: 0.5em; margin-block: -0.5em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */ }

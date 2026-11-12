@@ -39,6 +39,18 @@
 
   &[data-variant='outline'] { background: var(--panel); border-color: color-mix(in srgb, var(--_c) 60%, var(--panel)); }
   &[data-variant='outline'][data-tone='neutral'] { border-color: var(--input); }
+
+  /* Category tones from the tone map (tone.css). Text never sits on a solid category color, so solid stays a tint.
+     One selector per line: the CSS check reads a word after a colon as a raw color. */
+  &[data-tone='blue'],
+  &[data-tone='amber'],
+  &[data-tone='teal'],
+  &[data-tone='magenta'],
+  &[data-tone='violet'] {
+    --_c: var(--tone);
+    --_t: var(--tone-text);
+    &[data-variant='soft'], &[data-variant='solid'] { border-color: var(--tone-line); background: var(--tone-soft); color: var(--tone-text); }
+  }
 }
 
 .cs-badge-icon { display: inline-flex; flex: none; }

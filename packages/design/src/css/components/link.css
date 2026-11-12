@@ -7,7 +7,7 @@
   text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
   text-underline-offset: 3px;
   cursor: pointer;
-  transition: color var(--duration-fast) var(--ease-standard), text-decoration-color var(--duration-fast) var(--ease-standard);
+  transition: color var(--motion-state), text-decoration-color var(--motion-state);
 
   &:hover { text-decoration-color: currentColor; text-decoration-thickness: 2px; }
   &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }

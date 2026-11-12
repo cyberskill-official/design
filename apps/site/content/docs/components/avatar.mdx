@@ -3,7 +3,7 @@ title: Avatar
 description: A person's photo with an initials fallback, and an overlapping group with a "+N" count.
 ---
 
-import { AvatarGroupDemo, AvatarSizes } from '@/demos/avatar';
+import { AvatarGroupDemo, AvatarSizes, AvatarTones } from '@/demos/avatar';
 
 Use an avatar to show who owns, edited or is assigned to something. It shows initials until the photo loads, and keeps them if the photo fails. Use `AvatarGroup` for a short list of people, such as project members or reviewers.
 
@@ -21,6 +21,20 @@ Use an avatar to show who owns, edited or is assigned to something. It shows ini
 <Avatar name="Trần Thị Linh" size="lg" />
 <Avatar name="Minh Anh" size="lg" src="/people/minh-anh.jpg" />
 <Avatar name="Broken photo" size="lg" src="/missing.png" initials="BP" />
+```
+
+## Tones
+
+Initials are ink on a soft ink tint by default. `tone` tints them in a category color, which makes a list of people easier to tell apart. `toneFor(name)` (from `@cyberskill/design` or `/utils`) gives each name the same tone every time, on the server and in the browser.
+
+<Demo title="Tones">
+  <AvatarTones />
+</Demo>
+
+```tsx
+<Avatar name="An Nguyen" tone={toneFor('An Nguyen')} />
+<Avatar name="Chi Le" tone="teal" />
+<Avatar name="Trần Thị Linh" tone="primary" />
 ```
 
 ## Group
@@ -49,6 +63,7 @@ Use an avatar to show who owns, edited or is assigned to something. It shows ini
   ['src', 'string', '–', 'Photo URL. Initials show until it loads, and if it fails'],
   ['initials', 'string', '–', 'Override the initials taken from name'],
   ['size', "'sm' | 'md' | 'lg'", "'md'", '24, 32 or 40px'],
+  ['tone', "'primary' | 'blue' | 'amber' | 'teal' | 'magenta' | 'violet'", "'primary'", 'Tint of the initials; toneFor(name) picks a stable one'],
 ]} />
 
 `AvatarGroup` takes `label` (names the group), `max`, `size` and `overflowLabel` (`(count) => string`, default `` n => `${n} more` ``; pass Vietnamese, e.g. `` n => `${n} người khác` ``).
@@ -56,6 +71,7 @@ Use an avatar to show who owns, edited or is assigned to something. It shows ini
 ## Accessibility
 
 - Each avatar is announced as an image named `name`, whether the photo or the initials show.
+- Initials keep 4.5:1 on every tone's tint in light and dark. The tone is decoration: never let it be the only way to tell people apart.
 - When the name is already printed next to the avatar, pass `aria-hidden` so screen readers do not hear it twice.
 - The "+N" bubble is announced as "N more" (or your `overflowLabel`). List everyone in full somewhere reachable, e.g. a members page or a tooltip on a button.
 - Give the group a `label` when nothing nearby says who these people are.

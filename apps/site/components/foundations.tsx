@@ -1,4 +1,6 @@
 import { tokens } from '@cyberskill/design/tokens';
+import { usedBy } from './motion-math';
+import './foundations.css';
 
 type Mode = 'light' | 'dark';
 const USES: Record<string, string> = {
@@ -8,6 +10,7 @@ const USES: Record<string, string> = {
   success: 'Success text and icons', warning: 'Warning text and icons', destructive: 'Errors, destructive actions', info: 'Information',
   'primary-soft': 'Selected rows, active nav', 'destructive-foreground': 'Text on destructive', 'success-foreground': 'Text on filled success',
   'warning-foreground': 'Text on filled warning', 'info-foreground': 'Text on filled info', ring: 'Focus ring',
+  wash: 'Top of the page wash', 'accent-deep': 'End of the gold gradient', 'ink-lit': 'End of the ink gradient', 'on-ink': 'Text on ink', 'on-ink-muted': 'Secondary text on ink',
 };
 
 function lum(hex: string) {
@@ -31,7 +34,8 @@ function Chip({ hex }: { hex: string }) {
 }
 
 export function ColorTokens() {
-  const names = Object.keys(tokens.color.light) as (keyof typeof tokens.color.light)[];
+  // the soft, line, text and icon roles have their own table on the page
+  const names = (Object.keys(tokens.color.light) as (keyof typeof tokens.color.light)[]).filter((n) => n in USES);
   return (
     <div className="fd-table not-prose">
       <table>
@@ -129,18 +133,27 @@ export function Ramps() {
 }
 
 export function ContrastChecks() {
-  const light = tokens.checks.light, dark = tokens.checks.dark;
+  type Check = { label: string; fg: string; bg: string; ratio: number; need: number };
+  const light: Check[] = tokens.checks.light, dark: Check[] = tokens.checks.dark;
+  // Pair by what is checked, not by position: dark has extra rows for the ink surface.
+  const key = (c: Check) => `${c.label}|${c.fg}|${c.bg}`;
+  const inDark = new Map(dark.map((c) => [key(c), c]));
+  const inLight = new Set(light.map(key));
+  const rows: [Check, Check | undefined, Check | undefined][] = [
+    ...light.map((c): [Check, Check, Check | undefined] => [c, c, inDark.get(key(c))]),
+    ...dark.filter((c) => !inLight.has(key(c))).map((c): [Check, undefined, Check] => [c, undefined, c]),
+  ];
   return (
     <div className="fd-table not-prose">
       <table>
         <thead><tr><th>Pairing</th><th>Needs</th><th>Light</th><th>Dark</th></tr></thead>
         <tbody>
-          {light.map((c, i) => (
-            <tr key={c.label}>
+          {rows.map(([c, l, d]) => (
+            <tr key={key(c)}>
               <td>{c.label}</td>
               <td className="fd-mono">{c.need}:1</td>
-              <td className="fd-mono">{c.ratio.toFixed(2)}:1</td>
-              <td className="fd-mono">{dark[i]!.ratio.toFixed(2)}:1</td>
+              <td className="fd-mono">{l ? `${l.ratio.toFixed(2)}:1` : '–'}</td>
+              <td className="fd-mono">{d ? `${d.ratio.toFixed(2)}:1` : '–'}</td>
             </tr>
           ))}
         </tbody>
@@ -201,17 +214,90 @@ export function RadiusAndShadow() {
   );
 }
 
+const Uses = ({ k }: { k: string }) => { const r = usedBy(k); return r.length ? <>{r.join(', ')}</> : <span className="fd-muted">No recipe</span>; };
+const VALUE_USES: Record<string, string> = { 'press-scale': 'Scale while pressed', 'pop-scale': 'Where a popup grows from', 'modal-scale': 'Where a dialog grows from', rise: 'How far a revealed block rises', stagger: 'Gap between revealed blocks' };
+
+/** Every motion token with the recipes that use it, read from the token build. */
 export function MotionTokens() {
   return (
     <div className="fd-table not-prose">
       <table>
-        <thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead>
+        <thead><tr><th>Token</th><th>Value</th><th>Used by</th></tr></thead>
         <tbody>
-          {Object.entries(tokens.duration).map(([k, v]) => <tr key={k}><td className="fd-mono">--duration-{k}</td><td className="fd-mono">{v}</td><td>{k === 'fast' ? 'Hover, press, color changes' : k === 'base' ? 'Popovers, dialogs, toasts' : 'Large panels, page transitions'}</td></tr>)}
-          {Object.entries(tokens.ease).map(([k, v]) => <tr key={k}><td className="fd-mono">--ease-{k}</td><td className="fd-mono">{v}</td><td>{k === 'standard' ? 'Most transitions' : k === 'emphasized' ? 'Entering elements that need attention' : 'Leaving elements'}</td></tr>)}
-          {Object.entries(tokens.z).map(([k, v]) => <tr key={k}><td className="fd-mono">--z-{k}</td><td className="fd-mono">{v}</td><td>Stacking layer</td></tr>)}
+          {Object.entries(tokens.duration).map(([k, v]) => <tr key={k}><td className="fd-mono">--duration-{k}</td><td className="fd-mono">{v}</td><td><Uses k={k} /></td></tr>)}
+          {Object.entries(tokens.ease).map(([k, v]) => <tr key={k}><td className="fd-mono">--ease-{k}</td><td className="fd-mono">{v}</td><td><Uses k={k} /></td></tr>)}
+          {Object.entries(tokens.spring).map(([k, s]) => (
+            <tr key={k}><td className="fd-mono">--spring-{k}</td><td className="fd-mono">{s.duration}s, bounce {s.bounce} · settles in {s.settle}ms</td><td><Uses k={k} /></td></tr>
+          ))}
+          {Object.entries(tokens.motionValue).map(([k, v]) => <tr key={k}><td className="fd-mono">--motion-{k}</td><td className="fd-mono">{v}</td><td>{VALUE_USES[k] ?? ''}</td></tr>)}
         </tbody>
       </table>
+    </div>
+  );
+}
+
+const BUDGET = [['Neutrals', 76, '--raised'], ['Ink', 9, '--brand-ink'], ['Tints', 9, '--blue-line'], ['Gold', 4, '--accent'], ['Status', 2, '--success']] as const;
+
+/** Share of each color family on a product screen: the target, drawn to scale. */
+export function ColorBudget() {
+  return (
+    <figure className="fd-budget not-prose">
+      <div className="fd-budget-bar" role="img" aria-label={`Color budget on a product screen: ${BUDGET.map(([n, v]) => `${n.toLowerCase()} ${v}%`).join(', ')}.`}>
+        {BUDGET.map(([n, v, c]) => <i key={n} style={{ flex: v, background: `var(${c})` }} />)}
+      </div>
+      <figcaption className="fd-legend">
+        {BUDGET.map(([n, v, c]) => <span key={n}><i style={{ background: `var(${c})` }} />{n} ~{v}%</span>)}
+      </figcaption>
+    </figure>
+  );
+}
+
+// [label, token prefix, solid fill, text on the solid (none for categories), text role]
+const ROLES: [string, string, string, string | null, string][] = [
+  ['Ink', 'primary', 'primary', 'primary-foreground', 'primary'],
+  ['Gold', 'accent', 'accent', 'accent-foreground', 'accent-text'],
+  ...(['success', 'warning', 'destructive', 'info'] as const).map((k): [string, string, string, string, string] => [k === 'destructive' ? 'Danger' : k[0]!.toUpperCase() + k.slice(1), k, k, `${k}-foreground`, `${k}-text`]),
+  ...tokens.category.map((k, i): [string, string, string, null, string] => [k[0]!.toUpperCase() + k.slice(1), k, `chart-${i + 1}`, null, `${k}-text`]),
+];
+const Swatch = ({ bg, fg, edge }: { bg: string; fg?: string | null; edge?: string }) => (
+  <span className="fd-swt" style={{ background: `var(--${bg})`, color: fg ? `var(--${fg})` : undefined, border: edge ? `1.5px solid var(--${edge})` : undefined }}>{fg ? 'Aa' : ''}</span>
+);
+
+/** The five roles of every color, painted with the live tokens (they follow the site theme). */
+export function ColorRoles() {
+  return (
+    <div className="fd-table fd-roles not-prose">
+      <table>
+        <thead><tr><th>Color</th><th>soft</th><th>soft-hover</th><th>line</th><th>solid</th><th>text</th></tr></thead>
+        <tbody>
+          {ROLES.map(([name, p, solid, on, text]) => (
+            <tr key={name}>
+              <td><b>{name}</b><br /><span className="fd-mono fd-muted">--{p}-*</span></td>
+              <td><Swatch bg={`${p}-soft`} fg={text} /></td>
+              <td><Swatch bg={`${p}-soft-hover`} fg={text} /></td>
+              <td><Swatch bg="panel" edge={`${p}-line`} /></td>
+              <td><Swatch bg={solid} fg={on} /></td>
+              <td><Swatch bg="panel" fg={text} edge="border" /></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+const GRADIENTS = [['ink', '42 of 50 seats'], ['wash', 'Overview'], ['gold', 'Start practice'], ['aurora', 'This week, in short']] as const;
+
+/** The four gradient tokens, each painted. */
+export function Gradients() {
+  return (
+    <div className="fd-grads not-prose">
+      {GRADIENTS.map(([k, text]) => (
+        <figure key={k} className="fd-grad">
+          <div className="fd-grad-s" data-g={k} style={{ background: `var(--gradient-${k})` }}>{text}</div>
+          <figcaption><code>--gradient-{k}</code></figcaption>
+        </figure>
+      ))}
     </div>
   );
 }

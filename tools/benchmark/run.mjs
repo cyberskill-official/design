@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// CyberSkill Design System quality benchmark: 23 dimensions (docs/benchmark.md), measured in real Chromium on every
-// Storybook story in light and dark, plus the stress-test stories under Benchmark/ and three checks on the built files.
+// CyberSkill Design System quality benchmark: 25 dimensions (docs/benchmark.md), measured in real Chromium on every
+// Storybook story in light and dark, plus the stress-test stories under Benchmark/ and five checks on the source and built files.
 // Exits 1 when a required dimension has any failure or an advisory one fails somewhere not in baseline.json.
 //
 //   npm run build && npm run build-storybook -w @cyberskill/design && npm run benchmark
@@ -16,7 +16,7 @@ import { chromium } from 'playwright';
 import { colorChecks, layoutChecks } from '../audit/page-checks.js';
 import * as P from './page.js';
 import { newResults, record, score, scorecard, baselineOf } from './score.mjs';
-import { serverComponents, docsParity, tokenDiscipline } from './static.mjs';
+import { serverComponents, docsParity, tokenDiscipline, motionDiscipline, colorRoles } from './static.mjs';
 import { deltaE } from '../../packages/design/scripts/color-math.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url)), root = join(here, '..', '..'), pkg = join(root, 'packages', 'design');
@@ -45,7 +45,7 @@ const stories = Object.values(JSON.parse(readFileSync(join(sb, 'index.json'), 'u
 if (!stories.length) { console.error('No stories matched.'); server.close(); process.exit(2); }
 
 const results = newResults();
-if (!only) { serverComponents(results, pkg); docsParity(results, { root, pkg, stories }); tokenDiscipline(results, pkg); }
+if (!only) { serverComponents(results, pkg); docsParity(results, { root, pkg, stories }); tokenDiscipline(results, pkg); motionDiscipline(results, pkg); colorRoles(results, pkg); }
 
 /* ---------- browser measurements ---------- */
 const axePath = createRequire(join(pkg, 'package.json')).resolve('axe-core/axe.min.js');

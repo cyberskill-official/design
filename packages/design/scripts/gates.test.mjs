@@ -49,19 +49,27 @@ for (const [name, mutate, message] of cases) {
   });
 }
 
-test('CSS check fails on raw colors, undefined tokens, !important and tiny text', () => {
+test('CSS check fails on raw colors, undefined tokens, !important, tiny text and motion off the recipes', () => {
   const dir = mkdtempSync(join(tmpdir(), 'cs-css-'));
   mkdirSync(join(dir, 'components'));
   writeFileSync(join(dir, 'base.css'), '');
-  writeFileSync(join(dir, 'motion.css'), '');
+  writeFileSync(join(dir, 'motion.css'), '.z { transition: opacity 1ms linear; animation-duration: 1ms; }'); // the recipes' home: exempt
   writeFileSync(join(dir, 'components', 'bad.css'), [
     '.a { color: #ff0000; }', '.b { background: color-mix(in srgb, rgb(255 0 0) 50%, var(--panel)); }', '.c { color: red; }',
     '.d { font: 500 9px/1 var(--font-sans); }', '.e { font-size: 0.5rem; }', '.f { font-size: 11px; }', '.g { margin: 0 !important; }',
     '.h { border: 1px solid var(--borders); }', '.i { color: var(--app-text, inherit); border-color: var(--panel); }',
     '.j { font: 500 14px/1 var(--font-sans); }', '.k { font-size: 0.875rem; }',
+    '.l { transition: opacity var(--duration-fast) var(--ease-standard); }', '.m { transition: color 200ms; }',
+    '.n { transition: opacity var(--motion-fade) cubic-bezier(0.2, 0, 0, 1); }', '.o { transition-timing-function: ease-in-out; }',
+    '.p { transition: all var(--motion-state); }', '.q { transition: transform var(--motion-state), height var(--motion-fade); }',
+    '.r { animation: cs-pop 300ms var(--ease-out); }', '.s { transition: opacity var(--spring-snappy); }', '.t { animation: cs-pop; }',
+    '.u { transition: background-color var(--motion-state), transform var(--motion-release); }',
+    '.v { transition: opacity var(--motion-fade), transform var(--motion-pop-in); &[data-instant] { transition-duration: 0ms; } &[data-x] { transition: none; } }',
+    '.w { animation: cs-spin 0.7s linear infinite; }', '.x {', '  animation: cs-reveal var(--motion-reveal) both;', '}',
+    '.y { transition-duration: calc(var(--swipe-strength, 1) * var(--duration-fast)); }', '.z { transition-duration: calc(2 * var(--duration-fast)); }',
   ].join('\n'));
   const tokens = join(dir, 'tokens.css');
-  writeFileSync(tokens, ':root { --panel: #fff; --font-sans: sans-serif; }');
+  writeFileSync(tokens, ':root { --panel: #fff; --font-sans: sans-serif; --duration-fast: 1ms; --ease-standard: ease; --ease-out: ease; --spring-snappy: ease; --motion-state: 1ms ease; --motion-fade: 1ms ease; --motion-release: 1ms ease; --motion-pop-in: 1ms ease; --motion-reveal: 1ms ease; }');
   const r = spawnSync(process.execPath, [join(pkg, 'scripts', 'check-css.mjs')], { env: { ...process.env, CSS_DIR: dir, TOKENS_CSS: tokens }, encoding: 'utf8' });
   assert.notEqual(r.status, 0);
   for (const line of [1, 2, 3, 4, 5, 6, 7, 8]) assert.match(r.stderr, new RegExp(`bad\\.css:${line} `), `line ${line} not flagged`);
@@ -69,4 +77,19 @@ test('CSS check fails on raw colors, undefined tokens, !important and tiny text'
   assert.doesNotMatch(r.stderr, /bad\.css:9 /, 'a var() with a fallback, or a defined token, is fine');
   assert.match(r.stderr, /bad\.css:10 text size in px; use rem \(0\.875rem\)/);
   assert.doesNotMatch(r.stderr, /bad\.css:11 /, 'rem sizes are fine');
+  for (const line of [12, 13, 14, 15, 16, 17, 18, 19, 20]) assert.match(r.stderr, new RegExp(`bad\\.css:${line} `), `line ${line} not flagged`);
+  assert.match(r.stderr, /bad\.css:12 transition uses var\(--duration-fast\) directly/);
+  assert.match(r.stderr, /bad\.css:13 transition has a raw time \(200ms\)/);
+  assert.match(r.stderr, /bad\.css:14 transition has a raw curve cubic-bezier\(…\)/);
+  assert.match(r.stderr, /bad\.css:15 transition-timing-function has a raw curve \(ease-in-out\)/);
+  assert.match(r.stderr, /bad\.css:16 transition: all;/);
+  assert.match(r.stderr, /bad\.css:17 transform animates with var\(--motion-state\)/);
+  assert.match(r.stderr, /bad\.css:17 height animates with var\(--motion-fade\)/);
+  assert.match(r.stderr, /bad\.css:18 animation .*; only an infinite loading loop may use raw timing/);
+  assert.match(r.stderr, /bad\.css:19 transition uses var\(--spring-snappy\) directly/);
+  assert.match(r.stderr, /bad\.css:20 animation has no --motion-\* recipe/);
+  for (const line of [21, 22, 23, 24, 25]) assert.doesNotMatch(r.stderr, new RegExp(`bad\\.css:${line} `), `recipes, 0ms, none and loading loops are fine (line ${line})`);
+  assert.doesNotMatch(r.stderr, /bad\.css:27 /, 'a duration token scaled by a runtime value (a swipe) is fine');
+  assert.match(r.stderr, /bad\.css:28 transition-duration uses var\(--duration-fast\) directly/, 'scaling by a fixed number is retiming, not a gesture');
+  assert.doesNotMatch(r.stderr, /motion\.css:/, 'motion.css defines the recipes and is not checked for motion');
 });

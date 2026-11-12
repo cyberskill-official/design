@@ -11,7 +11,7 @@ const CLIENT_LIBS = /^(react|react-dom)(\/|$)|^@base-ui\/|^@phosphor-icons\/reac
 // Purely visual components: no hooks, no event handlers, no Base UI, icons from @phosphor-icons/react/ssr. They get no
 // 'use client', so a Server Component renders them without shipping or hydrating any JavaScript.
 // The benchmark (D20) fails if one of these starts using a hook or loses this status.
-export const SERVER_SAFE = ['Kbd', 'Spinner', 'Skeleton', 'EmptyState', 'Badge', 'Stat', 'Stepper', 'Breadcrumbs', 'Prose', 'IconTile'];
+export const SERVER_SAFE = ['Kbd', 'Spinner', 'Skeleton', 'EmptyState', 'Badge', 'Stat', 'Stepper', 'Breadcrumbs', 'Prose', 'IconTile', 'Reveal'];
 const serverSafe = (id: string | null) => !!id && SERVER_SAFE.some(n => id.endsWith(`/react/${n}.tsx`));
 
 export default defineConfig({
