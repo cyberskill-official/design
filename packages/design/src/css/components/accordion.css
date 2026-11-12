@@ -57,10 +57,17 @@
   height: var(--accordion-panel-height);
   overflow: hidden;
   transition: height var(--duration-base) var(--ease-standard);
+  /* The panel clips at its top edge, where the first line starts: stacked Vietnamese marks (Ổ, Ẫ) reach above that
+     line and lost their top mark. The panel starts 4px higher (over the trigger's empty bottom padding, letting clicks
+     through) and the content 4px lower, so nothing moves and the marks have room. */
+  margin-top: calc(-1 * var(--space-1));
+  pointer-events: none;
   &[data-starting-style], &[data-ending-style] { height: 0; }
 }
 
 .cs-accordion-content {
+  margin-top: var(--space-1);
+  pointer-events: auto;
   padding: 0 var(--space-4) var(--space-4);
   font: 400 0.875rem/1.375rem var(--font-sans);
   color: var(--muted);
