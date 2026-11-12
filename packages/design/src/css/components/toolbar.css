@@ -1,0 +1,77 @@
+.cs-toolbar {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-wrap: wrap; /* narrow screens: items wrap instead of spilling out */
+  max-width: 100%;
+  padding: var(--space-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  color: var(--foreground);
+  &[data-orientation='vertical'] { flex-direction: column; align-items: stretch; }
+}
+
+.cs-toolbar-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+  &[data-orientation='vertical'] { flex-direction: column; align-items: stretch; }
+}
+
+.cs-toolbar-separator {
+  flex: none;
+  align-self: stretch;
+  background: var(--border);
+  &[data-orientation='vertical'] { width: 1px; margin: var(--space-1) var(--space-1); }
+  &[data-orientation='horizontal'] { height: 1px; margin: var(--space-1) var(--space-1); }
+}
+
+.cs-toolbar-button,
+.cs-toolbar-link {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: var(--control-sm);
+  margin: 0;
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--foreground);
+  font: 500 13px/1 var(--font-sans);
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
+
+  /* 44px touch target around the 32px visual */
+  &::before { content: ''; position: absolute; inset: 50% 0 auto; height: var(--control-touch); min-width: var(--control-touch); transform: translateY(-50%); }
+  &:hover:not([data-disabled]) { background: var(--raised); }
+  &:focus-visible { z-index: 1; outline: 2px solid var(--ring); outline-offset: 2px; }
+}
+
+.cs-toolbar-button {
+  &[data-icon-only] {
+    width: var(--control-sm);
+    padding: 0;
+    &::before { inset: 50% auto auto 50%; width: var(--control-touch); transform: translate(-50%, -50%); }
+  }
+  &[aria-pressed='true'], &[data-pressed], &[data-popup-open] { background: var(--primary-soft); color: var(--primary); }
+  &[data-disabled] { color: var(--muted); cursor: not-allowed; }
+}
+
+.cs-toolbar-link {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  &:hover { text-decoration-thickness: 2px; }
+}
+
+.cs-toolbar-icon { display: inline-flex; flex: none; }
+.cs-toolbar-icon > svg { width: 16px; height: 16px; }

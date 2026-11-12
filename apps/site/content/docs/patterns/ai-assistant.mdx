@@ -1,0 +1,78 @@
+---
+title: AI assistant
+description: A chat with an AI copilot. Messages, cited sources, a streaming state, feedback and a composer with suggested prompts.
+full: true
+---
+
+import { AiAssistantPattern, AiAssistantStreaming } from '@/demos/patterns/ai-assistant';
+
+Use this pattern for a copilot that answers questions from your own content: a support assistant, a docs helper, an internal knowledge bot. People's messages are bubbles on the right; answers are cards on the left with an [Avatar](/docs/components/avatar), the [Tags](/docs/components/tag) of the sources used, and a [Toolbar](/docs/components/toolbar) with a [Copy button](/docs/components/code-block) and feedback buttons. While an answer is on its way, a [Spinner](/docs/components/spinner) names the wait and a [Skeleton](/docs/components/skeleton) holds its place. The composer is a [Textarea](/docs/components/text-field) with a gold `accent` [Button](/docs/components/button), suggested prompts as buttons and a [Toggle](/docs/components/toggle) for web search.
+
+## Conversation
+
+Pick a suggested prompt or type a message and press Enter.
+
+<Demo title="AI assistant" layout="block">
+  <AiAssistantPattern />
+</Demo>
+
+```tsx
+import { Avatar, Button, CopyButton, SkeletonText, Spinner, Tag, Textarea, Toggle, Toolbar, ToolbarButton, ToolbarSeparator } from '@cyberskill/design';
+
+<div className="chat">                                    {/* grid rows: header, log (scrolls), composer */}
+  <div role="log" aria-label="Conversation" aria-busy={busy} tabIndex={0}>
+    <p className="msg-user"><span className="cs-visually-hidden">You: </span>{question}</p>
+    <article className="msg-ai" aria-label="Support Copilot">
+      <Avatar name="Support Copilot" initials="AI" size="sm" aria-hidden />
+      <div>
+        <p>{answer}</p>
+        <div role="group" aria-label="Sources">
+          <Tag>Refund policy</Tag><Tag>Billing FAQ</Tag>
+        </div>
+        <Toolbar aria-label="Answer actions">
+          <ToolbarButton render={<CopyButton value={answer} label="Copy answer" copiedLabel="Answer copied" />} />
+          <ToolbarSeparator />
+          <ToolbarButton icon={<ThumbsUp />} label="Good answer" aria-pressed={rating === 'up'} />
+          <ToolbarButton icon={<ThumbsDown />} label="Bad answer" aria-pressed={rating === 'down'} />
+          <ToolbarSeparator />
+          <ToolbarButton icon={<ArrowClockwise />}>Regenerate</ToolbarButton>
+        </Toolbar>
+      </div>
+    </article>
+  </div>
+  <form onSubmit={send} aria-label="Ask Support Copilot">
+    <div role="group" aria-label="Suggested prompts">
+      <Button variant="secondary" size="sm" onClick={() => send('Draft the reply to the customer')}>Draft the reply to the customer</Button>
+    </div>
+    <Textarea label="Message" hideLabel rows={2} value={draft} onChange={…} onKeyDown={enterToSend} />
+    <Toggle size="sm" icon={<Globe />} pressed={web} onPressedChange={setWeb}>Search the web</Toggle>
+    <Button type="submit" variant="accent" iconStart={<PaperPlaneRight />} loading={busy}>Send</Button>
+  </form>
+</div>
+```
+
+## Waiting for an answer
+
+<Demo title="Streaming" layout="block">
+  <AiAssistantStreaming />
+</Demo>
+
+```tsx
+<article className="msg-ai" aria-busy="true">
+  <Avatar name="Support Copilot" initials="AI" size="sm" aria-hidden />
+  <div>
+    <Spinner size="sm" label="Support Copilot is writing" />
+    <SkeletonText lines={3} />
+  </div>
+</article>
+```
+
+## Notes
+
+- The message list is a `role="log"`: screen readers announce new messages politely without moving focus. It is focusable so keyboard users can scroll it, and `aria-busy` is set while an answer streams.
+- User bubbles start with visually hidden "You:" so the speaker is clear without the layout. Answers are `article`s named by the assistant.
+- The gold `accent` button is the one AI moment on screen; keep every other action secondary or ghost. Suggested prompts disable while an answer streams.
+- Copy, rating and Regenerate share one toolbar, so each answer is one Tab stop and the arrow keys move between them. The copy button joins it through `render`: `<ToolbarButton render={<CopyButton … />} />`.
+- Show sources on every answer that used them. Answers that cannot cite a source should say so instead of guessing.
+- Enter sends and Shift+Enter adds a line; say so in the field's description. Ignore Enter while an input method is composing (Vietnamese, Japanese).
+- Responsive: bubbles cap at 85% of the width, the composer's prompts wrap, and the log scrolls inside a fixed-height frame so the composer stays in view on phones.

@@ -1,0 +1,21 @@
+// Exports for the structure group. Owned by that group; add each new component and its types here.
+export { Accordion, AccordionItem, AccordionTrigger, AccordionPanel } from '../Accordion';
+export type { AccordionProps, AccordionItemProps, AccordionTriggerProps, AccordionPanelProps } from '../Accordion';
+export { Collapsible, CollapsibleTrigger, CollapsiblePanel } from '../Collapsible';
+export type { CollapsibleProps, CollapsibleTriggerProps, CollapsiblePanelProps } from '../Collapsible';
+export { Separator } from '../Separator';
+export type { SeparatorProps } from '../Separator';
+export { ScrollArea } from '../ScrollArea';
+export type { ScrollAreaProps } from '../ScrollArea';
+export { Toolbar, ToolbarButton, ToolbarLink, ToolbarGroup, ToolbarSeparator } from '../Toolbar';
+export type { ToolbarProps, ToolbarButtonProps, ToolbarLinkProps, ToolbarGroupProps, ToolbarSeparatorProps } from '../Toolbar';
+export { Fieldset } from '../Fieldset';
+export type { FieldsetProps } from '../Fieldset';
+export { Form } from '../Form';
+export type { FormProps } from '../Form';
+export { Kbd } from '../Kbd';
+export type { KbdProps } from '../Kbd';
+export { CodeBlock, CopyButton } from '../CodeBlock';
+export type { CodeBlockProps, CopyButtonProps } from '../CodeBlock';
+export { ThemeScope, usePortalContainer } from '../ThemeScope';
+export type { ThemeScopeProps, Theme } from '../ThemeScope';

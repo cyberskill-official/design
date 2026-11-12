@@ -1,0 +1,52 @@
+.cs-stepper {
+  display: grid;
+  /* One row while each step gets 7.5rem; narrower (a phone with 4+ steps) wraps into rows instead of overlapping labels */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 7.5rem), 1fr));
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  &[data-orientation='vertical'] { grid-template-columns: none; gap: var(--space-1); }
+}
+
+.cs-stepper-step {
+  display: grid;
+  align-content: start;
+  gap: var(--space-1);
+  min-width: 0;
+
+  /* vertical: the bar runs down the left of the title and description */
+  .cs-stepper[data-orientation='vertical'] & {
+    grid-template-columns: 4px 1fr;
+    column-gap: var(--space-3);
+    padding-block-end: var(--space-3);
+    & > .cs-stepper-bar { grid-row: 1 / span 2; height: auto; min-height: 40px; }
+  }
+}
+
+.cs-stepper-bar {
+  height: 4px;
+  margin-block-end: var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--border);
+  .cs-stepper-step[data-status='complete'] & { background: var(--primary); }
+  .cs-stepper-step[data-status='current'] & { background: var(--accent); }
+  .cs-stepper[data-orientation='vertical'] & { margin: 0; }
+}
+
+.cs-stepper-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font: 500 14px/20px var(--font-sans);
+  .cs-stepper-step:is([data-status='complete'], [data-status='current']) & { color: var(--foreground); }
+  .cs-stepper-step[data-status='current'] & { font-weight: 700; }
+}
+.cs-stepper-check { flex: none; width: 16px; height: 16px; color: var(--primary); }
+
+.cs-stepper-description {
+  color: var(--muted);
+  font: 400 13px/18px var(--font-sans);
+  .cs-stepper[data-orientation='vertical'] & { grid-column: 2; }
+}

@@ -1,0 +1,63 @@
+---
+title: Theme Scope
+description: Applies light or dark to one part of the page, including the menus, selects and dialogs opened from inside it.
+---
+
+import { ThemeScopeSidebar } from '@/demos/theme-scope';
+
+Use `ThemeScope` to give one region its own theme: a dark sidebar in a light app, a light preview inside a dark editor, a live example like the frames on this site. It sets `data-theme` on its own `div` **and** on the layer where popups render, so a menu, select, tooltip, popover or dialog opened from inside it wears the same theme. Plain `data-theme` on a container cannot do that, because popups render outside it, at the end of `<body>`.
+
+For the whole page, skip it: set `data-theme="light"`, `"dark"` or `"system"` on `<html>`.
+
+## Dark sidebar in a light page
+
+Open the workspace menu: it renders outside the sidebar, yet it is dark too.
+
+<Demo title="Scoped sidebar" layout="block">
+  <ThemeScopeSidebar />
+</Demo>
+
+```tsx
+<div className="app">
+  <ThemeScope theme="dark" className="sidebar">
+    <Menu>
+      <MenuTrigger render={<Button variant="ghost" iconEnd={<CaretUpDown />} />}>Northwind</MenuTrigger>
+      <MenuContent>
+        <MenuItem icon={<Check />}>Northwind</MenuItem>
+        <MenuItem>Contoso Support</MenuItem>
+      </MenuContent>
+    </Menu>
+    <SideNav label="Main">
+      <SideNavItem href="/" icon={<House />} active>Overview</SideNavItem>
+      <SideNavItem href="/agents" icon={<Robot />}>Agents</SideNavItem>
+    </SideNav>
+  </ThemeScope>
+  <main>…</main>
+</div>
+```
+
+## Whole page
+
+```tsx
+// app/layout.tsx
+<html lang="en" data-theme="system">
+```
+
+`system` follows the operating system's light or dark setting. A scope can sit inside a page theme, and scopes can nest; the nearest one wins.
+
+## Props
+
+<PropsTable rows={[
+  ['theme', "'light' | 'dark' | 'system'", '–', 'Theme of the region and of every popup opened from it (required)'],
+  ['className', 'string', '–', 'Classes for the wrapping div'],
+  ['…div attributes', 'HTMLAttributes<HTMLDivElement>', '–', 'style, id, aria-*, data-* and events go to the div'],
+]} />
+
+The wrapper paints `var(--background)` and `var(--foreground)` for its theme, so text and surfaces flip with it. Give it layout styles (width, padding, grid) through `className` or `style`.
+
+## Accessibility
+
+- The scope is a plain `div` with no role; it adds nothing to the accessibility tree and keeps the reading and focus order of its children.
+- Every token flips together, so contrast inside a scope meets the same 4.5:1 text and 3:1 control rules as a full-page theme.
+- Popups keep their keyboard behavior: focus moves into a menu or dialog opened from the scope and returns to its trigger on close.
+- Respect the user's preference for the page as a whole (`data-theme="system"`); use scopes for regions that are dark or light by design, not to override that choice.

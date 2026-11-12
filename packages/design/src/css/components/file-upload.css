@@ -1,0 +1,78 @@
+/* Label, help and error text reuse the .cs-field-* styles (field.css). */
+.cs-file-upload { align-content: start; }
+
+.cs-file-upload-zone {
+  box-sizing: border-box;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-1);
+  width: 100%;
+  margin: 0;
+  padding: var(--space-6) var(--space-4);
+  border: 1px dashed var(--input);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  color: var(--foreground);
+  font: 500 14px/20px var(--font-sans);
+  text-align: center;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard);
+
+  &:hover:not(:disabled) { border-color: var(--foreground); background: var(--raised); }
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  &[data-dragging] { border-style: solid; border-color: var(--primary); background: var(--primary-soft); }
+  &[aria-invalid='true'] { border-color: var(--destructive); }
+  &:disabled { background: var(--raised); color: var(--muted); cursor: not-allowed; }
+}
+
+.cs-file-upload-icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: var(--space-1);
+  border-radius: 50%;
+  background: var(--raised);
+  color: var(--foreground);
+  & > svg { width: 20px; height: 20px; }
+}
+.cs-file-upload-zone:hover:not(:disabled) .cs-file-upload-icon,
+.cs-file-upload-zone[data-dragging] .cs-file-upload-icon { background: var(--panel); }
+
+.cs-file-upload-hint { font: 400 13px/18px var(--font-sans); color: var(--muted); }
+
+/* No box of its own, so the empty live region adds no gap but stays in the accessibility tree */
+.cs-file-upload-errors { display: contents; }
+
+.cs-file-upload-list { display: grid; gap: var(--space-2); margin: 0; padding: 0; list-style: none; }
+
+.cs-file-upload-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--panel);
+  &[data-invalid] { border-color: var(--destructive); }
+}
+
+.cs-file-upload-item-icon { flex: none; width: 20px; height: 20px; color: var(--muted); }
+.cs-file-upload-item-body { display: grid; gap: 6px; flex: 1; min-width: 0; }
+.cs-file-upload-item-row { display: flex; align-items: baseline; gap: var(--space-2); min-width: 0; }
+.cs-file-upload-item-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 500 14px/20px var(--font-sans); color: var(--foreground); padding-block: 0.5em; margin-block: -0.5em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */ }
+.cs-file-upload-item-size { flex: none; font: 400 12px/18px var(--font-mono); color: var(--muted); }
+
+.cs-file-upload-item-done,
+.cs-file-upload-item-error {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font: 500 13px/18px var(--font-sans);
+  color: var(--destructive);
+  & > svg { flex: none; width: 14px; height: 14px; }
+}
+.cs-file-upload-item-done { color: var(--success); }
+
+.cs-file-upload-progress-track { height: 4px; overflow: hidden; border-radius: var(--radius-full); background: var(--border); }
+.cs-file-upload-progress-indicator { height: 100%; border-radius: inherit; background: var(--primary); transition: width var(--duration-base) var(--ease-standard); }

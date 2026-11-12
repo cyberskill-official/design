@@ -1,0 +1,12 @@
+/* Items are Toggles (toggle.css). The gap keeps their 44px touch areas from overlapping. */
+.cs-toggle-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+
+  &[data-orientation='vertical'] { flex-direction: column; align-items: stretch; }
+  /* 32px items reach 44px with 6px of hit area on each side */
+  &[data-size='sm'] { gap: var(--space-3); }
+  &[data-disabled] { cursor: not-allowed; }
+}

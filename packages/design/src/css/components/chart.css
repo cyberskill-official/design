@@ -1,0 +1,112 @@
+/* Chart presets (Recharts). Marks carry series colors; every text, axis and grid line uses text and border tokens. */
+.cs-chart {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+  margin: 0;
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+.cs-chart-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+.cs-chart-heading { min-width: 0; }
+.cs-chart-title { font: 700 16px/24px var(--font-display); letter-spacing: -0.01em; }
+.cs-chart-description { margin: 2px 0 0; font: 400 14px/20px var(--font-sans); color: var(--muted); }
+
+.cs-chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font: 500 13px/20px var(--font-sans);
+  & li { display: inline-flex; align-items: center; gap: var(--space-2); }
+}
+.cs-chart-legend-value { color: var(--muted); font-variant-numeric: tabular-nums; }
+.cs-chart-swatch {
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: var(--_color);
+  &[data-mark='line'] { width: 14px; height: 2px; border-radius: 1px; }
+}
+
+/* Plot: recessive hairline grid and axes, muted tick text, a focus ring for the keyboard tooltip. */
+.cs-chart-plot {
+  position: relative;
+  min-width: 0;
+  & .recharts-surface { overflow: visible; }
+  & .recharts-surface:focus { outline: none; }
+  & .recharts-surface:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; border-radius: var(--radius-sm); }
+  & .recharts-cartesian-grid line, & .recharts-cartesian-axis-line { stroke: var(--border); stroke-width: 1px; }
+  & .recharts-cartesian-axis-tick-value { fill: var(--muted); font: 500 12px var(--font-sans); font-variant-numeric: tabular-nums; }
+  & .recharts-tooltip-cursor { stroke: var(--input); stroke-width: 1px; }
+  & .recharts-rectangle.recharts-tooltip-cursor { fill: color-mix(in srgb, var(--foreground) 6%, transparent); stroke: none; }
+  & .cs-chart-active-dot { stroke: var(--panel); }
+  & .recharts-tooltip-wrapper { z-index: var(--z-tooltip); }
+}
+.cs-chart-direct-label { fill: var(--muted); font: 500 12px var(--font-sans); }
+
+/* Stacked bars: a 2px surface gap between segments (the stroke straddles the shared edge, 1px each side). */
+.cs-chart[data-stacked] .recharts-bar-rectangle path { stroke: var(--panel); stroke-width: 2px; }
+
+.cs-chart-tooltip {
+  min-width: 140px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--panel);
+  box-shadow: var(--shadow-lg);
+  font: 500 12px/16px var(--font-sans);
+  color: var(--muted);
+  & ul { display: grid; gap: var(--space-1); margin: 0; padding: 0; list-style: none; }
+  & li { display: flex; align-items: center; gap: var(--space-2); }
+}
+.cs-chart-tooltip-label { margin-bottom: 6px; }
+.cs-chart-tooltip-key { flex: none; width: 12px; height: 2px; border-radius: 1px; background: var(--_color); }
+.cs-chart-tooltip-value { color: var(--foreground); font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* Table view: the accessible twin of the chart. */
+.cs-chart-table-scroll { overflow-x: auto; }
+.cs-chart-table {
+  width: 100%;
+  border-collapse: collapse;
+  font: 400 14px/20px var(--font-sans);
+  & th, & td { padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--border); text-align: start; }
+  & thead th { font: 600 12px/16px var(--font-sans); color: var(--muted); }
+  & tbody th { font-weight: 500; }
+  & [data-numeric] { text-align: end; font-family: var(--font-mono); font-size: 13px; font-variant-numeric: tabular-nums; }
+  & thead [data-numeric] { font-family: var(--font-sans); font-size: 12px; }
+}
+
+/* Donut: slices split by a 2px surface gap, total in the middle. */
+.cs-donut { position: relative; }
+.cs-donut .cs-donut-slice { stroke: var(--panel); stroke-width: 2px; }
+.cs-donut .recharts-sector:hover { filter: brightness(1.08); }
+.cs-donut-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  text-align: center;
+}
+.cs-donut-value { font: 700 24px/30px var(--font-sans); }
+.cs-donut-label { font: 500 12px/16px var(--font-sans); color: var(--muted); }
+
+.cs-sparkline { min-width: 0; }
+.cs-sparkline-dot { stroke: var(--panel); stroke-width: 2px; }

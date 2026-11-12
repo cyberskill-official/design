@@ -1,0 +1,59 @@
+---
+title: Popover
+description: A small panel anchored to a button, for details or a short form that should not leave the page.
+---
+
+import { FormPopover, InfoPopover } from '@/demos/popover';
+
+Use a popover for content a user asks for: details behind an info button, a quick setting, a two-field form. It does not block the page. For a task the user must finish or cancel, use a dialog; for a few words on hover, a tooltip.
+
+## Small form
+
+<Demo title="Quick setting" layout="center">
+  <FormPopover />
+</Demo>
+
+```tsx
+const [open, setOpen] = useState(false);
+
+<Popover open={open} onOpenChange={setOpen}>
+  <PopoverTrigger render={<Button variant="secondary" />}>Usage limits</PopoverTrigger>
+  <PopoverContent title="Monthly limit" description="Agents pause when the workspace reaches this many messages.">
+    <TextField label="Messages per month" type="number" defaultValue="20000" />
+    <Button size="sm" onClick={() => setOpen(false)}>Save limit</Button>
+  </PopoverContent>
+</Popover>
+```
+
+## Details behind an info button
+
+<Demo title="Info popover" layout="center">
+  <InfoPopover />
+</Demo>
+
+```tsx
+<Popover>
+  <PopoverTrigger render={<IconButton label="About message limits" icon={<Info />} variant="ghost" size="sm" />} />
+  <PopoverContent side="right" title="What counts as a message?"
+    description="Every reply an agent sends, including retries." />
+</Popover>
+```
+
+Prefer this over a tooltip when the text matters: it opens on tap and is read by screen readers.
+
+## Props
+
+<PropsTable rows={[
+  ['title', 'ReactNode', '–', 'Heading, announced when the popover opens (required)'],
+  ['description', 'ReactNode', '–', 'Explanation under the title, announced with it'],
+  ['closeLabel', 'string', "'Close'", 'Accessible name of the × button; pass a Vietnamese label in Vietnamese UIs'],
+  ['side / align', "'top' | 'right' | 'bottom' | 'left' / 'start' | 'center' | 'end'", "'bottom' / 'center'", 'Where it opens; it flips when there is no room'],
+]} />
+
+`Popover` takes `open`, `defaultOpen`, `onOpenChange` and `modal`. `PopoverTrigger` takes `render` and `openOnHover`.
+
+## Accessibility
+
+- Opens as a non-modal dialog named by its title and described by its description; focus moves inside.
+- Escape, the × button or a click outside closes it, and focus returns to the trigger.
+- Tab moves through the content; tabbing past the end closes it and continues on the page.

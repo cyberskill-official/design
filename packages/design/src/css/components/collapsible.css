@@ -1,0 +1,51 @@
+.cs-collapsible {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  min-width: 0;
+  color: var(--foreground);
+}
+
+.cs-collapsible-trigger {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: var(--control-sm);
+  margin: 0;
+  padding: 0 var(--space-2);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--foreground);
+  font: 600 14px/20px var(--font-sans);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+
+  /* 44px touch target around the 32px visual */
+  &::before { content: ''; position: absolute; inset: 50% 0 auto; height: var(--control-touch); transform: translateY(-50%); }
+  &:hover:not([data-disabled]) { background: var(--raised); }
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  &[data-disabled] { color: var(--muted); cursor: not-allowed; }
+}
+
+.cs-collapsible-icon {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: var(--muted);
+  transition: transform var(--duration-base) var(--ease-standard);
+  [data-panel-open] > & { transform: rotate(90deg); }
+  &:dir(rtl) { scale: -1 1; }
+}
+
+.cs-collapsible-panel {
+  box-sizing: border-box;
+  align-self: stretch;
+  height: var(--collapsible-panel-height);
+  overflow: hidden;
+  font: 400 14px/22px var(--font-sans);
+  transition: height var(--duration-base) var(--ease-standard);
+  &[data-starting-style], &[data-ending-style] { height: 0; }
+}

@@ -1,0 +1,57 @@
+---
+title: Breadcrumbs
+description: Shows where the current page sits in the hierarchy, with a link to each level above it.
+---
+
+import { BreadcrumbsDemo, BreadcrumbsLinks } from '@/demos/breadcrumbs';
+
+Use breadcrumbs on pages two or more levels deep (workspace → agents → an agent → its sources), above the page title. They help people go up a level; they do not replace the main navigation. Skip them on top-level pages.
+
+## From items
+
+<Demo title="Breadcrumbs">
+  <BreadcrumbsDemo />
+</Demo>
+
+```tsx
+<Breadcrumbs
+  items={[
+    { label: 'Workspace', href: '/' },
+    { label: 'Agents', href: '/agents' },
+    { label: 'Support Copilot', href: '/agents/support' },
+    { label: 'Training sources' },
+  ]}
+/>
+```
+
+The last item is the current page and gets `aria-current="page"`. Give it an `href` to keep it a link, or leave it out for plain text.
+
+## Your own links
+
+<Demo title="Router links, Vietnamese label">
+  <BreadcrumbsLinks />
+</Demo>
+
+```tsx
+<Breadcrumbs label="Đường dẫn">
+  <Link href="/">Không gian làm việc</Link>
+  <Link href="/billing">Thanh toán</Link>
+  <Link href="/billing/invoices" aria-current="page">Hoá đơn</Link>
+</Breadcrumbs>
+```
+
+Pass children instead of `items` to use your router's `Link`. Each child becomes one crumb; mark the current one yourself.
+
+## Props
+
+<PropsTable rows={[
+  ['items', '{ label: ReactNode; href?: string }[]', '–', 'The trail, top level first. The last item is the current page'],
+  ['children', 'ReactNode', '–', 'Instead of items: one link per crumb'],
+  ['label', 'string', "'Breadcrumb'", 'Name of the navigation landmark; pass "Đường dẫn" in Vietnamese UIs'],
+]} />
+
+## Accessibility
+
+- Renders a `nav` landmark named by `label` with an ordered list, so screen readers announce "Breadcrumb, navigation, list, 4 items".
+- The current page carries `aria-current="page"`.
+- The caret separators are hidden from assistive tech.

@@ -1,57 +1,44 @@
-# GitHub Pages deployment for design.cyberskill.world
-name: Deploy GitHub Pages
+name: Site (design.cyberskill.world)
 
 on:
   push:
     branches: [main]
-  workflow_dispatch: {}
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: pages-${{ github.ref }}
+  group: pages
   cancel-in-progress: false
 
 jobs:
   build:
-    name: Build static site (.vercel-static)
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
     steps:
-      - name: Checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
-        with:
-          persist-credentials: false
-      - name: Setup Node 22
-        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
-        with:
-          node-version: '22'
-          package-manager-cache: false
-      - uses: ./.github/actions/setup-npm
-      - name: Install npm dependencies
-        run: npm ci
-      - name: Build reviewed public site (.vercel-static + .nojekyll + CNAME)
-        run: npm run build:site
-      - name: Setup Pages
-        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d  # v6.0.0
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9  # v5.0.0
-        with:
-          path: .vercel-static
-
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
+        with: { node-version-file: .nvmrc, cache: npm }
+      - run: npm ci
+      - run: npm run site:build
+      # The 2.x docs and Storybook, frozen at 2.9.0, served at /legacy/. Built once from the v2.9.0 tag with a /legacy/
+      # asset base and attached to that release, so this job never has to install or build 2.x.
+      - name: 2.x docs at /legacy/
+        env: { GH_TOKEN: '${{ github.token }}' }
+        run: |
+          gh release download v2.9.0 --repo "$GITHUB_REPOSITORY" --pattern design-2.9.0-legacy-site.zip --dir "$RUNNER_TEMP"
+          mkdir -p apps/site/out/legacy
+          unzip -q "$RUNNER_TEMP/design-2.9.0-legacy-site.zip" -d apps/site/out/legacy
+          test -f apps/site/out/legacy/index.html
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9  # v5.0.0
+        with: { path: apps/site/out }
   deploy:
-    name: Deploy to GitHub Pages
     needs: build
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
-    permissions:
+    permissions: # only the deploy job can write to Pages
       pages: write
       id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    environment: { name: github-pages, url: '${{ steps.deployment.outputs.page_url }}' }
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
+      - id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346  # v5.0.1

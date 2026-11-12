@@ -1,0 +1,14 @@
+name: Component or pattern request
+description: Ask for a new component, variant or pattern.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: need
+    attributes: { label: What do you need to build?, description: The screen or flow, and which product it is for. }
+    validations: { required: true }
+  - type: textarea
+    id: tried
+    attributes: { label: What did you try with existing components? }
+  - type: textarea
+    id: refs
+    attributes: { label: References, description: Screenshots, Figma links or examples. }

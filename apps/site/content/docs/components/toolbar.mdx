@@ -1,0 +1,66 @@
+---
+title: Toolbar
+description: A row of related controls that is one Tab stop, with arrow-key navigation inside.
+---
+
+import { ToolbarDemo, ToolbarVertical } from '@/demos/toolbar';
+
+Use a toolbar for a compact set of commands that act on one thing: an editor's formatting, a canvas's tools, a table's bulk actions. For a single row of page actions, plain buttons are simpler.
+
+## Example
+
+Icon-only buttons take an `icon` and a `label` (their accessible name). Toggles pass `aria-pressed`.
+
+<Demo title="Text formatting">
+  <ToolbarDemo />
+</Demo>
+
+```tsx
+<Toolbar aria-label="Text formatting">
+  <ToolbarGroup aria-label="History">
+    <ToolbarButton icon={<ArrowCounterClockwise />} label="Undo" />
+    <ToolbarButton icon={<ArrowClockwise />} label="Redo" disabled />
+  </ToolbarGroup>
+  <ToolbarSeparator />
+  <ToolbarGroup aria-label="Text style">
+    <ToolbarButton icon={<TextB />} label="Bold" aria-pressed={bold} onClick={toggleBold} />
+    <ToolbarButton icon={<TextItalic />} label="Italic" aria-pressed={italic} onClick={toggleItalic} />
+  </ToolbarGroup>
+  <ToolbarSeparator />
+  <ToolbarButton icon={<LinkIcon />}>Insert link</ToolbarButton>
+  <ToolbarLink href="/help">Help</ToolbarLink>
+</Toolbar>
+```
+
+## Vertical
+
+<Demo title="Vertical">
+  <ToolbarVertical />
+</Demo>
+
+```tsx
+<Toolbar aria-label="Canvas tools" orientation="vertical">
+  <ToolbarButton icon={<TextB />} label="Bold" />
+  <ToolbarButton icon={<TextItalic />} label="Italic" />
+  <ToolbarSeparator />
+  <ToolbarButton icon={<ListBullets />} label="Bulleted list" />
+</Toolbar>
+```
+
+## Props
+
+<PropsTable rows={[
+  ['orientation', "'horizontal' | 'vertical'", "'horizontal'", 'Toolbar: direction and which arrow keys move focus'],
+  ['loopFocus', 'boolean', 'true', 'Toolbar: wrap from the last item to the first'],
+  ['icon', 'ReactNode', '–', 'ToolbarButton: decorative icon, or the only content'],
+  ['label', 'string', '–', 'ToolbarButton: accessible name, required when icon-only'],
+  ['disabled', 'boolean', 'false', 'ToolbarButton or ToolbarGroup: inert but still focusable'],
+  ['render', 'ReactElement', '–', 'ToolbarButton: make it a Menu, Popover or Dialog trigger, or another button such as <CopyButton />, so it joins the arrow keys'],
+]} />
+
+## Accessibility
+
+- The toolbar is one Tab stop. Arrow keys (Left/Right, or Up/Down when vertical) move between items and wrap at the ends.
+- Name the toolbar with `aria-label`; groups can be named too.
+- Disabled buttons stay focusable with `aria-disabled`, so people can still find them.
+- Icon-only buttons are named by `label` and keep a 44px touch area.

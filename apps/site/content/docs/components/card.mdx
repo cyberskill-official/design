@@ -1,0 +1,66 @@
+---
+title: Card
+description: A surface that groups related content, with optional header, footer and a link style.
+---
+
+import { CardBasic, CardLinks } from '@/demos/card';
+
+Use a card to group one topic's content: a summary, a setting, a resource in a grid. Do not nest cards, and do not wrap a whole page section in one; a plain heading and spacing is calmer. For a single KPI use [Stat](/docs/components/stat).
+
+## Anatomy
+
+`Card` holds `CardHeader` (with `CardTitle` and `CardDescription`), `CardContent` and `CardFooter`. All parts are optional. `CardTitle` is an `h3`; pick the level that fits the page with `render={<h2 />}`.
+
+<Demo title="Card">
+  <CardBasic />
+</Demo>
+
+```tsx
+<Card>
+  <CardHeader>
+    <CardTitle>Usage this month</CardTitle>
+    <CardDescription>12,480 of 20,000 API requests. Resets on the 1st.</CardDescription>
+  </CardHeader>
+  <CardContent>
+    <Badge tone="success">Healthy</Badge>
+  </CardContent>
+  <CardFooter>
+    <Button variant="secondary" size="sm">View details</Button>
+    <Button size="sm">Upgrade plan</Button>
+  </CardFooter>
+</Card>
+```
+
+## Card as a link
+
+When the whole card goes somewhere, render it as the link and add `interactive` for the hover and focus styles. Use a Next.js `Link` the same way. Keep buttons out of a link card.
+
+<Demo title="Link cards" layout="block">
+  <CardLinks />
+</Demo>
+
+```tsx
+<Card interactive render={<a href="/settings/billing" />}>
+  <CardHeader>
+    <CardTitle>Billing</CardTitle>
+    <CardDescription>Plans, invoices and payment methods.</CardDescription>
+  </CardHeader>
+</Card>
+
+<Card interactive render={<NextLink href="/settings/security" />}>…</Card>
+```
+
+## Props
+
+<PropsTable rows={[
+  ['interactive', 'boolean', 'false', 'Hover border and focus ring, for a card that is itself a link'],
+  ['render', 'ReactElement', '–', 'Render as another element, e.g. <a href> or a Next.js Link'],
+]} />
+
+`CardTitle` also takes `render` to change its heading level. Other parts are plain elements and take their native props.
+
+## Accessibility
+
+- A link card is one link: Tab focuses it, Enter follows it, and its accessible name is the card's text. Keep that text short; the title should lead.
+- Choose the `CardTitle` heading level from the page outline, not from the size you want.
+- Hover and focus show a border change, not only a shadow, so they read in both themes.

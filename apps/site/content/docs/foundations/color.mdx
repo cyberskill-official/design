@@ -1,0 +1,54 @@
+---
+title: Color
+description: Ink & Gold semantic tokens, status colors, chart palette and ramps, checked for contrast and color-blind safety.
+---
+
+import { ChartPalette, ColorSwatches, ColorTokens, ContrastChecks, Ramps, StatusColors } from '@/components/foundations';
+
+Use **semantic tokens** (`--primary`, `--muted`, `--destructive`…) in product code. They flip between light and dark for you. Ramps are for illustrations and data only.
+
+<ColorSwatches mode="light" />
+<ColorSwatches mode="dark" />
+
+## How much of each
+
+| Surface | Neutrals | Ink | Gold | Status |
+|---|---|---|---|---|
+| Product screens | ~88% | ~8% | under 3% | ~1% |
+| Marketing pages | ~70% | ~20% | up to 8% | ~2% |
+
+Gold works because it is rare: one key action, highlight or AI moment per view.
+
+## Semantic tokens
+
+<ColorTokens />
+
+## Status colors
+
+Every pair stays at least ΔE 15 apart for normal vision and ΔE 8 for red-blind and green-blind vision. Status is still never shown by color alone: chips, alerts and toasts carry an icon and text.
+
+<StatusColors />
+
+## Chart palette
+
+Series take colors in this fixed order and keep them when filters change. Each color passes 3:1 on the chart surface and stays at least ΔE 15 from every status color, so a chart never reads as an alert.
+
+<ChartPalette />
+
+## Ramps
+
+Generated in OKLCH so steps look even. The outlined step is the exact brand color.
+
+<Ramps />
+
+## Contrast checks
+
+The token build runs these checks and fails if any drops below its target.
+
+<ContrastChecks />
+
+## Rules
+
+- Never put white text on gold, and don't use bright gold as text on light backgrounds: use `--accent-text`.
+- No gradients or glows on brand colors.
+- Don't hard-code hex values in components; the CSS check blocks it.

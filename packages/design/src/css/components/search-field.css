@@ -1,0 +1,31 @@
+/* Builds on .cs-input-group / .cs-input (field.css); only the search-specific parts live here. */
+.cs-search-field .cs-input {
+  appearance: none;
+  /* Our own clear button replaces the browser's */
+  &::-webkit-search-cancel-button, &::-webkit-search-decoration { appearance: none; }
+}
+
+.cs-search-field .cs-input-adornment[data-side='end'] {
+  gap: var(--space-2);
+  padding-inline-end: var(--space-2);
+}
+
+.cs-search-field-clear {
+  display: inline-grid;
+  place-items: center;
+  /* 24px at least (WCAG 2.5.8), even in the small field; the focus ring is drawn inside it, so the box never clips it */
+  width: max(24px, calc(var(--_h) - 12px));
+  height: max(24px, calc(var(--_h) - 12px));
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  &:hover { background: var(--raised); color: var(--foreground); }
+  outline-offset: -2px;
+  &:focus-visible { outline: 2px solid var(--ring); }
+  & > svg { width: 16px; height: 16px; }
+}
+.cs-input-group[data-size='lg'] .cs-search-field-clear > svg { width: 20px; height: 20px; }

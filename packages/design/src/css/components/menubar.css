@@ -1,0 +1,33 @@
+/* The bar and its triggers. Menu panels and items come from context-menu.css. */
+.cs-menubar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  width: fit-content;
+  padding: 3px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  &[data-orientation='vertical'] { flex-direction: column; align-items: stretch; }
+}
+
+.cs-menubar-trigger {
+  display: inline-flex;
+  align-items: center;
+  height: var(--control-sm);
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--foreground);
+  font: 500 14px/20px var(--font-sans);
+  cursor: default;
+  user-select: none;
+
+  &:hover, &[data-popup-open] { background: var(--raised); }
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  &[data-disabled] { opacity: 0.5; cursor: not-allowed; }
+  @media (pointer: coarse) { height: var(--control-touch); }
+}
+
+.cs-menubar-submenu-caret { flex: none; width: 14px; height: 14px; margin-inline-start: var(--space-4); color: var(--muted); }

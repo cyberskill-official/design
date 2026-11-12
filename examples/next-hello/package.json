@@ -1,0 +1,15 @@
+{
+  "name": "next-hello",
+  "private": true,
+  "description": "Smallest app that uses @cyberskill/design. CI installs the packed tarball here, outside the workspace, then builds and checks it.",
+  "type": "module",
+  "scripts": {
+    "build": "next build"
+  },
+  "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
+    "next": "16.4.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  }
+}

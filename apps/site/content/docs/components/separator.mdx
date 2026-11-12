@@ -1,0 +1,57 @@
+---
+title: Separator
+description: A thin line between groups of content, horizontal or vertical, with an optional label.
+---
+
+import { SeparatorHorizontal, SeparatorLabelled, SeparatorVertical } from '@/demos/separator';
+
+Use a separator to divide groups that are otherwise hard to tell apart. Prefer spacing first; a line on every row adds noise.
+
+## Horizontal
+
+<Demo title="Horizontal" layout="block">
+  <SeparatorHorizontal />
+</Demo>
+
+```tsx
+<Separator />
+```
+
+## With a label
+
+<Demo title="Labelled" layout="center">
+  <SeparatorLabelled />
+</Demo>
+
+```tsx
+<Button variant="secondary" fullWidth>Continue with Google</Button>
+<Separator label="or" />
+<Button fullWidth>Continue with email</Button>
+```
+
+## Vertical
+
+Inside a flex row the line stretches to the row's height.
+
+<Demo title="Vertical">
+  <SeparatorVertical />
+</Demo>
+
+```tsx
+<span>Docs</span>
+<Separator orientation="vertical" />
+<span>API reference</span>
+```
+
+## Props
+
+<PropsTable rows={[
+  ['orientation', "'horizontal' | 'vertical'", "'horizontal'", 'Direction of the line'],
+  ['label', 'ReactNode', '–', 'Text in the middle, e.g. "or" / "hoặc". A string label also names the separator'],
+]} />
+
+## Accessibility
+
+- Renders `role="separator"` with `aria-orientation`, so screen readers announce the break.
+- A string `label` becomes its accessible name ("or, separator").
+- The line uses the border token, which flips with the theme.

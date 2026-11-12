@@ -1,5 +1,0 @@
-# Fastlane for Flutter sample store packaging (iOS + Android scaffolds).
-# Samples remain samples until product need.
-source "https://rubygems.org"
-
-gem "fastlane", "~> 2.220"

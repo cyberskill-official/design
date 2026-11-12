@@ -1,0 +1,16 @@
+---
+title: Motion and layers
+description: Three durations, three easings and a fixed z-index scale.
+---
+
+import { MotionTokens } from '@/components/foundations';
+
+Motion explains what changed; it never decorates. Popovers, dialogs and toasts fade and shift 8px or less. Everything respects `prefers-reduced-motion`.
+
+<MotionTokens />
+
+## Rules
+
+- Animate `opacity` and `transform`, not layout properties.
+- Use Base UI's `data-starting-style` and `data-ending-style` attributes with CSS transitions for enter and exit.
+- Use the `--z-*` tokens, never raw z-index numbers.

@@ -1,0 +1,28 @@
+.cs-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  box-sizing: border-box;
+  min-width: 0;
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  color: var(--foreground);
+  box-shadow: var(--shadow-sm);
+  font: 400 14px/21px var(--font-sans);
+  text-decoration: none;
+
+  &[data-interactive] {
+    cursor: pointer;
+    transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+    &:hover { border-color: var(--primary); box-shadow: var(--shadow-md); }
+    &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  }
+}
+
+.cs-card-header { display: grid; gap: var(--space-1); min-width: 0; }
+.cs-card-title { margin: 0; font: 700 16px/22px var(--font-display); letter-spacing: -0.01em; color: var(--foreground); text-wrap: balance; }
+.cs-card-description { margin: 0; font: 400 14px/20px var(--font-sans); color: var(--muted); text-wrap: pretty; }
+.cs-card-content { display: grid; gap: var(--space-3); min-width: 0; }
+.cs-card-footer { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-top: auto; }

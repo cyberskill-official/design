@@ -1,0 +1,50 @@
+.cs-progress {
+  --_fill: var(--primary);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-3);
+  min-width: 0;
+
+  &[data-tone='warning'] { --_fill: var(--warning); }
+  &[data-tone='danger'] { --_fill: var(--destructive); }
+}
+
+.cs-progress-label { min-width: 0; font: 500 14px/20px var(--font-sans); color: var(--foreground); }
+
+.cs-progress-value {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font: 500 13px/20px var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  & > svg { width: 16px; height: 16px; color: var(--_fill); }
+}
+
+.cs-progress-track {
+  position: relative;
+  grid-column: 1 / -1;
+  height: 8px;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  background: var(--raised);
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+
+.cs-progress-indicator {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--_fill);
+  transition: width var(--duration-slow) var(--ease-standard), background-color var(--duration-base) var(--ease-standard);
+
+  &[data-indeterminate] { width: 40%; animation: cs-progress-indeterminate 1.4s var(--ease-standard) infinite; }
+}
+@keyframes cs-progress-indeterminate {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(250%); }
+}
+/* No motion: a calm full-width bar that does not read as a value. */
+@media (prefers-reduced-motion: reduce) {
+  .cs-progress-indicator[data-indeterminate] { width: 100%; animation: none; opacity: 0.35; }
+}

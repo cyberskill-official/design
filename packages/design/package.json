@@ -1,0 +1,169 @@
+{
+  "name": "@cyberskill/design",
+  "version": "3.0.0",
+  "description": "CyberSkill Design System: Ink & Gold tokens, accessible React components and chart presets for CyberSkill products.",
+  "keywords": [
+    "cyberskill",
+    "design-system",
+    "design-tokens",
+    "react",
+    "react-components",
+    "base-ui",
+    "tailwindcss",
+    "dark-mode",
+    "accessibility",
+    "wcag",
+    "vietnamese",
+    "nextjs",
+    "server-components"
+  ],
+  "homepage": "https://design.cyberskill.world",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cyberskill-official/design.git",
+    "directory": "packages/design"
+  },
+  "bugs": {
+    "url": "https://github.com/cyberskill-official/design/issues"
+  },
+  "license": "UNLICENSED",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "files": [
+    "dist",
+    "assets",
+    "tokens",
+    "ai",
+    "bin",
+    "README.md",
+    "LICENSE",
+    "THIRD-PARTY-NOTICES.md"
+  ],
+  "bin": {
+    "cyberskill-design": "./bin/cyberskill-design.mjs"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./charts": {
+      "types": "./dist/charts.d.ts",
+      "default": "./dist/charts.js"
+    },
+    "./table": {
+      "types": "./dist/table.d.ts",
+      "default": "./dist/table.js"
+    },
+    "./forms": {
+      "types": "./dist/forms.d.ts",
+      "default": "./dist/forms.js"
+    },
+    "./date": {
+      "types": "./dist/date.d.ts",
+      "default": "./dist/date.js"
+    },
+    "./utils": {
+      "types": "./dist/utils.d.ts",
+      "default": "./dist/utils.js"
+    },
+    "./tokens": {
+      "types": "./dist/tokens.d.ts",
+      "default": "./dist/tokens.js"
+    },
+    "./tokens.json": "./dist/tokens.json",
+    "./styles.css": "./dist/styles.css",
+    "./tokens.css": "./dist/tokens.css",
+    "./tailwind.css": "./dist/tailwind.css",
+    "./assets/*": "./assets/*",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "scripts": {
+    "build": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\" && node scripts/build-tokens.mjs && node scripts/build-css.mjs && tsdown && node scripts/build-ai-docs.mjs",
+    "dev": "concurrently -k -n tokens,css,js \"node --watch-path=tokens scripts/build-tokens.mjs\" \"node --watch-path=src/css scripts/build-css.mjs\" \"tsdown --watch\"",
+    "test": "vitest run",
+    "test:watch": "concurrently -k -n css,vitest -c yellow,cyan \"node --watch-path=src/css scripts/build-css.mjs\" \"vitest\"",
+    "typecheck": "tsc --noEmit",
+    "lint:css": "node scripts/check-css.mjs",
+    "check:package": "npm pack --dry-run && publint && attw --pack . --profile esm-only --exclude-entrypoints ./styles.css ./tokens.css ./tailwind.css",
+    "storybook": "concurrently -k -n css,storybook -c yellow,magenta \"node --watch-path=src/css scripts/build-css.mjs\" \"storybook dev -p 6006 --no-open\"",
+    "build-storybook": "storybook build -o storybook-static",
+    "check:ai-docs": "node scripts/build-ai-docs.mjs --check",
+    "test:gates": "node --test scripts/*.test.mjs"
+  },
+  "dependencies": {
+    "@base-ui/react": "^1.9.0",
+    "clsx": "^2.1.1"
+  },
+  "peerDependencies": {
+    "@phosphor-icons/react": "^2.1.0",
+    "@tanstack/react-table": "^9.0.0",
+    "@tanstack/react-virtual": "^3.10.0",
+    "date-fns": "^4.1.0",
+    "react": "^19.0.0",
+    "react-day-picker": "^10.0.0",
+    "react-dom": "^19.0.0",
+    "react-hook-form": "^7.50.0",
+    "recharts": "^3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@tanstack/react-table": {
+      "optional": true
+    },
+    "@tanstack/react-virtual": {
+      "optional": true
+    },
+    "react-hook-form": {
+      "optional": true
+    },
+    "recharts": {
+      "optional": true
+    },
+    "react-day-picker": {
+      "optional": true
+    },
+    "date-fns": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@phosphor-icons/react": "^2.1.10",
+    "@storybook/addon-a11y": "^10.6.7",
+    "@storybook/addon-docs": "^10.6.7",
+    "@storybook/addon-vitest": "^10.6.7",
+    "@storybook/react-vite": "^10.6.7",
+    "@tanstack/react-table": "^9.3.1",
+    "@tanstack/react-virtual": "^3.14.26",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.9",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "@vitest/browser": "^5.1.0",
+    "@vitest/browser-playwright": "^5.1.0",
+    "axe-core": "^4.14.0",
+    "concurrently": "^10.0.7",
+    "date-fns": "^4.4.0",
+    "lightningcss": "^1.33.0",
+    "playwright": "1.60.0",
+    "publint": "^0.3.25",
+    "react": "^19.3.1",
+    "react-day-picker": "^10.0.2",
+    "react-dom": "^19.3.1",
+    "react-hook-form": "^7.92.0",
+    "recharts": "^3.10.1",
+    "storybook": "^10.6.7",
+    "tsdown": "^0.23.7",
+    "typescript": "~6.0.3",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.0",
+    "zod": "^4.6.7"
+  }
+}

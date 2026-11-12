@@ -1,0 +1,71 @@
+---
+title: Sign in
+description: A sign-in card with email and password, single sign-on, an error for a failed attempt and a one-time code step.
+full: true
+---
+
+import { SignInPattern, VerifyPattern } from '@/demos/patterns/sign-in';
+
+Use this pattern for the sign-in page of a product and the verification step after it. The [Card](/docs/components/card) holds a [Form](/docs/components/form) with two [Text fields](/docs/components/text-field), a "remember me" [Checkbox](/docs/components/checkbox) and a full-width [Button](/docs/components/button). A labelled [Separator](/docs/components/separator) leads to a secondary single sign-on button, and an [Alert](/docs/components/alert) explains a failed attempt. The second step asks for a code with the [OTP field](/docs/components/otp-field).
+
+## Sign in
+
+Submit with any email and an 8-character password to see the failed-attempt alert.
+
+<Demo title="Sign in" layout="block">
+  <SignInPattern />
+</Demo>
+
+```tsx
+import { Alert, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Checkbox, Form, Link, Separator, TextField } from '@cyberskill/design';
+
+<Card className="auth-card">                              {/* max-width 400px, centered */}
+  <CardHeader>
+    <CardTitle render={<h1 />}>Sign in to Northwind</CardTitle>
+    <CardDescription>Welcome back. Use your work email.</CardDescription>
+  </CardHeader>
+  <CardContent>
+    {failed && <Alert tone="danger" title="Email or password is incorrect" description="Check both and try again." />}
+    <Form aria-label="Sign in" onFormSubmit={signIn}>
+      <TextField label="Work email" name="email" type="email" autoComplete="email" required />
+      <TextField label="Password" name="password" type="password" autoComplete="current-password" required />
+      <Checkbox label="Remember me for 30 days" name="remember" />
+      <Link href="/forgot-password">Forgot password?</Link>
+      <Button type="submit" fullWidth loading={loading}>Sign in</Button>
+    </Form>
+    <Separator label="or" />
+    <Button variant="secondary" fullWidth iconStart={<Key />}>Continue with single sign-on</Button>
+  </CardContent>
+  <CardFooter>New to Northwind? <Link href="/sign-up">Create an account</Link></CardFooter>
+</Card>
+```
+
+## Verification code
+
+Type or paste `123456`; any other code shows the error.
+
+<Demo title="Verify" layout="block">
+  <VerifyPattern />
+</Demo>
+
+```tsx
+import { OtpField } from '@cyberskill/design';
+
+<OtpField
+  label="Verification code"
+  value={code}
+  onValueChange={setCode}
+  onComplete={verify}                                   // runs as soon as all 6 boxes are filled
+  error={error}
+/>
+<Button type="submit" fullWidth loading={checking}>Verify</Button>
+```
+
+## Notes
+
+- Say what failed without saying which half was wrong ("Email or password is incorrect"), and say what happens next (lockout, reset). The danger alert is announced as soon as it appears.
+- Set `autoComplete="email"`, `"current-password"` and the OTP field's built-in `one-time-code` so password managers and SMS autofill work. Never block paste.
+- One primary button. Single sign-on is secondary and sits after the "or" separator; on a company that requires SSO, make it the only button instead.
+- The card title is the page's `h1` on a real sign-in page (`CardTitle render={<h1 />}`).
+- Keep the user's email after a failed attempt; clear only the password.
+- Responsive: the card is at most 400px wide and fills the width on phones, with the "remember me" row wrapping under the checkbox when space runs out.

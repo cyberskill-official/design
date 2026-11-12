@@ -1,0 +1,21 @@
+name: Bug report
+description: Something in a component, token or the site doesn't work or look right.
+labels: [bug]
+body:
+  - type: input
+    id: component
+    attributes: { label: Component or token, placeholder: 'e.g. Select, --warning' }
+    validations: { required: true }
+  - type: textarea
+    id: what
+    attributes: { label: What happened, description: Steps to reproduce and what you expected instead. }
+    validations: { required: true }
+  - type: dropdown
+    id: theme
+    attributes: { label: Theme, options: [Light, Dark, Both] }
+  - type: input
+    id: version
+    attributes: { label: '@cyberskill/design version', placeholder: '3.0.0' }
+  - type: textarea
+    id: shots
+    attributes: { label: Screenshots, description: Drag images here. }

@@ -1,0 +1,49 @@
+.cs-badge {
+  max-width: 100%;
+  /* --_c tints and fills, --_t is the tone as text, --_on is text on the solid fill */
+  --_c: var(--muted);
+  --_t: var(--foreground);
+  --_on: var(--background);
+  --_h: 24px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  box-sizing: border-box;
+  height: var(--_h);
+  padding: 0 var(--space-2);
+  border: 1px solid color-mix(in srgb, var(--_c) 28%, var(--panel));
+  border-radius: var(--radius-full);
+  /* soft: a light tint under the tone's own color, 4.5:1 or more in both themes (build-tokens.mjs gates it).
+     Not mixed toward the foreground: that pulls red, green and brown together for color-blind readers. */
+  background: color-mix(in srgb, var(--_c) 8%, var(--panel)); /* 8%: red text on a 10% tint is 4.4:1; build-tokens.mjs gates this */
+  color: var(--_t);
+  font: 500 13px/1 var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  vertical-align: middle;
+
+  &[data-size='sm'] { --_h: 20px; padding: 0 6px; gap: 3px; font-size: 12px; }
+
+  &[data-tone='primary'] { --_c: var(--primary); --_t: var(--primary); --_on: var(--primary-foreground); }
+  &[data-tone='accent'] { --_c: var(--accent); --_t: var(--accent-text); --_on: var(--accent-foreground); }
+  &[data-tone='success'] { --_c: var(--success); --_t: var(--success); --_on: var(--success-foreground); }
+  &[data-tone='warning'] { --_c: var(--warning); --_t: var(--warning); --_on: var(--warning-foreground); }
+  &[data-tone='danger'] { --_c: var(--destructive); --_t: var(--destructive); --_on: var(--destructive-foreground); }
+  &[data-tone='info'] { --_c: var(--info); --_t: var(--info); --_on: var(--info-foreground); }
+
+  &[data-variant='soft'][data-tone='neutral'] { background: var(--raised); border-color: var(--border); color: var(--foreground); }
+  &[data-variant='soft'][data-tone='primary'] { background: var(--primary-soft); border-color: transparent; color: var(--primary); }
+
+  &[data-variant='solid'] { background: var(--_c); border-color: transparent; color: var(--_on); }
+
+  &[data-variant='outline'] { background: var(--panel); border-color: color-mix(in srgb, var(--_c) 60%, var(--panel)); }
+  &[data-variant='outline'][data-tone='neutral'] { border-color: var(--input); }
+}
+
+.cs-badge-icon { display: inline-flex; flex: none; }
+.cs-badge-icon > svg { width: 14px; height: 14px; }
+.cs-badge[data-size='sm'] .cs-badge-icon > svg { width: 12px; height: 12px; }
+
+/* Long IDs truncate inside the container instead of overflowing it */
+.cs-badge-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; padding-block: 0.5em; margin-block: -0.5em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */ }

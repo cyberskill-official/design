@@ -1,0 +1,54 @@
+/* TimePicker: .cs-input-group box from field.css + a listbox of times like the Select popup. */
+.cs-time-picker .cs-input { font-variant-numeric: tabular-nums; }
+.cs-time-picker .cs-input-adornment { padding-inline-end: var(--space-1); }
+
+.cs-time-picker-positioner {
+  z-index: var(--z-dropdown);
+  outline: 0;
+  &[data-empty] { display: none; }
+}
+
+.cs-time-picker-popup {
+  box-sizing: border-box;
+  min-width: max(140px, var(--anchor-width));
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  color: var(--foreground);
+  box-shadow: var(--shadow-lg);
+  outline: 0;
+  transform-origin: var(--transform-origin);
+  transition: opacity var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-standard);
+  &[data-starting-style], &[data-ending-style] { opacity: 0; transform: translateY(-6px); }
+  &[data-side='top'][data-starting-style], &[data-side='top'][data-ending-style] { transform: translateY(6px); }
+}
+
+.cs-time-picker-list {
+  box-sizing: border-box;
+  max-height: min(var(--available-height), 264px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-1);
+  scroll-padding-block: var(--space-1);
+  outline: 0;
+}
+
+.cs-time-picker-item {
+  display: grid;
+  grid-template-columns: 1fr 16px;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 36px;
+  padding: 0 var(--space-2) 0 var(--space-3);
+  border-radius: 6px;
+  font: 400 14px/20px var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  outline: 0;
+  user-select: none;
+  &[data-highlighted] { background: var(--raised); }
+  &[data-selected] { font-weight: 600; }
+  @media (pointer: coarse) { min-height: var(--control-touch); }
+}
+.cs-time-picker-check { display: inline-flex; color: var(--primary); & > svg { width: 16px; height: 16px; } }

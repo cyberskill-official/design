@@ -1,0 +1,100 @@
+# Combobox
+
+> A searchable single-choice picker. Type to filter a long list, then pick one option.
+
+```tsx
+import { Combobox, ComboboxField } from '@cyberskill/design';
+```
+
+Use a combobox when people pick **one** value from a list long enough to search: a region, a customer, an assignee. For about 5 to 15 options that people scan, use a select. When any free text is allowed and the list only suggests, use an autocomplete. For several values, use a multi-select. `ComboboxField` is the common case: a label, the combobox, help and error text.
+
+## States
+
+```tsx
+const regions = [
+  { value: 'sgn', label: 'Ho Chi Minh City', description: 'ap-southeast-1' },
+  { value: 'han', label: 'Hanoi', description: 'ap-southeast-2' },
+  { value: 'tyo', label: 'Tokyo', description: 'Coming soon', disabled: true },
+];
+
+<ComboboxField label="Region" items={regions} placeholder="Search regions" description="Where your data is stored." />
+<ComboboxField label="Backup region" items={regions} defaultValue="sgn" error="Choose a different region from the primary." />
+<ComboboxField label="Locked" items={regions} defaultValue="han" disabled />
+```
+
+## Sizes
+
+`sm` is 32px, `md` 40px and `lg` 48px tall, matching text fields and buttons.
+
+```tsx
+<Combobox aria-label="Region" items={regions} size="sm" />
+<Combobox aria-label="Region" items={regions} />
+<Combobox aria-label="Region" items={regions} size="lg" />
+```
+
+## Controlled
+
+`value` is the chosen item's `value` (an ID), or `null` when nothing is chosen. The clear button sets it back to `null`.
+
+```tsx
+const [region, setRegion] = useState<string | null>('han');
+<ComboboxField label="Region" items={regions} value={region} onValueChange={setRegion} emptyText="Không tìm thấy khu vực" />
+```
+
+## Async search
+
+Turn off built-in filtering with `filter={null}`, fetch in `onInputValueChange` and set `loading` while the request runs. The list shows `loadingText` and is marked busy.
+
+```tsx
+<ComboboxField
+  label="Assignee"
+  items={results}
+  loading={loading}
+  loadingText="Searching…"
+  filter={null}
+  onInputValueChange={(query, { reason }) => {
+    if (reason !== 'item-press') search(query); // sets loading, then results
+  }}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `items` | `{ value, label, description?, disabled? }[]` | – | Options in display order (required). label is shown, filtered on and put in the input |
+| `children` | `(item) => ReactNode` | – | Custom content for each option; the check mark and description stay |
+| `value / defaultValue` | `string \| null` | – | Chosen item value, controlled or initial |
+| `onValueChange` | `(value, details) => void` | – | Called when an option is picked or cleared |
+| `placeholder` | `string` | – | Hint in the empty input |
+| `emptyText` | `ReactNode` | `'No results'` | Shown when nothing matches the typed text |
+| `loading / loadingText` | `boolean / ReactNode` | `false / 'Loading…'` | Spinner and message for async search |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Height 32, 40 or 48px |
+| `clearLabel / triggerLabel` | `string` | `'Clear' / 'Show options'` | Accessible names of the × and arrow buttons |
+| `label / description / error` | `ReactNode` | – | ComboboxField only: visible label (required), help text, and an error that marks the field invalid |
+| `required / disabled / name` | `boolean / boolean / string` | – | Form semantics; the value is submitted under name |
+
+`Combobox` also takes `aria-label`, `className` (for the input box), `ref` and `onBlur` (on the input). Other Base UI root props (`filter`, `onInputValueChange`, `open`, `onOpenChange`, `autoHighlight`, `limit`…) pass through.
+
+## Accessibility
+
+- The input has the `combobox` role and is labelled by the field label; help and error text are read with it.
+- Typing filters the list. Arrow Up/Down move through options, Enter picks, Escape closes the list and keeps focus in the input.
+- The selected option is announced as selected and shows a check mark, not just bold text. Disabled options are announced and skipped.
+- Empty and loading messages are announced politely as they change.
+
+## Exact types
+
+```ts
+// BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
+export type ComboboxProps<Item extends ComboboxItem = ComboboxItem> = Omit<BaseUI.Combobox.Root.Props<string, false, Item>, 'items' | 'children' | 'multiple'> & PickerProps<Item> & {
+  /** Shows a spinner and `loadingText` in the list and marks it busy, for async search. */
+  loading?: boolean;
+  loadingText?: ReactNode;
+  /** Accessible name of the clear (×) button. */
+  clearLabel?: string;
+};
+export type ComboboxFieldProps<Item extends ComboboxItem = ComboboxItem> = ComboboxProps<Item> & Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error' | 'optionalLabel'> & {
+  fieldClassName?: string;
+};
+```

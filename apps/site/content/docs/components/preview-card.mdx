@@ -1,0 +1,52 @@
+---
+title: Preview Card
+description: A hover card that previews a person, project or link while the pointer rests on it or the link has keyboard focus.
+---
+
+import { FastPreviewCard, PersonPreviewCard } from '@/demos/preview-card';
+
+Use a preview card to give a glance of what is behind a link: who a person is, what a file contains. It is a progressive enhancement: touch and screen reader users never see it, so it must only repeat what the linked page shows. For details users need, use a [popover](/docs/components/popover) opened by a button.
+
+## Person
+
+<Demo title="Hover the name" layout="center">
+  <PersonPreviewCard />
+</Demo>
+
+```tsx
+<PreviewCard>
+  <PreviewCardTrigger href="/people/lan">Nguyễn Thị Lan</PreviewCardTrigger>
+  <PreviewCardContent>
+    <strong>Nguyễn Thị Lan</strong>
+    <span>Support lead, Hà Nội</span>
+  </PreviewCardContent>
+</PreviewCard>
+```
+
+## Delays
+
+<Demo title="Shorter delay, opens above" layout="center">
+  <FastPreviewCard />
+</Demo>
+
+```tsx
+<PreviewCardTrigger href="/sources/refunds" delay={200} closeDelay={100}>refund-policy.pdf</PreviewCardTrigger>
+<PreviewCardContent side="top">…</PreviewCardContent>
+```
+
+## Props
+
+<PropsTable rows={[
+  ['href (Trigger)', 'string', '–', 'Where the link goes; keep it a real page'],
+  ['delay (Trigger)', 'number', '600', 'Milliseconds of hover or focus before the card opens'],
+  ['closeDelay (Trigger)', 'number', '300', 'Milliseconds after leaving before it closes'],
+  ['side / align (Content)', "Side / 'start' | 'center' | 'end'", "'bottom' / 'center'", 'Placement against the link'],
+  ['sideOffset (Content)', 'number', '8', 'Gap from the link in px'],
+]} />
+
+`PreviewCard` takes `open`, `defaultOpen` and `onOpenChange`.
+
+## Accessibility
+
+- The trigger is an ordinary link; its name is all a screen reader hears.
+- The card opens on hover and on keyboard focus, and Escape closes it. Focus stays on the link; the card is not in the tab order, so keep links and buttons out of it.

@@ -1,0 +1,68 @@
+---
+title: Marketing site
+description: A website header with dropdown navigation and a phone menu, a hero, feature cards and a footer with link columns.
+full: true
+---
+
+import { MarketingSitePattern } from '@/demos/patterns/marketing-site';
+
+Use this pattern for a product's public website: home, product and landing pages. The header uses a [Navigation menu](/docs/components/navigation-menu) with panels of link cards, and swaps it for a [Drawer](/docs/components/drawer) menu on narrow screens. The hero sets the headline in the display type with a primary and a secondary [Button](/docs/components/button) and a short trust line. Feature [Cards](/docs/components/card) follow, and the footer lists [Links](/docs/components/link) in columns.
+
+## Example
+
+<Demo title="Marketing site" layout="block">
+  <MarketingSitePattern />
+</Demo>
+
+```tsx
+import { Button, Card, CardDescription, CardHeader, CardTitle, Drawer, DrawerContent, DrawerTrigger, IconButton, Link, NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuLinkCard, NavigationMenuTrigger } from '@cyberskill/design';
+
+<header className="site-header">
+  <a href="/" className="brand">Northwind</a>
+  <NavigationMenu aria-label="Main" className="nav-desktop">       {/* hidden below 768px */}
+    <NavigationMenuItem>
+      <NavigationMenuTrigger>Product</NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <NavigationMenuLinkCard href="/agents" icon={<Robot />} title="Agents" description="Build, train and publish support agents." />
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+    <NavigationMenuItem><NavigationMenuLink href="/pricing">Pricing</NavigationMenuLink></NavigationMenuItem>
+  </NavigationMenu>
+  <Button size="sm" nativeButton={false} render={<a href="/sign-up" />}>Start free</Button>
+  <Drawer side="left">                                              {/* shown below 768px */}
+    <DrawerTrigger render={<IconButton label="Open menu" icon={<List />} className="nav-mobile" />} />
+    <DrawerContent title="Menu" size="sm"><nav aria-label="Main">…</nav></DrawerContent>
+  </Drawer>
+</header>
+
+<section className="hero" aria-labelledby="hero-title">
+  <span className="cs-overline">AI support agents</span>
+  <h1 id="hero-title" className="hero-title">Resolve half your tickets before anyone opens them</h1>
+  <p className="hero-lede">…</p>
+  <Button size="lg" iconEnd={<ArrowRight />} nativeButton={false} render={<a href="/sign-up" />}>Start free</Button>
+  <Button size="lg" variant="secondary" nativeButton={false} render={<a href="/demo" />}>Book a demo</Button>
+  <p className="trust">Free for 500 messages a month · No credit card · Used by 2,400 support teams</p>
+</section>
+
+<footer className="site-footer">
+  <nav aria-label="Product">
+    <h2>Product</h2>
+    <ul><li><Link href="/agents" tone="muted">Agents</Link></li>…</ul>
+  </nav>
+</footer>
+```
+
+```css
+.hero-title { font: var(--text-display-weight) clamp(34px, 7.5cqi, 56px) / 1.07 var(--font-display); letter-spacing: var(--text-display-tracking); max-width: 18ch; text-wrap: balance; }
+.nav-mobile { display: none; }
+@media (max-width: 767px) { .nav-desktop { display: none; } .nav-mobile { display: inline-flex; } }
+```
+
+## Notes
+
+- Links that navigate are links: "Start free" and "Book a demo" are buttons rendering `<a>` (`nativeButton={false}`), so they open in a new tab and show the URL on hover.
+- One primary call to action per view: "Start free" appears in the header and the hero, the same action; everything else is secondary.
+- The headline is the page's only `h1`. It scales from 34 to 56px with the width and is balanced so lines break evenly; keep it under about 12 words.
+- The phone menu repeats the same links in a drawer named "Menu"; both navs are labelled "Main", and only one is visible at a time.
+- Each footer column is its own `nav`, named by its heading, so screen reader users can skip between them.
+- Responsive: feature cards go from four across to one; footer columns wrap to two on phones.

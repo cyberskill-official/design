@@ -1,0 +1,89 @@
+/* Choice rows (control + label + description) and choice groups. Shared by Checkbox, Radio and Switch. */
+.cs-choice {
+  --_box: 18px;
+  --_gap: 10px;
+  display: grid;
+  justify-items: start;
+  gap: 2px;
+  min-width: 0;
+  &[data-control='switch'] { --_box: 36px; }
+}
+
+.cs-choice-label {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--_gap);
+  font: 500 14px/20px var(--font-sans);
+  color: var(--foreground);
+  cursor: pointer;
+  &[data-disabled] { color: var(--muted); cursor: not-allowed; }
+}
+.cs-choice-text { min-width: 0; }
+
+.cs-choice-description,
+.cs-choice-error {
+  margin: 0;
+  padding-inline-start: calc(var(--_box) + var(--_gap));
+  font: 400 13px/18px var(--font-sans);
+  color: var(--muted);
+}
+.cs-choice-error { font-weight: 500; color: var(--destructive); }
+
+.cs-choice-group {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  & > .cs-choice-error { padding-inline-start: 0; }
+}
+.cs-choice-group-set {
+  display: grid;
+  gap: var(--space-3);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.cs-choice-group-legend {
+  padding: 0;
+  font: 600 14px/20px var(--font-sans);
+  color: var(--foreground);
+  &[data-disabled] { color: var(--muted); }
+}
+.cs-choice-group-description { margin: calc(var(--space-2) * -1) 0 0; font: 400 13px/18px var(--font-sans); color: var(--muted); }
+
+/* Checkbox box */
+.cs-checkbox {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  border: 1.5px solid var(--input);
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  color: var(--primary-foreground);
+  transition: background-color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard);
+
+  /* 44px touch target around the 18px box */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 50% auto auto 50%;
+    width: var(--control-touch);
+    height: var(--control-touch);
+    transform: translate(-50%, -50%);
+  }
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  &[data-checked], &[data-indeterminate] { background: var(--primary); border-color: var(--primary); }
+  &[data-invalid]:not([data-checked]) { border-color: var(--destructive); }
+  &[data-disabled] { opacity: 0.5; cursor: not-allowed; }
+}
+.cs-choice-label:hover .cs-checkbox:not([data-disabled], [data-checked], [data-indeterminate]) { border-color: var(--foreground); }
+
+.cs-checkbox-indicator {
+  display: inline-flex;
+  & > svg { width: 12px; height: 12px; }
+}

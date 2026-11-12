@@ -1,16 +1,20 @@
-## Problem and resulting behavior
+## TL;DR
 
-Explain the concrete trigger, previous behavior, and resulting behavior.
+<!-- One or two sentences: what changed and why. -->
 
-## Validation evidence
+Closes #
 
-Record exact commands, source revision, environments and results. Link JSON/JUnit
-reports from `npm run test:unit`; distinguish focused checks from the full suite
-and Linux pixel evidence. Report failures and unavailable checks.
+## What changed
 
-## Acceptance and compatibility
+<!-- Components or tokens affected, in plain words. No implementation detail; that's in the diff. -->
 
-List changed public contracts, generated outputs and documentation. Run
-`npm run components:invalidate-reviews` after changing approved evidence and retain
-original approvals in review history. Fresh support review, product visual review,
-manual accessibility evidence, and push/deploy/merge authorization remain separate.
+## Screenshots
+
+<!-- Light and dark, from the site or Storybook. Mark up what changed. -->
+
+## Checklist
+
+- [ ] `npm run build` passes (token contrast and color rules)
+- [ ] `npm run test -w @cyberskill/design` passes (components + stories with axe, light and dark)
+- [ ] Site page and demo updated for any new or changed component
+- [ ] `npx changeset` added for anything that ships in the package

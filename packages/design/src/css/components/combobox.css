@@ -1,0 +1,115 @@
+/* The box and the text input reuse .cs-input-group / .cs-input (field.css) so pickers line up with text fields.
+   The popup, option and message styles below are shared by Combobox, MultiSelect and Autocomplete. */
+.cs-combobox {
+  box-sizing: border-box; /* keep the 40px outer height of .cs-input */
+  & > .cs-input { flex: 1; }
+  &[data-disabled] { background: var(--raised); }
+}
+
+.cs-combobox-actions {
+  display: flex;
+  align-items: center;
+  flex: none;
+  padding-inline-end: var(--space-1);
+}
+
+.cs-combobox-action {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  &:hover:not([data-disabled]) { background: var(--raised); color: var(--foreground); }
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  &[data-disabled] { cursor: not-allowed; }
+  & > svg { width: 16px; height: 16px; }
+}
+.cs-input-group[data-size='lg'] .cs-combobox-action > svg { width: 20px; height: 20px; }
+
+.cs-combobox-positioner { z-index: var(--z-dropdown); outline: 0; }
+
+.cs-combobox-popup {
+  box-sizing: border-box;
+  width: var(--anchor-width);
+  max-width: var(--available-width);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  color: var(--foreground);
+  box-shadow: var(--shadow-lg);
+  outline: 0;
+  transition: opacity var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-standard);
+  &[data-starting-style], &[data-ending-style] { opacity: 0; transform: translateY(-4px); }
+  &[data-side='top'][data-starting-style], &[data-side='top'][data-ending-style] { transform: translateY(4px); }
+}
+
+.cs-combobox-list {
+  box-sizing: border-box;
+  max-height: min(var(--available-height), 320px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-1);
+  scroll-padding-block: var(--space-1);
+  outline: 0;
+  &[data-empty] { padding: 0; }
+}
+
+.cs-combobox-group + .cs-combobox-group { margin-top: var(--space-1); padding-top: var(--space-1); border-top: 1px solid var(--border); }
+.cs-combobox-group-label { padding: var(--space-2) var(--space-3) var(--space-1); font: 600 12px/16px var(--font-sans); color: var(--muted); }
+
+.cs-combobox-item {
+  display: grid;
+  grid-template-columns: 1fr 16px;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 36px;
+  padding: 0 var(--space-2) 0 var(--space-3);
+  border-radius: 6px;
+  font: 400 14px/20px var(--font-sans);
+  cursor: pointer;
+  outline: 0;
+  user-select: none;
+
+  &[data-highlighted] { background: var(--raised); }
+  &[data-selected] .cs-combobox-item-label { font-weight: 600; }
+  &[data-disabled] { color: var(--muted); cursor: not-allowed; }
+}
+.cs-combobox-popup[data-size='sm'] .cs-combobox-item { min-height: var(--control-sm); font-size: 13px; }
+.cs-combobox-popup[data-size='lg'] .cs-combobox-item { min-height: var(--control-touch); font-size: 15px; }
+
+.cs-combobox-item-text { grid-column: 1; display: grid; min-width: 0; padding-block: 6px; }
+.cs-combobox-item-description { font: 400 13px/18px var(--font-sans); color: var(--muted); }
+
+.cs-combobox-item-indicator {
+  grid-column: 2;
+  display: inline-flex;
+  color: var(--primary);
+  & > svg { width: 16px; height: 16px; }
+}
+
+.cs-combobox-message {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  font: 400 14px/20px var(--font-sans);
+  color: var(--muted);
+}
+
+/* Reuses the spin keyframes from button.css */
+.cs-combobox-spinner {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: cs-spin 0.7s linear infinite;
+}

@@ -1,0 +1,69 @@
+.cs-accordion {
+  --_radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--_radius);
+  background: var(--panel);
+  color: var(--foreground);
+}
+
+.cs-accordion-item + .cs-accordion-item { border-top: 1px solid var(--border); }
+
+.cs-accordion-header { margin: 0; font: inherit; }
+
+.cs-accordion-trigger {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  width: 100%;
+  min-height: var(--control-lg);
+  margin: 0;
+  padding: var(--space-3) var(--space-4);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--foreground);
+  font: 600 15px/22px var(--font-sans);
+  text-align: start;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+
+  &:hover:not([data-disabled]) { background: var(--raised); }
+  &:focus-visible { position: relative; z-index: 1; outline: 2px solid var(--ring); outline-offset: 2px; }
+  &[data-disabled] { color: var(--muted); cursor: not-allowed; }
+}
+
+/* hover fill follows the rounded corners of the box */
+.cs-accordion-item:first-child .cs-accordion-trigger { border-start-start-radius: calc(var(--_radius) - 1px); border-start-end-radius: calc(var(--_radius) - 1px); }
+.cs-accordion-item:last-child:not([data-open]) .cs-accordion-trigger { border-end-start-radius: calc(var(--_radius) - 1px); border-end-end-radius: calc(var(--_radius) - 1px); }
+
+.cs-accordion-label { flex: 1; min-width: 0; }
+
+.cs-accordion-chevron {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  color: var(--muted);
+  transition: transform var(--duration-base) var(--ease-standard);
+  [data-panel-open] > & { transform: rotate(180deg); }
+}
+
+.cs-accordion-panel {
+  box-sizing: border-box;
+  height: var(--accordion-panel-height);
+  overflow: hidden;
+  transition: height var(--duration-base) var(--ease-standard);
+  &[data-starting-style], &[data-ending-style] { height: 0; }
+}
+
+.cs-accordion-content {
+  padding: 0 var(--space-4) var(--space-4);
+  font: 400 14px/22px var(--font-sans);
+  color: var(--muted);
+  & > :first-child { margin-top: 0; }
+  & > :last-child { margin-bottom: 0; }
+}

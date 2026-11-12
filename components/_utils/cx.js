@@ -1,4 +1,0 @@
-/** Join truthy className fragments with a single space. */
-export function cx(...c) {
-  return c.filter(Boolean).join(" ");
-}

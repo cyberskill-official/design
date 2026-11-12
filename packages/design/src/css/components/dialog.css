@@ -1,0 +1,84 @@
+.cs-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  background: color-mix(in srgb, var(--brand-ink) 55%, transparent);
+  backdrop-filter: blur(2px);
+  transition: opacity var(--duration-base) var(--ease-standard);
+  &[data-starting-style], &[data-ending-style] { opacity: 0; }
+}
+
+.cs-dialog {
+  --_w: 520px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: var(--z-modal);
+  box-sizing: border-box;
+  width: min(var(--_w), calc(100vw - 2 * var(--space-4)));
+  max-height: calc(100dvh - 2 * var(--space-6));
+  overflow: auto;
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  background: var(--panel);
+  color: var(--foreground);
+  box-shadow: var(--shadow-overlay);
+  transform: translate(-50%, -50%);
+  transition: opacity var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-standard);
+
+  &[data-size='sm'] { --_w: 400px; }
+  &[data-size='lg'] { --_w: 720px; }
+  &[data-starting-style], &[data-ending-style] { opacity: 0; transform: translate(-50%, calc(-50% + 8px)) scale(0.98); }
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+}
+
+.cs-dialog-header { display: flex; align-items: flex-start; gap: var(--space-3); }
+.cs-dialog-heading { display: grid; gap: 6px; flex: 1; min-width: 0; }
+.cs-dialog-title { margin: 0; font: 800 18px/24px var(--font-display); letter-spacing: -0.015em; text-wrap: balance; }
+.cs-dialog-description { margin: 0; font: 400 14px/21px var(--font-sans); color: var(--muted); }
+
+.cs-dialog-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-lg);
+  background: var(--raised);
+  color: var(--foreground);
+  & > svg { width: 20px; height: 20px; }
+  &[data-tone='danger'] { background: color-mix(in srgb, var(--destructive) 12%, var(--panel)); color: var(--destructive); }
+  &[data-tone='accent'] { background: var(--accent); color: var(--accent-foreground); }
+}
+
+.cs-dialog-close {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  margin: -6px -8px 0 0;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  &::before { content: ''; position: absolute; inset: -6px; }
+  &:hover { background: var(--raised); color: var(--foreground); }
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  & > svg { width: 18px; height: 18px; }
+}
+
+.cs-dialog-body { display: grid; gap: var(--space-4); font: 400 15px/22px var(--font-sans); }
+
+.cs-dialog-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}

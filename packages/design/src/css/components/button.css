@@ -1,0 +1,93 @@
+.cs-button {
+  max-width: 100%; /* a long label truncates instead of pushing the button out of a narrow container */
+  --_bg: var(--primary);
+  --_fg: var(--primary-foreground);
+  --_border: transparent;
+  --_hover: color-mix(in srgb, var(--primary) 88%, var(--foreground));
+  --_h: var(--control-md);
+  --_px: var(--space-4);
+  --_gap: var(--space-2);
+  --_font: 600 14px/1 var(--font-sans);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--_gap);
+  height: var(--_h);
+  padding: 0 var(--_px);
+  border: 1px solid var(--_border);
+  border-radius: var(--radius-md);
+  background: var(--_bg);
+  color: var(--_fg);
+  font: var(--_font);
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-standard);
+
+  &:hover:not([data-disabled]) { background: var(--_hover); }
+  &:active:not([data-disabled]) { transform: translateY(1px); }
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  &[data-disabled]:not([data-loading]) { cursor: not-allowed; opacity: 0.5; }
+  &[data-loading] { cursor: progress; }
+  &[data-full-width] { width: 100%; }
+
+  /* sizes; sm and md keep a 44px touch target with an invisible hit area */
+  &[data-size='sm'] { --_h: var(--control-sm); --_px: var(--space-3); --_gap: 6px; --_font: 600 13px/1 var(--font-sans); border-radius: 7px; }
+  &[data-size='lg'] { --_h: var(--control-lg); --_px: var(--space-5); --_font: 600 15px/1 var(--font-sans); border-radius: var(--radius-lg); }
+  &[data-size='sm']::before, &[data-size='md']::before {
+    content: '';
+    position: absolute;
+    inset: 50% 0 auto;
+    height: var(--control-touch);
+    min-width: var(--control-touch);
+    transform: translateY(-50%);
+  }
+
+  /* variants */
+  &[data-variant='secondary'] { --_bg: var(--panel); --_fg: var(--foreground); --_border: var(--input); --_hover: var(--raised); }
+  &[data-variant='ghost'] { --_bg: transparent; --_fg: var(--foreground); --_hover: var(--raised); }
+  &[data-variant='quiet'] { --_bg: var(--raised); --_fg: var(--foreground); --_hover: color-mix(in srgb, var(--raised) 80%, var(--foreground)); }
+  &[data-variant='accent'] { --_bg: var(--accent); --_fg: var(--accent-foreground); --_hover: color-mix(in srgb, var(--accent) 88%, var(--foreground)); }
+  &[data-variant='danger'] { --_bg: var(--destructive); --_fg: var(--destructive-foreground); --_hover: color-mix(in srgb, var(--destructive) 88%, var(--foreground)); }
+  &[data-variant='link'] {
+    --_bg: transparent; --_fg: var(--primary); --_hover: transparent; --_px: 2px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    &:hover:not([data-disabled]) { text-decoration-thickness: 2px; }
+  }
+}
+
+.cs-button-icon { display: inline-flex; flex: none; }
+.cs-button-icon > svg { width: 16px; height: 16px; }
+.cs-button[data-size='lg'] .cs-button-icon > svg { width: 20px; height: 20px; }
+
+.cs-button-spinner {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  animation: cs-spin 0.7s linear infinite;
+}
+@keyframes cs-spin { to { transform: rotate(360deg); } }
+
+.cs-icon-button {
+  --_px: 0;
+  width: var(--_h);
+  &[data-size='sm']::before, &[data-size='md']::before { inset: 50% auto auto 50%; width: var(--control-touch); transform: translate(-50%, -50%); }
+}
+
+.cs-button-group {
+  display: inline-flex;
+  & > .cs-button { border-radius: 0; margin-inline-start: -1px; }
+  & > .cs-button:first-child { border-start-start-radius: var(--radius-md); border-end-start-radius: var(--radius-md); margin-inline-start: 0; }
+  & > .cs-button:last-child { border-start-end-radius: var(--radius-md); border-end-end-radius: var(--radius-md); }
+  & > .cs-button:focus-visible { z-index: 1; }
+  & > .cs-button[aria-pressed='true'] { --_bg: var(--raised); }
+}
+
+.cs-button-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; padding-block: 0.5em; margin-block: -0.5em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */ }

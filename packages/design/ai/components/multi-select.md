@@ -1,0 +1,83 @@
+# Multi-select
+
+> A searchable picker for several values, shown as removable chips inside the input.
+
+```tsx
+import { MultiSelect, MultiSelectField } from '@cyberskill/design';
+```
+
+Use a multi-select when people choose **several** values from a list long enough to search: skills, tags, reviewers. For a handful of options that should stay visible, use a checkbox group. For one value, use a combobox. `MultiSelectField` adds the label, help and error text.
+
+## States
+
+```tsx
+const skills = [
+  { value: 'react', label: 'React' },
+  { value: 'ts', label: 'TypeScript' },
+  { value: 'figma', label: 'Figma', description: 'Design' },
+];
+
+<MultiSelectField label="Skills" items={skills} placeholder="Add skills" description="Shown on your public profile." />
+<MultiSelectField label="Tags" items={skills} defaultValue={['react']} error="Add at least two tags." />
+<MultiSelectField label="Locked" items={skills} defaultValue={['ts', 'go']} disabled />
+```
+
+## Limits and overflow
+
+`max` caps how many values can be chosen: once reached, the other options are disabled. `maxChips` shows only the first chips and a "+N" count, so long selections keep the field one line tall.
+
+```tsx
+<MultiSelectField label="Reviewers" items={skills} defaultValue={['react', 'ts']} max={3} description="Up to 3 reviewers." />
+<MultiSelectField label="Stack" items={skills} defaultValue={['react', 'ts', 'node', 'go']} maxChips={2} />
+```
+
+## Controlled
+
+```tsx
+const [value, setValue] = useState<string[]>(['react', 'go']);
+<MultiSelect aria-label="Skills" items={skills} value={value} onValueChange={setValue} size="sm" removeLabel={(l) => `Bỏ ${l}`} />
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `items` | `{ value, label, description?, disabled? }[]` | – | Options in display order (required) |
+| `value / defaultValue` | `string[]` | `[]` | Chosen item values, controlled or initial |
+| `onValueChange` | `(value: string[], details) => void` | – | Called when a value is added or removed |
+| `max` | `number` | – | Most values that can be chosen |
+| `maxChips` | `number` | – | Show this many chips and a "+N" count for the rest |
+| `removeLabel` | `(label) => string` | ``Remove ${label}`` | Accessible name of each chip's × button |
+| `emptyText` | `ReactNode` | `'No results'` | Shown when nothing matches |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Minimum height 32, 40 or 48px; grows as chips wrap |
+| `label / description / error` | `ReactNode` | – | MultiSelectField only |
+| `required / disabled / name` | `boolean / boolean / string` | – | Form semantics; each value is submitted under name |
+
+Also takes `placeholder`, `children` (custom option content), `triggerLabel`, `aria-label`, `className`, `ref` and `onBlur`, plus Base UI root props such as `filter` and `onInputValueChange`.
+
+## Accessibility
+
+- The input is a labelled `combobox`; options are announced as selected or not, and the list stays open so several can be picked in a row.
+- Backspace in an empty input removes the last chip. From the start of the input, Left Arrow moves onto the chips; Backspace or Delete removes the focused one.
+- Each chip's remove button is named "Remove React" (or your `removeLabel`) and has a 24px target.
+- Options disabled by `max` are announced as unavailable.
+
+## Exact types
+
+```ts
+export type MultiSelectProps<Item extends ComboboxItem = ComboboxItem> = Omit<Combobox.Root.Props<string, true, Item>, 'items' | 'children' | 'multiple' | 'value' | 'defaultValue' | 'onValueChange'> & SharedProps<Item> & {
+  /** Selected item values. Use with `onValueChange` when controlled. */
+  value?: string[];
+  defaultValue?: string[];
+  onValueChange?: (value: string[], eventDetails: Combobox.Root.ChangeEventDetails) => void;
+  /** Most values that can be chosen; other options are disabled once it is reached. */
+  max?: number;
+  /** Show at most this many chips and a "+N" count for the rest. */
+  maxChips?: number;
+  /** Accessible name of each chip's remove button. Pass Vietnamese text in Vietnamese UIs. */
+  removeLabel?: (label: string) => string;
+};
+export type MultiSelectFieldProps<Item extends ComboboxItem = ComboboxItem> = MultiSelectProps<Item> & Pick<FieldProps, 'label' | 'hideLabel' | 'description' | 'error' | 'optionalLabel'> & {
+  fieldClassName?: string;
+};
+```

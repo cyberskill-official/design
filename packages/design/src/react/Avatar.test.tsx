@@ -1,0 +1,59 @@
+import { render, screen } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
+import { Avatar, AvatarGroup } from './Avatar';
+import { expectAccessibleInThemes } from '../test/a11y';
+
+// 1×1 PNG, so the image loads without the network.
+const PHOTO = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
+
+describe('Avatar', () => {
+  it('is an image named after the person, showing initials without a photo', () => {
+    render(<Avatar name="Trần Thị Linh" />);
+    const avatar = screen.getByRole('img', { name: 'Trần Thị Linh' });
+    expect(avatar).toHaveTextContent('TL');
+    expect(avatar).toHaveAttribute('data-size', 'md');
+  });
+
+  it('shows the photo once it loads, and accepts custom initials', async () => {
+    render(<Avatar name="Minh Anh" src={PHOTO} initials="MA" size="lg" />);
+    const avatar = screen.getByRole('img', { name: 'Minh Anh' });
+    await expect.poll(() => avatar.querySelector('img.cs-avatar-image')).not.toBeNull();
+    expect(avatar.querySelector('img')).toHaveAttribute('alt', '');
+  });
+
+  it('falls back to initials when the photo fails', async () => {
+    render(<Avatar name="Quốc Bảo" src="data:image/png;base64,broken" />);
+    await expect.poll(() => screen.getByRole('img', { name: 'Quốc Bảo' }).textContent).toBe('QB');
+  });
+
+  it('group shows up to max avatars and a named +N bubble', () => {
+    render(
+      <AvatarGroup label="Project members" max={2} size="sm">
+        <Avatar name="An Nguyen" />
+        <Avatar name="Binh Tran" />
+        <Avatar name="Chi Le" />
+        <Avatar name="Dung Pham" />
+      </AvatarGroup>,
+    );
+    const group = screen.getByRole('group', { name: 'Project members' });
+    expect(screen.getByRole('img', { name: 'Binh Tran' })).toHaveAttribute('data-size', 'sm');
+    expect(screen.queryByRole('img', { name: 'Chi Le' })).toBeNull();
+    expect(screen.getByRole('img', { name: '2 more' })).toHaveTextContent('+2');
+    expect(group.children).toHaveLength(3);
+  });
+
+  it('has no accessibility violations in light and dark', async () => {
+    await expectAccessibleInThemes(
+      <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+        <Avatar name="An Nguyen" size="sm" />
+        <Avatar name="Binh Tran" />
+        <Avatar name="Chi Le" size="lg" />
+        <AvatarGroup label="Reviewers" max={2} overflowLabel={n => `${n} người khác`}>
+          <Avatar name="An Nguyen" />
+          <Avatar name="Binh Tran" />
+          <Avatar name="Chi Le" />
+        </AvatarGroup>
+      </div>,
+    );
+  });
+});

@@ -1,0 +1,8 @@
+/* Box from .cs-input-group / .cs-input-adornment (field.css); popup and options from combobox.css. */
+.cs-autocomplete[data-size='lg'] > .cs-input-adornment > svg { width: 20px; height: 20px; }
+
+.cs-autocomplete-match {
+  background: transparent;
+  color: inherit;
+  font-weight: 700;
+}

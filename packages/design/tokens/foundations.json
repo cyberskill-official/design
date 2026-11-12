@@ -1,0 +1,164 @@
+{
+  "$description": "Type, space, radius, shadow, motion, z-index and breakpoints. Theme-independent except shadows.",
+  "font": {
+    "display": {
+      "$type": "fontFamily",
+      "$value": "\"Manrope\", \"Be Vietnam Pro\", ui-sans-serif, system-ui, sans-serif",
+      "$description": "Headlines"
+    },
+    "sans": {
+      "$type": "fontFamily",
+      "$value": "\"Be Vietnam Pro\", ui-sans-serif, system-ui, -apple-system, \"Segoe UI\", sans-serif",
+      "$description": "Body and UI"
+    },
+    "mono": {
+      "$type": "fontFamily",
+      "$value": "\"JetBrains Mono\", ui-monospace, \"SF Mono\", Menlo, Consolas, monospace",
+      "$description": "Data, code, IDs"
+    }
+  },
+  "text": {
+    "display": {
+      "family": "display",
+      "size": 56,
+      "line": 60,
+      "weight": 800,
+      "tracking": "-0.04em"
+    },
+    "h1": {
+      "family": "display",
+      "size": 40,
+      "line": 44,
+      "weight": 800,
+      "tracking": "-0.03em"
+    },
+    "h2": {
+      "family": "display",
+      "size": 32,
+      "line": 38,
+      "weight": 700,
+      "tracking": "-0.025em"
+    },
+    "h3": {
+      "family": "display",
+      "size": 24,
+      "line": 30,
+      "weight": 700,
+      "tracking": "-0.015em"
+    },
+    "h4": {
+      "family": "display",
+      "size": 20,
+      "line": 26,
+      "weight": 700,
+      "tracking": "-0.01em"
+    },
+    "body-lg": {
+      "family": "sans",
+      "size": 18,
+      "line": 28,
+      "weight": 400,
+      "tracking": "0"
+    },
+    "body": {
+      "family": "sans",
+      "size": 16,
+      "line": 24,
+      "weight": 400,
+      "tracking": "0"
+    },
+    "ui": {
+      "family": "sans",
+      "size": 14,
+      "line": 20,
+      "weight": 500,
+      "tracking": "0"
+    },
+    "caption": {
+      "family": "sans",
+      "size": 12,
+      "line": 16,
+      "weight": 500,
+      "tracking": "0"
+    },
+    "overline": {
+      "family": "mono",
+      "size": 12,
+      "line": 16,
+      "weight": 500,
+      "tracking": "0.08em"
+    },
+    "code": {
+      "family": "mono",
+      "size": 14,
+      "line": 20,
+      "weight": 400,
+      "tracking": "0"
+    }
+  },
+  "space": {
+    "0": 0,
+    "1": 4,
+    "2": 8,
+    "3": 12,
+    "4": 16,
+    "5": 20,
+    "6": 24,
+    "8": 32,
+    "10": 40,
+    "12": 48,
+    "16": 64,
+    "20": 80
+  },
+  "radius": {
+    "sm": 4,
+    "md": 8,
+    "lg": 12,
+    "xl": 16,
+    "full": 9999
+  },
+  "shadow": {
+    "light": {
+      "sm": "0 1px 2px rgb(15 27 45 / 0.08)",
+      "md": "0 4px 12px rgb(15 27 45 / 0.10)",
+      "lg": "0 12px 28px rgb(15 27 45 / 0.14)",
+      "overlay": "0 18px 44px rgb(15 27 45 / 0.22)"
+    },
+    "dark": {
+      "sm": "0 1px 2px rgb(0 0 0 / 0.40)",
+      "md": "0 4px 12px rgb(0 0 0 / 0.45)",
+      "lg": "0 12px 28px rgb(0 0 0 / 0.50)",
+      "overlay": "0 18px 44px rgb(0 0 0 / 0.60)"
+    }
+  },
+  "duration": {
+    "fast": "120ms",
+    "base": "180ms",
+    "slow": "280ms"
+  },
+  "ease": {
+    "standard": "cubic-bezier(0.2, 0, 0, 1)",
+    "emphasized": "cubic-bezier(0.3, 0, 0, 1.2)",
+    "exit": "cubic-bezier(0.4, 0, 1, 1)"
+  },
+  "z": {
+    "sticky": 1100,
+    "overlay": 1200,
+    "modal": 1300,
+    "dropdown": 1400,
+    "toast": 1500,
+    "tooltip": 1600
+  },
+  "breakpoint": {
+    "sm": 640,
+    "md": 768,
+    "lg": 1024,
+    "xl": 1280
+  },
+  "control": {
+    "sm": 32,
+    "md": 40,
+    "lg": 48,
+    "touch": 44
+  }
+}
