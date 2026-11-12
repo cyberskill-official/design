@@ -3,6 +3,7 @@
   --_pad: 3px;
   box-sizing: border-box;
   display: inline-flex;
+  max-width: 100%; /* in a narrow container the segments shrink and their labels truncate */
   align-items: stretch;
   gap: 2px;
   height: var(--_h);
@@ -43,7 +44,7 @@
     transform: translateY(-50%);
   }
   &:hover:not([data-disabled], [data-pressed]) { color: var(--foreground); }
-  &[data-pressed] { background: var(--panel); color: var(--foreground); box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--border); }
+  &[data-pressed] { background: var(--panel); color: var(--foreground); box-shadow: var(--shadow-sm), inset 0 0 0 1px var(--input); } /* --input: the selected segment's edge stands 3:1 on the track (WCAG 1.4.11) */
   &:focus-visible { z-index: 1; outline: 2px solid var(--ring); outline-offset: 2px; }
   &[data-disabled] { opacity: 0.5; cursor: not-allowed; }
   & svg { flex: none; width: 16px; height: 16px; }
@@ -51,3 +52,5 @@
 .cs-segmented-control[data-size='sm'] .cs-segmented-control-item { padding: 0 10px; font-size: 13px; border-radius: 5px; }
 .cs-segmented-control[data-size='lg'] .cs-segmented-control-item { padding: 0 var(--space-4); font-size: 15px; border-radius: var(--radius-md); }
 .cs-segmented-control[data-size='lg'] .cs-segmented-control-item svg { width: 20px; height: 20px; }
+
+.cs-segmented-control-label { min-width: 0; overflow: hidden; text-overflow: ellipsis; padding-block: 0.35em; margin-block: -0.35em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */ }

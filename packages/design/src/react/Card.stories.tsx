@@ -21,7 +21,7 @@ export const Default: Story = {
         <CardDescription>12,480 of 20,000 API requests. Resets on the 1st.</CardDescription>
       </CardHeader>
       <CardContent>
-        <div style={{ display: 'flex', gap: 8 }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
           <Badge tone="success">Healthy</Badge>
           <Badge tone="neutral">62% used</Badge>
         </div>

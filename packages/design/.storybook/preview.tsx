@@ -1,11 +1,9 @@
 import type { Preview } from '@storybook/react-vite';
-import '../dist/tokens.css';
-import '../src/css/base.css';
+// The stylesheet exactly as apps get it (tokens, then base and components in cascade layers, then reduced motion),
+// so stories, their tests and the benchmark measure what ships. `npm run storybook` rebuilds it on every CSS edit.
+import '../dist/styles.css';
 import './preview.css';
 import { ThemeScope } from '../src/react/ThemeScope';
-
-import.meta.glob('../src/css/components/*.css', { eager: true });
-import '../src/css/motion.css';
 
 const preview: Preview = {
   globalTypes: {

@@ -80,7 +80,18 @@ export function MultiSelect<Item extends ComboboxItem = ComboboxItem>({
             </BaseCombobox.Chip>
           ))}
           {hidden > 0 && <span className="cs-multi-select-more">+{hidden}</span>}
-          <BaseCombobox.Input ref={ref} onBlur={onBlur} aria-label={ariaLabel} placeholder={selected.length ? undefined : placeholder} className="cs-multi-select-input" />
+          <BaseCombobox.Input
+            ref={ref}
+            onBlur={onBlur}
+            onKeyDown={event => {
+              // Base UI empties the whole selection on Escape while the list is closed. With chips that throws away the
+              // user's work (and with reduced motion the Escape that closes the list already counts as closed), so Escape only dismisses.
+              if (event.key === 'Escape' && selected.length > 0 && event.currentTarget.getAttribute('aria-expanded') !== 'true') event.preventBaseUIHandler();
+            }}
+            aria-label={ariaLabel}
+            placeholder={selected.length ? undefined : placeholder}
+            className="cs-multi-select-input"
+          />
         </BaseCombobox.Chips>
         <span className="cs-combobox-actions">
           <BaseCombobox.Trigger aria-label={triggerLabel} className="cs-combobox-action">

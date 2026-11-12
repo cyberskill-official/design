@@ -30,7 +30,7 @@ export function Badge({ tone = 'neutral', variant = 'soft', size = 'md', icon, c
   return (
     <span {...props} data-tone={tone} data-variant={variant} data-size={size} className={cx('cs-badge', className)}>
       {glyph && <span className="cs-badge-icon" aria-hidden="true">{glyph}</span>}
-      {children}
+      {children != null && <span className="cs-badge-label">{children}</span>}
     </span>
   );
 }

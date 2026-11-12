@@ -25,6 +25,6 @@
   &:hover:not([data-disabled]) { border-color: var(--foreground); }
   &:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 22%, transparent); }
   &[data-invalid] { border-color: var(--destructive); }
-  &[data-invalid]:focus { box-shadow: 0 0 0 3px color-mix(in srgb, var(--destructive) 20%, transparent); }
+  &[data-invalid]:focus { box-shadow: 0 0 0 1px var(--destructive), 0 0 0 4px color-mix(in srgb, var(--destructive) 20%, transparent); }
   &[data-disabled] { background: var(--raised); color: var(--muted); cursor: not-allowed; }
 }

@@ -38,7 +38,7 @@
 }
 .cs-multi-select[data-disabled] .cs-multi-select-chip { background: var(--panel); color: var(--muted); }
 
-.cs-multi-select-chip-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cs-multi-select-chip-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-block: 0.35em; margin-block: -0.35em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */ }
 
 .cs-multi-select-chip-remove {
   display: inline-grid;
@@ -74,7 +74,7 @@
   border: 0;
   background: transparent;
   color: var(--foreground);
-  font: 400 15px/20px var(--font-sans);
+  font: 400 15px/1.6 var(--font-sans); /* as .cs-input: room for stacked Vietnamese marks */
   outline: 0;
   &::placeholder { color: var(--muted); opacity: 1; }
   &[data-disabled] { cursor: not-allowed; }

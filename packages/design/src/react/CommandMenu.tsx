@@ -63,7 +63,7 @@ export function CommandMenu({
             <span><kbd className="cs-command-menu-kbd">↵</kbd>{selectLabel}</span>
             <span><kbd className="cs-command-menu-kbd">Esc</kbd>{closeLabel}</span>
           </div>
-          <BaseDialog.Close className="cs-visually-hidden">{closeLabel}</BaseDialog.Close>
+          <BaseDialog.Close className="cs-command-menu-close">{closeLabel}</BaseDialog.Close>
         </BaseDialog.Popup>
       </ThemedPortal>
     </BaseDialog.Root>

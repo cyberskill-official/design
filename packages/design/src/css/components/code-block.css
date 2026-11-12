@@ -28,6 +28,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  padding-block: 0.35em; margin-block: -0.35em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */
   font: 500 13px/18px var(--font-sans);
   color: var(--foreground);
 }
@@ -56,7 +57,8 @@
   scrollbar-width: thin;
   scrollbar-color: var(--muted) transparent;
   & > code { font: inherit; background: none; color: inherit; }
-  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  /* inside its own surface: the inverted block's ring is the dark theme's light ring, invisible on a light page */
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; }
   [data-wrap] > & { white-space: pre-wrap; overflow-wrap: anywhere; }
 }
 

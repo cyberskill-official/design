@@ -9,7 +9,7 @@ const tones: BadgeTone[] = ['neutral', 'primary', 'accent', 'success', 'warning'
 describe('Badge', () => {
   it('renders its text with tone, variant and size as data attributes', () => {
     render(<Badge tone="primary" variant="solid" size="sm">Beta</Badge>);
-    const badge = screen.getByText('Beta');
+    const badge = screen.getByText('Beta').closest('.cs-badge');
     expect(badge).toHaveAttribute('data-tone', 'primary');
     expect(badge).toHaveAttribute('data-variant', 'solid');
     expect(badge).toHaveAttribute('data-size', 'sm');
@@ -17,7 +17,7 @@ describe('Badge', () => {
 
   it('status tones always show a decorative icon, even with icon={false}', () => {
     render(<Badge tone="danger" icon={false}>Failed</Badge>);
-    const icon = screen.getByText('Failed').querySelector('.cs-badge-icon');
+    const icon = screen.getByText('Failed').closest('.cs-badge')?.querySelector('.cs-badge-icon');
     expect(icon).toHaveAttribute('aria-hidden', 'true');
     expect(icon?.querySelector('svg')).not.toBeNull();
   });
@@ -29,8 +29,14 @@ describe('Badge', () => {
         <Badge tone="accent" icon={<Star />}>Featured</Badge>
       </>,
     );
-    expect(screen.getByText('Draft').querySelector('.cs-badge-icon')).toBeNull();
-    expect(screen.getByText('Featured').querySelector('.cs-badge-icon svg')).not.toBeNull();
+    expect(screen.getByText('Draft').closest('.cs-badge')?.querySelector('.cs-badge-icon')).toBeNull();
+    expect(screen.getByText('Featured').closest('.cs-badge')?.querySelector('.cs-badge-icon svg')).not.toBeNull();
+  });
+
+  it('truncates a long label inside a narrow container instead of overflowing it', () => {
+    render(<div style={{ width: 120 }}><Badge>INV-2026-000184-HCM-PAYMENT-RECONCILIATION</Badge></div>);
+    const badge = screen.getByText(/INV-2026/).closest('.cs-badge')!;
+    expect(badge.getBoundingClientRect().width).toBeLessThanOrEqual(120);
   });
 
   it('has no accessibility violations (text contrast included) in light and dark', async () => {

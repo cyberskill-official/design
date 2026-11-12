@@ -13,9 +13,9 @@
 .cs-search-field-clear {
   display: inline-grid;
   place-items: center;
-  /* 6px clear of the box edge, so the focus ring is never clipped */
-  width: calc(var(--_h) - 12px);
-  height: calc(var(--_h) - 12px);
+  /* 24px at least (WCAG 2.5.8), even in the small field; the focus ring is drawn inside it, so the box never clips it */
+  width: max(24px, calc(var(--_h) - 12px));
+  height: max(24px, calc(var(--_h) - 12px));
   margin: 0;
   padding: 0;
   border: 0;
@@ -24,7 +24,8 @@
   color: var(--muted);
   cursor: pointer;
   &:hover { background: var(--raised); color: var(--foreground); }
-  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  outline-offset: -2px;
+  &:focus-visible { outline: 2px solid var(--ring); }
   & > svg { width: 16px; height: 16px; }
 }
 .cs-input-group[data-size='lg'] .cs-search-field-clear > svg { width: 20px; height: 20px; }

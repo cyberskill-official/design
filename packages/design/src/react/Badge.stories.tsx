@@ -46,7 +46,7 @@ export const BothThemes: Story = {
 
 export const Sizes: Story = {
   render: () => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
       <Badge size="sm" tone="success">Active</Badge>
       <Badge size="md" tone="success">Active</Badge>
       <Badge size="sm" tone="primary">12</Badge>

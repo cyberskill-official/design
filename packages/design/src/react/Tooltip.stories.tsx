@@ -27,7 +27,7 @@ export const Default: Story = {
 
 export const Sides: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: 16 }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
       {(['top', 'right', 'bottom', 'left'] as const).map(side => (
         <Tooltip key={side} side={side} content={`Opens on the ${side}`}>
           <Button variant="secondary" size="sm">{side}</Button>

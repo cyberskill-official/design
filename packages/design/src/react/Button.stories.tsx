@@ -40,7 +40,7 @@ export const Variants: Story = {
 
 export const Sizes: Story = {
   render: () => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12 }}>
       <Button size="sm" iconStart={<Plus />}>New project</Button>
       <Button size="md">Deploy</Button>
       <Button size="lg" iconEnd={<ArrowRight />}>Book a demo</Button>
@@ -60,7 +60,7 @@ export const Disabled: Story = { args: { disabled: true } };
 
 export const IconOnly: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: 8 }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
       <IconButton label="Edit" icon={<PencilSimple />} />
       <IconButton label="Copy" icon={<Copy />} size="sm" />
     </div>

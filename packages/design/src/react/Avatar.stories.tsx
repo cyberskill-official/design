@@ -26,7 +26,7 @@ export const WithPhoto: Story = { args: { src: PHOTO } };
 
 export const Sizes: Story = {
   render: () => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12 }}>
       <Avatar name="An Nguyen" size="sm" />
       <Avatar name="An Nguyen" size="md" />
       <Avatar name="An Nguyen" size="lg" />

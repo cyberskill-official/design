@@ -55,6 +55,17 @@ describe('MultiSelect', () => {
     expect(onValueChange).toHaveBeenCalledWith(['react'], expect.anything());
   });
 
+  it('Escape with the list closed only dismisses: it never empties the selection', async () => {
+    const onValueChange = vi.fn();
+    render(<MultiSelect aria-label="Skills" items={skills} defaultValue={['react', 'go']} onValueChange={onValueChange} />);
+    screen.getByRole('combobox', { name: 'Skills' }).focus();
+    await userEvent.keyboard('{Escape}');
+    await userEvent.keyboard('{Escape}');
+    expect(onValueChange).not.toHaveBeenCalled();
+    expect(screen.getByRole('button', { name: 'Remove React' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Remove Go' })).toBeInTheDocument();
+  });
+
   it('disables other options once max is reached', async () => {
     render(<MultiSelect aria-label="Skills" items={skills} defaultValue={['react', 'ts']} max={2} />);
     await userEvent.click(screen.getByRole('combobox', { name: 'Skills' }));

@@ -65,7 +65,7 @@ describe('SearchField', () => {
     expect(screen.getByRole('button', { name: 'Xoá tìm kiếm' })).toBeVisible();
   });
 
-  it('keeps the clear button focus ring inside the box at every size', () => {
+  it('keeps the clear button (24px or more) and its inset focus ring inside the box at every size', () => {
     render(
       <>
         <SearchField label="Small" size="sm" defaultValue="a" />
@@ -75,8 +75,10 @@ describe('SearchField', () => {
     for (const button of screen.getAllByRole('button')) {
       const box = button.closest('.cs-input-group')!.getBoundingClientRect();
       const r = button.getBoundingClientRect();
-      expect(r.top - box.top).toBeGreaterThanOrEqual(4 + 1); // ring 2px + offset 2px, inside the 1px border
-      expect(box.right - r.right).toBeGreaterThanOrEqual(4 + 1);
+      expect(Math.min(r.width, r.height)).toBeGreaterThanOrEqual(24); // WCAG 2.5.8
+      expect(getComputedStyle(button).outlineOffset).toBe('-2px'); // the ring is drawn inside the button
+      expect(r.top - box.top).toBeGreaterThanOrEqual(1); // inside the 1px border
+      expect(box.right - r.right).toBeGreaterThanOrEqual(1);
     }
   });
 

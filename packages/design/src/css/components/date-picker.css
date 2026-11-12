@@ -32,7 +32,7 @@
   padding-inline-end: var(--space-3);
   border-inline-end: 1px solid var(--border);
   & > .cs-button { justify-content: flex-start; }
-  & > .cs-button[aria-pressed='true'] { --_bg: var(--primary-soft); --_fg: var(--primary); }
+  & > .cs-button[aria-pressed='true'] { --_bg: var(--primary-soft); --_fg: var(--primary); box-shadow: inset 0 0 0 1px var(--primary); } /* the chosen preset: an edge at 3:1, not just a tint */
 }
 @media (max-width: 639px) {
   .cs-date-range-panel { flex-direction: column; }

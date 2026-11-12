@@ -24,7 +24,7 @@
   &:focus-visible { outline: none; border-color: var(--ring); box-shadow: 0 0 0 3px color-mix(in srgb, var(--ring) 22%, transparent); }
   &[data-popup-open] { border-color: var(--primary); }
   &[data-invalid] { border-color: var(--destructive); }
-  &[data-invalid]:focus-visible { box-shadow: 0 0 0 3px color-mix(in srgb, var(--destructive) 20%, transparent); }
+  &[data-invalid]:focus-visible { box-shadow: 0 0 0 1px var(--destructive), 0 0 0 4px color-mix(in srgb, var(--destructive) 20%, transparent); }
   &[data-disabled] { background: var(--raised); color: var(--muted); cursor: not-allowed; }
   &[data-size='sm'] { --_h: var(--control-sm); font-size: 14px; }
   &[data-size='lg'] { --_h: var(--control-lg); font-size: 16px; padding-inline-start: var(--space-4); }
@@ -36,6 +36,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  padding-block: 0.35em; margin-block: -0.35em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */
   &[data-placeholder] { color: var(--muted); }
 }
 

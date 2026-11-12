@@ -27,7 +27,7 @@ export const Pressed: Story = { args: { defaultPressed: true } };
 
 export const IconOnly: Story = {
   render: () => (
-    <div style={{ display: 'flex', gap: 4 }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
       <Toggle icon={<TextB />} label="Bold" defaultPressed />
       <Toggle icon={<TextItalic />} label="Italic" />
       <Toggle icon={<TextUnderline />} label="Underline" />
@@ -37,7 +37,7 @@ export const IconOnly: Story = {
 
 export const Sizes: Story = {
   render: () => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
       <Toggle size="sm" icon={<Star />}>Small</Toggle>
       <Toggle icon={<Star />}>Medium</Toggle>
       <Toggle size="lg" icon={<Star />}>Large</Toggle>

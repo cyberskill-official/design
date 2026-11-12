@@ -24,7 +24,7 @@
   & > svg { width: 18px; height: 18px; }
 }
 
-.cs-alert-content { display: grid; gap: var(--space-1); flex: 1; min-width: 0; }
+.cs-alert-content { display: grid; gap: var(--space-1); flex: 1; min-width: 0; overflow-wrap: anywhere; }
 .cs-alert-title { font-weight: 600; color: var(--foreground); }
 .cs-alert-description { color: var(--muted); }
 .cs-alert-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-top: var(--space-2); }

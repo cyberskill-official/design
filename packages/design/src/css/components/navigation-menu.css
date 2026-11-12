@@ -34,7 +34,7 @@
 
   &:hover, &[data-popup-open] { background: var(--raised); }
   &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
-  &[data-active] { background: var(--primary-soft); color: var(--primary); font-weight: 600; }
+  &[data-active] { background: var(--primary-soft); color: var(--primary); font-weight: 600; box-shadow: inset 0 -2px 0 var(--primary); } /* current page: a bar at 3:1, not just a tint */
   &[data-disabled] { opacity: 0.5; cursor: not-allowed; }
   @media (pointer: coarse) { height: var(--control-touch); }
 }

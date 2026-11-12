@@ -15,12 +15,12 @@ type Story = StoryObj<typeof meta>;
 
 export const Block: Story = {};
 
-export const Text: Story = { render: () => <div style={{ width: 360 }}><SkeletonText lines={4} /></div> };
+export const Text: Story = { render: () => <div style={{ width: '100%', maxWidth: 360 }}><SkeletonText lines={4} /></div> };
 
 /** The recommended loading pattern: one hidden status names the wait, the shapes stay out of the accessibility tree. */
 export const CardLoading: Story = {
   render: () => (
-    <div aria-busy="true" style={{ display: 'grid', gap: 16, width: 360, padding: 20, border: '1px solid var(--border)', borderRadius: 12, background: 'var(--panel)' }}>
+    <div aria-busy="true" style={{ display: 'grid', gap: 16, width: '100%', maxWidth: 360, boxSizing: 'border-box', padding: 20, border: '1px solid var(--border)', borderRadius: 12, background: 'var(--panel)' }}>
       <span role="status" className="cs-visually-hidden">Loading project</span>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         <Skeleton width={40} height={40} radius="full" />

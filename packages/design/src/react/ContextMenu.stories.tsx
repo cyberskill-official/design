@@ -8,7 +8,8 @@ const onRename = fn();
 const area = {
   display: 'grid',
   placeItems: 'center',
-  width: 320,
+  width: '100%',
+  maxWidth: 320,
   height: 160,
   border: '1px dashed var(--input)',
   borderRadius: 'var(--radius-lg)',

@@ -16,7 +16,7 @@
 }
 
 /* line-height above 1: overflow (for the ellipsis) would otherwise cut descenders like g and y */
-.cs-tag-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 18px; }
+.cs-tag-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 18px; padding-block: 0.35em; margin-block: -0.35em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */ }
 
 .cs-tag-remove {
   position: relative;

@@ -41,7 +41,7 @@ export const Required: Story = { args: { required: true } };
 export const Disabled: Story = { args: { disabled: true, defaultValue: 'business' } };
 export const Sizes: Story = {
   render: () => (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 12, maxWidth: 640 }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12, maxWidth: 640 }}>
       <Select aria-label="Plan (small)" items={plans} size="sm" defaultValue="starter" />
       <Select aria-label="Plan (medium)" items={plans} defaultValue="team" />
       <Select aria-label="Plan (large)" items={plans} size="lg" defaultValue="business" />

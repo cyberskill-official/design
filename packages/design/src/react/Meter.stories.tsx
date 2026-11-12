@@ -8,7 +8,7 @@ const meta = {
   tags: ['autodocs'],
   args: { label: 'API calls this month', value: 720_000, max: 1_000_000, valueLabel: '720K of 1M' },
   argTypes: { tone: { control: 'inline-radio', options: ['primary', 'warning', 'danger'] } },
-  render: args => <div style={{ width: 360 }}><Meter {...args} /></div>,
+  render: args => <div style={{ width: '100%', maxWidth: 360 }}><Meter {...args} /></div>,
 } satisfies Meta<typeof Meter>;
 
 export default meta;

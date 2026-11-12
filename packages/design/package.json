@@ -83,11 +83,11 @@
     "build": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\" && node scripts/build-tokens.mjs && node scripts/build-css.mjs && tsdown && node scripts/build-ai-docs.mjs",
     "dev": "concurrently -k -n tokens,css,js \"node --watch-path=tokens scripts/build-tokens.mjs\" \"node --watch-path=src/css scripts/build-css.mjs\" \"tsdown --watch\"",
     "test": "vitest run",
-    "test:watch": "vitest",
+    "test:watch": "concurrently -k -n css,vitest -c yellow,cyan \"node --watch-path=src/css scripts/build-css.mjs\" \"vitest\"",
     "typecheck": "tsc --noEmit",
     "lint:css": "node scripts/check-css.mjs",
     "check:package": "npm pack --dry-run && publint && attw --pack . --profile esm-only --exclude-entrypoints ./styles.css ./tokens.css ./tailwind.css",
-    "storybook": "storybook dev -p 6006 --no-open",
+    "storybook": "concurrently -k -n css,storybook -c yellow,magenta \"node --watch-path=src/css scripts/build-css.mjs\" \"storybook dev -p 6006 --no-open\"",
     "build-storybook": "storybook build -o storybook-static",
     "check:ai-docs": "node scripts/build-ai-docs.mjs --check",
     "test:gates": "node --test scripts/*.test.mjs"

@@ -97,7 +97,7 @@
   .cs-command-item[data-highlighted] & { color: inherit; }
 }
 
-.cs-command-item-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cs-command-item-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-block: 0.35em; margin-block: -0.35em; /* room inside the clip for stacked Vietnamese marks (Ẫ, Ỗ) */ }
 
 .cs-command-item-shortcut {
   flex: none;
@@ -142,4 +142,21 @@
   color: var(--foreground);
   font: 500 11px/1 var(--font-mono);
   & + & { margin-inline-start: -2px; }
+}
+
+/* Close: for screen readers and keyboards. Hidden until focused, then shown, so keyboard focus never disappears (WCAG 2.4.7). */
+.cs-command-menu-close {
+  position: absolute;
+  top: var(--space-2);
+  inset-inline-end: var(--space-2);
+  z-index: 1;
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--input);
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  color: var(--foreground);
+  font: 500 13px/18px var(--font-sans);
+  cursor: pointer;
+  &:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  &:not(:focus-visible) { width: 1px; height: 1px; padding: 0; border: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 }

@@ -43,7 +43,7 @@ export function SegmentedControl<Value extends string = string>({ items, value, 
     >
       {items.map(item => (
         <BaseToggle key={item.value} value={item.value} disabled={item.disabled} className="cs-segmented-control-item">
-          {item.label}
+          <span className="cs-segmented-control-label">{item.label}</span>
         </BaseToggle>
       ))}
     </BaseToggleGroup>
