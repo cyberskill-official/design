@@ -2,20 +2,18 @@
 import { Sparkle, Trophy, Users } from '@phosphor-icons/react';
 import { Badge, Button, Link, Meter, Stat, Switch } from '@cyberskill/design';
 import NextLink from 'next/link';
-import { CurveLab } from './motion-lab';
 import './foundations.css';
 
-/** One live block from each showcase page: color in both themes, then the curve race. */
+/** One product screen built from the components, shown in both themes. */
 export function HomeShowcase() {
   return (
-    <>
-      <section className="fd-home" aria-labelledby="home-color">
+      <section className="fd-home" aria-labelledby="home-preview">
         <div className="fd-home-head">
           <div>
-            <h2 id="home-color">Color with a job</h2>
-            <p>Tinted surfaces, category icons and gold for what is on. The same screen in light and dark.</p>
+            <h2 id="home-preview">Real components, light and dark</h2>
+            <p>One screen built from the package, with nothing custom. Every component ships both themes.</p>
           </div>
-          <Link render={<NextLink href="/docs/foundations/color" />}>Color foundations</Link>
+          <Link render={<NextLink href="/docs/components" />}>All components</Link>
         </div>
         <div className="home-showcase">
           {(['light', 'dark'] as const).map((theme) => (
@@ -42,16 +40,5 @@ export function HomeShowcase() {
           ))}
         </div>
       </section>
-      <section className="fd-home" aria-labelledby="home-motion">
-        <div className="fd-home-head">
-          <div>
-            <h2 id="home-motion">Motion that answers</h2>
-            <p>Every component moves on a few recipe tokens: curves to fade, springs to move.</p>
-          </div>
-          <Link render={<NextLink href="/docs/foundations/motion" />}>Motion foundations</Link>
-        </div>
-        <CurveLab speedToggle={false} />
-      </section>
-    </>
   );
 }
