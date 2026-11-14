@@ -3,6 +3,16 @@ title: Changelog
 description: Release notes for @cyberskill/design 3.x.
 ---
 
+## 3.3.0
+
+Lighter pages in Next.js.
+
+- **Lighter:** Card, CardTitle, Meter and Separator ship no JavaScript when used from a Server Component, and Card's `render` prop works there too. Measured on a Next.js app: pages render the same and hydrate less.
+
+**Check when upgrading from 3.2.0**
+
+- `Meter` no longer takes `getAriaValueText` or `render`: pass `aria-valuetext` for a custom spoken value.
+
 ## 3.2.0 (12 November 2026)
 
 Motion and color that every app inherits. Upgrading from 3.1.0: read "Check when upgrading" below.
