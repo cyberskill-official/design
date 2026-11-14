@@ -1,5 +1,11 @@
 # @cyberskill/design
 
+## 3.3.0
+
+### Minor Changes
+
+- 4e4d8ed: Card, CardTitle, Meter and Separator render in Server Components with no JavaScript. Card keeps its `render` prop (an element or a function). Meter no longer takes `getAriaValueText` or `render`; pass `aria-valuetext` instead.
+
 ## 3.2.0
 
 ### Minor Changes
