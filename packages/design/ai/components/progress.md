@@ -51,7 +51,7 @@ Bars are gold by default; `tone="primary"` makes one ink, for a quiet bar among 
 | `warningLabel / dangerLabel` | `string` | `'Warning' / 'Critical'` | Status added to the accessible name in those tones, e.g. "Cảnh báo" / "Nghiêm trọng" |
 | `valueLabel` | `ReactNode` | – | Meter only: visible value text, e.g. "720K of 1M" |
 | `format / locale` | `Intl.NumberFormatOptions / string` | – | Format the value text, e.g. compact numbers or vi-VN |
-| `getAriaValueText` | `(formatted, value) => string` | – | Spoken value, e.g. a Vietnamese "indeterminate" text |
+| `getAriaValueText` | `(formatted, value) => string` | – | Progress only: spoken value, e.g. a Vietnamese "indeterminate" text. On Meter, pass `aria-valuetext` |
 
 ## Accessibility
 
@@ -65,8 +65,16 @@ Bars are gold by default; `tone="primary"` makes one ink, for a quiet bar among 
 
 ```ts
 // BaseUI.<Part>.Props = all props of that @base-ui/react part (render, aria-*, data-*, events).
-export type MeterProps = Omit<BaseUI.Meter.Root.Props, 'className' | 'children'> & {
+export type MeterProps = Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {
   className?: string;
+  /** The amount shown, between `min` and `max`. */
+  value: number;
+  min?: number;
+  max?: number;
+  /** Number format for the value. Without it, the value shows as a percentage of the range. */
+  format?: Intl.NumberFormatOptions;
+  /** Locale for that number format; the browser's or server's own when left out. */
+  locale?: Intl.LocalesArgument;
   /** Visible label, also the meter's accessible name. */
   label: ReactNode;
   /** Text shown instead of the percentage, e.g. "720K of 1M". A string is also read by screen readers unless you pass `aria-valuetext`. */

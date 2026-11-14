@@ -8,10 +8,10 @@ import { defineConfig } from 'tsdown';
 // 6 kB this way), and pure helpers (cx, formatDate…) stay callable in Server Components.
 // `imports` lists externals by package id and our own output files by path (`react/Button.js`), hence the .js check.
 const CLIENT_LIBS = /^(react|react-dom)(\/|$)|^@base-ui\/|^@phosphor-icons\/react$|^react-day-picker|^recharts|^@tanstack\/react|^react-hook-form|^motion(\/|$)/;
-// Purely visual components: no hooks, no event handlers, no Base UI, icons from @phosphor-icons/react/ssr. They get no
+// Purely visual components: no client hooks (React's server build has useId, useMemo, useCallback), no event handlers, no Base UI, icons from @phosphor-icons/react/ssr. They get no
 // 'use client', so a Server Component renders them without shipping or hydrating any JavaScript.
 // The benchmark (D20) fails if one of these starts using a hook or loses this status.
-export const SERVER_SAFE = ['Kbd', 'Spinner', 'Skeleton', 'EmptyState', 'Badge', 'Stat', 'Stepper', 'Breadcrumbs', 'Prose', 'IconTile', 'Reveal'];
+export const SERVER_SAFE = ['Kbd', 'Spinner', 'Skeleton', 'EmptyState', 'Badge', 'Stat', 'Stepper', 'Breadcrumbs', 'Prose', 'IconTile', 'Reveal', 'Card', 'Meter', 'Separator'];
 const serverSafe = (id: string | null) => !!id && SERVER_SAFE.some(n => id.endsWith(`/react/${n}.tsx`));
 
 export default defineConfig({

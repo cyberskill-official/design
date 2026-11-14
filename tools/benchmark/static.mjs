@@ -11,7 +11,8 @@ const walk = (dir, test, acc = []) => {
 };
 const kebab = s => s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
 
-const HOOKS = /\b(useState|useEffect|useLayoutEffect|useInsertionEffect|useRef|useContext|useReducer|useCallback|useMemo|useId|useSyncExternalStore|useTransition|useDeferredValue|useOptimistic|useActionState|useImperativeHandle|createContext)\b/;
+// Hooks a Server Component cannot call. React's server build has useId, useMemo and useCallback, so those are allowed.
+const HOOKS = /\b(useState|useEffect|useLayoutEffect|useInsertionEffect|useRef|useContext|useReducer|useSyncExternalStore|useTransition|useDeferredValue|useOptimistic|useActionState|useImperativeHandle|createContext)\b/;
 const OPTIONAL_PEERS = /^(recharts|@tanstack\/|react-hook-form|react-day-picker|date-fns|motion($|\/))/;
 const ENTRIES = ['index', 'charts', 'table', 'forms', 'date', 'motion', 'utils'];
 // one list, kept in the build config that acts on it

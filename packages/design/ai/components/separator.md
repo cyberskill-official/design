@@ -65,8 +65,9 @@ export type ButtonProps = Omit<BaseUI.Button.Props, 'className'> & {
   /** Stretch to the container width. */
   fullWidth?: boolean;
 };
-export type SeparatorProps = Omit<BaseUI.Separator.Props, 'className' | 'children'> & {
+export type SeparatorProps = Omit<HTMLAttributes<HTMLDivElement>, 'children'> & {
   className?: string;
+  orientation?: 'horizontal' | 'vertical';
   /** Text in the middle of the line, e.g. "or" / "hoặc". A string label also becomes the separator's accessible name. */
   label?: ReactNode;
 };
